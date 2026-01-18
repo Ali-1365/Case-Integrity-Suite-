@@ -12,6 +12,8 @@ import { AuditEngine } from '../lib/auditEngine';
 import { LEGAL_SOURCES } from '../data/legalSources';
 import { DEFAULT_CONTEXT_WEIGHTS } from '../data/contextWeights';
 import { riskTemplateRegistry } from '../data/riskTemplateRegistry';
+import { LegalReferenceEngine } from '../lib/legalReferenceEngine';
+import { KeywordEngine } from '../lib/keywordEngine';
 import SystemOverview from './SystemOverview';
 import AnalysisView from './AnalysisView';
 import { initialPipelineStatus, PipelineStatusState } from './PipelineStatus';
@@ -26,7 +28,8 @@ import {
     ShieldCheckIcon,
     LawIcon,
     ChartBarSquareIcon,
-    AdjustmentsHorizontalIcon
+    AdjustmentsHorizontalIcon,
+    MagnifyingGlassIcon
 } from './icons';
 
 import Chatbot from './Chatbot';
@@ -38,6 +41,7 @@ import StaticArchitectureView from './StaticArchitectureView';
 import AuditPanel from './AuditPanel';
 import WhitebookViewer from './WhitebookViewer';
 import ControllerDashboard from './ControllerDashboard';
+import AgentWorkspace from './AgentWorkspace';
 
 const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
     const [documents, setDocuments] = useState<StoredDocument[]>([]);
@@ -82,6 +86,12 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
             const qa = new QualityAssuranceEngine();
             const audit = new AuditEngine();
 
+            // Kör de klassiska motorerna för referens- och nyckelordsextraktion
+            const legalRefEngine = new LegalReferenceEngine(LEGAL_SOURCES);
+            const keywordEngine = new KeywordEngine();
+            const legalRefs = legalRefEngine.analyze(doc.name, doc.textContent);
+            const keywordHits = keywordEngine.analyze(doc.textContent);
+
             update('för-analys', 'active', 'Hämtar Ground Truth...');
             const context = await ragService.getContextForText(doc.textContent);
 
@@ -91,7 +101,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
             update('normalisering', 'active', 'Låser beviskedja...');
             const analysis = normalizer.runFullPipeline(
                 doc, aiRes.facts, aiRes.contradictions, aiRes.uncertainties, 
-                [], [], aiRes.links, [], { hasChildAspect: false, isPreventive: false }, [], LEGAL_SOURCES
+                legalRefs, keywordHits, aiRes.links, [], { hasChildAspect: false, isPreventive: false }, [], LEGAL_SOURCES
             );
             
             update('syntes', 'active', 'Genererar forensisk syntes...');
@@ -140,7 +150,8 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                     
                     <div className="hidden md:flex items-center bg-black/40 border border-gray-800 rounded-2xl p-1 space-x-1">
                         <ToolButton icon={<ActivityIcon />} onClick={() => setActiveModal('monitor')} label="Monitor" active={activeModal === 'monitor'} />
-                        <ToolButton icon={<ChatIcon />} onClick={() => setActiveModal('chat')} label="Oracle Chat" active={activeModal === 'chat'} />
+                        <ToolButton icon={<ChatIcon />} onClick={() => setActiveModal('chat')} label="Decision Engine" active={activeModal === 'chat'} />
+                        <ToolButton icon={<MagnifyingGlassIcon />} onClick={() => setActiveModal('agent')} label="Interactive Analyst" active={activeModal === 'agent'} />
                         <ToolButton icon={<CodeBracketIcon />} onClick={() => setActiveModal('debug')} label="System Oracle" active={activeModal === 'debug'} />
                         <ToolButton icon={<AdjustmentsHorizontalIcon />} onClick={() => setActiveModal('controller')} label="Controller" active={activeModal === 'controller'} />
                         <ToolButton icon={<ShieldCheckIcon />} onClick={() => setActiveModal('audit')} label="Audit" active={activeModal === 'audit'} />
@@ -176,6 +187,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                 )}
             </main>
 
+            <AgentWorkspace isOpen={activeModal === 'agent'} onClose={() => setActiveModal(null)} />
             <Chatbot isOpen={activeModal === 'chat'} onClose={() => setActiveModal(null)} ragService={ragService} currentAnalysis={currentAnalysis} />
             <SystemMonitor isOpen={activeModal === 'monitor'} onClose={() => setActiveModal(null)} />
             <AIDebugPanel isOpen={activeModal === 'debug'} onClose={() => setActiveModal(null)} />

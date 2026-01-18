@@ -25,12 +25,27 @@ interface StaticArchitectureViewProps {
 }
 
 type SubView = 'root' | 'oracle' | 'archive';
+type DiagramType = 'conceptual' | 'detailed';
+
+const TabButton: React.FC<{ active: boolean, onClick: () => void, children: React.ReactNode }> = ({ active, onClick, children }) => (
+    <button 
+        onClick={onClick}
+        className={`px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${active ? 'bg-gray-800 text-white' : 'text-gray-500 hover:text-gray-300'}`}
+    >
+        {children}
+    </button>
+);
+
 
 const StaticArchitectureView: React.FC<StaticArchitectureViewProps> = ({ isOpen, onClose }) => {
     const [activeSubView, setActiveSubView] = useState<SubView>('root');
+    const [activeDiagram, setActiveDiagram] = useState<DiagramType>('conceptual');
     
     useEffect(() => {
-        if (!isOpen) setActiveSubView('root');
+        if (!isOpen) {
+            setActiveSubView('root');
+            setActiveDiagram('conceptual');
+        }
     }, [isOpen]);
 
     useEffect(() => {
@@ -51,7 +66,7 @@ const StaticArchitectureView: React.FC<StaticArchitectureViewProps> = ({ isOpen,
             }, 100);
             return () => clearTimeout(timer);
         }
-    }, [isOpen, activeSubView]);
+    }, [isOpen, activeSubView, activeDiagram]);
 
     if (!isOpen) return null;
 
@@ -79,13 +94,54 @@ const StaticArchitectureView: React.FC<StaticArchitectureViewProps> = ({ isOpen,
                                 <div>
                                     <h3 className="text-xs font-black text-cyan-500 uppercase tracking-[0.2em] flex items-center mb-2">
                                         <CpuChipIcon className="w-5 h-5 mr-3" />
-                                        Systemkärna v.6.3 (Oracle Logic)
+                                        Systemarkitektur
                                     </h3>
                                     <p className="text-gray-400 text-sm">Forensiskt dataflöde och RAG-orkestrering.</p>
                                 </div>
+                                <div className="flex bg-gray-950 p-1.5 rounded-[1.2rem] border border-gray-800 shadow-inner">
+                                    <TabButton active={activeDiagram === 'conceptual'} onClick={() => setActiveDiagram('conceptual')}>Konceptuell</TabButton>
+                                    <TabButton active={activeDiagram === 'detailed'} onClick={() => setActiveDiagram('detailed')}>Detaljerad</TabButton>
+                                </div>
                             </div>
+                            
+                            {activeDiagram === 'conceptual' && (
+                                <div className="mermaid flex justify-center bg-black/40 p-10 rounded-[2rem] border border-cyan-500/10 shadow-2xl">
+{`graph TD;
+    subgraph Indata [INDATA]
+        Lagfiler["Lagfiler (*.json)"];
+        Praxis["Praxis"];
+        Metadata["Metadata"];
+        Faktajournal["Faktajournal (*.json)"];
+    end
 
-                            <div className="mermaid flex justify-center bg-black/40 p-10 rounded-[2rem] border border-cyan-500/10 shadow-2xl">
+    Analysmotor("
+        <b>Analysmotor</b>
+        <br/>
+        - Kopplar fakta-lag
+        <br/>
+        - Identifierar motstridigheter & gap
+        <br/>
+        - Formulerar slutsats
+    ");
+
+    subgraph Slutprodukt [OUTPUT]
+        Markdown["Markdown"];
+        JSON["JSON"];
+        HTML["HTML"];
+    end
+
+    Indata --> Analysmotor;
+    Analysmotor --> Slutprodukt;
+
+    style Indata fill:#083344,stroke:#06b6d4,color:#fff
+    style Analysmotor fill:#4c1d95,stroke:#a78bfa,color:#fff
+    style Slutprodukt fill:#166534,stroke:#4ade80,color:#fff
+`}
+                                </div>
+                            )}
+
+                            {activeDiagram === 'detailed' && (
+                                <div className="mermaid flex justify-center bg-black/40 p-10 rounded-[2rem] border border-cyan-500/10 shadow-2xl">
 {`graph TD
     Files([30x Ärendefiler]) --> Parse[Forensisk Ingestion]
     Archive[(Ärende-Arkiv: 01-05)] --> RAG[RAG Hybrid Index]
@@ -110,7 +166,8 @@ const StaticArchitectureView: React.FC<StaticArchitectureViewProps> = ({ isOpen,
     style Archive fill:#4c1d95,stroke:#a78bfa,color:#fff
     style Oracle fill:#164e63,stroke:#22d3ee,color:#fff
     style Chatbot fill:#0e7490,stroke:#22d3ee,color:#fff`}
-                            </div>
+                                </div>
+                            )}
                         </section>
 
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">

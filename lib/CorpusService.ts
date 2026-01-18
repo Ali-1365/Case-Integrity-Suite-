@@ -40,7 +40,7 @@ export class CorpusService {
   }
 
   /**
-   * Batch-inläsning för RAG-indexering.
+   * Batch-inläsning för RAG-indexering och fullständig verifiering.
    */
   async loadMultiple(fileNames: string[]): Promise<LegalCorpus[]> {
     const promises = fileNames.map(name => this.loadCorpus(name));

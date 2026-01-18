@@ -1,0 +1,28 @@
+
+[
+  {
+    "id": "FACT_001",
+    "category": "ekonomiska",
+    "description": "Sökande uppger att hen saknar medel för uppehälle och befinner sig i en akut nödsituation."
+  },
+  {
+    "id": "FACT_002",
+    "category": "barn",
+    "description": "Ett minderårigt barn bor i hushållet och riskerar fara illa på grund av matbrist."
+  },
+  {
+    "id": "FACT_003",
+    "category": "självbestämmanderätt",
+    "description": "Sökande upplever att dennes självbestämmanderätt inte respekteras i handläggningen."
+  },
+  {
+    "id": "FACT_004",
+    "category": "tjänstefel",
+    "description": "Sökande har inte fått ett skriftligt beslut trots begäran, vilket kan strida mot förvaltningslagen."
+  },
+  {
+    "id": "FACT_005",
+    "category": "bistånd",
+    "description": "Enligt 4 kap 1 § SoL har den enskilde rätt till bistånd för sin försörjning."
+  }
+]
