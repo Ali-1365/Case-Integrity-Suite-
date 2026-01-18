@@ -1,0 +1,15 @@
+
+{
+  "sourceCode": "SjukL",
+  "sfsNumber": "1991:1047",
+  "title": "Lag (1991:1047) om sjuklön",
+  "versionChain": ["1991:1047"],
+  "paragraphs": [
+    {
+      "id": "sjukl_1991_1",
+      "section": 1,
+      "text": "En arbetstagare har enligt denna lag rätt till sjuklön från arbetsgivaren. Rätten till sjuklön gäller vid sjukdom som sätter ned arbetsförmågan.",
+      "metadata": { "validFrom": "1992-01-01", "provenanceHash": "sha256-sjukl_1_pend", "revisionNote": "INGEST_PENDING" }
+    }
+  ]
+}

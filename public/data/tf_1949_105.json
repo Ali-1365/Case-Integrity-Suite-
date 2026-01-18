@@ -1,0 +1,16 @@
+
+{
+  "sourceCode": "TF",
+  "sfsNumber": "1949:105",
+  "title": "Tryckfrihetsförordning (1949:105)",
+  "versionChain": ["1949:105"],
+  "paragraphs": [
+    {
+      "id": "tf_1949_1_1",
+      "chapter": 1,
+      "section": 1,
+      "text": "Tryckfriheten innebär rätt för varje svensk medborgare att, utan några av myndighet eller annat allmänt organ i förväg lagda hinder, utge skrifter.",
+      "metadata": { "validFrom": "1949-01-01", "provenanceHash": "sha256-tf_h1_pend", "revisionNote": "INGEST_PENDING" }
+    }
+  ]
+}

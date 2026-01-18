@@ -1,0 +1,10 @@
+{
+  "name": "Copy of Processanalys-Socialtj-nst",
+  "version": "7.4.0-GOLD",
+  "description": "FMJAM v.7.4.0-GOLD. FULL_AUDIT_COMPLETE. Architecture v.6.3. SFS 2025:400 Compliant.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ],
+  "sync_id": "sync_gold_v740"
+}

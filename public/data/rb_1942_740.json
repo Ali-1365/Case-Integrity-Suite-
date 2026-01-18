@@ -1,0 +1,16 @@
+
+{
+  "sourceCode": "RB",
+  "sfsNumber": "1942:740",
+  "title": "Rättegångsbalk (1942:740)",
+  "versionChain": ["1942:740"],
+  "paragraphs": [
+    {
+      "id": "rb_1942_35_1",
+      "chapter": 35,
+      "section": 1,
+      "text": "Rätten skall efter samvetsgrann prövning av allt, som förekommit, avgöra, vad i målet är bevisat.",
+      "metadata": { "validFrom": "1948-01-01", "provenanceHash": "sha256-rb_35_1_pend", "revisionNote": "INGEST_PENDING" }
+    }
+  ]
+}

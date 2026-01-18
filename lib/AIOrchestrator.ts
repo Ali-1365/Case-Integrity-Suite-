@@ -1,0 +1,226 @@
+
+import { Type } from '@google/genai';
+import { FactV2, ContradictionV2, UncertaintyV2, FactCategory } from '../types';
+import { LegalFrameworkItem } from './legalReferenceEngine';
+import { geminiService } from '../services/geminiService';
+import { CASE_TYPE_REGISTRY } from '../data/caseTypeRegistry';
+import { CaseType, CrossCorrelation } from './fmjam.types';
+
+const FACT_CATEGORIES: FactCategory[] = ['EKONOMI', 'BARN', 'TILLGÅNG', 'PROCESS', 'BOENDE', 'HÄLSA'];
+
+const combinedAnalysisSchema = {
+    type: Type.OBJECT,
+    properties: {
+        detectedCaseTypes: {
+            type: Type.ARRAY,
+            items: { type: Type.STRING }
+        },
+        facts: {
+            type: Type.ARRAY,
+            items: {
+                type: Type.OBJECT,
+                properties: {
+                    id: { type: Type.STRING },
+                    subject: { type: Type.STRING },
+                    statement: { type: Type.STRING },
+                    timestamp: { type: Type.STRING },
+                    source: {
+                        type: Type.OBJECT,
+                        properties: {
+                            location: { type: Type.STRING },
+                            snippet: { type: Type.STRING },
+                        },
+                        required: ["location", "snippet"]
+                    },
+                    category: { type: Type.STRING, enum: FACT_CATEGORIES }
+                },
+                required: ["id", "subject", "statement", "timestamp", "source", "category"]
+            }
+        },
+        contradictions: {
+            type: Type.ARRAY,
+            items: {
+                type: Type.OBJECT,
+                properties: {
+                    id: { type: Type.STRING },
+                    description: { type: Type.STRING },
+                    conflictingFactIds: { type: Type.ARRAY, items: { type: Type.STRING } },
+                    type: { type: Type.STRING, enum: ['faktisk', 'rättslig', 'bedömningsmässig'] },
+                    severity: { type: Type.STRING, enum: ['låg', 'medel', 'hög'] }
+                },
+                required: ["id", "description", "conflictingFactIds", "type", "severity"]
+            }
+        },
+        uncertainties: {
+            type: Type.ARRAY,
+            items: {
+                type: Type.OBJECT,
+                properties: {
+                    id: { type: Type.STRING },
+                    description: { type: Type.STRING },
+                    relatedFactIds: { type: Type.ARRAY, items: { type: Type.STRING } }
+                },
+                required: ["id", "description", "relatedFactIds"]
+            }
+        },
+        legalLinks: {
+            type: Type.ARRAY,
+            items: {
+                type: Type.OBJECT,
+                properties: {
+                    legalReferenceId: { type: Type.STRING },
+                    relatedFactIds: { type: Type.ARRAY, items: { type: Type.STRING } },
+                    reasoning: { type: Type.STRING }
+                },
+                required: ["legalReferenceId", "relatedFactIds", "reasoning"]
+            }
+        }
+    },
+    required: ["detectedCaseTypes", "facts", "contradictions", "uncertainties", "legalLinks"]
+};
+
+const crossCorrelationSchema = {
+    type: Type.OBJECT,
+    properties: {
+        correlations: {
+            type: Type.ARRAY,
+            items: {
+                type: Type.OBJECT,
+                properties: {
+                    id: { type: Type.STRING },
+                    sourceDocId: { type: Type.STRING },
+                    targetDocId: { type: Type.STRING },
+                    type: { type: Type.STRING, enum: ['CONTRADICTION', 'REDUNDANCY', 'COMPLEMENTARY'] },
+                    description: { type: Type.STRING },
+                    severity: { type: Type.STRING, enum: ['low', 'medium', 'high'] }
+                },
+                required: ['id', 'sourceDocId', 'targetDocId', 'type', 'description', 'severity']
+            }
+        }
+    },
+    required: ['correlations']
+};
+
+export interface AILink {
+    legalReferenceId: string;
+    relatedFactIds: string[];
+    reasoning: string;
+}
+
+export interface FullAnalysisPayload {
+    detectedCaseTypes: CaseType[];
+    facts: FactV2[];
+    contradictions: ContradictionV2[];
+    uncertainties: UncertaintyV2[];
+    links: AILink[];
+}
+
+export class AIOrchestrator {
+  async runFullAnalysis(documentText: string, documentId: string, legalFramework: LegalFrameworkItem[], ragContext?: string): Promise<FullAnalysisPayload> {
+    const detectedTypes = this.detectTriggersLocally(documentText);
+    const injectedLaws = this.getRelevantGroundTruth(detectedTypes, legalFramework);
+
+    const systemPrompt = `
+      **SYSTEMROLL: FMJAM FORENSIC ARCHITECT v.7.3-GOLD**
+      
+      UPPDRAG: Analysera inkommet material mot det utökade lagbiblioteket (Ground Truth).
+      
+      INSTRUKTIONER:
+      1. Identifiera specifika bevisatomer (fakta).
+      2. Koppla varje faktum till relevanta paragrafer i biblioteket (t.ex. SoL 2025:400 1:2).
+      3. Använd den tillhandahållna RAG-kontexten som den absoluta sanningen.
+      4. Varje koppling (LegalLink) SKA innehålla ett logiskt resonemang (reasoning) som förklarar hur rekvisiten i lagrummet uppfylls eller ej.
+      5. Flagga motsägelser mellan påståenden.
+      
+      LOCKED CONTEXT (RAG):
+      ${ragContext || 'Ingen kontext tillgänglig.'}
+    `;
+
+    try {
+        const responseText = await geminiService.generate({
+            contents: `--- DOKUMENT FÖR ANALYS ---\n${documentText}`,
+            config: {
+              responseMimeType: "application/json",
+              responseSchema: combinedAnalysisSchema,
+              temperature: 0.0,
+              thinkingConfig: { thinkingBudget: 32768 },
+              systemInstruction: systemPrompt
+            }
+        }, 'think');
+        
+        const parsed = JSON.parse(responseText.trim());
+        return {
+            detectedCaseTypes: parsed.detectedCaseTypes || detectedTypes,
+            facts: (parsed.facts || []).map((f: any) => ({ ...f, source: { ...f.source, documentId }})),
+            contradictions: parsed.contradictions || [],
+            uncertainties: parsed.uncertainties || [],
+            links: parsed.legalLinks || []
+        };
+    } catch (error) {
+        console.error("Integrity Core failure:", error);
+        throw error;
+    }
+  }
+
+  async runCrossCorrelation(documents: { id: string, name: string, facts: FactV2[] }[]): Promise<CrossCorrelation[]> {
+    const systemPrompt = `
+      **DU ÄR FMJAM CROSS-CORRELATION ENGINE v.6.5**
+      Ditt uppdrag: Identifiera relationer mellan flera dokument (Batch).
+      
+      RELATIONSTYPER:
+      1. CONTRADICTION: Dokument A säger X, Dokument B säger Y.
+      2. REDUNDANCY: Samma fakta upprepas utan mervärde.
+      3. COMPLEMENTARY: Dokument B fyller en lucka i Dokument A.
+      
+      Analysera fakta och identifiera korsreferenser. Svara i strikt JSON enligt schema.
+    `;
+
+    const payload = JSON.stringify(documents.map(d => ({
+        id: d.id,
+        name: d.name,
+        facts: d.facts.map(f => ({ id: f.id, statement: f.statement }))
+    })));
+
+    try {
+        const response = await geminiService.generate({
+            contents: `DATA FÖR BATCH-KORRELERING:\n${payload}`,
+            config: {
+                systemInstruction: systemPrompt,
+                responseMimeType: "application/json",
+                responseSchema: crossCorrelationSchema,
+                temperature: 0.0,
+                thinkingConfig: { thinkingBudget: 16384 }
+            }
+        }, 'think');
+
+        const parsed = JSON.parse(response.trim());
+        return (parsed.correlations || []).map((c: any) => ({
+            ...c,
+            id: c.id || `CORR-${crypto.randomUUID().substring(0, 8)}`
+        }));
+    } catch (error) {
+        console.error("CrossCorrelation failure:", error);
+        return [];
+    }
+  }
+
+  private detectTriggersLocally(text: string): CaseType[] {
+    const types: CaseType[] = [];
+    const lowerText = text.toLowerCase();
+    CASE_TYPE_REGISTRY.forEach(def => {
+      if (def.keywords.some(kw => lowerText.includes(kw.toLowerCase()))) {
+        types.push(def.type);
+      }
+    });
+    return types.length > 0 ? types : ['PROCESS_MYNDIGHETSUTÖVNING'];
+  }
+
+  private getRelevantGroundTruth(types: CaseType[], framework: LegalFrameworkItem[]): LegalFrameworkItem[] {
+    const relevantLaws = new Set<string>();
+    types.forEach(t => {
+      const def = CASE_TYPE_REGISTRY.find(d => d.type === t);
+      def?.primaryLaws.forEach(law => relevantLaws.add(law));
+    });
+    return framework.filter(item => relevantLaws.has(item.reference) || item.reference === 'FL' || item.auditTrail.status === 'VERIFIED');
+  }
+}

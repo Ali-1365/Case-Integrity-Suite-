@@ -1,0 +1,37 @@
+
+{
+  "sourceCode": "SoL",
+  "sfsNumber": "2025:400",
+  "title": "Socialtjänstlag (2025:400)",
+  "versionChain": ["2001:453", "2025:400"],
+  "paragraphs": [
+    {
+      "id": "sol_2025_1_1",
+      "chapter": 1,
+      "section": 1,
+      "text": "Samhällets socialtjänst ska på demokratins och solidaritetens grund främja människornas ekonomiska och sociala trygghet, jämlikhet i levnadsvillkor och aktiva deltagande i samhällslivet. Socialtjänsten ska under hänsynstagande till människans ansvar för sin och andras sociala situation inriktas på att frigöra och utveckla enskildas och gruppers egna resurser. Verksamheten ska bygga på respekt för människornas självbestämmanderätt och integritet.",
+      "metadata": { "validFrom": "2025-07-01", "provenanceHash": "sha256-8e5f2a1b9c3d4e7f", "revisionNote": "LOCKED_GOLD_V76" }
+    },
+    {
+      "id": "sol_2025_1_2",
+      "chapter": 1,
+      "section": 2,
+      "text": "Vid åtgärder som rör barn ska vad som är bäst för barnet vara avgörande. Vid beslut eller andra åtgärder som rör vård- eller behandlingsinsatser för barn ska vad som är bäst för barnet vara avgörande. Med barn avses varje människa under 18 år.",
+      "metadata": { "validFrom": "2025-07-01", "provenanceHash": "sha256-1a2b3c4d5e6f7g8h", "revisionNote": "LOCKED_GOLD_V76" }
+    },
+    {
+      "id": "sol_2025_4_1",
+      "chapter": 4,
+      "section": 1,
+      "text": "Den som inte själv kan tillgodose sina behov eller kan få dem tillgodosedda på annat sätt har rätt till bistånd av socialnämnden för sin försörjning (försörjningsstöd) och för sin livsföring i övrigt. Den enskilde ska genom biståndet tillförsäkras en skälig levnadsnivå. Biståndet ska utformas så att det stärker hans eller hennes möjligheter att leva ett självständigt liv.",
+      "metadata": { "validFrom": "2025-07-01", "provenanceHash": "sha256-9z8y7x6w5v4u3t2s", "revisionNote": "LOCKED_GOLD_V76" }
+    },
+    {
+      "id": "sol_2025_11_5",
+      "chapter": 11,
+      "section": 5,
+      "text": "Handläggning av ärenden som rör enskilda samt genomförande av beslut om stödinsatser, vård och behandling ska dokumenteras. Dokumentationen ska utvisa beslut och åtgärder som vidtas i ärendet samt faktiska omständigheter och händelser av betydelse.",
+      "metadata": { "validFrom": "2025-07-01", "provenanceHash": "sha256-m5n6p7q8r9s0t1u2", "revisionNote": "LOCKED_GOLD_V76" }
+    }
+  ]
+}

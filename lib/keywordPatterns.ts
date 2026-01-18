@@ -1,0 +1,61 @@
+export const KEYWORD_PATTERNS: Record<string, RegExp> = {
+  // 1. Socialrätt – Nöd, bistånd, existensminimum
+  'nödbistånd': /\bnödbistånd\b/gi,
+  'nödprövning': /\bnödprövning\b/gi,
+  'akut nöd': /\bakut nöd\b|\bingen mat\b|\btomt kylskåp\b/gi,
+  'existensminimum': /\bexistensminimum\b/gi,
+  'skälig levnadsnivå': /\bskälig levnadsnivå\b/gi,
+  '216 kronor': /\b216 ?kr\b|\b200 kronorna\b/gi,
+  'kontoutdrag': /\bkontoutdrag\b/gi,
+  'saldo': /\bsaldo\b/gi,
+  'tre personer': /\bvi är tre personer\b|\b3 personer\b/gi,
+  'ingen inkomst': /\bingen inkomst\b|\bing[a]? pengar\b/gi,
+  'matbrist': /\bmatbrist\b|\bingen mat\b/gi,
+  'ingenstans att bo': /\bingenstans\b.*\bbo\b/gi,
+  'ingenstans att sova': /\bingenstans\b.*\bsova\b/gi,
+  'akutboende': /\bakutboende\b/gi,
+  'hygienbrist': /\bingen möjlighet\b.*\bduscha\b/gi,
+  'nattjour': /\bnattjour\b/gi,
+  'härbärge': /\bhärbärge\b/gi,
+  'evakueringsboende': /\bevakueringsboende\b/gi,
+
+  // 2. Barn – Barnets bästa, orosanmälan, risk
+  'barnets bästa': /\bbarnets bästa\b/gi,
+  'orosanmälan': /\borosanmälan\b|\boro\b.*\banmälan\b/gi,
+  'barnkonsekvensanalys': /\bbarnkonsekvensanalys\b|\bbarnanalys\b/gi,
+  'svält': /\bsvält\b|\bingen mat\b/gi,
+  'son': /\bson\b|\bbarn\b/gi,
+  'risk för barn': /\brisk\b.*\bfar illa\b/gi,
+  'omsorgsbrist': /\bomsorgsbrist\b/gi,
+  'föräldraförmåga': /\bföräldraförmåga\b/gi,
+  'våld i hemmet': /\bvåld i hemmet\b/gi,
+  'bristande trygghet': /\bbristande trygghet\b/gi,
+  'barn utan mat': /\bbarn\b.*\bingen mat\b/gi,
+  'BBIC': /\bBBIC\b|\bbarnets behov i centrum\b/gi,
+
+  // 3. Boende & Avhysning
+  'återvinningsfrist': /\båtervinningsfrist\b|\btreveckorsregeln\b/gi,
+  'hyresskuld': /\bhyresskuld\b|\bobetald hyra\b/gi,
+  'vräkning': /\bvräkning\b|\bavhysning\b/gi,
+  'störningar': /\bstörningar\b/gi,
+  'hemlöshet': /\bhemlöshet\b/gi,
+
+  // 4. Straffrätt & Egendom
+  'olovlig handling': /\bolovlig\b|\bolaglig\b.*\bsak\b/gi,
+  'olovligt förfogande': /\bolovligt förfogande\b/gi,
+  'äganderätt': /\bäganderätt\b/gi,
+  'kreditspärr': /\bkreditspärr\b|\bspärrad bil\b/gi,
+  'panträtt': /\bpanträtt\b/gi,
+  'utmätning bil': /\butmätning\b.*\bbil\b/gi,
+  'värderingsintyg': /\bvärderingsintyg\b|\bbilhandlare\b/gi,
+  '15 procent': /\b15 ?%\b|\b15 procent\b/gi,
+  'prisbasbelopp': /\bprisbasbelopp\b|\bPBB\b/gi,
+
+  // 5. Myndighetsutövning & Service
+  'serviceskyldighet': /\bserviceskyldighet\b|\b6 § FL\b/gi,
+  'yttersta ansvar': /\byttersta ansvar\b|\b2 kap\.? 1 § SoL\b/gi,
+  'tjänstefel': /\btjänstefel\b|\b20 kap\.? 1 § BrB\b/gi,
+  'aktivitetskrav': /\baktivitetskrav\b|\b40 timmar\b/gi,
+  'bristande dokumentation': /\bbristande dokumentation\b/gi,
+  'muntlig ansökan': /\bmuntlig ansökan\b|\bmuntligt\b/gi,
+};

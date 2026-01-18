@@ -1,0 +1,11 @@
+
+{
+  "name": "Processanalys-Socialtj-nst",
+  "version": "7.3.1-GOLD",
+  "description": "FMJAM v.7.3.1-GOLD. FORCE_NUKE_PROTOCOL active. SFS 2025:400 Compliant.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ],
+  "sync_id": "sync_gold_v731"
+}

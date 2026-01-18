@@ -1,0 +1,16 @@
+
+{
+  "sourceCode": "PL",
+  "sfsNumber": "2014:821",
+  "title": "Patientlag (2014:821)",
+  "versionChain": ["2014:821"],
+  "paragraphs": [
+    {
+      "id": "pl_2014_1_1",
+      "chapter": 1,
+      "section": 1,
+      "text": "Denna lag syftar till att inom hälso- och sjukvårdsverksamhet stärka och tydliggöra patientens ställning samt till att främja patientens integritet, självbestämmande och delaktighet.",
+      "metadata": { "validFrom": "2015-01-01", "provenanceHash": "sha256-pl_1_1_pend", "revisionNote": "INGEST_PENDING" }
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+
+import { openDB, DBSchema, IDBPDatabase } from 'idb';
+import { StoredDocument, OpinionResult } from '../types';
+
+const DB_NAME = 'LegalAnalysisDB';
+const DB_VERSION = 3; // Upgraded version
+const DOC_STORE_NAME = 'documents';
+const SETTINGS_STORE_NAME = 'settings';
+const AUDIT_STORE_NAME = 'audit_logs';
+
+export interface AuditLogEntry {
+  id: string;
+  timestamp: string;
+  operationType: 'INGEST' | 'INDEX' | 'RAG_QUERY';
+  actor: 'SYSTEM' | 'USER';
+  affectedLaws: string[];
+  provenanceHashes: string[];
+  resultSummary: string;
+  status: 'OK' | 'WARN' | 'ERROR';
+  metadata?: any;
+}
+
+interface Settings {
+    key: string;
+    value: any;
+}
+
+interface LegalDB extends DBSchema {
+  [DOC_STORE_NAME]: {
+    key: string;
+    value: StoredDocument;
+  };
+  [SETTINGS_STORE_NAME]: {
+      key: string;
+      value: Settings;
+  };
+  [AUDIT_STORE_NAME]: {
+    key: string;
+    value: AuditLogEntry;
+  };
+}
+
+let dbPromise: Promise<IDBPDatabase<LegalDB>> | null = null;
+
+const getDb = (): Promise<IDBPDatabase<LegalDB>> => {
+    if (!dbPromise) {
+        dbPromise = openDB<LegalDB>(DB_NAME, DB_VERSION, {
+            upgrade(db, oldVersion) {
+                if (!db.objectStoreNames.contains(DOC_STORE_NAME)) {
+                    db.createObjectStore(DOC_STORE_NAME, { keyPath: 'id' });
+                }
+                if (oldVersion < 2 && !db.objectStoreNames.contains(SETTINGS_STORE_NAME)) {
+                    db.createObjectStore(SETTINGS_STORE_NAME, { keyPath: 'key' });
+                }
+                if (oldVersion < 3 && !db.objectStoreNames.contains(AUDIT_STORE_NAME)) {
+                    db.createObjectStore(AUDIT_STORE_NAME, { keyPath: 'id' });
+                }
+            },
+        });
+    }
+    return dbPromise;
+};
+
+export const db = {
+  async addDocument(doc: StoredDocument): Promise<void> {
+    const db = await getDb();
+    await db.put(DOC_STORE_NAME, doc);
+  },
+
+  async getDocument(id: string): Promise<StoredDocument | undefined> {
+    const db = await getDb();
+    return await db.get(DOC_STORE_NAME, id);
+  },
+
+  async getAllDocuments(): Promise<StoredDocument[]> {
+    const db = await getDb();
+    const allDocs = await db.getAll(DOC_STORE_NAME);
+    return allDocs.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  },
+
+  async saveOpinion(documentId: string, opinion: OpinionResult): Promise<void> {
+    const db = await getDb();
+    const doc = await db.get(DOC_STORE_NAME, documentId);
+    if (doc) {
+      doc.opinion = opinion;
+      await db.put(DOC_STORE_NAME, doc);
+    } else {
+        throw new Error("Document not found");
+    }
+  },
+
+  async addAuditLog(entry: AuditLogEntry): Promise<void> {
+    const db = await getDb();
+    await db.put(AUDIT_STORE_NAME, entry);
+  },
+
+  async getAuditLogs(): Promise<AuditLogEntry[]> {
+    const db = await getDb();
+    const logs = await db.getAll(AUDIT_STORE_NAME);
+    return logs.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+  },
+
+  async repairPersistence(): Promise<void> {
+      if (dbPromise) {
+          const db = await dbPromise;
+          db.close();
+      }
+      dbPromise = null;
+      console.log("[PERSISTENCE] Integrity Repair Executed. Locks released.");
+  }
+};

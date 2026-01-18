@@ -1,0 +1,16 @@
+
+{
+  "sourceCode": "SFB",
+  "sfsNumber": "2010:110",
+  "title": "Socialförsäkringsbalk (2010:110)",
+  "versionChain": ["2010:110"],
+  "paragraphs": [
+    {
+      "id": "sfb_110_1_2",
+      "chapter": 1,
+      "section": 2,
+      "text": "Socialförsäkringen omfattar förmåner och ersättningar vid sjukdom och funktionshinder, vid ålderdom, vid barns födelse och vid behov av stöd i andra situationer.",
+      "metadata": { "validFrom": "2011-01-01", "provenanceHash": "sha256-sfb_1_2_h" }
+    }
+  ]
+}

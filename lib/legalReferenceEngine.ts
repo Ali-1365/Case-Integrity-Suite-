@@ -1,0 +1,80 @@
+import { LegalReference, LegalSourceCode } from '../types';
+
+export interface LegalFrameworkItem {
+  id: string;
+  label: string;
+  type: 'lagrum' | 'praxis' | 'förarbete';
+  reference: LegalSourceCode;
+  sfsNumber: string;
+  chapter?: string;
+  section?: string;
+  description: string;
+  validFrom: string;
+  validTo?: string;
+  sourceUrl: string;
+  version: string;
+  auditTrail: {
+    verifiedAt: string;
+    status: 'VERIFIED' | 'UNDERLAG SAKNAS' | 'OBSOLETE';
+    hash?: string;
+  };
+}
+
+export class LegalReferenceEngine {
+  private readonly legalFrameworkData: LegalFrameworkItem[];
+
+  constructor(legalFrameworkData: LegalFrameworkItem[]) {
+    this.legalFrameworkData = legalFrameworkData;
+  }
+
+  analyze(documentName: string, text: string): LegalReference[] {
+    const references: LegalReference[] = [];
+
+    this.legalFrameworkData.forEach(item => {
+      const ref = item.reference.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const label = item.label.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      
+      const patterns = [
+        new RegExp(`\\b(${ref}|${label})\\s*(?:(\\d+)(?:\\s*kap\\.?\\s*|[:/])(\\d+)|(\\d+)\\s*§)?`, 'gi'),
+        new RegExp(`\\b(?:(\\d+)(?:\\s*kap\\.?\\s*|[:/])(\\d+)|(\\d+)\\s*§)\\s*(${ref}|${label})`, 'gi')
+      ];
+
+      patterns.forEach(pattern => {
+        let match: RegExpExecArray | null;
+        while ((match = pattern.exec(text)) !== null) {
+          const rawText = match[0];
+          const position = match.index;
+          
+          if (references.some(r => r.position === position)) continue;
+
+          const contextSnippet = this.extractContext(text, position, 140);
+          const source = item.reference;
+
+          references.push({
+            id: `${item.id}-${position}`,
+            source,
+            rawText,
+            chapter: item.chapter ? parseInt(item.chapter) : undefined,
+            section: item.section ? parseInt(item.section) : undefined,
+            contextSnippet,
+            documentName,
+            position,
+            valid: item.auditTrail.status === 'VERIFIED',
+            validationReason: item.auditTrail.status,
+            keywords: [item.type, item.description, item.sfsNumber],
+          });
+        }
+      });
+    });
+
+    return references.sort((a, b) => a.position - b.position);
+  }
+
+  private extractContext(text: string, index: number, span: number): string {
+    const halfSpan = Math.floor(span / 2);
+    const start = Math.max(0, index - halfSpan);
+    const end = Math.min(text.length, index + halfSpan);
+    let snippet = text.slice(start, end).replace(/\s+/g, ' ').trim();
+    return `...${snippet}...`;
+  }
+}
