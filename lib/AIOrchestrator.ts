@@ -20,7 +20,10 @@ const combinedAnalysisSchema = {
             items: {
                 type: Type.OBJECT,
                 properties: {
-                    id: { type: Type.STRING },
+                    id: { 
+                        type: Type.STRING, 
+                        description: "En unik, dynamisk identifierare i formatet FACT_YYYYMMDD_NNN, t.ex. 'FACT_20260108_001'."
+                    },
                     subject: { type: Type.STRING },
                     statement: { type: Type.STRING },
                     timestamp: { type: Type.STRING },
