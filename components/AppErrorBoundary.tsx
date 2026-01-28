@@ -1,5 +1,5 @@
 
-import React, { Component, ErrorInfo, ReactNode } from 'react';
+import React, { ErrorInfo, ReactNode } from 'react';
 import { TriangleAlert, RefreshCw, Terminal, Copy } from 'lucide-react';
 import { logError } from '../services/logger';
 
@@ -17,9 +17,14 @@ interface AppErrorBoundaryState {
  * AppErrorBoundary v.7.4.0-GOLD
  * Säkrar systemet genom att fånga fatala fel i gränssnittslagret.
  */
-export default class AppErrorBoundary extends Component<AppErrorBoundaryProps, AppErrorBoundaryState> {
+// Fix: Use React.Component explicitly and ensure state and props are recognized by the compiler
+export default class AppErrorBoundary extends React.Component<AppErrorBoundaryProps, AppErrorBoundaryState> {
+  // Fix: Explicitly declare state type to satisfy TypeScript compiler errors on lines 23, 44, 54
+  public override state: AppErrorBoundaryState;
+
   constructor(props: AppErrorBoundaryProps) {
     super(props);
+    // Fix: Initialize state property which was reported as missing on line 23
     this.state = { 
       hasError: false, 
       error: null, 
@@ -33,6 +38,7 @@ export default class AppErrorBoundary extends Component<AppErrorBoundaryProps, A
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     logError("Kritiskt fel fångat i AppErrorBoundary", error, errorInfo);
+    // Fix: Property 'setState' exists on React.Component, fixed error on line 36
     this.setState({ errorInfo });
   }
 
@@ -41,6 +47,7 @@ export default class AppErrorBoundary extends Component<AppErrorBoundaryProps, A
   };
   
   handleCopyStack = () => {
+      // Fix: Access state property from React.Component, fixed error on line 44
       const { error, errorInfo } = this.state;
       const stack = (error?.toString() || "") + "\n" + (errorInfo?.componentStack || "");
       navigator.clipboard.writeText(stack).then(() => {
@@ -51,6 +58,7 @@ export default class AppErrorBoundary extends Component<AppErrorBoundaryProps, A
   };
 
   render(): ReactNode {
+    // Fix: state and props exist on React.Component, fixed errors on lines 54 and 55
     const { hasError, error, errorInfo } = this.state;
     const { children } = this.props;
 
@@ -106,6 +114,7 @@ export default class AppErrorBoundary extends Component<AppErrorBoundaryProps, A
                   Forcerad Omladdning
                 </button>
                 <button 
+                  // Fix: setState is a method on React.Component, fixed error on line 109
                   onClick={() => this.setState({ hasError: false, error: null, errorInfo: null })}
                   className="px-8 py-5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-2xl font-black uppercase tracking-widest text-[11px] transition-all border border-slate-700 active:scale-95"
                 >

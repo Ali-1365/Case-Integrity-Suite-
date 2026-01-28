@@ -78,7 +78,6 @@ export class GeminiService {
     if (mode === 'think') {
       config.thinkingConfig = { thinkingBudget: 32768 };
       config.temperature = 0.0;
-      // We avoid setting maxOutputTokens to let the model decide, unless explicitly required
     } else {
       config.temperature = 0.0;
     }
@@ -110,7 +109,7 @@ export class GeminiService {
     const client = this.getClient();
     return await this.executeWithRetry(async () => {
       const res = await client.models.embedContent({
-        model: 'models/text-embedding-004',
+        model: 'text-embedding-004',
         contents: { parts: [{ text }] },
       });
       return res.embeddings[0].values;
