@@ -92,16 +92,19 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
             const legalRefs = legalRefEngine.analyze(doc.name, doc.textContent);
             const keywordHits = keywordEngine.analyze(doc.textContent);
 
-            update('för-analys', 'active', 'Hämtar Ground Truth...');
-            const context = await ragService.getContextForText(doc.textContent);
-
-            update('ai-analys', 'active', 'Exekverar Adversarial Round...');
-            const aiRes = await orchestrator.runFullAnalysis(doc.textContent, doc.name, LEGAL_SOURCES, context.context);
+            update('ai-analys', 'active', 'Exekverar Full Forensic Chain (RAG + Reasoning)...');
+            // Let AIOrchestrator handle the RAG context fetching internally to ensure full chain execution
+            const aiRes = await orchestrator.runFullAnalysis(doc.textContent, doc.name, LEGAL_SOURCES);
 
             update('normalisering', 'active', 'Låser beviskedja...');
             const analysis = normalizer.runFullPipeline(
                 doc, aiRes.facts, aiRes.contradictions, aiRes.uncertainties, 
-                legalRefs, keywordHits, aiRes.links, [], { hasChildAspect: false, isPreventive: false }, [], LEGAL_SOURCES
+                legalRefs, keywordHits, aiRes.links, [], { hasChildAspect: false, isPreventive: false }, [], LEGAL_SOURCES,
+                [], // atoms
+                aiRes.reasoning,
+                aiRes.decisionSupport,
+                aiRes.proportionality,
+                aiRes.actionRecommendations
             );
             
             update('syntes', 'active', 'Genererar forensisk syntes...');

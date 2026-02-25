@@ -103,6 +103,11 @@ export interface CrossCorrelation {
     severity: 'low' | 'medium' | 'high';
 }
 
+import { ReasoningResult } from './LegalReasoningService';
+import { DecisionSupportResult } from './DecisionSupportService';
+import { ProportionalityReport } from './ProportionalityJusticeService';
+import { ActionRecommendationReport } from './ActionRecommendationService';
+
 export interface AnalysisResult {
   id: string;
   caseId: string;
@@ -131,4 +136,10 @@ export interface AnalysisResult {
   documentationChecks?: DocumentationCheck[];
   keywordHits?: KeywordHit[];
   externalLinks?: { name: string; url: string; }[];
+  
+  // Advanced Legal Services Results
+  reasoning?: ReasoningResult;
+  decisionSupport?: DecisionSupportResult;
+  proportionality?: ProportionalityReport;
+  actionRecommendations?: ActionRecommendationReport;
 }

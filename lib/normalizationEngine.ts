@@ -6,6 +6,11 @@ import { LegalFrameworkItem } from './legalReferenceEngine';
 import { AILink } from './AIOrchestrator';
 import { PriorityFlags } from './priorityEngine';
 
+import { ReasoningResult } from './LegalReasoningService';
+import { DecisionSupportResult } from './DecisionSupportService';
+import { ProportionalityReport } from './ProportionalityJusticeService';
+import { ActionRecommendationReport } from './ActionRecommendationService';
+
 export class NormalizationEngine {
   constructor(private riskTemplates: RiskTemplate[], private contextWeights: ContextWeight[]) {}
 
@@ -21,7 +26,13 @@ export class NormalizationEngine {
     priority: PriorityFlags,
     docChecks: DocumentationCheck[],
     framework: LegalFrameworkItem[],
-    atoms: Atom[] = []
+    atoms: Atom[] = [],
+    
+    // Advanced Legal Results
+    reasoning?: ReasoningResult,
+    decisionSupport?: DecisionSupportResult,
+    proportionality?: ProportionalityReport,
+    actionRecommendations?: ActionRecommendationReport
   ): AnalysisResult {
     return {
       id: `AN-${crypto.randomUUID().substring(0,8)}`,
@@ -59,7 +70,13 @@ export class NormalizationEngine {
       priorityFlags: priority,
       oversightClassifications: oversight,
       documentationChecks: docChecks,
-      keywordHits: keywordHits
+      keywordHits: keywordHits,
+      
+      // Pass through advanced results
+      reasoning,
+      decisionSupport,
+      proportionality,
+      actionRecommendations
     };
   }
 }

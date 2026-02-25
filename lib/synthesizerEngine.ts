@@ -129,7 +129,13 @@ Du är en senior juridisk analytiker och AI-agent specialiserad på svensk förv
         })),
         legalReferences: data.legalReferences,
         contradictions: data.contradictions,
-        qaSummary: data.qaSummary
+        qaSummary: data.qaSummary,
+        
+        // Advanced Legal Chain Results
+        reasoning: data.reasoning,
+        decisionSupport: data.decisionSupport,
+        proportionality: data.proportionality,
+        actionRecommendations: data.actionRecommendations
     };
 
     try {

@@ -110,16 +110,43 @@ export interface AILink {
     reasoning: string;
 }
 
+import { ReasoningResult } from './LegalReasoningService';
+import { DecisionSupportResult } from './DecisionSupportService';
+import { ProportionalityReport } from './ProportionalityJusticeService';
+import { ActionRecommendationReport } from './ActionRecommendationService';
+import { ragService } from './ragService';
+
 export interface FullAnalysisPayload {
     detectedCaseTypes: CaseType[];
     facts: FactV2[];
     contradictions: ContradictionV2[];
     uncertainties: UncertaintyV2[];
     links: AILink[];
+    
+    // Advanced Legal Chain Results
+    reasoning?: ReasoningResult;
+    decisionSupport?: DecisionSupportResult;
+    proportionality?: ProportionalityReport;
+    actionRecommendations?: ActionRecommendationReport;
 }
 
 export class AIOrchestrator {
   async runFullAnalysis(documentText: string, documentId: string, legalFramework: LegalFrameworkItem[], ragContext?: string): Promise<FullAnalysisPayload> {
+    // 1. Get RAG Context & Deep Legal Analysis (The "Chain")
+    // If ragContext is provided externally, use it. Otherwise, fetch it.
+    let ragResult;
+    let contextString = ragContext || '';
+
+    if (!ragContext) {
+        try {
+            console.log("[AIOrchestrator] Initiating RAG & Legal Chain...");
+            ragResult = await ragService.getContextForText(documentText, true);
+            contextString = ragResult.context;
+        } catch (e) {
+            console.error("[AIOrchestrator] RAG Chain failed, proceeding with local context only.", e);
+        }
+    }
+
     const detectedTypes = this.detectTriggersLocally(documentText);
     const injectedLaws = this.getRelevantGroundTruth(detectedTypes, legalFramework);
 
@@ -136,7 +163,7 @@ export class AIOrchestrator {
       5. Flagga motsägelser mellan påståenden.
       
       LOCKED CONTEXT (RAG):
-      ${ragContext || 'Ingen kontext tillgänglig.'}
+      ${contextString || 'Ingen kontext tillgänglig.'}
     `;
 
     try {
@@ -152,12 +179,19 @@ export class AIOrchestrator {
         }, 'think');
         
         const parsed = JSON.parse(responseText.trim());
+        
         return {
             detectedCaseTypes: parsed.detectedCaseTypes || detectedTypes,
             facts: (parsed.facts || []).map((f: any) => ({ ...f, source: { ...f.source, documentId }})),
             contradictions: parsed.contradictions || [],
             uncertainties: parsed.uncertainties || [],
-            links: parsed.legalLinks || []
+            links: parsed.legalLinks || [],
+            
+            // Attach the deep legal analysis results from the RAG chain
+            reasoning: ragResult?.reasoning,
+            decisionSupport: ragResult?.decisionSupport,
+            proportionality: ragResult?.decisionSupport?.proportionality,
+            actionRecommendations: ragResult?.decisionSupport?.actions
         };
     } catch (error) {
         console.error("Integrity Core failure:", error);
