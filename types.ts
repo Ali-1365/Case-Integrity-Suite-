@@ -1,6 +1,6 @@
 
-import { RiskScoreResult } from '../lib/riskEngineV6.types';
-import { AnalysisResult } from '../lib/fmjam.types';
+import { RiskScoreResult } from './lib/riskEngineV6.types';
+import { AnalysisResult } from './lib/fmjam.types';
 
 export type LegalSourceCode = 'RF' | 'SFB' | 'FL' | 'PSA' | 'GDPR' | 'SoL' | 'BrB' | 'OSL' | 'PRAXIS' | 'BK' | 'LVU' | 'LVM' | 'LSS' | 'HSL' | 'FB' | 'SkL' | 'UTLL' | 'KL' | 'DL' | 'JB' | 'FMU' | 'PL' | 'YSL' | 'TF' | 'YGL' | 'SJL' | 'RB' | 'SjukL';
 

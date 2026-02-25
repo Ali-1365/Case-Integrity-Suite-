@@ -1,6 +1,6 @@
 
 import { AnalysisResult } from './fmjam.types';
-import { LegalCorpus } from '../services/types';
+import { LegalCorpus } from '../types';
 import { legalFrameworkIndex } from '../data/legalFramework';
 import { corpusService } from './CorpusService';
 import { verifyAndLinkAnalysis } from './verification';

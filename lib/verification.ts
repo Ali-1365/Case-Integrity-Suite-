@@ -1,7 +1,7 @@
 
 import { AnalysisResult, LegalFrameworkLink } from './fmjam.types';
 import { generateReportFromAnalysis, GeneratedReport } from './reportGenerator';
-import { LegalCorpus } from '../services/types';
+import { LegalCorpus } from '../types';
 
 interface VerificationError {
   missingFields: string[];

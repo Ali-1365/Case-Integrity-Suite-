@@ -1,5 +1,5 @@
 
-import React, { ErrorInfo, ReactNode } from 'react';
+import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { TriangleAlert, RefreshCw, Terminal, Copy } from 'lucide-react';
 import { logError } from '../services/logger';
 
@@ -17,14 +17,11 @@ interface AppErrorBoundaryState {
  * AppErrorBoundary v.7.4.0-GOLD
  * Säkrar systemet genom att fånga fatala fel i gränssnittslagret.
  */
-// Fix: Use React.Component explicitly and ensure state and props are recognized by the compiler
-export default class AppErrorBoundary extends React.Component<AppErrorBoundaryProps, AppErrorBoundaryState> {
-  // Fix: Explicitly declare state type to satisfy TypeScript compiler errors on lines 23, 44, 54
-  public override state: AppErrorBoundaryState;
+export default class AppErrorBoundary extends Component<AppErrorBoundaryProps, AppErrorBoundaryState> {
+  public state: AppErrorBoundaryState;
 
   constructor(props: AppErrorBoundaryProps) {
     super(props);
-    // Fix: Initialize state property which was reported as missing on line 23
     this.state = { 
       hasError: false, 
       error: null, 

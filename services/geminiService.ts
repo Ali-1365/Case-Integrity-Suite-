@@ -1,7 +1,17 @@
 
-import { GoogleGenAI, GenerateContentParameters, GenerateContentResponse } from '@google/genai';
 import { loggingService, LogMode } from './loggingService';
 import { denoise } from '../lib/DenoisingProtocol';
+
+// Mock types to replace GoogleGenAI types
+export interface GenerateContentParameters {
+  model?: string;
+  contents: any;
+  config?: any;
+}
+
+export interface GenerateContentResponse {
+  text: string;
+}
 
 export interface QuotaState {
     isThrottled: boolean;
@@ -10,7 +20,6 @@ export interface QuotaState {
 }
 
 export class GeminiService {
-  private ai: GoogleGenAI | null = null;
   private readonly flashModel = 'gemini-3-flash-preview';
   private readonly proModel = 'gemini-3-pro-preview';
   
@@ -20,12 +29,14 @@ export class GeminiService {
       lastError: null
   };
 
-  private getClient(): GoogleGenAI {
-    if (this.ai) return this.ai;
-    const apiKey = process.env.API_KEY;
-    if (!apiKey) throw new Error("API_KEY saknas i miljön.");
-    this.ai = new GoogleGenAI({ apiKey });
-    return this.ai;
+  // Mock client getter - no longer needed but kept for structure if needed
+  private getClient(): any {
+    return {
+      models: {
+        generateContent: async () => ({ text: "Simulerat svar från Gemini (Mock Mode)" }),
+        embedContent: async () => ({ embeddings: [{ values: new Array(768).fill(0.1) }] })
+      }
+    };
   }
 
   private async executeWithRetry<T>(
@@ -33,29 +44,13 @@ export class GeminiService {
     retries = 5, 
     initialDelay = 3000
   ): Promise<T> {
-    let currentDelay = initialDelay;
-
-    for (let attempt = 0; attempt < retries; attempt++) {
-      try {
-        const result = await operation();
-        this.quotaState = { isThrottled: false, retryAfterMs: 0, lastError: null };
-        return result;
-      } catch (error: any) {
-        const errorStr = typeof error === 'string' ? error : (error.message || JSON.stringify(error));
-        const isQuotaError = errorStr.includes('429') || errorStr.includes('RESOURCE_EXHAUSTED');
-
-        if (isQuotaError) {
-            this.quotaState = { isThrottled: true, retryAfterMs: currentDelay, lastError: "RESOURCE_EXHAUSTED" };
-            if (attempt < retries - 1) {
-                await new Promise(resolve => setTimeout(resolve, currentDelay));
-                currentDelay *= 2;
-                continue;
-            }
-        }
-        throw error;
-      }
+    // Simplified retry logic for mock
+    try {
+      return await operation();
+    } catch (error) {
+      console.error("Mock operation failed", error);
+      throw error;
     }
-    throw new Error("Maximala försök uppnådda.");
   }
 
   async generate(
@@ -63,7 +58,6 @@ export class GeminiService {
     mode: LogMode = 'fast'
   ): Promise<string> {
     const startTime = Date.now();
-    const client = this.getClient();
     
     let contents = params.contents;
     if (typeof contents === 'string') {
@@ -71,49 +65,68 @@ export class GeminiService {
         contents = normalized.cleaned;
     }
 
-    const modelToUse = mode === 'think' ? this.proModel : this.flashModel;
-    const config = { ...params.config };
-    
-    // SDK Compliance: Set thinkingBudget AND ensure we don't hit max tokens without it
-    if (mode === 'think') {
-      config.thinkingConfig = { thinkingBudget: 32768 };
-      config.temperature = 0.0;
-    } else {
-      config.temperature = 0.0;
-    }
+    // Mock response generation
+    const config = params.config;
+    if (config?.responseMimeType === 'application/json') {
+        // Check if schema expects an array
+        const isArray = config?.responseSchema?.type === 'ARRAY' || 
+                       (typeof config?.responseSchema?.type === 'string' && config.responseSchema.type.toUpperCase() === 'ARRAY');
+        
+        if (isArray) {
+            return JSON.stringify([]);
+        }
 
-    try {
-      const text = await this.executeWithRetry(async () => {
-        const response: GenerateContentResponse = await client.models.generateContent({
-          ...params,
-          contents: contents,
-          model: params.model || modelToUse,
-          config: {
-            ...config,
-            systemInstruction: `DU ÄR FMJAM ARCHITECT v.7.4. Deterministisk logik. Ingen spekulation. SFS 2025:400 Compliance.\n${config.systemInstruction || ''}`
-          },
+        return JSON.stringify({
+            mock: true,
+            message: "Simulerat JSON-svar",
+            contradictions: [],
+            uncertainties: [],
+            facts: [],
+            analysis: "Mock analysis result",
+            // Add other common fields to avoid crashes
+            classifications: [],
+            suggestedCaseTypes: [],
+            
+            // ProportionalityReport fields
+            level: "GRÖN",
+            findings: [],
+            legalCertaintyScore: 100,
+            summary: "Mock summary",
+            recommendation: "Mock recommendation",
+
+            // ActionRecommendationReport fields
+            impactOnDecision: "None",
+            recommendations: [],
+            
+            // AIOrchestrator fields
+            detectedCaseTypes: [],
+            legalLinks: [],
+            correlations: [],
+            
+            // AdversarialEngine fields
+            assertions: [],
+            integrityScore: 100
         });
-        return response.text || "";
-      });
-
-      loggingService.addLog({ mode, prompt: "CONTENT_LOCKED", response: "GENERATED", error: null, duration: Date.now() - startTime });
-      return text;
-    } catch (error) {
-      const errorMsg = typeof error === 'string' ? error : (error.message || JSON.stringify(error));
-      loggingService.addLog({ mode, prompt: "ERROR", response: null, error: errorMsg, duration: Date.now() - startTime });
-      throw error;
     }
+
+    const mockResponse = `[MOCK] Detta är ett simulerat svar för prompten. 
+    Miljön är inställd på att inte anropa Gemini API.
+    
+    Analys:
+    1. Detta är en testmiljö.
+    2. Inga riktiga API-anrop görs.
+    3. Systemet fungerar i offline-läge.
+    
+    Slutsats:
+    Systemet är redo för testning utan externa beroenden.`;
+
+    loggingService.addLog({ mode, prompt: "CONTENT_LOCKED (MOCK)", response: "GENERATED (MOCK)", error: null, duration: Date.now() - startTime });
+    return mockResponse;
   }
 
   async embed(text: string): Promise<number[]> {
-    const client = this.getClient();
-    return await this.executeWithRetry(async () => {
-      const res = await client.models.embedContent({
-        model: 'text-embedding-004',
-        contents: { parts: [{ text }] },
-      });
-      return res.embeddings[0].values;
-    });
+    // Return a dummy embedding vector (768 dimensions is common for base models)
+    return new Array(768).fill(0).map(() => Math.random());
   }
 }
 

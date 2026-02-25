@@ -1,7 +1,7 @@
 
 import { geminiService } from '../services/geminiService';
 import { RiskReport } from './RiskConflictService';
-import { ConsolidationResult } from './ConsolidationResult';
+import { ConsolidationResult } from './ConsolidationService';
 import { ProportionalityReport } from './ProportionalityJusticeService';
 import { auditService } from './AuditService';
 import { QUALITY_PROFILE } from './QualityProfile';
