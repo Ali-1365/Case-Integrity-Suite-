@@ -109,7 +109,7 @@ export class GeminiService {
 
   async embed(text: string): Promise<number[]> {
     const client = this.getClient();
-    const modelsToTry = ['models/gemini-embedding-001', 'models/text-embedding-004', 'models/embedding-001', 'gemini-embedding-001'];
+    const modelsToTry = ['gemini-embedding-001', 'models/gemini-embedding-001', 'text-embedding-004', 'models/text-embedding-004'];
     
     let lastError = null;
     for (const modelName of modelsToTry) {
@@ -122,8 +122,9 @@ export class GeminiService {
           return result;
         });
 
-        if (response.embeddings) {
-          return Array.from(response.embeddings.values()).flatMap(embedding => embedding.values);
+        if (response.embeddings && response.embeddings.length > 0) {
+          const values = response.embeddings[0].values;
+          if (values) return values;
         }
         if ((response as any).embedding) {
           return (response as any).embedding.values;
