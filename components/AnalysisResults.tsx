@@ -24,6 +24,8 @@ import TimelineView from './TimelineView';
 import AnalysisDashboard from './AnalysisDashboard';
 import { OpinionConfig, OpinionResult } from '../types';
 
+import { AutoNotaryView } from './AutoNotaryView';
+
 interface AnalysisResultsProps {
   analysis: AnalysisResult;
   onLegalReferenceSelect: (refId: string) => void;
@@ -36,7 +38,7 @@ interface AnalysisResultsProps {
 }
 
 const AnalysisResults: React.FC<AnalysisResultsProps> = (props) => {
-  const tabOptions = ['Översikt', 'Tidslinje', 'Beviskedja', 'MEGAINLAGA', 'Audit Log', 'Analytics', 'Oracle Command'];
+  const tabOptions = ['Översikt', 'Tidslinje', 'Beviskedja', 'MEGAINLAGA', 'Audit Log', 'Processnotarie', 'Analytics', 'Oracle Command'];
   const [selectedLegalRefId, setSelectedLegalRefId] = useState<string | null>(null);
 
   return (
@@ -49,6 +51,11 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = (props) => {
               <div className="p-8">
                 {activeTab === 'Översikt' && <OverviewContent analysis={props.analysis} />}
                 {activeTab === 'Tidslinje' && <TimelineView analysis={props.analysis} />}
+                {activeTab === 'Processnotarie' && (
+                    <div className="h-[600px] bg-slate-950 rounded-3xl border border-slate-800 overflow-hidden">
+                        <AutoNotaryView />
+                    </div>
+                )}
                 {activeTab === 'Beviskedja' && (
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
                         <Card title="Faktaatomer (Låsta)" icon={<LightbulbIcon />}>

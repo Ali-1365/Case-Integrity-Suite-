@@ -16,6 +16,7 @@ const App: React.FC = () => {
     }
   }, []);
 
+
   const handleLogin = () => {
     localStorage.setItem('isAuthenticated', 'true');
     setIsAuthenticated(true);

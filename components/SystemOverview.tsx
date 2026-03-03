@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { StoredDocument, ParsedDocument } from '../types';
+import { StoredDocument, ParsedDocument, LegalCorpus } from '../types';
 import FileUpload from './FileUpload';
 import TextInput from './TextInput';
 import Card from './shared/Card';
-import { FileIcon, ShieldCheckIcon, ArrowPathIcon, SparklesIcon, ExclamationTriangleIcon, CheckCircleIcon, QuestionMarkCircleIcon, ChatIcon, ActivityIcon } from './icons';
+import { FileIcon, ShieldCheckIcon, ArrowPathIcon, SparklesIcon, ExclamationTriangleIcon, CheckCircleIcon, QuestionMarkCircleIcon, ChatIcon, ActivityIcon, LawIcon } from './icons';
 import SystemGuide from './SystemGuide';
 import PipelineStatus, { PipelineStatusState } from './PipelineStatus';
 
@@ -16,6 +16,7 @@ interface SystemOverviewProps {
   onAggregateSelected: (ids: string[]) => void;
   isProcessing: boolean;
   parsingError: string | null;
+  legalCorpus: LegalCorpus[];
 }
 
 const SystemOverview: React.FC<SystemOverviewProps> = ({
@@ -26,7 +27,8 @@ const SystemOverview: React.FC<SystemOverviewProps> = ({
   onSelectDocument,
   onAggregateSelected,
   isProcessing,
-  parsingError
+  parsingError,
+  legalCorpus
 }) => {
     const [isGuideOpen, setGuideOpen] = useState(false);
     const [selectedIds, setSelectedIds] = useState<string[]>([]);
@@ -159,6 +161,38 @@ const SystemOverview: React.FC<SystemOverviewProps> = ({
                             <div className="absolute inset-0 bg-cyan-500 blur-3xl opacity-5"></div>
                         </div>
                         <p className="text-xl font-black uppercase tracking-[0.3em] opacity-30">Väntar på indata</p>
+                    </div>
+                )}
+            </Card>
+
+            <Card title="Juridiska Korpusar" icon={<LawIcon />}>
+                {legalCorpus.length > 0 ? (
+                    <ul className="space-y-4 max-h-[70vh] overflow-y-auto pr-3 custom-scrollbar">
+                        {legalCorpus.map((corpus, index) => (
+                            <li key={index} className="w-full p-6 rounded-[2rem] transition-all flex items-center justify-between group border bg-gray-900/60 border-gray-800 hover:border-indigo-500/40">
+                                <div className="flex items-center space-x-6">
+                                    <div className="p-4 rounded-2xl border bg-black/40 border-gray-800 text-gray-600">
+                                        <LawIcon className="h-8 w-8" />
+                                    </div>
+                                    <div>
+                                        <p className="font-black text-xl text-white truncate max-w-[200px] md:max-w-md tracking-tight uppercase italic">{corpus.title}</p>
+                                        <div className="flex items-center space-x-4 mt-2">
+                                            <span className="text-[10px] text-gray-500 uppercase tracking-[0.2em] font-bold">SFS: {corpus.sfsNumber}</span>
+                                            <div className="h-1 w-1 rounded-full bg-gray-800"></div>
+                                            <span className="text-[9px] font-mono text-gray-600 uppercase">KÄLLA: {corpus.sourceCode}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                ) : (
+                    <div className="text-center py-32 text-gray-700">
+                        <div className="relative inline-block mb-8">
+                            <LawIcon className="h-20 w-20 mx-auto opacity-10" />
+                            <div className="absolute inset-0 bg-indigo-500 blur-3xl opacity-5"></div>
+                        </div>
+                        <p className="text-xl font-black uppercase tracking-[0.3em] opacity-30">Inga juridiska korpusar laddade</p>
                     </div>
                 )}
             </Card>

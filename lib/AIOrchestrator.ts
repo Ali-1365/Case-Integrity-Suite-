@@ -130,8 +130,13 @@ export interface FullAnalysisPayload {
     actionRecommendations?: ActionRecommendationReport;
 }
 
+import { autoNotary } from './AutoNotaryService';
+
 export class AIOrchestrator {
   async runFullAnalysis(documentText: string, documentId: string, legalFramework: LegalFrameworkItem[], ragContext?: string): Promise<FullAnalysisPayload> {
+    const traceId = `TRACE-${documentId}-${Date.now()}`;
+    autoNotary.startTrace(traceId, 'AIOrchestrator', 'runFullAnalysis');
+    
     // 1. Get RAG Context & Deep Legal Analysis (The "Chain")
     // If ragContext is provided externally, use it. Otherwise, fetch it.
     let ragResult;
@@ -140,15 +145,21 @@ export class AIOrchestrator {
     if (!ragContext) {
         try {
             console.log("[AIOrchestrator] Initiating RAG & Legal Chain...");
+            autoNotary.info(traceId, 'AIOrchestrator', 'Initierar RAG-kedja...', { documentId });
             ragResult = await ragService.getContextForText(documentText, true);
             contextString = ragResult.context;
+            autoNotary.info(traceId, 'AIOrchestrator', 'RAG-kedja slutförd', { hitCount: ragResult.hitCount });
         } catch (e) {
             console.error("[AIOrchestrator] RAG Chain failed, proceeding with local context only.", e);
+            autoNotary.endTrace(traceId, 'AIOrchestrator', 'RAG-kedja misslyckades', 'FAILURE', { error: e });
         }
     }
 
     const detectedTypes = this.detectTriggersLocally(documentText);
+    autoNotary.info(traceId, 'AIOrchestrator', 'Detekterade ärendetyper', { types: detectedTypes });
+    
     const injectedLaws = this.getRelevantGroundTruth(detectedTypes, legalFramework);
+    autoNotary.info(traceId, 'AIOrchestrator', 'Injekterade lagar', { laws: injectedLaws.map(l => l.reference) });
 
     const systemPrompt = `
       **SYSTEMROLL: FMJAM FORENSIC ARCHITECT v.7.3-GOLD**
@@ -167,6 +178,7 @@ export class AIOrchestrator {
     `;
 
     try {
+        autoNotary.info(traceId, 'AIOrchestrator', 'Genererar analys via Gemini...', { model: 'think' });
         const responseText = await geminiService.generate({
             contents: `--- DOKUMENT FÖR ANALYS ---\n${documentText}`,
             config: {
@@ -179,6 +191,10 @@ export class AIOrchestrator {
         }, 'think');
         
         const parsed = JSON.parse(responseText.trim());
+        autoNotary.endTrace(traceId, 'AIOrchestrator', 'runFullAnalysis', 'SUCCESS', { 
+            factsCount: parsed.facts?.length || 0,
+            linksCount: parsed.legalLinks?.length || 0
+        });
         
         return {
             detectedCaseTypes: parsed.detectedCaseTypes || detectedTypes,
@@ -195,6 +211,7 @@ export class AIOrchestrator {
         };
     } catch (error) {
         console.error("Integrity Core failure:", error);
+        autoNotary.endTrace(traceId, 'AIOrchestrator', 'runFullAnalysis', 'FAILURE', { error });
         throw error;
     }
   }

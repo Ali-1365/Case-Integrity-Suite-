@@ -10,6 +10,7 @@ import { SynthesizerEngine } from '../lib/synthesizerEngine';
 import { QualityAssuranceEngine } from '../lib/qaEngine';
 import { AuditEngine } from '../lib/auditEngine';
 import { LEGAL_SOURCES } from '../data/legalSources';
+import { FULL_LEGAL_CORPUS } from '../data/legalCorpus';
 import { DEFAULT_CONTEXT_WEIGHTS } from '../data/contextWeights';
 import { riskTemplateRegistry } from '../data/riskTemplateRegistry';
 import { LegalReferenceEngine } from '../lib/legalReferenceEngine';
@@ -178,6 +179,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                     />
                 ) : (
                     <SystemOverview 
+                        legalCorpus={FULL_LEGAL_CORPUS}
                         pipelineStatus={pipelineStatus} 
                         documents={documents} 
                         onFilesSelect={async (files) => { for(const f of files) { const p = await parseFile(f); if(p) await handleAnalyze(p); } }}

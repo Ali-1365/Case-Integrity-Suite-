@@ -1,17 +1,6 @@
 
+import { GoogleGenAI, GenerateContentResponse, GenerateContentParameters, Part } from '@google/genai';
 import { loggingService, LogMode } from './loggingService';
-import { denoise } from '../lib/DenoisingProtocol';
-
-// Mock types to replace GoogleGenAI types
-export interface GenerateContentParameters {
-  model?: string;
-  contents: any;
-  config?: any;
-}
-
-export interface GenerateContentResponse {
-  text: string;
-}
 
 export interface QuotaState {
     isThrottled: boolean;
@@ -20,8 +9,11 @@ export interface QuotaState {
 }
 
 export class GeminiService {
+  private ai: GoogleGenAI | null = null;
   private readonly flashModel = 'gemini-3-flash-preview';
   private readonly proModel = 'gemini-3-pro-preview';
+
+
   
   public quotaState: QuotaState = {
       isThrottled: false,
@@ -29,28 +21,54 @@ export class GeminiService {
       lastError: null
   };
 
-  // Mock client getter - no longer needed but kept for structure if needed
-  private getClient(): any {
-    return {
-      models: {
-        generateContent: async () => ({ text: "Simulerat svar från Gemini (Mock Mode)" }),
-        embedContent: async () => ({ embeddings: [{ values: new Array(768).fill(0.1) }] })
-      }
-    };
+  constructor() {
+    this.initializeClient();
   }
 
-  private async executeWithRetry<T>(
-    operation: () => Promise<T>, 
-    retries = 5, 
-    initialDelay = 3000
-  ): Promise<T> {
-    // Simplified retry logic for mock
-    try {
-      return await operation();
-    } catch (error) {
-      console.error("Mock operation failed", error);
-      throw error;
+  private initializeClient(): void {
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      console.warn("GEMINI_API_KEY är inte satt. API-anrop kommer att misslyckas.");
+      return;
     }
+    this.ai = new GoogleGenAI({ apiKey, apiVersion: 'v1beta' } as any);
+  }
+
+  private getClient(): GoogleGenAI {
+    if (!this.ai) {
+      this.initializeClient();
+      if (!this.ai) {
+        throw new Error("Gemini API-klienten kunde inte initialiseras. API-nyckel saknas.");
+      }
+    }
+    return this.ai;
+  }
+
+  private async executeWithRetry<T>(operation: () => Promise<T>, retries = 5, initialDelay = 3000): Promise<T> {
+    let delay = initialDelay;
+    for (let i = 0; i < retries; i++) {
+      try {
+        this.quotaState.isThrottled = false;
+        this.quotaState.lastError = null;
+        this.quotaState.retryAfterMs = 0;
+        return await operation();
+      } catch (error: any) {
+        if (error.message.includes('quota')) {
+          console.warn(`Gemini API Quota Exceeded. Retrying in ${delay / 1000}s...`);
+          this.quotaState.isThrottled = true;
+          this.quotaState.lastError = error.message;
+          this.quotaState.retryAfterMs = delay;
+          await new Promise(resolve => setTimeout(resolve, delay));
+          delay *= 2; // Exponential backoff
+        } else {
+          console.error("Gemini API Error:", error);
+          this.quotaState.lastError = error.message;
+          throw error;
+        }
+      }
+    }
+    this.quotaState.lastError = "Max retries exceeded for Gemini API call.";
+    throw new Error("Max retries exceeded for Gemini API call.");
   }
 
   async generate(
@@ -58,75 +76,66 @@ export class GeminiService {
     mode: LogMode = 'fast'
   ): Promise<string> {
     const startTime = Date.now();
-    
-    let contents = params.contents;
+    const client = this.getClient();
+    const modelName = params.model || this.flashModel; // Default to flash model
+
+    let contents: GenerateContentParameters['contents'] = params.contents;
     if (typeof contents === 'string') {
-        const normalized = denoise(contents);
-        contents = normalized.cleaned;
+        // No denoise here as it was removed
     }
 
-    // Mock response generation
-    const config = params.config;
-    if (config?.responseMimeType === 'application/json') {
-        // Check if schema expects an array
-        const isArray = config?.responseSchema?.type === 'ARRAY' || 
-                       (typeof config?.responseSchema?.type === 'string' && config.responseSchema.type.toUpperCase() === 'ARRAY');
-        
-        if (isArray) {
-            return JSON.stringify([]);
-        }
+    const config = params.config; // Re-insert this line
 
-        return JSON.stringify({
-            mock: true,
-            message: "Simulerat JSON-svar",
-            contradictions: [],
-            uncertainties: [],
-            facts: [],
-            analysis: "Mock analysis result",
-            // Add other common fields to avoid crashes
-            classifications: [],
-            suggestedCaseTypes: [],
-            
-            // ProportionalityReport fields
-            level: "GRÖN",
-            findings: [],
-            legalCertaintyScore: 100,
-            summary: "Mock summary",
-            recommendation: "Mock recommendation",
-
-            // ActionRecommendationReport fields
-            impactOnDecision: "None",
-            recommendations: [],
-            
-            // AIOrchestrator fields
-            detectedCaseTypes: [],
-            legalLinks: [],
-            correlations: [],
-            
-            // AdversarialEngine fields
-            assertions: [],
-            integrityScore: 100
+    try {
+      const response = await this.executeWithRetry(async () => {
+        const result = await client.models.generateContent({
+          model: modelName,
+          contents: [{ text: contents as string }], // Ensure contents is a string for this call
+          config: config // Use the declared config
         });
+        return result;
+      });
+
+      const text = response.text || "";
+      loggingService.addLog({ mode, prompt: contents as string, response: text, error: null, duration: Date.now() - startTime });
+      return text;
+    } catch (error: any) {
+      loggingService.addLog({ mode, prompt: contents as string, response: "", error: error.message, duration: Date.now() - startTime });
+      console.error("Error generating content from Gemini:", error);
+      const errorDetails = error.message || JSON.stringify(error);
+      return `KRITISKT FEL: Systemet kunde inte generera innehåll från Gemini API. Detaljer: ${errorDetails}`;
     }
-
-    const mockResponse = `[MOCK] Detta är ett simulerat svar för prompten. 
-    Miljön är inställd på att inte anropa Gemini API.
-    
-    Analys:
-    1. Detta är en testmiljö.
-    2. Inga riktiga API-anrop görs.
-    3. Systemet fungerar i offline-läge.
-    
-    Slutsats:
-    Systemet är redo för testning utan externa beroenden.`;
-
-    loggingService.addLog({ mode, prompt: "CONTENT_LOCKED (MOCK)", response: "GENERATED (MOCK)", error: null, duration: Date.now() - startTime });
-    return mockResponse;
   }
 
   async embed(text: string): Promise<number[]> {
-    // Return a dummy embedding vector (768 dimensions is common for base models)
-    return new Array(768).fill(0).map(() => Math.random());
+    const client = this.getClient();
+    const modelsToTry = ['models/gemini-embedding-001', 'models/text-embedding-004', 'models/embedding-001', 'gemini-embedding-001'];
+    
+    let lastError = null;
+    for (const modelName of modelsToTry) {
+      try {
+        const response = await this.executeWithRetry(async () => {
+          const result = await client.models.embedContent({
+            model: modelName,
+            contents: { parts: [{ text }] },
+          });
+          return result;
+        });
+
+        if (response.embeddings) {
+          return Array.from(response.embeddings.values()).flatMap(embedding => embedding.values);
+        }
+        if ((response as any).embedding) {
+          return (response as any).embedding.values;
+        }
+      } catch (error: any) {
+        console.warn(`Failed to generate embedding with model ${modelName}:`, error.message);
+        lastError = error;
+      }
+    }
+    
+    const errorDetails = lastError?.message || JSON.stringify(lastError);
+    throw new Error(`KRITISKT FEL: Systemet kunde inte generera inbäddning från Gemini API med någon av de tillgängliga modellerna. Senaste fel: ${errorDetails}`);
   }
 }
 

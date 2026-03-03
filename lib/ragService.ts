@@ -19,6 +19,8 @@ export interface RagResult {
  * FMJAM RagService v.8.0.0-DRIFT
  * Kärnmotor för deterministisk RAG, motivering och beslutsstöd.
  */
+import { autoNotary } from './AutoNotaryService';
+
 export class RagService {
   private index: RagIndex | null = null;
   private archiveChunks: { text: string; embedding: number[]; sourceId: string }[] = [];
@@ -33,13 +35,21 @@ export class RagService {
       await this.ingestArchive();
       this.isInitialized = true;
       console.log("%c[SYSTEM]%c DRIFTLÄGE_AKTIVERAT: RagService v8 redo.", "color:white; background:green; padding:2px 4px;", "color:green; font-weight:bold;");
+      autoNotary.info('SYSTEM', 'RagService', 'Initierad', { indexSize: this.index?.chunks.length });
     } catch (err) {
       console.error("[RAG] Init failure:", err);
+      autoNotary.info('SYSTEM', 'RagService', 'Initiering misslyckades', { error: err });
     }
   }
 
   async getContextForText(query: string, includeDecisionSupport = true): Promise<RagResult> {
-    if (!this.isInitialized) return { context: "", queryId: "N/A", hitCount: 0 };
+    const traceId = `RAG-${Date.now()}`;
+    autoNotary.startTrace(traceId, 'RagService', 'getContextForText');
+
+    if (!this.isInitialized) {
+        autoNotary.endTrace(traceId, 'RagService', 'getContextForText', 'FAILURE', { reason: 'Not initialized' });
+        return { context: "", queryId: "N/A", hitCount: 0 };
+    }
     
     try {
       const queryEmb = await geminiService.embed(query);
@@ -49,6 +59,8 @@ export class RagService {
         .filter(r => r.sim > 0.60)
         .sort((a, b) => b.sim - a.sim)
         .slice(0, 8) : [];
+
+      autoNotary.info(traceId, 'RagService', 'Vektorsökning klar', { hits: lawHits.length });
 
       const queryId = `AUDIT-${crypto.randomUUID().substring(0, 8).toUpperCase()}`;
 
@@ -74,14 +86,22 @@ export class RagService {
         const chain = await queryProvenanceService.getChainForQuery(queryId);
         if (chain) {
           // FAS 10: Generera kalibrerad motivering
+          autoNotary.info(traceId, 'RagService', 'Genererar juridisk motivering...');
           reasoning = await legalReasoningService.generateReasoning(query, chain);
           
           // FAS 12: Generera beslutsstöd
           if (includeDecisionSupport) {
+            autoNotary.info(traceId, 'RagService', 'Genererar beslutsstöd...');
             decisionSupport = await decisionSupportService.generateProposal(query, chain, reasoning);
           }
         }
       }
+
+      autoNotary.endTrace(traceId, 'RagService', 'getContextForText', 'SUCCESS', { 
+          hitCount: lawHits.length, 
+          hasReasoning: !!reasoning, 
+          hasDecisionSupport: !!decisionSupport 
+      });
 
       return {
         context: `--- JURIDISKT RAMVERK (LOCKED) ---\n${formattedLaws}`,
@@ -92,6 +112,7 @@ export class RagService {
       };
     } catch (e) {
       console.error("[RAG] Drift failure:", e);
+      autoNotary.endTrace(traceId, 'RagService', 'getContextForText', 'FAILURE', { error: e });
       return { context: "", queryId: "ERROR", hitCount: 0 };
     }
   }
