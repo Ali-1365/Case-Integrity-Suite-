@@ -43,6 +43,8 @@ import AuditPanel from './AuditPanel';
 import WhitebookViewer from './WhitebookViewer';
 import ControllerDashboard from './ControllerDashboard';
 import AgentWorkspace from './AgentWorkspace';
+import SystemInventory from './SystemInventory';
+import { ClipboardDocumentListIcon } from './icons';
 
 const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
     const [documents, setDocuments] = useState<StoredDocument[]>([]);
@@ -154,6 +156,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                     
                     <div className="hidden md:flex items-center bg-black/40 border border-gray-800 rounded-2xl p-1 space-x-1">
                         <ToolButton icon={<ActivityIcon />} onClick={() => setActiveModal('monitor')} label="Monitor" active={activeModal === 'monitor'} />
+                        <ToolButton icon={<ClipboardDocumentListIcon />} onClick={() => setActiveModal('inventory')} label="Inventering" active={activeModal === 'inventory'} />
                         <ToolButton icon={<ChatIcon />} onClick={() => setActiveModal('chat')} label="Decision Engine" active={activeModal === 'chat'} />
                         <ToolButton icon={<MagnifyingGlassIcon />} onClick={() => setActiveModal('agent')} label="Interactive Analyst" active={activeModal === 'agent'} />
                         <ToolButton icon={<CodeBracketIcon />} onClick={() => setActiveModal('debug')} label="System Oracle" active={activeModal === 'debug'} />
@@ -202,6 +205,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
             <StaticArchitectureView isOpen={activeModal === 'arch'} onClose={() => setActiveModal(null)} />
             <WhitebookViewer isOpen={activeModal === 'whitebook'} onClose={() => setActiveModal(null)} />
             <ControllerDashboard isOpen={activeModal === 'controller'} onClose={() => setActiveModal(null)} />
+            <SystemInventory isOpen={activeModal === 'inventory'} onClose={() => setActiveModal(null)} />
 
             <div className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center bg-gray-900/90 backdrop-blur-2xl border border-gray-800 rounded-3xl p-2 shadow-2xl z-[200]">
                 <ToolButton icon={<ChatIcon />} onClick={() => setActiveModal('chat')} active={activeModal === 'chat'} />
