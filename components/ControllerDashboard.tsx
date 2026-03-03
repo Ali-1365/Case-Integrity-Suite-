@@ -145,7 +145,7 @@ const ControllerDashboard: React.FC<ControllerDashboardProps> = ({ isOpen, onClo
                                                     <span className="text-xs font-medium bg-rose-500/10 text-rose-400 px-2 py-0.5 rounded border border-rose-500/20">CONFL: {inc.caseIds[0]}</span>
                                                     <span className="text-xs font-medium bg-rose-500/10 text-rose-400 px-2 py-0.5 rounded border border-rose-500/20">CONFL: {inc.caseIds[1]}</span>
                                                 </div>
-                                                <p className="text-sm text-gray-300">{inc.description}</p>
+                                                <p className="text-sm text-gray-300">{inc.reason}</p>
                                             </div>
                                         ))}
                                         {report.inconsistencies.length === 0 && <p className="text-gray-500 text-sm">Inga inkonsekvenser funna.</p>}
