@@ -14,16 +14,16 @@ const DonutChart: React.FC<{ score: number }> = ({ score }) => {
     const offset = circumference - (score / 100) * circumference;
     
     let colorClass = 'text-cyan-400';
-    if (score >= 70) colorClass = 'text-red-500';
-    else if (score >= 50) colorClass = 'text-orange-400';
+    if (score >= 70) colorClass = 'text-rose-500';
+    else if (score >= 50) colorClass = 'text-amber-400';
     else if (score >= 30) colorClass = 'text-yellow-400';
 
     return (
-        <div className="relative flex items-center justify-center w-56 h-56">
-            <svg className="absolute w-full h-full drop-shadow-2xl" viewBox="0 0 120 120">
+        <div className="relative flex items-center justify-center w-48 h-48">
+            <svg className="absolute w-full h-full" viewBox="0 0 120 120">
                 <circle
-                    className="text-slate-800"
-                    strokeWidth="12"
+                    className="text-gray-800"
+                    strokeWidth="8"
                     stroke="currentColor"
                     fill="transparent"
                     r={radius}
@@ -32,7 +32,7 @@ const DonutChart: React.FC<{ score: number }> = ({ score }) => {
                 />
                 <circle
                     className={`${colorClass} transition-all duration-1000 ease-out`}
-                    strokeWidth="12"
+                    strokeWidth="8"
                     strokeDasharray={circumference}
                     strokeDashoffset={offset}
                     strokeLinecap="round"
@@ -45,8 +45,8 @@ const DonutChart: React.FC<{ score: number }> = ({ score }) => {
                 />
             </svg>
             <div className="absolute flex flex-col items-center">
-                <span className={`text-6xl font-black tracking-tighter ${colorClass}`}>{score}</span>
-                <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">Severity</span>
+                <span className={`text-4xl font-semibold ${colorClass}`}>{score}</span>
+                <span className="text-xs font-medium text-gray-500 mt-1">Severity</span>
             </div>
         </div>
     );
@@ -57,14 +57,14 @@ const BarChart: React.FC<{ data: { label: string; value: number }[] }> = ({ data
     const sortedData = [...data].sort((a,b) => b.value - a.value);
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-4">
             {sortedData.map(({ label, value }) => (
-                <div key={label} className="space-y-2 group">
+                <div key={label} className="space-y-1.5 group">
                     <div className="flex justify-between items-end">
-                        <span className="text-xs font-black text-slate-300 uppercase tracking-widest group-hover:text-cyan-400 transition-colors">{label}</span>
-                        <span className="text-[10px] font-mono text-slate-500">{value} Atomer</span>
+                        <span className="text-sm font-medium text-gray-300 group-hover:text-cyan-400 transition-colors">{label}</span>
+                        <span className="text-xs font-mono text-gray-500">{value} Atomer</span>
                     </div>
-                    <div className="bg-slate-800 rounded-full h-2 overflow-hidden border border-slate-700">
+                    <div className="bg-[#111111] rounded-full h-1.5 overflow-hidden border border-gray-800">
                         <div
                             className="bg-gradient-to-r from-cyan-600 to-cyan-400 h-full rounded-full transition-all duration-1000 ease-out"
                             style={{ width: `${(value / maxValue) * 100}%` }}
@@ -88,17 +88,17 @@ const MasterDashboard: React.FC<MasterDashboardProps> = ({ analysis }) => {
     }, [analysis.atoms]);
 
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 animate-in fade-in duration-700">
-            <div className="lg:col-span-4 space-y-10">
-                <Card title="Risköversikt (v.6.5)" icon={<AlertIcon />}>
-                    <div className="flex flex-col items-center space-y-8 py-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 animate-in fade-in duration-500">
+            <div className="lg:col-span-4 space-y-8">
+                <Card title="Risköversikt (v.6.5)" icon={<AlertIcon className="w-5 h-5" />}>
+                    <div className="flex flex-col items-center space-y-6 py-4">
                         <DonutChart score={analysis.riskProfile.normalizedScore} />
-                        <div className="w-full space-y-4 border-t border-slate-800 pt-8">
-                            <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] text-center mb-6">Dominerande Risker</h4>
+                        <div className="w-full space-y-3 border-t border-gray-800 pt-6">
+                            <h4 className="text-xs font-medium text-gray-500 uppercase tracking-wider text-center mb-4">Dominerande Risker</h4>
                             {analysis.riskProfile.dominantRisks.map((risk, idx) => (
-                                <div key={risk} className="flex items-center space-x-4 bg-slate-900/60 p-4 rounded-2xl border border-slate-800 hover:border-red-500/20 transition-all">
-                                    <span className="text-[10px] font-mono text-red-500 font-black italic">0{idx + 1}</span>
-                                    <span className="text-xs font-bold text-slate-200 uppercase tracking-tight">{risk}</span>
+                                <div key={risk} className="flex items-center space-x-3 bg-[#111111] p-3 rounded-xl border border-gray-800 hover:border-rose-500/20 transition-colors">
+                                    <span className="text-xs font-mono text-rose-400 font-medium">0{idx + 1}</span>
+                                    <span className="text-sm font-medium text-gray-200">{risk}</span>
                                 </div>
                             ))}
                         </div>
@@ -106,29 +106,29 @@ const MasterDashboard: React.FC<MasterDashboardProps> = ({ analysis }) => {
                 </Card>
             </div>
 
-            <div className="lg:col-span-8 grid grid-cols-1 gap-10">
-                <Card title="Tematisk Fördelning (Forensisk Atom-densitet)" icon={<TagIcon />}>
-                    <div className="p-4">
+            <div className="lg:col-span-8 grid grid-cols-1 gap-8">
+                <Card title="Tematisk Fördelning (Forensisk Atom-densitet)" icon={<TagIcon className="w-5 h-5" />}>
+                    <div className="p-2">
                         <BarChart data={themeDistribution} />
                     </div>
                 </Card>
                 
-                <Card title="Juridiskt Ramverk & Provenans" icon={<LawIcon />}>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <Card title="Juridiskt Ramverk & Provenans" icon={<LawIcon className="w-5 h-5" />}>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {analysis.legalFrameworkLinks.map(link => (
-                            <div key={link.id} className="bg-slate-900/60 p-6 rounded-[2rem] border border-slate-800 hover:bg-slate-800/40 transition-all relative overflow-hidden group">
-                                <div className="absolute top-0 right-0 p-6 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity">
-                                    <CpuChipIcon className="w-24 h-24 text-cyan-400" />
+                            <div key={link.id} className="bg-[#111111] p-5 rounded-xl border border-gray-800 hover:bg-[#161616] transition-colors relative overflow-hidden group">
+                                <div className="absolute top-0 right-0 p-4 opacity-[0.02] group-hover:opacity-[0.05] transition-opacity">
+                                    <CpuChipIcon className="w-16 h-16 text-cyan-400" />
                                 </div>
-                                <div className="flex justify-between items-start mb-4">
-                                    <p className="font-black text-cyan-400 font-mono text-sm tracking-tighter uppercase">{link.label}</p>
-                                    <span className="bg-slate-950 text-slate-600 px-2 py-0.5 rounded text-[8px] font-black uppercase border border-slate-800">LOCKED</span>
+                                <div className="flex justify-between items-start mb-3">
+                                    <p className="font-medium text-cyan-400 text-sm">{link.label}</p>
+                                    <span className="bg-[#0a0a0a] text-gray-500 px-2 py-0.5 rounded text-[10px] font-medium uppercase border border-gray-800">LOCKED</span>
                                 </div>
-                                <p className="text-[10px] text-slate-500 mt-2 font-bold uppercase tracking-widest leading-relaxed">
-                                    Stöds av: <span className="text-slate-400">{link.relatedFactIds.join(', ')}</span>
+                                <p className="text-xs text-gray-500 mt-1 leading-relaxed">
+                                    Stöds av: <span className="text-gray-400">{link.relatedFactIds.join(', ')}</span>
                                 </p>
                                 {link.reasoning && (
-                                    <p className="mt-4 text-[11px] text-slate-400 italic line-clamp-2 font-medium">"{link.reasoning}"</p>
+                                    <p className="mt-3 text-xs text-gray-400 italic line-clamp-2">"{link.reasoning}"</p>
                                 )}
                             </div>
                         ))}

@@ -55,15 +55,15 @@ const AiReportTab: React.FC<AiReportTabProps> = ({ analysis, onGenerate, opinion
   const selectedTemplate = opinionTemplateRegistry.find(t => t.id === selectedTemplateId);
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 animate-in fade-in duration-700">
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 animate-in fade-in duration-500">
       {/* Kontrollpanel */}
       <div className="lg:col-span-4 space-y-6">
-        <Card title="Oracle Command" icon={<SparklesIcon />}>
+        <Card title="Oracle Command" icon={<SparklesIcon className="w-5 h-5" />}>
           <div className="space-y-6">
             <div>
-                <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest mb-3 block">Analysmall</label>
+                <label className="text-xs font-medium text-gray-400 mb-2 block">Analysmall</label>
                 <select 
-                    className="w-full bg-gray-950 border border-gray-800 rounded-xl py-3 px-4 text-white focus:ring-2 focus:ring-cyan-500/30 outline-none transition-all font-bold text-sm"
+                    className="w-full bg-[#111111] border border-gray-800 rounded-lg py-2.5 px-3 text-gray-200 focus:ring-1 focus:ring-cyan-500/50 outline-none transition-colors text-sm"
                     value={selectedTemplateId}
                     onChange={e => setSelectedTemplateId(e.target.value)}
                     disabled={isGenerating}
@@ -72,16 +72,16 @@ const AiReportTab: React.FC<AiReportTabProps> = ({ analysis, onGenerate, opinion
                         <option key={template.id} value={template.id}>{template.name}</option>
                     ))}
                 </select>
-                {selectedTemplate && <p className="text-[10px] text-gray-500 mt-3 italic leading-relaxed">{selectedTemplate.description}</p>}
+                {selectedTemplate && <p className="text-xs text-gray-500 mt-2 leading-relaxed">{selectedTemplate.description}</p>}
             </div>
 
             <div>
-                <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest mb-3 block">Logisk Motor</label>
+                <label className="text-xs font-medium text-gray-400 mb-2 block">Logisk Motor</label>
                 <div className="grid grid-cols-1 gap-3">
                     <ModeButton 
                         title="Fast Sync" 
                         description="Gemini Flash för strukturella utkast." 
-                        icon={<BoltIcon />} 
+                        icon={<BoltIcon className="w-5 h-5" />} 
                         isActive={mode === 'fast'}
                         onClick={() => setMode('fast')}
                         disabled={isGenerating}
@@ -89,7 +89,7 @@ const AiReportTab: React.FC<AiReportTabProps> = ({ analysis, onGenerate, opinion
                     <ModeButton 
                         title="Deep Reasoning" 
                         description="Gemini Pro 3 med 32k Thinking Budget." 
-                        icon={<BrainIcon />}
+                        icon={<BrainIcon className="w-5 h-5" />}
                         isActive={mode === 'think'}
                         onClick={() => setMode('think')}
                         disabled={isGenerating}
@@ -100,21 +100,21 @@ const AiReportTab: React.FC<AiReportTabProps> = ({ analysis, onGenerate, opinion
             <button
                 onClick={handleGenerateClick}
                 disabled={isGenerating}
-                className="w-full mt-4 bg-cyan-600 hover:bg-cyan-500 disabled:bg-gray-800 text-white font-black uppercase tracking-widest py-4 rounded-xl transition-all shadow-xl shadow-cyan-900/20 active:scale-95 flex items-center justify-center border border-cyan-400/20 text-xs"
+                className="w-full mt-2 bg-cyan-600 hover:bg-cyan-500 disabled:bg-gray-800 disabled:text-gray-500 text-white font-medium py-3 rounded-lg transition-colors flex items-center justify-center text-sm"
             >
-                {isGenerating ? <Spinner className="h-5 w-5 mr-3" /> : <SparklesIcon className="h-5 w-5 mr-3" />}
+                {isGenerating ? <Spinner className="h-4 w-4 mr-2" /> : <SparklesIcon className="h-4 w-4 mr-2" />}
                 {isGenerating ? 'Kör Logik...' : `Exekvera Yttrande`}
             </button>
           </div>
         </Card>
 
         {opinionResult && (
-            <div className="bg-indigo-950/20 border border-indigo-500/20 p-6 rounded-[2rem] animate-in slide-in-from-left duration-500">
-                <div className="flex items-center gap-4 mb-4">
-                    <ShieldCheckIcon className="w-6 h-6 text-indigo-400" />
-                    <span className="text-[10px] font-black text-indigo-400 uppercase tracking-widest">Integrity Verified</span>
+            <div className="bg-indigo-500/10 border border-indigo-500/20 p-5 rounded-xl animate-in slide-in-from-left duration-500">
+                <div className="flex items-center gap-3 mb-3">
+                    <ShieldCheckIcon className="w-5 h-5 text-indigo-400" />
+                    <span className="text-xs font-semibold text-indigo-400 uppercase tracking-wider">Integrity Verified</span>
                 </div>
-                <p className="text-xs text-indigo-200/70 leading-relaxed font-medium">
+                <p className="text-xs text-indigo-200/70 leading-relaxed">
                     Detta yttrande är låst mot käll-hashar. Varje hänvisning har validerats mot SFS 2025:400 och de uppladdade bevisatomerma.
                 </p>
             </div>
@@ -124,66 +124,64 @@ const AiReportTab: React.FC<AiReportTabProps> = ({ analysis, onGenerate, opinion
       {/* Rapport-display */}
       <div className="lg:col-span-8">
         {isGenerating ? (
-            <div className="bg-gray-900/50 rounded-[3rem] border border-gray-800 h-[80vh] flex flex-col items-center justify-center p-12 text-center relative overflow-hidden">
-                <div className="absolute inset-0 bg-cyan-500/5 animate-pulse"></div>
-                <Spinner className="h-16 w-16 text-cyan-500 mb-8" />
-                <h3 className="text-xl font-black text-white uppercase italic tracking-tighter">Genererar Juridiskt Yttrande</h3>
-                <p className="text-gray-500 mt-4 max-w-sm text-sm">Modellen analyserar rättslig kausalitet och bygger beviskedjan i realtid...</p>
+            <div className="bg-[#111111] rounded-2xl border border-gray-800 h-[80vh] flex flex-col items-center justify-center p-12 text-center relative overflow-hidden">
+                <Spinner className="h-12 w-12 text-cyan-500 mb-6" />
+                <h3 className="text-lg font-medium text-gray-200">Genererar Juridiskt Yttrande</h3>
+                <p className="text-gray-500 mt-3 max-w-sm text-sm">Modellen analyserar rättslig kausalitet och bygger beviskedjan i realtid...</p>
             </div>
         ) : error ? (
-            <div className="bg-red-950/20 rounded-[3rem] border border-red-500/30 p-12 text-center h-[80vh] flex flex-col items-center justify-center">
-                <XMarkIcon className="h-16 w-16 text-red-500 mb-6" />
-                <h3 className="text-xl font-black text-red-400 uppercase tracking-tight">Kritiskt Systemfel</h3>
-                <p className="text-red-200/60 mt-4 bg-black/40 p-4 rounded-xl font-mono text-xs border border-red-900/30">{error}</p>
+            <div className="bg-rose-500/10 rounded-2xl border border-rose-500/20 p-12 text-center h-[80vh] flex flex-col items-center justify-center">
+                <XMarkIcon className="h-12 w-12 text-rose-500 mb-4" />
+                <h3 className="text-lg font-medium text-rose-400">Kritiskt Systemfel</h3>
+                <p className="text-rose-300/70 mt-3 bg-[#0a0a0a] p-4 rounded-lg font-mono text-xs border border-rose-900/30">{error}</p>
             </div>
         ) : opinionResult ? (
-            <div className="bg-white text-black rounded-[3rem] shadow-2xl h-[85vh] flex flex-col overflow-hidden animate-in zoom-in-95 duration-500 relative border-4 border-gray-900">
-                <header className="px-12 py-10 border-b border-gray-100 bg-gray-50/50 flex justify-between items-center">
-                    <div className="flex items-center gap-6">
-                        <div className="p-4 bg-gray-900 rounded-2xl text-white shadow-xl">
-                            <LawIcon className="h-8 w-8" />
+            <div className="bg-white text-gray-900 rounded-2xl shadow-sm h-[85vh] flex flex-col overflow-hidden animate-in zoom-in-95 duration-500 border border-gray-200">
+                <header className="px-8 py-6 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
+                    <div className="flex items-center gap-4">
+                        <div className="p-3 bg-gray-900 rounded-lg text-white">
+                            <LawIcon className="h-6 w-6" />
                         </div>
                         <div>
-                            <h2 className="text-2xl font-black uppercase tracking-tighter italic">Juridiskt Yttrande</h2>
-                            <p className="text-[10px] text-gray-400 font-bold uppercase tracking-[0.3em] mt-1">Ärende: {analysis.caseId}</p>
+                            <h2 className="text-xl font-semibold text-gray-900">Juridiskt Yttrande</h2>
+                            <p className="text-xs text-gray-500 mt-1">Ärende: {analysis.caseId}</p>
                         </div>
                     </div>
                     <div className="flex gap-3">
-                        <button className="p-3 text-gray-400 hover:text-black transition-colors bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md active:scale-95">
+                        <button className="p-2.5 text-gray-500 hover:text-gray-900 transition-colors bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow">
                             <PrinterIcon className="h-5 w-5" />
                         </button>
-                        <button className="flex items-center gap-3 bg-gray-900 text-white px-6 py-3 rounded-xl font-black uppercase tracking-widest text-[10px] shadow-xl hover:bg-black transition-all active:scale-95">
+                        <button className="flex items-center gap-2 bg-gray-900 text-white px-4 py-2.5 rounded-lg font-medium text-sm shadow-sm hover:bg-gray-800 transition-colors">
                             <DownloadIcon className="h-4 w-4" />
                             <span>Ladda ner PDF</span>
                         </button>
                     </div>
                 </header>
                 
-                <main className="flex-grow overflow-y-auto p-16 custom-scrollbar-light bg-white selection:bg-cyan-100">
+                <main className="flex-grow overflow-y-auto p-10 md:p-16 custom-scrollbar-light bg-white">
                     <div className="max-w-3xl mx-auto">
-                        <MarkdownRenderer content={opinionResult.content} className="prose-slate !text-black !font-serif" />
+                        <MarkdownRenderer content={opinionResult.content} className="prose-slate !text-gray-800" />
                         
-                        <div className="mt-20 pt-10 border-t border-gray-100 flex justify-between items-end opacity-40 grayscale">
-                             <div className="space-y-2">
-                                <p className="text-[10px] font-black uppercase">Digital Signatur</p>
-                                <p className="text-[9px] font-mono">FMJAM_ORACLE_V725_LOCKED_{crypto.randomUUID().substring(0,12)}</p>
+                        <div className="mt-16 pt-8 border-t border-gray-200 flex justify-between items-end text-gray-400">
+                             <div className="space-y-1">
+                                <p className="text-xs font-medium uppercase">Digital Signatur</p>
+                                <p className="text-[10px] font-mono">FMJAM_ORACLE_V725_LOCKED_{crypto.randomUUID().substring(0,12)}</p>
                              </div>
                              <div className="text-right">
-                                <p className="text-[10px] font-black uppercase tracking-widest">Genererat av FMJAM Engine</p>
-                                <p className="text-[9px] font-mono">{new Date(opinionResult.generatedAt).toLocaleString()}</p>
+                                <p className="text-xs font-medium uppercase">Genererat av FMJAM Engine</p>
+                                <p className="text-[10px] font-mono">{new Date(opinionResult.generatedAt).toLocaleString()}</p>
                              </div>
                         </div>
                     </div>
                 </main>
             </div>
         ) : (
-            <div className="bg-gray-900/30 rounded-[3rem] border border-gray-800 border-dashed h-[80vh] flex flex-col items-center justify-center p-12 text-center group">
-                <div className="relative mb-8">
-                    <DocumentTextIcon className="h-20 w-20 text-gray-800 group-hover:text-cyan-900/40 transition-colors" />
-                    <div className="absolute inset-0 bg-cyan-500 blur-3xl opacity-0 group-hover:opacity-10 transition-opacity"></div>
+            <div className="bg-[#111111] rounded-2xl border border-gray-800 border-dashed h-[80vh] flex flex-col items-center justify-center p-12 text-center group">
+                <div className="relative mb-6">
+                    <DocumentTextIcon className="h-16 w-16 text-gray-700 group-hover:text-cyan-900/40 transition-colors" />
                 </div>
-                <h3 className="text-lg font-black text-gray-600 uppercase tracking-[0.3em]">Yttrande Väntar</h3>
-                <p className="text-gray-700 mt-4 max-w-xs text-xs font-bold leading-relaxed">Välj en mall i kontrollpanelen till vänster för att starta den juridiska slutledningsprocessen.</p>
+                <h3 className="text-lg font-medium text-gray-400">Yttrande Väntar</h3>
+                <p className="text-gray-500 mt-3 max-w-xs text-sm leading-relaxed">Välj en mall i kontrollpanelen till vänster för att starta den juridiska slutledningsprocessen.</p>
             </div>
         )}
       </div>
@@ -195,14 +193,13 @@ const ModeButton: React.FC<{ title: string, description: string, icon: React.Rea
     <button 
         onClick={onClick}
         disabled={disabled}
-        className={`p-5 rounded-2xl border text-left transition-all relative overflow-hidden group ${isActive ? 'bg-cyan-600 border-cyan-400 shadow-lg shadow-cyan-900/30' : 'bg-gray-950 border-gray-800 hover:border-gray-700'}`}
+        className={`p-4 rounded-xl border text-left transition-colors relative overflow-hidden group ${isActive ? 'bg-cyan-500/10 border-cyan-500/30' : 'bg-[#161616] border-gray-800 hover:border-gray-700'}`}
     >
-        {isActive && <div className="absolute top-0 right-0 p-2 opacity-20"><ShieldCheckIcon className="w-8 h-8" /></div>}
-        <div className="flex items-center gap-4 mb-2">
-            <div className={`${isActive ? 'text-white' : 'text-cyan-500'}`}>{icon}</div>
-            <h4 className={`font-black uppercase tracking-widest text-xs ${isActive ? 'text-white' : 'text-gray-300'}`}>{title}</h4>
+        <div className="flex items-center gap-3 mb-1.5">
+            <div className={`${isActive ? 'text-cyan-400' : 'text-gray-500'}`}>{icon}</div>
+            <h4 className={`font-medium text-sm ${isActive ? 'text-cyan-400' : 'text-gray-300'}`}>{title}</h4>
         </div>
-        <p className={`text-[10px] leading-relaxed font-medium ${isActive ? 'text-cyan-100' : 'text-gray-500'}`}>{description}</p>
+        <p className={`text-xs leading-relaxed ${isActive ? 'text-cyan-200/70' : 'text-gray-500'}`}>{description}</p>
     </button>
 );
 

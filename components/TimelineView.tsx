@@ -15,38 +15,38 @@ const TimelineView: React.FC<TimelineViewProps> = ({ analysis }) => {
   });
 
   return (
-    <div className="space-y-12 py-10 relative">
-      <div className="absolute left-[27px] top-0 bottom-0 w-0.5 bg-gradient-to-b from-cyan-500/50 via-gray-800 to-transparent"></div>
+    <div className="space-y-8 py-8 relative">
+      <div className="absolute left-[23px] top-0 bottom-0 w-px bg-gray-800"></div>
       
       {sortedFacts.map((fact, index) => (
-        <div key={fact.id} className="relative pl-16 group animate-in slide-in-from-left duration-500" style={{ animationDelay: `${index * 100}ms` }}>
-          <div className="absolute left-0 top-0 w-14 h-14 bg-gray-900 border-4 border-gray-800 rounded-2xl flex items-center justify-center text-cyan-400 group-hover:border-cyan-500/50 transition-all z-10 shadow-xl">
-             <ActivityIcon className="w-6 h-6" />
+        <div key={fact.id} className="relative pl-14 group animate-in slide-in-from-left duration-500" style={{ animationDelay: `${index * 100}ms` }}>
+          <div className="absolute left-0 top-0 w-12 h-12 bg-[#111111] border border-gray-800 rounded-xl flex items-center justify-center text-cyan-400 group-hover:border-cyan-500/50 transition-colors z-10 shadow-sm">
+             <ActivityIcon className="w-5 h-5" />
           </div>
           
-          <div className="bg-gray-900/60 border border-gray-800 rounded-[2rem] p-8 hover:bg-gray-800/40 transition-all shadow-lg group-hover:border-cyan-900/30">
-            <div className="flex justify-between items-start mb-4">
+          <div className="bg-[#111111] border border-gray-800 rounded-xl p-6 hover:bg-[#161616] transition-colors shadow-sm group-hover:border-cyan-900/30">
+            <div className="flex justify-between items-start mb-3">
               <div className="flex items-center gap-3">
-                <span className="text-[10px] font-black text-cyan-500 bg-cyan-950/40 px-3 py-1 rounded-full uppercase tracking-widest border border-cyan-500/20">
+                <span className="text-xs font-medium text-cyan-400 bg-cyan-500/10 px-2.5 py-1 rounded border border-cyan-500/20">
                   {fact.timestamp === 'Okänd' ? 'ODATERAD' : fact.timestamp}
                 </span>
-                <span className="text-[10px] font-mono text-gray-600">#{fact.id}</span>
+                <span className="text-xs font-mono text-gray-500">#{fact.id}</span>
               </div>
-              <span className="text-[9px] font-black text-gray-700 uppercase tracking-tighter bg-black/40 px-2 py-0.5 rounded border border-gray-800">
+              <span className="text-xs font-medium text-gray-400 bg-[#0a0a0a] px-2 py-1 rounded border border-gray-800">
                 {fact.category}
               </span>
             </div>
             
-            <h4 className="text-xl font-bold text-white mb-4 leading-tight">
-              <span className="text-gray-500">{fact.subject}:</span> {fact.statement}
+            <h4 className="text-base font-medium text-gray-200 mb-3 leading-relaxed">
+              <span className="text-gray-400">{fact.subject}:</span> {fact.statement}
             </h4>
             
-            <div className="p-4 bg-black/40 rounded-xl border-l-2 border-gray-700 italic text-xs text-gray-400">
+            <div className="p-3 bg-[#0a0a0a] rounded-lg border-l-2 border-gray-700 italic text-sm text-gray-400">
               "{fact.source.snippet}"
             </div>
             
-            <div className="mt-6 flex items-center gap-4 text-[10px] text-gray-500 font-bold uppercase tracking-widest">
-              <span className="flex items-center gap-1.5"><ClockIcon className="w-3 h-3" /> Verifierad Trace</span>
+            <div className="mt-4 flex items-center gap-3 text-xs text-gray-500">
+              <span className="flex items-center gap-1.5"><ClockIcon className="w-4 h-4" /> Verifierad Trace</span>
               <span className="w-1 h-1 bg-gray-700 rounded-full"></span>
               <span>Dokument: {fact.source.documentId}</span>
             </div>
