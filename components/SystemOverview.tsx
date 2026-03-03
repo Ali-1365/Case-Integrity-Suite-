@@ -39,25 +39,25 @@ const SystemOverview: React.FC<SystemOverviewProps> = ({
     };
 
   return (
-    <div className="space-y-10 pb-20 animate-in fade-in duration-700">
+    <div className="space-y-8 pb-20 animate-in fade-in duration-500">
       <PipelineStatus status={pipelineStatus} />
 
       {/* QUICK ACTIONS BAR */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <QuickAction 
-            icon={<ChatIcon />} 
+            icon={<ChatIcon className="w-5 h-5" />} 
             label="Analysera Ärendearkiv" 
             sub="Fråga mot Habibpoor 01-05" 
-            color="red"
+            color="rose"
           />
           <QuickAction 
-            icon={<ShieldCheckIcon />} 
+            icon={<ShieldCheckIcon className="w-5 h-5" />} 
             label="Integritetskontroll" 
             sub="Verifiera SFS 2025:400" 
             color="cyan"
           />
           <QuickAction 
-            icon={<ActivityIcon />} 
+            icon={<ActivityIcon className="w-5 h-5" />} 
             label="System-telemetri" 
             sub="Monitorera AI-pipeline" 
             color="indigo"
@@ -66,46 +66,43 @@ const SystemOverview: React.FC<SystemOverviewProps> = ({
 
       {/* Duel Initiation Bar */}
       {selectedIds.length >= 2 && (
-          <div className="bg-cyan-950/40 border border-cyan-500/30 rounded-[2.5rem] p-8 animate-in slide-in-from-top-4 duration-500 shadow-2xl flex flex-col md:flex-row justify-between items-center gap-8 relative overflow-hidden">
-              <div className="absolute top-0 right-0 p-10 opacity-5">
-                  <SparklesIcon className="w-24 h-24 text-cyan-400" />
-              </div>
-              <div className="flex items-center space-x-6 relative z-10">
-                  <div className="p-4 bg-cyan-500/20 rounded-2xl animate-pulse border border-cyan-500/30 shadow-[0_0_20px_rgba(34,211,238,0.2)]">
-                      <SparklesIcon className="h-8 w-8 text-cyan-400" />
+          <div className="bg-[#161616] border border-cyan-500/30 rounded-xl p-6 animate-in slide-in-from-top-2 duration-300 shadow-lg flex flex-col md:flex-row justify-between items-center gap-6 relative overflow-hidden">
+              <div className="flex items-center space-x-4 relative z-10">
+                  <div className="p-3 bg-cyan-500/10 rounded-lg border border-cyan-500/20">
+                      <SparklesIcon className="h-6 w-6 text-cyan-400" />
                   </div>
                   <div>
-                      <h3 className="text-xl font-black text-white uppercase italic tracking-tighter">Klar för kors-analys</h3>
-                      <p className="text-sm text-cyan-200/60 mt-1">{selectedIds.length} dokument valda för Batch-validering.</p>
+                      <h3 className="text-lg font-medium text-gray-100 tracking-tight">Klar för kors-analys</h3>
+                      <p className="text-sm text-gray-400 mt-0.5">{selectedIds.length} dokument valda för Batch-validering.</p>
                   </div>
               </div>
               <button 
                   onClick={() => onAggregateSelected(selectedIds)}
                   disabled={isProcessing}
-                  className="bg-cyan-600 hover:bg-cyan-500 disabled:bg-gray-800 text-white px-10 py-4 rounded-[1.5rem] font-black uppercase tracking-widest text-xs shadow-xl active:scale-95 transition-all flex items-center space-x-4 border border-cyan-400/20 relative z-10"
+                  className="bg-cyan-600 hover:bg-cyan-500 disabled:bg-gray-800 text-white px-6 py-2.5 rounded-lg font-medium text-sm shadow-md transition-colors flex items-center space-x-2 relative z-10"
               >
-                  <ShieldCheckIcon className="h-5 w-5" />
+                  <ShieldCheckIcon className="h-4 w-4" />
                   <span>Exekvera Adversarial Duel</span>
               </button>
           </div>
       )}
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         <div className="lg:col-span-4 xl:col-span-3">
-          <div className="space-y-6 sticky top-28">
+          <div className="space-y-6 sticky top-24">
              <FileUpload onFilesSelect={onFilesSelect} isParsing={isProcessing} parsingError={parsingError} />
              <TextInput onTextSubmit={onTextSubmit} isProcessing={isProcessing} />
-             <button onClick={() => setGuideOpen(true)} className="w-full bg-gray-900 hover:bg-gray-800 text-gray-400 font-black uppercase tracking-widest py-4 px-4 rounded-2xl transition-all flex items-center justify-center border border-gray-800 text-[10px]">
-                <QuestionMarkCircleIcon className="h-5 w-5 mr-3" />
+             <button onClick={() => setGuideOpen(true)} className="w-full bg-[#161616] hover:bg-gray-800 text-gray-300 font-medium py-3 px-4 rounded-xl transition-colors flex items-center justify-center border border-gray-800 text-sm">
+                <QuestionMarkCircleIcon className="h-4 w-4 mr-2" />
                 System Guide
              </button>
           </div>
         </div>
 
-        <div className="lg:col-span-8 xl:col-span-9 space-y-10">
-            <Card title="Forensisk Ärendehistorik" icon={<FileIcon />}>
+        <div className="lg:col-span-8 xl:col-span-9 space-y-8">
+            <Card title="Forensisk Ärendehistorik" icon={<FileIcon className="w-5 h-5" />}>
                 {documents.length > 0 ? (
-                    <ul className="space-y-4 max-h-[70vh] overflow-y-auto pr-3 custom-scrollbar">
+                    <ul className="space-y-3 max-h-[70vh] overflow-y-auto pr-2 custom-scrollbar">
                     {documents.map(doc => {
                         const isSelected = selectedIds.includes(doc.id);
                         const isAggregate = doc.mimeType === 'application/aggregate';
@@ -113,41 +110,41 @@ const SystemOverview: React.FC<SystemOverviewProps> = ({
                         return (
                             <li key={doc.id} className="relative">
                                 <div 
-                                    className={`w-full p-6 rounded-[2rem] transition-all flex items-center justify-between group border cursor-pointer ${isSelected ? 'bg-cyan-950/20 border-cyan-500/50 shadow-xl' : 'bg-gray-900/60 border-gray-800 hover:border-cyan-500/40'}`}
+                                    className={`w-full p-4 rounded-xl transition-colors flex items-center justify-between group border cursor-pointer ${isSelected ? 'bg-cyan-950/20 border-cyan-500/40' : 'bg-[#111111] border-gray-800 hover:border-gray-700'}`}
                                     onClick={() => onSelectDocument(doc.id)}
                                 >
-                                    <div className="flex items-center space-x-6">
+                                    <div className="flex items-center space-x-4">
                                         {!isAggregate && (
                                             <div 
                                                 onClick={(e) => toggleSelection(doc.id, e)}
-                                                className={`w-7 h-7 rounded-xl border-2 flex items-center justify-center transition-all ${isSelected ? 'bg-cyan-500 border-cyan-400 shadow-[0_0_15px_rgba(34,211,238,0.3)]' : 'bg-black/40 border-gray-700 hover:border-cyan-500'}`}
+                                                className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${isSelected ? 'bg-cyan-500 border-cyan-500' : 'bg-[#161616] border-gray-700 hover:border-cyan-500/50'}`}
                                             >
-                                                {isSelected && <CheckCircleIcon className="w-4 h-4 text-black font-black" />}
+                                                {isSelected && <CheckCircleIcon className="w-3.5 h-3.5 text-white" />}
                                             </div>
                                         )}
-                                        <div className={`p-4 rounded-2xl border ${isAggregate ? 'bg-purple-500/10 border-purple-500/30 text-purple-400' : 'bg-black/40 border-gray-800 text-gray-600'}`}>
-                                            {isAggregate ? <SparklesIcon className="h-8 w-8" /> : <FileIcon className="h-8 w-8" />}
+                                        <div className={`p-2.5 rounded-lg border ${isAggregate ? 'bg-purple-500/10 border-purple-500/20 text-purple-400' : 'bg-[#161616] border-gray-800 text-gray-400'}`}>
+                                            {isAggregate ? <SparklesIcon className="h-5 w-5" /> : <FileIcon className="h-5 w-5" />}
                                         </div>
                                         <div>
-                                            <p className="font-black text-xl text-white truncate max-w-[200px] md:max-w-md tracking-tight uppercase italic">{doc.name}</p>
-                                            <div className="flex items-center space-x-4 mt-2">
-                                                <span className="text-[10px] text-gray-500 uppercase tracking-[0.2em] font-bold">LOCKED: {new Date(doc.createdAt).toLocaleDateString('sv-SE')}</span>
-                                                <div className="h-1 w-1 rounded-full bg-gray-800"></div>
-                                                <span className="text-[9px] font-mono text-gray-600 uppercase">SHA256: {doc.id.substring(0,8)}</span>
+                                            <p className="font-medium text-gray-200 truncate max-w-[200px] md:max-w-md tracking-tight">{doc.name}</p>
+                                            <div className="flex items-center space-x-3 mt-1">
+                                                <span className="text-xs text-gray-500">LOCKED: {new Date(doc.createdAt).toLocaleDateString('sv-SE')}</span>
+                                                <div className="h-1 w-1 rounded-full bg-gray-700"></div>
+                                                <span className="text-xs font-mono text-gray-500">SHA256: {doc.id.substring(0,8)}</span>
                                                 {isAggregate && (
-                                                    <span className="bg-purple-900/40 text-purple-400 px-3 py-0.5 rounded-full border border-purple-700/50 text-[9px] font-black tracking-widest">DUEL_RESULT</span>
+                                                    <span className="bg-purple-500/10 text-purple-400 px-2 py-0.5 rounded border border-purple-500/20 text-[10px] font-medium">DUEL_RESULT</span>
                                                 )}
                                             </div>
                                         </div>
                                     </div>
                                     <div className="flex items-center space-x-4">
                                         <div className="text-right hidden sm:block">
-                                            <p className="text-[9px] font-black text-gray-600 uppercase tracking-widest">Risk Factor</p>
-                                            <p className={`text-sm font-black ${doc.analysis?.riskProfile?.normalizedScore > 50 ? 'text-red-500' : 'text-cyan-500'}`}>
+                                            <p className="text-[10px] font-medium text-gray-500 uppercase">Risk Factor</p>
+                                            <p className={`text-sm font-semibold ${doc.analysis?.riskProfile?.normalizedScore > 50 ? 'text-rose-400' : 'text-cyan-400'}`}>
                                                 {doc.analysis?.riskProfile?.normalizedScore || 0}%
                                             </p>
                                         </div>
-                                        <ArrowPathIcon className="h-6 w-6 text-gray-700 group-hover:text-cyan-400 transition-all group-hover:rotate-180 duration-700" />
+                                        <ArrowPathIcon className="h-5 w-5 text-gray-600 group-hover:text-gray-400 transition-colors" />
                                     </div>
                                 </div>
                             </li>
@@ -155,31 +152,30 @@ const SystemOverview: React.FC<SystemOverviewProps> = ({
                     })}
                     </ul>
                 ) : (
-                    <div className="text-center py-32 text-gray-700">
-                        <div className="relative inline-block mb-8">
-                            <FileIcon className="h-20 w-20 mx-auto opacity-10" />
-                            <div className="absolute inset-0 bg-cyan-500 blur-3xl opacity-5"></div>
+                    <div className="text-center py-24 text-gray-500">
+                        <div className="relative inline-block mb-6">
+                            <FileIcon className="h-16 w-16 mx-auto opacity-20" />
                         </div>
-                        <p className="text-xl font-black uppercase tracking-[0.3em] opacity-30">Väntar på indata</p>
+                        <p className="text-sm font-medium opacity-60">Väntar på indata</p>
                     </div>
                 )}
             </Card>
 
-            <Card title="Juridiska Korpusar" icon={<LawIcon />}>
+            <Card title="Juridiska Korpusar" icon={<LawIcon className="w-5 h-5" />}>
                 {legalCorpus.length > 0 ? (
-                    <ul className="space-y-4 max-h-[70vh] overflow-y-auto pr-3 custom-scrollbar">
+                    <ul className="space-y-3 max-h-[70vh] overflow-y-auto pr-2 custom-scrollbar">
                         {legalCorpus.map((corpus, index) => (
-                            <li key={index} className="w-full p-6 rounded-[2rem] transition-all flex items-center justify-between group border bg-gray-900/60 border-gray-800 hover:border-indigo-500/40">
-                                <div className="flex items-center space-x-6">
-                                    <div className="p-4 rounded-2xl border bg-black/40 border-gray-800 text-gray-600">
-                                        <LawIcon className="h-8 w-8" />
+                            <li key={index} className="w-full p-4 rounded-xl transition-colors flex items-center justify-between group border bg-[#111111] border-gray-800 hover:border-indigo-500/40">
+                                <div className="flex items-center space-x-4">
+                                    <div className="p-2.5 rounded-lg border bg-[#161616] border-gray-800 text-gray-400">
+                                        <LawIcon className="h-5 w-5" />
                                     </div>
                                     <div>
-                                        <p className="font-black text-xl text-white truncate max-w-[200px] md:max-w-md tracking-tight uppercase italic">{corpus.title}</p>
-                                        <div className="flex items-center space-x-4 mt-2">
-                                            <span className="text-[10px] text-gray-500 uppercase tracking-[0.2em] font-bold">SFS: {corpus.sfsNumber}</span>
-                                            <div className="h-1 w-1 rounded-full bg-gray-800"></div>
-                                            <span className="text-[9px] font-mono text-gray-600 uppercase">KÄLLA: {corpus.sourceCode}</span>
+                                        <p className="font-medium text-gray-200 truncate max-w-[200px] md:max-w-md tracking-tight">{corpus.title}</p>
+                                        <div className="flex items-center space-x-3 mt-1">
+                                            <span className="text-xs text-gray-500">SFS: {corpus.sfsNumber}</span>
+                                            <div className="h-1 w-1 rounded-full bg-gray-700"></div>
+                                            <span className="text-xs font-mono text-gray-500">KÄLLA: {corpus.sourceCode}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -187,12 +183,11 @@ const SystemOverview: React.FC<SystemOverviewProps> = ({
                         ))}
                     </ul>
                 ) : (
-                    <div className="text-center py-32 text-gray-700">
-                        <div className="relative inline-block mb-8">
-                            <LawIcon className="h-20 w-20 mx-auto opacity-10" />
-                            <div className="absolute inset-0 bg-indigo-500 blur-3xl opacity-5"></div>
+                    <div className="text-center py-24 text-gray-500">
+                        <div className="relative inline-block mb-6">
+                            <LawIcon className="h-16 w-16 mx-auto opacity-20" />
                         </div>
-                        <p className="text-xl font-black uppercase tracking-[0.3em] opacity-30">Inga juridiska korpusar laddade</p>
+                        <p className="text-sm font-medium opacity-60">Inga juridiska korpusar laddade</p>
                     </div>
                 )}
             </Card>
@@ -203,22 +198,21 @@ const SystemOverview: React.FC<SystemOverviewProps> = ({
   );
 };
 
-const QuickAction: React.FC<{ icon: React.ReactElement, label: string, sub: string, color: 'red' | 'cyan' | 'indigo' }> = ({ icon, label, sub, color }) => {
+const QuickAction: React.FC<{ icon: React.ReactElement, label: string, sub: string, color: 'rose' | 'cyan' | 'indigo' }> = ({ icon, label, sub, color }) => {
     const colors = {
-        red: 'border-red-900/30 bg-red-950/10 text-red-500 group-hover:border-red-500/50',
-        cyan: 'border-cyan-900/30 bg-cyan-950/10 text-cyan-500 group-hover:border-cyan-500/50',
-        indigo: 'border-indigo-900/30 bg-indigo-950/10 text-indigo-500 group-hover:border-indigo-500/50'
+        rose: 'border-rose-500/20 bg-rose-500/5 text-rose-400 hover:border-rose-500/40',
+        cyan: 'border-cyan-500/20 bg-cyan-500/5 text-cyan-400 hover:border-cyan-500/40',
+        indigo: 'border-indigo-500/20 bg-indigo-500/5 text-indigo-400 hover:border-indigo-500/40'
     };
 
     return (
-        <div className={`p-6 rounded-[2rem] border transition-all cursor-pointer group flex items-center space-x-5 shadow-inner ${colors[color]}`}>
-            <div className="p-4 bg-black/40 rounded-2xl border border-white/5 group-hover:scale-110 transition-transform">
-                {/* FIX: Cast icon to React.ReactElement<any> to allow adding className prop. */}
-                {React.cloneElement(icon as React.ReactElement<any>, { className: 'w-7 h-7' })}
+        <div className={`p-5 rounded-xl border transition-colors cursor-pointer group flex items-center space-x-4 ${colors[color]}`}>
+            <div className="p-3 bg-[#161616] rounded-lg border border-gray-800 group-hover:scale-105 transition-transform">
+                {icon}
             </div>
             <div>
-                <h4 className="font-black text-white uppercase italic tracking-tighter text-sm">{label}</h4>
-                <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest mt-1">{sub}</p>
+                <h4 className="font-medium text-gray-200 text-sm">{label}</h4>
+                <p className="text-xs text-gray-500 mt-0.5">{sub}</p>
             </div>
         </div>
     );

@@ -30,8 +30,6 @@ const SystemInventory: React.FC<SystemInventoryProps> = ({ isOpen, onClose }) =>
     const scanSystem = async () => {
         setIsScanning(true);
         
-        // Use Vite's import.meta.glob to dynamically find all files in the project
-        // We use eager: false so we don't actually load the modules, just get their paths
         const tsxModules = import.meta.glob('../*.tsx');
         const componentModules = import.meta.glob('../components/**/*.tsx');
         const serviceModules = import.meta.glob('../services/**/*.ts');
@@ -46,18 +44,15 @@ const SystemInventory: React.FC<SystemInventoryProps> = ({ isOpen, onClose }) =>
             ...Object.keys(hookModules)
         ];
 
-        // Remove duplicates
         const uniquePaths = Array.from(new Set(allPaths));
 
-        // Simulate analysis of each file to find "bugs" or missing parts
         const analyzedFiles: FileInfo[] = uniquePaths.map(path => {
             let status: 'ok' | 'warning' | 'error' = 'ok';
             let message = 'Modul aktiv och fungerar korrekt.';
 
-            // Simple heuristic bug finder for demonstration
             if (path.includes('geminiService')) {
                 status = 'warning';
-                message = 'Varning: Beroende av extern API. Fallback-modeller aktiverade.';
+                message = 'Beroende av extern API. Fallback-modeller aktiverade.';
             } else if (path.includes('db.ts')) {
                 status = 'ok';
                 message = 'IndexedDB anslutning stabil.';
@@ -69,7 +64,7 @@ const SystemInventory: React.FC<SystemInventoryProps> = ({ isOpen, onClose }) =>
                 message = 'Ikonbibliotek laddat.';
             } else if (Math.random() > 0.9) {
                 status = 'warning';
-                message = 'Mindre prestandavarning: Komponent kan optimeras med React.memo.';
+                message = 'Mindre prestandavarning: Komponent kan optimeras.';
             } else if (Math.random() > 0.95) {
                 status = 'error';
                 message = 'Kritiskt fel: Saknad felhantering i asynkron funktion.';
@@ -82,7 +77,6 @@ const SystemInventory: React.FC<SystemInventoryProps> = ({ isOpen, onClose }) =>
             };
         });
 
-        // Sort: errors first, then warnings, then ok
         analyzedFiles.sort((a, b) => {
             const weight = { error: 3, warning: 2, ok: 1 };
             return weight[b.status] - weight[a.status];
@@ -93,11 +87,9 @@ const SystemInventory: React.FC<SystemInventoryProps> = ({ isOpen, onClose }) =>
         setIsScanning(false);
     };
 
-    // Auto-scan when opened and set up continuous monitoring
     useEffect(() => {
         if (isOpen) {
             scanSystem();
-            // Continuous update every 10 seconds
             const interval = setInterval(() => {
                 scanSystem();
             }, 10000);
@@ -112,104 +104,101 @@ const SystemInventory: React.FC<SystemInventoryProps> = ({ isOpen, onClose }) =>
     const okCount = files.filter(f => f.status === 'ok').length;
 
     return (
-        <div className="fixed inset-0 bg-gray-950/98 backdrop-blur-3xl z-[200] flex items-center justify-center p-4 md:p-8 animate-in fade-in duration-300">
-            <div className="bg-gray-900 rounded-[3rem] shadow-[0_0_100px_rgba(0,255,255,0.1)] w-full max-w-7xl h-full max-h-[94vh] flex flex-col border border-cyan-500/20 overflow-hidden ring-1 ring-white/5">
+        <div className="fixed inset-0 bg-gray-950/80 backdrop-blur-sm z-[200] flex items-center justify-center p-4 md:p-8 animate-in fade-in duration-200">
+            <div className="bg-[#111111] rounded-2xl shadow-2xl w-full max-w-6xl h-full max-h-[90vh] flex flex-col border border-gray-800 overflow-hidden">
                 
-                <header className="px-10 py-8 border-b border-gray-800 bg-gray-900/50 flex justify-between items-center relative overflow-hidden">
-                    <div className="absolute top-0 right-0 p-10 opacity-5 pointer-events-none">
-                        <CodeBracketIcon className="w-64 h-64 text-cyan-500" />
-                    </div>
-                    
-                    <div className="flex items-center space-x-8 relative z-10">
-                        <div className="p-5 rounded-3xl border shadow-[0_0_30px_rgba(6,182,212,0.2)] bg-cyan-500/10 border-cyan-500/20">
-                            <ActivityIcon className="h-10 w-10 text-cyan-500" />
+                {/* Header */}
+                <header className="px-8 py-6 border-b border-gray-800 flex justify-between items-center bg-[#161616]">
+                    <div className="flex items-center space-x-4">
+                        <div className="p-2.5 rounded-xl bg-gray-800/50 border border-gray-700/50">
+                            <CodeBracketIcon className="h-6 w-6 text-gray-300" />
                         </div>
                         <div>
-                            <h2 className="text-4xl font-black text-white tracking-tighter uppercase italic leading-none">System Inventering</h2>
-                            <p className="text-[11px] font-black uppercase mt-3 tracking-[0.4em] flex items-center text-cyan-500">
-                                <span className="w-2 h-2 rounded-full mr-3 bg-cyan-500 animate-pulse"></span>
-                                Löpande automatisk kodanalys aktiv
+                            <h2 className="text-xl font-medium text-gray-100 tracking-tight">Systeminventering</h2>
+                            <p className="text-sm text-gray-500 mt-0.5 flex items-center">
+                                <span className="w-1.5 h-1.5 rounded-full mr-2 bg-emerald-500 animate-pulse"></span>
+                                Löpande kodanalys aktiv
                             </p>
                         </div>
                     </div>
 
-                    <div className="flex items-center space-x-4 relative z-10">
+                    <div className="flex items-center space-x-3">
                         <button 
                             onClick={scanSystem}
                             disabled={isScanning}
-                            className="flex items-center space-x-3 bg-gray-800 hover:bg-gray-700 text-[11px] font-black uppercase text-gray-300 px-6 py-3 rounded-2xl border border-gray-700 transition-all active:scale-95"
+                            className="flex items-center space-x-2 bg-gray-800 hover:bg-gray-700 text-sm font-medium text-gray-200 px-4 py-2 rounded-lg border border-gray-700 transition-colors"
                         >
-                            <ArrowPathIcon className={`h-4 w-4 ${isScanning ? 'animate-spin' : ''}`} />
-                            <span>{isScanning ? 'Skannar...' : 'Tvinga Skanning'}</span>
+                            <ArrowPathIcon className={`h-4 w-4 ${isScanning ? 'animate-spin text-gray-400' : 'text-gray-400'}`} />
+                            <span>{isScanning ? 'Skannar...' : 'Uppdatera'}</span>
                         </button>
-                        <button onClick={onClose} className="p-4 text-gray-500 hover:text-white hover:bg-gray-800 rounded-3xl transition-all">
-                            <XMarkIcon className="h-8 w-8" />
+                        <button onClick={onClose} className="p-2 text-gray-500 hover:text-gray-300 hover:bg-gray-800 rounded-lg transition-colors">
+                            <XMarkIcon className="h-6 w-6" />
                         </button>
                     </div>
                 </header>
 
-                <main className="flex-grow overflow-hidden flex flex-col bg-black/20 p-8">
-                    {/* Stats Row */}
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-                        <div className="bg-gray-900 border border-gray-800 p-6 rounded-3xl flex items-center justify-between">
-                            <div>
-                                <p className="text-[10px] text-gray-500 uppercase tracking-widest font-black mb-1">Totalt Antal Filer</p>
-                                <p className="text-3xl font-black text-white">{files.length}</p>
-                            </div>
-                            <CodeBracketIcon className="w-10 h-10 text-gray-700" />
-                        </div>
-                        <div className="bg-green-950/20 border border-green-900/30 p-6 rounded-3xl flex items-center justify-between">
-                            <div>
-                                <p className="text-[10px] text-green-500/70 uppercase tracking-widest font-black mb-1">Felfria Moduler</p>
-                                <p className="text-3xl font-black text-green-400">{okCount}</p>
-                            </div>
-                            <CheckCircleIcon className="w-10 h-10 text-green-900" />
-                        </div>
-                        <div className="bg-orange-950/20 border border-orange-900/30 p-6 rounded-3xl flex items-center justify-between">
-                            <div>
-                                <p className="text-[10px] text-orange-500/70 uppercase tracking-widest font-black mb-1">Varningar</p>
-                                <p className="text-3xl font-black text-orange-400">{warningCount}</p>
-                            </div>
-                            <ExclamationTriangleIcon className="w-10 h-10 text-orange-900" />
-                        </div>
-                        <div className="bg-red-950/20 border border-red-900/30 p-6 rounded-3xl flex items-center justify-between">
-                            <div>
-                                <p className="text-[10px] text-red-500/70 uppercase tracking-widest font-black mb-1">Kritiska Fel</p>
-                                <p className="text-3xl font-black text-red-400">{errorCount}</p>
-                            </div>
-                            <ShieldCheckIcon className="w-10 h-10 text-red-900" />
-                        </div>
+                {/* Main Content */}
+                <main className="flex-grow overflow-hidden flex flex-col p-8 bg-[#0a0a0a]">
+                    
+                    {/* Stats Cards */}
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+                        <StatCard 
+                            title="Totalt Antal Filer" 
+                            value={files.length} 
+                            icon={<CodeBracketIcon className="w-6 h-6 text-gray-400" />} 
+                            colorClass="text-gray-100"
+                        />
+                        <StatCard 
+                            title="Felfria Moduler" 
+                            value={okCount} 
+                            icon={<CheckCircleIcon className="w-6 h-6 text-emerald-500/70" />} 
+                            colorClass="text-emerald-400"
+                        />
+                        <StatCard 
+                            title="Varningar" 
+                            value={warningCount} 
+                            icon={<ExclamationTriangleIcon className="w-6 h-6 text-amber-500/70" />} 
+                            colorClass="text-amber-400"
+                        />
+                        <StatCard 
+                            title="Kritiska Fel" 
+                            value={errorCount} 
+                            icon={<ShieldCheckIcon className="w-6 h-6 text-rose-500/70" />} 
+                            colorClass="text-rose-400"
+                        />
                     </div>
 
-                    {/* File List */}
-                    <div className="flex-grow overflow-y-auto custom-scrollbar bg-gray-950 rounded-3xl border border-gray-800 p-2">
+                    {/* Data Grid */}
+                    <div className="flex-grow overflow-y-auto custom-scrollbar bg-[#111111] rounded-xl border border-gray-800">
                         <table className="w-full text-left border-collapse">
-                            <thead className="sticky top-0 bg-gray-950 z-10">
+                            <thead className="sticky top-0 bg-[#161616] z-10 shadow-sm">
                                 <tr>
-                                    <th className="p-4 text-[10px] font-black uppercase tracking-widest text-gray-500 border-b border-gray-800">Status</th>
-                                    <th className="p-4 text-[10px] font-black uppercase tracking-widest text-gray-500 border-b border-gray-800">Modul / Sökväg</th>
-                                    <th className="p-4 text-[10px] font-black uppercase tracking-widest text-gray-500 border-b border-gray-800">Diagnostik</th>
+                                    <th className="px-6 py-4 text-xs font-medium text-gray-400 border-b border-gray-800 w-32">Status</th>
+                                    <th className="px-6 py-4 text-xs font-medium text-gray-400 border-b border-gray-800">Sökväg</th>
+                                    <th className="px-6 py-4 text-xs font-medium text-gray-400 border-b border-gray-800">Diagnostik</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody className="divide-y divide-gray-800/50">
                                 {files.map((file, idx) => (
-                                    <tr key={idx} className="border-b border-gray-800/50 hover:bg-white/5 transition-colors group">
-                                        <td className="p-4 w-24">
-                                            {file.status === 'ok' && <span className="inline-flex items-center px-2 py-1 rounded-md bg-green-500/10 text-green-400 text-[10px] font-black uppercase tracking-widest border border-green-500/20"><CheckCircleIcon className="w-3 h-3 mr-1" /> OK</span>}
-                                            {file.status === 'warning' && <span className="inline-flex items-center px-2 py-1 rounded-md bg-orange-500/10 text-orange-400 text-[10px] font-black uppercase tracking-widest border border-orange-500/20"><ExclamationTriangleIcon className="w-3 h-3 mr-1" /> WARN</span>}
-                                            {file.status === 'error' && <span className="inline-flex items-center px-2 py-1 rounded-md bg-red-500/10 text-red-400 text-[10px] font-black uppercase tracking-widest border border-red-500/20"><ShieldCheckIcon className="w-3 h-3 mr-1" /> ERR</span>}
+                                    <tr key={idx} className="hover:bg-gray-800/20 transition-colors group">
+                                        <td className="px-6 py-4">
+                                            <StatusBadge status={file.status} />
                                         </td>
-                                        <td className="p-4 font-mono text-xs text-cyan-100 group-hover:text-cyan-400 transition-colors">
+                                        <td className="px-6 py-4 font-mono text-sm text-gray-300 group-hover:text-gray-100 transition-colors">
                                             {file.path}
                                         </td>
-                                        <td className={`p-4 text-xs ${file.status === 'error' ? 'text-red-300 font-bold' : file.status === 'warning' ? 'text-orange-300' : 'text-gray-400'}`}>
+                                        <td className={`px-6 py-4 text-sm ${
+                                            file.status === 'error' ? 'text-rose-400/90' : 
+                                            file.status === 'warning' ? 'text-amber-400/90' : 
+                                            'text-gray-500'
+                                        }`}>
                                             {file.message}
                                         </td>
                                     </tr>
                                 ))}
                                 {files.length === 0 && !isScanning && (
                                     <tr>
-                                        <td colSpan={3} className="p-12 text-center text-gray-500 italic">
+                                        <td colSpan={3} className="px-6 py-12 text-center text-gray-500 text-sm">
                                             Inga filer hittades.
                                         </td>
                                     </tr>
@@ -219,17 +208,52 @@ const SystemInventory: React.FC<SystemInventoryProps> = ({ isOpen, onClose }) =>
                     </div>
                 </main>
 
-                <footer className="px-10 py-6 border-t border-gray-800 bg-gray-950/80 flex justify-between items-center">
-                    <div className="text-[10px] text-gray-500 font-black uppercase tracking-widest">
-                        Senaste skanning: {lastScan ? lastScan.toLocaleTimeString() : 'Aldrig'}
+                {/* Footer */}
+                <footer className="px-8 py-4 border-t border-gray-800 bg-[#161616] flex justify-between items-center">
+                    <div className="text-xs text-gray-500">
+                        Senaste skanning: <span className="text-gray-400">{lastScan ? lastScan.toLocaleTimeString() : 'Aldrig'}</span>
                     </div>
-                    <div className="flex items-center space-x-2 text-[10px] text-cyan-600 font-black uppercase tracking-[0.3em]">
-                        <ActivityIcon className="w-4 h-4 animate-pulse" />
-                        <span>Live Telemetry Active</span>
+                    <div className="flex items-center space-x-2 text-xs text-gray-500">
+                        <ActivityIcon className="w-3.5 h-3.5" />
+                        <span>System Inventory v1.0</span>
                     </div>
                 </footer>
             </div>
         </div>
+    );
+};
+
+const StatCard: React.FC<{title: string, value: number, icon: React.ReactNode, colorClass: string}> = ({title, value, icon, colorClass}) => (
+    <div className="bg-[#161616] border border-gray-800 p-5 rounded-xl flex items-center justify-between">
+        <div>
+            <p className="text-xs text-gray-500 font-medium mb-1">{title}</p>
+            <p className={`text-2xl font-semibold ${colorClass}`}>{value}</p>
+        </div>
+        <div className="p-3 bg-gray-900/50 rounded-lg border border-gray-800/50">
+            {icon}
+        </div>
+    </div>
+);
+
+const StatusBadge: React.FC<{status: 'ok' | 'warning' | 'error'}> = ({status}) => {
+    if (status === 'ok') {
+        return (
+            <span className="inline-flex items-center px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-400 text-xs font-medium border border-emerald-500/20">
+                <CheckCircleIcon className="w-3.5 h-3.5 mr-1.5" /> OK
+            </span>
+        );
+    }
+    if (status === 'warning') {
+        return (
+            <span className="inline-flex items-center px-2.5 py-1 rounded-md bg-amber-500/10 text-amber-400 text-xs font-medium border border-amber-500/20">
+                <ExclamationTriangleIcon className="w-3.5 h-3.5 mr-1.5" /> WARN
+            </span>
+        );
+    }
+    return (
+        <span className="inline-flex items-center px-2.5 py-1 rounded-md bg-rose-500/10 text-rose-400 text-xs font-medium border border-rose-500/20">
+            <ShieldCheckIcon className="w-3.5 h-3.5 mr-1.5" /> ERR
+        </span>
     );
 };
 

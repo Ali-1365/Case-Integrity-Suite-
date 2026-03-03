@@ -148,13 +148,13 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
             <header className="p-4 border-b border-gray-800 flex justify-between items-center bg-gray-950/80 backdrop-blur-xl sticky top-0 z-[100]">
                 <div className="flex items-center space-x-6">
                     <div className="flex items-center space-x-3 group cursor-pointer" onClick={() => setSelectedDocId(null)}>
-                        <div className="p-2 bg-cyan-500/10 rounded-xl border border-cyan-500/20 group-hover:bg-cyan-500/20 transition-all">
-                            <LogoIcon className="h-6 w-6 text-cyan-500" />
+                        <div className="p-2 bg-cyan-500/10 rounded-lg border border-cyan-500/20 group-hover:bg-cyan-500/20 transition-colors">
+                            <LogoIcon className="h-5 w-5 text-cyan-500" />
                         </div>
-                        <h1 className="text-xl font-black uppercase tracking-tighter italic">FMJAM GOLD</h1>
+                        <h1 className="text-lg font-semibold tracking-tight text-gray-100">FMJAM GOLD</h1>
                     </div>
                     
-                    <div className="hidden md:flex items-center bg-black/40 border border-gray-800 rounded-2xl p-1 space-x-1">
+                    <div className="hidden md:flex items-center bg-[#111111] border border-gray-800 rounded-xl p-1 space-x-1">
                         <ToolButton icon={<ActivityIcon />} onClick={() => setActiveModal('monitor')} label="Monitor" active={activeModal === 'monitor'} />
                         <ToolButton icon={<ClipboardDocumentListIcon />} onClick={() => setActiveModal('inventory')} label="Inventering" active={activeModal === 'inventory'} />
                         <ToolButton icon={<ChatIcon />} onClick={() => setActiveModal('chat')} label="Decision Engine" active={activeModal === 'chat'} />
@@ -207,7 +207,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
             <ControllerDashboard isOpen={activeModal === 'controller'} onClose={() => setActiveModal(null)} />
             <SystemInventory isOpen={activeModal === 'inventory'} onClose={() => setActiveModal(null)} />
 
-            <div className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center bg-gray-900/90 backdrop-blur-2xl border border-gray-800 rounded-3xl p-2 shadow-2xl z-[200]">
+            <div className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center bg-[#111111]/90 backdrop-blur-md border border-gray-800 rounded-2xl p-2 shadow-2xl z-[200]">
                 <ToolButton icon={<ChatIcon />} onClick={() => setActiveModal('chat')} active={activeModal === 'chat'} />
                 <ToolButton icon={<ActivityIcon />} onClick={() => setActiveModal('monitor')} active={activeModal === 'monitor'} />
                 <ToolButton icon={<AdjustmentsHorizontalIcon />} onClick={() => setActiveModal('controller')} active={activeModal === 'controller'} />
@@ -226,12 +226,12 @@ interface ToolButtonProps {
 const ToolButton: React.FC<ToolButtonProps> = ({ icon, onClick, label, active }) => (
     <button 
         onClick={onClick}
-        className={`p-2.5 rounded-xl transition-all flex items-center space-x-2 group ${active ? 'bg-cyan-500 text-white shadow-lg shadow-cyan-900/20' : 'text-gray-500 hover:text-white hover:bg-white/5'}`}
+        className={`p-2 rounded-lg transition-colors flex items-center space-x-2 group ${active ? 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20' : 'text-gray-500 hover:text-gray-300 hover:bg-gray-800 border border-transparent'}`}
     >
-        <div className={active ? 'text-white' : 'text-gray-400 group-hover:text-cyan-400'}>
-            {React.isValidElement(icon) ? React.cloneElement(icon as React.ReactElement<{ className?: string }>, { className: 'w-5 h-5' }) : icon}
+        <div className={active ? 'text-cyan-400' : 'text-gray-400 group-hover:text-gray-300'}>
+            {React.isValidElement(icon) ? React.cloneElement(icon as React.ReactElement<{ className?: string }>, { className: 'w-4 h-4' }) : icon}
         </div>
-        {label && <span className="text-[10px] font-black uppercase tracking-widest hidden lg:block">{label}</span>}
+        {label && <span className="text-xs font-medium hidden lg:block">{label}</span>}
     </button>
 );
 
