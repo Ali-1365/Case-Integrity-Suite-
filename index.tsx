@@ -41,22 +41,22 @@ async function init() {
       const isPermDenied = err instanceof Error && err.message.includes('EACCES');
       
       root.innerHTML = `
-        <div style="background:#050000; color:#ff3333; min-height:100vh; display:flex; align-items:center; justify-content:center; font-family:monospace; text-align:center; padding:2rem; border:10px solid #200;">
-          <div style="border:4px solid #f33; padding:4rem; border-radius:3rem; background:rgba(255,0,0,0.1); max-width:800px; box-shadow:0 0 100px rgba(255,0,0,0.3);">
-            <h1 style="margin:0 0 1.5rem 0; font-size:3rem; letter-spacing:-2px; transform:skewX(-5deg); uppercase italic">${isPermDenied ? 'PERMISSION_LOCKED' : 'CRITICAL_SYNC_NUKE'}</h1>
-            <p style="color:#fff; font-size:1.2rem; line-height:1.8; font-weight:bold;">${isPermDenied ? 'Filsystemet nekar skrivåtkomst (EACCES_PERM_DENIED).' : 'Anslutningen misslyckades eller filkonflikt på GitHub.'} <br/>Systemet har aktiverat skrivskydd.</p>
+        <div style="background:#0a0a0a; color:#e5e7eb; min-height:100vh; display:flex; align-items:center; justify-content:center; font-family:system-ui, -apple-system, sans-serif; text-align:center; padding:2rem;">
+          <div style="border:1px solid rgba(244, 63, 94, 0.3); padding:3rem; border-radius:1rem; background:#111111; max-width:600px; width:100%; box-shadow:0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);">
+            <h1 style="margin:0 0 1rem 0; font-size:1.5rem; font-weight:600; color:#f43f5e;">${isPermDenied ? 'Permission Locked' : 'Critical Sync Error'}</h1>
+            <p style="color:#9ca3af; font-size:0.875rem; line-height:1.5; margin-bottom:2rem;">${isPermDenied ? 'Filsystemet nekar skrivåtkomst (EACCES_PERM_DENIED).' : 'Anslutningen misslyckades eller filkonflikt på GitHub.'} <br/>Systemet har aktiverat skrivskydd.</p>
             
-            <div style="margin-top:3rem; padding:2rem; background:#000; border-radius:1.5rem; text-align:left; border:1px solid #444;">
-              <p style="color:yellow; margin-bottom:1rem; font-size:0.9rem;">DIAGNOS: ${err instanceof Error ? err.message : 'Nätverksfel'}</p>
-              <ol style="color:#aaa; font-size:0.8rem; line-height:2;">
-                <li>1. Klicka på din profil -> <b>Linked GitHub Repository</b> -> <b>Disconnect</b>.</li>
-                <li>2. Öppna Terminalen och kör: <code>localStorage.setItem('FMJAM_INTEGRITY_BYPASS', '1')</code></li>
-                <li>3. Ladda om denna sida (F5).</li>
-                <li>4. Re-connect till <b>Processanalys-Socialtj-nst</b>.</li>
+            <div style="padding:1.5rem; background:#0a0a0a; border-radius:0.75rem; text-align:left; border:1px solid #1f2937;">
+              <p style="color:#fbbf24; margin-bottom:1rem; font-size:0.75rem; font-family:monospace;">DIAGNOS: ${err instanceof Error ? err.message : 'Nätverksfel'}</p>
+              <ol style="color:#9ca3af; font-size:0.875rem; line-height:1.75; margin:0; padding-left:1.25rem;">
+                <li>Klicka på din profil -> <b>Linked GitHub Repository</b> -> <b>Disconnect</b>.</li>
+                <li>Öppna Terminalen och kör: <code style="background:#1f2937; padding:0.125rem 0.25rem; border-radius:0.25rem; font-size:0.75rem;">localStorage.setItem('FMJAM_INTEGRITY_BYPASS', '1')</code></li>
+                <li>Ladda om denna sida (F5).</li>
+                <li>Re-connect till <b>Processanalys-Socialtj-nst</b>.</li>
               </ol>
             </div>
             
-            <button onclick="window.location.reload()" style="margin-top:3rem; background:#f33; color:#fff; border:none; padding:1.5rem 3rem; border-radius:1.5rem; cursor:pointer; font-weight:900; text-transform:uppercase; font-size:1.1rem; box-shadow:0 10px 30px rgba(255,0,0,0.4);">Försök igen</button>
+            <button onclick="window.location.reload()" style="margin-top:2rem; background:#e11d48; color:#fff; border:none; padding:0.75rem 1.5rem; border-radius:0.5rem; cursor:pointer; font-weight:500; font-size:0.875rem; transition:background-color 0.2s;">Försök igen</button>
           </div>
         </div>
       `;

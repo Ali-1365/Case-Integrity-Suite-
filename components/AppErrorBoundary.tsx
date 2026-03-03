@@ -61,66 +61,65 @@ export default class AppErrorBoundary extends Component<AppErrorBoundaryProps, A
 
     if (hasError) {
       return (
-        <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4 font-sans text-white">
-          <div className="max-w-2xl w-full bg-slate-900 border border-red-900/50 rounded-[2.5rem] shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-300">
-            <div className="bg-red-900/20 p-8 border-b border-red-900/30 flex items-center gap-6">
-              <div className="p-4 bg-red-900/30 rounded-2xl text-red-400 font-bold">
-                <TriangleAlert size={32} />
+        <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center p-4 font-sans text-gray-200">
+          <div className="max-w-2xl w-full bg-[#111111] border border-rose-900/30 rounded-2xl shadow-sm overflow-hidden animate-in fade-in zoom-in duration-300">
+            <div className="bg-rose-500/5 p-6 border-b border-rose-900/20 flex items-center gap-4">
+              <div className="p-3 bg-rose-500/10 rounded-xl text-rose-400">
+                <TriangleAlert size={24} />
               </div>
               <div>
-                <h2 className="text-2xl font-black text-white tracking-tighter uppercase italic leading-none">Kritiskt systemfel</h2>
-                <p className="text-red-200/70 text-xs font-bold uppercase tracking-widest mt-2">APPLICATION_LAYER_BREACH</p>
+                <h2 className="text-xl font-semibold text-gray-100">Kritiskt systemfel</h2>
+                <p className="text-rose-400/70 text-xs font-medium uppercase tracking-wider mt-1">APPLICATION_LAYER_BREACH</p>
               </div>
             </div>
 
-            <div className="p-10 space-y-8">
-              <p className="text-slate-300 leading-relaxed text-sm font-medium">
+            <div className="p-8 space-y-6">
+              <p className="text-gray-400 leading-relaxed text-sm">
                 Systemet har pausats för att skydda dataintegriteten. Felet har loggats och kan användas för teknisk felsökning.
               </p>
 
               {error && (
-                <div className="bg-slate-950 rounded-2xl border border-slate-800 p-6 font-mono text-[10px] text-red-300/80 overflow-hidden relative">
-                   <div className="flex items-center justify-between text-slate-500 mb-4 border-b border-slate-800 pb-3">
+                <div className="bg-[#0a0a0a] rounded-xl border border-gray-800 p-5 font-mono text-xs text-rose-300/80 overflow-hidden relative">
+                   <div className="flex items-center justify-between text-gray-500 mb-3 border-b border-gray-800 pb-3">
                       <div className="flex items-center gap-2">
                         <Terminal size={14} />
-                        <span className="uppercase font-black tracking-[0.2em]">Diagnostic Buffer</span>
+                        <span className="uppercase font-medium tracking-wider text-[10px]">Diagnostic Buffer</span>
                       </div>
                       <button 
                           onClick={this.handleCopyStack} 
-                          className="flex items-center gap-2 hover:text-white transition-all px-3 py-1.5 rounded-lg hover:bg-slate-800 border border-transparent hover:border-slate-700 font-bold"
+                          className="flex items-center gap-1.5 hover:text-gray-300 transition-colors px-2 py-1 rounded hover:bg-[#161616] border border-transparent hover:border-gray-700"
                       >
                           <Copy size={12} />
-                          <span>COPY_TRACE</span>
+                          <span className="text-[10px]">COPY_TRACE</span>
                       </button>
                    </div>
                    <div className="overflow-auto max-h-48 custom-scrollbar">
-                        <p className="font-bold text-red-400 mb-3 text-xs">{error.toString()}</p>
+                        <p className="font-medium text-rose-400 mb-2">{error.toString()}</p>
                         {errorInfo && (
-                            <pre className="opacity-60 whitespace-pre-wrap leading-relaxed">{errorInfo.componentStack}</pre>
+                            <pre className="opacity-60 whitespace-pre-wrap leading-relaxed text-[10px]">{errorInfo.componentStack}</pre>
                         )}
                    </div>
                 </div>
               )}
 
-              <div className="flex flex-col sm:flex-row gap-4 pt-2">
+              <div className="flex flex-col sm:flex-row gap-3 pt-2">
                 <button 
                   onClick={this.handleReload}
-                  className="flex flex-1 items-center justify-center gap-3 px-8 py-5 bg-red-600 hover:bg-red-500 text-white rounded-2xl font-black uppercase tracking-widest text-[11px] transition-all shadow-xl active:scale-95 border border-red-400/20"
+                  className="flex flex-1 items-center justify-center gap-2 px-6 py-3 bg-rose-600 hover:bg-rose-500 text-white rounded-xl font-medium text-sm transition-colors shadow-sm"
                 >
                   <RefreshCw size={16} />
                   Forcerad Omladdning
                 </button>
                 <button 
-                  // Fix: setState is a method on React.Component, fixed error on line 109
                   onClick={() => this.setState({ hasError: false, error: null, errorInfo: null })}
-                  className="px-8 py-5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-2xl font-black uppercase tracking-widest text-[11px] transition-all border border-slate-700 active:scale-95"
+                  className="px-6 py-3 bg-[#161616] hover:bg-gray-800 text-gray-300 rounded-xl font-medium text-sm transition-colors border border-gray-800"
                 >
                   Återställ lager
                 </button>
               </div>
             </div>
             
-            <div className="bg-slate-950 p-6 text-center text-slate-600 text-[9px] font-mono border-t border-slate-900 uppercase tracking-[0.4em]">
+            <div className="bg-[#0a0a0a] p-4 text-center text-gray-600 text-[10px] font-mono border-t border-gray-800 uppercase tracking-widest">
               FMJAM Oracle v.7.4.0-GOLD | Integrity: COMPROMISED_RECOVERY_MODE
             </div>
           </div>
