@@ -26,16 +26,30 @@ interface LegalFrameworkViewProps {
 const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose }) => {
   const [selectedLawId, setSelectedLawId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedType, setSelectedType] = useState<'all' | 'lag' | 'regelverk'>('all');
+  const [selectedYear, setSelectedYear] = useState<string>('all');
   const [activeCorpus, setActiveCorpus] = useState<LegalCorpus | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  const years = useMemo(() => {
+    const allYears = legalFrameworkIndex
+      .map(s => s.sfsNumber?.split(':')[0])
+      .filter((y): y is string => !!y);
+    return Array.from(new Set(allYears)).sort((a, b) => b.localeCompare(a));
+  }, []);
+
   const filteredIndex = useMemo(() => {
-    return legalFrameworkIndex.filter(s => 
-        s.label.toLowerCase().includes(searchQuery.toLowerCase()) || 
-        s.shortName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        s.sfsNumber?.includes(searchQuery)
-    );
-  }, [searchQuery]);
+    return legalFrameworkIndex.filter(s => {
+        const matchesSearch = s.label.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                             s.shortName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                             s.sfsNumber?.includes(searchQuery);
+        
+        const matchesType = selectedType === 'all' || s.type === selectedType;
+        const matchesYear = selectedYear === 'all' || s.sfsNumber?.startsWith(selectedYear);
+        
+        return matchesSearch && matchesType && matchesYear;
+    });
+  }, [searchQuery, selectedType, selectedYear]);
 
   useEffect(() => {
     if (selectedLawId) {
@@ -103,40 +117,68 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
         {/* BROWSE MODE */}
         {!selectedLawId ? (
             <div className="flex-grow flex flex-col overflow-hidden bg-slate-50 dark:bg-slate-950/20">
-                <div className="p-8 border-b border-slate-100 dark:border-slate-800">
-                    <div className="max-w-2xl mx-auto relative">
-                        <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
-                            <MagnifyingGlassIcon className="h-5 w-5 text-slate-400" />
+                <div className="p-6 border-b border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900">
+                    <div className="flex flex-wrap items-center gap-3">
+                        <div className="flex-grow relative min-w-[200px]">
+                            <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+                                <MagnifyingGlassIcon className="h-4 w-4 text-slate-400" />
+                            </div>
+                            <input 
+                                type="text" 
+                                placeholder="Sök ramverk..."
+                                className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg py-2 pl-10 pr-4 text-sm text-slate-900 dark:text-white placeholder-slate-500 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                            />
                         </div>
-                        <input 
-                            type="text" 
-                            placeholder="Sök lagar..."
-                            className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl pl-12 pr-4 py-3 text-sm text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all"
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                        />
+                        <select 
+                            className="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg py-2 px-3 text-sm text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all"
+                            value={selectedType}
+                            onChange={(e) => setSelectedType(e.target.value as any)}
+                        >
+                            <option value="all">Alla Kategorier</option>
+                            <option value="lag">Lagar</option>
+                            <option value="regelverk">Regelverk</option>
+                        </select>
+                        <select 
+                            className="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg py-2 px-3 text-sm text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all"
+                            value={selectedYear}
+                            onChange={(e) => setSelectedYear(e.target.value)}
+                        >
+                            <option value="all">Alla År</option>
+                            {years.map(year => (
+                                <option key={year} value={year}>{year}</option>
+                            ))}
+                        </select>
                     </div>
                 </div>
 
                 <main className="flex-grow overflow-y-auto p-8 custom-scrollbar">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         {filteredIndex.map((source) => (
                             <div 
                                 key={source.id} 
                                 onClick={() => setSelectedLawId(source.id)}
-                                className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 hover:border-blue-500 transition-all cursor-pointer"
+                                className="group bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl p-5 hover:border-blue-200 dark:hover:border-blue-900/50 transition-all cursor-pointer shadow-sm flex flex-col"
                             >
-                                <div className="flex items-center gap-2 mb-3">
-                                    <span className="text-[10px] font-mono text-blue-600 dark:text-blue-400 font-bold">SFS {source.sfsNumber || 'REGELVERK'}</span>
+                                <div className="flex items-center justify-between mb-3">
+                                    <span className="text-[9px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest">{source.type}</span>
+                                    <span className="text-[9px] font-mono text-slate-400">SFS {source.sfsNumber || 'REGELVERK'}</span>
                                 </div>
-                                <h3 className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">{source.label}</h3>
-                                <div className="mt-4 flex justify-between items-center">
-                                    <span className="text-[10px] font-medium text-slate-400 uppercase tracking-wider">{source.shortName}</span>
-                                    <LinkIcon className="w-4 h-4 text-slate-300 group-hover:text-blue-500" />
+                                <h3 className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors uppercase italic tracking-tight mb-4">{source.label}</h3>
+                                <div className="mt-auto pt-3 border-t border-slate-50 dark:border-slate-800 flex justify-between items-center">
+                                    <span className="text-[9px] font-medium text-slate-400 uppercase tracking-wider">{source.shortName}</span>
+                                    <LinkIcon className="w-3.5 h-3.5 text-slate-300 group-hover:text-blue-500" />
                                 </div>
                             </div>
                         ))}
                     </div>
+                    {filteredIndex.length === 0 && (
+                        <div className="py-20 text-center opacity-20 flex flex-col items-center">
+                            <LawIcon className="h-16 w-16 mb-4" />
+                            <p className="text-lg font-bold uppercase italic tracking-widest">Inga matchningar funna</p>
+                        </div>
+                    )}
                 </main>
             </div>
         ) : (

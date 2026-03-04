@@ -96,32 +96,28 @@ const FMJAMControlPanel: React.FC<FMJAMControlPanelProps> = ({ isOpen, onClose, 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-gray-950/95 backdrop-blur-xl z-[200] flex items-center justify-center p-4 md:p-8 outline-none animate-in fade-in duration-300">
-      <div className="bg-gray-900 rounded-[3rem] shadow-[0_0_100px_rgba(0,0,0,0.8)] w-full max-w-7xl h-full max-h-[95vh] flex flex-col border border-gray-800 overflow-hidden ring-1 ring-white/5">
+    <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[200] flex items-center justify-center p-4 md:p-6 outline-none animate-in fade-in duration-300">
+      <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl w-full max-w-6xl h-full max-h-[85vh] flex flex-col border border-slate-200 dark:border-slate-800 overflow-hidden ring-1 ring-white/5">
         
-        <header className="px-10 py-8 flex justify-between items-center border-b border-gray-800 bg-gray-900/50 relative overflow-hidden">
-          <div className="absolute top-0 right-0 p-20 opacity-5 pointer-events-none">
-              <ShieldCheckIcon className="w-64 h-64 text-cyan-500" />
-          </div>
-          
-          <div className="flex items-center space-x-6 relative z-10">
-            <div className="p-4 bg-cyan-500/10 rounded-[1.5rem] border border-cyan-500/20 shadow-[inset_0_0_20px_rgba(34,211,238,0.1)]">
-              <CogIcon className="h-10 w-10 text-cyan-400" />
+        <header className="px-8 py-6 flex justify-between items-center border-b border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 relative overflow-hidden">
+          <div className="flex items-center space-x-4 relative z-10">
+            <div className="p-2.5 bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-100 dark:border-blue-800">
+              <CogIcon className="h-6 w-6 text-blue-600 dark:text-blue-400" />
             </div>
             <div>
-              <h2 className="text-3xl font-black text-white tracking-tighter uppercase italic leading-none">FMJAM System Oracle</h2>
-              <p className="text-[10px] text-gray-500 font-bold uppercase tracking-[0.3em] mt-2 flex items-center">
-                  <span className="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></span>
+              <h2 className="text-lg font-semibold text-slate-900 dark:text-white tracking-tight leading-none">FMJAM System Oracle</h2>
+              <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider mt-1.5 flex items-center">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-2 animate-pulse"></span>
                   v.7.6.0-GOLD | SECURITY_CORE_LOCKED
               </p>
             </div>
           </div>
 
-          <div className="flex items-center space-x-3 relative z-10">
+          <div className="flex items-center space-x-2 relative z-10">
             <button 
                 onClick={handleBakeIndex}
                 disabled={isBaking}
-                className="hidden md:flex items-center space-x-2 bg-cyan-950/30 hover:bg-cyan-900/50 text-cyan-400 px-6 py-2.5 rounded-xl transition-all font-black text-[10px] uppercase tracking-widest border border-cyan-900/30"
+                className="hidden md:flex items-center space-x-2 bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/30 text-blue-700 dark:text-blue-400 px-4 py-2 rounded-lg transition-all font-bold text-[10px] uppercase tracking-widest border border-blue-100 dark:border-blue-800/50"
             >
                 {isBaking ? <Spinner className="h-4 w-4" /> : <CpuChipIcon className="h-4 w-4" />}
                 <span>Bake RAG Index</span>
@@ -129,91 +125,91 @@ const FMJAMControlPanel: React.FC<FMJAMControlPanelProps> = ({ isOpen, onClose, 
             <button 
                 onClick={handleRepair}
                 disabled={isRepairing}
-                className="hidden md:flex items-center space-x-2 bg-red-950/30 hover:bg-red-900/50 text-red-500 px-6 py-2.5 rounded-xl transition-all font-black text-[10px] uppercase tracking-widest border border-red-900/30"
+                className="hidden md:flex items-center space-x-2 bg-red-50 dark:bg-red-900/20 hover:bg-red-100 dark:hover:bg-red-900/30 text-red-700 dark:text-red-400 px-4 py-2 rounded-lg transition-all font-bold text-[10px] uppercase tracking-widest border border-red-100 dark:border-red-800/50"
             >
                 {isRepairing ? <ArrowPathIcon className="h-4 w-4 animate-spin" /> : <ExclamationTriangleIcon className="h-4 w-4" />}
                 <span>Nöd-reparation</span>
             </button>
-            <button onClick={onClose} className="p-3 text-gray-500 hover:text-white hover:bg-gray-800 rounded-2xl transition-all">
-              <XMarkIcon className="h-8 w-8" />
+            <button onClick={onClose} className="p-2 text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all">
+              <XMarkIcon className="h-6 w-6" />
             </button>
           </div>
         </header>
 
         {/* STATUS BAR (STATISTIK & QUOTA) */}
-        <div className="grid grid-cols-1 md:grid-cols-4 border-b border-gray-800 bg-black/20">
+        <div className="grid grid-cols-1 md:grid-cols-4 border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/20">
             <StatCard label="Verifierade Lagrum" value={`${stats.percent}%`} sub={`${stats.verified}/${stats.total} SFS-poster`} color="cyan" />
             <StatCard label="Pending Audit" value={stats.pending.toString()} sub="Väntar på validering" color="purple" />
             <StatCard label="Integritet" value="LOCKED" sub="SFS 2025:400 COMPLIANT" color="green" />
             
-            <div className={`p-8 border-l border-gray-800 transition-colors ${quota.isThrottled ? 'bg-orange-500/10' : 'bg-transparent'}`}>
+            <div className={`p-6 border-l border-slate-100 dark:border-slate-800 transition-colors ${quota.isThrottled ? 'bg-orange-500/10' : 'bg-transparent'}`}>
                 <div className="flex justify-between items-start mb-2">
-                    <p className="text-[10px] font-black text-gray-500 uppercase tracking-widest">Resource Quota</p>
-                    <BoltIcon className={`h-5 w-5 ${quota.isThrottled ? 'text-orange-500 animate-pulse' : 'text-gray-700'}`} />
+                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Resource Quota</p>
+                    <BoltIcon className={`h-4 w-4 ${quota.isThrottled ? 'text-orange-500 animate-pulse' : 'text-slate-400'}`} />
                 </div>
-                <p className={`text-2xl font-black italic tracking-tighter ${quota.isThrottled ? 'text-orange-500' : 'text-green-500'}`}>
+                <p className={`text-xl font-bold italic tracking-tight ${quota.isThrottled ? 'text-orange-500' : 'text-emerald-500'}`}>
                     {quota.isThrottled ? 'THROTTLED' : 'STABLE'}
                 </p>
-                <p className="text-[9px] font-bold text-gray-600 uppercase mt-2">
+                <p className="text-[9px] font-bold text-slate-500 uppercase mt-1.5">
                     {quota.isThrottled ? `RETRY_IN: ${Math.round(quota.retryAfterMs/1000)}s` : 'API Gateway: Operational'}
                 </p>
             </div>
         </div>
 
         {/* SEARCH & FILTERS */}
-        <div className="p-10 border-b border-gray-800 bg-gray-900/30 flex flex-col md:flex-row gap-8 items-center">
+        <div className="p-8 border-b border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col md:flex-row gap-6 items-center">
             <div className="flex-grow w-full relative">
-                <div className="absolute inset-y-0 left-5 flex items-center pointer-events-none">
-                    <LawIcon className="h-6 w-6 text-gray-500" />
+                <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+                    <LawIcon className="h-5 w-5 text-slate-400" />
                 </div>
                 <input 
                     type="text" 
-                    placeholder="Filtrera ramverk (t.ex. 'SoL 2025', 'Barnets bästa')..."
-                    className="w-full bg-gray-950 border border-gray-800 rounded-[1.5rem] py-5 pl-14 pr-6 text-white placeholder-gray-700 focus:ring-2 focus:ring-cyan-500/30 outline-none transition-all font-medium"
+                    placeholder="Filtrera ramverk..."
+                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl py-3 pl-12 pr-4 text-sm text-slate-900 dark:text-white placeholder-slate-500 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all font-medium"
                     value={filter}
                     onChange={(e) => setFilter(e.target.value)}
                 />
             </div>
-            <div className="flex bg-gray-950 p-1.5 rounded-[1.2rem] border border-gray-800 shadow-inner">
-                <TabButton active={activeTab === 'all'} onClick={() => setActiveTab('all')}>Fullständig Katalog</TabButton>
-                <TabButton active={activeTab === 'verified'} onClick={() => setActiveTab('verified')}>Låsta (Gold)</TabButton>
-                <TabButton active={activeTab === 'pending'} onClick={() => setActiveTab('pending')}>Overifierade</TabButton>
+            <div className="flex bg-slate-50 dark:bg-slate-950 p-1 rounded-lg border border-slate-200 dark:border-slate-800">
+                <TabButton active={activeTab === 'all'} onClick={() => setActiveTab('all')}>Allt</TabButton>
+                <TabButton active={activeTab === 'verified'} onClick={() => setActiveTab('verified')}>Låsta</TabButton>
+                <TabButton active={activeTab === 'pending'} onClick={() => setActiveTab('pending')}>Pending</TabButton>
             </div>
         </div>
 
         {/* MAIN LIST */}
-        <main className="flex-grow overflow-y-auto p-10 custom-scrollbar bg-gray-950/40">
-            <div className="grid grid-cols-1 gap-6">
+        <main className="flex-grow overflow-y-auto p-8 custom-scrollbar bg-slate-50 dark:bg-slate-950/20">
+            <div className="grid grid-cols-1 gap-4">
                 {filteredSources.map((source) => (
-                    <div key={source.id} className="group bg-gray-900/40 border border-gray-800 rounded-[2.5rem] p-8 hover:bg-gray-800/60 transition-all duration-300 relative overflow-hidden">
-                        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 relative z-10">
+                    <div key={source.id} className="group bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-6 hover:border-blue-200 dark:hover:border-blue-900/50 transition-all duration-300 relative overflow-hidden shadow-sm">
+                        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 relative z-10">
                             <div className="flex-grow">
-                                <div className="flex items-center gap-4 mb-4">
-                                    <span className={`text-[9px] font-black uppercase px-3 py-1 rounded-full border tracking-widest ${source.auditTrail.status === 'VERIFIED' ? 'bg-green-950/30 text-green-400 border-green-500/20' : 'bg-red-950/30 text-red-400 border-red-500/20'}`}>
+                                <div className="flex items-center gap-3 mb-3">
+                                    <span className={`text-[8px] font-bold uppercase px-2 py-0.5 rounded-full border tracking-widest ${source.auditTrail.status === 'VERIFIED' ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 border-emerald-100 dark:border-emerald-900/50' : 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 border-red-100 dark:border-red-900/50'}`}>
                                         {source.auditTrail.status}
                                     </span>
-                                    <span className="text-[10px] font-mono text-cyan-500/60 font-black">REF_LOCKED: SFS {source.sfsNumber}</span>
+                                    <span className="text-[9px] font-mono text-blue-500/60 font-bold">SFS {source.sfsNumber}</span>
                                     {source.version.includes('2025') && (
-                                        <span className="bg-yellow-500/10 text-yellow-500 text-[8px] font-black px-2 py-0.5 rounded border border-yellow-500/20">NEW_REFORM</span>
+                                        <span className="bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400 text-[8px] font-bold px-2 py-0.5 rounded border border-amber-100 dark:border-amber-900/50">REFORM</span>
                                     )}
                                 </div>
-                                <h3 className="text-2xl font-black text-white group-hover:text-cyan-400 transition-colors tracking-tight italic uppercase">{source.label}</h3>
-                                <p className="text-sm text-gray-400 mt-4 max-w-5xl leading-relaxed font-medium">{source.description}</p>
+                                <h3 className="text-lg font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors tracking-tight uppercase italic">{source.label}</h3>
+                                <p className="text-xs text-slate-500 mt-3 max-w-4xl leading-relaxed font-medium">{source.description}</p>
                             </div>
                             
-                            <div className="flex gap-3 shrink-0">
+                            <div className="flex gap-2 shrink-0">
                                 <button 
                                     onClick={() => handleVerify(source.id)}
-                                    className={`flex items-center space-x-3 text-[10px] font-black uppercase tracking-widest px-6 py-3 rounded-2xl border transition-all ${verifyingId === source.id ? 'bg-green-600 text-white border-green-400' : 'bg-gray-800/50 text-gray-400 border-gray-700 hover:text-white'}`}
+                                    className={`flex items-center space-x-2 text-[9px] font-bold uppercase tracking-widest px-4 py-2 rounded-xl border transition-all ${verifyingId === source.id ? 'bg-emerald-600 text-white border-emerald-400' : 'bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:text-slate-900 dark:hover:text-white'}`}
                                 >
                                     {verifyingId === source.id ? <CheckCircleIcon className="h-4 w-4" /> : <ActivityIcon className="h-4 w-4" />}
-                                    <span>{verifyingId === source.id ? 'Verifierad' : 'Kör Audit'}</span>
+                                    <span>{verifyingId === source.id ? 'Klar' : 'Audit'}</span>
                                 </button>
                                 <button 
                                     onClick={() => onEditItem?.(source.id)}
-                                    className="p-3 bg-cyan-950/20 text-cyan-400 rounded-2xl border border-cyan-500/10 hover:bg-cyan-500 hover:text-black transition-all"
+                                    className="p-2 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded-xl border border-blue-100 dark:border-blue-900/50 hover:bg-blue-600 hover:text-white transition-all"
                                 >
-                                    <CogIcon className="h-6 w-6" />
+                                    <CogIcon className="h-5 w-5" />
                                 </button>
                             </div>
                         </div>
@@ -222,33 +218,33 @@ const FMJAMControlPanel: React.FC<FMJAMControlPanelProps> = ({ isOpen, onClose, 
                 
                 {filteredSources.length === 0 && (
                     <div className="py-20 text-center opacity-20 flex flex-col items-center">
-                        <InformationCircleIcon className="h-24 w-24 mb-6" />
-                        <p className="text-2xl font-black uppercase italic tracking-[0.3em]">Inga matchningar funna</p>
+                        <InformationCircleIcon className="h-16 w-16 mb-4" />
+                        <p className="text-lg font-bold uppercase italic tracking-widest">Inga matchningar</p>
                     </div>
                 )}
             </div>
         </main>
         
         {/* FOOTER */}
-        <footer className="px-10 py-6 border-t border-gray-800 bg-gray-900/50 flex justify-between items-center relative z-20">
-            <div className="flex items-center space-x-6">
-                <div className="flex items-center space-x-3 text-gray-600">
-                    <ActivityIcon className="h-5 w-5" />
-                    <span className="text-[10px] font-black uppercase tracking-[0.2em]">Telemetry: ACTIVE | System State: Gold</span>
+        <footer className="px-8 py-4 border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 flex justify-between items-center relative z-20">
+            <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-2 text-slate-400">
+                    <ActivityIcon className="h-4 w-4" />
+                    <span className="text-[9px] font-bold uppercase tracking-wider">Telemetry: ACTIVE</span>
                 </div>
-                <div className="h-4 w-px bg-gray-800"></div>
+                <div className="h-3 w-px bg-slate-200 dark:bg-slate-800"></div>
                 <button 
                     onClick={onReturnHome}
-                    className="flex items-center space-x-2 text-cyan-500 hover:text-cyan-400 text-[10px] font-black uppercase tracking-widest transition-all"
+                    className="flex items-center space-x-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 text-[9px] font-bold uppercase tracking-widest transition-all"
                 >
                     <HomeIcon className="h-4 w-4" />
-                    <span>Return to Root Dashboard</span>
+                    <span>Dashboard</span>
                 </button>
             </div>
-            <div className="flex items-center gap-4">
-                <span className="text-[10px] font-mono text-gray-700 font-bold uppercase">Trace_ID: {crypto.randomUUID().substring(0,8)}</span>
-                <span className="text-[10px] font-mono text-gray-500 font-bold bg-black/40 px-3 py-1 rounded-full border border-gray-800">
-                    SYNC: {new Date().toLocaleTimeString()}
+            <div className="flex items-center gap-3">
+                <span className="text-[9px] font-mono text-slate-400 uppercase opacity-50">v7.3.2</span>
+                <span className="text-[9px] font-mono text-slate-500 font-bold bg-slate-50 dark:bg-slate-950 px-3 py-1 rounded-full border border-slate-200 dark:border-slate-800">
+                    {new Date().toLocaleTimeString()}
                 </span>
             </div>
         </footer>

@@ -45,87 +45,87 @@ const AuditPanel: React.FC<AuditPanelProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-gray-950/95 backdrop-blur-xl z-[250] flex items-center justify-center p-4 md:p-8 animate-in fade-in duration-300">
-      <div className="bg-gray-900 rounded-[3rem] shadow-2xl w-full max-w-6xl h-full max-h-[90vh] flex flex-col border border-gray-800 overflow-hidden ring-1 ring-white/5">
+    <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[250] flex items-center justify-center p-4 md:p-6 outline-none animate-in fade-in duration-300">
+      <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl w-full max-w-4xl h-full max-h-[85vh] flex flex-col border border-slate-200 dark:border-slate-800 overflow-hidden font-sans">
         
-        <header className="px-10 py-8 flex justify-between items-center border-b border-gray-800 bg-gray-900/50">
-          <div className="flex items-center space-x-6">
-            <div className={`p-4 rounded-2xl border ${status === 'GREEN' ? 'bg-green-500/10 border-green-500/20' : status === 'YELLOW' ? 'bg-yellow-500/10 border-yellow-500/20' : 'bg-red-500/10 border-red-500/20'}`}>
-                <ShieldCheckIcon className={`h-10 w-10 ${status === 'GREEN' ? 'text-green-400' : status === 'YELLOW' ? 'text-yellow-400' : 'text-red-400'}`} />
+        <header className="px-8 py-6 flex justify-between items-center border-b border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900">
+          <div className="flex items-center space-x-4">
+            <div className={`p-2.5 rounded-xl border ${status === 'GREEN' ? 'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-100 dark:border-emerald-800' : status === 'YELLOW' ? 'bg-amber-50 dark:bg-amber-900/20 border-amber-100 dark:border-amber-800' : 'bg-red-50 dark:bg-red-900/20 border-red-100 dark:border-red-800'}`}>
+                <ShieldCheckIcon className={`h-6 w-6 ${status === 'GREEN' ? 'text-emerald-600 dark:text-emerald-400' : status === 'YELLOW' ? 'text-amber-600 dark:text-amber-400' : 'text-red-600 dark:text-red-400'}`} />
             </div>
             <div>
-              <h2 className="text-3xl font-black text-white tracking-tighter uppercase italic leading-none">System Audit Trail</h2>
-              <div className="flex items-center mt-2 space-x-3">
-                <span className={`w-2 h-2 rounded-full ${status === 'GREEN' ? 'bg-green-500' : 'bg-red-500'} animate-pulse`}></span>
-                <p className="text-[10px] text-gray-500 font-bold uppercase tracking-[0.3em]">Integrity Level: {status} | {logs.length} TRANSACTION_LOGS</p>
+              <h2 className="text-lg font-semibold text-slate-900 dark:text-white tracking-tight leading-none">System Audit Trail</h2>
+              <div className="flex items-center mt-1.5 space-x-2">
+                <span className={`w-1.5 h-1.5 rounded-full ${status === 'GREEN' ? 'bg-emerald-500' : 'bg-red-500'} animate-pulse`}></span>
+                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Integritet: {status} | {logs.length} LOGGAR</p>
               </div>
             </div>
           </div>
 
-          <div className="flex items-center space-x-3">
-            <button onClick={() => auditService.exportLogs('ALL')} className="p-3 text-gray-400 hover:text-cyan-400 transition-all bg-gray-800 rounded-2xl">
-              <ArrowDownTrayIcon className="h-6 w-6" />
+          <div className="flex items-center space-x-2">
+            <button onClick={() => auditService.exportLogs('ALL')} className="p-2 text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-all bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-100 dark:border-slate-700">
+              <ArrowDownTrayIcon className="h-5 w-5" />
             </button>
-            <button onClick={loadLogs} className="p-3 text-gray-400 hover:text-white transition-all bg-gray-800 rounded-2xl">
-              <ArrowPathIcon className={`h-6 w-6 ${isLoading ? 'animate-spin' : ''}`} />
+            <button onClick={loadLogs} className="p-2 text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-100 dark:border-slate-700">
+              <ArrowPathIcon className={`h-5 w-5 ${isLoading ? 'animate-spin' : ''}`} />
             </button>
-            <button onClick={onClose} className="p-3 text-gray-500 hover:text-white hover:bg-gray-800 rounded-2xl transition-all">
-              <XMarkIcon className="h-8 w-8" />
+            <button onClick={onClose} className="p-2 text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all">
+              <XMarkIcon className="h-6 w-6" />
             </button>
           </div>
         </header>
 
-        <main className="flex-grow overflow-y-auto p-10 custom-scrollbar bg-gray-950/40">
-            <div className="space-y-4">
+        <main className="flex-grow overflow-y-auto p-6 custom-scrollbar bg-slate-50 dark:bg-slate-950/20">
+            <div className="space-y-3">
                 {logs.length > 0 ? logs.map((log) => (
-                    <div key={log.id} className="group bg-gray-900/40 border border-gray-800 rounded-2xl p-6 hover:bg-gray-800/60 transition-all relative overflow-hidden">
+                    <div key={log.id} className="group bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl p-4 hover:border-blue-200 dark:hover:border-blue-900/50 transition-all relative overflow-hidden shadow-sm">
                         <div className="flex justify-between items-start">
-                            <div className="flex items-center space-x-4">
-                                <div className={`p-2 rounded-xl bg-black/40 border ${log.status === 'OK' ? 'border-green-500/20 text-green-400' : 'border-orange-500/20 text-orange-400'}`}>
-                                    {log.operationType === 'INGEST' ? <ArrowPathIcon className="h-5 w-5" /> : log.operationType === 'INDEX' ? <CpuChipIcon className="h-5 w-5" /> : <InformationCircleIcon className="h-5 w-5" />}
+                            <div className="flex items-center space-x-3">
+                                <div className={`p-2 rounded-lg bg-slate-50 dark:bg-slate-800 border ${log.status === 'OK' ? 'border-emerald-100 dark:border-emerald-900/50 text-emerald-600 dark:text-emerald-400' : 'border-orange-100 dark:border-orange-900/50 text-orange-600 dark:text-orange-400'}`}>
+                                    {log.operationType === 'INGEST' ? <ArrowPathIcon className="h-4 w-4" /> : log.operationType === 'INDEX' ? <CpuChipIcon className="h-4 w-4" /> : <InformationCircleIcon className="h-4 w-4" />}
                                 </div>
                                 <div>
-                                    <div className="flex items-center space-x-3">
-                                        <span className="text-[10px] font-black uppercase tracking-widest text-cyan-500">{log.operationType}</span>
-                                        <span className="text-[9px] font-mono text-gray-600">{new Date(log.timestamp).toLocaleString()}</span>
+                                    <div className="flex items-center space-x-2">
+                                        <span className="text-[9px] font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">{log.operationType}</span>
+                                        <span className="text-[9px] font-mono text-slate-400">{new Date(log.timestamp).toLocaleTimeString()}</span>
                                     </div>
-                                    <p className="text-sm font-bold text-white mt-1 uppercase italic tracking-tight">{log.resultSummary}</p>
+                                    <p className="text-xs font-semibold text-slate-900 dark:text-white mt-1 uppercase tracking-tight">{log.resultSummary}</p>
                                 </div>
                             </div>
                             <div className="text-right">
-                                <span className="text-[9px] font-mono text-gray-700 block uppercase">Log_ID: {log.id}</span>
-                                <span className={`text-[8px] font-black px-2 py-0.5 rounded mt-1 inline-block border ${log.status === 'OK' ? 'bg-green-950/30 text-green-500 border-green-500/20' : 'bg-red-950/30 text-red-500 border-red-500/20'}`}>
+                                <span className="text-[8px] font-mono text-slate-400 block uppercase opacity-50">ID: {log.id.substring(0, 8)}</span>
+                                <span className={`text-[8px] font-bold px-1.5 py-0.5 rounded mt-1 inline-block border ${log.status === 'OK' ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 border-emerald-100 dark:border-emerald-900/50' : 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 border-red-100 dark:border-red-900/50'}`}>
                                     {log.status}
                                 </span>
                             </div>
                         </div>
                         
-                        <div className="mt-4 pt-4 border-t border-gray-800 flex flex-wrap gap-4">
-                            <div className="flex items-center space-x-2">
-                                <span className="text-[8px] font-black text-gray-600 uppercase">Provenance Hashes:</span>
-                                <span className="text-[9px] font-mono text-cyan-500/60">{log.provenanceHashes.length} locked</span>
+                        <div className="mt-3 pt-3 border-t border-slate-50 dark:border-slate-800 flex flex-wrap gap-3">
+                            <div className="flex items-center space-x-1.5">
+                                <span className="text-[8px] font-bold text-slate-400 uppercase tracking-wider">Hashes:</span>
+                                <span className="text-[9px] font-mono text-blue-500/60">{log.provenanceHashes.length} låsta</span>
                             </div>
-                            <div className="flex items-center space-x-2">
-                                <span className="text-[8px] font-black text-gray-600 uppercase">Affected:</span>
-                                <span className="text-[9px] font-mono text-purple-400">{log.affectedLaws.join(', ') || 'Global'}</span>
+                            <div className="flex items-center space-x-1.5">
+                                <span className="text-[8px] font-bold text-slate-400 uppercase tracking-wider">Omfattning:</span>
+                                <span className="text-[9px] font-mono text-purple-400 truncate max-w-[200px]">{log.affectedLaws.join(', ') || 'Global'}</span>
                             </div>
                         </div>
                     </div>
                 )) : (
                     <div className="py-20 text-center opacity-20 flex flex-col items-center">
-                        <InformationCircleIcon className="h-24 w-24 mb-6" />
-                        <p className="text-2xl font-black uppercase italic tracking-[0.3em]">Audit buffer empty</p>
+                        <InformationCircleIcon className="h-16 w-16 mb-4" />
+                        <p className="text-lg font-bold uppercase italic tracking-widest">Audit buffer empty</p>
                     </div>
                 )}
             </div>
         </main>
         
-        <footer className="px-10 py-6 border-t border-gray-800 bg-gray-900/50 flex justify-between items-center">
-            <div className="flex items-center space-x-3 text-gray-600">
-                <CheckCircleIcon className="h-5 w-5" />
-                <span className="text-[10px] font-black uppercase tracking-[0.2em]">Compliance Engine: Active | SFS 2025:400 Logged</span>
+        <footer className="px-8 py-4 border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 flex justify-between items-center">
+            <div className="flex items-center space-x-3 text-slate-400">
+                <CheckCircleIcon className="h-4 w-4 text-emerald-500" />
+                <span className="text-[9px] font-bold uppercase tracking-wider">Compliance: Aktiv | SFS 2025:400</span>
             </div>
-            <span className="text-[10px] font-mono text-gray-700 uppercase">System Integrity Checked: {new Date().toLocaleTimeString()}</span>
+            <span className="text-[9px] font-mono text-slate-400 uppercase opacity-50">{new Date().toLocaleTimeString()}</span>
         </footer>
       </div>
     </div>

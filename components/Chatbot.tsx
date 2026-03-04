@@ -138,70 +138,69 @@ const Chatbot: React.FC<ChatbotProps> = ({ isOpen, onClose, ragService, currentA
   if (!isOpen) return null;
 
   return (
-    <div className="fixed bottom-24 right-6 w-full max-w-lg h-[80vh] max-h-[850px] z-[200] flex flex-col animate-in zoom-in-95 slide-in-from-bottom-10 duration-300">
-        <div className="bg-gray-950 rounded-t-[2.5rem] border-x border-t border-red-900/30 shadow-[0_-20px_50px_rgba(239,68,68,0.2)] p-8 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-red-600 via-purple-600 to-red-600 animate-pulse"></div>
+    <div className="fixed bottom-6 right-6 w-full max-w-sm h-[70vh] max-h-[600px] z-[200] flex flex-col animate-in zoom-in-95 slide-in-from-bottom-10 duration-300">
+        <div className="bg-white dark:bg-slate-900 rounded-t-2xl border-x border-t border-slate-200 dark:border-slate-800 p-6 relative overflow-hidden shadow-xl">
             <div className="flex justify-between items-center relative z-10">
-                <div className="flex items-center space-x-5">
-                    <div className="p-4 bg-red-600/10 rounded-2xl border border-red-500/20 shadow-[0_0_20px_rgba(239,68,68,0.2)]">
-                        <LawIcon className="h-8 w-8 text-red-500" />
+                <div className="flex items-center space-x-3">
+                    <div className="p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-800">
+                        <LawIcon className="h-5 w-5 text-blue-600 dark:text-blue-400" />
                     </div>
                     <div>
-                        <h3 className="text-2xl font-black text-white uppercase italic tracking-tighter leading-none">v2.2 DECISION ENGINE</h3>
-                        <div className="flex items-center space-x-2 mt-2">
-                            <span className="flex h-1.5 w-1.5 rounded-full bg-red-500 animate-ping"></span>
-                            <span className="text-[9px] font-black text-red-500 uppercase tracking-[0.4em]">Auth Level: Decision Support</span>
+                        <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-tight leading-none">Beslutsmotor</h3>
+                        <div className="flex items-center space-x-1.5 mt-1.5">
+                            <span className="flex h-1.5 w-1.5 rounded-full bg-blue-500 animate-pulse"></span>
+                            <span className="text-[8px] font-bold text-slate-400 uppercase tracking-widest">v2.2 Active</span>
                         </div>
                     </div>
                 </div>
-                <button onClick={onClose} className="p-3 text-gray-500 hover:text-white transition-all bg-white/5 rounded-2xl border border-gray-800">
-                    <XMarkIcon className="h-8 w-8" />
+                <button onClick={onClose} className="p-1.5 text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
+                    <XMarkIcon className="h-5 w-5" />
                 </button>
             </div>
         </div>
 
-        <div className="flex-1 bg-gray-950/98 backdrop-blur-3xl overflow-y-auto p-8 space-y-8 custom-scrollbar border-x border-gray-900 shadow-inner">
+        <div className="flex-1 bg-white dark:bg-slate-900 overflow-y-auto p-6 space-y-6 custom-scrollbar border-x border-slate-200 dark:border-slate-800 shadow-inner">
             {messages.map((msg, index) => (
-                <div key={index} className={`flex items-start gap-5 ${msg.role === 'user' ? 'justify-end' : ''} animate-in fade-in duration-500`}>
+                <div key={index} className={`flex items-start gap-3 ${msg.role === 'user' ? 'justify-end' : ''} animate-in fade-in duration-500`}>
                     {msg.role === 'model' && (
-                        <div className="flex-shrink-0 h-12 w-12 rounded-2xl bg-gray-900 border border-red-500/20 flex items-center justify-center text-red-500 shadow-2xl">
-                            <CpuChipIcon className="h-6 w-6"/>
+                        <div className="flex-shrink-0 h-8 w-8 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-blue-600 dark:text-blue-400">
+                            <CpuChipIcon className="h-4 w-4"/>
                         </div>
                     )}
-                    <div className={`max-w-[88%] px-6 py-5 rounded-[2rem] shadow-2xl relative border ${
+                    <div className={`max-w-[85%] px-4 py-3 rounded-2xl text-sm ${
                         msg.role === 'user' 
-                        ? 'bg-cyan-900/20 border-cyan-500/30 text-cyan-50 rounded-tr-none' 
-                        : 'bg-gray-900/90 border-gray-800 text-gray-200 rounded-tl-none'
+                        ? 'bg-blue-600 text-white rounded-tr-none' 
+                        : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-tl-none border border-slate-200 dark:border-slate-700'
                     }`}>
                         <SafeChatText text={msg.text} />
                         
                         {(msg.queryId || msg.reasoning || msg.decisionSupport) && (
-                            <div className="mt-4 flex flex-wrap gap-2">
+                            <div className="mt-3 flex flex-wrap gap-1.5">
                                 {msg.decisionSupport && (
                                     <button 
                                         onClick={() => setActiveDecision(msg.decisionSupport!)}
-                                        className="flex items-center space-x-2 text-[9px] font-black uppercase tracking-widest text-green-400 hover:text-green-300 bg-green-950/30 px-3 py-1.5 rounded-lg border border-green-500/10 transition-all"
+                                        className="flex items-center space-x-1.5 text-[8px] font-bold uppercase tracking-wider text-green-600 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/20 px-2 py-1 rounded border border-green-200 dark:border-green-800 transition-all"
                                     >
-                                        <CheckCircleIcon className="h-3 w-3" />
-                                        <span>Visa Beslutsstöd</span>
+                                        <CheckCircleIcon className="h-2.5 w-2.5" />
+                                        <span>Beslutsstöd</span>
                                     </button>
                                 )}
                                 {msg.reasoning && (
                                     <button 
                                         onClick={() => setActiveReasoning(msg.reasoning!)}
-                                        className="flex items-center space-x-2 text-[9px] font-black uppercase tracking-widest text-indigo-400 hover:text-indigo-300 bg-indigo-950/30 px-3 py-1.5 rounded-lg border border-indigo-500/10 transition-all"
+                                        className="flex items-center space-x-1.5 text-[8px] font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 px-2 py-1 rounded border border-indigo-200 dark:border-indigo-800 transition-all"
                                     >
-                                        <SparklesIcon className="h-3 w-3" />
-                                        <span>Visa Juridisk Motivering</span>
+                                        <SparklesIcon className="h-2.5 w-2.5" />
+                                        <span>Motivering</span>
                                     </button>
                                 )}
                                 {msg.queryId && (
                                     <button 
                                         onClick={() => setActiveQueryId(msg.queryId!)}
-                                        className="flex items-center space-x-2 text-[9px] font-black uppercase tracking-widest text-cyan-500 hover:text-cyan-400 bg-cyan-950/30 px-3 py-1.5 rounded-lg border border-cyan-500/10 transition-all"
+                                        className="flex items-center space-x-1.5 text-[8px] font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 px-2 py-1 rounded border border-blue-200 dark:border-blue-800 transition-all"
                                     >
-                                        <ShieldCheckIcon className="h-3 w-3" />
-                                        <span>Visa Beviskedja</span>
+                                        <ShieldCheckIcon className="h-2.5 w-2.5" />
+                                        <span>Bevis</span>
                                     </button>
                                 )}
                             </div>
@@ -210,14 +209,13 @@ const Chatbot: React.FC<ChatbotProps> = ({ isOpen, onClose, ragService, currentA
                 </div>
             ))}
             {isLoading && (
-                 <div className="flex items-start gap-5 animate-pulse">
-                    <div className="flex-shrink-0 h-12 w-12 rounded-2xl bg-gray-900 border border-red-500/20 flex items-center justify-center text-red-400"><Spinner className="h-6 w-6"/></div>
-                    <div className="max-w-[88%] px-6 py-5 rounded-[2rem] bg-gray-900 border border-gray-800 shadow-xl">
-                        <p className="text-[10px] font-black uppercase tracking-[0.4em] text-red-500 mb-2">Generating Decision Support...</p>
-                        <div className="flex space-x-2">
-                            <div className="h-1.5 w-1.5 bg-red-600 rounded-full animate-bounce"></div>
-                            <div className="h-1.5 w-1.5 bg-red-600 rounded-full animate-bounce [animation-delay:0.2s]"></div>
-                            <div className="h-1.5 w-1.5 bg-red-600 rounded-full animate-bounce [animation-delay:0.4s]"></div>
+                 <div className="flex items-start gap-3 animate-pulse">
+                    <div className="flex-shrink-0 h-8 w-8 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-blue-600 dark:text-blue-400"><Spinner className="h-4 w-4"/></div>
+                    <div className="max-w-[85%] px-4 py-3 rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                        <div className="flex space-x-1.5">
+                            <div className="h-1 w-1 bg-blue-600 rounded-full animate-bounce"></div>
+                            <div className="h-1 w-1 bg-blue-600 rounded-full animate-bounce [animation-delay:0.2s]"></div>
+                            <div className="h-1 w-1 bg-blue-600 rounded-full animate-bounce [animation-delay:0.4s]"></div>
                         </div>
                     </div>
                 </div>
@@ -225,23 +223,23 @@ const Chatbot: React.FC<ChatbotProps> = ({ isOpen, onClose, ragService, currentA
             <div ref={messagesEndRef} />
         </div>
 
-        <div className="bg-gray-950 rounded-b-[2.5rem] p-8 border-x border-b border-gray-900">
+        <div className="bg-white dark:bg-slate-900 rounded-b-2xl p-6 border-x border-b border-slate-200 dark:border-slate-800 shadow-xl">
             <div className="relative group">
                 <input
                     type="text"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-                    placeholder="Fråga DECISION ENGINE..."
-                    className="w-full bg-black/50 border border-gray-800 rounded-3xl py-5 pl-8 pr-20 text-sm text-white placeholder-gray-700 focus:ring-4 focus:ring-red-500/10 focus:border-red-500/40 outline-none transition-all shadow-inner"
+                    placeholder="Skriv ett meddelande..."
+                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl py-3 pl-4 pr-12 text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all"
                     disabled={isLoading}
                 />
                 <button
                     onClick={() => handleSend()}
                     disabled={isLoading || !input.trim()}
-                    className="absolute right-3 top-3 p-3 bg-red-600 hover:bg-red-500 disabled:bg-gray-900 text-white rounded-2xl transition-all shadow-2xl active:scale-95 border border-red-400/20"
+                    className="absolute right-2 top-2 p-2 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-200 dark:disabled:bg-slate-800 text-white rounded-lg transition-all"
                 >
-                    <PaperAirplaneIcon className="h-6 w-6" />
+                    <PaperAirplaneIcon className="h-4 w-4" />
                 </button>
             </div>
         </div>

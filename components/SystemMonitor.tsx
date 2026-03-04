@@ -80,19 +80,19 @@ const SystemMonitor: React.FC<SystemMonitorProps> = ({ isOpen, onClose }) => {
     const isBypassed = repoStatus?.isBypassed;
 
     return (
-        <div className="fixed inset-0 bg-white/80 backdrop-blur-sm z-[150] flex items-center justify-center p-4 md:p-8 animate-in fade-in duration-200">
-            <div className={`bg-white rounded-2xl shadow-2xl w-full max-w-6xl h-full max-h-[90vh] flex flex-col border overflow-hidden ${isOffline ? 'border-orange-200' : 'border-gray-200'}`}>
+        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[150] flex items-center justify-center p-4 md:p-6 animate-in fade-in duration-200">
+            <div className={`bg-white dark:bg-slate-900 rounded-2xl shadow-2xl w-full max-w-5xl h-full max-h-[85vh] flex flex-col border overflow-hidden ${isOffline ? 'border-orange-200' : 'border-slate-200 dark:border-slate-800'}`}>
                 
-                <header className="px-8 py-6 border-b border-gray-200 bg-gray-50 flex justify-between items-center relative overflow-hidden">
+                <header className="px-8 py-6 border-b border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 flex justify-between items-center relative overflow-hidden">
                     <div className="flex items-center space-x-4 relative z-10">
-                        <div className={`p-2.5 rounded-xl border ${isOffline ? 'bg-orange-50 border-orange-200' : 'bg-gray-100 border-gray-200'}`}>
-                            <BoltIcon className={`h-6 w-6 ${isOffline ? 'text-orange-600 animate-pulse' : 'text-gray-600'}`} />
+                        <div className={`p-2.5 rounded-xl border ${isOffline ? 'bg-orange-50 border-orange-200' : 'bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700'}`}>
+                            <BoltIcon className={`h-6 w-6 ${isOffline ? 'text-orange-600 animate-pulse' : 'text-slate-600 dark:text-slate-400'}`} />
                         </div>
                         <div>
-                            <h2 className="text-xl font-medium text-[#1A202C] tracking-tight">System Oracle Monitor</h2>
-                            <p className={`text-sm mt-0.5 flex items-center ${isOffline ? 'text-orange-600' : 'text-gray-500'}`}>
+                            <h2 className="text-lg font-semibold text-slate-900 dark:text-white tracking-tight">System Oracle Monitor</h2>
+                            <p className={`text-xs mt-0.5 flex items-center ${isOffline ? 'text-orange-600' : 'text-slate-500'}`}>
                                 <span className={`w-1.5 h-1.5 rounded-full mr-2 ${isOffline ? 'bg-orange-600 animate-ping' : 'bg-emerald-600'}`}></span>
-                                {isBypassed ? 'SÄKERHETSBypass AKTIV' : (isOffline ? 'Gateway-förbindelse förlorad: Resilient läge' : 'GitHub-länk: Stabil')}
+                                {isBypassed ? 'SÄKERHETSBypass AKTIV' : (isOffline ? 'Gateway-förbindelse förlorad' : 'GitHub-länk: Stabil')}
                             </p>
                         </div>
                     </div>
@@ -101,18 +101,18 @@ const SystemMonitor: React.FC<SystemMonitorProps> = ({ isOpen, onClose }) => {
                         <button 
                             onClick={refreshData}
                             disabled={isRefreshing}
-                            className="flex items-center space-x-2 bg-white hover:bg-gray-50 text-sm font-medium text-gray-700 px-4 py-2 rounded-lg border border-gray-200 transition-colors"
+                            className="flex items-center space-x-2 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-xs font-medium text-slate-700 dark:text-slate-300 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 transition-colors"
                         >
-                            {isRefreshing ? <Spinner className="h-4 w-4 text-gray-400" /> : <ArrowPathIcon className="h-4 w-4 text-gray-400" />}
+                            {isRefreshing ? <Spinner className="h-3.5 w-3.5 text-slate-400" /> : <ArrowPathIcon className="h-3.5 w-3.5 text-slate-400" />}
                             <span>Uppdatera</span>
                         </button>
-                        <button onClick={onClose} className="p-2 text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                        <button onClick={onClose} className="p-1.5 text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors">
                             <XMarkIcon className="h-6 w-6" />
                         </button>
                     </div>
                 </header>
 
-                <main className="flex-grow overflow-y-auto p-8 space-y-8 custom-scrollbar bg-[#FCFCFC]">
+                <main className="flex-grow overflow-y-auto p-6 space-y-6 custom-scrollbar bg-slate-50 dark:bg-slate-950/20">
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                         <StatusCard label="Gateway API" status={isBypassed ? 'BYPASSED' : (isOffline ? 'UNREACHABLE' : 'STABLE')} color={isOffline ? 'red' : 'green'} details={repoStatus?.errorContext || 'READY'} />
@@ -121,39 +121,39 @@ const SystemMonitor: React.FC<SystemMonitorProps> = ({ isOpen, onClose }) => {
                         <StatusCard label="Integrity" status={isBypassed ? 'BYPASSED' : 'v7.2.5-GOLD'} color={isBypassed ? 'red' : 'blue'} details="Active Protection" />
                     </div>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
                         {/* Emergency Panel */}
                         <div className="lg:col-span-4 space-y-6">
-                            <div className={`p-6 rounded-xl border ${isOffline ? 'bg-orange-50 border-orange-200' : 'bg-white border-gray-200'}`}>
-                                <h3 className={`text-lg font-medium mb-4 flex items-center ${isOffline ? 'text-orange-800' : 'text-[#1A202C]'}`}>
-                                    <ShieldCheckIcon className="w-5 h-5 mr-2" />
+                            <div className={`p-6 rounded-xl border ${isOffline ? 'bg-orange-50 border-orange-200' : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800'}`}>
+                                <h3 className={`text-sm font-semibold mb-4 flex items-center ${isOffline ? 'text-orange-800' : 'text-slate-900 dark:text-white'}`}>
+                                    <ShieldCheckIcon className="w-4 h-4 mr-2" />
                                     Säkerhetsåsidosättning
                                 </h3>
-                                <p className="text-sm text-gray-600 mb-6 leading-relaxed">
-                                    Vid förlorad förbindelse kan du aktivera en nöd-bypass för att garantera skrivåtkomst till den lokala databasen och bibehålla arbetsflödet.
+                                <p className="text-xs text-slate-500 mb-6 leading-relaxed">
+                                    Vid förlorad förbindelse kan du aktivera en nöd-bypass för att garantera skrivåtkomst.
                                 </p>
                                 <div className="space-y-3">
                                     {!isBypassed ? (
                                         <button 
                                             onClick={handleRepair}
                                             disabled={isRepairing}
-                                            className="w-full bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 font-medium py-2.5 rounded-lg transition-colors text-sm flex items-center justify-center gap-2"
+                                            className="w-full bg-red-50 dark:bg-red-900/20 hover:bg-red-100 dark:hover:bg-red-900/30 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-900/30 font-medium py-2 rounded-lg transition-colors text-xs flex items-center justify-center gap-2"
                                         >
-                                            {isRepairing ? <Spinner className="h-4 w-4" /> : <BoltIcon className="h-4 w-4" />}
+                                            {isRepairing ? <Spinner className="h-3.5 w-3.5" /> : <BoltIcon className="h-3.5 w-3.5" />}
                                             Aktivera Nöd-Bypass
                                         </button>
                                     ) : (
                                         <button 
                                             onClick={handleDeactivateBypass}
-                                            className="w-full bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 font-medium py-2.5 rounded-lg transition-colors text-sm flex items-center justify-center gap-2"
+                                            className="w-full bg-emerald-50 dark:bg-emerald-900/20 hover:bg-emerald-100 dark:hover:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-900/30 font-medium py-2 rounded-lg transition-colors text-xs flex items-center justify-center gap-2"
                                         >
-                                            <CheckCircleIcon className="h-4 w-4" />
+                                            <CheckCircleIcon className="h-3.5 w-3.5" />
                                             Återställ Säkerhet
                                         </button>
                                     )}
                                     <button 
                                         onClick={() => setShowNukePanel(!showNukePanel)}
-                                        className="w-full bg-transparent hover:bg-gray-100 text-gray-500 font-medium py-2 rounded-lg transition-colors text-xs"
+                                        className="w-full bg-transparent hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 font-medium py-1.5 rounded-lg transition-colors text-[10px]"
                                     >
                                         Visa Terminal-fix
                                     </button>
@@ -161,12 +161,11 @@ const SystemMonitor: React.FC<SystemMonitorProps> = ({ isOpen, onClose }) => {
                             </div>
 
                             {showNukePanel && (
-                                <div className="bg-white border border-gray-200 p-5 rounded-xl animate-in slide-in-from-top-2 duration-200">
-                                    <h4 className="text-xs font-medium text-gray-500 mb-3">ÅTERSTÄLLNINGSKOMMANDON</h4>
-                                    <div className="bg-gray-50 p-4 rounded-lg border border-gray-100 font-mono text-xs text-gray-700 space-y-1.5">
-                                        <p className="text-gray-400"># För att återställa git-synk vid konflikt:</p>
+                                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 rounded-xl animate-in slide-in-from-top-2 duration-200">
+                                    <h4 className="text-[10px] font-bold text-slate-400 mb-3 uppercase tracking-wider">ÅTERSTÄLLNING</h4>
+                                    <div className="bg-slate-50 dark:bg-slate-950 p-3 rounded-lg border border-slate-100 dark:border-slate-900 font-mono text-[10px] text-slate-600 dark:text-slate-400 space-y-1">
                                         <p>git add .</p>
-                                        <p>git commit -m "FIX: Resilient Sync v727"</p>
+                                        <p>git commit -m "FIX"</p>
                                         <p>git push origin main --force</p>
                                     </div>
                                 </div>
@@ -175,35 +174,35 @@ const SystemMonitor: React.FC<SystemMonitorProps> = ({ isOpen, onClose }) => {
 
                         {/* Logs Panel */}
                         <div className="lg:col-span-8">
-                             <div className="bg-white rounded-xl border border-gray-200 overflow-hidden h-[500px] flex flex-col">
-                                <div className="px-6 py-4 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
-                                    <h3 className="text-sm font-medium text-[#1A202C] flex items-center">
-                                        <CodeBracketIcon className="w-4 h-4 mr-2 text-gray-400" />
-                                        Systemtelemetri-ström
+                             <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden h-[400px] flex flex-col">
+                                <div className="px-6 py-4 border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 flex justify-between items-center">
+                                    <h3 className="text-xs font-semibold text-slate-900 dark:text-white flex items-center">
+                                        <CodeBracketIcon className="w-3.5 h-3.5 mr-2 text-slate-400" />
+                                        Systemtelemetri
                                     </h3>
                                     <button 
                                         onClick={() => { loggingService.clearLogs(); setLogs([]); }}
-                                        className="text-xs font-medium text-gray-500 hover:text-gray-900 flex items-center transition-colors"
+                                        className="text-[10px] font-bold text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center transition-colors uppercase tracking-wider"
                                     >
-                                        <TrashIcon className="h-3.5 w-3.5 mr-1.5" />
-                                        Töm Buffert
+                                        <TrashIcon className="h-3 w-3 mr-1.5" />
+                                        Töm
                                     </button>
                                 </div>
-                                <div className="flex-grow overflow-y-auto p-4 font-mono text-xs space-y-2 custom-scrollbar">
+                                <div className="flex-grow overflow-y-auto p-4 font-mono text-[10px] space-y-2 custom-scrollbar">
                                     {logs.length > 0 ? logs.map(log => (
-                                        <div key={log.id} className="flex gap-4 border-l-2 border-gray-200 pl-4 py-2 hover:bg-gray-50 transition-colors group rounded-r-lg">
-                                            <span className="text-gray-400 shrink-0">{new Date(log.timestamp).toLocaleTimeString()}</span>
-                                            <span className={`font-medium shrink-0 w-16 ${log.error ? 'text-red-600' : 'text-emerald-600'}`}>{log.mode.toUpperCase()}</span>
+                                        <div key={log.id} className="flex gap-4 border-l-2 border-slate-100 dark:border-slate-800 pl-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group rounded-r-lg">
+                                            <span className="text-slate-400 shrink-0">{new Date(log.timestamp).toLocaleTimeString()}</span>
+                                            <span className={`font-bold shrink-0 w-16 ${log.error ? 'text-red-600' : 'text-emerald-600'}`}>{log.mode.toUpperCase()}</span>
                                             <div className="flex-grow min-w-0">
-                                                <p className="text-gray-700 truncate group-hover:text-gray-900">{log.prompt}</p>
-                                                {log.error && <p className="text-red-600 mt-1.5 font-medium bg-red-50 px-2 py-1 rounded">{log.error}</p>}
+                                                <p className="text-slate-700 dark:text-slate-300 truncate group-hover:text-slate-900 dark:group-hover:text-white">{log.prompt}</p>
+                                                {log.error && <p className="text-red-600 mt-1 font-medium bg-red-50 dark:bg-red-900/20 px-2 py-0.5 rounded">{log.error}</p>}
                                             </div>
-                                            <span className="text-gray-400 shrink-0 ml-auto">{log.duration}ms</span>
+                                            <span className="text-slate-400 shrink-0 ml-auto">{log.duration}ms</span>
                                         </div>
                                     )) : (
-                                        <div className="text-center py-32 text-gray-400 flex flex-col items-center gap-4">
+                                        <div className="text-center py-24 text-slate-400 flex flex-col items-center gap-4">
                                             <InformationCircleIcon className="w-8 h-8 opacity-20" />
-                                            <p className="text-sm font-medium opacity-50">Inga anrop loggade</p>
+                                            <p className="text-xs font-medium opacity-50">Inga anrop loggade</p>
                                         </div>
                                     )}
                                 </div>
@@ -212,14 +211,14 @@ const SystemMonitor: React.FC<SystemMonitorProps> = ({ isOpen, onClose }) => {
                     </div>
                 </main>
 
-                <footer className="px-8 py-4 border-t border-gray-200 bg-gray-50 flex justify-between items-center">
+                <footer className="px-8 py-4 border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 flex justify-between items-center">
                     <div className="flex items-center space-x-4">
-                        <span className={`flex items-center gap-2 text-xs font-medium ${isOffline ? 'text-orange-600' : 'text-gray-500'}`}>
+                        <span className={`flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider ${isOffline ? 'text-orange-600' : 'text-slate-400'}`}>
                             <div className={`w-1.5 h-1.5 rounded-full ${isOffline ? 'bg-orange-600 animate-pulse' : 'bg-emerald-600'}`}></div>
-                            {isOffline ? 'Systemet körs i autonomt lokalt läge' : 'Molnanslutning verifierad: Stabil'}
+                            {isOffline ? 'Autonomt läge' : 'Molnanslutning: Stabil'}
                         </span>
                     </div>
-                    <span className="text-xs text-gray-500 font-medium">Integritetsnivå: Gold (SFS 2025:400)</span>
+                    <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Integritet: Gold</span>
                 </footer>
             </div>
         </div>
@@ -228,18 +227,18 @@ const SystemMonitor: React.FC<SystemMonitorProps> = ({ isOpen, onClose }) => {
 
 const StatusCard: React.FC<{ label: string, status: string, color: 'blue' | 'red' | 'green' | 'gray' | 'purple', details: string }> = ({ label, status, color, details }) => {
     const colors = {
-        blue: 'text-blue-800',
-        red: 'text-red-600',
-        green: 'text-emerald-600',
-        gray: 'text-gray-600',
-        purple: 'text-purple-800'
+        blue: 'text-blue-600 dark:text-blue-400',
+        red: 'text-red-600 dark:text-red-400',
+        green: 'text-emerald-600 dark:text-emerald-400',
+        gray: 'text-slate-600 dark:text-slate-400',
+        purple: 'text-purple-600 dark:text-purple-400'
     };
 
     return (
-        <div className="bg-white border border-gray-200 p-5 rounded-xl flex flex-col justify-between shadow-sm">
-            <p className="text-xs text-gray-500 font-medium mb-2">{label}</p>
-            <p className={`text-xl font-semibold mb-1 ${colors[color]}`}>{status}</p>
-            <p className="text-xs text-gray-600">{details}</p>
+        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 rounded-xl flex flex-col justify-between shadow-sm">
+            <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider mb-2">{label}</p>
+            <p className={`text-lg font-bold mb-1 ${colors[color]}`}>{status}</p>
+            <p className="text-[10px] text-slate-400 truncate">{details}</p>
         </div>
     );
 };
