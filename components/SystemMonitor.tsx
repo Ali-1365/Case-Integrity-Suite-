@@ -1,7 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { githubService, RepoStatus, SyncHealth } from '../services/githubService';
-import { loggingService, LogEntry } from '../services/loggingService';
+import { loggingService } from '../services/loggingService';
+import { useLogging } from '../hooks/useLogging';
 import { db } from '../lib/db';
 import { 
     XMarkIcon, 
@@ -29,7 +30,7 @@ interface SystemMonitorProps {
 const SystemMonitor: React.FC<SystemMonitorProps> = ({ isOpen, onClose }) => {
     const [repoStatus, setRepoStatus] = useState<RepoStatus | null>(null);
     const [syncHealth, setSyncHealth] = useState<SyncHealth | null>(null);
-    const [logs, setLogs] = useState<LogEntry[]>([]);
+    const { logs, refreshLogs, clearLogs } = useLogging(50);
     const [isRefreshing, setIsRefreshing] = useState(false);
     const [localMetadata, setLocalMetadata] = useState<any>(null);
     const [showNukePanel, setShowNukePanel] = useState(false);
@@ -46,7 +47,7 @@ const SystemMonitor: React.FC<SystemMonitorProps> = ({ isOpen, onClose }) => {
             setRepoStatus(status);
             setSyncHealth(health);
             setLocalMetadata(metaRes);
-            setLogs([...loggingService.getLogs()]);
+            refreshLogs();
         } finally {
             setIsRefreshing(false);
         }
@@ -181,7 +182,7 @@ const SystemMonitor: React.FC<SystemMonitorProps> = ({ isOpen, onClose }) => {
                                         Systemtelemetri
                                     </h3>
                                     <button 
-                                        onClick={() => { loggingService.clearLogs(); setLogs([]); }}
+                                        onClick={clearLogs}
                                         className="text-[10px] font-bold text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center transition-colors uppercase tracking-wider"
                                     >
                                         <TrashIcon className="h-3 w-3 mr-1.5" />
@@ -192,12 +193,12 @@ const SystemMonitor: React.FC<SystemMonitorProps> = ({ isOpen, onClose }) => {
                                     {logs.length > 0 ? logs.map(log => (
                                         <div key={log.id} className="flex gap-4 border-l-2 border-slate-100 dark:border-slate-800 pl-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group rounded-r-lg">
                                             <span className="text-slate-400 shrink-0">{new Date(log.timestamp).toLocaleTimeString()}</span>
-                                            <span className={`font-bold shrink-0 w-16 ${log.error ? 'text-red-600' : 'text-emerald-600'}`}>{log.mode.toUpperCase()}</span>
+                                            <span className={`font-bold shrink-0 w-16 ${log.level === 'ERROR' ? 'text-red-600' : 'text-emerald-600'}`}>{log.mode.toUpperCase()}</span>
                                             <div className="flex-grow min-w-0">
-                                                <p className="text-slate-700 dark:text-slate-300 truncate group-hover:text-slate-900 dark:group-hover:text-white">{log.prompt}</p>
-                                                {log.error && <p className="text-red-600 mt-1 font-medium bg-red-50 dark:bg-red-900/20 px-2 py-0.5 rounded">{log.error}</p>}
+                                                <p className="text-slate-700 dark:text-slate-300 truncate group-hover:text-slate-900 dark:group-hover:text-white">{log.message}</p>
+                                                {log.level === 'ERROR' && log.details && <p className="text-red-600 mt-1 font-medium bg-red-50 dark:bg-red-900/20 px-2 py-0.5 rounded">{JSON.stringify(log.details)}</p>}
                                             </div>
-                                            <span className="text-slate-400 shrink-0 ml-auto">{log.duration}ms</span>
+                                            <span className="text-slate-400 shrink-0 ml-auto">{log.duration ? `${log.duration}ms` : ''}</span>
                                         </div>
                                     )) : (
                                         <div className="text-center py-24 text-slate-400 flex flex-col items-center gap-4">

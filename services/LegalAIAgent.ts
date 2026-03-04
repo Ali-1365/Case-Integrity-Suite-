@@ -3,6 +3,7 @@ import { corpusService } from '../lib/CorpusService';
 import { legalFrameworkIndex } from '../data/legalFramework';
 import { Fact, Case } from '../lib/LegalAgentTypes';
 import { geminiService } from './geminiService';
+import { loggingService } from './loggingService';
 
 // Ny typ för mer granulär lagdata
 interface EnrichedLegalParagraph {
@@ -29,29 +30,40 @@ class LegalAIAgent {
   async initialize(): Promise<void> {
     if (this.laws.length > 0) return;
 
-    const corpusFiles = legalFrameworkIndex.map(item => item.corpusFile);
-    const corpora = await corpusService.loadMultiple(corpusFiles);
-    
-    const allParagraphs: EnrichedLegalParagraph[] = [];
-    corpora.forEach(corpus => {
-      corpus.paragraphs.forEach(p => {
-        allParagraphs.push({
-          id: p.id,
-          lawTitle: corpus.title,
-          lawSourceCode: corpus.sourceCode,
-          chapter: p.chapter,
-          section: p.section,
-          reference: (p as any).reference, // Handle Praxis reference
-          text: p.text,
+    const startTime = Date.now();
+    try {
+      loggingService.info("[AGENT] Initializing Legal AI Agent...");
+      const corpusFiles = legalFrameworkIndex.map(item => item.corpusFile);
+      const corpora = await corpusService.loadMultiple(corpusFiles);
+      
+      const allParagraphs: EnrichedLegalParagraph[] = [];
+      corpora.forEach(corpus => {
+        corpus.paragraphs.forEach(p => {
+          allParagraphs.push({
+            id: p.id,
+            lawTitle: corpus.title,
+            lawSourceCode: corpus.sourceCode,
+            chapter: p.chapter,
+            section: p.section,
+            reference: (p as any).reference, // Handle Praxis reference
+            text: p.text,
+          });
         });
       });
-    });
-    this.laws = allParagraphs;
+      this.laws = allParagraphs;
+      loggingService.info(`[AGENT] Initialization complete. Loaded ${this.laws.length} paragraphs.`, {
+        duration: Date.now() - startTime
+      });
+    } catch (error: any) {
+      loggingService.error("[AGENT] Initialization failed", { error: error.message });
+      throw error;
+    }
   }
 
   addCase(caseData: Case): void {
     if (!this.cases.find(c => c.id === caseData.id)) {
       this.cases.push(caseData);
+      loggingService.debug(`[AGENT] Case added: ${caseData.id}`, { facts: caseData.facts.length });
     }
   }
 
@@ -67,8 +79,15 @@ class LegalAIAgent {
    * Genererar ett dynamiskt juridiskt yttrande baserat på ett ärende med hjälp av AI.
    */
   async generateOpinion(caseId: string): Promise<string> {
+    const startTime = Date.now();
+    loggingService.info(`[AGENT] Generating opinion for case: ${caseId}`);
+    
     const caseData = this.getCase(caseId);
-    if (!caseData) throw new Error(`Ärende ${caseId} finns inte.`);
+    if (!caseData) {
+      const errorMsg = `Ärende ${caseId} finns inte.`;
+      loggingService.error(`[AGENT] ${errorMsg}`);
+      throw new Error(errorMsg);
+    }
 
     const systemInstruction = `
       DU ÄR EN SVENSK JURIDISK EXPERT-AI (FMJAM-AGENT).
@@ -123,9 +142,16 @@ class LegalAIAgent {
           thinkingConfig: { thinkingBudget: 16384 }
         }
       }, 'think');
+      
+      loggingService.info(`[AGENT] Opinion generated for ${caseId}`, {
+        duration: Date.now() - startTime
+      });
       return response;
-    } catch (e) {
-      console.error("AI Opinion Generation failed:", e);
+    } catch (e: any) {
+      loggingService.error(`[AGENT] Opinion generation failed for ${caseId}`, { 
+        error: e.message,
+        duration: Date.now() - startTime 
+      });
       return "### Kritiskt fel i AI-analysmotorn\n\nDet gick inte att generera yttrandet. Kontrollera systemloggarna.";
     }
   }

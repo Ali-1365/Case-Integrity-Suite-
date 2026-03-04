@@ -53,22 +53,26 @@ export class GeminiService {
         this.quotaState.retryAfterMs = 0;
         return await operation();
       } catch (error: any) {
-        if (error.message.includes('quota')) {
-          console.warn(`Gemini API Quota Exceeded. Retrying in ${delay / 1000}s...`);
+        const isQuotaError = error.message?.toLowerCase().includes('quota') || error.status === 429;
+        
+        if (isQuotaError && i < retries - 1) {
+          loggingService.warn(`Gemini API Quota Exceeded. Attempt ${i + 1}/${retries}. Retrying in ${delay / 1000}s...`, { error: error.message });
           this.quotaState.isThrottled = true;
           this.quotaState.lastError = error.message;
           this.quotaState.retryAfterMs = delay;
           await new Promise(resolve => setTimeout(resolve, delay));
           delay *= 2; // Exponential backoff
         } else {
-          console.error("Gemini API Error:", error);
+          loggingService.error(`Gemini API Error after ${i + 1} attempts`, { error: error.message, stack: error.stack });
           this.quotaState.lastError = error.message;
           throw error;
         }
       }
     }
-    this.quotaState.lastError = "Max retries exceeded for Gemini API call.";
-    throw new Error("Max retries exceeded for Gemini API call.");
+    const finalError = "Max retries exceeded for Gemini API call.";
+    this.quotaState.lastError = finalError;
+    loggingService.error(finalError);
+    throw new Error(finalError);
   }
 
   async generate(
@@ -76,49 +80,67 @@ export class GeminiService {
     mode: LogMode = 'fast'
   ): Promise<string> {
     const startTime = Date.now();
-    const client = this.getClient();
-    const modelName = params.model || (mode === 'think' ? this.proModel : this.flashModel); // Default to flash model
-
-    let contents: GenerateContentParameters['contents'] = params.contents;
-    if (typeof contents === 'string') {
-        // No denoise here as it was removed
-    }
-
-    const config = params.config || {};
-    
-    if (mode === 'think') {
-        config.thinkingConfig = { thinkingLevel: ThinkingLevel.HIGH };
-        delete (config as any).maxOutputTokens;
-    }
+    let modelName = params.model || (mode === 'think' ? this.proModel : this.flashModel);
 
     try {
+      const client = this.getClient();
+      let contents: GenerateContentParameters['contents'] = params.contents;
+      const config = params.config || {};
+      
+      if (mode === 'think') {
+          config.thinkingConfig = { thinkingLevel: ThinkingLevel.HIGH };
+          delete (config as any).maxOutputTokens;
+      }
+
       const response = await this.executeWithRetry(async () => {
-        const result = await client.models.generateContent({
+        return await client.models.generateContent({
           model: modelName,
           contents: typeof contents === 'string' ? [{ text: contents }] : contents as any,
           config: {
             ...config,
-            tools: [{ googleSearch: {} }] // Aktiverar Google Search Grounding
+            tools: [{ googleSearch: {} }]
           }
         });
-        return result;
       });
 
       const text = response.text || "";
+      const duration = Date.now() - startTime;
       
-      // Logga grounding-källor om de finns
+      // Log grounding sources
       const chunks = response.candidates?.[0]?.groundingMetadata?.groundingChunks;
-      if (chunks && chunks.length > 0) {
-        console.log("[GEMINI] Grounding sources found:", chunks.map(c => c.web?.uri).filter(Boolean));
+      const sources = chunks?.map(c => c.web?.uri).filter(Boolean) || [];
+      
+      loggingService.addLog({ 
+        mode, 
+        prompt: JSON.stringify(contents).substring(0, 500), 
+        response: text.substring(0, 500), 
+        error: null, 
+        duration,
+        metadata: { model: modelName, sourcesCount: sources.length }
+      });
+
+      if (sources.length > 0) {
+        loggingService.debug(`[GEMINI] Grounding sources found: ${sources.length}`, { sources });
       }
 
-      loggingService.addLog({ mode, prompt: JSON.stringify(contents), response: text, error: null, duration: Date.now() - startTime });
       return text;
     } catch (error: any) {
-      loggingService.addLog({ mode, prompt: JSON.stringify(contents), response: "", error: error.message, duration: Date.now() - startTime });
-      console.error("Error generating content from Gemini:", error);
-      const errorDetails = error.message || JSON.stringify(error);
-      return `KRITISKT FEL: Systemet kunde inte generera innehåll från Gemini API. Detaljer: ${errorDetails}`;
+      const duration = Date.now() - startTime;
+      loggingService.addLog({ 
+        mode, 
+        prompt: JSON.stringify(params.contents).substring(0, 500), 
+        response: null, 
+        error: error.message, 
+        duration 
+      });
+      
+      // Fallback mechanism: If Pro fails in 'think' mode, try Flash as fallback
+      if (mode === 'think' && modelName === this.proModel) {
+        loggingService.warn("Fallback: Pro model failed in think mode, retrying with Flash model...");
+        return this.generate(params, 'fast');
+      }
+
+      return `SYSTEMFEL: Kunde inte generera svar. ${error.message}`;
     }
   }
 

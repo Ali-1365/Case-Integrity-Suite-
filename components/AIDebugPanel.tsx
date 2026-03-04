@@ -1,19 +1,18 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { geminiService } from '../services/geminiService';
-import { loggingService, LogEntry } from '../services/loggingService';
+import { loggingService } from '../services/loggingService';
 import { githubService, RepoStatus } from '../services/githubService';
+import { useLogging } from '../hooks/useLogging';
 import { 
   XMarkIcon, 
   CodeBracketIcon, 
-  SparklesIcon, 
   Spinner, 
   PaperAirplaneIcon,
   CpuChipIcon,
-  GithubIcon,
-  ShieldCheckIcon,
   ActivityIcon,
-  ArrowPathIcon
+  ArrowPathIcon,
+  ShieldCheckIcon
 } from './icons';
 
 interface AIDebugPanelProps {
@@ -28,20 +27,15 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
   const [copied, setCopied] = useState(false);
   const [expandedLogId, setExpandedLogId] = useState<string | null>(null);
   const [repoStatus, setRepoStatus] = useState<RepoStatus | null>(null);
-  const [recentLogs, setRecentLogs] = useState<LogEntry[]>([]);
+  const { logs, refreshLogs } = useLogging(10);
   const scrollRef = useRef<HTMLDivElement>(null);
-
-  const refreshLogs = () => {
-    const logs = loggingService.getLogs().slice(0, 5);
-    setRecentLogs(logs);
-  };
 
   useEffect(() => {
     if (isOpen) {
         githubService.getRepoStatus().then(setRepoStatus);
         refreshLogs();
     }
-  }, [isOpen]);
+  }, [isOpen, refreshLogs]);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -53,9 +47,8 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
     if (!prompt.trim() || isLoading) return;
     
     setIsLoading(true);
-    const logs = loggingService.getLogs().slice(0, 5);
     const context = JSON.stringify({
-        logs,
+        logs: logs.slice(0, 5),
         git: repoStatus,
         jules_task: githubService.getJulesTaskUrl()
     }, null, 2);
@@ -105,7 +98,7 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
             </div>
             <div>
               <h3 className="text-lg font-semibold text-slate-900 dark:text-white tracking-tight leading-none">System Architect Oracle</h3>
-              <p className="text-[10px] text-slate-500 uppercase tracking-wider font-bold mt-1.5">v.7.2.7-GOLD | TELEMETRY_ENABLED</p>
+              <p className="text-[10px] text-slate-500 uppercase tracking-wider font-bold mt-1.5">v.7.2.8-GOLD | TELEMETRY_ENABLED</p>
             </div>
           </div>
           <button onClick={onClose} className="p-2 text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 active:scale-95 relative z-10">
@@ -134,24 +127,31 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
                 </button>
             </div>
             <div className="space-y-2 max-h-[200px] overflow-y-auto custom-scrollbar">
-                {recentLogs.length > 0 ? recentLogs.map((log) => (
+                {logs.length > 0 ? logs.map((log) => (
                     <div key={log.id} className={`flex flex-col font-mono p-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 transition-all ${expandedLogId === log.id ? 'border-blue-300' : 'hover:border-slate-200 dark:hover:border-slate-700'}`}>
                         <div className="flex items-center justify-between cursor-pointer" onClick={() => setExpandedLogId(expandedLogId === log.id ? null : log.id)}>
                             <div className="flex items-center gap-4 text-[10px]">
                                 <span className="text-slate-400 shrink-0">{new Date(log.timestamp).toLocaleTimeString()}</span>
-                                <span className={`shrink-0 font-bold px-1.5 rounded ${log.error ? 'bg-red-100 text-red-700' : 'bg-blue-100 text-blue-800'}`}>
+                                <span className={`shrink-0 font-bold px-1.5 rounded ${log.level === 'ERROR' ? 'bg-red-100 text-red-700' : log.level === 'WARN' ? 'bg-amber-100 text-amber-700' : 'bg-blue-100 text-blue-800'}`}>
+                                    {log.level}
+                                </span>
+                                <span className={`shrink-0 font-bold px-1.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400`}>
                                     {log.mode.toUpperCase()}
                                 </span>
                                 <span className="text-slate-500 truncate italic opacity-60">
-                                    {log.error ? `ERR: ${log.error.substring(0, 30)}...` : log.prompt.substring(0, 60) + '...'}
+                                    {log.message.substring(0, 60)}...
                                 </span>
                             </div>
-                            <span className="text-slate-400 font-bold">{log.duration}ms</span>
+                            <span className="text-slate-400 font-bold">{log.duration ? `${log.duration}ms` : ''}</span>
                         </div>
                         {expandedLogId === log.id && (
                             <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800 text-[10px] text-slate-600 dark:text-slate-400 space-y-2">
-                                <p><span className="font-bold text-slate-400">PROMPT:</span> {log.prompt}</p>
-                                {log.error && <p><span className="font-bold text-red-600">ERROR:</span> {log.error}</p>}
+                                <p><span className="font-bold text-slate-400">MESSAGE:</span> {log.message}</p>
+                                {log.details && (
+                                    <div className="bg-slate-50 dark:bg-slate-950 p-2 rounded-lg mt-1 overflow-x-auto">
+                                        <pre className="text-[9px]">{JSON.stringify(log.details, null, 2)}</pre>
+                                    </div>
+                                )}
                             </div>
                         )}
                     </div>
