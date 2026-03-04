@@ -1,0 +1,27 @@
+{
+  "sourceCode": "BrB",
+  "sfsNumber": "1962:700",
+  "title": "Brottsbalken (1962:700)",
+  "paragraphs": [
+    {
+      "id": "brb_20_1",
+      "chapter": 20,
+      "section": 1,
+      "text": "Den som vid myndighetsutövning genom handling eller underlåtenhet åsidosätter vad som gäller för uppgiften ska dömas för tjänstefel till böter eller fängelse i högst två år. Om gärningen med hänsyn till tjänstemannens befogenheter eller uppgiftens samband med myndighetsutövningen i övrigt eller till andra omständigheter är att anse som ringa, ska det inte dömas till ansvar.",
+      "metadata": {
+        "provenanceHash": "sha256-brb_20_1_hash",
+        "revisionNote": "Tjänstefel: Straffansvar vid uppsåtligt eller oaktsamt åsidosättande av tjänsteplikt."
+      }
+    },
+    {
+      "id": "brb_10_4",
+      "chapter": 10,
+      "section": 4,
+      "text": "Den som kommer i besittning av någon annans egendom på grund av avtal eller på annat sätt och vidtar en åtgärd med egendomen genom vilken den frånhänds den andre eller denne på annat sätt berövas sin rätt, döms för olovligt förfogande till böter eller fängelse i högst två år.",
+      "metadata": {
+        "provenanceHash": "sha256-brb_10_4_hash",
+        "revisionNote": "Olovligt förfogande (relevant vid krav på försäljning av egendom med ägarförbehåll)."
+      }
+    }
+  ]
+}

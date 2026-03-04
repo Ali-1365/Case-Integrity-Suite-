@@ -162,5 +162,58 @@ export const legalFrameworkIndex: LegalFrameworkIndexEntry[] = [
     "shortName": "YSL",
     "corpusFile": "ysl_1977_268.json",
     "auditTrail": { "status": "PENDING" }
+  },
+  {
+    "id": "rf_1974",
+    "label": "Regeringsformen (1974:152)",
+    "type": "lag",
+    "sfsNumber": "1974:152",
+    "shortName": "RF",
+    "corpusFile": "rf_1974_152.json",
+    "auditTrail": { "status": "VERIFIED" }
+  },
+  {
+    "id": "brb_1962",
+    "label": "Brottsbalken (1962:700)",
+    "type": "lag",
+    "sfsNumber": "1962:700",
+    "shortName": "BrB",
+    "corpusFile": "brb_1962_700.json",
+    "auditTrail": { "status": "VERIFIED" }
+  },
+  {
+    "id": "lvu_1990",
+    "label": "Lag (1990:52) om vård av unga",
+    "type": "lag",
+    "sfsNumber": "1990:52",
+    "shortName": "LVU",
+    "corpusFile": "lvu_1990_52.json",
+    "auditTrail": { "status": "VERIFIED" }
+  },
+  {
+    "id": "lvm_1988",
+    "label": "Lag (1988:870) om vård av missbrukare",
+    "type": "lag",
+    "sfsNumber": "1988:870",
+    "shortName": "LVM",
+    "corpusFile": "lvm_1988_870.json",
+    "auditTrail": { "status": "VERIFIED" }
+  },
+  {
+    "id": "ls_2017",
+    "label": "Lag (2017:612) om samverkan vid utskrivning",
+    "type": "lag",
+    "sfsNumber": "2017:612",
+    "shortName": "LS",
+    "corpusFile": "lag_2017_612.json",
+    "auditTrail": { "status": "VERIFIED" }
+  },
+  {
+    "id": "praxis",
+    "label": "Vägledande Praxis (HFD, RÅ, JO, KR)",
+    "type": "regelverk",
+    "shortName": "PRAXIS",
+    "corpusFile": "praxis.json",
+    "auditTrail": { "status": "VERIFIED" }
   }
 ];

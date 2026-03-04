@@ -7,10 +7,12 @@ Detta ramverk reglerar den tekniska och juridiska analysprocessen inom applikati
 ## 2. Den Nya Socialtjänstlagen (Ground Truth)
 Systemet är konfigurerat för att identifiera och tillämpa bestämmelser från följande källor:
 
-*   **Socialtjänstlagen (2025:400) - SoL:** Målparagraf (1:1), Barnets bästa (1:2), Rätt till bistånd (4:1) och Dokumentationsskyldighet (11:5).
-*   **Förvaltningslagen (2017:900) - FL:** Legalitet (§ 5), Serviceskyldighet (§ 6) och Saklighet (§ 9).
-*   **Brottsbalken (1962:700) - BrB:** Tjänstefel (20 kap. 1 §) vid underlåtenhet eller grov oaktsamhet i myndighetsutövning.
-*   **Barnkonventionen (SFS 2018:1197):** Barnets rättigheter som lagstiftningens fundament.
+*   **Socialtjänstlagen (2025:400) - SoL:** Portalparagraf (1:1), Barnets bästa (1:2), Kommunens yttersta ansvar (2:1), Informationsskyldighet (3:1), Rätt till bistånd (4:1), Dokumentationsskyldighet (11:5), Aktinsyn (11:8) och Lex Sarah (16:6).
+*   **Förvaltningslagen (2017:900) - FL:** Legalitet (§ 5), Serviceskyldighet (§ 6), Saklighet (§ 9), Jäv (§ 11), Officialprincip (§ 23), Kommunikation (§ 25) och Motivering (§ 31).
+*   **Regeringsformen (1974:152) - RF:** Det allmännas ansvar för välfärd (1:2).
+*   **Brottsbalken (1962:700) - BrB:** Tjänstefel (20:1) och Olovligt förfogande (10:4).
+*   **Barnkonventionen (SFS 2018:1197):** Barnets bästa (art. 3) och rätten att bli hörd (art. 12).
+*   **Vägledande Praxis:** Inkluderar avgöranden från HFD, RÅ, JO och Kammarrätten rörande individuell prövning, akut hemlöshet och proportionalitet.
 
 ## 3. Deterministiska Axiom för v.6.2
 Analysmotorn opererar utifrån strikta säkerhetsregler:
