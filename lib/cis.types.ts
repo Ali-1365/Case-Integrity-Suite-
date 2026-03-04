@@ -20,7 +20,7 @@ export interface Atom {
   documentId: string;
   position: number;
   text: string;
-  keywords: string[];
+  keywords?: string[];
   tags: string[]; 
   startIndex?: number;
   endIndex?: number;
@@ -42,8 +42,8 @@ export interface RiskItemV6 {
     likelihood: number;
     weight: number;
     score: number;
-    triggers: string[];
-    contextFlags: string[];
+    triggers?: string[];
+    contextFlags?: string[];
 }
 
 export interface RiskProfileV6 {
@@ -108,6 +108,21 @@ import { DecisionSupportResult } from './DecisionSupportService';
 import { ProportionalityReport } from './ProportionalityJusticeService';
 import { ActionRecommendationReport } from './ActionRecommendationService';
 
+export interface MatchedRule {
+    ruleId: string;
+    title: string;
+    confidence: number;
+    triggeredBy: string[];
+}
+
+export interface EvidenceChainItem {
+    id: string;
+    factId: string;
+    legalReferenceId: string;
+    strength: number;
+    reasoning: string;
+}
+
 export interface AnalysisResult {
   id: string;
   caseId: string;
@@ -130,6 +145,8 @@ export interface AnalysisResult {
   themes: { id: string; label: string; keywords: string[] }[];
   legalReferences: { id: string; source: LegalSourceCode; rawText: string; contextSnippet: string; }[];
   qaSummary: QACheck[];
+  matchedRules?: MatchedRule[];
+  evidenceChain?: EvidenceChainItem[];
   synthesis?: string; 
   priorityFlags: PriorityFlags;
   oversightClassifications?: OversightBodyClassification[];

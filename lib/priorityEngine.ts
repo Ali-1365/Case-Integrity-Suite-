@@ -1,6 +1,18 @@
 export interface PriorityFlags {
     hasChildAspect: boolean;
     isPreventive: boolean;
+    lexSarahPotential?: boolean;
+    conventionViolation?: boolean;
+    sklLiability?: boolean;
+    acuteEmergency?: boolean;
+    consciousMisconduct?: boolean;
+    evidenceSuppression?: boolean;
+    responsibilityReversal?: boolean;
+    kronofogdenInvolved?: boolean;
+    flSaklighet?: boolean;
+    flUtredning?: boolean;
+    flMotivering?: boolean;
+    flJav?: boolean;
 }
 
 export class PriorityEngine {

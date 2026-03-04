@@ -5,13 +5,13 @@ export const syntheticAnalysisResult: AnalysisResult = {
   caseId: "Syntetiskt Ärende SoL 2025:400 – Medvetet tjänstefel, ansvarsomkastning, bevisundertryckande & Lex Sarah",
   createdAt: "2026-03-04T15:47:00Z",
   qaSummary: [
-    "Systematiska och medvetna fel i myndighetsutövning: oriktiga sakuppgifter, bevisundertryckande, cirkulär bevisbörda, ansvarsomkastning (barnet/föräldern lastas för kommunens underlåtenhet)",
-    "Ekonomisk katastrof: skuldsättning, Kronofogden, förlorad försörjning, bilförlust, el/telefon avstängda",
-    "Personskada: förvärrad CRPS, utebliven rehabilitering, nervskada, suicidtankar, smärtproblematik",
-    "Kränkning av barnets rättigheter: matbrist, osäker bostad, avsaknad av trygghet och kommunikation",
-    "Processuella fel: vägran att träffa klagande, motstridiga muntliga besked vs journal, dom utan verkställighet",
-    "Fortsatt akut nödsituation – Lex Sarah-utlösande missförhållanden ej hanterade",
-    "Utökad FL-täckning: §§ 5–34 inklusive legalitet (5 §), serviceskyldighet (6 §), utredningsskyldighet (23 §), motivering (32 §), jäv (16–18 §§), överklagande (33 §) och inhibition (34 §)"
+    { id: "qa_01", label: "Systematiska fel", status: "warning", message: "Systematiska och medvetna fel i myndighetsutövning: oriktiga sakuppgifter, bevisundertryckande, cirkulär bevisbörda, ansvarsomkastning (barnet/föräldern lastas för kommunens underlåtenhet)" },
+    { id: "qa_02", label: "Ekonomisk skada", status: "warning", message: "Ekonomisk katastrof: skuldsättning, Kronofogden, förlorad försörjning, bilförlust, el/telefon avstängda" },
+    { id: "qa_03", label: "Personskada", status: "warning", message: "Personskada: förvärrad CRPS, utebliven rehabilitering, nervskada, suicidtankar, smärtproblematik" },
+    { id: "qa_04", label: "Barnrätt", status: "warning", message: "Kränkning av barnets rättigheter: matbrist, osäker bostad, avsaknad av trygghet och kommunikation" },
+    { id: "qa_05", label: "Processfel", status: "warning", message: "Processuella fel: vägran att träffa klagande, motstridiga muntliga besked vs journal, dom utan verkställighet" },
+    { id: "qa_06", label: "Lex Sarah", status: "warning", message: "Fortsatt akut nödsituation – Lex Sarah-utlösande missförhållanden ej hanterade" },
+    { id: "qa_07", label: "FL-täckning", status: "info", message: "Utökad FL-täckning: §§ 5–34 inklusive legalitet (5 §), serviceskyldighet (6 §), utredningsskyldighet (23 §), motivering (32 §), jäv (16–18 §§), överklagande (33 §) och inhibition (34 §)" }
   ],
 
   documents: [
@@ -49,34 +49,34 @@ export const syntheticAnalysisResult: AnalysisResult = {
   ],
 
   facts: [
-    { id: "fact_13", subject: "Kommunen", statement: "har medvetet infört oriktiga sakuppgifter och undertryckt bevis.", category: 'TJÄNSTEFEL' },
-    { id: "fact_14", subject: "Barnet / föräldern", statement: "lastas för konsekvenserna av kommunens underlåtenhet (ansvarsomkastning).", category: 'BARN' },
-    { id: "fact_15", subject: "Klaganden", statement: "har drabbats av ekonomisk skada (skuldsättning, Kronofogden, förlorad försörjning, bilförlust).", category: 'EKONOMI' },
-    { id: "fact_16", subject: "Klaganden", statement: "personskada: förhindrad CRPS-rehabilitering, förvärrad smärta, suicidtankar, nervskada.", category: 'PERSONSKADA' },
-    { id: "fact_17", subject: "Socialnämnden", statement: "har orsakat fortsatt nödsituation – el/telefon avstängda trots akut behov.", category: 'NÖD' },
-    { id: "fact_18", subject: "Domstolen", statement: "underkänner bilkravet men ingen verkställighet – nytt fel i myndighetsutövning.", category: 'PROCESS' },
-    { id: "fact_19", subject: "Kommunen", statement: "har skapat cirkulär bevisbörda och omvänd ansvarsfördelning.", category: 'BEVISRÄTT' },
-    { id: "fact_20", subject: "Barnet", statement: "berövas mat, trygghet, el och kommunikation – direkt kränkning av barnets rättigheter.", category: 'BARN' },
-    { id: "fact_21", subject: "Kommunen", statement: "har underlåtit utredningsskyldighet enligt FL 23 § trots dokumenterad barnrisk.", category: 'FL' },
-    { id: "fact_22", subject: "Kommunen", statement: "har lämnat muntliga avslag utan motivering enligt FL 32 §.", category: 'FL' },
-    { id: "fact_23", subject: "Kommunen", statement: "har underlåtit jävsanmälan enligt FL 18 §.", category: 'FL' },
-    { id: "fact_24", subject: "Kommunen", statement: "har underlåtit att informera om överklaganderätt enligt FL 33 §.", category: 'FL' }
+    { id: "fact_13", subject: "Kommunen", statement: "har medvetet infört oriktiga sakuppgifter och undertryckt bevis.", category: 'TJÄNSTEFEL', timestamp: "2026-03-04T15:47:00Z", source: { documentId: "doc_001", location: "p1", snippet: "Medvetet oriktiga sakuppgifter" } },
+    { id: "fact_14", subject: "Barnet / föräldern", statement: "lastas för konsekvenserna av kommunens underlåtenhet (ansvarsomkastning).", category: 'BARN', timestamp: "2026-03-04T15:47:00Z", source: { documentId: "doc_001", location: "p2", snippet: "Ansvarsomkastning" } },
+    { id: "fact_15", subject: "Klaganden", statement: "har drabbats av ekonomisk skada (skuldsättning, Kronofogden, förlorad försörjning, bilförlust).", category: 'EKONOMI', timestamp: "2026-03-04T15:47:00Z", source: { documentId: "doc_005", location: "p1", snippet: "Kronofogden" } },
+    { id: "fact_16", subject: "Klaganden", statement: "personskada: förhindrad CRPS-rehabilitering, förvärrad smärta, suicidtankar, nervskada.", category: 'PERSONSKADA', timestamp: "2026-03-04T15:47:00Z", source: { documentId: "doc_003", location: "p1", snippet: "CRPS" } },
+    { id: "fact_17", subject: "Socialnämnden", statement: "har orsakat fortsatt nödsituation – el/telefon avstängda trots akut behov.", category: 'NÖD', timestamp: "2026-03-04T15:47:00Z", source: { documentId: "doc_006", location: "p1", snippet: "Avstängning" } },
+    { id: "fact_18", subject: "Domstolen", statement: "underkänner bilkravet men ingen verkställighet – nytt fel i myndighetsutövning.", category: 'PROCESS', timestamp: "2026-03-04T15:47:00Z", source: { documentId: "doc_004", location: "p1", snippet: "Dom" } },
+    { id: "fact_19", subject: "Kommunen", statement: "har skapat cirkulär bevisbörda och omvänd ansvarsfördelning.", category: 'BEVISRÄTT', timestamp: "2026-03-04T15:47:00Z", source: { documentId: "doc_001", location: "p19", snippet: "Cirkulär bevisbörda" } },
+    { id: "fact_20", subject: "Barnet", statement: "berövas mat, trygghet, el och kommunikation – direkt kränkning av barnets rättigheter.", category: 'BARN', timestamp: "2026-03-04T15:47:00Z", source: { documentId: "doc_001", location: "p2", snippet: "Barnrätt" } },
+    { id: "fact_21", subject: "Kommunen", statement: "har underlåtit utredningsskyldighet enligt FL 23 § trots dokumenterad barnrisk.", category: 'FL', timestamp: "2026-03-04T15:47:00Z", source: { documentId: "doc_007", location: "p3", snippet: "FL 23 §" } },
+    { id: "fact_22", subject: "Kommunen", statement: "har lämnat muntliga avslag utan motivering enligt FL 32 §.", category: 'FL', timestamp: "2026-03-04T15:47:00Z", source: { documentId: "doc_007", location: "p4", snippet: "FL 32 §" } },
+    { id: "fact_23", subject: "Kommunen", statement: "har underlåtit jävsanmälan enligt FL 18 §.", category: 'FL', timestamp: "2026-03-04T15:47:00Z", source: { documentId: "doc_007", location: "p5", snippet: "FL 18 §" } },
+    { id: "fact_24", subject: "Kommunen", statement: "har underlåtit att informera om överklaganderätt enligt FL 33 §.", category: 'FL', timestamp: "2026-03-04T15:47:00Z", source: { documentId: "doc_007", location: "p6", snippet: "FL 33 §" } }
   ],
 
   contradictions: [
-    { id: "contr_01", description: "Muntliga löften om bistånd vs frånvarande i journalen – medveten diskrepans." },
-    { id: "contr_02", description: "Dom som underkänner bilkrav vs fortsatt avslag och utmätning hos Kronofogden." },
-    { id: "contr_03", description: "Kommunens påstående om sökandens vållande vs dokumenterad underlåtenhet från nämndens sida." },
-    { id: "contr_04", description: "Utredning påstås genomförd vs ingen utredning av barnrisk eller medicinska behov (FL 23 §)." },
-    { id: "contr_05", description: "Beslut fattat muntligt vs krav på motivering enligt FL 32 §." }
+    { id: "contr_01", description: "Muntliga löften om bistånd vs frånvarande i journalen – medveten diskrepans.", conflictingFactIds: ["fact_13", "fact_17"], type: "faktisk", severity: "hög" },
+    { id: "contr_02", description: "Dom som underkänner bilkrav vs fortsatt avslag och utmätning hos Kronofogden.", conflictingFactIds: ["fact_15", "fact_18"], type: "faktisk", severity: "hög" },
+    { id: "contr_03", description: "Kommunens påstående om sökandens vållande vs dokumenterad underlåtenhet från nämndens sida.", conflictingFactIds: ["fact_13", "fact_19"], type: "rättslig", severity: "hög" },
+    { id: "contr_04", description: "Utredning påstås genomförd vs ingen utredning av barnrisk eller medicinska behov (FL 23 §).", conflictingFactIds: ["fact_21", "fact_17"], type: "bedömningsmässig", severity: "hög" },
+    { id: "contr_05", description: "Beslut fattat muntligt vs krav på motivering enligt FL 32 §.", conflictingFactIds: ["fact_22", "fact_13"], type: "rättslig", severity: "hög" }
   ],
 
   uncertainties: [
-    { id: "unc_01", description: "Exakt uppsåtsgrad hos enskilda handläggare (krävs för tjänstefel och regress)." },
-    { id: "unc_02", description: "Orsakssamband mellan kommunens fel och CRPS-förvärring (läkarutlåtande krävs)." },
-    { id: "unc_03", description: "Preskriptionstidens början vid fortsatt nödsituation (varje ny skada?)." },
-    { id: "unc_04", description: "Uppsåtsgrad vid underlåten jävsanmälan enligt FL 18 §." },
-    { id: "unc_05", description: "Om utebliven motivering enligt FL 32 § i sig utgör självständigt fel enligt SkL 3:2." }
+    { id: "unc_01", description: "Exakt uppsåtsgrad hos enskilda handläggare (krävs för tjänstefel och regress).", relatedFactIds: ["fact_13"], relevantLegalReferenceIds: ["lawlink_14"] },
+    { id: "unc_02", description: "Orsakssamband mellan kommunens fel och CRPS-förvärring (läkarutlåtande krävs).", relatedFactIds: ["fact_16"], relevantLegalReferenceIds: ["lawlink_13"] },
+    { id: "unc_03", description: "Preskriptionstidens början vid fortsatt nödsituation (varje ny skada?).", relatedFactIds: ["fact_17"], relevantLegalReferenceIds: ["lawlink_13"] },
+    { id: "unc_04", description: "Uppsåtsgrad vid underlåten jävsanmälan enligt FL 18 §.", relatedFactIds: ["fact_23"], relevantLegalReferenceIds: ["lawlink_11"] },
+    { id: "unc_05", description: "Om utebliven motivering enligt FL 32 § i sig utgör självständigt fel enligt SkL 3:2.", relatedFactIds: ["fact_22"], relevantLegalReferenceIds: ["lawlink_10"] }
   ],
 
   legalFrameworkLinks: [
@@ -95,6 +95,7 @@ export const syntheticAnalysisResult: AnalysisResult = {
 
   riskProfile: {
     id: "rp_synthetic_001_extreme",
+    caseId: "Syntetiskt Ärende SoL 2025:400",
     totalScore: 1180,
     maxScore: 700,
     normalizedScore: 168.6,
@@ -133,14 +134,14 @@ export const syntheticAnalysisResult: AnalysisResult = {
   ],
 
   documentationChecks: [
-    { ruleId: '14kap_3_SoL', status: 'triggered', details: 'Medvetet oriktiga sakuppgifter – dokumentationsplikt grovt åsidosatt' },
-    { ruleId: 'LexSarah_27kap_1-3', status: 'triggered', details: 'Missförhållanden ej rapporterade till IVO – Lex Sarah-skyldighet underlåten' },
-    { ruleId: 'SkL_3_2', status: 'triggered', details: 'Fel i myndighetsutövning – personskada + ekonomisk skada' },
-    { ruleId: 'BrB_20_1', status: 'potential', details: 'Tjänstefel vid medvetet oriktiga uppgifter – uppsåt utreds' },
-    { ruleId: 'FL_5', status: 'triggered', details: 'Saklighets- och proportionalitetsbrott – medvetet oriktiga uppgifter' },
-    { ruleId: 'FL_23', status: 'triggered', details: 'Underlåten utredningsskyldighet – barnrisk och medicinska behov ej utredd' },
-    { ruleId: 'FL_32', status: 'triggered', details: 'Utebliven motivering vid muntliga avslag' },
-    { ruleId: 'FL_16-18', status: 'potential', details: 'Underlåten jävsanmälan – opartiskhet ifrågasatt' }
+    { ruleId: '14kap_3_SoL', status: 'fail', details: 'Medvetet oriktiga sakuppgifter – dokumentationsplikt grovt åsidosatt' },
+    { ruleId: 'LexSarah_27kap_1-3', status: 'fail', details: 'Missförhållanden ej rapporterade till IVO – Lex Sarah-skyldighet underlåten' },
+    { ruleId: 'SkL_3_2', status: 'fail', details: 'Fel i myndighetsutövning – personskada + ekonomisk skada' },
+    { ruleId: 'BrB_20_1', status: 'not_applicable', details: 'Tjänstefel vid medvetet oriktiga uppgifter – uppsåt utreds' },
+    { ruleId: 'FL_5', status: 'fail', details: 'Saklighets- och proportionalitetsbrott – medvetet oriktiga uppgifter' },
+    { ruleId: 'FL_23', status: 'fail', details: 'Underlåten utredningsskyldighet – barnrisk och medicinska behov ej utredd' },
+    { ruleId: 'FL_32', status: 'fail', details: 'Utebliven motivering vid muntliga avslag' },
+    { ruleId: 'FL_16-18', status: 'not_applicable', details: 'Underlåten jävsanmälan – opartiskhet ifrågasatt' }
   ],
 
   priorityFlags: {
@@ -161,14 +162,14 @@ export const syntheticAnalysisResult: AnalysisResult = {
   },
 
   evidenceChain: [
-    "Muntliga löften om bistånd → saknas i journal → bevisundertryckande",
-    "Dom underkänner bilkrav → ingen verkställighet → fortsatt utmätning hos Kronofogden",
-    "Läkarintyg CRPS + nervskada → utebliven rehabilitering → förvärrad personskada",
-    "Barnet utan mat/el/telefon → kommunens underlåtenhet → ansvarsomkastning",
-    "FL 5 § – saklighetsbrott genom medvetet oriktiga uppgifter",
-    "FL 23 § – underlåten utredningsskyldighet → barnrisk och medicinska behov ignorerade",
-    "FL 32 § – utebliven motivering → muntliga avslag utan skriftlig grund",
-    "FL 16–18 §§ – jävsbrott → underlåten anmälan av opartiskhetsfråga"
+    { id: "ev_01", factId: "fact_13", legalReferenceId: "lawlink_14", strength: 0.99, reasoning: "Muntliga löften om bistånd → saknas i journal → bevisundertryckande" },
+    { id: "ev_02", factId: "fact_18", legalReferenceId: "lawlink_13", strength: 0.98, reasoning: "Dom underkänner bilkrav → ingen verkställighet → fortsatt utmätning hos Kronofogden" },
+    { id: "ev_03", factId: "fact_16", legalReferenceId: "lawlink_13", strength: 0.97, reasoning: "Läkarintyg CRPS + nervskada → utebliven rehabilitering → förvärrad personskada" },
+    { id: "ev_04", factId: "fact_20", legalReferenceId: "lawlink_03", strength: 0.96, reasoning: "Barnet utan mat/el/telefon → kommunens underlåtenhet → ansvarsomkastning" },
+    { id: "ev_05", factId: "fact_13", legalReferenceId: "lawlink_08", strength: 0.99, reasoning: "FL 5 § – saklighetsbrott genom medvetet oriktiga uppgifter" },
+    { id: "ev_06", factId: "fact_21", legalReferenceId: "lawlink_09", strength: 0.98, reasoning: "FL 23 § – underlåten utredningsskyldighet → barnrisk och medicinska behov ignorerade" },
+    { id: "ev_07", factId: "fact_22", legalReferenceId: "lawlink_10", strength: 0.97, reasoning: "FL 32 § – utebliven motivering → muntliga avslag utan skriftlig grund" },
+    { id: "ev_08", factId: "fact_23", legalReferenceId: "lawlink_11", strength: 0.95, reasoning: "FL 16–18 §§ – jävsbrott → underlåten anmälan av opartiskhetsfråga" }
   ],
 
   externalLinks: [
@@ -178,6 +179,19 @@ export const syntheticAnalysisResult: AnalysisResult = {
     { name: 'IVO – Lex Sarah-anmälan', url: 'https://www.ivo.se/lex-sarah/' },
     { name: 'JO – anmälan om myndighetsfel', url: 'https://www.jo.se/anmal/' },
     { name: 'Kronofogden – betalningsföreläggande', url: 'https://www.kronofogden.se/' }
+  ],
+  contextState: {
+    caseId: "Syntetiskt Ärende SoL 2025:400",
+    flags: { isCritical: true, hasChild: true },
+    detectedCaseTypes: ['PROCESS_MYNDIGHETSUTÖVNING', 'BARNAVÅRD', 'EKONOMISKT_BISTÅND']
+  },
+  themes: [
+    { id: "theme_01", label: "Tjänstefel", keywords: ["oriktiga uppgifter", "bevisundertryckande"] },
+    { id: "theme_02", label: "Barnrätt", keywords: ["barnrisk", "ansvarsomkastning"] }
+  ],
+  legalReferences: [
+    { id: "ref_01", source: "FL", rawText: "FL 5 §", contextSnippet: "Saklighet och proportionalitet" },
+    { id: "ref_02", source: "SoL", rawText: "SoL 2025:400", contextSnippet: "Ny socialtjänstlag" }
   ]
 };
 

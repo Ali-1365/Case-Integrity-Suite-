@@ -62,7 +62,7 @@ export interface AtomTheme {
   keywords: string[];
 }
 
-export type FactCategory = 'EKONOMI' | 'BARN' | 'TILLGÅNG' | 'PROCESS' | 'BOENDE' | 'HÄLSA';
+export type FactCategory = 'EKONOMI' | 'BARN' | 'TILLGÅNG' | 'PROCESS' | 'BOENDE' | 'HÄLSA' | 'TJÄNSTEFEL' | 'PERSONSKADA' | 'NÖD' | 'BEVISRÄTT' | 'FL';
 
 export interface FactSource {
   documentId: string;

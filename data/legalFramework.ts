@@ -17,7 +17,7 @@ export const legalFrameworkIndex: LegalFrameworkIndexEntry[] = [
     "sfsNumber": "1991:1469",
     "shortName": "YGL",
     "corpusFile": "ygl_1991_1469.json",
-    "auditTrail": { "status": "PENDING" }
+    "auditTrail": { "status": "VERIFIED" }
   },
   {
     "id": "tf_1949",
@@ -26,7 +26,7 @@ export const legalFrameworkIndex: LegalFrameworkIndexEntry[] = [
     "sfsNumber": "1949:105",
     "shortName": "TF",
     "corpusFile": "tf_1949_105.json",
-    "auditTrail": { "status": "PENDING" }
+    "auditTrail": { "status": "VERIFIED" }
   },
   {
     "id": "osl_2009",
@@ -35,7 +35,7 @@ export const legalFrameworkIndex: LegalFrameworkIndexEntry[] = [
     "sfsNumber": "2009:400",
     "shortName": "OSL",
     "corpusFile": "osl_2009_400.json",
-    "auditTrail": { "status": "PENDING" }
+    "auditTrail": { "status": "VERIFIED" }
   },
   {
     "id": "fb_1949",
@@ -44,7 +44,7 @@ export const legalFrameworkIndex: LegalFrameworkIndexEntry[] = [
     "sfsNumber": "1949:381",
     "shortName": "FB",
     "corpusFile": "fb_1949_381.json",
-    "auditTrail": { "status": "PENDING" }
+    "auditTrail": { "status": "VERIFIED" }
   },
   {
     "id": "rb_1942",
@@ -53,7 +53,7 @@ export const legalFrameworkIndex: LegalFrameworkIndexEntry[] = [
     "sfsNumber": "1942:740",
     "shortName": "RB",
     "corpusFile": "rb_1942_740.json",
-    "auditTrail": { "status": "PENDING" }
+    "auditTrail": { "status": "VERIFIED" }
   },
   {
     "id": "sol_2025",
@@ -62,7 +62,7 @@ export const legalFrameworkIndex: LegalFrameworkIndexEntry[] = [
     "sfsNumber": "2025:400",
     "shortName": "SoL",
     "corpusFile": "sol_2025_400.json",
-    "auditTrail": { "status": "PENDING" }
+    "auditTrail": { "status": "VERIFIED" }
   },
   {
     "id": "hsl_2017",
@@ -71,7 +71,7 @@ export const legalFrameworkIndex: LegalFrameworkIndexEntry[] = [
     "sfsNumber": "2017:30",
     "shortName": "HSL",
     "corpusFile": "hsl_2017_30.json",
-    "auditTrail": { "status": "PENDING" }
+    "auditTrail": { "status": "VERIFIED" }
   },
   {
     "id": "sfb_2010",
@@ -80,7 +80,7 @@ export const legalFrameworkIndex: LegalFrameworkIndexEntry[] = [
     "sfsNumber": "2010:110",
     "shortName": "SFB",
     "corpusFile": "sfb_2010_110.json",
-    "auditTrail": { "status": "PENDING" }
+    "auditTrail": { "status": "VERIFIED" }
   },
   {
     "id": "skl_1972",
@@ -89,7 +89,7 @@ export const legalFrameworkIndex: LegalFrameworkIndexEntry[] = [
     "sfsNumber": "1972:207",
     "shortName": "SkL",
     "corpusFile": "skl_1972_207.json",
-    "auditTrail": { "status": "PENDING" }
+    "auditTrail": { "status": "VERIFIED" }
   },
   {
     "id": "dl_2008",
@@ -98,7 +98,7 @@ export const legalFrameworkIndex: LegalFrameworkIndexEntry[] = [
     "sfsNumber": "2008:567",
     "shortName": "DL",
     "corpusFile": "dl_2008_567.json",
-    "auditTrail": { "status": "PENDING" }
+    "auditTrail": { "status": "VERIFIED" }
   },
   {
     "id": "pl_2014",
@@ -107,7 +107,7 @@ export const legalFrameworkIndex: LegalFrameworkIndexEntry[] = [
     "sfsNumber": "2014:821",
     "shortName": "PL",
     "corpusFile": "pl_2014_821.json",
-    "auditTrail": { "status": "PENDING" }
+    "auditTrail": { "status": "VERIFIED" }
   },
   {
     "id": "lss_1993",
@@ -116,7 +116,7 @@ export const legalFrameworkIndex: LegalFrameworkIndexEntry[] = [
     "sfsNumber": "1993:387",
     "shortName": "LSS",
     "corpusFile": "lss_1993_387.json",
-    "auditTrail": { "status": "PENDING" }
+    "auditTrail": { "status": "VERIFIED" }
   },
   {
     "id": "sjukl_1991",
@@ -125,7 +125,7 @@ export const legalFrameworkIndex: LegalFrameworkIndexEntry[] = [
     "sfsNumber": "1991:1047",
     "shortName": "SjukL",
     "corpusFile": "sjukl_1991_1047.json",
-    "auditTrail": { "status": "PENDING" }
+    "auditTrail": { "status": "VERIFIED" }
   },
   {
     "id": "fl_2017",
@@ -134,7 +134,7 @@ export const legalFrameworkIndex: LegalFrameworkIndexEntry[] = [
     "sfsNumber": "2017:900",
     "shortName": "FL",
     "corpusFile": "fl_2017_900.json",
-    "auditTrail": { "status": "PENDING" }
+    "auditTrail": { "status": "VERIFIED" }
   },
   {
     "id": "bk_2018",
@@ -143,7 +143,7 @@ export const legalFrameworkIndex: LegalFrameworkIndexEntry[] = [
     "sfsNumber": "2018:1197",
     "shortName": "BK",
     "corpusFile": "bk_2018_1197.json",
-    "auditTrail": { "status": "PENDING" }
+    "auditTrail": { "status": "VERIFIED" }
   },
   {
     "id": "fmu_2018",
@@ -152,7 +152,7 @@ export const legalFrameworkIndex: LegalFrameworkIndexEntry[] = [
     "sfsNumber": "2018:744",
     "shortName": "FMU",
     "corpusFile": "fmu_2018_744.json",
-    "auditTrail": { "status": "PENDING" }
+    "auditTrail": { "status": "VERIFIED" }
   },
   {
     "id": "ysl_1977",
@@ -161,7 +161,7 @@ export const legalFrameworkIndex: LegalFrameworkIndexEntry[] = [
     "sfsNumber": "1977:268",
     "shortName": "YSL",
     "corpusFile": "ysl_1977_268.json",
-    "auditTrail": { "status": "PENDING" }
+    "auditTrail": { "status": "VERIFIED" }
   },
   {
     "id": "rf_1974",
