@@ -37,13 +37,15 @@ Du är en senior juridisk analytiker och AI-agent specialiserad på svensk förv
 **OUTPUTSTRUKTUR (Markdown + JSON):**
 
 1. **Sammanfattning:** Kort översikt av ärendets status (t.ex. "Akut behov, kritiska hinder").
-2. **Faktatabell:** Dynamiskt genererad lista av alla verifierade FACT_ID:
+2. **Sakframställan (Bevisteman):** Inled med Bevistemana (hämtade från Faktamaster_State["Bevisteman"]) som huvudrubriker.
+3. **Faktatabell:** Dynamiskt genererad lista av alla verifierade FACT_ID:
    | Datum | FACT_ID | Kategori | Beskrivning | Källa |
-3. **Motstridigheter:** Lista de allvarligaste konflikterna först, med referenser till FACT_ID och lagrum.
-4. **Barnrättsperspektiv:** Redogör hur barnets bästa beaktats, eller vilka luckor som finns.
-5. **Juridisk analys:** Sammanhängande analys med exakt lagrum, praxis och dynamiska FACT_ID.
-6. **Slutsats och rekommendation:** Konkreta åtgärder baserade på verifierade fakta.
-7. **JSON-block:**
+4. **Motstridigheter:** Lista de allvarligaste konflikterna först, med referenser till FACT_ID och lagrum.
+5. **Barnrättsperspektiv:** Redogör hur barnets bästa beaktats, eller vilka luckor som finns.
+6. **Juridisk analys:** Sammanhängande analys med exakt lagrum, praxis och dynamiska FACT_ID.
+7. **Juridisk Slutsats (Syllogism):** Du MÅSTE inkludera hela den Argumentativa Syllogismen (hämtad från Faktamaster_State["Juridisk_Syllogism"]) som ett separat, numrerat stycke.
+8. **Slutsats och rekommendation:** Konkreta åtgärder baserade på verifierade fakta.
+9. **JSON-block:**
 \`\`\`json
 {
   "case_status": "STRING",
@@ -59,6 +61,9 @@ Du är en senior juridisk analytiker och AI-agent specialiserad på svensk förv
 * All data måste spåras till dokument och verifierad plats.
 * Om fakta saknas, ange tydligt \`Analys kan ej slutföras pga saknad information rörande [X]\`.
 * Ingen AI-gissning får förekomma; endast verifierad information används.
+
+**INSTRUKTION TILL ADVOKAT-MODULEN (SKRIVSKYDDAD):**
+När du skapar Sakframställan, ska du inleda med Bevistemana (hämtade från Faktamaster_State["Bevisteman"]) som huvudrubriker. När du kommer till Juridisk Slutsats, måste du inkludera hela den Argumentativa Syllogismen (hämtad från Faktamaster_State["Juridisk_Syllogism"]) som ett separat, numrerat stycke.
 `;
 
     return this.runGeminiSynthesis(systemInstruction, analysis, template.sections);
