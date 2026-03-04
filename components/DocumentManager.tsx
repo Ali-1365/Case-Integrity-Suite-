@@ -55,6 +55,15 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
     const { parseFile, isParsing, parsingError } = useFileParser();
 
     const [activeModal, setActiveModal] = useState<string | null>(null);
+    const [isDarkMode, setIsDarkMode] = useState(false);
+
+    useEffect(() => {
+        if (isDarkMode) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    }, [isDarkMode]);
 
     const loadData = useCallback(async () => {
         setIsLoading(true);
@@ -135,24 +144,24 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
     };
 
     if (isLoading) return (
-        <div className="flex flex-col h-screen items-center justify-center bg-[#FCFCFC] space-y-6">
-            <Spinner className="h-16 w-16 text-blue-800" />
-            <p className="text-xs font-black uppercase tracking-[0.5em] text-blue-800/50 animate-pulse">Initializing Case Integrity Suite v1.0...</p>
+        <div className="flex flex-col h-screen items-center justify-center bg-[#FAFAF9] dark:bg-[#1C1917] space-y-6">
+            <Spinner className="h-16 w-16 text-slate-800 dark:text-slate-200" />
+            <p className="text-xs font-black uppercase tracking-[0.5em] text-slate-800/50 dark:text-slate-200/50 animate-pulse">Initializing Case Integrity Suite v1.0...</p>
         </div>
     );
 
     const currentAnalysis = documents.find(d => d.id === selectedDocId)?.analysis || null;
 
     return (
-        <div className="flex flex-col min-h-screen bg-[#FCFCFC] text-[#1A202C] font-sans">
-            <header className="p-4 border-b border-gray-200 flex justify-between items-center bg-[#FCFCFC] sticky top-0 z-[100]">
-                <div className="flex items-center space-x-8 w-full overflow-hidden">
-                    <div className="flex items-center space-x-3 cursor-pointer shrink-0" onClick={() => setSelectedDocId(null)}>
-                        <img src="/assets/Logo.png" alt="CIS Logo" className="h-[26px] w-auto" referrerPolicy="no-referrer" />
-                        <h1 className="text-lg font-serif tracking-tight text-[#1A202C] hidden sm:block">Case Integrity Suite</h1>
+        <div className={`flex flex-col min-h-screen ${isDarkMode ? 'bg-[#1C1917] text-[#FAFAF9]' : 'bg-[#FAFAF9] text-[#1C1917]'} font-sans transition-colors duration-300`}>
+            <header className={`p-6 border-b ${isDarkMode ? 'border-[#292524] bg-[#1C1917]' : 'border-[#E7E5E4] bg-[#FAFAF9]'} flex justify-between items-center sticky top-0 z-[100] transition-colors duration-300`}>
+                <div className="flex items-center space-x-12 w-full overflow-hidden">
+                    <div className="flex items-center space-x-4 cursor-pointer shrink-0" onClick={() => setSelectedDocId(null)}>
+                        <img src="/assets/Logo.png" alt="CIS Logo" className="h-[32px] w-auto" referrerPolicy="no-referrer" />
+                        <h1 className="text-xl font-serif tracking-tight hidden sm:block">Case Integrity Suite</h1>
                     </div>
                     
-                    <nav className="hidden md:flex items-center bg-gray-50 border border-gray-200 rounded-xl p-1 space-x-1 flex-1 overflow-x-auto no-scrollbar nav-row">
+                    <nav className="hidden md:flex items-center space-x-6 flex-1 overflow-x-auto no-scrollbar nav-row">
                         <ToolButton icon={<ActivityIcon />} onClick={() => setActiveModal('monitor')} label="Monitor" active={activeModal === 'monitor'} />
                         <ToolButton icon={<ClipboardDocumentListIcon />} onClick={() => setActiveModal('inventory')} label="Inventering" active={activeModal === 'inventory'} />
                         <ToolButton icon={<ChatIcon />} onClick={() => setActiveModal('chat')} label="Beslutsmotor" active={activeModal === 'chat'} />
@@ -166,8 +175,11 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                     </nav>
                 </div>
 
-                <div className="flex items-center space-x-4 ml-4">
-                    <button onClick={onLogout} className="p-3 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all clickable"><LogoutIcon className="h-5 w-5" /></button>
+                <div className="flex items-center space-x-6 ml-6">
+                    <button onClick={() => setIsDarkMode(!isDarkMode)} className={`p-3 rounded-full transition-colors ${isDarkMode ? 'bg-[#292524] text-[#FAFAF9]' : 'bg-[#E7E5E4] text-[#1C1917]'}`}>
+                        {isDarkMode ? '☀️' : '🌙'}
+                    </button>
+                    <button onClick={onLogout} className="p-3 text-slate-400 hover:text-red-700 rounded-xl transition-all clickable"><LogoutIcon className="h-6 w-6" /></button>
                 </div>
             </header>
 
@@ -206,7 +218,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
             <ControllerDashboard isOpen={activeModal === 'controller'} onClose={() => setActiveModal(null)} />
             <SystemInventory isOpen={activeModal === 'inventory'} onClose={() => setActiveModal(null)} />
 
-            <div className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center bg-[#111111]/90 backdrop-blur-md border border-gray-800 rounded-2xl p-2 shadow-2xl z-[200]">
+            <div className="md:hidden fixed bottom-12 left-1/2 -translate-x-1/2 flex items-center bg-[#111111]/90 backdrop-blur-md border border-gray-800 rounded-3xl p-4 shadow-2xl z-[200]">
                 <ToolButton icon={<ChatIcon />} onClick={() => setActiveModal('chat')} active={activeModal === 'chat'} />
                 <ToolButton icon={<ActivityIcon />} onClick={() => setActiveModal('monitor')} active={activeModal === 'monitor'} />
                 <ToolButton icon={<AdjustmentsHorizontalIcon />} onClick={() => setActiveModal('controller')} active={activeModal === 'controller'} />
@@ -225,12 +237,12 @@ interface ToolButtonProps {
 const ToolButton: React.FC<ToolButtonProps> = ({ icon, onClick, label, active }) => (
     <button 
         onClick={onClick}
-        className={`p-2 rounded-lg transition-colors flex items-center space-x-2 group cursor-pointer ${active ? 'bg-blue-100 text-blue-800' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200'}`}
+        className={`p-4 rounded-2xl transition-colors flex items-center space-x-4 group cursor-pointer ${active ? 'bg-blue-100 text-blue-800 dark:bg-[#292524] dark:text-[#FAFAF9]' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200 dark:text-[#A8A29E] dark:hover:text-[#FAFAF9] dark:hover:bg-[#292524]'}`}
     >
-        <div className={active ? 'text-blue-800' : 'text-gray-500 group-hover:text-gray-900'}>
-            {React.isValidElement(icon) ? React.cloneElement(icon as React.ReactElement<{ className?: string }>, { className: 'w-4 h-4' }) : icon}
+        <div className={active ? 'text-blue-800 dark:text-[#FAFAF9]' : 'text-gray-500 group-hover:text-gray-900 dark:text-[#A8A29E] dark:group-hover:text-[#FAFAF9]'}>
+            {React.isValidElement(icon) ? React.cloneElement(icon as React.ReactElement<{ className?: string }>, { className: 'w-6 h-6' }) : icon}
         </div>
-        {label && <span className="text-xs font-medium hidden lg:block">{label}</span>}
+        {label && <span className="text-sm font-medium hidden lg:block">{label}</span>}
     </button>
 );
 

@@ -90,17 +90,27 @@ export class GeminiService {
       const response = await this.executeWithRetry(async () => {
         const result = await client.models.generateContent({
           model: modelName,
-          contents: [{ text: contents as string }], // Ensure contents is a string for this call
-          config: config // Use the declared config
+          contents: typeof contents === 'string' ? [{ text: contents }] : contents as any,
+          config: {
+            ...config,
+            tools: [{ googleSearch: {} }] // Aktiverar Google Search Grounding
+          }
         });
         return result;
       });
 
       const text = response.text || "";
-      loggingService.addLog({ mode, prompt: contents as string, response: text, error: null, duration: Date.now() - startTime });
+      
+      // Logga grounding-källor om de finns
+      const chunks = response.candidates?.[0]?.groundingMetadata?.groundingChunks;
+      if (chunks && chunks.length > 0) {
+        console.log("[GEMINI] Grounding sources found:", chunks.map(c => c.web?.uri).filter(Boolean));
+      }
+
+      loggingService.addLog({ mode, prompt: JSON.stringify(contents), response: text, error: null, duration: Date.now() - startTime });
       return text;
     } catch (error: any) {
-      loggingService.addLog({ mode, prompt: contents as string, response: "", error: error.message, duration: Date.now() - startTime });
+      loggingService.addLog({ mode, prompt: JSON.stringify(contents), response: "", error: error.message, duration: Date.now() - startTime });
       console.error("Error generating content from Gemini:", error);
       const errorDetails = error.message || JSON.stringify(error);
       return `KRITISKT FEL: Systemet kunde inte generera innehåll från Gemini API. Detaljer: ${errorDetails}`;
