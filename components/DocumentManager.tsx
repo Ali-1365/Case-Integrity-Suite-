@@ -144,31 +144,31 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
     const currentAnalysis = documents.find(d => d.id === selectedDocId)?.analysis || null;
 
     return (
-        <div className="flex flex-col min-h-screen bg-gray-950 text-gray-100 font-sans">
-            <header className="p-4 border-b border-gray-800 flex justify-between items-center bg-gray-950/80 backdrop-blur-xl sticky top-0 z-[100]">
+        <div className="flex flex-col min-h-screen bg-[#FCFCFC] text-[#1A202C] font-sans">
+            <header className="p-4 border-b border-gray-200 flex justify-between items-center bg-[#FCFCFC] sticky top-0 z-[100]">
                 <div className="flex items-center space-x-6">
-                    <div className="flex items-center space-x-3 group cursor-pointer" onClick={() => setSelectedDocId(null)}>
-                        <div className="p-2 bg-cyan-500/10 rounded-lg border border-cyan-500/20 group-hover:bg-cyan-500/20 transition-colors">
-                            <LogoIcon className="h-5 w-5 text-cyan-500" />
+                    <div className="flex items-center space-x-3 cursor-pointer" onClick={() => setSelectedDocId(null)}>
+                        <div className="p-2 bg-blue-100 rounded-lg">
+                            <span className="text-blue-800 font-bold">FMJAM</span>
                         </div>
-                        <h1 className="text-lg font-semibold tracking-tight text-gray-100">FMJAM GOLD</h1>
+                        <h1 className="text-lg font-semibold tracking-tight text-[#1A202C]">FMJAM GOLD</h1>
                     </div>
                     
-                    <div className="hidden md:flex items-center bg-[#111111] border border-gray-800 rounded-xl p-1 space-x-1">
+                    <nav className="hidden md:flex items-center bg-gray-100 border border-gray-200 rounded-xl p-1 space-x-1">
                         <ToolButton icon={<ActivityIcon />} onClick={() => setActiveModal('monitor')} label="Monitor" active={activeModal === 'monitor'} />
                         <ToolButton icon={<ClipboardDocumentListIcon />} onClick={() => setActiveModal('inventory')} label="Inventering" active={activeModal === 'inventory'} />
-                        <ToolButton icon={<ChatIcon />} onClick={() => setActiveModal('chat')} label="Decision Engine" active={activeModal === 'chat'} />
-                        <ToolButton icon={<MagnifyingGlassIcon />} onClick={() => setActiveModal('agent')} label="Interactive Analyst" active={activeModal === 'agent'} />
-                        <ToolButton icon={<CodeBracketIcon />} onClick={() => setActiveModal('debug')} label="System Oracle" active={activeModal === 'debug'} />
-                        <ToolButton icon={<AdjustmentsHorizontalIcon />} onClick={() => setActiveModal('controller')} label="Controller" active={activeModal === 'controller'} />
-                        <ToolButton icon={<ShieldCheckIcon />} onClick={() => setActiveModal('audit')} label="Audit" active={activeModal === 'audit'} />
-                        <ToolButton icon={<LawIcon />} onClick={() => setActiveModal('framework')} label="Legal" active={activeModal === 'framework'} />
-                        <ToolButton icon={<ChartBarSquareIcon />} onClick={() => setActiveModal('arch')} label="Arch" active={activeModal === 'arch'} />
-                    </div>
+                        <ToolButton icon={<ChatIcon />} onClick={() => setActiveModal('chat')} label="Beslutsmotor" active={activeModal === 'chat'} />
+                        <ToolButton icon={<MagnifyingGlassIcon />} onClick={() => setActiveModal('agent')} label="Analys" active={activeModal === 'agent'} />
+                        <ToolButton icon={<CodeBracketIcon />} onClick={() => setActiveModal('debug')} label="Oracle" active={activeModal === 'debug'} />
+                        <ToolButton icon={<AdjustmentsHorizontalIcon />} onClick={() => setActiveModal('controller')} label="Kontroll" active={activeModal === 'controller'} />
+                        <ToolButton icon={<ShieldCheckIcon />} onClick={() => setActiveModal('audit')} label="Logg" active={activeModal === 'audit'} />
+                        <ToolButton icon={<LawIcon />} onClick={() => setActiveModal('framework')} label="Juridik" active={activeModal === 'framework'} />
+                        <ToolButton icon={<ChartBarSquareIcon />} onClick={() => setActiveModal('arch')} label="Arkiv" active={activeModal === 'arch'} />
+                    </nav>
                 </div>
 
                 <div className="flex items-center space-x-4">
-                    <button onClick={onLogout} className="p-3 text-gray-500 hover:text-red-400 hover:bg-red-500/10 rounded-xl transition-all"><LogoutIcon className="h-5 w-5" /></button>
+                    <button onClick={onLogout} className="p-3 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all"><LogoutIcon className="h-5 w-5" /></button>
                 </div>
             </header>
 
@@ -226,9 +226,9 @@ interface ToolButtonProps {
 const ToolButton: React.FC<ToolButtonProps> = ({ icon, onClick, label, active }) => (
     <button 
         onClick={onClick}
-        className={`p-2 rounded-lg transition-colors flex items-center space-x-2 group ${active ? 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20' : 'text-gray-500 hover:text-gray-300 hover:bg-gray-800 border border-transparent'}`}
+        className={`p-2 rounded-lg transition-colors flex items-center space-x-2 group cursor-pointer ${active ? 'bg-blue-100 text-blue-800' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200'}`}
     >
-        <div className={active ? 'text-cyan-400' : 'text-gray-400 group-hover:text-gray-300'}>
+        <div className={active ? 'text-blue-800' : 'text-gray-500 group-hover:text-gray-900'}>
             {React.isValidElement(icon) ? React.cloneElement(icon as React.ReactElement<{ className?: string }>, { className: 'w-4 h-4' }) : icon}
         </div>
         {label && <span className="text-xs font-medium hidden lg:block">{label}</span>}

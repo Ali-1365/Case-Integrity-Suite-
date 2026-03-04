@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", ui-serif, Georgia, serif;
+}
+
+body {
+  background-color: #FCFCFC;
+  color: #1A202C;
+  font-family: var(--font-sans);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  color: #4A5568; /* Minimal gray */
+}
+
+/* Globala interaktionsregler */
+button, a, .clickable {
+  cursor: pointer !important;
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 8px rgba(66, 153, 225, 0.3);
+}
+
+.table-row-hover:hover {
+  background-color: #F7FAFC;
+}

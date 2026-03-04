@@ -26,6 +26,7 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
   const [response, setResponse] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [expandedLogId, setExpandedLogId] = useState<string | null>(null);
   const [repoStatus, setRepoStatus] = useState<RepoStatus | null>(null);
   const [recentLogs, setRecentLogs] = useState<LogEntry[]>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -116,31 +117,49 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
         </header>
 
         <div className="px-10 py-6 bg-black/40 border-b border-gray-800 relative z-10">
-            <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center space-x-3 text-[10px] font-black text-cyan-500 uppercase tracking-[0.3em]">
-                    <ActivityIcon className="w-4 h-4" />
-                    <span>Live System Telemetry (v.7.2)</span>
-                </div>
+            <div className="flex items-center space-x-3 text-[10px] font-black text-cyan-500 uppercase tracking-[0.3em] mb-4">
+                <ActivityIcon className="w-4 h-4" />
+                <span>Live System Telemetry (v.7.2)</span>
+            </div>
+            <div className="flex items-center space-x-2 mb-4">
+                <button onClick={async () => {
+                    try {
+                        const text = await navigator.clipboard.readText();
+                        setPrompt(prev => prev + text);
+                    } catch (err) {
+                        console.error('Failed to paste:', err);
+                    }
+                }} className="p-2 hover:text-cyan-400 transition-colors bg-cyan-500/10 rounded-lg text-[10px] font-black uppercase">
+                    Klistra in logg
+                </button>
                 <button onClick={refreshLogs} className="p-2 hover:text-cyan-400 transition-colors bg-cyan-500/10 rounded-lg">
                   <ArrowPathIcon className="w-4 h-4" />
                 </button>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-2">
+            <div className="space-y-2">
                 {recentLogs.length > 0 ? recentLogs.map((log) => (
-                    <div key={log.id} className="flex flex-col text-[8px] font-mono p-3 bg-gray-950/50 rounded-xl border border-gray-800/50 group hover:border-cyan-500/30 transition-all overflow-hidden">
-                        <div className="flex items-center justify-between mb-2">
-                            <span className="text-gray-600 shrink-0">{new Date(log.timestamp).toLocaleTimeString()}</span>
-                            <span className={`shrink-0 font-black px-1.5 rounded ${log.error ? 'bg-red-500/20 text-red-500' : 'bg-cyan-500/20 text-cyan-500'}`}>
-                                {log.mode.toUpperCase()}
-                            </span>
+                    <div key={log.id} className={`flex flex-col font-mono p-4 bg-gray-950/50 rounded-xl border border-gray-800/50 transition-all ${expandedLogId === log.id ? 'border-cyan-500/50' : 'hover:border-cyan-500/30'}`}>
+                        <div className="flex items-center justify-between cursor-pointer" onClick={() => setExpandedLogId(expandedLogId === log.id ? null : log.id)}>
+                            <div className="flex items-center gap-4 text-[10px]">
+                                <span className="text-gray-600 shrink-0">{new Date(log.timestamp).toLocaleTimeString()}</span>
+                                <span className={`shrink-0 font-black px-1.5 rounded ${log.error ? 'bg-red-500/20 text-red-500' : 'bg-cyan-500/20 text-cyan-500'}`}>
+                                    {log.mode.toUpperCase()}
+                                </span>
+                                <span className="text-gray-400 truncate italic opacity-60">
+                                    {log.error ? `ERR: ${log.error.substring(0, 30)}...` : log.prompt.substring(0, 60) + '...'}
+                                </span>
+                            </div>
+                            <span className="text-gray-700 font-black">{log.duration}ms</span>
                         </div>
-                        <span className="text-gray-400 truncate italic opacity-60 group-hover:opacity-100">
-                            {log.error ? `ERR: ${log.error.substring(0, 30)}...` : log.prompt.substring(0, 60) + '...'}
-                        </span>
-                        <span className="text-gray-700 mt-2 font-black border-t border-gray-800 pt-1">{log.duration}ms</span>
+                        {expandedLogId === log.id && (
+                            <div className="mt-4 pt-4 border-t border-gray-800 text-[10px] text-gray-300 space-y-2">
+                                <p><span className="font-bold text-gray-500">PROMPT:</span> {log.prompt}</p>
+                                {log.error && <p><span className="font-bold text-red-500">ERROR:</span> {log.error}</p>}
+                            </div>
+                        )}
                     </div>
                 )) : (
-                    <p className="text-[10px] text-gray-700 italic py-4 text-center col-span-5">Inga anrop loggade i aktuell session.</p>
+                    <p className="text-[10px] text-gray-700 italic py-4 text-center">Inga anrop loggade i aktuell session.</p>
                 )}
             </div>
         </div>
@@ -155,7 +174,7 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
                     <span className="w-2.5 h-2.5 rounded-full bg-cyan-500 mr-4 animate-ping"></span>
                     Oracle Architectural Analysis
                 </div>
-                <div className="prose prose-invert prose-lg max-w-none text-gray-300 font-mono leading-relaxed">
+                <div className="prose prose-invert prose-lg max-w-none text-gray-100 font-mono leading-relaxed">
                   {response.split('\n').map((line, i) => (
                     <p key={i} className="mb-4">{line}</p>
                   ))}
