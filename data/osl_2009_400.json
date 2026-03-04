@@ -1,4 +1,3 @@
-
 {
   "sourceCode": "OSL",
   "sfsNumber": "2009:400",
@@ -6,13 +5,47 @@
   "versionChain": ["2009:400"],
   "paragraphs": [
     {
-      "id": "osl_2009_1_1",
-      "chapter": 1,
-      "section": 1,
-      "text": "Denna lag innehåller bestämmelser om myndigheters och vissa andra organs handläggning vid registrering, utlämnande och övrig hantering av allmänna handlingar.",
+      "id": "osl_2009_10_2",
+      "chapter": 10,
+      "section": 2,
+      "text": "Sekretess hindrar inte att en uppgift lämnas till en annan myndighet, om det är nödvändigt för att den utlämnande myndigheten ska kunna fullgöra sin verksamhet.",
       "metadata": {
         "validFrom": "2009-06-30",
-        "provenanceHash": "sha256-osl_1_1"
+        "provenanceHash": "sha256-osl_10_2",
+        "revisionNote": "Sekretessbrytande regel vid nödvändighet."
+      }
+    },
+    {
+      "id": "osl_2009_10_18a",
+      "chapter": 10,
+      "section": "18 a",
+      "text": "Sekretess hindrar inte att en uppgift som rör misstanke om ett begånget brott lämnas till en polismyndighet eller en annan myndighet som har till uppgift att ingripa mot brottet, om brottet har begåtts i myndighetens verksamhet.",
+      "metadata": {
+        "validFrom": "2009-06-30",
+        "provenanceHash": "sha256-osl_10_18a",
+        "revisionNote": "Sekretessbrytande regel vid brottsprevention."
+      }
+    },
+    {
+      "id": "osl_2009_10_28",
+      "chapter": 10,
+      "section": 28,
+      "text": "Sekretess hindrar inte att en uppgift lämnas till en annan myndighet, om uppgiftsskyldighet följer av lag eller förordning.",
+      "metadata": {
+        "validFrom": "2009-06-30",
+        "provenanceHash": "sha256-osl_10_28",
+        "revisionNote": "Sekretessbrytande regel vid lagstadgad uppgiftsskyldighet (tillsyn IVO/JO)."
+      }
+    },
+    {
+      "id": "osl_2009_25_1",
+      "chapter": 25,
+      "section": 1,
+      "text": "Sekretess gäller inom hälso- och sjukvården för uppgift om en enskilds hälsotillstånd eller andra personliga förhållanden, om det inte står klart att uppgiften kan röjas utan att den enskilde eller någon närstående lider men.",
+      "metadata": {
+        "validFrom": "2009-06-30",
+        "provenanceHash": "sha256-osl_25_1",
+        "revisionNote": "Mycket stark huvudregel om sekretess för personliga förhållanden."
       }
     }
   ]

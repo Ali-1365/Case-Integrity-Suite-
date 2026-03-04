@@ -10,7 +10,8 @@ interface EnrichedLegalParagraph {
   lawTitle: string;
   lawSourceCode: string;
   chapter?: number;
-  section: number;
+  section?: number | string;
+  reference?: string;
   text: string;
 }
 
@@ -40,6 +41,7 @@ class LegalAIAgent {
           lawSourceCode: corpus.sourceCode,
           chapter: p.chapter,
           section: p.section,
+          reference: (p as any).reference, // Handle Praxis reference
           text: p.text,
         });
       });
@@ -92,7 +94,7 @@ class LegalAIAgent {
     const lawsForPrompt = this.laws.map(p => ({
       id: p.id,
       law: p.lawTitle,
-      ref: `${p.chapter ? p.chapter + ' kap. ' : ''}${p.section} §`,
+      ref: p.reference || `${p.chapter ? p.chapter + ' kap. ' : ''}${p.section} §`,
       text: p.text.substring(0, 250) + '...' // Truncate to save tokens
     }));
 

@@ -8,14 +8,14 @@ import { auditService } from './AuditService';
 export interface RagIndexChunk {
   id: string;
   text: string;
-  section: number;
+  section?: number | string;
   chapter?: number;
   sfsNumber: string;
   sourceCode: string;
   provenanceHash: string;
   versionChain: string[];
   embedding: number[];
-  metadata: { title: string; validFrom: string; auditStatus: string; };
+  metadata: { title: string; validFrom?: string; auditStatus: string; };
 }
 
 export interface RagIndex {

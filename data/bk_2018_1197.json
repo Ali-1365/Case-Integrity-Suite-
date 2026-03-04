@@ -1,4 +1,3 @@
-
 {
   "sourceCode": "BK",
   "sfsNumber": "2018:1197",
@@ -6,21 +5,23 @@
   "versionChain": ["2018:1197"],
   "paragraphs": [
     {
-      "id": "bk_art_1",
-      "section": 1,
-      "text": "I denna konvention avses med barn varje människa under 18 år, om barnet inte blir myndigt tidigare enligt den lag som gäller för barnet.",
-      "metadata": {
-        "validFrom": "2020-01-01",
-        "provenanceHash": "sha256-bk_art1"
-      }
-    },
-    {
-      "id": "bk_art_3",
-      "section": 3,
+      "id": "bk_2018_3",
+      "section": "Artikel 3",
       "text": "Vid alla åtgärder som rör barn, vare sig de vidtas av offentliga eller privata sociala välfärdsinstitutioner, domstolar, administrativa myndigheter eller lagstiftande organ, ska barnets bästa komma i främsta rummet.",
       "metadata": {
         "validFrom": "2020-01-01",
-        "provenanceHash": "sha256-bk_art3"
+        "provenanceHash": "sha256-bk_art_3",
+        "revisionNote": "Barnets bästa som ett av konventionens grundprinciper."
+      }
+    },
+    {
+      "id": "bk_2018_12",
+      "section": "Artikel 12",
+      "text": "Konventionsstaterna ska tillförsäkra det barn som är i stånd att bilda egna åsikter rätten att fritt uttrycka dessa åsikter i alla frågor som rör barnet, varvid barnets åsikter ska tillmätas betydelse i förhållande till barnets ålder och mognad.",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "provenanceHash": "sha256-bk_art_12",
+        "revisionNote": "Barnets ovillkorliga rätt att bli hörd."
       }
     }
   ]

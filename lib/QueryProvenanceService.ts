@@ -12,7 +12,7 @@ export interface ProvenanceChain {
     sourceCode: string;
     sfsNumber: string;
     chapter?: number;
-    section: number;
+    section?: number | string;
     text: string;
     provenanceHash: string;
     corpusFile: string;

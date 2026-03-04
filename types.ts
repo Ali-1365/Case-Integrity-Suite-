@@ -7,11 +7,12 @@ export type LegalSourceCode = 'RF' | 'SFB' | 'FL' | 'PSA' | 'GDPR' | 'SoL' | 'Br
 export interface LegalParagraph {
   id: string;
   chapter?: number;
-  section: number;
+  section?: number | string;
   subSection?: number;
+  reference?: string;
   text: string;
   metadata: {
-    validFrom: string;
+    validFrom?: string;
     validTo?: string;
     provenanceHash: string;
     revisionNote?: string;

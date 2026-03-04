@@ -1,4 +1,3 @@
-
 {
   "sourceCode": "SoL",
   "sfsNumber": "2025:400",
@@ -12,7 +11,7 @@
       "text": "Samhällets socialtjänst ska på demokratins och solidaritetens grund främja människornas ekonomiska och sociala trygghet, jämlikhet i levnadsvillkor och aktiva deltagande i samhällslivet. Socialtjänsten ska under hänsynstagande till människans ansvar för sin och andras sociala situation inriktas på att frigöra och utveckla enskildas och gruppers egna resurser. Verksamheten ska bygga på respekt för människornas självbestämmanderätt och integritet.",
       "metadata": {
         "validFrom": "2025-07-01",
-        "provenanceHash": "sha256-a1b2c3d4e5f6g7h8",
+        "provenanceHash": "sha256-sol_1_1_2025",
         "revisionNote": "Portalparagraf: Främja trygghet, jämlikhet och goda levnadsvillkor."
       }
     },
@@ -23,8 +22,19 @@
       "text": "Vid åtgärder som rör barn ska vad som är bäst för barnet vara avgörande. Vid beslut eller andra åtgärder som rör vård- eller behandlingsinsatser för barn ska vad som är bäst för barnet vara avgörande. Med barn avses varje människa under 18 år.",
       "metadata": {
         "validFrom": "2025-07-01",
-        "provenanceHash": "sha256-i9j0k1l2m3n4o5p6",
-        "revisionNote": "Barnets bästa som främsta och överordnade övervägande."
+        "provenanceHash": "sha256-sol_1_2_2025",
+        "revisionNote": "Respekt för självbestämmande, integritet och fokus på förebyggande insatser (Barnets bästa)."
+      }
+    },
+    {
+      "id": "sol_2025_1_3",
+      "chapter": 1,
+      "section": 3,
+      "text": "Barnets bästa ska vara ett överordnat övervägande vid alla åtgärder som rör barn. Barnet ska ges möjlighet att framföra sina åsikter i frågor som rör barnet.",
+      "metadata": {
+        "validFrom": "2025-07-01",
+        "provenanceHash": "sha256-sol_1_3_2025",
+        "revisionNote": "Barnets bästa som främsta och överordnade övervägande vid alla åtgärder."
       }
     },
     {
@@ -34,7 +44,7 @@
       "text": "Varje kommun svarar för socialtjänsten inom sitt område och har det yttersta ansvaret för att de som vistas i kommunen får det stöd och den hjälp som de behöver. Detta innebär ingen inskränkning i det ansvar som vilar på andra huvudmän.",
       "metadata": {
         "validFrom": "2025-07-01",
-        "provenanceHash": "sha256-sol_2_1_2025_hash",
+        "provenanceHash": "sha256-sol_2_1_2025",
         "revisionNote": "Kommunens yttersta ansvar för stöd till alla som vistas i kommunen."
       }
     },
@@ -45,7 +55,7 @@
       "text": "Socialnämnden ska genom information och på annat sätt verka för att socialtjänsten blir lättillgänglig och känd för alla som kan behöva den. Nämnden ska också verka för att socialtjänsten utformas så att den svarar mot människors behov.",
       "metadata": {
         "validFrom": "2025-07-01",
-        "provenanceHash": "sha256-sol_3_1_2025_hash",
+        "provenanceHash": "sha256-sol_3_1_2025",
         "revisionNote": "Informations- och serviceskyldighet (lättillgänglig socialtjänst)."
       }
     },
@@ -56,7 +66,7 @@
       "text": "Verksamhet inom socialtjänsten ska vara av god kvalitet. För utförande av de uppgifter som socialnämnden har ansvar för ska det finnas personal med lämplig utbildning och erfarenhet. Kvaliteten i verksamheten ska systematiskt och fortlöpande utvecklas och säkras.",
       "metadata": {
         "validFrom": "2025-07-01",
-        "provenanceHash": "sha256-sol_3_3_2025_hash",
+        "provenanceHash": "sha256-sol_3_3_2025",
         "revisionNote": "Kvalitetskrav i socialtjänstverksamhet."
       }
     },
@@ -67,7 +77,7 @@
       "text": "Socialnämnden ska i sin verksamhet samverka med andra samhällsorgan, organisationer och enskilda. Nämnden ska särskilt samverka med andra myndigheter när det behövs för att den enskilde ska få sina behov tillgodosedda.",
       "metadata": {
         "validFrom": "2025-07-01",
-        "provenanceHash": "sha256-sol_3_5_2025_hash",
+        "provenanceHash": "sha256-sol_3_5_2025",
         "revisionNote": "Krav på aktiv samverkan med andra myndigheter och organisationer."
       }
     },
@@ -78,7 +88,7 @@
       "text": "Den som inte själv kan tillgodose sina behov eller kan få dem tillgodosedda på annat sätt har rätt till bistånd av socialnämnden för sin försörjning och för sin livsföring i övrigt. Den enskilde ska genom biståndet tillförsäkras en skälig levnadsnivå. Biståndet ska utformas så att det stärker hans eller hennes möjligheter att leva ett självständigt liv.",
       "metadata": {
         "validFrom": "2025-07-01",
-        "provenanceHash": "sha256-q7r8s9t0u1v2w3x4",
+        "provenanceHash": "sha256-sol_4_1_2025",
         "revisionNote": "Den lagstadgade rätten till bistånd för att uppnå en skälig levnadsnivå."
       }
     },
@@ -89,7 +99,7 @@
       "text": "Socialnämnden ska verka för att den som utsätts för brott och dennes närstående får stöd och hjälp. Nämnden ska särskilt beakta att kvinnor som är eller har varit utsatta för våld eller andra övergrepp av närstående kan vara i behov av stöd och hjälp för att förändra sin situation.",
       "metadata": {
         "validFrom": "2025-07-01",
-        "provenanceHash": "sha256-sol_4_4_2025_hash",
+        "provenanceHash": "sha256-sol_4_4_2025",
         "revisionNote": "Stärkt och särskilt ansvar för att ge stöd till våldsutsatta."
       }
     },
@@ -100,7 +110,7 @@
       "text": "Socialnämnden ska utan dröjsmål inleda utredning av vad som genom ansökan, anmälan eller på annat sätt har kommit till nämndens kännedom och som kan föranleda någon åtgärd av nämnden.",
       "metadata": {
         "validFrom": "2025-07-01",
-        "provenanceHash": "sha256-sol_11_1_2025_hash",
+        "provenanceHash": "sha256-sol_11_1_2025",
         "revisionNote": "Skyldighet att inleda utredning omedelbart vid ansökan eller anmälan."
       }
     },
@@ -111,7 +121,7 @@
       "text": "En utredning som rör ett barns behov av skydd eller stöd ska bedrivas skyndsamt och vara slutförd senast inom fyra månader. Om det finns särskilda skäl får utredningen förlängas för en viss kortare tid.",
       "metadata": {
         "validFrom": "2025-07-01",
-        "provenanceHash": "sha256-sol_11_2_2025_hash",
+        "provenanceHash": "sha256-sol_11_2_2025",
         "revisionNote": "Strikta tidsgränser för barnutredningar (max 4 månader)."
       }
     },
@@ -122,7 +132,7 @@
       "text": "Handläggning av ärenden som rör enskilda samt genomförande av beslut om stödinsatser, vård och behandling ska dokumenteras. Dokumentationen ska utvisa beslut och åtgärder som vidtas i ärendet samt faktiska omständigheter och händelser av betydelse.",
       "metadata": {
         "validFrom": "2025-07-01",
-        "provenanceHash": "sha256-y5z6a7b8c9d0e1f2",
+        "provenanceHash": "sha256-sol_11_5_2025",
         "revisionNote": "Specifik skyldighet till journalföring och spårbarhet inom socialtjänsten."
       }
     },
@@ -133,7 +143,7 @@
       "text": "Den som utredningen rör har rätt att få del av de uppgifter som har tillförts ärendet och att yttra sig över dem innan nämnden fattar beslut. Detta gäller dock inte om det är uppenbart obehövligt.",
       "metadata": {
         "validFrom": "2025-07-01",
-        "provenanceHash": "sha256-sol_11_8_2025_hash",
+        "provenanceHash": "sha256-sol_11_8_2025",
         "revisionNote": "Den enskildes rätt till full aktinsyn och att bemöta uppgifter."
       }
     },
@@ -144,8 +154,19 @@
       "text": "När en åtgärd rör ett barn ska barnet få relevant information. Barnet ska ges möjlighet att framföra sina åsikter i frågor som rör barnet. Barnets åsikter ska tillmätas betydelse i förhållande till barnets ålder och mognad.",
       "metadata": {
         "validFrom": "2025-07-01",
-        "provenanceHash": "sha256-sol_11_10_2025_hash",
-        "revisionNote": "Barnets rätt till information och att få framföra sina åsikter."
+        "provenanceHash": "sha256-sol_11_10_2025",
+        "revisionNote": "Barnets rätt till information och att få tala ostört."
+      }
+    },
+    {
+      "id": "sol_2025_11_11a",
+      "chapter": 11,
+      "section": "11 a",
+      "text": "Ett barn får höras utan vårdnadshavarens samtycke och utan att vårdnadshavaren är närvarande om det behövs för att utreda barnets behov av skydd eller stöd.",
+      "metadata": {
+        "validFrom": "2025-07-01",
+        "provenanceHash": "sha256-sol_11_11a_2025",
+        "revisionNote": "Barnets rätt att få tala ostört, vid behov utan samtycke."
       }
     },
     {
@@ -155,7 +176,7 @@
       "text": "Var och en som får kännedom om något som kan innebära att socialnämnden behöver ingripa till ett barns skydd bör anmäla detta till nämnden. Myndigheter vars verksamhet berör barn och ungdom samt anställda hos sådana myndigheter är skyldiga att genast anmäla till socialnämnden om de i sin verksamhet får kännedom om eller misstänker att ett barn far illa.",
       "metadata": {
         "validFrom": "2025-07-01",
-        "provenanceHash": "sha256-sol_14_1_2025_hash",
+        "provenanceHash": "sha256-sol_14_1_2025",
         "revisionNote": "Lagstadgad anmälningsskyldighet vid minsta oro för att ett barn far illa."
       }
     },
@@ -166,7 +187,7 @@
       "text": "Var och en som utför uppgifter inom socialtjänsten ska vaka över att de enskilda får god kvalitet i omsorgen och att de lever under trygga förhållanden. Den som utför uppgifter inom socialtjänsten ska genast rapportera om han eller hon uppmärksammar eller får kännedom om ett missförhållande eller en påtaglig risk för ett missförhållande.",
       "metadata": {
         "validFrom": "2025-07-01",
-        "provenanceHash": "sha256-sol_16_6_2025_hash",
+        "provenanceHash": "sha256-sol_16_6_2025",
         "revisionNote": "Lex Sarah: Personals lagstadgade skyldighet att rapportera missförhållanden."
       }
     },
@@ -177,7 +198,7 @@
       "text": "När den enskilde har behov av insatser både från socialtjänsten och från hälso- och sjukvården ska kommunen tillsammans med regionen upprätta en individuell plan. Planen ska upprättas om kommunen eller regionen bedömer att den behövs för att den enskilde ska få sina behov tillgodosedda.",
       "metadata": {
         "validFrom": "2025-07-01",
-        "provenanceHash": "sha256-sol_16_10_2025_hash",
+        "provenanceHash": "sha256-sol_16_10_2025",
         "revisionNote": "Individuell Plan (SIP): Lagstadgad samverkan med hälso- och sjukvården."
       }
     }
