@@ -28,7 +28,7 @@ export class GeminiService {
   private initializeClient(): void {
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      console.warn("GEMINI_API_KEY är inte satt. API-anrop kommer att misslyckas.");
+      loggingService.error("System Configuration Error: GEMINI_API_KEY is missing. AI services will be unavailable.");
       return;
     }
     this.ai = new GoogleGenAI({ apiKey, apiVersion: 'v1beta' } as any);
@@ -134,9 +134,9 @@ export class GeminiService {
         duration 
       });
       
-      // Fallback mechanism: If Pro fails in 'think' mode, try Flash as fallback
+      // Reliability layer: If Pro model fails in high-reasoning mode, attempt recovery using Flash model
       if (mode === 'think' && modelName === this.proModel) {
-        loggingService.warn("Fallback: Pro model failed in think mode, retrying with Flash model...");
+        loggingService.warn("Service Recovery: High-reasoning model failed, initiating fallback to standard model...", { originalModel: modelName });
         return this.generate(params, 'fast');
       }
 

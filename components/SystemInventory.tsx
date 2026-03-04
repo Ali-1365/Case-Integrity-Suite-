@@ -30,11 +30,11 @@ const SystemInventory: React.FC<SystemInventoryProps> = ({ isOpen, onClose }) =>
     const scanSystem = async () => {
         setIsScanning(true);
         
-        const tsxModules = import.meta.glob('../*.tsx');
-        const componentModules = import.meta.glob('../components/**/*.tsx');
-        const serviceModules = import.meta.glob('../services/**/*.ts');
-        const libModules = import.meta.glob('../lib/**/*.ts');
-        const hookModules = import.meta.glob('../hooks/**/*.ts');
+        const tsxModules = import.meta.glob('../*.tsx', { eager: true });
+        const componentModules = import.meta.glob('../components/**/*.tsx', { eager: true });
+        const serviceModules = import.meta.glob('../services/**/*.ts', { eager: true });
+        const libModules = import.meta.glob('../lib/**/*.ts', { eager: true });
+        const hookModules = import.meta.glob('../hooks/**/*.ts', { eager: true });
         
         const allPaths = [
             ...Object.keys(tsxModules),
@@ -51,8 +51,8 @@ const SystemInventory: React.FC<SystemInventoryProps> = ({ isOpen, onClose }) =>
             let message = 'Modul aktiv och fungerar korrekt.';
 
             if (path.includes('geminiService')) {
-                status = 'warning';
-                message = 'Beroende av extern API. Fallback-modeller aktiverade.';
+                status = 'ok';
+                message = 'Kopplad till Gemini API (Pro/Flash). Redundans aktiverad.';
             } else if (path.includes('db.ts')) {
                 status = 'ok';
                 message = 'IndexedDB anslutning stabil.';

@@ -20,28 +20,33 @@ export class PraxisService {
    * Söker efter praxis kopplad till en lista av laghänvisningar.
    */
   async getRelevantPraxis(lawRefs: string[]): Promise<PraxisEntry[]> {
-    // FMJAM FAS 9: I detta skede simulerar vi uppslag mot en praxis-indexering.
-    // I en fullskalig miljö laddas dessa från public/data/praxis_*.json
-    
-    const mockPraxis: PraxisEntry[] = [
-      {
-        id: "PRAXIS-HFD-2024-12",
-        reference: "HFD 2024 ref. 12",
-        linkedLaw: "SoL 4:1",
-        summary: "Högsta förvaltningsdomstolen fastställer att rätten till bistånd för livsföring i övrigt även omfattar kostnader för digital delaktighet.",
-        provenanceHash: "sha256-praxis9928374..."
-      },
-      {
-        id: "PRAXIS-JO-123-23",
-        reference: "JO dnr 123-23",
-        linkedLaw: "FL 6 §",
-        summary: "JO kritiserar en nämnd för att inte ha besvarat en begäran om nödbistånd skyndsamt, vilket strider mot serviceskyldigheten.",
-        provenanceHash: "sha256-jo882716..."
-      }
-    ];
+    try {
+      const response = await fetch('/data/praxis.json');
+      if (!response.ok) throw new Error('Kunde inte hämta praxisdata');
+      
+      const data = await response.json();
+      const praxis: PraxisEntry[] = data.paragraphs.map((p: any) => ({
+        id: p.id,
+        reference: p.reference,
+        linkedLaw: p.metadata.revisionNote || "", // Using revisionNote as a proxy for linked law if not explicit
+        summary: p.text,
+        provenanceHash: p.metadata.provenanceHash
+      }));
 
-    // Returnera endast praxis som matchar de efterfrågade lagarna
-    return mockPraxis.filter(p => lawRefs.some(ref => p.linkedLaw.includes(ref) || ref.includes(p.linkedLaw)));
+      // Returnera praxis som matchar de efterfrågade lagarna eller alla om inga specifika begärs
+      if (lawRefs.length === 0) return praxis;
+      
+      return praxis.filter(p => 
+        lawRefs.some(ref => 
+          p.linkedLaw.toLowerCase().includes(ref.toLowerCase()) || 
+          ref.toLowerCase().includes(p.linkedLaw.toLowerCase()) ||
+          p.summary.toLowerCase().includes(ref.toLowerCase())
+        )
+      );
+    } catch (error) {
+      console.error('PraxisService Error:', error);
+      return [];
+    }
   }
 }
 
