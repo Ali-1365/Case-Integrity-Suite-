@@ -21,6 +21,8 @@ import {
   Spinner
 } from './icons';
 
+import SystemHealthDashboard from './SystemHealthDashboard';
+
 interface FMJAMControlPanelProps {
   isOpen: boolean;
   onClose: () => void;
@@ -36,6 +38,7 @@ const FMJAMControlPanel: React.FC<FMJAMControlPanelProps> = ({ isOpen, onClose, 
   const [quota, setQuota] = useState<QuotaState>(geminiService.quotaState);
   const [isRepairing, setIsRepairing] = useState(false);
   const [isBaking, setIsBaking] = useState(false);
+  const [showHealthDashboard, setShowHealthDashboard] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -114,6 +117,13 @@ const FMJAMControlPanel: React.FC<FMJAMControlPanelProps> = ({ isOpen, onClose, 
           </div>
 
           <div className="flex items-center space-x-2 relative z-10">
+            <button 
+                onClick={() => setShowHealthDashboard(true)}
+                className="hidden md:flex items-center space-x-2 bg-indigo-50 dark:bg-indigo-900/20 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400 px-4 py-2 rounded-lg transition-all font-bold text-[10px] uppercase tracking-widest border border-indigo-100 dark:border-indigo-800/50"
+            >
+                <ActivityIcon className="h-4 w-4" />
+                <span>Health Dashboard</span>
+            </button>
             <button 
                 onClick={handleBakeIndex}
                 disabled={isBaking}
@@ -249,6 +259,7 @@ const FMJAMControlPanel: React.FC<FMJAMControlPanelProps> = ({ isOpen, onClose, 
             </div>
         </footer>
       </div>
+      <SystemHealthDashboard isOpen={showHealthDashboard} onClose={() => setShowHealthDashboard(false)} />
     </div>
   );
 };
