@@ -8,8 +8,8 @@ export function startApp() {
   // System Heartbeat - Verifierar miljöns integritet efter synk (v.7.2.0-STABLE)
   const timestamp = new Date().toISOString();
   console.log(
-    `%c FMJAM v.7.2.0-STABLE %c Integrity Verified at ${timestamp}`,
-    "color: #06b6d4; font-weight: bold; background: #083344; padding: 2px 5px; border-radius: 3px;",
+    `%c Case Integrity Suite v1.0 %c Integrity Verified at ${timestamp}`,
+    "color: #1e40af; font-weight: bold; background: #dbeafe; padding: 2px 5px; border-radius: 3px;",
     "color: #10b981; font-weight: bold;"
   );
   

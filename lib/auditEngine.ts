@@ -1,5 +1,5 @@
 
-import { AnalysisResult, AuditResult } from './fmjam.types';
+import { AnalysisResult, AuditResult } from './cis.types';
 import { LEGAL_SOURCES } from '../data/legalSources';
 
 export class AuditEngine {

@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { AnalysisResult, Fact } from '../lib/fmjam.types';
+import { AnalysisResult, Fact } from '../lib/cis.types';
 import { ActivityIcon } from './icons';
 
 interface TimelineViewProps {

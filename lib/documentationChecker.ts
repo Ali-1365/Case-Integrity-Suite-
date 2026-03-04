@@ -1,5 +1,5 @@
 
-import { DocumentationCheck } from './fmjam.types';
+import { DocumentationCheck } from './cis.types';
 
 export class DocumentationChecker {
     // Fångar upp variationer av SoL 11:5 och begreppet

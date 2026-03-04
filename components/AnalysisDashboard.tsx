@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { AnalysisResult } from '../lib/fmjam.types';
+import { AnalysisResult } from '../lib/cis.types';
 import Card from './shared/Card';
 import { ShieldCheckIcon, AlertIcon, LawIcon, ActivityIcon } from './icons';
 

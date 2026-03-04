@@ -1,5 +1,5 @@
 
-import { FMJAMCase } from './CaseManagementService';
+import { CISCase } from './CaseManagementService';
 
 export interface SystemPattern {
   category: string;
@@ -10,12 +10,12 @@ export interface SystemPattern {
 }
 
 /**
- * FMJAM PatternEngine v.1.0
+ * CIS PatternEngine v.1.0
  * Identifierar mönster i beslut, risk och proportionalitet.
  */
 export class PatternEngine {
-  identifyPatterns(cases: FMJAMCase[]): SystemPattern[] {
-    const patterns: Map<string, FMJAMCase[]> = new Map();
+  identifyPatterns(cases: CISCase[]): SystemPattern[] {
+    const patterns: Map<string, CISCase[]> = new Map();
     
     // Gruppera ärenden efter kategori (baserat på lagrum/teman)
     cases.forEach(c => {

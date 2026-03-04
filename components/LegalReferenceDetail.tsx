@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { AnalysisResult, Fact } from '../lib/fmjam.types';
+import { AnalysisResult, Fact } from '../lib/cis.types';
 import { LEGAL_SOURCES } from '../data/legalSources';
 import { 
   XMarkIcon, 

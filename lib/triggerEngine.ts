@@ -1,4 +1,4 @@
-import { OversightBodyClassification } from './fmjam.types';
+import { OversightBodyClassification } from './cis.types';
 import { CASE_TYPE_REGISTRY } from '../data/caseTypeRegistry';
 
 export class TriggerEngine {

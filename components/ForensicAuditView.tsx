@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { AnalysisResult } from '../lib/fmjam.types';
+import { AnalysisResult } from '../lib/cis.types';
 import { 
     ShieldCheckIcon, 
     CheckCircleIcon, 
@@ -32,7 +32,7 @@ const ForensicAuditView: React.FC<ForensicAuditViewProps> = ({ analysis }) => {
         <div className="space-y-6 animate-in fade-in duration-500">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="bg-[#111111] p-8 rounded-xl border border-gray-800 flex flex-col items-center justify-center text-center">
-                    <span className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-6">GOLD Integrity Score</span>
+                    <span className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-6">CIS Integrity Score</span>
                     <div className="relative flex items-center justify-center">
                         <svg className="w-32 h-32 transform -rotate-90">
                             <circle cx="64" cy="64" r="56" stroke="currentColor" strokeWidth="8" fill="transparent" className="text-gray-800" />
@@ -77,7 +77,7 @@ const ForensicAuditView: React.FC<ForensicAuditViewProps> = ({ analysis }) => {
                         <SparklesIcon className="w-4 h-4 mr-2 text-gray-400" />
                         Deterministisk Beslutslogg
                     </h4>
-                    <span className="text-xs font-mono text-cyan-500">v.6.2.2 GOLD_SYNC</span>
+                    <span className="text-xs font-mono text-cyan-500">v.1.0 CIS_SYNC</span>
                 </div>
                 <div className="divide-y divide-gray-800">
                     {audit.checks.map(check => (
@@ -106,7 +106,7 @@ const ForensicAuditView: React.FC<ForensicAuditViewProps> = ({ analysis }) => {
                         <div>
                             <h5 className="text-sm font-medium text-gray-200 mb-2">RAG Provenance Status</h5>
                             <p className="text-sm text-gray-500 leading-relaxed">
-                                Systemet har matchat bevisatomer mot det officiella SFS-indexet. Varje loggad exekvering i v.6.2.2-GOLD är fullt spårbar till en specifik vektor i PKK-materialet.
+                                Systemet har matchat bevisatomer mot det officiella SFS-indexet. Varje loggad exekvering i v.1.0-CIS är fullt spårbar till en specifik vektor i PKK-materialet.
                             </p>
                         </div>
                     </div>

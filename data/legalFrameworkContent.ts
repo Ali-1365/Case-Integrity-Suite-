@@ -1,5 +1,5 @@
 export const LEGAL_FRAMEWORK_MD = `
-# Juridiskt Ramverk för FMJAM Analysis Engine v.6.2.2-GOLD
+# Juridiskt Ramverk för Case Integrity Suite Analysis Engine v.6.2.2-GOLD
 
 ## 1. Syfte och Omfattning
 Detta ramverk reglerar den tekniska och juridiska analysprocessen inom applikationen med fullt fokus på **Socialtjänstlagen (SFS 2025:400)**. Syftet är att säkerställa att alla automatiserade analyser sker i enlighet med gällande rätt och den senaste praxisen.

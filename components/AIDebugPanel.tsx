@@ -95,29 +95,26 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-gray-950/90 backdrop-blur-2xl z-[250] flex items-center justify-center p-4 md:p-8 outline-none animate-in fade-in duration-300">
-      <div className="bg-gray-900 rounded-[3rem] shadow-2xl w-full max-w-5xl h-full max-h-[90vh] flex flex-col border border-cyan-500/20 overflow-hidden ring-1 ring-white/5 font-sans">
+    <div className="fixed inset-0 bg-white/80 backdrop-blur-sm z-[250] flex items-center justify-center p-4 md:p-8 outline-none animate-in fade-in duration-300">
+      <div className="bg-white rounded-3xl shadow-2xl w-full max-w-5xl h-full max-h-[90vh] flex flex-col border border-gray-200 overflow-hidden font-sans">
         
-        <header className="p-10 border-b border-gray-800 flex justify-between items-center bg-gray-900/60 relative overflow-hidden">
-          <div className="absolute top-0 right-0 p-10 opacity-5 pointer-events-none">
-              <CodeBracketIcon className="w-64 h-64 text-cyan-500" />
-          </div>
+        <header className="p-10 border-b border-gray-200 flex justify-between items-center bg-gray-50 relative overflow-hidden">
           <div className="flex items-center space-x-6 relative z-10">
-            <div className="p-4 bg-cyan-500/10 rounded-2xl text-cyan-400 border border-cyan-500/20 shadow-[0_0_20px_rgba(34,211,238,0.1)]">
+            <div className="p-4 bg-blue-100 rounded-2xl text-blue-800 border border-blue-200">
               <CodeBracketIcon className="w-10 h-10" />
             </div>
             <div>
-              <h3 className="text-3xl font-black text-white tracking-tighter uppercase italic leading-none">System Architect Oracle</h3>
+              <h3 className="text-3xl font-serif text-[#1A202C] tracking-tighter uppercase italic leading-none">System Architect Oracle</h3>
               <p className="text-[10px] text-gray-500 uppercase tracking-[0.4em] font-black mt-3">v.7.2.7-GOLD | TELEMETRY_ENABLED</p>
             </div>
           </div>
-          <button onClick={onClose} className="p-3 text-gray-500 hover:text-white transition-all bg-white/5 rounded-2xl border border-gray-800 active:scale-90 relative z-10">
+          <button onClick={onClose} className="p-3 text-gray-500 hover:text-[#1A202C] transition-all bg-gray-100 rounded-2xl border border-gray-200 active:scale-90 relative z-10">
             <XMarkIcon className="w-10 h-10" />
           </button>
         </header>
 
-        <div className="px-10 py-6 bg-black/40 border-b border-gray-800 relative z-10">
-            <div className="flex items-center space-x-3 text-[10px] font-black text-cyan-500 uppercase tracking-[0.3em] mb-4">
+        <div className="px-10 py-6 bg-white border-b border-gray-200 relative z-10">
+            <div className="flex items-center space-x-3 text-[10px] font-black text-blue-800 uppercase tracking-[0.3em] mb-4">
                 <ActivityIcon className="w-4 h-4" />
                 <span>Live System Telemetry (v.7.2)</span>
             </div>
@@ -129,58 +126,58 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
                     } catch (err) {
                         console.error('Failed to paste:', err);
                     }
-                }} className="p-2 hover:text-cyan-400 transition-colors bg-cyan-500/10 rounded-lg text-[10px] font-black uppercase">
+                }} className="p-2 hover:bg-gray-100 transition-colors bg-gray-50 rounded-lg text-[10px] font-black uppercase text-gray-700 border border-gray-200">
                     Klistra in logg
                 </button>
-                <button onClick={refreshLogs} className="p-2 hover:text-cyan-400 transition-colors bg-cyan-500/10 rounded-lg">
+                <button onClick={refreshLogs} className="p-2 hover:bg-gray-100 transition-colors bg-gray-50 rounded-lg text-gray-700 border border-gray-200">
                   <ArrowPathIcon className="w-4 h-4" />
                 </button>
             </div>
             <div className="space-y-2">
                 {recentLogs.length > 0 ? recentLogs.map((log) => (
-                    <div key={log.id} className={`flex flex-col font-mono p-4 bg-gray-950/50 rounded-xl border border-gray-800/50 transition-all ${expandedLogId === log.id ? 'border-cyan-500/50' : 'hover:border-cyan-500/30'}`}>
+                    <div key={log.id} className={`flex flex-col font-mono p-4 bg-white rounded-xl border border-gray-200 transition-all ${expandedLogId === log.id ? 'border-blue-300' : 'hover:border-gray-300'}`}>
                         <div className="flex items-center justify-between cursor-pointer" onClick={() => setExpandedLogId(expandedLogId === log.id ? null : log.id)}>
                             <div className="flex items-center gap-4 text-[10px]">
-                                <span className="text-gray-600 shrink-0">{new Date(log.timestamp).toLocaleTimeString()}</span>
-                                <span className={`shrink-0 font-black px-1.5 rounded ${log.error ? 'bg-red-500/20 text-red-500' : 'bg-cyan-500/20 text-cyan-500'}`}>
+                                <span className="text-gray-500 shrink-0">{new Date(log.timestamp).toLocaleTimeString()}</span>
+                                <span className={`shrink-0 font-black px-1.5 rounded ${log.error ? 'bg-red-100 text-red-700' : 'bg-blue-100 text-blue-800'}`}>
                                     {log.mode.toUpperCase()}
                                 </span>
-                                <span className="text-gray-400 truncate italic opacity-60">
+                                <span className="text-gray-600 truncate italic opacity-60">
                                     {log.error ? `ERR: ${log.error.substring(0, 30)}...` : log.prompt.substring(0, 60) + '...'}
                                 </span>
                             </div>
                             <span className="text-gray-700 font-black">{log.duration}ms</span>
                         </div>
                         {expandedLogId === log.id && (
-                            <div className="mt-4 pt-4 border-t border-gray-800 text-[10px] text-gray-300 space-y-2">
+                            <div className="mt-4 pt-4 border-t border-gray-200 text-[10px] text-gray-700 space-y-2">
                                 <p><span className="font-bold text-gray-500">PROMPT:</span> {log.prompt}</p>
-                                {log.error && <p><span className="font-bold text-red-500">ERROR:</span> {log.error}</p>}
+                                {log.error && <p><span className="font-bold text-red-600">ERROR:</span> {log.error}</p>}
                             </div>
                         )}
                     </div>
                 )) : (
-                    <p className="text-[10px] text-gray-700 italic py-4 text-center">Inga anrop loggade i aktuell session.</p>
+                    <p className="text-[10px] text-gray-500 italic py-4 text-center">Inga anrop loggade i aktuell session.</p>
                 )}
             </div>
         </div>
 
-        <main className="flex-1 overflow-y-auto p-10 space-y-10 custom-scrollbar relative z-10 bg-black/20" ref={scrollRef}>
+        <main className="flex-1 overflow-y-auto p-10 space-y-10 custom-scrollbar relative z-10 bg-white" ref={scrollRef}>
           {response && (
-            <div className="bg-gray-900/80 rounded-[2.5rem] p-10 border border-gray-800 shadow-2xl relative group animate-in slide-in-from-bottom-4 duration-500">
+            <div className="bg-gray-50 rounded-[2.5rem] p-10 border border-gray-200 shadow-sm relative group animate-in slide-in-from-bottom-4 duration-500">
                 <div className="absolute top-0 right-0 p-10 opacity-5">
-                    <CpuChipIcon className="w-32 h-32 text-cyan-500" />
+                    <CpuChipIcon className="w-32 h-32 text-blue-800" />
                 </div>
-                <div className="text-[10px] font-black text-cyan-600 uppercase tracking-[0.4em] mb-8 flex items-center">
-                    <span className="w-2.5 h-2.5 rounded-full bg-cyan-500 mr-4 animate-ping"></span>
+                <div className="text-[10px] font-black text-blue-800 uppercase tracking-[0.4em] mb-8 flex items-center">
+                    <span className="w-2.5 h-2.5 rounded-full bg-blue-800 mr-4 animate-ping"></span>
                     Oracle Architectural Analysis
                 </div>
-                <div className="prose prose-invert prose-lg max-w-none text-gray-100 font-mono leading-relaxed">
+                <div className="prose prose-invert prose-lg max-w-none text-[#1A202C] font-mono leading-relaxed">
                   {response.split('\n').map((line, i) => (
                     <p key={i} className="mb-4">{line}</p>
                   ))}
                 </div>
-                <button onClick={copyToClipboard} className="absolute top-10 right-10 p-3 bg-cyan-900/30 rounded-xl text-[10px] font-black uppercase text-cyan-500 border border-cyan-500/20 hover:bg-cyan-500 hover:text-black transition-all">
-                    {copied ? 'Copied to Buffer' : 'Copy Output'}
+                <button onClick={copyToClipboard} className="absolute top-10 right-10 p-3 bg-white rounded-xl text-[10px] font-black uppercase text-blue-800 border border-blue-200 hover:bg-blue-50 transition-all">
+                    {copied ? 'Kopierat' : 'Kopiera Svar'}
                 </button>
             </div>
           )}

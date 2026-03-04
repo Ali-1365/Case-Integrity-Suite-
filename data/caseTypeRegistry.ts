@@ -1,5 +1,5 @@
 
-import { CaseType } from '../lib/fmjam.types';
+import { CaseType } from '../lib/cis.types';
 import { LegalSourceCode } from '../types';
 
 export interface CaseTypeDefinition {

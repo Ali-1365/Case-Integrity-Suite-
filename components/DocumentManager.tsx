@@ -36,7 +36,7 @@ import {
 import Chatbot from './Chatbot';
 import SystemMonitor from './SystemMonitor';
 import AIDebugPanel from './AIDebugPanel';
-import FMJAMControlPanel from './FMJAMControlPanel';
+import ControlPanel from './ControlPanel';
 import LegalFrameworkView from './LegalFrameworkView';
 import StaticArchitectureView from './StaticArchitectureView';
 import AuditPanel from './AuditPanel';
@@ -135,9 +135,9 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
     };
 
     if (isLoading) return (
-        <div className="flex flex-col h-screen items-center justify-center bg-gray-950 space-y-6">
-            <Spinner className="h-16 w-16 text-cyan-500" />
-            <p className="text-xs font-black uppercase tracking-[0.5em] text-cyan-500/50 animate-pulse">Initializing FMJAM Core v7.4...</p>
+        <div className="flex flex-col h-screen items-center justify-center bg-[#FCFCFC] space-y-6">
+            <Spinner className="h-16 w-16 text-blue-800" />
+            <p className="text-xs font-black uppercase tracking-[0.5em] text-blue-800/50 animate-pulse">Initializing Case Integrity Suite v1.0...</p>
         </div>
     );
 
@@ -146,15 +146,13 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
     return (
         <div className="flex flex-col min-h-screen bg-[#FCFCFC] text-[#1A202C] font-sans">
             <header className="p-4 border-b border-gray-200 flex justify-between items-center bg-[#FCFCFC] sticky top-0 z-[100]">
-                <div className="flex items-center space-x-6">
-                    <div className="flex items-center space-x-3 cursor-pointer" onClick={() => setSelectedDocId(null)}>
-                        <div className="p-2 bg-blue-100 rounded-lg">
-                            <span className="text-blue-800 font-bold">FMJAM</span>
-                        </div>
-                        <h1 className="text-lg font-semibold tracking-tight text-[#1A202C]">FMJAM GOLD</h1>
+                <div className="flex items-center space-x-8 w-full overflow-hidden">
+                    <div className="flex items-center space-x-3 cursor-pointer shrink-0" onClick={() => setSelectedDocId(null)}>
+                        <img src="/assets/Logo.png" alt="CIS Logo" className="h-[26px] w-auto" referrerPolicy="no-referrer" />
+                        <h1 className="text-lg font-serif tracking-tight text-[#1A202C] hidden sm:block">Case Integrity Suite</h1>
                     </div>
                     
-                    <nav className="hidden md:flex items-center bg-gray-100 border border-gray-200 rounded-xl p-1 space-x-1">
+                    <nav className="hidden md:flex items-center bg-gray-50 border border-gray-200 rounded-xl p-1 space-x-1 flex-1 overflow-x-auto no-scrollbar nav-row">
                         <ToolButton icon={<ActivityIcon />} onClick={() => setActiveModal('monitor')} label="Monitor" active={activeModal === 'monitor'} />
                         <ToolButton icon={<ClipboardDocumentListIcon />} onClick={() => setActiveModal('inventory')} label="Inventering" active={activeModal === 'inventory'} />
                         <ToolButton icon={<ChatIcon />} onClick={() => setActiveModal('chat')} label="Beslutsmotor" active={activeModal === 'chat'} />
@@ -164,11 +162,12 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                         <ToolButton icon={<ShieldCheckIcon />} onClick={() => setActiveModal('audit')} label="Logg" active={activeModal === 'audit'} />
                         <ToolButton icon={<LawIcon />} onClick={() => setActiveModal('framework')} label="Juridik" active={activeModal === 'framework'} />
                         <ToolButton icon={<ChartBarSquareIcon />} onClick={() => setActiveModal('arch')} label="Arkiv" active={activeModal === 'arch'} />
+                        <ToolButton icon={<ClipboardDocumentListIcon />} onClick={() => setActiveModal('whitebook')} label="Vitbok" active={activeModal === 'whitebook'} />
                     </nav>
                 </div>
 
-                <div className="flex items-center space-x-4">
-                    <button onClick={onLogout} className="p-3 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all"><LogoutIcon className="h-5 w-5" /></button>
+                <div className="flex items-center space-x-4 ml-4">
+                    <button onClick={onLogout} className="p-3 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all clickable"><LogoutIcon className="h-5 w-5" /></button>
                 </div>
             </header>
 
@@ -200,7 +199,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
             <SystemMonitor isOpen={activeModal === 'monitor'} onClose={() => setActiveModal(null)} />
             <AIDebugPanel isOpen={activeModal === 'debug'} onClose={() => setActiveModal(null)} />
             <AuditPanel isOpen={activeModal === 'audit'} onClose={() => setActiveModal(null)} />
-            <FMJAMControlPanel isOpen={activeModal === 'control'} onClose={() => setActiveModal(null)} />
+            <ControlPanel isOpen={activeModal === 'control'} onClose={() => setActiveModal(null)} />
             <LegalFrameworkView isOpen={activeModal === 'framework'} onClose={() => setActiveModal(null)} />
             <StaticArchitectureView isOpen={activeModal === 'arch'} onClose={() => setActiveModal(null)} />
             <WhitebookViewer isOpen={activeModal === 'whitebook'} onClose={() => setActiveModal(null)} />

@@ -1,6 +1,6 @@
 
 import { OpinionConfig, OpinionResult } from '../types';
-import { AnalysisResult } from './fmjam.types';
+import { AnalysisResult } from './cis.types';
 import { OpinionPromptBuilder } from './opinionPromptBuilder';
 
 export interface LlmClient {

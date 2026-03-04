@@ -1,5 +1,5 @@
 
-import { Atom } from './fmjam.types';
+import { Atom } from './cis.types';
 import { generateSHA256 } from './hashHelper';
 
 export class AutoAtomizer {

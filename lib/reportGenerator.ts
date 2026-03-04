@@ -1,5 +1,5 @@
 
-import { AnalysisResult } from './fmjam.types';
+import { AnalysisResult } from './cis.types';
 
 export interface ReportSection {
     title: string;

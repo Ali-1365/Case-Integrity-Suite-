@@ -16,7 +16,7 @@ export interface CaseVersion {
   journalEntry?: DecisionJournalEntry;
 }
 
-export interface FMJAMCase {
+export interface CISCase {
   caseId: string;
   createdAt: string;
   updatedAt: string;
@@ -31,13 +31,13 @@ export interface FMJAMCase {
 }
 
 export class CaseManagementService {
-  private cases: Map<string, FMJAMCase> = new Map();
+  private cases: Map<string, CISCase> = new Map();
 
-  async createCase(query: string, priorityFlags = { hasChildAspect: false, isPreventive: false }): Promise<FMJAMCase> {
+  async createCase(query: string, priorityFlags = { hasChildAspect: false, isPreventive: false }): Promise<CISCase> {
     const caseId = `CASE-${crypto.randomUUID().substring(0, 8).toUpperCase()}`;
     const timestamp = new Date().toISOString();
     
-    const newCase: FMJAMCase = {
+    const newCase: CISCase = {
       caseId,
       createdAt: timestamp,
       updatedAt: timestamp,
@@ -57,7 +57,7 @@ export class CaseManagementService {
     return newCase;
   }
 
-  async updateCaseWithResult(caseId: string, result: DecisionSupportResult, reason: string = 'Systemanalys slutförd'): Promise<FMJAMCase> {
+  async updateCaseWithResult(caseId: string, result: DecisionSupportResult, reason: string = 'Systemanalys slutförd'): Promise<CISCase> {
     const existing = this.cases.get(caseId);
     if (!existing) throw new Error("Ärende saknas.");
 
@@ -103,11 +103,11 @@ export class CaseManagementService {
     return existing;
   }
 
-  getCase(caseId: string): FMJAMCase | undefined {
+  getCase(caseId: string): CISCase | undefined {
     return this.cases.get(caseId);
   }
 
-  getAllCases(): FMJAMCase[] {
+  getAllCases(): CISCase[] {
     return Array.from(this.cases.values());
   }
 }

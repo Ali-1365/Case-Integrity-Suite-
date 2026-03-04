@@ -2,7 +2,7 @@
 import { Type } from '@google/genai';
 import { geminiService } from '../services/geminiService';
 import { FactV2, ContradictionV2 } from '../types';
-import { AnalysisResult, Atom } from './fmjam.types';
+import { AnalysisResult, Atom } from './cis.types';
 
 export interface DuelAssertion {
     id: string;

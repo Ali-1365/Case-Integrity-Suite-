@@ -1,5 +1,5 @@
 
-import { FMJAMCase } from './CaseManagementService';
+import { CISCase } from './CaseManagementService';
 
 export interface IntegrityIssue {
   caseId: string;
@@ -8,11 +8,11 @@ export interface IntegrityIssue {
 }
 
 /**
- * FMJAM IntegrityEngine v.1.0
+ * CIS IntegrityEngine v.1.0
  * Säkerställer att alla ärenden har komplett ID-kedja, versioner och journal.
  */
 export class IntegrityEngine {
-  validateRepository(cases: FMJAMCase[]): IntegrityIssue[] {
+  validateRepository(cases: CISCase[]): IntegrityIssue[] {
     const issues: IntegrityIssue[] = [];
 
     cases.forEach(c => {

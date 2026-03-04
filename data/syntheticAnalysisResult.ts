@@ -1,5 +1,5 @@
 
-import { AnalysisResult } from '../lib/fmjam.types';
+import { AnalysisResult } from '../lib/cis.types';
 
 export const syntheticAnalysisResult: AnalysisResult = {
   id: "analysis_synthetic_001",

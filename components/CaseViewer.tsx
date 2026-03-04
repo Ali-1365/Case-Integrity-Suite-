@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { FMJAMCase } from '../lib/CaseManagementService';
+import { CISCase } from '../lib/CaseManagementService';
 import CaseTimeline from './CaseTimeline';
 import DecisionDiffViewer from './DecisionDiffViewer';
 import { 
@@ -18,7 +18,7 @@ import {
 } from './icons';
 
 interface CaseViewerProps {
-  caseData: FMJAMCase;
+  caseData: CISCase;
   onClose: () => void;
 }
 
@@ -168,7 +168,7 @@ const CaseViewer: React.FC<CaseViewerProps> = ({ caseData, onClose }) => {
                 <CheckCircleIcon className="h-4 w-4 text-green-500/50" />
                 <span>Decision Intelligence: Active | Audit Cycle v.16</span>
             </div>
-            <span>FMJAM CASE HUB v.1.2</span>
+            <span>Case Integrity Suite Hub v.1.0</span>
         </footer>
       </div>
     </div>

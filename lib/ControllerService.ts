@@ -1,5 +1,5 @@
 
-import { FMJAMCase, caseManagementService } from './CaseManagementService';
+import { CISCase, caseManagementService } from './CaseManagementService';
 import { patternEngine, SystemPattern } from './PatternEngine';
 import { deviationEngine, Deviation } from './DeviationEngine';
 import { consistencyEngine, Inconsistency } from './ConsistencyEngine';
@@ -18,12 +18,12 @@ export interface ControllerReport {
 }
 
 /**
- * FMJAM ControllerService v.1.0-GOLD
+ * CIS ControllerService v.1.0
  * Utför deterministisk kvalitetskontroll av hela systemets ärendeflöde.
  */
 export class ControllerService {
   
-  async runFullControl(cases: FMJAMCase[]): Promise<ControllerReport> {
+  async runFullControl(cases: CISCase[]): Promise<ControllerReport> {
     const timestamp = new Date().toISOString();
     
     // 1. Identifiera mönster (Baslinje)
@@ -59,7 +59,7 @@ export class ControllerService {
     await auditService.log({
       operationType: 'RAG_QUERY', // Återanvänder befintlig typ för loggning
       actor: 'SYSTEM',
-      affectedLaws: ['FMJAM-CTRL'],
+      affectedLaws: ['CIS-CTRL'],
       provenanceHashes: [],
       resultSummary: `Controller Audit Executed: ${controllerEventId}. Found ${deviations.length} deviations, ${inconsistencies.length} inconsistencies.`,
       status: 'OK',

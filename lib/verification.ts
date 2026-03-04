@@ -1,5 +1,5 @@
 
-import { AnalysisResult, LegalFrameworkLink } from './fmjam.types';
+import { AnalysisResult, LegalFrameworkLink } from './cis.types';
 import { generateReportFromAnalysis, GeneratedReport } from './reportGenerator';
 import { LegalCorpus } from '../types';
 

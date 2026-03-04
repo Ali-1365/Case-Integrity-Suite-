@@ -1,6 +1,6 @@
 
 import React, { useMemo } from 'react';
-import { AnalysisResult } from '../lib/fmjam.types';
+import { AnalysisResult } from '../lib/cis.types';
 import Card from './shared/Card';
 import { AlertIcon, LawIcon, TagIcon, CpuChipIcon } from './icons';
 

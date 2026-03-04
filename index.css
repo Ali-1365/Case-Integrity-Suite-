@@ -10,22 +10,61 @@ body {
   background-color: #FCFCFC;
   color: #1A202C;
   font-family: var(--font-sans);
+  line-height: 1.8;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-serif);
-  color: #4A5568; /* Minimal gray */
+  color: #4A5568;
+  font-weight: 400;
 }
 
-/* Globala interaktionsregler */
-button, a, .clickable {
+/* TVÅNG: Interaktionslogik */
+button, a, .clickable, [role="button"], select, input[type="file"], .tab-item {
   cursor: pointer !important;
 }
 
-.hover-glow:hover {
-  box-shadow: 0 0 8px rgba(66, 153, 225, 0.3);
+/* TVÅNG: Responsivitet och Layout */
+.nav-row {
+  display: flex !important;
+  align-items: center;
 }
 
-.table-row-hover:hover {
-  background-color: #F7FAFC;
+/* Siffror: Massiva och extra bold */
+.stat-value {
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  color: #1A202C;
+}
+
+/* Feedback: Blå glöd vid hovring */
+.btn-primary:hover {
+  box-shadow: 0 0 15px rgba(30, 64, 175, 0.2);
+  background-color: #1e3a8a;
+}
+
+.table-row:hover {
+  background-color: #F9FAFB !important;
+  transition: background-color 0.2s ease;
+}
+
+/* Felhantering */
+.status-locked {
+  color: #E53E3E;
+  font-weight: 600;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #F7FAFC;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #E2E8F0;
+  border-radius: 10px;
 }

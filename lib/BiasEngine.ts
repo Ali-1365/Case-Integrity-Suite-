@@ -1,5 +1,5 @@
 
-import { FMJAMCase } from './CaseManagementService';
+import { CISCase } from './CaseManagementService';
 import { SystemPattern } from './PatternEngine';
 
 export interface BiasIndicator {
@@ -9,11 +9,11 @@ export interface BiasIndicator {
 }
 
 /**
- * FMJAM BiasEngine v.1.0
+ * CIS BiasEngine v.1.0
  * Identifierar systematiska skevheter och oproportionerliga beslutsmönster.
  */
 export class BiasEngine {
-  analyzeBias(cases: FMJAMCase[], patterns: SystemPattern[]): BiasIndicator[] {
+  analyzeBias(cases: CISCase[], patterns: SystemPattern[]): BiasIndicator[] {
     const indicators: BiasIndicator[] = [];
 
     // 1. Analysera om "NEJ"-beslut korrelerar med specifika kategorier mer än förväntat

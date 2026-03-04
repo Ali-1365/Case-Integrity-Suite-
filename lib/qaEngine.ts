@@ -1,4 +1,4 @@
-import { AnalysisResult, QACheck } from './fmjam.types';
+import { AnalysisResult, QACheck } from './cis.types';
 
 export class QualityAssuranceEngine {
     runChecks(analysis: AnalysisResult): QACheck[] {

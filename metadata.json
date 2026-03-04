@@ -1,7 +1,7 @@
 {
-  "name": "Copy of Processanalys-Socialtj-nst",
-  "version": "7.4.0-GOLD",
-  "description": "FMJAM v.7.4.0-GOLD. FULL_AUDIT_COMPLETE. Architecture v.6.3. SFS 2025:400 Compliant.",
+  "name": "Case Integrity Suite",
+  "version": "1.0.0",
+  "description": "Case Integrity Suite. FULL_AUDIT_COMPLETE. Architecture v.6.3. SFS 2025:400 Compliant.",
   "requestFramePermissions": [
     "camera",
     "microphone"

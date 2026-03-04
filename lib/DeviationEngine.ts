@@ -1,5 +1,5 @@
 
-import { FMJAMCase } from './CaseManagementService';
+import { CISCase } from './CaseManagementService';
 import { SystemPattern } from './PatternEngine';
 
 export interface Deviation {
@@ -10,11 +10,11 @@ export interface Deviation {
 }
 
 /**
- * FMJAM DeviationEngine v.1.0
+ * CIS DeviationEngine v.1.0
  * Upptäcker avvikelser från normalmönster.
  */
 export class DeviationEngine {
-  detect(cases: FMJAMCase[], patterns: SystemPattern[]): Deviation[] {
+  detect(cases: CISCase[], patterns: SystemPattern[]): Deviation[] {
     const deviations: Deviation[] = [];
 
     cases.forEach(c => {

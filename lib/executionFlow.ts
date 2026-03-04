@@ -1,5 +1,5 @@
 
-import { AnalysisResult } from './fmjam.types';
+import { AnalysisResult } from './cis.types';
 import { LegalCorpus } from '../types';
 import { legalFrameworkIndex } from '../data/legalFramework';
 import { corpusService } from './CorpusService';

@@ -4,7 +4,7 @@ import { FactV2, ContradictionV2, UncertaintyV2, FactCategory } from '../types';
 import { LegalFrameworkItem } from './legalReferenceEngine';
 import { geminiService } from '../services/geminiService';
 import { CASE_TYPE_REGISTRY } from '../data/caseTypeRegistry';
-import { CaseType, CrossCorrelation } from './fmjam.types';
+import { CaseType, CrossCorrelation } from './cis.types';
 
 const FACT_CATEGORIES: FactCategory[] = ['EKONOMI', 'BARN', 'TILLGÅNG', 'PROCESS', 'BOENDE', 'HÄLSA'];
 
@@ -162,7 +162,7 @@ export class AIOrchestrator {
     autoNotary.info(traceId, 'AIOrchestrator', 'Injekterade lagar', { laws: injectedLaws.map(l => l.reference) });
 
     const systemPrompt = `
-      **SYSTEMROLL: FMJAM FORENSIC ARCHITECT v.7.3-GOLD**
+      **SYSTEMROLL: CIS FORENSIC ARCHITECT v.1.0**
       
       UPPDRAG: Analysera inkommet material mot det utökade lagbiblioteket (Ground Truth).
       
@@ -218,7 +218,7 @@ export class AIOrchestrator {
 
   async runCrossCorrelation(documents: { id: string, name: string, facts: FactV2[] }[]): Promise<CrossCorrelation[]> {
     const systemPrompt = `
-      **DU ÄR FMJAM CROSS-CORRELATION ENGINE v.6.5**
+      **DU ÄR CIS CROSS-CORRELATION ENGINE v.1.0**
       Ditt uppdrag: Identifiera relationer mellan flera dokument (Batch).
       
       RELATIONSTYPER:

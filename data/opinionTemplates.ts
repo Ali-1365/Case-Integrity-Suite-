@@ -9,9 +9,9 @@ export interface OpinionTemplate {
 
 export const opinionTemplateRegistry: OpinionTemplate[] = [
     {
-        id: 'FMJAM_REPORT_V1',
-        name: 'FMJAM Teknisk Analysrapport',
-        description: 'Genererar en strikt, neutral och teknisk rapport enligt FMJAM-metodiken.',
+        id: 'CIS_REPORT_V1',
+        name: 'CIS Teknisk Analysrapport',
+        description: 'Genererar en strikt, neutral och teknisk rapport enligt CIS-metodiken.',
         audience: 'Teknisk Analys',
         sections: [
             'Inledning',

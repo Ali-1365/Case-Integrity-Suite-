@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { OpinionConfig, OpinionResult } from '../types';
-import { AnalysisResult } from '../lib/fmjam.types';
+import { AnalysisResult } from '../lib/cis.types';
 import { opinionTemplateRegistry } from '../data/opinionTemplates';
 import Card from './shared/Card';
 import { BoltIcon, BrainIcon, DocumentTextIcon, SparklesIcon, Spinner } from './icons';

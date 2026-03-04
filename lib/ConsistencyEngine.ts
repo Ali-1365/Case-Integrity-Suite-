@@ -1,5 +1,5 @@
 
-import { FMJAMCase } from './CaseManagementService';
+import { CISCase } from './CaseManagementService';
 
 export interface Inconsistency {
   caseIds: [string, string];
@@ -8,11 +8,11 @@ export interface Inconsistency {
 }
 
 /**
- * FMJAM ConsistencyEngine v.1.0
+ * CIS ConsistencyEngine v.1.0
  * Jämför liknande ärenden och flaggar inkonsekvens enligt likabehandlingsprincipen.
  */
 export class ConsistencyEngine {
-  checkConsistency(cases: FMJAMCase[]): Inconsistency[] {
+  checkConsistency(cases: CISCase[]): Inconsistency[] {
     const inconsistencies: Inconsistency[] = [];
     
     // Vi jämför parvis (deterministiskt men resurskrävande i stora volymer)

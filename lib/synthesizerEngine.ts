@@ -1,12 +1,12 @@
 
 import { geminiService } from '../services/geminiService';
-import { AnalysisResult, CrossCorrelation } from './fmjam.types';
+import { AnalysisResult, CrossCorrelation } from './cis.types';
 import { opinionTemplateRegistry } from '../data/opinionTemplates';
 import { AdversarialEngine, DuelResult } from './adversarialEngine';
 import { AIOrchestrator } from './AIOrchestrator';
 
 export class SynthesizerEngine {
-  async synthesize(analysis: AnalysisResult, templateId: string = 'FMJAM_REPORT_V1'): Promise<string> {
+  async synthesize(analysis: AnalysisResult, templateId: string = 'CIS_REPORT_V1'): Promise<string> {
     const template = opinionTemplateRegistry.find(t => t.id === templateId) || opinionTemplateRegistry[0];
     
     const systemInstruction = `
@@ -64,7 +64,7 @@ Du är en senior juridisk analytiker och AI-agent specialiserad på svensk förv
     return this.runGeminiSynthesis(systemInstruction, analysis, template.sections);
   }
 
-  async synthesizeMultiple(analyses: AnalysisResult[], templateId: string = 'FMJAM_REPORT_V1'): Promise<{ synthesis: string, duelResult: DuelResult, correlations: CrossCorrelation[] }> {
+  async synthesizeMultiple(analyses: AnalysisResult[], templateId: string = 'CIS_REPORT_V1'): Promise<{ synthesis: string, duelResult: DuelResult, correlations: CrossCorrelation[] }> {
     const adversarialEngine = new AdversarialEngine();
     const orchestrator = new AIOrchestrator();
     
@@ -83,11 +83,12 @@ Du är en senior juridisk analytiker och AI-agent specialiserad på svensk förv
 
     // 3. Deep RAG Batch Synthesis
     const systemInstruction = `
-      **DU ÄR FMJAM BATCH-SYNTETISÖR v.6.5-GOLD**
+      **DU ÄR CIS BATCH-SYNTETISÖR v.1.0**
       UPPDRAG: Skapa en 'Deep RAG' batch-analys. 
       SÄRSKILD FOKUS: Identifiera diskrepanser mellan olika myndighetshandlingar.
       KONTROLL: Använd Adjudicator-insikterna för att flagga osäkra påståenden.
     `;
+// ... (rest of the file)
 
     const inputPayload = JSON.stringify({
         documents: analyses.map(a => ({ id: a.id, name: a.caseId, factsCount: a.facts.length })),
