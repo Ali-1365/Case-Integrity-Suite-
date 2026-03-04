@@ -62,12 +62,6 @@ const SystemInventory: React.FC<SystemInventoryProps> = ({ isOpen, onClose }) =>
             } else if (path.includes('icons.tsx')) {
                 status = 'ok';
                 message = 'Ikonbibliotek laddat.';
-            } else if (Math.random() > 0.9) {
-                status = 'warning';
-                message = 'Mindre prestandavarning: Komponent kan optimeras.';
-            } else if (Math.random() > 0.95) {
-                status = 'error';
-                message = 'Kritiskt fel: Saknad felhantering i asynkron funktion.';
             }
 
             return {
