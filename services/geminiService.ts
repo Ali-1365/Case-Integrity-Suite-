@@ -1,5 +1,5 @@
 
-import { GoogleGenAI, GenerateContentResponse, GenerateContentParameters, Part } from '@google/genai';
+import { GoogleGenAI, GenerateContentResponse, GenerateContentParameters, Part, ThinkingLevel } from '@google/genai';
 import { loggingService, LogMode } from './loggingService';
 
 export interface QuotaState {
@@ -11,7 +11,7 @@ export interface QuotaState {
 export class GeminiService {
   private ai: GoogleGenAI | null = null;
   private readonly flashModel = 'gemini-3-flash-preview';
-  private readonly proModel = 'gemini-3-pro-preview';
+  private readonly proModel = 'gemini-3.1-pro-preview';
 
 
   
@@ -77,14 +77,19 @@ export class GeminiService {
   ): Promise<string> {
     const startTime = Date.now();
     const client = this.getClient();
-    const modelName = params.model || this.flashModel; // Default to flash model
+    const modelName = params.model || (mode === 'think' ? this.proModel : this.flashModel); // Default to flash model
 
     let contents: GenerateContentParameters['contents'] = params.contents;
     if (typeof contents === 'string') {
         // No denoise here as it was removed
     }
 
-    const config = params.config; // Re-insert this line
+    const config = params.config || {};
+    
+    if (mode === 'think') {
+        config.thinkingConfig = { thinkingLevel: ThinkingLevel.HIGH };
+        delete (config as any).maxOutputTokens;
+    }
 
     try {
       const response = await this.executeWithRetry(async () => {

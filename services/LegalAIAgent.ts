@@ -73,10 +73,15 @@ class LegalAIAgent {
       Ditt uppdrag är att analysera ett juridiskt ärende. Koppla de givna fakta-punkterna till relevanta lagparagrafer från listan.
       Var extremt noggrann och gör endast kopplingar som är starkt underbyggda.
       
+      NYA STRIKTA REGLER:
+      - LAGRUMSUPPDATERING: Du måste ALLTID tillämpa gällande rätt baserat på datumet för händelsen. Om du upptäcker att rådatan eller myndighetens beslut använder gamla eller felaktiga lagrum (t.ex. den gamla Socialtjänstlagen), SKA du upplysa om detta fel och istället tillämpa det korrekta, uppdaterade lagrummet i din analys.
+      - BRISTANALYS: Du måste PROAKTIVT granska rådatan för att hitta fel som myndigheten kan ha begått. Detta omfattar att identifiera om de har missat att upprätta rapporter, ignorerat bevis eller förgått andra handläggningsfel. Du SKA tydligt påtala dessa brister i din analys.
+      
       Strukturera ditt svar i Markdown med följande rubriker:
       - Inledning
       - Fakta- och lagrumskopplingar (för varje fakta, ange lagrum och en kort motivering)
       - Identifierade motstridigheter
+      - Myndighetsbrister och Handläggningsfel (Bristanalys)
       - Informationsluckor
       - Sammanfattande slutsats
       

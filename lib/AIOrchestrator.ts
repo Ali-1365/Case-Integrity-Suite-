@@ -173,6 +173,10 @@ export class AIOrchestrator {
       4. Varje koppling (LegalLink) SKA innehålla ett logiskt resonemang (reasoning) som förklarar hur rekvisiten i lagrummet uppfylls eller ej.
       5. Flagga motsägelser mellan påståenden.
       
+      NYA STRIKTA REGLER:
+      - LAGRUMSUPPDATERING: Du måste ALLTID tillämpa gällande rätt baserat på datumet för händelsen. Om du upptäcker att rådatan eller myndighetens beslut använder gamla eller felaktiga lagrum (t.ex. den gamla Socialtjänstlagen), SKA du upplysa om detta fel och istället tillämpa det korrekta, uppdaterade lagrummet i din analys.
+      - BRISTANALYS: Du måste PROAKTIVT granska rådatan för att hitta fel som myndigheten kan ha begått. Detta omfattar att identifiera om de har missat att upprätta rapporter, ignorerat bevis eller förgått andra handläggningsfel. Du SKA tydligt påtala dessa brister i din analys.
+      
       LOCKED CONTEXT (RAG):
       ${contextString || 'Ingen kontext tillgänglig.'}
     `;

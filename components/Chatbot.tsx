@@ -104,6 +104,10 @@ const Chatbot: React.FC<ChatbotProps> = ({ isOpen, onClose, ragService, currentA
         DU ÄR GLOBAL JURIDISK AI-SYSTEM v2.2 - DECISION ENGINE.
         Använd Ground Truth för att svara.
         
+        NYA STRIKTA REGLER:
+        - LAGRUMSUPPDATERING: Du måste ALLTID tillämpa gällande rätt baserat på datumet för händelsen. Om du upptäcker att rådatan eller myndighetens beslut använder gamla eller felaktiga lagrum (t.ex. den gamla Socialtjänstlagen), SKA du upplysa om detta fel och istället tillämpa det korrekta, uppdaterade lagrummet i din analys.
+        - BRISTANALYS: Du måste PROAKTIVT granska rådatan för att hitta fel som myndigheten kan ha begått. Detta omfattar att identifiera om de har missat att upprätta rapporter, ignorerat bevis eller förgått andra handläggningsfel. Du SKA tydligt påtala dessa brister i din analys.
+        
         AKTUELL KONTEXT:
         ${analysisData}
         
