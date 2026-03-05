@@ -142,8 +142,8 @@ const Chatbot: React.FC<ChatbotProps> = ({ isOpen, onClose, ragService, currentA
   if (!isOpen) return null;
 
   return (
-    <div className="fixed bottom-6 right-6 w-full max-w-sm h-[70vh] max-h-[600px] z-[200] flex flex-col animate-in zoom-in-95 slide-in-from-bottom-10 duration-300">
-        <div className="bg-white dark:bg-slate-900 rounded-t-2xl border-x border-t border-slate-200 dark:border-slate-800 p-6 relative overflow-hidden shadow-xl">
+    <div className="fixed bottom-6 right-6 w-full max-w-md h-[80vh] max-h-[800px] z-[200] flex flex-col animate-in zoom-in-95 slide-in-from-bottom-10 duration-300 shadow-[0_20px_50px_rgba(0,0,0,0.3)]">
+        <div className="bg-white dark:bg-slate-900 rounded-t-[2rem] border-x border-t border-slate-200 dark:border-slate-800 p-8 relative overflow-hidden">
             <div className="flex justify-between items-center relative z-10">
                 <div className="flex items-center space-x-3">
                     <div className="p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-800">

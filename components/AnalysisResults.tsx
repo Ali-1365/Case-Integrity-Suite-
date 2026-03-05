@@ -56,45 +56,45 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = (props) => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <button 
           onClick={() => setActiveTab('Beviskedja')}
-          className="bg-[#161616] border border-indigo-500/30 p-4 rounded-xl flex items-center gap-4 hover:bg-indigo-500/10 transition-all group"
+          className="bg-white dark:bg-[#161616] border border-indigo-500/30 p-4 rounded-xl flex items-center gap-4 hover:bg-indigo-500/5 dark:hover:bg-indigo-500/10 transition-all group shadow-sm"
         >
-          <div className="p-2 bg-indigo-500/10 rounded-lg text-indigo-500 group-hover:scale-110 transition-transform">
+          <div className="p-2 bg-indigo-500/10 rounded-lg text-indigo-600 dark:text-indigo-500 group-hover:scale-110 transition-transform">
             <MagnifyingGlassIcon className="w-5 h-5" />
           </div>
           <div className="text-left">
-            <p className="text-xs font-bold text-white uppercase tracking-wider">Analysera Ärendearkiv</p>
-            <p className="text-[10px] text-gray-500">Fråga mot {props.analysis.caseId}</p>
+            <p className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">Analysera Ärendearkiv</p>
+            <p className="text-[10px] text-slate-500 dark:text-gray-500">Fråga mot {props.analysis.caseId}</p>
           </div>
         </button>
 
         <button 
           onClick={() => setActiveTab('Audit Log')}
-          className="bg-[#161616] border border-emerald-500/30 p-4 rounded-xl flex items-center gap-4 hover:bg-emerald-500/10 transition-all group"
+          className="bg-white dark:bg-[#161616] border border-emerald-500/30 p-4 rounded-xl flex items-center gap-4 hover:bg-emerald-500/5 dark:hover:bg-emerald-500/10 transition-all group shadow-sm"
         >
-          <div className="p-2 bg-emerald-500/10 rounded-lg text-emerald-500 group-hover:scale-110 transition-transform">
+          <div className="p-2 bg-emerald-500/10 rounded-lg text-emerald-600 dark:text-emerald-500 group-hover:scale-110 transition-transform">
             <ShieldCheckIcon className="w-5 h-5" />
           </div>
           <div className="text-left">
-            <p className="text-xs font-bold text-white uppercase tracking-wider">Integritetskontroll</p>
-            <p className="text-[10px] text-gray-500">Verifiera SFS 2025:400</p>
+            <p className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">Integritetskontroll</p>
+            <p className="text-[10px] text-slate-500 dark:text-gray-500">Verifiera SFS 2025:400</p>
           </div>
         </button>
 
         <button 
           onClick={() => setActiveTab('Analytics')}
-          className="bg-[#161616] border border-purple-500/30 p-4 rounded-xl flex items-center gap-4 hover:bg-purple-500/10 transition-all group"
+          className="bg-white dark:bg-[#161616] border border-purple-500/30 p-4 rounded-xl flex items-center gap-4 hover:bg-purple-500/5 dark:hover:bg-purple-500/10 transition-all group shadow-sm"
         >
-          <div className="p-2 bg-purple-500/10 rounded-lg text-purple-500 group-hover:scale-110 transition-transform">
+          <div className="p-2 bg-purple-500/10 rounded-lg text-purple-600 dark:text-purple-500 group-hover:scale-110 transition-transform">
             <ActivityIcon className="w-5 h-5" />
           </div>
           <div className="text-left">
-            <p className="text-xs font-bold text-white uppercase tracking-wider">System-telemetri</p>
-            <p className="text-[10px] text-gray-500">Monitorera AI-pipeline</p>
+            <p className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">System-telemetri</p>
+            <p className="text-[10px] text-slate-500 dark:text-gray-500">Monitorera AI-pipeline</p>
           </div>
         </button>
       </div>
 
-      <div className="bg-[#111111] rounded-2xl border border-gray-800 p-2 shadow-sm">
+      <div className="bg-white dark:bg-[#111111] rounded-2xl border border-gray-200 dark:border-gray-800 p-2 shadow-sm transition-colors">
           <Tabs tabs={tabOptions} activeTab={activeTab} onTabChange={setActiveTab}>
             {(currentTab) => (
               <div className="p-6 md:p-8">
@@ -312,28 +312,28 @@ const OverviewContent: React.FC<{ analysis: AnalysisResult }> = ({ analysis }) =
 );
 
 const CorpusItem: React.FC<{ title: string, sfs: string, source: string }> = ({ title, sfs, source }) => (
-    <div className="flex flex-col p-4 bg-[#111111] rounded-xl border border-gray-800 hover:border-cyan-500/30 transition-all group">
+    <div className="flex flex-col p-4 bg-slate-50 dark:bg-[#111111] rounded-xl border border-slate-200 dark:border-gray-800 hover:border-cyan-500/30 transition-all group">
         <div className="flex justify-between items-center mb-2">
-            <span className="text-sm font-bold text-white group-hover:text-cyan-400 transition-colors">{title}</span>
-            <LinkIcon className="w-3 h-3 text-gray-600 group-hover:text-cyan-500" />
+            <span className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-cyan-400 transition-colors">{title}</span>
+            <LinkIcon className="w-3 h-3 text-slate-400 dark:text-gray-600 group-hover:text-cyan-500" />
         </div>
         <div className="flex gap-4">
             <div className="flex flex-col">
-                <span className="text-[10px] text-gray-500 uppercase font-bold">SFS</span>
-                <span className="text-xs font-mono text-cyan-500/80">{sfs}</span>
+                <span className="text-[10px] text-slate-500 dark:text-gray-500 uppercase font-bold">SFS</span>
+                <span className="text-xs font-mono text-cyan-600 dark:text-cyan-500/80">{sfs}</span>
             </div>
-            <div className="flex flex-col border-l border-gray-800 pl-4">
-                <span className="text-[10px] text-gray-500 uppercase font-bold">Källa</span>
-                <span className="text-xs font-mono text-white/70">{source}</span>
+            <div className="flex flex-col border-l border-slate-200 dark:border-gray-800 pl-4">
+                <span className="text-[10px] text-slate-500 dark:text-gray-500 uppercase font-bold">Källa</span>
+                <span className="text-xs font-mono text-slate-600 dark:text-white/70">{source}</span>
             </div>
         </div>
     </div>
 );
 
 const StatCard: React.FC<{ label: string, value: number, color: string }> = ({ label, value, color }) => (
-    <div className="text-center p-6 bg-[#111111] rounded-xl border border-gray-800 shadow-sm">
-        <p className={`text-4xl font-semibold text-cyan-400 mb-2`}>{value}</p>
-        <p className="text-xs font-medium text-gray-500">{label}</p>
+    <div className="text-center p-6 bg-slate-50 dark:bg-[#111111] rounded-xl border border-slate-200 dark:border-gray-800 shadow-sm">
+        <p className={`text-4xl font-semibold text-cyan-600 dark:text-cyan-400 mb-2`}>{value}</p>
+        <p className="text-xs font-medium text-slate-500 dark:text-gray-500">{label}</p>
     </div>
 );
 

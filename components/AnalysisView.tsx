@@ -100,8 +100,8 @@ const AnalysisView: React.FC<AnalysisViewProps> = ({ documentId, onBack, onDocum
       </div>
       
       <div className="space-y-8">
-        <h2 className="text-2xl font-semibold text-white border-b border-gray-700 pb-2">
-          Analys av: <span className="font-mono text-cyan-400">{document.analysis.caseId}</span>
+        <h2 className="text-2xl font-semibold text-slate-900 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">
+          Analys av: <span className="font-mono text-cyan-600 dark:text-cyan-400">{document.analysis.caseId}</span>
         </h2>
         
         <AnalysisResults 

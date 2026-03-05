@@ -66,14 +66,14 @@ const SystemOverview: React.FC<SystemOverviewProps> = ({
 
       {/* Duel Initiation Bar */}
       {selectedIds.length >= 2 && (
-          <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm animate-in slide-in-from-top-2 duration-300 flex flex-col md:flex-row justify-between items-center gap-6 relative overflow-hidden">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-sm animate-in slide-in-from-top-2 duration-300 flex flex-col md:flex-row justify-between items-center gap-6 relative overflow-hidden">
               <div className="flex items-center space-x-4 relative z-10">
-                  <div className="p-3 bg-blue-100 rounded-lg border border-blue-200">
-                      <SparklesIcon className="h-6 w-6 text-blue-800" />
+                  <div className="p-3 bg-blue-100 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+                      <SparklesIcon className="h-6 w-6 text-blue-800 dark:text-blue-400" />
                   </div>
                   <div>
-                      <h3 className="text-lg font-medium text-[#1A202C] tracking-tight">Klar för kors-analys</h3>
-                      <p className="text-sm text-gray-600 mt-0.5">{selectedIds.length} dokument valda för Batch-validering.</p>
+                      <h3 className="text-lg font-medium text-slate-900 dark:text-white tracking-tight">Klar för kors-analys</h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-400 mt-0.5">{selectedIds.length} dokument valda för Batch-validering.</p>
                   </div>
               </div>
               <button 
@@ -110,7 +110,7 @@ const SystemOverview: React.FC<SystemOverviewProps> = ({
                         return (
                             <li key={doc.id} className="relative">
                                     <div 
-                                        className={`w-full p-4 rounded-xl transition-colors flex items-center justify-between group border cursor-pointer ${isSelected ? 'bg-blue-50 border-blue-300' : 'bg-white border-gray-200 hover:border-gray-300'}`}
+                                        className={`w-full p-4 rounded-xl transition-colors flex items-center justify-between group border cursor-pointer ${isSelected ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-300 dark:border-blue-800' : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'}`}
                                         onClick={() => onSelectDocument(doc.id)}
                                     >
                                         <div className="flex items-center space-x-4">
@@ -122,7 +122,7 @@ const SystemOverview: React.FC<SystemOverviewProps> = ({
                                                     {isSelected && <CheckCircleIcon className="w-3.5 h-3.5 text-white" />}
                                                 </div>
                                             )}
-                                            <div className={`p-2.5 rounded-lg border ${isAggregate ? 'bg-purple-100 border-purple-200 text-purple-800' : 'bg-gray-50 border-gray-200 text-gray-600'}`}>
+                                    <div className={`p-2.5 rounded-lg border ${isAggregate ? 'bg-purple-100 dark:bg-purple-900/20 border-purple-200 dark:border-purple-800 text-purple-800 dark:text-purple-400' : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400'}`}>
                                                 {isAggregate ? <SparklesIcon className="h-5 w-5" /> : <FileIcon className="h-5 w-5" />}
                                             </div>
                                             <div>
@@ -165,9 +165,9 @@ const SystemOverview: React.FC<SystemOverviewProps> = ({
                 {legalCorpus.length > 0 ? (
                     <ul className="space-y-3 max-h-[70vh] overflow-y-auto pr-2 custom-scrollbar">
                         {legalCorpus.map((corpus, index) => (
-                            <li key={index} className="w-full p-4 rounded-xl transition-colors flex items-center justify-between group border bg-white border-gray-200 hover:border-blue-300">
+                            <li key={index} className="w-full p-4 rounded-xl transition-colors flex items-center justify-between group border bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 hover:border-blue-300 dark:hover:border-blue-800">
                                 <div className="flex items-center space-x-4">
-                                    <div className="p-2.5 rounded-lg border bg-gray-50 border-gray-200 text-gray-600">
+                                    <div className="p-2.5 rounded-lg border bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400">
                                         <LawIcon className="h-5 w-5" />
                                     </div>
                                     <div>
@@ -211,8 +211,8 @@ const QuickAction: React.FC<{ icon: React.ReactElement, label: string, sub: stri
                 {icon}
             </div>
             <div>
-                <h4 className="font-medium text-gray-200 text-sm">{label}</h4>
-                <p className="text-xs text-gray-500 mt-0.5">{sub}</p>
+                <h4 className="font-semibold text-slate-900 dark:text-slate-200 text-sm">{label}</h4>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{sub}</p>
             </div>
         </div>
     );

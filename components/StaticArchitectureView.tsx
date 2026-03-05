@@ -209,9 +209,9 @@ const StaticArchitectureView: React.FC<StaticArchitectureViewProps> = ({ isOpen,
     };
 
     return (
-        <div className="fixed inset-0 bg-gray-950/90 backdrop-blur-md z-[200] flex items-center justify-center p-4 md:p-8">
-            <div className="bg-gray-900 rounded-[3rem] shadow-2xl w-full max-w-7xl h-full max-h-[95vh] flex flex-col border border-gray-800 overflow-hidden ring-1 ring-white/5 animate-in zoom-in-95 duration-300">
-                <header className="px-10 py-8 flex justify-between items-center border-b border-gray-800 bg-gray-900/50">
+        <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[250] flex items-center justify-center p-4 md:p-8 outline-none animate-in fade-in duration-300">
+            <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] w-full max-w-7xl h-full max-h-[90vh] flex flex-col border border-slate-200 dark:border-slate-800 overflow-hidden ring-1 ring-white/5 transition-all">
+                <header className="px-10 py-8 flex justify-between items-center border-b border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900">
                     <div className="flex items-center space-x-6 relative z-10">
                         {activeSubView !== 'root' ? (
                             <button 
