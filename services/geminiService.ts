@@ -12,9 +12,8 @@ export class GeminiService {
   private ai: GoogleGenAI | null = null;
   private readonly flashModel = 'gemini-3-flash-preview';
   private readonly proModel = 'gemini-3.1-pro-preview';
+  private readonly liteModel = 'gemini-2.5-flash-lite-preview';
 
-
-  
   public quotaState: QuotaState = {
       isThrottled: false,
       retryAfterMs: 0,
@@ -26,7 +25,7 @@ export class GeminiService {
   }
 
   private initializeClient(): void {
-    const apiKey = process.env.GEMINI_API_KEY;
+    const apiKey = process.env.GEMINI_API_KEY || process.env.API_KEY;
     if (!apiKey) {
       loggingService.error("System Configuration Error: GEMINI_API_KEY is missing. AI services will be unavailable.");
       return;
@@ -44,7 +43,7 @@ export class GeminiService {
     return this.ai;
   }
 
-  private async executeWithRetry<T>(operation: () => Promise<T>, retries = 5, initialDelay = 3000): Promise<T> {
+  private async executeWithRetry<T>(operation: () => Promise<T>, retries = 3, initialDelay = 2000): Promise<T> {
     let delay = initialDelay;
     for (let i = 0; i < retries; i++) {
       try {
@@ -53,26 +52,29 @@ export class GeminiService {
         this.quotaState.retryAfterMs = 0;
         return await operation();
       } catch (error: any) {
-        const isQuotaError = error.message?.toLowerCase().includes('quota') || error.status === 429;
+        const isQuotaError = error.message?.toLowerCase().includes('quota') || 
+                             error.message?.toLowerCase().includes('429') || 
+                             error.status === 429 ||
+                             error.status === 503 ||
+                             error.message?.toLowerCase().includes('overloaded');
         
         if (isQuotaError && i < retries - 1) {
-          loggingService.warn(`Gemini API Quota Exceeded. Attempt ${i + 1}/${retries}. Retrying in ${delay / 1000}s...`, { error: error.message });
+          loggingService.warn(`Gemini API Quota/Load Error. Attempt ${i + 1}/${retries}. Retrying in ${delay / 1000}s...`, { error: error.message });
           this.quotaState.isThrottled = true;
           this.quotaState.lastError = error.message;
           this.quotaState.retryAfterMs = delay;
           await new Promise(resolve => setTimeout(resolve, delay));
           delay *= 2; // Exponential backoff
         } else {
-          loggingService.error(`Gemini API Error after ${i + 1} attempts`, { error: error.message, stack: error.stack });
-          this.quotaState.lastError = error.message;
+          if (i === retries - 1) {
+             loggingService.error(`Gemini API Error after ${i + 1} attempts`, { error: error.message, stack: error.stack });
+             this.quotaState.lastError = error.message;
+          }
           throw error;
         }
       }
     }
-    const finalError = "Max retries exceeded for Gemini API call.";
-    this.quotaState.lastError = finalError;
-    loggingService.error(finalError);
-    throw new Error(finalError);
+    throw new Error("Unexpected retry loop exit");
   }
 
   async generate(
@@ -87,7 +89,7 @@ export class GeminiService {
       let contents: GenerateContentParameters['contents'] = params.contents;
       const config = params.config || {};
       
-      if (mode === 'think') {
+      if (mode === 'think' && modelName === this.proModel) {
           config.thinkingConfig = { thinkingLevel: ThinkingLevel.HIGH };
           delete (config as any).maxOutputTokens;
       }
@@ -134,10 +136,27 @@ export class GeminiService {
         duration 
       });
       
-      // Reliability layer: If Pro model fails in high-reasoning mode, attempt recovery using Flash model
-      if (mode === 'think' && modelName === this.proModel) {
-        loggingService.warn("Service Recovery: High-reasoning model failed, initiating fallback to standard model...", { originalModel: modelName });
-        return this.generate(params, 'fast');
+      // Fallback 1: Pro -> Flash
+      if (modelName === this.proModel) {
+        loggingService.warn("Service Recovery: Pro model failed, initiating fallback to Flash model...", { originalModel: modelName });
+        const newParams = { ...params, model: this.flashModel };
+        // Remove thinking config for Flash to ensure compatibility
+        if (newParams.config) {
+            const { thinkingConfig, ...restConfig } = newParams.config as any;
+            newParams.config = restConfig;
+        }
+        return this.generate(newParams, 'fast');
+      }
+
+      // Fallback 2: Flash -> Lite
+      if (modelName === this.flashModel) {
+        loggingService.warn("Service Recovery: Flash model failed, initiating fallback to Lite model...", { originalModel: modelName });
+        const newParams = { ...params, model: this.liteModel };
+        if (newParams.config) {
+            const { thinkingConfig, ...restConfig } = newParams.config as any;
+            newParams.config = restConfig;
+        }
+        return this.generate(newParams, 'fast');
       }
 
       return `SYSTEMFEL: Kunde inte generera svar. ${error.message}`;

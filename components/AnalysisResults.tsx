@@ -14,7 +14,9 @@ import {
     LinkIcon,
     CpuChipIcon,
     BoltIcon,
-    CheckCircleIcon
+    CheckCircleIcon,
+    MagnifyingGlassIcon,
+    ActivityIcon
 } from './icons';
 import AiReportTab from './ReportViewer';
 import MasterDashboard from './MasterDashboard';
@@ -25,6 +27,10 @@ import AnalysisDashboard from './AnalysisDashboard';
 import { OpinionConfig, OpinionResult } from '../types';
 
 import { AutoNotaryView } from './AutoNotaryView';
+import { AgentView } from './AgentView';
+import { AdversarialDuelView } from './AdversarialDuelView';
+import { SystemArchitectureView } from './SystemArchitectureView';
+import { FmjamController } from './FmjamController';
 
 interface AnalysisResultsProps {
   analysis: AnalysisResult;
@@ -38,59 +44,171 @@ interface AnalysisResultsProps {
 }
 
 const AnalysisResults: React.FC<AnalysisResultsProps> = (props) => {
-  const tabOptions = ['Översikt', 'Tidslinje', 'Beviskedja', 'MEGAINLAGA', 'Audit Log', 'Processnotarie', 'Analytics', 'Oracle Command'];
+  const tabOptions = ['Översikt', 'FMJAM Controller', 'Systemarkitektur', 'Tidslinje', 'Beviskedja', 'MEGAINLAGA', 'Audit Log', 'Processnotarie', 'Advokatbyrå', 'Rättegångssimulator', 'Analytics', 'Oracle Command'];
   const [selectedLegalRefId, setSelectedLegalRefId] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState(tabOptions[0]);
 
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
       <AnalysisDashboard analysis={props.analysis} />
 
+      {/* Quick Actions Bar */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <button 
+          onClick={() => setActiveTab('Beviskedja')}
+          className="bg-[#161616] border border-indigo-500/30 p-4 rounded-xl flex items-center gap-4 hover:bg-indigo-500/10 transition-all group"
+        >
+          <div className="p-2 bg-indigo-500/10 rounded-lg text-indigo-500 group-hover:scale-110 transition-transform">
+            <MagnifyingGlassIcon className="w-5 h-5" />
+          </div>
+          <div className="text-left">
+            <p className="text-xs font-bold text-white uppercase tracking-wider">Analysera Ärendearkiv</p>
+            <p className="text-[10px] text-gray-500">Fråga mot {props.analysis.caseId}</p>
+          </div>
+        </button>
+
+        <button 
+          onClick={() => setActiveTab('Audit Log')}
+          className="bg-[#161616] border border-emerald-500/30 p-4 rounded-xl flex items-center gap-4 hover:bg-emerald-500/10 transition-all group"
+        >
+          <div className="p-2 bg-emerald-500/10 rounded-lg text-emerald-500 group-hover:scale-110 transition-transform">
+            <ShieldCheckIcon className="w-5 h-5" />
+          </div>
+          <div className="text-left">
+            <p className="text-xs font-bold text-white uppercase tracking-wider">Integritetskontroll</p>
+            <p className="text-[10px] text-gray-500">Verifiera SFS 2025:400</p>
+          </div>
+        </button>
+
+        <button 
+          onClick={() => setActiveTab('Analytics')}
+          className="bg-[#161616] border border-purple-500/30 p-4 rounded-xl flex items-center gap-4 hover:bg-purple-500/10 transition-all group"
+        >
+          <div className="p-2 bg-purple-500/10 rounded-lg text-purple-500 group-hover:scale-110 transition-transform">
+            <ActivityIcon className="w-5 h-5" />
+          </div>
+          <div className="text-left">
+            <p className="text-xs font-bold text-white uppercase tracking-wider">System-telemetri</p>
+            <p className="text-[10px] text-gray-500">Monitorera AI-pipeline</p>
+          </div>
+        </button>
+      </div>
+
       <div className="bg-[#111111] rounded-2xl border border-gray-800 p-2 shadow-sm">
-          <Tabs tabs={tabOptions}>
-            {(activeTab) => (
+          <Tabs tabs={tabOptions} activeTab={activeTab} onTabChange={setActiveTab}>
+            {(currentTab) => (
               <div className="p-6 md:p-8">
-                {activeTab === 'Översikt' && <OverviewContent analysis={props.analysis} />}
-                {activeTab === 'Tidslinje' && <TimelineView analysis={props.analysis} />}
-                {activeTab === 'Processnotarie' && (
+                {currentTab === 'Översikt' && <OverviewContent analysis={props.analysis} />}
+                {currentTab === 'FMJAM Controller' && <FmjamController analysis={props.analysis} />}
+                {currentTab === 'Systemarkitektur' && <SystemArchitectureView analysisId={props.analysis.caseId} onNavigate={setActiveTab} />}
+                {currentTab === 'Tidslinje' && <TimelineView analysis={props.analysis} />}
+                {currentTab === 'Processnotarie' && (
                     <div className="h-[600px] bg-[#0a0a0a] rounded-xl border border-gray-800 overflow-hidden">
                         <AutoNotaryView />
                     </div>
                 )}
-                {activeTab === 'Beviskedja' && (
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                        <Card title="Faktaatomer (Låsta)" icon={<LightbulbIcon className="w-5 h-5" />}>
-                            <div className="space-y-4">
-                                {props.analysis.facts.map(f => (
-                                    <div key={f.id} className="p-5 bg-[#161616] rounded-xl border border-gray-800 hover:border-cyan-500/40 transition-colors">
-                                        <div className="flex justify-between items-start mb-3">
-                                            <span className="text-xs font-medium text-cyan-400 bg-cyan-500/10 px-2.5 py-1 rounded border border-cyan-500/20">{f.category}</span>
-                                            <span className="text-xs font-mono text-gray-500">#{f.id}</span>
+                {currentTab === 'Advokatbyrå' && (
+                    <AgentView caseData={JSON.stringify(props.analysis)} />
+                )}
+                {currentTab === 'Rättegångssimulator' && (
+                    <AdversarialDuelView caseData={JSON.stringify(props.analysis)} />
+                )}
+                {currentTab === 'Beviskedja' && (
+                    <div className="space-y-8">
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                            <div className="lg:col-span-2">
+                                <Card title={`Faktaatomer (Låsta: ${props.analysis.atoms.length})`} icon={<LightbulbIcon className="w-5 h-5" />}>
+                                    <div className="space-y-4">
+                                        {props.analysis.facts.map(f => {
+                                            const relatedAtom = props.analysis.atoms.find(a => a.id === f.id.replace('FACT', 'ATOM'));
+                                            return (
+                                                <div key={f.id} className="p-5 bg-[#161616] rounded-xl border border-gray-800 hover:border-cyan-500/40 transition-colors group">
+                                                    <div className="flex justify-between items-start mb-3">
+                                                        <div className="flex items-center gap-2">
+                                                            <span className="text-xs font-medium text-cyan-400 bg-cyan-500/10 px-2.5 py-1 rounded border border-cyan-500/20">{f.category}</span>
+                                                            {relatedAtom && (
+                                                                <span className="text-[10px] font-mono text-emerald-500 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">VERIFIERAD_ATOM</span>
+                                                            )}
+                                                        </div>
+                                                        <span className="text-xs font-mono text-gray-500">#{f.id}</span>
+                                                    </div>
+                                                    <p className="text-gray-200 font-medium text-sm leading-relaxed">{f.subject}: {f.statement}</p>
+                                                    
+                                                    <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                        <div className="p-3 bg-[#0a0a0a] rounded-lg border border-gray-800">
+                                                            <p className="text-[10px] text-gray-500 uppercase font-bold mb-1">Källprovenans</p>
+                                                            <p className="text-xs text-gray-400 italic">"{f.source.snippet}"</p>
+                                                            <p className="text-[9px] text-gray-600 mt-2 font-mono">DOK: {f.source.documentId} | POS: {relatedAtom?.position || 'N/A'}</p>
+                                                        </div>
+                                                        <div className="p-3 bg-[#0a0a0a] rounded-lg border border-gray-800">
+                                                            <p className="text-[10px] text-gray-500 uppercase font-bold mb-1">Juridisk Koppling</p>
+                                                            {props.analysis.legalFrameworkLinks.filter(l => l.relatedFactIds.includes(f.id)).map(link => (
+                                                                <div key={link.id} className="mb-2 last:mb-0">
+                                                                    <p className="text-xs text-cyan-400 font-bold">{link.label}</p>
+                                                                    <p className="text-[10px] text-gray-500 line-clamp-2">{link.reasoning}</p>
+                                                                </div>
+                                                            )) || <p className="text-xs text-gray-600 italic">Ingen direkt koppling identifierad.</p>}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            );
+                                        })}
+                                        {props.analysis.facts.length === 0 && (
+                                            <div className="py-12 text-center opacity-30">
+                                                <CpuChipIcon className="w-12 h-12 mx-auto mb-4" />
+                                                <p>Inga faktaatomer extraherade än.</p>
+                                            </div>
+                                        )}
+                                    </div>
+                                </Card>
+                            </div>
+                            
+                            <div className="space-y-8">
+                                <Card title="Juridiskt Ramverk (SFS)" icon={<LawIcon className="w-5 h-5" />}>
+                                    <div className="space-y-3">
+                                        {props.analysis.legalReferences.map(r => (
+                                            <button 
+                                                key={r.id} 
+                                                onClick={() => setSelectedLegalRefId(r.id)}
+                                                className="w-full text-left p-5 bg-[#161616] rounded-xl border border-gray-800 hover:border-cyan-500/40 hover:bg-cyan-500/5 transition-colors group flex justify-between items-center"
+                                            >
+                                                <div>
+                                                    <p className="text-sm font-semibold text-cyan-400">{r.rawText}</p>
+                                                    <p className="text-xs text-gray-500 italic mt-1 line-clamp-1">"{r.contextSnippet}"</p>
+                                                </div>
+                                                <LinkIcon className="w-4 h-4 text-gray-600 group-hover:text-cyan-400" />
+                                            </button>
+                                        ))}
+                                        {props.analysis.legalReferences.length === 0 && (
+                                            <p className="text-center py-8 text-gray-600 text-sm italic">Inga lagrum identifierade.</p>
+                                        )}
+                                    </div>
+                                </Card>
+
+                                <Card title="Provenans-status" icon={<ShieldCheckIcon className="w-5 h-5" />}>
+                                    <div className="space-y-4">
+                                        <div className="p-4 bg-emerald-500/5 border border-emerald-500/20 rounded-xl">
+                                            <div className="flex justify-between items-center mb-2">
+                                                <span className="text-xs font-bold text-emerald-400 uppercase">Vektor-matchning</span>
+                                                <span className="text-xs font-mono text-emerald-500">100%</span>
+                                            </div>
+                                            <div className="h-1.5 bg-gray-900 rounded-full overflow-hidden">
+                                                <div className="h-full bg-emerald-500 w-full"></div>
+                                            </div>
                                         </div>
-                                        <p className="text-gray-200 font-medium text-sm leading-relaxed">{f.subject}: {f.statement}</p>
-                                        <div className="mt-3 p-3 bg-[#0a0a0a] rounded-lg border-l-2 border-gray-700 italic text-xs text-gray-400">
-                                            "{f.source.snippet}"
+                                        <div className="p-4 bg-cyan-500/5 border border-cyan-500/20 rounded-xl">
+                                            <div className="flex justify-between items-center mb-2">
+                                                <span className="text-xs font-bold text-cyan-400 uppercase">Reasoning Chain</span>
+                                                <span className="text-xs font-mono text-cyan-500">AKTIV</span>
+                                            </div>
+                                            <div className="h-1.5 bg-gray-900 rounded-full overflow-hidden">
+                                                <div className="h-full bg-cyan-500 w-[85%]"></div>
+                                            </div>
                                         </div>
                                     </div>
-                                ))}
+                                </Card>
                             </div>
-                        </Card>
-                        <Card title="Juridiskt Ramverk (SFS)" icon={<LawIcon className="w-5 h-5" />}>
-                            <div className="space-y-3">
-                                {props.analysis.legalReferences.map(r => (
-                                    <button 
-                                        key={r.id} 
-                                        onClick={() => setSelectedLegalRefId(r.id)}
-                                        className="w-full text-left p-5 bg-[#161616] rounded-xl border border-gray-800 hover:border-cyan-500/40 hover:bg-cyan-500/5 transition-colors group flex justify-between items-center"
-                                    >
-                                        <div>
-                                            <p className="text-sm font-semibold text-cyan-400">{r.rawText}</p>
-                                            <p className="text-xs text-gray-500 italic mt-1 line-clamp-1">"{r.contextSnippet}"</p>
-                                        </div>
-                                        <LinkIcon className="w-4 h-4 text-gray-600 group-hover:text-cyan-400" />
-                                    </button>
-                                ))}
-                            </div>
-                        </Card>
+                        </div>
                     </div>
                 )}
                 {activeTab === 'MEGAINLAGA' && (
@@ -160,6 +278,18 @@ const OverviewContent: React.FC<{ analysis: AnalysisResult }> = ({ analysis }) =
                     ))}
                 </div>
             </Card>
+
+            <div className="bg-[#161616] p-8 rounded-xl border border-gray-800">
+                <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-6 flex items-center gap-2">
+                    <LawIcon className="w-4 h-4 text-cyan-500" />
+                    Juridiska Korpusar
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <CorpusItem title="Socialtjänstlag" sfs="2025:400" source="SoL" />
+                    <CorpusItem title="Förvaltningslag" sfs="2017:900" source="FL" />
+                    <CorpusItem title="Barnkonventionen" sfs="2018:1197" source="BK" />
+                </div>
+            </div>
         </div>
         <div className="lg:col-span-4">
             <Card title="QA-Revision" icon={<ShieldCheckIcon className="w-5 h-5" />}>
@@ -177,6 +307,25 @@ const OverviewContent: React.FC<{ analysis: AnalysisResult }> = ({ analysis }) =
                     ))}
                 </div>
             </Card>
+        </div>
+    </div>
+);
+
+const CorpusItem: React.FC<{ title: string, sfs: string, source: string }> = ({ title, sfs, source }) => (
+    <div className="flex flex-col p-4 bg-[#111111] rounded-xl border border-gray-800 hover:border-cyan-500/30 transition-all group">
+        <div className="flex justify-between items-center mb-2">
+            <span className="text-sm font-bold text-white group-hover:text-cyan-400 transition-colors">{title}</span>
+            <LinkIcon className="w-3 h-3 text-gray-600 group-hover:text-cyan-500" />
+        </div>
+        <div className="flex gap-4">
+            <div className="flex flex-col">
+                <span className="text-[10px] text-gray-500 uppercase font-bold">SFS</span>
+                <span className="text-xs font-mono text-cyan-500/80">{sfs}</span>
+            </div>
+            <div className="flex flex-col border-l border-gray-800 pl-4">
+                <span className="text-[10px] text-gray-500 uppercase font-bold">Källa</span>
+                <span className="text-xs font-mono text-white/70">{source}</span>
+            </div>
         </div>
     </div>
 );

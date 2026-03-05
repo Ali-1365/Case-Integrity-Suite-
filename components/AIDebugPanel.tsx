@@ -80,9 +80,17 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
   };
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(response);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    if (!navigator.clipboard || !navigator.clipboard.writeText) {
+        alert('Kunde inte kopiera automatiskt. Vänligen markera och kopiera manuellt.');
+        return;
+    }
+    navigator.clipboard.writeText(response).then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+    }).catch(err => {
+        console.error('Failed to copy:', err);
+        alert('Kunde inte kopiera till urklipp.');
+    });
   };
 
   if (!isOpen) return null;
@@ -114,10 +122,14 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
             <div className="flex items-center space-x-2 mb-4">
                 <button onClick={async () => {
                     try {
+                        if (!navigator.clipboard || !navigator.clipboard.readText) {
+                            throw new Error('Clipboard API not supported or blocked by browser security.');
+                        }
                         const text = await navigator.clipboard.readText();
                         setPrompt(prev => prev + text);
                     } catch (err) {
                         console.error('Failed to paste:', err);
+                        alert('Kunde inte klistra in automatiskt. Vänligen klistra in manuellt (Ctrl+V / Cmd+V) i textfältet nedan.');
                     }
                 }} className="px-3 py-1.5 hover:bg-white dark:hover:bg-slate-800 transition-colors bg-white dark:bg-slate-900 rounded-lg text-[10px] font-bold uppercase text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700">
                     Klistra in logg

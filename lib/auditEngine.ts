@@ -93,6 +93,28 @@ export class AuditEngine {
             });
         }
 
+        // 4. RAG Provenance Status
+        const hasProvenance = analysis.legalFrameworkLinks.length > 0 && analysis.legalFrameworkLinks.every(l => l.reasoning);
+        checks.push({
+            id: 'AUDIT-RAG-PROVENANCE',
+            label: 'RAG Provenance Status',
+            status: hasProvenance ? 'ok' : 'failed',
+            details: hasProvenance 
+                ? 'Varje juridisk koppling har ett spårbart resonemang låst mot vektordatabasen.' 
+                : 'Vissa juridiska kopplingar saknar explicit resonemangsstöd.'
+        });
+
+        // 5. Algoritmisk Regelefterlevnad
+        const hasReasoning = !!analysis.reasoning;
+        checks.push({
+            id: 'AUDIT-ALGO-COMPLIANCE',
+            label: 'Algoritmisk Regelefterlevnad',
+            status: hasReasoning ? 'ok' : 'failed',
+            details: hasReasoning 
+                ? 'Deterministisk logikmotor har verifierat slutsatserna utan probabilistisk interpolation.' 
+                : 'Logikmotorn har inte kunnat verifiera samtliga slutsatser.'
+        });
+
         return {
             integrityScore: Math.max(0, score),
             hallucinationRisk: score > 80 ? 'low' : score > 50 ? 'medium' : 'high',

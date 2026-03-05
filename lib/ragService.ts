@@ -1,7 +1,6 @@
 
 import { geminiService } from '../services/geminiService';
 import { RagIndex, RagIndexChunk } from './RagIndexService';
-import { CASE_ARCHIVE } from '../data/caseArchive';
 import { auditService } from './AuditService';
 import { queryProvenanceService } from './QueryProvenanceService';
 import { legalReasoningService, ReasoningResult } from './LegalReasoningService';
@@ -28,10 +27,16 @@ export class RagService {
 
   async initialize(): Promise<void> {
     try {
-      const response = await fetch('/rag/index.json');
-      if (response.ok) {
-        this.index = await response.json();
+      // Försök ladda index om det finns
+      try {
+        const response = await fetch('/rag/index.json');
+        if (response.ok) {
+          this.index = await response.json();
+        }
+      } catch (e) {
+        console.warn("[RAG] Kunde inte ladda index.json", e);
       }
+      
       await this.ingestArchive();
       this.isInitialized = true;
       console.log("%c[SYSTEM]%c DRIFTLÄGE_AKTIVERAT: RagService v8 redo.", "color:white; background:green; padding:2px 4px;", "color:green; font-weight:bold;");
@@ -119,13 +124,8 @@ export class RagService {
 
   private async ingestArchive(): Promise<void> {
     this.archiveChunks = [];
-    for (const doc of CASE_ARCHIVE) {
-      const text = `ARKIV_DOKUMENT: ${doc.title}\nINNEHÅLL: ${doc.content}`;
-      try {
-        const embedding = await geminiService.embed(text);
-        this.archiveChunks.push({ text, embedding, sourceId: doc.id });
-      } catch (e) {}
-    }
+    // ARKIVERAT: Inga statiska ärenden laddas längre.
+    // Systemet är nu helt dynamiskt och väntar på användarens input.
   }
 
   private cosineSim(a: number[], b: number[]): number {

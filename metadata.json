@@ -4,7 +4,9 @@
   "description": "Case Integrity Suite. FULL_AUDIT_COMPLETE. Architecture v.6.3. SFS 2025:400 Compliant.",
   "requestFramePermissions": [
     "camera",
-    "microphone"
+    "microphone",
+    "clipboard-read",
+    "clipboard-write"
   ],
   "sync_id": "sync_gold_v740"
 }

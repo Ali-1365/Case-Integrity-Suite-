@@ -34,37 +34,77 @@ export class NormalizationEngine {
     proportionality?: ProportionalityReport,
     actionRecommendations?: ActionRecommendationReport
   ): AnalysisResult {
+    // 1. Map AI Facts to Atoms if atoms are empty
+    const finalAtoms: Atom[] = atoms.length > 0 ? atoms : aiFacts.map((f, idx) => ({
+      id: f.id.replace('FACT', 'ATOM'),
+      text: f.source.snippet,
+      tags: [f.category],
+      documentId: doc.name,
+      position: idx,
+      confidence: 1.0,
+      source: {
+        documentId: doc.name,
+        page: 1,
+        index: idx
+      }
+    }));
+
+    // 2. Extract Themes from categories
+    const categories = Array.from(new Set(aiFacts.map(f => f.category)));
+    const themes = categories.map(cat => ({
+      id: cat,
+      label: cat.charAt(0).toUpperCase() + cat.slice(1).toLowerCase(),
+      score: aiFacts.filter(f => f.category === cat).length / aiFacts.length,
+      keywords: Array.from(new Set(aiFacts.filter(f => f.category === cat).map(f => f.subject))),
+      relatedAtomIds: finalAtoms.filter(a => a.tags.includes(cat)).map(a => a.id)
+    }));
+
+    // 3. Calculate Risk Profile
+    const totalContradictions = aiContradictions.length;
+    const totalUncertainties = aiUncertainties.length;
+    const riskScore = Math.min(100, (totalContradictions * 15) + (totalUncertainties * 5));
+    
+    const dominantRisks = Array.from(new Set([
+      ...(totalContradictions > 0 ? ['Motsägelsefulla uppgifter'] : []),
+      ...(totalUncertainties > 0 ? ['Bristande beslutsunderlag'] : []),
+      ...(priority.hasChildAspect ? ['Barnrättslig risk'] : []),
+      ...(aiFacts.some(f => f.category === 'EKONOMI') ? ['Ekonomisk instabilitet'] : [])
+    ])).slice(0, 3);
+
     return {
       id: `AN-${crypto.randomUUID().substring(0,8)}`,
       caseId: doc.name,
       createdAt: new Date().toISOString(),
       documents: [{ id: 'DOC-1', name: doc.name, mimeType: doc.mimeType }],
-      atoms,
+      atoms: finalAtoms,
       facts: aiFacts,
       contradictions: aiContradictions,
       uncertainties: aiUncertainties,
-      legalFrameworkLinks: aiLinks.map(l => ({
-          id: l.legalReferenceId,
-          label: framework.find(f => f.id === l.legalReferenceId)?.label || l.legalReferenceId,
-          references: ['SoL'],
-          relatedFactIds: l.relatedFactIds,
-          reasoning: l.reasoning
-      })),
+      legalFrameworkLinks: aiLinks.map(l => {
+          const fwItem = framework.find(f => f.id === l.legalReferenceId);
+          return {
+            id: l.legalReferenceId,
+            label: fwItem?.label || l.legalReferenceId,
+            references: fwItem ? [fwItem.reference] : ['SoL'],
+            relatedFactIds: l.relatedFactIds,
+            reasoning: l.reasoning
+          };
+      }),
       riskProfile: {
-          id: 'RP-1',
+          id: `RP-${crypto.randomUUID().substring(0,4)}`,
           caseId: doc.name,
-          totalScore: 0,
+          totalScore: riskScore,
           maxScore: 100,
-          normalizedScore: 0,
+          normalizedScore: riskScore,
           items: [],
-          dominantRisks: []
+          dominantRisks: dominantRisks
       },
       contextState: {
           caseId: doc.name,
           flags: { barn: priority.hasChildAspect },
           detectedCaseTypes: []
       },
-      themes: [],
+      themes: themes,
       legalReferences: legalRefs.map(r => ({ id: r.id, source: r.source, rawText: r.rawText, contextSnippet: r.contextSnippet })),
       qaSummary: [],
       priorityFlags: priority,

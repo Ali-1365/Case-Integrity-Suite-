@@ -7,17 +7,15 @@ import { GeminiLlmClient } from '../services/geminiService';
 import { SynthesizerEngine } from '../lib/synthesizerEngine';
 import AnalysisResults from './AnalysisResults';
 import { Spinner, ArrowLeftIcon } from './icons';
-import { syntheticAnalysisResult } from '../data/syntheticAnalysisResult';
 
 interface AnalysisViewProps {
   documentId: string;
   onBack: () => void;
   onDocumentUpdate: (documentId: string) => void;
   onLegalReferenceSelect: (refId: string) => void;
-  isSynthetic?: boolean;
 }
 
-const AnalysisView: React.FC<AnalysisViewProps> = ({ documentId, onBack, onDocumentUpdate, onLegalReferenceSelect, isSynthetic = false }) => {
+const AnalysisView: React.FC<AnalysisViewProps> = ({ documentId, onBack, onDocumentUpdate, onLegalReferenceSelect }) => {
   const [document, setDocument] = useState<StoredDocument | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [isGeneratingSynthesis, setIsGeneratingSynthesis] = useState(false);
@@ -28,19 +26,7 @@ const AnalysisView: React.FC<AnalysisViewProps> = ({ documentId, onBack, onDocum
 
   useEffect(() => {
     const fetchDoc = async () => {
-      let doc: StoredDocument | undefined | null = null;
-      if (isSynthetic) {
-        doc = {
-            id: syntheticAnalysisResult.id,
-            name: syntheticAnalysisResult.caseId,
-            mimeType: 'application/synthetic',
-            createdAt: syntheticAnalysisResult.createdAt,
-            textContent: 'Syntetiskt dokument baserat på ett komplext scenario för att demonstrera systemets fulla kapacitet.',
-            analysis: syntheticAnalysisResult,
-        };
-      } else {
-        doc = await db.getDocument(documentId);
-      }
+      const doc = await db.getDocument(documentId);
       
       if (doc) {
         setDocument(doc as StoredDocument);
@@ -49,7 +35,7 @@ const AnalysisView: React.FC<AnalysisViewProps> = ({ documentId, onBack, onDocum
       }
     };
     fetchDoc();
-  }, [documentId, isSynthetic]);
+  }, [documentId]);
 
   const handleGenerateOpinion = useCallback(async (config: OpinionConfig, mode: 'fast' | 'think') => {
     if (!document) return;
@@ -61,14 +47,10 @@ const AnalysisView: React.FC<AnalysisViewProps> = ({ documentId, onBack, onDocum
       const opinionEngine = new OpinionEngine(geminiClient, mode);
       const result = await opinionEngine.generateOpinion(document.analysis, config);
       
-      if (!isSynthetic) {
-          await db.saveOpinion(document.id, result);
-          const updatedDoc = await db.getDocument(document.id);
-          if (updatedDoc) setDocument(updatedDoc);
-          onDocumentUpdate(document.id);
-      } else {
-          setDocument(prevDoc => prevDoc ? {...prevDoc, opinion: result} : null);
-      }
+      await db.saveOpinion(document.id, result);
+      const updatedDoc = await db.getDocument(document.id);
+      if (updatedDoc) setDocument(updatedDoc);
+      onDocumentUpdate(document.id);
 
     } catch (e) {
       console.error("Opinion generation failed:", e);
@@ -76,7 +58,7 @@ const AnalysisView: React.FC<AnalysisViewProps> = ({ documentId, onBack, onDocum
     } finally {
       setIsGenerating(false);
     }
-  }, [document, geminiClient, onDocumentUpdate, isSynthetic]);
+  }, [document, geminiClient, onDocumentUpdate]);
 
   const handleGenerateSynthesis = useCallback(async (templateId: string) => {
     if (!document) return;
@@ -85,25 +67,18 @@ const AnalysisView: React.FC<AnalysisViewProps> = ({ documentId, onBack, onDocum
     try {
         const newSynthesis = await synthesizer.synthesize(document.analysis, templateId);
         
-        if (!isSynthetic) {
-            const updatedAnalysis = { ...document.analysis, synthesis: newSynthesis };
-            const updatedDoc = { ...document, analysis: updatedAnalysis };
-            await db.addDocument(updatedDoc);
-            setDocument(updatedDoc);
-            onDocumentUpdate(document.id);
-        } else {
-            setDocument(prev => prev ? {
-                ...prev,
-                analysis: { ...prev.analysis, synthesis: newSynthesis }
-            } : null);
-        }
+        const updatedAnalysis = { ...document.analysis, synthesis: newSynthesis };
+        const updatedDoc = { ...document, analysis: updatedAnalysis };
+        await db.addDocument(updatedDoc);
+        setDocument(updatedDoc);
+        onDocumentUpdate(document.id);
     } catch (e) {
         console.error("Synthesis regeneration failed:", e);
         setError("Kunde inte generera ny syntes.");
     } finally {
         setIsGeneratingSynthesis(false);
     }
-  }, [document, synthesizer, onDocumentUpdate, isSynthetic]);
+  }, [document, synthesizer, onDocumentUpdate]);
 
   if (!document) {
     return (

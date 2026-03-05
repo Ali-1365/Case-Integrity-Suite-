@@ -29,26 +29,38 @@ export class AgentWorkflow {
     // Modul 1: Utredare-modulen (Samlar in fakta och bevis)
     async modulUtredare(caseData: string, feedbackSignal: string | null = null): Promise<string[]> {
         const systemInstruction = `
-            DU ÄR UTREDARE-MODULEN.
-            Ditt uppdrag är att extrahera relevanta fakta och bevis från rådatan.
-            ${feedbackSignal ? `\nVIKTIG FEEDBACK FRÅN VALIDERING: ${feedbackSignal}\nDu måste gräva djupare och hitta fler bevis (premisser) för att bygga ett starkare ärende.` : ''}
+            DU ÄR UTREDARE-MODULEN (STRICT GROUNDING MODE).
+            Ditt uppdrag är att extrahera relevanta fakta och bevis EXKLUSIVT från den tillhandahållna rådatan.
+            
+            REGLER FÖR GROUNDING:
+            1. Du får INTE hitta på fakta. Varje fakta måste finnas i texten.
+            2. Om texten inte stödjer ett påstående, utelämna det.
+            3. Citera källan (ID eller textsnutt) för varje fakta.
+            
+            ${feedbackSignal ? `\nVIKTIG FEEDBACK FRÅN VALIDERING: ${feedbackSignal}\nDu måste gräva djupare i KÄLLMATERIALET och hitta fler bevis (premisser). Hitta INTE på nya.` : ''}
         `;
         
         const response = await geminiService.generate({
-            contents: caseData,
-            config: { systemInstruction, temperature: 0.2, thinkingConfig: { thinkingLevel: ThinkingLevel.HIGH } }
+            contents: `RÅDATA:\n${caseData}\n\nUPPGIFT: Lista alla relevanta juridiska fakta och bevispunkter.`,
+            config: { systemInstruction, temperature: 0.0, thinkingConfig: { thinkingLevel: ThinkingLevel.HIGH } }
         }, 'think');
         
-        // Förenklad simulering: returnerar fakta som en array av strängar
         return response.split('\n').filter(line => line.trim().length > 0);
     }
 
     // Modul 2: Grundorsaksanalys (Skapar Faktamaster_State)
     async modulGrundorsaksanalys(fakta: string[]): Promise<FaktamasterState> {
         const systemInstruction = `
-            DU ÄR MODUL_GRUNDORSAKSANALYS.
+            DU ÄR MODUL_GRUNDORSAKSANALYS (LOGIC CORE).
             Analysera följande fakta och strukturera dem i en Faktamaster_State.
-            Du måste identifiera 'Bevisteman' och bygga en 'Juridisk_Syllogism' (som innehåller premisser och en slutsats).
+            
+            KRAV:
+            1. 'Bevisteman': Identifiera huvudteman (t.ex. "Uppsåt", "Skada", "Kausalitet").
+            2. 'Juridisk_Syllogism': Bygg en logisk kedja (Premiss 1 -> Premiss 2 -> Slutsats).
+            3. 'Fakta': Lista de fakta som stödjer syllogismen.
+            4. 'Lagrum': Identifiera tillämpliga lagrum från kontexten.
+            
+            VARNING: Du får endast använda fakta från listan. Ingen extern kunskap.
         `;
         
         const response = await geminiService.generate({
@@ -66,7 +78,7 @@ export class AgentWorkflow {
                     },
                     required: ["Bevisteman", "Juridisk_Syllogism", "Fakta", "Lagrum"]
                 },
-                temperature: 0.1, 
+                temperature: 0.0, 
                 thinkingConfig: { thinkingLevel: ThinkingLevel.HIGH } 
             }
         }, 'think');
@@ -77,14 +89,18 @@ export class AgentWorkflow {
     // Modul 3: Validering (Kontrollerar syllogismen och skapar loop)
     async modulValidering(syllogism: string): Promise<ValidationResult> {
         const systemInstruction = `
-            DU ÄR MODUL_VALIDERING.
-            Ditt mandat är att granska den Argumentativa Syllogismen från Grundorsaksanalysen.
+            DU ÄR MODUL_VALIDERING (QUALITY GATE).
+            Granska den Argumentativa Syllogismen.
             
-            REGLER:
-            1. Räkna antalet tydliga premisser i syllogismen.
-            2. En giltig syllogism MÅSTE innehålla minst tre (3) premisser för att bygga ett starkt ärende.
-            3. Om antalet premisser är färre än 3, sätt isValid till false och generera en feedbackSignal till Utredare-modulen om att mer bevis/fakta krävs.
-            4. Om antalet premisser är 3 eller fler, sätt isValid till true och feedbackSignal till null.
+            KRITERIER:
+            1. Är logiken hållbar? (Premisserna leder till slutsatsen)
+            2. Finns det minst 3 premisser?
+            3. Är språket formellt och juridiskt korrekt?
+            
+            OUTPUT:
+            - isValid: true om alla kriterier är uppfyllda.
+            - premiseCount: Antal identifierade premisser.
+            - feedbackSignal: Om isValid är false, ge specifik instruktion om vad som saknas (t.ex. "Saknar bevis för uppsåt").
         `;
         
         const response = await geminiService.generate({
@@ -104,17 +120,51 @@ export class AgentWorkflow {
     // Modul 4: Advokat-modulen (Skapar slutgiltig sakframställan)
     async modulAdvokat(faktamasterState: FaktamasterState): Promise<string> {
         const systemInstruction = `
-            DU ÄR ADVOKAT-MODULEN (SKRIVSKYDDAD).
-            Ditt uppdrag är att ta emot strukturerad data från Faktamaster_State och producera en formell juridisk sakframställan.
+            DU ÄR ADVOKAT-MODULEN (FINAL OUTPUT).
+            Ditt uppdrag är att skriva en formell juridisk sakframställan baserad EXKLUSIVT på Faktamaster_State.
             
-            INSTRUKTION TILL ADVOKAT-MODULEN:
-            1. När du skapar Sakframställan, ska du inleda med Bevistemana (hämtade från Faktamaster_State["Bevisteman"]) som huvudrubriker.
-            2. När du kommer till Juridisk Slutsats, måste du inkludera hela den Argumentativa Syllogismen (hämtad från Faktamaster_State["Juridisk_Syllogism"]) som ett separat, numrerat stycke.
+            STRUKTUR & TON:
+            - Ton: Formell, objektiv, övertygande (domstolsinlaga).
+            - Struktur:
+              1. YRKANDE (Härled från slutsatsen)
+              2. SAKFRAMSTÄLLAN (Använd 'Bevisteman' som rubriker)
+              3. RÄTTSLIG ARGUMENTATION (Använd 'Juridisk_Syllogism')
+              4. SLUTSATS
+            
+            ANTI-HALLUCINATION REGEL:
+            - Du får INTE lägga till information som inte finns i Faktamaster_State.
+            - Alla påståenden ska stödjas av fakta i statet.
         `;
         
         const response = await geminiService.generate({
             contents: JSON.stringify(faktamasterState),
-            config: { systemInstruction, temperature: 0.1, thinkingConfig: { thinkingLevel: ThinkingLevel.HIGH } }
+            config: { systemInstruction, temperature: 0.0, thinkingConfig: { thinkingLevel: ThinkingLevel.HIGH } }
+        }, 'think');
+        
+        return response;
+    }
+
+    // Modul 5: Motpart-modulen (Adversarial Duel)
+    async modulMotpart(sakframstallan: string): Promise<string> {
+        const systemInstruction = `
+            DU ÄR MOTPARTS-MODULEN (ADVERSARIAL AGENT).
+            Din roll är att agera som en aggressiv och skicklig motpart (t.ex. kommunjurist eller försäkringskassehandläggare).
+            
+            UPPGIFT:
+            Granska den inkommande sakframställan och skriv ett formellt SVAROMÅL där du:
+            1. Bestrider yrkandet.
+            2. Attackerar svagheter i bevisföringen.
+            3. Ifrågasätter tolkningen av lagrummen.
+            4. Lyfter fram alternativa förklaringar (rimligt tvivel).
+            
+            TON:
+            - Skarp, kritisk, men formellt korrekt.
+            - Fokusera på att "skjuta ner" argumenten.
+        `;
+        
+        const response = await geminiService.generate({
+            contents: `INKOMMANDE SAKFRAMSTÄLLAN:\n${sakframstallan}\n\nUPPGIFT: Skriv ett bestridande svaromål.`,
+            config: { systemInstruction, temperature: 0.3, thinkingConfig: { thinkingLevel: ThinkingLevel.HIGH } }
         }, 'think');
         
         return response;

@@ -42,7 +42,7 @@ const ArchiveCoreViewer: React.FC<ArchiveCoreViewerProps> = ({ onBack }) => {
         <div className="space-y-6">
           <h4 className="text-xs font-black text-gray-500 uppercase tracking-widest flex items-center ml-2">
             <ActivityIcon className="w-4 h-4 mr-3" />
-            Ingestade handlingar (Habibpoor ärendekomplex)
+            Ingestade handlingar (Ärendekomplex)
           </h4>
           
           <div className="grid grid-cols-1 gap-4">

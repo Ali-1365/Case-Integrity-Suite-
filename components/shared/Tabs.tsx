@@ -4,10 +4,22 @@ import React, { useState } from 'react';
 interface TabsProps {
   tabs: string[];
   children: (activeTab: string) => React.ReactNode;
+  activeTab?: string;
+  onTabChange?: (tab: string) => void;
 }
 
-const Tabs: React.FC<TabsProps> = ({ tabs, children }) => {
-  const [activeTab, setActiveTab] = useState(tabs[0]);
+const Tabs: React.FC<TabsProps> = ({ tabs, children, activeTab: controlledActiveTab, onTabChange }) => {
+  const [internalActiveTab, setInternalActiveTab] = useState(tabs[0]);
+  
+  const activeTab = controlledActiveTab !== undefined ? controlledActiveTab : internalActiveTab;
+  
+  const handleTabClick = (tab: string) => {
+    if (onTabChange) {
+      onTabChange(tab);
+    } else {
+      setInternalActiveTab(tab);
+    }
+  };
 
   return (
     <div>
@@ -16,7 +28,7 @@ const Tabs: React.FC<TabsProps> = ({ tabs, children }) => {
           {tabs.map((tab) => (
             <button
               key={tab}
-              onClick={() => setActiveTab(tab)}
+              onClick={() => handleTabClick(tab)}
               className={`${
                 activeTab === tab
                   ? 'border-cyan-500 text-cyan-400'

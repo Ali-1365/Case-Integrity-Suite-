@@ -47,7 +47,7 @@ const SystemOverview: React.FC<SystemOverviewProps> = ({
           <QuickAction 
             icon={<ChatIcon className="w-5 h-5" />} 
             label="Analysera Ärendearkiv" 
-            sub="Fråga mot Habibpoor 01-05" 
+            sub="Välj ärende för analys" 
             color="rose"
           />
           <QuickAction 

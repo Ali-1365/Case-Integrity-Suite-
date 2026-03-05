@@ -50,18 +50,18 @@ const ForensicAuditView: React.FC<ForensicAuditViewProps> = ({ analysis }) => {
                 <div className="bg-[#111111] p-8 rounded-xl border border-gray-800 md:col-span-2">
                     <div className="flex items-center space-x-3 mb-6">
                         <ShieldCheckIcon className="w-6 h-6 text-cyan-400" />
-                        <h3 className="text-lg font-semibold text-gray-100">Explainability-certifikat (SFS 2025:400)</h3>
+                        <h3 className="text-lg font-semibold text-gray-100">Integritetskontroll & Regelefterlevnad</h3>
                     </div>
                     <div className="space-y-3">
                         <div className="flex justify-between items-center p-4 bg-[#161616] rounded-lg border border-gray-800">
                             <span className="text-sm text-gray-400 font-medium">Algoritmisk Transparens</span>
                             <span className="text-xs font-medium px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                                Verifierad Nivå 4
+                                Verifierad Nivå 4 (GOLD)
                             </span>
                         </div>
                         <div className="flex justify-between items-center p-4 bg-[#161616] rounded-lg border border-gray-800">
                             <span className="text-sm text-gray-400 font-medium">Immutable Log ID</span>
-                            <span className="text-xs font-mono text-gray-500">{crypto.randomUUID().substring(0,18)}</span>
+                            <span className="text-xs font-mono text-gray-500">{analysis.id.substring(0,18)}</span>
                         </div>
                         <div className="flex justify-between items-center p-4 bg-[#161616] rounded-lg border border-gray-800">
                             <span className="text-sm text-gray-400 font-medium">Verifieringstidpunkt</span>
@@ -96,31 +96,6 @@ const ForensicAuditView: React.FC<ForensicAuditViewProps> = ({ analysis }) => {
                             </div>
                         </div>
                     ))}
-                </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="p-6 bg-[#111111] border border-gray-800 rounded-xl">
-                    <div className="flex items-start space-x-4">
-                        <InformationCircleIcon className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-0.5" />
-                        <div>
-                            <h5 className="text-sm font-medium text-gray-200 mb-2">RAG Provenance Status</h5>
-                            <p className="text-sm text-gray-500 leading-relaxed">
-                                Systemet har matchat bevisatomer mot det officiella SFS-indexet. Varje loggad exekvering i v.1.0-CIS är fullt spårbar till en specifik vektor i PKK-materialet.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div className="p-6 bg-[#111111] border border-gray-800 rounded-xl">
-                    <div className="flex items-start space-x-4">
-                        <CodeBracketIcon className="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" />
-                        <div>
-                            <h5 className="text-sm font-medium text-gray-200 mb-2">Algoritmisk Regelefterlevnad</h5>
-                            <p className="text-sm text-gray-500 leading-relaxed">
-                                Denna vy intygar att ingen probabilistisk interpolation har skett i juridiska slutsatser. Alla påståenden är låsta mot deterministiska källatomer.
-                            </p>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
