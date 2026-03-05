@@ -26,7 +26,7 @@ export interface SyncHealth {
 }
 
 class GithubService {
-    private readonly repo = "Ali-1365/Processanalys-Socialtj-nst";
+    private readonly repo = "Ali-1365/Case-Integrity-Suite-";
     private readonly baseUrl = "https://api.github.com/repos";
 
     private async safeFetch(url: string, timeout = 2500): Promise<any> {

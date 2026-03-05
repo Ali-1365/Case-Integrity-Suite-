@@ -52,7 +52,7 @@ async function init() {
                 <li>Klicka på din profil -> <b>Linked GitHub Repository</b> -> <b>Disconnect</b>.</li>
                 <li>Öppna Terminalen och kör: <code style="background:#1f2937; padding:0.125rem 0.25rem; border-radius:0.25rem; font-size:0.75rem;">localStorage.setItem('FMJAM_INTEGRITY_BYPASS', '1')</code></li>
                 <li>Ladda om denna sida (F5).</li>
-                <li>Re-connect till <b>Processanalys-Socialtj-nst</b>.</li>
+                <li>Re-connect till <b>Case-Integrity-Suite-</b>.</li>
               </ol>
             </div>
             
