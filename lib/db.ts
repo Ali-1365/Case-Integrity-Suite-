@@ -1,24 +1,14 @@
 
 import { openDB, DBSchema, IDBPDatabase } from 'idb';
 import { StoredDocument, OpinionResult } from '../types';
+import { AuditLogEntry, CISCase } from './cis.types';
 
 const DB_NAME = 'LegalAnalysisDB';
-const DB_VERSION = 3; // Upgraded version
+const DB_VERSION = 4; // Upgraded version
 const DOC_STORE_NAME = 'documents';
 const SETTINGS_STORE_NAME = 'settings';
 const AUDIT_STORE_NAME = 'audit_logs';
-
-export interface AuditLogEntry {
-  id: string;
-  timestamp: string;
-  operationType: 'INGEST' | 'INDEX' | 'RAG_QUERY';
-  actor: 'SYSTEM' | 'USER';
-  affectedLaws: string[];
-  provenanceHashes: string[];
-  resultSummary: string;
-  status: 'OK' | 'WARN' | 'ERROR';
-  metadata?: any;
-}
+const CASE_STORE_NAME = 'cases';
 
 interface Settings {
     key: string;
@@ -38,6 +28,10 @@ interface LegalDB extends DBSchema {
     key: string;
     value: AuditLogEntry;
   };
+  [CASE_STORE_NAME]: {
+    key: string;
+    value: CISCase;
+  };
 }
 
 let dbPromise: Promise<IDBPDatabase<LegalDB>> | null = null;
@@ -54,6 +48,9 @@ const getDb = (): Promise<IDBPDatabase<LegalDB>> => {
                 }
                 if (oldVersion < 3 && !db.objectStoreNames.contains(AUDIT_STORE_NAME)) {
                     db.createObjectStore(AUDIT_STORE_NAME, { keyPath: 'id' });
+                }
+                if (oldVersion < 4 && !db.objectStoreNames.contains(CASE_STORE_NAME)) {
+                    db.createObjectStore(CASE_STORE_NAME, { keyPath: 'caseId' });
                 }
             },
         });
@@ -98,6 +95,27 @@ export const db = {
     const db = await getDb();
     const logs = await db.getAll(AUDIT_STORE_NAME);
     return logs.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+  },
+
+  async saveCase(cisCase: CISCase): Promise<void> {
+    const db = await getDb();
+    await db.put(CASE_STORE_NAME, cisCase);
+  },
+
+  async getCase(caseId: string): Promise<CISCase | undefined> {
+    const db = await getDb();
+    return await db.get(CASE_STORE_NAME, caseId);
+  },
+
+  async getAllCases(): Promise<CISCase[]> {
+    const db = await getDb();
+    const allCases = await db.getAll(CASE_STORE_NAME);
+    return allCases.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
+  },
+
+  async deleteCase(caseId: string): Promise<void> {
+    const db = await getDb();
+    await db.delete(CASE_STORE_NAME, caseId);
   },
 
   async repairPersistence(): Promise<void> {

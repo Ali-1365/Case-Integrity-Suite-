@@ -20,6 +20,21 @@ export class GeminiService {
       lastError: null
   };
 
+  public async hasCustomKey(): Promise<boolean> {
+    if (typeof window !== 'undefined' && (window as any).aistudio?.hasSelectedApiKey) {
+      return await (window as any).aistudio.hasSelectedApiKey();
+    }
+    return false;
+  }
+
+  public async openKeySelection(): Promise<void> {
+    if (typeof window !== 'undefined' && (window as any).aistudio?.openSelectKey) {
+      await (window as any).aistudio.openSelectKey();
+      // After selection, we should re-initialize the client to use the new key
+      this.initializeClient();
+    }
+  }
+
   constructor() {
     this.initializeClient();
   }
@@ -58,13 +73,21 @@ export class GeminiService {
                              error.status === 503 ||
                              error.message?.toLowerCase().includes('overloaded');
         
-        if (isQuotaError && i < retries - 1) {
-          loggingService.warn(`Gemini API Quota/Load Error. Attempt ${i + 1}/${retries}. Retrying in ${delay / 1000}s...`, { error: error.message });
-          this.quotaState.isThrottled = true;
-          this.quotaState.lastError = error.message;
-          this.quotaState.retryAfterMs = delay;
-          await new Promise(resolve => setTimeout(resolve, delay));
-          delay *= 2; // Exponential backoff
+        if (isQuotaError) {
+          const isLastRetry = i === retries - 1;
+          if (!isLastRetry) {
+            loggingService.warn(`Gemini API Quota/Load Error. Attempt ${i + 1}/${retries}. Retrying in ${delay / 1000}s... (Tips: Konfigurera egen API-nyckel för att undvika detta)`, { error: error.message });
+            this.quotaState.isThrottled = true;
+            this.quotaState.lastError = error.message;
+            this.quotaState.retryAfterMs = delay;
+            await new Promise(resolve => setTimeout(resolve, delay));
+            delay *= 2; // Exponential backoff
+          } else {
+            loggingService.error(`Gemini API Error after ${i + 1} attempts`, { error: error.message, stack: error.stack });
+            this.quotaState.isThrottled = true; // Keep it true after last retry failure
+            this.quotaState.lastError = error.message;
+            throw error;
+          }
         } else {
           if (i === retries - 1) {
              loggingService.error(`Gemini API Error after ${i + 1} attempts`, { error: error.message, stack: error.stack });

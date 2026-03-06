@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { githubService, RepoStatus, SyncHealth } from '../services/githubService';
+import { usageMonitorService, QuotaUsage } from '../services/usageMonitorService';
 import { loggingService } from '../services/loggingService';
 import { useLogging } from '../hooks/useLogging';
 import { db } from '../lib/db';
@@ -30,6 +31,7 @@ interface SystemMonitorProps {
 const SystemMonitor: React.FC<SystemMonitorProps> = ({ isOpen, onClose }) => {
     const [repoStatus, setRepoStatus] = useState<RepoStatus | null>(null);
     const [syncHealth, setSyncHealth] = useState<SyncHealth | null>(null);
+    const [quotaUsage, setQuotaUsage] = useState<QuotaUsage | null>(null);
     const { logs, refreshLogs, clearLogs } = useLogging(50);
     const [isRefreshing, setIsRefreshing] = useState(false);
     const [localMetadata, setLocalMetadata] = useState<any>(null);
@@ -47,6 +49,7 @@ const SystemMonitor: React.FC<SystemMonitorProps> = ({ isOpen, onClose }) => {
             setRepoStatus(status);
             setSyncHealth(health);
             setLocalMetadata(metaRes);
+            setQuotaUsage(usageMonitorService.getUsage());
             refreshLogs();
         } finally {
             setIsRefreshing(false);
@@ -118,8 +121,13 @@ const SystemMonitor: React.FC<SystemMonitorProps> = ({ isOpen, onClose }) => {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                         <StatusCard label="Gateway API" status={isBypassed ? 'BYPASSED' : (isOffline ? 'UNREACHABLE' : 'STABLE')} color={isOffline ? 'red' : 'green'} details={repoStatus?.errorContext || 'READY'} />
                         <StatusCard label="Data Sync" status={isSyncOk ? 'ALIGNED' : 'CONFLICT'} color={isSyncOk ? 'green' : 'red'} details={syncHealth?.remoteSyncId?.substring(0,10) || 'LOCAL_ONLY'} />
-                        <StatusCard label="Jules Workflow" status={repoStatus?.julesActive ? 'ACTIVE' : 'INACTIVE'} color={repoStatus?.julesActive ? 'blue' : 'gray'} details="Automation Status" />
-                        <StatusCard label="Integrity" status={isBypassed ? 'BYPASSED' : 'v7.2.5-GOLD'} color={isBypassed ? 'red' : 'blue'} details="Active Protection" />
+                        <StatusCard 
+                            label="API Quota (RPM)" 
+                            status={`${quotaUsage?.rpm || 0} / ${quotaUsage?.limitRpm || 15}`} 
+                            color={quotaUsage?.status === 'critical' ? 'red' : (quotaUsage?.status === 'warning' ? 'blue' : 'green')} 
+                            details={`TPM Est: ${quotaUsage?.tpm.toLocaleString() || 0}`} 
+                        />
+                        <StatusCard label="Integrity" status={isBypassed ? 'BYPASSED' : 'SFB-GOLD-COMPLIANT'} color={isBypassed ? 'red' : 'blue'} details="MÅL SFB : Active Protection" />
                     </div>
 
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
@@ -219,7 +227,7 @@ const SystemMonitor: React.FC<SystemMonitorProps> = ({ isOpen, onClose }) => {
                             {isOffline ? 'Autonomt läge' : 'Molnanslutning: Stabil'}
                         </span>
                     </div>
-                    <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Integritet: Gold</span>
+                    <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Integritet: SFB-GOLD</span>
                 </footer>
             </div>
         </div>

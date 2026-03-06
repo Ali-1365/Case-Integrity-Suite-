@@ -58,16 +58,16 @@ export class AuditEngine {
             const uniqueUnregistered = Array.from(new Set(unregisteredLaws));
             checks.push({
                 id: 'AUDIT-REGISTRY-GAP',
-                label: 'GOLD Registry Compliance',
+                label: 'MÅL SFB : GOLD Registry Compliance',
                 status: 'failed',
                 details: `Varning: Följande lagrum saknas i systemets verifierade register: ${uniqueUnregistered.join(', ')}. Dessa kan inte verifieras ordagrant.`
             });
         } else {
             checks.push({
                 id: 'AUDIT-REGISTRY-GAP',
-                label: 'GOLD Registry Compliance',
+                label: 'MÅL SFB : GOLD Registry Compliance',
                 status: 'ok',
-                details: 'Alla identifierade lagrum matchar systemets interna GOLD-standard (SoL 2001/2025).'
+                details: 'Alla identifierade lagrum matchar systemets interna GOLD-standard (SFB / SoL 2001/2025).'
             });
         }
 

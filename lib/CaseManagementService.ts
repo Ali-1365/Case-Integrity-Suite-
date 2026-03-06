@@ -1,38 +1,12 @@
 
 import { DecisionSupportResult } from './DecisionSupportService';
-import { journalService, JournalEntry } from './JournalService';
+import { journalService } from './JournalService';
 import { auditService } from './AuditService';
-import { decisionJournalService, DecisionJournalEntry } from './DecisionJournalService';
-
-export type CaseStatus = 'INITIERAT' | 'UNDER_UTREDNING' | 'BESLUTAT' | 'KORRIGERAT' | 'AVSLUTAT';
-
-export interface CaseVersion {
-  versionId: number;
-  timestamp: string;
-  changes: string;
-  reason: string;
-  decisionSnapshot: string;
-  provenance: string[];
-  journalEntry?: DecisionJournalEntry;
-}
-
-export interface CISCase {
-  caseId: string;
-  createdAt: string;
-  updatedAt: string;
-  status: CaseStatus;
-  query: string;
-  currentVersion: number;
-  activeResult?: DecisionSupportResult;
-  versions: CaseVersion[];
-  journal: JournalEntry[];
-  auditIds: string[];
-  priorityFlags: { hasChildAspect: boolean; isPreventive: boolean; }; // Added for Bias Engine
-}
+import { decisionJournalService } from './DecisionJournalService';
+import { CISCase, CaseVersion } from './cis.types';
+import { db } from './db';
 
 export class CaseManagementService {
-  private cases: Map<string, CISCase> = new Map();
-
   async createCase(query: string, priorityFlags = { hasChildAspect: false, isPreventive: false }): Promise<CISCase> {
     const caseId = `CASE-${crypto.randomUUID().substring(0, 8).toUpperCase()}`;
     const timestamp = new Date().toISOString();
@@ -53,12 +27,12 @@ export class CaseManagementService {
     const journal = await journalService.addEntry(caseId, 'ÄRENDE_SKAPAT', `Nytt ärende initierat med fråga: "${query}"`);
     newCase.journal.push(journal);
     
-    this.cases.set(caseId, newCase);
+    await db.saveCase(newCase);
     return newCase;
   }
 
   async updateCaseWithResult(caseId: string, result: DecisionSupportResult, reason: string = 'Systemanalys slutförd'): Promise<CISCase> {
-    const existing = this.cases.get(caseId);
+    const existing = await db.getCase(caseId);
     if (!existing) throw new Error("Ärende saknas.");
 
     const vFrom = Math.max(0, existing.currentVersion - 1);
@@ -99,16 +73,16 @@ export class CaseManagementService {
     );
     existing.journal.push(journal);
 
-    this.cases.set(caseId, existing);
+    await db.saveCase(existing);
     return existing;
   }
 
-  getCase(caseId: string): CISCase | undefined {
-    return this.cases.get(caseId);
+  async getCase(caseId: string): Promise<CISCase | undefined> {
+    return await db.getCase(caseId);
   }
 
-  getAllCases(): CISCase[] {
-    return Array.from(this.cases.values());
+  async getAllCases(): Promise<CISCase[]> {
+    return await db.getAllCases();
   }
 }
 

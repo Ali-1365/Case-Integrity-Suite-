@@ -15,6 +15,7 @@ import { DEFAULT_CONTEXT_WEIGHTS } from '../data/contextWeights';
 import { riskTemplateRegistry } from '../data/riskTemplateRegistry';
 import { LegalReferenceEngine } from '../lib/legalReferenceEngine';
 import { KeywordEngine } from '../lib/keywordEngine';
+import { usageMonitorService, QuotaUsage } from '../services/usageMonitorService';
 import SystemOverview from './SystemOverview';
 import AnalysisView from './AnalysisView';
 import { initialPipelineStatus, PipelineStatusState } from './PipelineStatus';
@@ -44,6 +45,8 @@ import WhitebookViewer from './WhitebookViewer';
 import ControllerDashboard from './ControllerDashboard';
 import AgentWorkspace from './AgentWorkspace';
 import SystemInventory from './SystemInventory';
+import QuotaWarning from './QuotaWarning';
+import SfbIntegrityPanel from './SfbIntegrityPanel';
 import { ClipboardDocumentListIcon } from './icons';
 
 const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
@@ -56,6 +59,24 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
 
     const [activeModal, setActiveModal] = useState<string | null>(null);
     const [isDarkMode, setIsDarkMode] = useState(false);
+    const [quotaUsage, setQuotaUsage] = useState<QuotaUsage>(() => {
+        try {
+            return usageMonitorService.getUsage();
+        } catch (e) {
+            return { rpm: 0, tpm: 0, limitRpm: 15, limitTpm: 1000000, status: 'stable' };
+        }
+    });
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            try {
+                setQuotaUsage(usageMonitorService.getUsage());
+            } catch (e) {
+                console.warn("Usage monitor not available yet");
+            }
+        }, 5000);
+        return () => clearInterval(interval);
+    }, []);
 
     useEffect(() => {
         if (isDarkMode) {
@@ -170,12 +191,22 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                         <ToolButton icon={<AdjustmentsHorizontalIcon />} onClick={() => setActiveModal('controller')} label="Kontroll" active={activeModal === 'controller'} />
                         <ToolButton icon={<ShieldCheckIcon />} onClick={() => setActiveModal('audit')} label="Logg" active={activeModal === 'audit'} />
                         <ToolButton icon={<LawIcon />} onClick={() => setActiveModal('framework')} label="Juridik" active={activeModal === 'framework'} />
+                        <ToolButton icon={<ShieldCheckIcon />} onClick={() => setActiveModal('sfb')} label="SFB" active={activeModal === 'sfb'} />
                         <ToolButton icon={<ChartBarSquareIcon />} onClick={() => setActiveModal('arch')} label="Arkiv" active={activeModal === 'arch'} />
                         <ToolButton icon={<ClipboardDocumentListIcon />} onClick={() => setActiveModal('whitebook')} label="Vitbok" active={activeModal === 'whitebook'} />
                     </nav>
                 </div>
 
                 <div className="flex items-center space-x-6 ml-6">
+                    <div className="hidden lg:flex flex-col items-end mr-2">
+                        <div className="flex items-center gap-2">
+                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">API RPM</span>
+                            <div className={`w-2 h-2 rounded-full ${quotaUsage.status === 'critical' ? 'bg-red-500 animate-pulse' : (quotaUsage.status === 'warning' ? 'bg-amber-500' : 'bg-emerald-500')}`}></div>
+                        </div>
+                        <span className={`text-[10px] font-mono ${quotaUsage.status === 'critical' ? 'text-red-500' : 'text-slate-500'}`}>
+                            {quotaUsage.rpm}/{quotaUsage.limitRpm}
+                        </span>
+                    </div>
                     <button onClick={() => setIsDarkMode(!isDarkMode)} className={`p-3 rounded-full transition-colors ${isDarkMode ? 'bg-[#292524] text-[#FAFAF9]' : 'bg-[#E7E5E4] text-[#1C1917]'}`}>
                         {isDarkMode ? '☀️' : '🌙'}
                     </button>
@@ -217,6 +248,8 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
             <WhitebookViewer isOpen={activeModal === 'whitebook'} onClose={() => setActiveModal(null)} />
             <ControllerDashboard isOpen={activeModal === 'controller'} onClose={() => setActiveModal(null)} />
             <SystemInventory isOpen={activeModal === 'inventory'} onClose={() => setActiveModal(null)} />
+            <SfbIntegrityPanel isOpen={activeModal === 'sfb'} onClose={() => setActiveModal(null)} />
+            <QuotaWarning />
 
             <div className="md:hidden fixed bottom-12 left-1/2 -translate-x-1/2 flex items-center bg-[#111111]/90 backdrop-blur-md border border-gray-800 rounded-3xl p-4 shadow-2xl z-[200]">
                 <ToolButton icon={<ChatIcon />} onClick={() => setActiveModal('chat')} active={activeModal === 'chat'} />

@@ -1,6 +1,34 @@
 
 import { LegalSourceCode, FactV2, ContradictionV2, UncertaintyV2, KeywordHit } from '../types';
 import { PriorityFlags } from './priorityEngine';
+import { JournalEntry } from './JournalService';
+import { DecisionJournalEntry } from './DecisionJournalService';
+
+export type CaseStatus = 'INITIERAT' | 'UNDER_UTREDNING' | 'BESLUTAT' | 'KORRIGERAT' | 'AVSLUTAT';
+
+export interface CaseVersion {
+  versionId: number;
+  timestamp: string;
+  changes: string;
+  reason: string;
+  decisionSnapshot: string;
+  provenance: string[];
+  journalEntry?: DecisionJournalEntry;
+}
+
+export interface CISCase {
+  caseId: string;
+  createdAt: string;
+  updatedAt: string;
+  status: CaseStatus;
+  query: string;
+  currentVersion: number;
+  activeResult?: DecisionSupportResult;
+  versions: CaseVersion[];
+  journal: JournalEntry[];
+  auditIds: string[];
+  priorityFlags: { hasChildAspect: boolean; isPreventive: boolean; };
+}
 
 export type CaseType = 
   | 'EKONOMISKT_BISTÅND' 

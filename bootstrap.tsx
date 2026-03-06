@@ -19,7 +19,12 @@ export function startApp() {
     return;
   }
 
-  const root = createRoot(container);
+  // Check if root already exists to prevent "already been passed to createRoot()" error
+  const root = (container as any)._reactRoot || createRoot(container);
+  if (!(container as any)._reactRoot) {
+    (container as any)._reactRoot = root;
+  }
+
   root.render(
     <React.StrictMode>
       <AppErrorBoundary>
