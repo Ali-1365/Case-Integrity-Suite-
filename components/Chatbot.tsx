@@ -17,8 +17,7 @@ import {
   CheckCircleIcon
 } from './icons';
 import { RagService, RagResult } from '../lib/ragService';
-import { ReasoningResult } from '../lib/LegalReasoningService';
-import { DecisionSupportResult } from '../lib/DecisionSupportService';
+import { ReasoningResult, DecisionSupportResult } from '../lib/cis.types';
 import { AnalysisResult } from '../lib/cis.types';
 import { geminiService } from '../services/geminiService';
 import ProvenanceViewer from './ProvenanceViewer';

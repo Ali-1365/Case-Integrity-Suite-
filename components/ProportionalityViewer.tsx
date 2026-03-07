@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { ProportionalityReport, JusticeFinding } from '../lib/ProportionalityJusticeService';
+import { ProportionalityReport, JusticeFinding } from '../lib/cis.types';
 import { 
   ShieldCheckIcon, 
   CheckCircleIcon, 

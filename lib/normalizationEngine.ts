@@ -6,10 +6,7 @@ import { LegalFrameworkItem } from './legalReferenceEngine';
 import { AILink } from './AIOrchestrator';
 import { PriorityFlags } from './priorityEngine';
 
-import { ReasoningResult } from './LegalReasoningService';
-import { DecisionSupportResult } from './DecisionSupportService';
-import { ProportionalityReport } from './ProportionalityJusticeService';
-import { ActionRecommendationReport } from './ActionRecommendationService';
+import { ReasoningResult, DecisionSupportResult, ProportionalityReport, ActionRecommendationReport } from './cis.types';
 
 export class NormalizationEngine {
   constructor(private riskTemplates: RiskTemplate[], private contextWeights: ContextWeight[]) {}

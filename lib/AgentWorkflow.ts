@@ -1,5 +1,8 @@
 import { geminiService } from '../services/geminiService';
 import { Type, ThinkingLevel } from '@google/genai';
+import { caseManagementService } from './CaseManagementService';
+import { journalService } from './JournalService';
+import { auditService } from './AuditService';
 
 export interface FaktamasterState {
     Bevisteman: string[];
@@ -171,10 +174,15 @@ export class AgentWorkflow {
     }
 
     // Huvudorkestrator med Looping Pathway
-    async runAutonomousWorkflow(caseData: string, maxLoops: number = 3): Promise<string> {
+    async runAutonomousWorkflow(caseId: string, caseData: string, maxLoops: number = 3): Promise<string> {
         let feedbackSignal: string | null = null;
         let loopCount = 0;
         let faktamasterState: FaktamasterState | null = null;
+
+        const cisCase = await caseManagementService.getCase(caseId);
+        if (!cisCase) throw new Error(`Ärende ${caseId} saknas.`);
+
+        await journalService.addEntry(caseId, 'WORKFLOW_STARTED', `Autonomt arbetsflöde påbörjat för ärende ${caseId}`);
 
         while (loopCount < maxLoops) {
             console.log(`[AgentWorkflow] KÖR LOOP ${loopCount + 1}...`);
@@ -190,9 +198,11 @@ export class AgentWorkflow {
             
             if (validation.isValid) {
                 console.log(`[AgentWorkflow] Validering godkänd! Premisser: ${validation.premiseCount}`);
+                await journalService.addEntry(caseId, 'WORKFLOW_VALIDATION_PASS', `Validering godkänd i loop ${loopCount + 1}. Premisser: ${validation.premiseCount}`);
                 break; // Gå ur loopen om valideringen godkänns
             } else {
                 console.log(`[AgentWorkflow] Validering misslyckades. Premisser: ${validation.premiseCount}. Feedback: ${validation.feedbackSignal}`);
+                await journalService.addEntry(caseId, 'WORKFLOW_VALIDATION_FAIL', `Validering misslyckades i loop ${loopCount + 1}. Feedback: ${validation.feedbackSignal}`);
                 feedbackSignal = validation.feedbackSignal;
                 loopCount++;
             }
@@ -206,6 +216,18 @@ export class AgentWorkflow {
         console.log(`[AgentWorkflow] Skickar till Advokat-modulen...`);
         const finalReport = await this.modulAdvokat(faktamasterState);
         
+        await journalService.addEntry(caseId, 'WORKFLOW_COMPLETED', `Autonomt arbetsflöde slutfört. Slutrapport genererad.`);
+        
+        await auditService.log({
+            operationType: 'RAG_QUERY',
+            actor: 'SYSTEM',
+            affectedLaws: faktamasterState.Lagrum,
+            provenanceHashes: [],
+            resultSummary: `Autonomous workflow completed for case ${caseId}.`,
+            status: 'OK',
+            metadata: { caseId, loopCount, faktamasterState }
+        });
+
         return finalReport;
     }
 }

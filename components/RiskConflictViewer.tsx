@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { RiskReport, NormConflict } from '../lib/RiskConflictService';
+import { RiskReport, NormConflict } from '../lib/cis.types';
 import { 
   AlertIcon, 
   ShieldCheckIcon, 

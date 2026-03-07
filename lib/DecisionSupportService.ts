@@ -7,33 +7,7 @@ import { QUALITY_PROFILE } from './QualityProfile';
 import { proportionalityJusticeService, ProportionalityReport } from './ProportionalityJusticeService';
 import { actionRecommendationService, ActionRecommendationReport } from './ActionRecommendationService';
 
-export type DecisionProposal = 'JA' | 'NEJ' | 'BEHÖVER UTREDNING';
-
-export interface DecisionObject {
-  decision: DecisionProposal;
-  legalBasis: string[];
-  provenance: string[];
-  riskLevel: string;
-  queryId: string;
-  reasoningId: string;
-  consolidationId: string;
-  riskId: string;
-  decisionId: string;
-  proportionalityId?: string;
-  actionId?: string;
-  caseId?: string; // FAS 15
-}
-
-export interface DecisionSupportResult {
-  decisionId: string;
-  proposal: DecisionProposal;
-  summary: string;
-  fullMarkdown: string;
-  machineReadable: DecisionObject;
-  reasoning: ReasoningResult;
-  proportionality?: ProportionalityReport;
-  actions?: ActionRecommendationReport;
-}
+import { DecisionProposal, DecisionObject, DecisionSupportResult, ReasoningResult, ProportionalityReport, ActionRecommendationReport } from './cis.types';
 
 /**
  * FMJAM DecisionSupportService v.1.3-GOLD (Case Aware)

@@ -6,9 +6,10 @@ import MarkdownRenderer from './shared/MarkdownRenderer';
 
 interface AgentViewProps {
   caseData: string;
+  caseId?: string;
 }
 
-export const AgentView: React.FC<AgentViewProps> = ({ caseData }) => {
+export const AgentView: React.FC<AgentViewProps> = ({ caseData, caseId }) => {
   const [isRunning, setIsRunning] = useState(false);
   const [logs, setLogs] = useState<string[]>([]);
   const [finalReport, setFinalReport] = useState<string | null>(null);
@@ -31,7 +32,7 @@ export const AgentView: React.FC<AgentViewProps> = ({ caseData }) => {
     };
 
     try {
-      const report = await agentWorkflow.runAutonomousWorkflow(caseData);
+      const report = await agentWorkflow.runAutonomousWorkflow(caseId || 'AUTO-GEN', caseData);
       setFinalReport(report);
     } catch (err: any) {
       setError(err.message || "Ett okänt fel inträffade under agentkörningen.");

@@ -6,6 +6,18 @@ import { DecisionJournalEntry } from './DecisionJournalService';
 
 export type CaseStatus = 'INITIERAT' | 'UNDER_UTREDNING' | 'BESLUTAT' | 'KORRIGERAT' | 'AVSLUTAT';
 
+export interface AuditLogEntry {
+  id: string;
+  timestamp: string;
+  operationType: 'INGEST' | 'INDEX' | 'RAG_QUERY';
+  actor: 'SYSTEM' | 'USER';
+  affectedLaws: string[];
+  provenanceHashes: string[];
+  resultSummary: string;
+  status: 'OK' | 'WARN' | 'ERROR';
+  metadata?: any;
+}
+
 export interface CaseVersion {
   versionId: number;
   timestamp: string;
@@ -131,11 +143,6 @@ export interface CrossCorrelation {
     severity: 'low' | 'medium' | 'high';
 }
 
-import { ReasoningResult } from './LegalReasoningService';
-import { DecisionSupportResult } from './DecisionSupportService';
-import { ProportionalityReport } from './ProportionalityJusticeService';
-import { ActionRecommendationReport } from './ActionRecommendationService';
-
 export interface MatchedRule {
     ruleId: string;
     title: string;
@@ -149,6 +156,110 @@ export interface EvidenceChainItem {
     legalReferenceId: string;
     strength: number;
     reasoning: string;
+}
+
+export type RiskLevel = 'GRÖN' | 'GUL' | 'RÖD';
+
+export interface NormConflict {
+  type: 'LEX_SUPERIOR' | 'LEX_SPECIALIS' | 'LEX_POSTERIOR' | 'PRAXIS_AMBIGUITY' | 'PROCEDURAL_VS_MATERIAL';
+  description: string;
+  affectedSources: string[]; // ProvenanceHashes
+  severity: RiskLevel;
+}
+
+export interface RiskReport {
+  riskId: string;
+  level: RiskLevel;
+  conflicts: NormConflict[];
+  assessment: string;
+}
+
+export interface ConsolidationResult {
+  consolidationId: string;
+  hierarchy: {
+    constitution: any[];
+    law: any[];
+    regulation: any[];
+    praxis: any[];
+  };
+  interplayAnalysis: string;
+  affectedNorms: string[];
+  provenanceHashes: string[];
+  riskReport?: RiskReport;
+}
+
+export interface ReasoningResult {
+  reasoningId: string;
+  queryId: string;
+  consolidation?: ConsolidationResult;
+  sections: {
+    facts: string;
+    laws: { ref: string; text: string; hash: string }[];
+    analysis: string;
+    conclusion: string;
+  };
+  fullMarkdown: string;
+}
+
+export type DecisionProposal = 'JA' | 'NEJ' | 'BEHÖVER UTREDNING';
+
+export interface DecisionObject {
+  decision: DecisionProposal;
+  legalBasis: string[];
+  provenance: string[];
+  riskLevel: string;
+  queryId: string;
+  reasoningId: string;
+  consolidationId: string;
+  riskId: string;
+  decisionId: string;
+  proportionalityId?: string;
+  actionId?: string;
+  caseId?: string;
+}
+
+export type ProportionalityLevel = 'GRÖN' | 'GUL' | 'RÖD';
+
+export interface JusticeFinding {
+  step: string;
+  finding: string;
+  status: 'PASS' | 'WARN' | 'FAIL';
+}
+
+export interface ProportionalityReport {
+  proportionalityId: string;
+  level: ProportionalityLevel;
+  findings: JusticeFinding[];
+  legalCertaintyScore: number;
+  summary: string;
+  recommendation: string;
+}
+
+export interface ActionItem {
+  id: string;
+  category: 'MILDER_ALTERNATIVE' | 'FURTHER_INVESTIGATION' | 'CORRECTIVE_ACTION';
+  description: string;
+  motivation: string;
+  legalReference: string;
+  provenanceHash?: string;
+}
+
+export interface ActionRecommendationReport {
+  actionId: string;
+  level: 'LOW' | 'MEDIUM' | 'HIGH';
+  recommendations: ActionItem[];
+  impactOnDecision: string;
+}
+
+export interface DecisionSupportResult {
+  decisionId: string;
+  proposal: DecisionProposal;
+  summary: string;
+  fullMarkdown: string;
+  machineReadable: DecisionObject;
+  reasoning: ReasoningResult;
+  proportionality?: ProportionalityReport;
+  actions?: ActionRecommendationReport;
 }
 
 export interface AnalysisResult {

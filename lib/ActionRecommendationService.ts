@@ -1,27 +1,9 @@
 
 import { geminiService } from '../services/geminiService';
-import { RiskReport } from './RiskConflictService';
-import { ConsolidationResult } from './ConsolidationService';
-import { ProportionalityReport } from './ProportionalityJusticeService';
+import { RiskReport, ConsolidationResult, ProportionalityReport, ActionItem, ActionRecommendationReport } from './cis.types';
 import { auditService } from './AuditService';
 import { QUALITY_PROFILE } from './QualityProfile';
 import { Type } from '@google/genai';
-
-export interface ActionItem {
-  id: string;
-  category: 'MILDER_ALTERNATIVE' | 'FURTHER_INVESTIGATION' | 'CORRECTIVE_ACTION';
-  description: string;
-  motivation: string;
-  legalReference: string;
-  provenanceHash?: string;
-}
-
-export interface ActionRecommendationReport {
-  actionId: string;
-  level: 'LOW' | 'MEDIUM' | 'HIGH';
-  recommendations: ActionItem[];
-  impactOnDecision: string;
-}
 
 const actionSchema = {
   type: Type.OBJECT,

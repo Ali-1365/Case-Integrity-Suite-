@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { ConsolidationResult } from '../lib/ConsolidationService';
+import { ConsolidationResult } from '../lib/cis.types';
 import RiskConflictViewer from './RiskConflictViewer';
 import { 
   LawIcon, 

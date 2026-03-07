@@ -47,7 +47,7 @@ export class RagService {
     }
   }
 
-  async getContextForText(query: string, includeDecisionSupport = true): Promise<RagResult> {
+  async getContextForText(query: string, includeDecisionSupport = true, caseId?: string): Promise<RagResult> {
     const traceId = `RAG-${Date.now()}`;
     autoNotary.startTrace(traceId, 'RagService', 'getContextForText');
 
@@ -76,7 +76,7 @@ export class RagService {
         provenanceHashes: lawHits.map(h => h.provenanceHash),
         resultSummary: `Query: ${query.substring(0, 40)}...`,
         status: 'OK',
-        metadata: { query, hitIds: lawHits.map(h => h.id) }
+        metadata: { query, hitIds: lawHits.map(h => h.id), caseId }
       }, queryId);
 
       const formattedLaws = lawHits.map(h => 
@@ -97,7 +97,7 @@ export class RagService {
           // FAS 12: Generera beslutsstöd
           if (includeDecisionSupport) {
             autoNotary.info(traceId, 'RagService', 'Genererar beslutsstöd...');
-            decisionSupport = await decisionSupportService.generateProposal(query, chain, reasoning);
+            decisionSupport = await decisionSupportService.generateProposal(query, chain, reasoning, caseId);
           }
         }
       }

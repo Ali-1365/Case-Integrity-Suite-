@@ -6,22 +6,7 @@ import { auditService } from './AuditService';
 import { QUALITY_PROFILE } from './QualityProfile';
 import { Type } from '@google/genai';
 
-export type ProportionalityLevel = 'GRÖN' | 'GUL' | 'RÖD';
-
-export interface JusticeFinding {
-  step: string;
-  finding: string;
-  status: 'PASS' | 'WARN' | 'FAIL';
-}
-
-export interface ProportionalityReport {
-  proportionalityId: string;
-  level: ProportionalityLevel;
-  findings: JusticeFinding[];
-  legalCertaintyScore: number; // 0-100
-  summary: string;
-  recommendation: string;
-}
+import { ProportionalityLevel, JusticeFinding, ProportionalityReport } from './cis.types';
 
 const proportionalitySchema = {
   type: Type.OBJECT,

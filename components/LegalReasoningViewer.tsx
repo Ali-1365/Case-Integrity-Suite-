@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { ReasoningResult } from '../lib/LegalReasoningService';
+import { ReasoningResult } from '../lib/cis.types';
 import MarkdownRenderer from './shared/MarkdownRenderer';
 import ConsolidationViewer from './ConsolidationViewer';
 import { 

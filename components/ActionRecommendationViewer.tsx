@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { ActionRecommendationReport, ActionItem } from '../lib/ActionRecommendationService';
+import { ActionRecommendationReport, ActionItem } from '../lib/cis.types';
 import { 
   BoltIcon, 
   CheckCircleIcon, 

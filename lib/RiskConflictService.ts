@@ -3,21 +3,7 @@ import { ProvenanceChain } from './QueryProvenanceService';
 import { PraxisEntry } from './PraxisService';
 import { auditService } from './AuditService';
 
-export type RiskLevel = 'GRÖN' | 'GUL' | 'RÖD';
-
-export interface NormConflict {
-  type: 'LEX_SUPERIOR' | 'LEX_SPECIALIS' | 'LEX_POSTERIOR' | 'PRAXIS_AMBIGUITY' | 'PROCEDURAL_VS_MATERIAL';
-  description: string;
-  affectedSources: string[]; // ProvenanceHashes
-  severity: RiskLevel;
-}
-
-export interface RiskReport {
-  riskId: string;
-  level: RiskLevel;
-  conflicts: NormConflict[];
-  assessment: string;
-}
+import { RiskLevel, NormConflict, RiskReport } from './cis.types';
 
 /**
  * FMJAM RiskConflictService v.1.0-GOLD

@@ -1,7 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { legalAIAgent } from '../services/LegalAIAgent';
-import { Fact, Case } from '../lib/LegalAgentTypes';
+import { caseManagementService } from '../lib/CaseManagementService';
+import { CISCase as Case } from '../lib/cis.types';
+import { githubService, RepoStatus, SyncHealth } from '../services/githubService';
 import { 
   XMarkIcon, 
   SparklesIcon, 
@@ -9,7 +11,9 @@ import {
   Spinner, 
   PaperAirplaneIcon, 
   FileIcon,
-  ChatIcon
+  ChatIcon,
+  ShieldCheckIcon,
+  ArrowPathIcon
 } from './icons';
 import Card from './shared/Card';
 import MarkdownRenderer from './shared/MarkdownRenderer';
@@ -28,6 +32,9 @@ const AgentWorkspace: React.FC<AgentWorkspaceProps> = ({ isOpen, onClose }) => {
   const [queryResult, setQueryResult] = useState<any>(null);
   const [isQuerying, setIsQuerying] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
+  
+  const [repoStatus, setRepoStatus] = useState<RepoStatus | null>(null);
+  const [syncHealth, setSyncHealth] = useState<SyncHealth | null>(null);
 
   useEffect(() => {
     if (isOpen) {
@@ -35,22 +42,23 @@ const AgentWorkspace: React.FC<AgentWorkspaceProps> = ({ isOpen, onClose }) => {
         setIsReady(false);
         setOpinion('');
         setQueryResult(null);
+        
+        // Load system status
+        const [status, health] = await Promise.all([
+            githubService.getRepoStatus(),
+            githubService.getSyncHealth()
+        ]);
+        setRepoStatus(status);
+        setSyncHealth(health);
+
         await legalAIAgent.initialize();
         
-        const factsResponse = await fetch('/data/SampleFacts_FS_2026-01-08.json');
-        const facts: Fact[] = await factsResponse.json();
+        const allCases = await caseManagementService.getAllCases();
+        allCases.forEach(c => legalAIAgent.addCase(c));
         
-        const sampleCase: Case = {
-          id: 'Försörjningsstöd_2026-01-08',
-          facts: facts,
-          contradictions: [{ description: "Sökande uppger akut nöd, men nekades muntligt.", factIds: ["FACT_001", "FACT_004"] }]
-        };
-        
-        legalAIAgent.addCase(sampleCase);
-        const allCases = legalAIAgent.getAllCases();
         setCases(allCases);
         if (allCases.length > 0) {
-            setActiveCaseId(allCases[0].id);
+            setActiveCaseId(allCases[0].caseId);
         }
         setIsReady(true);
       };
@@ -113,7 +121,20 @@ const AgentWorkspace: React.FC<AgentWorkspaceProps> = ({ isOpen, onClose }) => {
             </div>
             <div>
               <h2 className="text-lg font-semibold text-slate-900 dark:text-white leading-tight">Interactive Analyst</h2>
-              <p className="text-[10px] text-slate-500 font-medium uppercase tracking-wider mt-1">Dynamisk Ärendeanalys</p>
+              <div className="flex items-center space-x-2 mt-1">
+                <p className="text-[10px] text-slate-500 font-medium uppercase tracking-wider">Dynamisk Ärendeanalys</p>
+                <span className="text-[8px] text-slate-300">•</span>
+                <div className="flex items-center space-x-2">
+                    <span className={`flex items-center gap-1 text-[8px] font-bold uppercase ${repoStatus?.isBypassed ? 'text-red-500' : 'text-emerald-500'}`}>
+                        <ShieldCheckIcon className="w-2.5 h-2.5" />
+                        {repoStatus?.isBypassed ? 'BYPASSED' : 'INTEGRITY: OK'}
+                    </span>
+                    <span className={`flex items-center gap-1 text-[8px] font-bold uppercase ${syncHealth ? 'text-blue-500' : 'text-slate-400'}`}>
+                        <ArrowPathIcon className="w-2.5 h-2.5" />
+                        {syncHealth ? 'SYNC: ACTIVE' : 'LOCAL_ONLY'}
+                    </span>
+                </div>
+              </div>
             </div>
           </div>
           <button onClick={onClose} className="p-2 text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all">
@@ -133,7 +154,7 @@ const AgentWorkspace: React.FC<AgentWorkspaceProps> = ({ isOpen, onClose }) => {
                             onChange={(e) => setActiveCaseId(e.target.value)}
                             className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-2.5 text-sm text-slate-900 dark:text-white outline-none focus:ring-2 focus:ring-blue-500/20"
                             disabled={isGenerating || isQuerying}>
-                            {cases.map(c => <option key={c.id} value={c.id}>{c.id}</option>)}
+                            {cases.map(c => <option key={c.caseId} value={c.caseId}>{c.caseId}</option>)}
                         </select>
                     </div>
                     <button onClick={handleGenerateOpinion} disabled={isGenerating || isQuerying} className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded-lg flex items-center justify-center disabled:bg-slate-200 dark:disabled:bg-slate-800 transition-colors">

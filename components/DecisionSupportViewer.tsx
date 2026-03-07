@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { DecisionSupportResult } from '../lib/DecisionSupportService';
+import { DecisionSupportResult } from '../lib/cis.types';
 import MarkdownRenderer from './shared/MarkdownRenderer';
 import ProportionalityViewer from './ProportionalityViewer';
 import ActionRecommendationViewer from './ActionRecommendationViewer';

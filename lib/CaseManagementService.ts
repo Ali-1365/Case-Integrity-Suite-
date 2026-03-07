@@ -4,6 +4,7 @@ import { journalService } from './JournalService';
 import { auditService } from './AuditService';
 import { decisionJournalService } from './DecisionJournalService';
 import { CISCase, CaseVersion } from './cis.types';
+export type { CISCase, CaseVersion };
 import { db } from './db';
 
 export class CaseManagementService {

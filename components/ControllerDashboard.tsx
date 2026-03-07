@@ -26,7 +26,7 @@ const ControllerDashboard: React.FC<ControllerDashboardProps> = ({ isOpen, onClo
 
   const runAnalysis = async () => {
     setIsAnalyzing(true);
-    const cases = caseManagementService.getAllCases();
+    const cases = await caseManagementService.getAllCases();
     const res = await controllerService.runFullControl(cases);
     setReport(res);
     setIsAnalyzing(false);

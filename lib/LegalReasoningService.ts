@@ -6,18 +6,7 @@ import { consolidationService, ConsolidationResult } from './ConsolidationServic
 import { QUALITY_PROFILE } from './QualityProfile';
 import { BaseService } from './BaseService';
 
-export interface ReasoningResult {
-  reasoningId: string;
-  queryId: string;
-  consolidation?: ConsolidationResult;
-  sections: {
-    facts: string;
-    laws: { ref: string; text: string; hash: string }[];
-    analysis: string;
-    conclusion: string;
-  };
-  fullMarkdown: string;
-}
+import { ReasoningResult } from './cis.types';
 
 export class LegalReasoningService extends BaseService {
   protected serviceName = 'LEGAL_REASONING';

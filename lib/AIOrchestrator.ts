@@ -4,7 +4,8 @@ import { FactV2, ContradictionV2, UncertaintyV2, FactCategory } from '../types';
 import { LegalFrameworkItem } from './legalReferenceEngine';
 import { geminiService } from '../services/geminiService';
 import { CASE_TYPE_REGISTRY } from '../data/caseTypeRegistry';
-import { CaseType, CrossCorrelation } from './cis.types';
+import { CaseType, CrossCorrelation, CISCase } from './cis.types';
+import { caseManagementService } from './CaseManagementService';
 
 const FACT_CATEGORIES: FactCategory[] = ['EKONOMI', 'BARN', 'TILLGÅNG', 'PROCESS', 'BOENDE', 'HÄLSA'];
 
@@ -110,10 +111,7 @@ export interface AILink {
     reasoning: string;
 }
 
-import { ReasoningResult } from './LegalReasoningService';
-import { DecisionSupportResult } from './DecisionSupportService';
-import { ProportionalityReport } from './ProportionalityJusticeService';
-import { ActionRecommendationReport } from './ActionRecommendationService';
+import { ReasoningResult, DecisionSupportResult, ProportionalityReport, ActionRecommendationReport } from './cis.types';
 import { ragService } from './ragService';
 
 export interface FullAnalysisPayload {
@@ -133,7 +131,7 @@ export interface FullAnalysisPayload {
 import { autoNotary } from './AutoNotaryService';
 
 export class AIOrchestrator {
-  async runFullAnalysis(documentText: string, documentId: string, legalFramework: LegalFrameworkItem[], ragContext?: string): Promise<FullAnalysisPayload> {
+  async runFullAnalysis(documentText: string, documentId: string, legalFramework: LegalFrameworkItem[], ragContext?: string, caseId?: string): Promise<FullAnalysisPayload> {
     const traceId = `TRACE-${documentId}-${Date.now()}`;
     autoNotary.startTrace(traceId, 'AIOrchestrator', 'runFullAnalysis');
     
@@ -145,8 +143,8 @@ export class AIOrchestrator {
     if (!ragContext) {
         try {
             console.log("[AIOrchestrator] Initiating RAG & Legal Chain...");
-            autoNotary.info(traceId, 'AIOrchestrator', 'Initierar RAG-kedja...', { documentId });
-            ragResult = await ragService.getContextForText(documentText, true);
+            autoNotary.info(traceId, 'AIOrchestrator', 'Initierar RAG-kedja...', { documentId, caseId });
+            ragResult = await ragService.getContextForText(documentText, true, caseId);
             contextString = ragResult.context;
             autoNotary.info(traceId, 'AIOrchestrator', 'RAG-kedja slutförd', { hitCount: ragResult.hitCount });
         } catch (e) {
@@ -260,6 +258,25 @@ export class AIOrchestrator {
         console.error("CrossCorrelation failure:", error);
         return [];
     }
+  }
+
+  /**
+   * Orchestrates the full analysis of a case, linking all modules.
+   */
+  async orchestrateCaseAnalysis(caseId: string, documentText: string, legalFramework: LegalFrameworkItem[]): Promise<CISCase> {
+    const cisCase = await caseManagementService.getCase(caseId);
+    if (!cisCase) throw new Error(`Ärende ${caseId} saknas.`);
+
+    // 1. Run full AI Analysis (Atoms, Facts, Contradictions, Reasoning, DecisionSupport)
+    const analysis = await this.runFullAnalysis(documentText, caseId, legalFramework, undefined, caseId);
+
+    // 2. Update Case with Decision Support Result
+    if (analysis.decisionSupport) {
+        await caseManagementService.updateCaseWithResult(caseId, analysis.decisionSupport);
+    }
+
+    // 3. Return updated case
+    return (await caseManagementService.getCase(caseId))!;
   }
 
   private detectTriggersLocally(text: string): CaseType[] {

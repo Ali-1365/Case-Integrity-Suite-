@@ -1,7 +1,8 @@
 
 import { corpusService } from '../lib/CorpusService';
 import { legalFrameworkIndex } from '../data/legalFramework';
-import { Fact, Case } from '../lib/LegalAgentTypes';
+import { FactV2 as Fact } from '../types';
+import { CISCase as Case } from '../lib/cis.types';
 import { geminiService } from './geminiService';
 import { loggingService } from './loggingService';
 
@@ -61,14 +62,14 @@ class LegalAIAgent {
   }
 
   addCase(caseData: Case): void {
-    if (!this.cases.find(c => c.id === caseData.id)) {
+    if (!this.cases.find(c => c.caseId === caseData.caseId)) {
       this.cases.push(caseData);
-      loggingService.debug(`[AGENT] Case added: ${caseData.id}`, { facts: caseData.facts.length });
+      loggingService.debug(`[AGENT] Case added: ${caseData.caseId}`, { facts: caseData.activeResult?.facts.length || 0 });
     }
   }
 
   getCase(caseId: string): Case | undefined {
-    return this.cases.find(c => c.id === caseId);
+    return this.cases.find(c => c.caseId === caseId);
   }
 
   getAllCases(): Case[] {
@@ -109,7 +110,8 @@ class LegalAIAgent {
       Använd ett formellt och neutralt språk. Producera ett färdigt juridiskt yttrande utan interna markeringar.
     `;
     
-    const factsForPrompt = caseData.facts.map(f => ({ id: f.id, description: f.description }));
+    const facts = caseData.activeResult?.facts || [];
+    const factsForPrompt = facts.map(f => ({ id: f.id, description: f.statement }));
     const lawsForPrompt = this.laws.map(p => ({
       id: p.id,
       law: p.lawTitle,
@@ -118,7 +120,8 @@ class LegalAIAgent {
     }));
 
     const userPrompt = `
-      **ÄRENDE:** ${caseData.id}
+      **ÄRENDE:** ${caseData.caseId}
+      **FRÅGA:** ${caseData.query}
 
       **FAKTA:**
       \`\`\`json
@@ -158,25 +161,25 @@ class LegalAIAgent {
 
   queryFacts(caseId: string, keyword: string): Fact[] {
     const caseData = this.getCase(caseId);
-    if (!caseData) return [];
-    return caseData.facts.filter(f => f.description.toLowerCase().includes(keyword.toLowerCase()));
+    if (!caseData || !caseData.activeResult) return [];
+    return caseData.activeResult.facts.filter(f => f.statement.toLowerCase().includes(keyword.toLowerCase()));
   }
 
   queryContradictions(caseId: string) {
     const caseData = this.getCase(caseId);
-    if (!caseData) return [];
-    return caseData.contradictions;
+    if (!caseData || !caseData.activeResult) return [];
+    return caseData.activeResult.contradictions;
   }
 
   queryLaws(caseId: string): EnrichedLegalParagraph[] {
     const caseData = this.getCase(caseId);
-    if (!caseData) return [];
+    if (!caseData || !caseData.activeResult) return [];
     
     const relevantParagraphs = new Set<EnrichedLegalParagraph>();
     const keywords = new Set<string>();
-    caseData.facts.forEach(f => {
+    caseData.activeResult.facts.forEach(f => {
       keywords.add(f.category.toLowerCase());
-      f.description.toLowerCase().split(/\s+/).forEach(word => {
+      f.statement.toLowerCase().split(/\s+/).forEach(word => {
         if (word.length > 4) keywords.add(word.replace(/[^a-zåäö]/g, ''));
       });
     });

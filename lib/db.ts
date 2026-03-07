@@ -2,6 +2,7 @@
 import { openDB, DBSchema, IDBPDatabase } from 'idb';
 import { StoredDocument, OpinionResult } from '../types';
 import { AuditLogEntry, CISCase } from './cis.types';
+export type { AuditLogEntry, CISCase };
 
 const DB_NAME = 'LegalAnalysisDB';
 const DB_VERSION = 4; // Upgraded version

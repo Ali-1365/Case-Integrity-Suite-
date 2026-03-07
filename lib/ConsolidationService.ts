@@ -5,19 +5,7 @@ import { auditService } from './AuditService';
 import { QUALITY_PROFILE } from './QualityProfile';
 import { riskConflictService, RiskReport } from './RiskConflictService';
 
-export interface ConsolidationResult {
-  consolidationId: string;
-  hierarchy: {
-    constitution: any[];
-    law: any[];
-    regulation: any[];
-    praxis: PraxisEntry[];
-  };
-  interplayAnalysis: string;
-  affectedNorms: string[];
-  provenanceHashes: string[];
-  riskReport?: RiskReport;
-}
+import { ConsolidationResult } from './cis.types';
 
 export class ConsolidationService {
   async consolidate(query: string, chain: ProvenanceChain): Promise<ConsolidationResult> {

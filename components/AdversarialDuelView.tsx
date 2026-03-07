@@ -6,9 +6,10 @@ import MarkdownRenderer from './shared/MarkdownRenderer';
 
 interface AdversarialDuelViewProps {
   caseData: string;
+  caseId?: string;
 }
 
-export const AdversarialDuelView: React.FC<AdversarialDuelViewProps> = ({ caseData }) => {
+export const AdversarialDuelView: React.FC<AdversarialDuelViewProps> = ({ caseData, caseId }) => {
   const [isSimulating, setIsSimulating] = useState(false);
   const [advokatInlaga, setAdvokatInlaga] = useState<string | null>(null);
   const [motpartSvar, setMotpartSvar] = useState<string | null>(null);
@@ -35,7 +36,7 @@ export const AdversarialDuelView: React.FC<AdversarialDuelViewProps> = ({ caseDa
     try {
       // Steg 1: Kör Advokat-agenten (om vi inte redan har en inlaga, men här kör vi en färsk för duellen)
       setLogs(prev => [...prev, "[DUEL] Initierar Advokat-agenten..."]);
-      const inlaga = await agentWorkflow.runAutonomousWorkflow(caseData);
+      const inlaga = await agentWorkflow.runAutonomousWorkflow(caseId || 'DUEL-GEN', caseData);
       setAdvokatInlaga(inlaga);
 
       // Steg 2: Kör Motparts-agenten
