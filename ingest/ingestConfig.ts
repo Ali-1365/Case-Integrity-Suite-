@@ -39,4 +39,5 @@ export const INGEST_CONFIG: IngestItem[] = [
   { id: 'lvu_1990', sourceCode: 'LVU', sfsNumber: '1990:52', title: 'Lag om vård av unga', rawFile: 'lvu_1990_52.txt', targetFile: 'lvu_1990_52.json', versionChain: ['1990:52'], validFrom: '1990-07-01' },
   { id: 'lvm_1988', sourceCode: 'LVM', sfsNumber: '1988:870', title: 'Lag om vård av missbrukare', rawFile: 'lvm_1988_870.txt', targetFile: 'lvm_1988_870.json', versionChain: ['1988:870'], validFrom: '1989-01-01' },
   { id: 'ls_2017', sourceCode: 'LS', sfsNumber: '2017:612', title: 'Lag om samverkan vid utskrivning', rawFile: 'lag_2017_612.txt', targetFile: 'lag_2017_612.json', versionChain: ['2017:612'], validFrom: '2018-01-01' },
+  { id: 'kl_2017', sourceCode: 'KL', sfsNumber: '2017:725', title: 'Kommunallag', rawFile: 'kl_2017_725.txt', targetFile: 'kl_2017_725.json', versionChain: ['2017:725'], validFrom: '2018-01-01' },
 ];

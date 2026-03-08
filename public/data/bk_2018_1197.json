@@ -1,21 +1,28 @@
-
 {
   "sourceCode": "BK",
   "sfsNumber": "2018:1197",
   "title": "Barnkonventionen (SFS 2018:1197)",
-  "versionChain": ["2018:1197"],
   "paragraphs": [
     {
-      "id": "bk_2018_1",
-      "section": 1,
-      "text": "I denna konvention avses med barn varje människa under 18 år, om barnet inte blir myndigt tidigare enligt den lag som gäller för barnet.",
-      "metadata": { "validFrom": "2020-01-01", "provenanceHash": "sha256-c3d4e5f6g7h8i9j0", "revisionNote": "LOCKED_GOLD_V76" }
+      "id": "bk_3",
+      "chapter": 0,
+      "section": "3",
+      "text": "Vid alla åtgärder som rör barn, vare sig de vidtas av offentliga eller privata sociala välfärdsinstitutioner, domstolar, administrativa myndigheter eller lagstiftande organ, ska i första hand beaktas vad som bedöms vara barnets bästa.",
+      "metadata": { "provenanceHash": "", "lawId": "BK" }
     },
     {
-      "id": "bk_2018_3",
-      "section": 3,
-      "text": "Vid alla åtgärder som rör barn, vare sig de vidtas av offentliga eller privata sociala välfärdsinstitutioner, domstolar, administrativa myndigheter eller lagstiftande organ, ska barnets bästa komma i främsta rummet.",
-      "metadata": { "validFrom": "2020-01-01", "provenanceHash": "sha256-k1l2m3n4o5p6q7r8", "revisionNote": "LOCKED_GOLD_V76" }
+      "id": "bk_12",
+      "chapter": 0,
+      "section": "12",
+      "text": "Konventionsstaterna ska tillförsäkra det barn som är i stånd att bilda egna åsikter rätten att fritt uttrycka dessa i alla frågor som rör barnet, varvid barnets åsikter ska tillmätas betydelse i förhållande till barnets ålder och mognad.",
+      "metadata": { "provenanceHash": "", "lawId": "BK" }
+    },
+    {
+      "id": "bk_19",
+      "chapter": 0,
+      "section": "19",
+      "text": "Konventionsstaterna ska vidta alla lämpliga lagstiftnings-, administrativa och sociala åtgärder samt åtgärder i utbildningssyfte för att skydda barnet mot alla former av fysiskt eller psykiskt våld, skada eller övergrepp, vanvård eller försumlig behandling, misshandel eller utnyttjande, inklusive sexuella övergrepp, medan barnet står under vård av förälder eller föräldrar, vårdnadshavare eller någon annan person som har hand om barnet.",
+      "metadata": { "provenanceHash": "", "lawId": "BK" }
     }
   ]
 }

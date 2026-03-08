@@ -1,16 +1,28 @@
-
 {
   "sourceCode": "OSL",
   "sfsNumber": "2009:400",
   "title": "Offentlighets- och sekretesslag (2009:400)",
-  "versionChain": ["2009:400"],
   "paragraphs": [
     {
-      "id": "osl_2009_1_1",
-      "chapter": 1,
-      "section": 1,
-      "text": "Denna lag innehåller bestämmelser om myndigheters och vissa andra organs handläggning vid registrering, utlämnande och övrig hantering av allmänna handlingar.",
-      "metadata": { "validFrom": "2009-06-30", "provenanceHash": "sha256-osl_1_1_pend", "revisionNote": "INGEST_PENDING" }
+      "id": "osl_10_11",
+      "chapter": 10,
+      "section": "11",
+      "text": "Sekretess till skydd för en enskild hindrar inte att en uppgift lämnas till en annan enskild om det är nödvändigt för att den utlämnande myndigheten ska kunna utföra sin verksamhet.",
+      "metadata": { "provenanceHash": "", "lawId": "OSL" }
+    },
+    {
+      "id": "osl_10_28",
+      "chapter": 10,
+      "section": "28",
+      "text": "Sekretess hindrar inte att en uppgift lämnas till en annan myndighet, om uppgiftsskyldighet följer av lag eller förordning.",
+      "metadata": { "provenanceHash": "", "lawId": "OSL" }
+    },
+    {
+      "id": "osl_26_1",
+      "chapter": 26,
+      "section": "1",
+      "text": "Sekretess gäller inom socialtjänsten för uppgift om en enskilds personliga förhållanden, om det inte står klart att uppgiften kan röjas utan att den enskilde eller någon närstående till denne lider men.",
+      "metadata": { "provenanceHash": "", "lawId": "OSL" }
     }
   ]
 }

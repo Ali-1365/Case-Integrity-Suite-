@@ -209,6 +209,15 @@ export const legalFrameworkIndex: LegalFrameworkIndexEntry[] = [
     "auditTrail": { "status": "VERIFIED" }
   },
   {
+    "id": "kl_2017",
+    "label": "Kommunallag (2017:725)",
+    "type": "lag",
+    "sfsNumber": "2017:725",
+    "shortName": "KL",
+    "corpusFile": "kl_2017_725.json",
+    "auditTrail": { "status": "VERIFIED" }
+  },
+  {
     "id": "praxis",
     "label": "Vägledande Praxis (HFD, RÅ, JO, KR)",
     "type": "regelverk",

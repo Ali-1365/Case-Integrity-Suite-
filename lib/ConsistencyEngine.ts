@@ -5,25 +5,42 @@ export interface Inconsistency {
   caseIds: [string, string];
   reason: string;
   severity: 'WARN' | 'CRITICAL';
+  type: 'DECISION_DIVERGENCE' | 'PROPORTIONALITY_VIOLATION' | 'OBJECTIVITY_ISSUE';
 }
 
 /**
- * CIS ConsistencyEngine v.1.0
- * Jämför liknande ärenden och flaggar inkonsekvens enligt likabehandlingsprincipen.
+ * FMJAM ConsistencyEngine v.7.6-GOLD
+ * Implementerar Proportionalitets- och Saklighetskontroll (RF 1:9).
  */
 export class ConsistencyEngine {
   checkConsistency(cases: CISCase[]): Inconsistency[] {
     const inconsistencies: Inconsistency[] = [];
     
-    // Vi jämför parvis (deterministiskt men resurskrävande i stora volymer)
     for (let i = 0; i < cases.length; i++) {
+      const c1 = cases[i];
+      
+      // 1. Proportionalitetskontroll (RF 1:9) - "Insats kontra intrång"
+      if (c1.activeResult) {
+        const risk = c1.activeResult.machineReadable.riskLevel;
+        const proposal = c1.activeResult.proposal;
+        
+        // Exempel: Högt intrång (t.ex. tvångsåtgärd eller totalt avslag) vid låg risk/svaga bevis
+        if (risk === 'GRÖN' && (proposal.toLowerCase().includes('avslag') || proposal.toLowerCase().includes('tvång'))) {
+          inconsistencies.push({
+            caseIds: [c1.caseId, c1.caseId],
+            reason: `Möjlig brist i proportionalitet (RF 1:9): Sträng åtgärd (${proposal}) föreslås trots låg risknivå.`,
+            severity: 'CRITICAL',
+            type: 'PROPORTIONALITY_VIOLATION'
+          });
+        }
+      }
+
       for (let j = i + 1; j < cases.length; j++) {
-        const c1 = cases[i];
         const c2 = cases[j];
         
         if (!c1.activeResult || !c2.activeResult) continue;
 
-        // Om samma lagrum och liknande risknivå men helt olika beslut
+        // 2. Likabehandlingsprincipen & Saklighet
         const sameLaws = JSON.stringify(c1.activeResult.machineReadable.legalBasis.sort()) === 
                          JSON.stringify(c2.activeResult.machineReadable.legalBasis.sort());
         
@@ -33,8 +50,9 @@ export class ConsistencyEngine {
         if (sameLaws && sameRisk && diffDecision) {
           inconsistencies.push({
             caseIds: [c1.caseId, c2.caseId],
-            reason: `Inkonsekvens detekterad: Liknande risk och lagrum men olika beslutsförslag (${c1.activeResult.proposal} vs ${c2.activeResult.proposal}).`,
-            severity: 'CRITICAL'
+            reason: `Inkonsekvens detekterad (RF 1:9): Liknande risk och lagrum men olika beslutsförslag (${c1.activeResult.proposal} vs ${c2.activeResult.proposal}).`,
+            severity: 'CRITICAL',
+            type: 'DECISION_DIVERGENCE'
           });
         }
       }

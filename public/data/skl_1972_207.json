@@ -2,115 +2,13 @@
   "sourceCode": "SkL",
   "sfsNumber": "1972:207",
   "title": "Skadeståndslag (1972:207)",
-  "versionChain": ["1972:207"],
-  "ikraft": "1972-06-02",
-  "description": "Fullständig struktur med fokus på 3 kap. (myndighetsutövning), preskription och skadeståndsrättsliga principer. Omfattande praxisnoteringar från JO, IVO, HFD, HD och JK 2020–2026. Direkt länkad till regelbasen.",
   "paragraphs": [
     {
-      "id": "skl_1972_3_2",
-      "chapter": 3,
-      "section": 2,
-      "principleType": "huvudregel",
-      "text": "Staten eller en kommun ska ersätta personskada, sakskada eller ren förmögenhetsskada, som vållas genom fel eller försummelse vid myndighetsutövning i verksamhet för vars fullgörande staten eller kommunen svarar.",
-      "keywords": ["myndighetsutövning", "fel eller försummelse", "kommunansvar", "statligt ansvar"],
-      "relatedRules": ["MYND-01", "SD-08", "HF-09", "SOL-LSS-01", "RS-03"],
-      "metadata": {
-        "validFrom": "1972-06-02",
-        "legalWeight": "central",
-        "riskTrigger": true,
-        "evidentiaryThreshold": "vanlig oaktsamhet",
-        "typicalApplication": "Bristande utredning, felaktiga beslut, underlåten aktinsyn eller Lex Sarah i SoL-ärenden.",
-        "praxisNotes": [
-          "HFD 2014 ref. 72: Felaktig SGI-beräkning = fel i myndighetsutövning → ersättningsgill ren förmögenhetsskada.",
-          "JO 2023/24 dnr 5678-2023: Bristande utredning + motstridiga besked i SoL-ärende (barn i akut nöd) → SkL 3:2-ansvar.",
-          "HD 2025 NJA 2025 s. 123: Kommunalt ansvar för felaktig handläggning av ekonomiskt bistånd – preskription från skadetidpunkt.",
-          "IVO 2025-04-15: Systematiska Lex Sarah-brister → potentiellt SkL 3:2-ansvar för vårdnadshavare och barn.",
-          "JK 2024-12-10: Underlåten aktinsyn i SoL-ärende → fel i myndighetsutövning.",
-          "JO 2026 dnr 2345-2026: Medvetet oriktiga journalanteckningar → grov oaktsamhet + regressmöjlighet."
-        ]
-      }
-    },
-    {
-      "id": "skl_1972_3_3",
-      "chapter": 3,
-      "section": 3,
-      "principleType": "undantag",
-      "text": "Skadestånd enligt 2 § utgår inte, om den skadelidande har medverkat till skadan genom eget vållande eller om det annars skulle vara oskäligt att ersättning utgår med hänsyn till omständigheterna.",
-      "keywords": ["medvållande", "oskälighet", "jämkning"],
-      "relatedRules": ["MYND-01"],
-      "metadata": {
-        "validFrom": "1972-06-02",
-        "legalWeight": "hög",
-        "riskTrigger": true,
-        "evidentiaryThreshold": "medvållande eller oskälighet",
-        "typicalApplication": "Sökande lämnar felaktiga uppgifter eller underlåter att medverka i utredning.",
-        "praxisNotes": [
-          "HFD 2022 ref. 19: Underlåtenhet att lämna korrekta inkomstuppgifter → medvållande → jämkning av SkL-ersättning.",
-          "JO 2024 dnr 4321-2024: Kommunens felaktiga avslag jämkades delvis p.g.a. sökandens bristande medverkan.",
-          "HD 2026 NJA 2026 s. 45: Oskälighetsbedömning vid upprepade felaktiga beslut – fullt ansvar trots viss medverkan."
-        ]
-      }
-    },
-    {
-      "id": "skl_1972_3_5",
-      "chapter": 3,
-      "section": 5,
-      "principleType": "regress",
-      "text": "Den som har betalat skadestånd enligt 2 § har rätt till återkrav av den som har vållat skadan genom grov vårdslöshet eller uppsåt.",
-      "keywords": ["regress", "grov vårdslöshet", "uppsåt"],
-      "relatedRules": ["MYND-01", "SD-08"],
-      "metadata": {
-        "validFrom": "1972-06-02",
-        "legalWeight": "medel",
-        "riskTrigger": true,
-        "evidentiaryThreshold": "grov vårdslöshet eller uppsåt",
-        "typicalApplication": "Medvetet oriktiga journalanteckningar eller systematiska Lex Sarah-brister.",
-        "praxisNotes": [
-          "JO 2026 dnr 1234-2026: Medvetet felaktiga journalanteckningar → grov vårdslöshet → regressmöjlighet mot handläggare.",
-          "IVO 2025-11-20: Systematiska brister i dokumentation → grov oaktsamhet → kommunalt ansvar + intern regress."
-        ]
-      }
-    },
-    {
-      "id": "skl_1972_35_1",
-      "chapter": null,
-      "section": 35,
-      "principleType": "preskription",
-      "text": "Rätt till skadestånd enligt denna lag preskriberas tio år efter det att skadan inträffade.",
-      "keywords": ["preskription", "tio år"],
-      "relatedRules": ["RS-03"],
-      "metadata": {
-        "validFrom": "1972-06-02",
-        "legalWeight": "hög",
-        "riskTrigger": true,
-        "evidentiaryThreshold": "skadetidpunkt",
-        "typicalApplication": "Långvariga SoL-fel med successiva skador.",
-        "praxisNotes": [
-          "HD 2025 NJA 2025 s. 89: Preskription från skadetidpunkt – inte beslutstidpunkt.",
-          "HFD 2023 ref. 45: Vid upprepade felaktiga beslut börjar preskription löpa från varje beslut.",
-          "JO 2026 dnr 8765-2026: Fortsatt nödsituation → varje ny månad utan bistånd = ny skada → preskription förskjuts."
-        ]
-      }
-    },
-    {
-      "id": "skl_1972_2_1",
+      "id": "skl_2_1",
       "chapter": 2,
-      "section": 1,
-      "principleType": "ideellt skadestånd",
-      "text": "Den som uppsåtligen eller av grov vårdslöshet kränker annan genom brott som riktar sig mot dennes person eller frihet, ska ersätta lidande och andra omständigheter av ideell art.",
-      "keywords": ["ideellt skadestånd", "kränkning"],
-      "relatedRules": ["MYND-01", "RS-03"],
-      "metadata": {
-        "validFrom": "1972-06-02",
-        "legalWeight": "hög",
-        "riskTrigger": true,
-        "evidentiaryThreshold": "uppsåt eller grov vårdslöshet",
-        "typicalApplication": "Medveten kränkning av barnets rättigheter eller föräldrars värdighet.",
-        "praxisNotes": [
-          "HD 2024 NJA 2024 s. 234: Grov vårdslöshet vid systematisk underlåtenhet i SoL-ärende → ideellt skadestånd till barn.",
-          "JO 2025 dnr 9876-2025: Medveten ansvarsomkastning → kränkning → ideellt skadestånd."
-        ]
-      }
+      "section": "1",
+      "text": "Den som upppsåtligen eller av vårdslöshet vållar personskada eller sakskada skall ersätta skadan, om ej annat följer av denna lag.",
+      "metadata": { "provenanceHash": "", "lawId": "SkL" }
     }
   ]
 }

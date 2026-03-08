@@ -300,4 +300,8 @@ export interface AnalysisResult {
   decisionSupport?: DecisionSupportResult;
   proportionality?: ProportionalityReport;
   actionRecommendations?: ActionRecommendationReport;
+  
+  // v.7.6-GOLD Oracle Fields
+  gapAnalysis?: { description: string, missingAction: string }[];
+  holisticFlags?: { type: 'SOCIAL_CONTEXT' | 'CHILD_PERSPECTIVE' | 'ENVIRONMENT', message: string }[];
 }

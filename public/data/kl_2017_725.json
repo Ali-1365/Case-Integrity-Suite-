@@ -1,0 +1,21 @@
+{
+  "sourceCode": "KL",
+  "sfsNumber": "2017:725",
+  "title": "Kommunallag (2017:725)",
+  "paragraphs": [
+    {
+      "id": "kl_1_1",
+      "chapter": 1,
+      "section": "1",
+      "text": "Sverige är indelat i kommuner och regioner. Dessa sköter på demokratins och den kommunala självstyrelsens grund de angelägenheter som anges i denna lag eller i annan lagstiftning.",
+      "metadata": { "provenanceHash": "", "lawId": "KL" }
+    },
+    {
+      "id": "kl_2_1",
+      "chapter": 2,
+      "section": "1",
+      "text": "Kommuner och regioner får själva ha hand om sådana angelägenheter av allmänt intresse som har anknytning till kommunens eller regionens område eller deras medlemmar och som inte ska handhas enbart av staten, en annan kommun, en annan region eller någon annan.",
+      "metadata": { "provenanceHash": "", "lawId": "KL" }
+    }
+  ]
+}

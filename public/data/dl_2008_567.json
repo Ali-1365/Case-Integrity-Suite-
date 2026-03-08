@@ -1,16 +1,14 @@
-
 {
   "sourceCode": "DL",
   "sfsNumber": "2008:567",
   "title": "Diskrimineringslag (2008:567)",
-  "versionChain": ["2008:567"],
   "paragraphs": [
     {
-      "id": "dl_2008_1_1",
+      "id": "dl_1_1",
       "chapter": 1,
-      "section": 1,
+      "section": "1",
       "text": "Denna lag har till ändamål att motverka diskriminering och på andra sätt främja lika rättigheter och möjligheter oavsett kön, könsöverskridande identitet eller uttryck, etnisk tillhörighet, religion eller annan trosuppfattning, funktionsnedsättning, sexuell läggning eller ålder.",
-      "metadata": { "validFrom": "2009-01-01", "provenanceHash": "sha256-dl_1_1_pend", "revisionNote": "INGEST_PENDING" }
+      "metadata": { "provenanceHash": "", "lawId": "DL" }
     }
   ]
 }

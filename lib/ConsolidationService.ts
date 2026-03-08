@@ -20,12 +20,17 @@ export class ConsolidationService {
     const result: ConsolidationResult = {
       consolidationId,
       hierarchy: {
-        constitution: chain.sources.filter(s => ['RF', 'TF', 'YGL', 'BK'].includes(s.sourceCode)),
-        law: chain.sources.filter(s => !['RF', 'TF', 'YGL', 'BK'].includes(s.sourceCode)),
+        // FAS 8: Lex Superior - BK/EKMR > RF > Praxis > SFS
+        constitution: chain.sources.filter(s => ['BK', 'RF', 'TF', 'YGL'].includes(s.sourceCode)).sort((a, b) => {
+          if (a.sourceCode === 'BK') return -1;
+          if (b.sourceCode === 'BK') return 1;
+          return 0;
+        }),
+        law: chain.sources.filter(s => !['BK', 'RF', 'TF', 'YGL'].includes(s.sourceCode)),
         regulation: [],
         praxis: relevantPraxis
       },
-      interplayAnalysis: "Hierarkisk analys initierad enligt FMJAM-metodik.",
+      interplayAnalysis: "Hierarkisk analys initierad enligt Oracle v.7.6-GOLD (Lex Superior).",
       affectedNorms: Array.from(new Set(chain.sources.map(s => s.sourceCode))),
       provenanceHashes: [
         ...chain.sources.map(s => s.provenanceHash),
