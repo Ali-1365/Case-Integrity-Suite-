@@ -27,6 +27,12 @@ export class LegalReferenceEngine {
     this.legalFrameworkData = legalFrameworkData;
   }
 
+  private parseSectionNumber(input: string | undefined): number | undefined {
+    if (!input) return undefined;
+    const match = input.match(/(\d+)/);
+    return match ? parseInt(match[1]) : undefined;
+  }
+
   analyze(documentName: string, text: string): LegalReference[] {
     const references: LegalReference[] = [];
 
@@ -54,8 +60,8 @@ export class LegalReferenceEngine {
             id: `${item.id}-${position}`,
             source,
             rawText,
-            chapter: item.chapter ? parseInt(item.chapter) : undefined,
-            section: item.section ? parseInt(item.section) : undefined,
+            chapter: this.parseSectionNumber(item.chapter),
+            section: this.parseSectionNumber(item.section),
             contextSnippet,
             documentName,
             position,

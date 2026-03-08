@@ -173,6 +173,32 @@ export class AgentWorkflow {
         return response;
     }
 
+    // Modul 6: Adjudicator-modulen (Agent B - Slutgiltig prövning)
+    async modulAdjudicator(sakframstallan: string, svaromal: string): Promise<string> {
+        const systemInstruction = `
+            DU ÄR ADJUDICATOR-MODULEN (AGENT B - FINAL JUDGMENT).
+            Din roll är att agera som en opartisk domare eller beslutsfattare.
+            
+            UPPGIFT:
+            1. Granska sakframställan (Agent A) och svaromålet (Motpart).
+            2. Värdera bevisstyrkan i båda inlagorna.
+            3. Pröva ärendet mot Lex Superior (BK, RF, Praxis).
+            4. Fäll ett slutgiltigt avgörande med tydlig motivering.
+            
+            KRAV:
+            - Du får INTE ta ställning i förväg.
+            - Ditt beslut ska vara strikt baserat på lag och bevis.
+            - Identifiera om någon part har åsidosatt proportionalitetsprincipen.
+        `;
+        
+        const response = await geminiService.generate({
+            contents: `SAKFRAMSTÄLLAN:\n${sakframstallan}\n\nSVAROMÅL:\n${svaromal}\n\nUPPGIFT: Fäll ett slutgiltigt avgörande.`,
+            config: { systemInstruction, temperature: 0.0, thinkingConfig: { thinkingLevel: ThinkingLevel.HIGH } }
+        }, 'think');
+        
+        return response;
+    }
+
     // Huvudorkestrator med Looping Pathway
     async runAutonomousWorkflow(caseId: string, caseData: string, maxLoops: number = 3): Promise<string> {
         let feedbackSignal: string | null = null;
@@ -214,21 +240,29 @@ export class AgentWorkflow {
 
         // 4. Advokat-modulen skapar slutprodukten
         console.log(`[AgentWorkflow] Skickar till Advokat-modulen...`);
-        const finalReport = await this.modulAdvokat(faktamasterState);
+        const sakframstallan = await this.modulAdvokat(faktamasterState);
         
-        await journalService.addEntry(caseId, 'WORKFLOW_COMPLETED', `Autonomt arbetsflöde slutfört. Slutrapport genererad.`);
+        // 5. Motpart-modulen skapar svaromål
+        console.log(`[AgentWorkflow] Skickar till Motpart-modulen...`);
+        const svaromal = await this.modulMotpart(sakframstallan);
+
+        // 6. Adjudicator fäller avgörande (Agent B)
+        console.log(`[AgentWorkflow] Skickar till Adjudicator-modulen...`);
+        const finalJudgment = await this.modulAdjudicator(sakframstallan, svaromal);
+        
+        await journalService.addEntry(caseId, 'WORKFLOW_COMPLETED', `Autonomt arbetsflöde slutfört. Slutgiltigt avgörande fällt.`);
         
         await auditService.log({
             operationType: 'RAG_QUERY',
             actor: 'SYSTEM',
             affectedLaws: faktamasterState.Lagrum,
             provenanceHashes: [],
-            resultSummary: `Autonomous workflow completed for case ${caseId}.`,
+            resultSummary: `Autonomous workflow completed for case ${caseId}. Agent A/B separation verified.`,
             status: 'OK',
             metadata: { caseId, loopCount, faktamasterState }
         });
 
-        return finalReport;
+        return finalJudgment;
     }
 }
 

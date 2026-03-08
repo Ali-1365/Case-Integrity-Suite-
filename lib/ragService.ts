@@ -64,7 +64,7 @@ export class RagService {
         .map(c => ({ ...c, sim: this.cosineSim(queryEmb, c.embedding) }))
         .filter(r => r.sim > 0.60)
         .sort((a, b) => b.sim - a.sim)
-        .slice(0, 8) : [];
+        .slice(0, 20) : [];
 
       autoNotary.info(traceId, 'RagService', 'Vektorsökning klar', { hits: lawHits.length });
 
