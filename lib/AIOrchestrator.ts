@@ -198,16 +198,25 @@ export class AIOrchestrator {
             linksCount: parsed.legalLinks?.length || 0
         });
         
+        const facts = (parsed.facts || []).map((f: any) => ({ ...f, source: { ...f.source, documentId }}));
+        const contradictions = parsed.contradictions || [];
+        
+        const decisionSupport = ragResult?.decisionSupport;
+        if (decisionSupport) {
+            decisionSupport.facts = facts;
+            decisionSupport.contradictions = contradictions;
+        }
+
         return {
             detectedCaseTypes: parsed.detectedCaseTypes || detectedTypes,
-            facts: (parsed.facts || []).map((f: any) => ({ ...f, source: { ...f.source, documentId }})),
-            contradictions: parsed.contradictions || [],
+            facts,
+            contradictions,
             uncertainties: parsed.uncertainties || [],
             links: parsed.legalLinks || [],
             
             // Attach the deep legal analysis results from the RAG chain
             reasoning: ragResult?.reasoning,
-            decisionSupport: ragResult?.decisionSupport,
+            decisionSupport,
             proportionality: ragResult?.decisionSupport?.proportionality,
             actionRecommendations: ragResult?.decisionSupport?.actions
         };

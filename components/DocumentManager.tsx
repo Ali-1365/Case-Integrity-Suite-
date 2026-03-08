@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { db } from '../lib/db';
-import { StoredDocument, ParsedDocument } from '../types';
+import { StoredDocument, ParsedDocument, LegalCorpus } from '../types';
 import { useFileParser } from '../hooks/useFileParser';
 import { ragService } from '../lib/ragService';
 import { AIOrchestrator } from '../lib/AIOrchestrator';
@@ -10,7 +10,8 @@ import { SynthesizerEngine } from '../lib/synthesizerEngine';
 import { QualityAssuranceEngine } from '../lib/qaEngine';
 import { AuditEngine } from '../lib/auditEngine';
 import { LEGAL_SOURCES } from '../data/legalSources';
-import { FULL_LEGAL_CORPUS } from '../data/legalCorpus';
+import { legalFrameworkIndex } from '../data/legalFramework';
+import { loadAllLegalCorpus } from '../lib/executionFlow';
 import { DEFAULT_CONTEXT_WEIGHTS } from '../data/contextWeights';
 import { riskTemplateRegistry } from '../data/riskTemplateRegistry';
 import { LegalReferenceEngine } from '../lib/legalReferenceEngine';
@@ -51,6 +52,7 @@ import { ClipboardDocumentListIcon } from './icons';
 
 const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
     const [documents, setDocuments] = useState<StoredDocument[]>([]);
+    const [legalCorpora, setLegalCorpora] = useState<LegalCorpus[]>([]);
     const [selectedDocId, setSelectedDocId] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -89,8 +91,12 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
     const loadData = useCallback(async () => {
         setIsLoading(true);
         try {
-            const docs = await db.getAllDocuments();
+            const [docs, corpora] = await Promise.all([
+                db.getAllDocuments(),
+                loadAllLegalCorpus()
+            ]);
             setDocuments(docs);
+            setLegalCorpora(corpora);
             await ragService.initialize();
         } catch (e) {
             console.error("[BOOT] Data load failure:", e);
@@ -224,7 +230,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                     />
                 ) : (
                     <SystemOverview 
-                        legalCorpus={FULL_LEGAL_CORPUS}
+                        legalCorpus={legalCorpora}
                         pipelineStatus={pipelineStatus} 
                         documents={documents} 
                         onFilesSelect={async (files) => { for(const f of files) { const p = await parseFile(f); if(p) await handleAnalyze(p); } }}

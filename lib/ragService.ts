@@ -3,8 +3,9 @@ import { geminiService } from '../services/geminiService';
 import { RagIndex, RagIndexChunk } from './RagIndexService';
 import { auditService } from './AuditService';
 import { queryProvenanceService } from './QueryProvenanceService';
-import { legalReasoningService, ReasoningResult } from './LegalReasoningService';
-import { decisionSupportService, DecisionSupportResult } from './DecisionSupportService';
+import { ReasoningResult, DecisionSupportResult } from './cis.types';
+import { legalReasoningService } from './LegalReasoningService';
+import { decisionSupportService } from './DecisionSupportService';
 
 export interface RagResult {
   context: string;

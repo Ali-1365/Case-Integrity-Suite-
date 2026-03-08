@@ -34,4 +34,9 @@ export const INGEST_CONFIG: IngestItem[] = [
   { id: 'bk_2018', sourceCode: 'BK', sfsNumber: '2018:1197', title: 'Barnkonventionen', rawFile: 'bk_2018_1197.txt', targetFile: 'bk_2018_1197.json', versionChain: ['2018:1197'], validFrom: '2020-01-01' },
   { id: 'fmu_2018', sourceCode: 'FMU', sfsNumber: '2018:744', title: 'Lag om försäkringsmedicinska utredningar', rawFile: 'fmu_2018_744.txt', targetFile: 'fmu_2018_744.json', versionChain: ['2018:744'], validFrom: '2019-01-01' },
   { id: 'ysl_1977', sourceCode: 'YSL', sfsNumber: '1977:268', title: 'Lag om uppräkning av yrkesskadelivräntor m.m.', rawFile: 'ysl_1977_268.txt', targetFile: 'ysl_1977_268.json', versionChain: ['1977:268'], validFrom: '1977-07-01' },
+  { id: 'rf_1974', sourceCode: 'RF', sfsNumber: '1974:152', title: 'Regeringsformen', rawFile: 'rf_1974_152.txt', targetFile: 'rf_1974_152.json', versionChain: ['1974:152'], validFrom: '1974-01-01' },
+  { id: 'brb_1962', sourceCode: 'BrB', sfsNumber: '1962:700', title: 'Brottsbalken', rawFile: 'brb_1962_700.txt', targetFile: 'brb_1962_700.json', versionChain: ['1962:700'], validFrom: '1965-01-01' },
+  { id: 'lvu_1990', sourceCode: 'LVU', sfsNumber: '1990:52', title: 'Lag om vård av unga', rawFile: 'lvu_1990_52.txt', targetFile: 'lvu_1990_52.json', versionChain: ['1990:52'], validFrom: '1990-07-01' },
+  { id: 'lvm_1988', sourceCode: 'LVM', sfsNumber: '1988:870', title: 'Lag om vård av missbrukare', rawFile: 'lvm_1988_870.txt', targetFile: 'lvm_1988_870.json', versionChain: ['1988:870'], validFrom: '1989-01-01' },
+  { id: 'ls_2017', sourceCode: 'LS', sfsNumber: '2017:612', title: 'Lag om samverkan vid utskrivning', rawFile: 'lag_2017_612.txt', targetFile: 'lag_2017_612.json', versionChain: ['2017:612'], validFrom: '2018-01-01' },
 ];

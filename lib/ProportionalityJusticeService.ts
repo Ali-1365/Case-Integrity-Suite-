@@ -1,12 +1,9 @@
 
 import { geminiService } from '../services/geminiService';
-import { RiskReport } from './RiskConflictService';
-import { ConsolidationResult } from './ConsolidationService';
 import { auditService } from './AuditService';
 import { QUALITY_PROFILE } from './QualityProfile';
 import { Type } from '@google/genai';
-
-import { ProportionalityLevel, JusticeFinding, ProportionalityReport } from './cis.types';
+import { RiskReport, ConsolidationResult, ProportionalityLevel, JusticeFinding, ProportionalityReport } from './cis.types';
 
 const proportionalitySchema = {
   type: Type.OBJECT,

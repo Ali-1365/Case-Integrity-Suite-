@@ -1,5 +1,5 @@
 
-import { DecisionSupportResult } from './DecisionSupportService';
+import { DecisionSupportResult } from './cis.types';
 import { decisionDiffEngine, DecisionDiff } from './DecisionDiffEngine';
 import { geminiService } from '../services/geminiService';
 import { auditService } from './AuditService';

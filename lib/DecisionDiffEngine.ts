@@ -1,5 +1,5 @@
 
-import { DecisionSupportResult } from './DecisionSupportService';
+import { DecisionSupportResult } from './cis.types';
 
 export interface DecisionDiff {
   changedFields: string[];

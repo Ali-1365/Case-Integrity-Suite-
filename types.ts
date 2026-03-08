@@ -2,7 +2,7 @@
 import { RiskScoreResult } from './lib/riskEngineV6.types';
 import { AnalysisResult } from './lib/cis.types';
 
-export type LegalSourceCode = 'RF' | 'SFB' | 'FL' | 'PSA' | 'GDPR' | 'SoL' | 'BrB' | 'OSL' | 'PRAXIS' | 'BK' | 'LVU' | 'LVM' | 'LSS' | 'HSL' | 'FB' | 'SkL' | 'UTLL' | 'KL' | 'DL' | 'JB' | 'FMU' | 'PL' | 'YSL' | 'TF' | 'YGL' | 'SJL' | 'RB' | 'SjukL';
+export type LegalSourceCode = 'RF' | 'SFB' | 'FL' | 'PSA' | 'GDPR' | 'SoL' | 'BrB' | 'OSL' | 'PRAXIS' | 'BK' | 'LVU' | 'LVM' | 'LSS' | 'HSL' | 'FB' | 'SkL' | 'UTLL' | 'KL' | 'DL' | 'JB' | 'FMU' | 'PL' | 'YSL' | 'TF' | 'YGL' | 'SJL' | 'RB' | 'SjukL' | 'LS';
 
 export interface LegalParagraph {
   id: string;

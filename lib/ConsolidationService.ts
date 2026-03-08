@@ -1,11 +1,11 @@
 
 import { ProvenanceChain } from './QueryProvenanceService';
-import { praxisService, PraxisEntry } from './PraxisService';
+import { praxisService } from './PraxisService';
 import { auditService } from './AuditService';
 import { QUALITY_PROFILE } from './QualityProfile';
-import { riskConflictService, RiskReport } from './RiskConflictService';
+import { riskConflictService } from './RiskConflictService';
 
-import { ConsolidationResult } from './cis.types';
+import { ConsolidationResult, RiskReport } from './cis.types';
 
 export class ConsolidationService {
   async consolidate(query: string, chain: ProvenanceChain): Promise<ConsolidationResult> {

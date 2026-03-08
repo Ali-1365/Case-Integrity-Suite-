@@ -260,6 +260,8 @@ export interface DecisionSupportResult {
   reasoning: ReasoningResult;
   proportionality?: ProportionalityReport;
   actions?: ActionRecommendationReport;
+  facts: FactV2[];
+  contradictions: ContradictionV2[];
 }
 
 export interface AnalysisResult {

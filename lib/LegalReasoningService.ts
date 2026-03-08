@@ -2,11 +2,11 @@
 import { geminiService } from '../services/geminiService';
 import { ProvenanceChain } from './QueryProvenanceService';
 import { auditService } from './AuditService';
-import { consolidationService, ConsolidationResult } from './ConsolidationService';
+import { consolidationService } from './ConsolidationService';
 import { QUALITY_PROFILE } from './QualityProfile';
 import { BaseService } from './BaseService';
 
-import { ReasoningResult } from './cis.types';
+import { ReasoningResult, ConsolidationResult } from './cis.types';
 
 export class LegalReasoningService extends BaseService {
   protected serviceName = 'LEGAL_REASONING';

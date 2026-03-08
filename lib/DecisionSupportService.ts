@@ -1,11 +1,10 @@
 
 import { geminiService } from '../services/geminiService';
-import { ReasoningResult } from './LegalReasoningService';
 import { ProvenanceChain } from './QueryProvenanceService';
 import { auditService } from './AuditService';
 import { QUALITY_PROFILE } from './QualityProfile';
-import { proportionalityJusticeService, ProportionalityReport } from './ProportionalityJusticeService';
-import { actionRecommendationService, ActionRecommendationReport } from './ActionRecommendationService';
+import { proportionalityJusticeService } from './ProportionalityJusticeService';
+import { actionRecommendationService } from './ActionRecommendationService';
 
 import { DecisionProposal, DecisionObject, DecisionSupportResult, ReasoningResult, ProportionalityReport, ActionRecommendationReport } from './cis.types';
 
@@ -82,7 +81,9 @@ export class DecisionSupportService {
         machineReadable,
         reasoning,
         proportionality,
-        actions
+        actions,
+        facts: [],
+        contradictions: []
       };
     } catch (e) {
       throw new Error("Kritiskt fel i beslutsstödsmodulen.");

@@ -209,6 +209,66 @@ export const LEGAL_SOURCES: LegalFrameworkItem[] = [
         auditTrail: goldAudit
     },
     {
+        id: "rf_1974",
+        label: "Regeringsformen",
+        type: "lagrum",
+        reference: "RF",
+        sfsNumber: "1974:152",
+        description: "Grundlag som fastställer statsskicket och medborgarnas grundläggande fri- och rättigheter.",
+        validFrom: "1974-01-01",
+        sourceUrl: "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/kungorelse-1974152-om-beslutad-ny-regeringsform_sfs-1974-152/",
+        version: "1974:152",
+        auditTrail: goldAudit
+    },
+    {
+        id: "brb_1962",
+        label: "Brottsbalken",
+        type: "lagrum",
+        reference: "BrB",
+        sfsNumber: "1962:700",
+        description: "Den centrala straffrättsliga lagstiftningen i Sverige.",
+        validFrom: "1965-01-01",
+        sourceUrl: "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/brottsbalk-1962700_sfs-1962-700/",
+        version: "1962:700",
+        auditTrail: goldAudit
+    },
+    {
+        id: "lvu_1990",
+        label: "LVU (Vård av unga)",
+        type: "lagrum",
+        reference: "LVU",
+        sfsNumber: "1990:52",
+        description: "Lag om vård av unga i vissa fall (tvångsvård).",
+        validFrom: "1990-07-01",
+        sourceUrl: "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/lag-199052-om-vard-av-unga-i-vissa-fall_sfs-1990-52/",
+        version: "1990:52",
+        auditTrail: goldAudit
+    },
+    {
+        id: "lvm_1988",
+        label: "LVM (Vård av missbrukare)",
+        type: "lagrum",
+        reference: "LVM",
+        sfsNumber: "1988:870",
+        description: "Lag om vård av missbrukare i vissa fall (tvångsvård).",
+        validFrom: "1989-01-01",
+        sourceUrl: "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/lag-1988870-om-vard-av-missbrukare-i-vissa-fall_sfs-1988-870/",
+        version: "1988:870",
+        auditTrail: goldAudit
+    },
+    {
+        id: "ls_2017",
+        label: "Lag om samverkan vid utskrivning",
+        type: "lagrum",
+        reference: "LS",
+        sfsNumber: "2017:612",
+        description: "Reglerar samverkan mellan regioner och kommuner vid utskrivning från sluten hälso- och sjukvård.",
+        validFrom: "2018-01-01",
+        sourceUrl: "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/lag-2017612-om-samverkan-vid-utskrivning-fran_sfs-2017-612/",
+        version: "2017:612",
+        auditTrail: goldAudit
+    },
+    {
         id: "bk_art_3_1",
         label: "Barnkonventionen Art. 3.1",
         type: "lagrum",
