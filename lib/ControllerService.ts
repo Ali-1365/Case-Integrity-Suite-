@@ -39,9 +39,13 @@ export class ControllerService {
     const biasIndicators = biasEngine.analyzeBias(cases, patterns);
     
     // 5. Verifiera teknisk integritet
-    const integrityIssues = integrityEngine.validateRepository(cases);
+    const integrityIssues = await integrityEngine.validateRepository(cases);
 
-    // 6. Journalför kritiska flaggor
+    // 6. Systemisk granskning (FAS 19 - GOLD)
+    const systemicDeviations = this.detectSystemicErrors(cases);
+    deviations.push(...systemicDeviations);
+
+    // 7. Journalför kritiska flaggor
     for (const dev of deviations) {
       if (dev.severity === 'CRITICAL') {
         await journalService.addEntry(
@@ -79,6 +83,34 @@ export class ControllerService {
       biasIndicators,
       integrityIssues
     };
+  }
+
+  /**
+   * FMJAM Systemisk Granskning v.7.8-GOLD
+   * Identifierar systematiska fel över hela ärendestocken.
+   */
+  private detectSystemicErrors(cases: CISCase[]): Deviation[] {
+    const systemicDeviations: Deviation[] = [];
+    
+    // Scenario: Identifiera återkommande brister i utredningsskyldigheten (FL 23 §)
+    const fl23Failures = cases.filter(c => {
+      const markdown = c.activeResult?.fullMarkdown || '';
+      return markdown.includes('FL 23') || 
+             markdown.includes('utredningsskyldighet') ||
+             markdown.includes('bristande utredning');
+    });
+
+    if (fl23Failures.length >= 3) {
+      systemicDeviations.push({
+        caseId: 'SYSTEMIC-01',
+        type: 'SYSTEMIC_INVESTIGATION_FAILURE',
+        severity: 'CRITICAL',
+        details: `SYSTEMISKT FEL DETEKTERAT: ${fl23Failures.length} ärenden uppvisar brister i utredningsskyldigheten enligt FL 23 §. Detta indikerar en strukturell brist hos myndigheten.`,
+        timestamp: new Date().toISOString()
+      });
+    }
+
+    return systemicDeviations;
   }
 }
 

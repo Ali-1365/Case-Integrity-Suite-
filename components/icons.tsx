@@ -108,6 +108,12 @@ export const DocumentTextIcon: React.FC<{ className?: string }> = ({ className }
   </svg>
 );
 
+export const FingerPrintIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M7.864 4.243A7.5 7.5 0 0 1 19.5 10.5c0 2.92-.556 5.709-1.568 8.263a2.25 2.25 0 0 1-2.097 1.423h-.34a2.25 2.25 0 0 1-2.097-1.423 41.201 41.201 0 0 1-1.568-8.263 7.5 7.5 0 0 1 1.634-6.257m0 0A7.5 7.5 0 0 0 4.5 10.5c0 2.92.556 5.709 1.568 8.263a2.25 2.25 0 0 0 2.097 1.423h.34a2.25 2.25 0 0 0 2.097-1.423 41.201 41.201 0 0 0 1.568-8.263 7.5 7.5 0 0 0-1.634-6.257m0 0A12.001 12.001 0 0 0 12 2.25c-1.591 0-3.113.31-4.503.873m0 0v.001a12.001 12.001 0 0 1 9.006 0v-.001" />
+  </svg>
+);
+
 export const SparklesIcon: React.FC<{ className?: string }> = ({ className }) => (
   <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
     <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09-3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 13.5 3.84a4.5 4.5 0 0 0-3.09-3.09L9 2.25l-2.846.813a4.5 4.5 0 0 0-3.09 3.09L2.25 9l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L9 15.75l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L15.75 9l2.509-2.285Z" />

@@ -60,6 +60,7 @@ export interface Atom {
   documentId: string;
   position: number;
   text: string;
+  hash: string; // Forensisk SHA-256 hash
   keywords?: string[];
   tags: string[]; 
   startIndex?: number;
@@ -262,6 +263,7 @@ export interface DecisionSupportResult {
   actions?: ActionRecommendationReport;
   facts: FactV2[];
   contradictions: ContradictionV2[];
+  atoms: Atom[];
 }
 
 export interface AnalysisResult {

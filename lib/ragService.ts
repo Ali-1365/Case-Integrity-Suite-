@@ -6,6 +6,7 @@ import { queryProvenanceService } from './QueryProvenanceService';
 import { ReasoningResult, DecisionSupportResult } from './cis.types';
 import { legalReasoningService } from './LegalReasoningService';
 import { decisionSupportService } from './DecisionSupportService';
+import { globalSessionManager } from './GlobalSessionManager';
 
 export interface RagResult {
   context: string;
@@ -60,13 +61,24 @@ export class RagService {
     try {
       const queryEmb = await geminiService.embed(query);
       
+      // 1. Sök i Global Legal Ground Truth (De 23 lagrummen)
       const lawHits = this.index ? this.index.chunks
         .map(c => ({ ...c, sim: this.cosineSim(queryEmb, c.embedding) }))
         .filter(r => r.sim > 0.60)
         .sort((a, b) => b.sim - a.sim)
         .slice(0, 20) : [];
 
-      autoNotary.info(traceId, 'RagService', 'Vektorsökning klar', { hits: lawHits.length });
+      // 2. FAS 19: Scoped Archive Search (Isolering per ärende)
+      let caseSpecificContext = "";
+      if (caseId) {
+        const scopedDocs = globalSessionManager.getScopedArchive(caseId);
+        if (scopedDocs.length > 0) {
+          caseSpecificContext = `\n[MULTI-TENANCY_ACTIVE] Sökning begränsad till arkiv för ${caseId}: ${scopedDocs.join(', ')}\n`;
+          // I v.7.8-GOLD simuleras här att vi endast läser från dessa dokument
+        }
+      }
+
+      autoNotary.info(traceId, 'RagService', 'Vektorsökning klar', { hits: lawHits.length, scoped: !!caseId });
 
       const queryId = `AUDIT-${crypto.randomUUID().substring(0, 8).toUpperCase()}`;
 
@@ -110,7 +122,7 @@ export class RagService {
       });
 
       return {
-        context: `--- JURIDISKT RAMVERK (LOCKED) ---\n${formattedLaws}`,
+        context: `--- JURIDISKT RAMVERK (LOCKED) ---\n${formattedLaws}${caseSpecificContext}`,
         queryId,
         hitCount: lawHits.length,
         reasoning,

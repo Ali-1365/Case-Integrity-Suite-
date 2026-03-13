@@ -50,6 +50,9 @@ import QuotaWarning from './QuotaWarning';
 import SfbIntegrityPanel from './SfbIntegrityPanel';
 import { ClipboardDocumentListIcon } from './icons';
 
+import { AutoAtomizer } from '../lib/autoAtomizer';
+import { forensicChainService } from '../lib/ForensicChainService';
+
 const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
     const [documents, setDocuments] = useState<StoredDocument[]>([]);
     const [legalCorpora, setLegalCorpora] = useState<LegalCorpus[]>([]);
@@ -124,6 +127,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
             const synthesizer = new SynthesizerEngine();
             const qa = new QualityAssuranceEngine();
             const audit = new AuditEngine();
+            const atomizer = new AutoAtomizer();
 
             // Kör de klassiska motorerna för referens- och nyckelordsextraktion
             const legalRefEngine = new LegalReferenceEngine(LEGAL_SOURCES);
@@ -132,6 +136,9 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
             const keywordHits = keywordEngine.analyze(doc.textContent);
 
             update('ai-analys', 'active', 'Exekverar Full Forensic Chain (RAG + Reasoning)...');
+            // Segmentera texten i atomer med forensiska hashar
+            const atoms = await atomizer.atomize(doc.textContent, doc.name);
+            
             // Let AIOrchestrator handle the RAG context fetching internally to ensure full chain execution
             const aiRes = await orchestrator.runFullAnalysis(doc.textContent, doc.name, LEGAL_SOURCES);
 
@@ -139,7 +146,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
             const analysis = normalizer.runFullPipeline(
                 doc, aiRes.facts, aiRes.contradictions, aiRes.uncertainties, 
                 legalRefs, keywordHits, aiRes.links, [], { hasChildAspect: false, isPreventive: false }, [], LEGAL_SOURCES,
-                [], // atoms
+                atoms,
                 aiRes.reasoning,
                 aiRes.decisionSupport,
                 aiRes.proportionality,
@@ -150,6 +157,10 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
             analysis.synthesis = await synthesizer.synthesize(analysis);
             analysis.audit = audit.runAudit(analysis);
             analysis.qaSummary = qa.runChecks(analysis);
+
+            // Verifiera den forensiska kedjan direkt efter skapandet
+            const verification = await forensicChainService.verifyChain(analysis);
+            console.log("[FORENSIC] Kedjeverifiering:", verification);
 
             const stored: StoredDocument = {
                 id: crypto.randomUUID(),

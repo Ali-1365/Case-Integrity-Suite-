@@ -1,7 +1,7 @@
 {
   "name": "Case Integrity Suite",
   "version": "1.0.0",
-  "description": "Case Integrity Suite. FULL_AUDIT_COMPLETE. Architecture v.6.3. SFS 2025:400 Compliant.",
+  "description": "Case Integrity Suite. Forensic Integrity Chain (SHA-256) enabled. Architecture v.7.8-GOLD. SFS 2025:400 Compliant.",
   "requestFramePermissions": [
     "camera",
     "microphone",

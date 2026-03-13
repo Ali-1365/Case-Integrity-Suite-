@@ -83,7 +83,8 @@ export class DecisionSupportService {
         proportionality,
         actions,
         facts: [],
-        contradictions: []
+        contradictions: [],
+        atoms: []
       };
     } catch (e) {
       throw new Error("Kritiskt fel i beslutsstödsmodulen.");

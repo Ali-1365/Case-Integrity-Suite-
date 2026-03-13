@@ -22,6 +22,7 @@ import AiReportTab from './ReportViewer';
 import MasterDashboard from './MasterDashboard';
 import LegalReferenceDetail from './LegalReferenceDetail';
 import ForensicAuditView from './ForensicAuditView';
+import ForensicIntegrityView from './ForensicIntegrityView';
 import TimelineView from './TimelineView';
 import AnalysisDashboard from './AnalysisDashboard';
 import { OpinionConfig, OpinionResult } from '../types';
@@ -31,6 +32,7 @@ import { AgentView } from './AgentView';
 import { AdversarialDuelView } from './AdversarialDuelView';
 import { SystemArchitectureView } from './SystemArchitectureView';
 import { FmjamController } from './FmjamController';
+import { IntelligenceCore } from './IntelligenceCore';
 
 interface AnalysisResultsProps {
   analysis: AnalysisResult;
@@ -44,7 +46,7 @@ interface AnalysisResultsProps {
 }
 
 const AnalysisResults: React.FC<AnalysisResultsProps> = (props) => {
-  const tabOptions = ['Översikt', 'FMJAM Controller', 'Systemarkitektur', 'Tidslinje', 'Beviskedja', 'MEGAINLAGA', 'Audit Log', 'Processnotarie', 'Advokatbyrå', 'Rättegångssimulator', 'Analytics', 'Oracle Command'];
+  const tabOptions = ['Översikt', 'Forensisk Integritet', 'Intelligence Core', 'FMJAM Controller', 'Systemarkitektur', 'Tidslinje', 'Beviskedja', 'MEGAINLAGA', 'Audit Log', 'Processnotarie', 'Advokatbyrå', 'Rättegångssimulator', 'Analytics', 'Oracle Command'];
   const [selectedLegalRefId, setSelectedLegalRefId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState(tabOptions[0]);
 
@@ -55,7 +57,7 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = (props) => {
       {/* Quick Actions Bar */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <button 
-          onClick={() => setActiveTab('Beviskedja')}
+          onClick={() => setActiveTab('Intelligence Core')}
           className="bg-white dark:bg-[#161616] border border-indigo-500/30 p-4 rounded-xl flex items-center gap-4 hover:bg-indigo-500/5 dark:hover:bg-indigo-500/10 transition-all group shadow-sm"
         >
           <div className="p-2 bg-indigo-500/10 rounded-lg text-indigo-600 dark:text-indigo-500 group-hover:scale-110 transition-transform">
@@ -68,7 +70,7 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = (props) => {
         </button>
 
         <button 
-          onClick={() => setActiveTab('Audit Log')}
+          onClick={() => setActiveTab('Intelligence Core')}
           className="bg-white dark:bg-[#161616] border border-emerald-500/30 p-4 rounded-xl flex items-center gap-4 hover:bg-emerald-500/5 dark:hover:bg-emerald-500/10 transition-all group shadow-sm"
         >
           <div className="p-2 bg-emerald-500/10 rounded-lg text-emerald-600 dark:text-emerald-500 group-hover:scale-110 transition-transform">
@@ -81,7 +83,7 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = (props) => {
         </button>
 
         <button 
-          onClick={() => setActiveTab('Analytics')}
+          onClick={() => setActiveTab('Intelligence Core')}
           className="bg-white dark:bg-[#161616] border border-purple-500/30 p-4 rounded-xl flex items-center gap-4 hover:bg-purple-500/5 dark:hover:bg-purple-500/10 transition-all group shadow-sm"
         >
           <div className="p-2 bg-purple-500/10 rounded-lg text-purple-600 dark:text-purple-500 group-hover:scale-110 transition-transform">
@@ -99,6 +101,8 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = (props) => {
             {(currentTab) => (
               <div className="p-6 md:p-8">
                 {currentTab === 'Översikt' && <OverviewContent analysis={props.analysis} />}
+                {currentTab === 'Forensisk Integritet' && <ForensicIntegrityView analysis={props.analysis} />}
+                {currentTab === 'Intelligence Core' && <IntelligenceCore analysis={props.analysis} />}
                 {currentTab === 'FMJAM Controller' && <FmjamController analysis={props.analysis} />}
                 {currentTab === 'Systemarkitektur' && <SystemArchitectureView analysisId={props.analysis.caseId} onNavigate={setActiveTab} />}
                 {currentTab === 'Tidslinje' && <TimelineView analysis={props.analysis} />}

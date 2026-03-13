@@ -4,6 +4,8 @@ import { caseManagementService } from './CaseManagementService';
 import { journalService } from './JournalService';
 import { auditService } from './AuditService';
 
+import { globalSessionManager } from './GlobalSessionManager';
+
 export interface FaktamasterState {
     Bevisteman: string[];
     Juridisk_Syllogism: string;
@@ -205,8 +207,19 @@ export class AgentWorkflow {
         let loopCount = 0;
         let faktamasterState: FaktamasterState | null = null;
 
-        const cisCase = await caseManagementService.getCase(caseId);
-        if (!cisCase) throw new Error(`Ärende ${caseId} saknas.`);
+        let cisCase = await caseManagementService.getCase(caseId);
+        
+        if (!cisCase) {
+            console.log(`[AgentWorkflow] Ärende ${caseId} saknas. Skapar virtuellt ärende för processen.`);
+            cisCase = await caseManagementService.createCase(
+                caseData.substring(0, 50) + "...", 
+                { hasChildAspect: false, isPreventive: false }
+            );
+            caseId = cisCase.caseId;
+        }
+
+        // Registrera session i GlobalSessionManager för Multi-Tenancy isolering
+        globalSessionManager.registerSession(caseId, cisCase);
 
         await journalService.addEntry(caseId, 'WORKFLOW_STARTED', `Autonomt arbetsflöde påbörjat för ärende ${caseId}`);
 

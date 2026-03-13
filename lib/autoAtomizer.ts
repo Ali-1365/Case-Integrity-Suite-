@@ -41,6 +41,7 @@ export class AutoAtomizer {
         documentId,
         position: sequence++,
         text: segmentText,
+        hash, // Spara den fullständiga hashen för verifiering
         startIndex: match.index,
         endIndex: match.index + segmentRaw.length,
         keywords: [],
@@ -50,11 +51,14 @@ export class AutoAtomizer {
 
     // Om ingen mening hittades (t.ex. bara en kort rad utan punkt), returnera hela texten som en atom
     if (atoms.length === 0 && text.trim().length > 0) {
+        const segmentText = text.trim();
+        const hash = await generateSHA256(segmentText);
         atoms.push({
             id: `ATOM-INIT-${documentId.substring(0,5)}`,
             documentId,
             position: 1,
-            text: text.trim(),
+            text: segmentText,
+            hash,
             startIndex: 0,
             endIndex: text.length,
             keywords: [],

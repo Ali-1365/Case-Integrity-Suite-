@@ -39,6 +39,7 @@ export class NormalizationEngine {
       documentId: doc.name,
       position: idx,
       confidence: 1.0,
+      hash: "FALLBACK_HASH_NOT_VERIFIED",
       source: {
         documentId: doc.name,
         page: 1,
@@ -111,7 +112,7 @@ export class NormalizationEngine {
       
       // Pass through advanced results
       reasoning,
-      decisionSupport,
+      decisionSupport: decisionSupport ? { ...decisionSupport, atoms: finalAtoms } : undefined,
       proportionality,
       actionRecommendations
     };
