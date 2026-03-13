@@ -5,7 +5,7 @@ export interface JournalEntry {
   entryId: string;
   caseId: string;
   timestamp: string;
-  event: 'ÄRENDE_SKAPAT' | 'BESLUT_VERSION_UPPDATERAD' | 'CONTROLLER_FLAG' | 'WORKFLOW_STARTED' | 'WORKFLOW_VALIDATION_PASS' | 'WORKFLOW_VALIDATION_FAIL' | 'WORKFLOW_COMPLETED';
+  event: 'ÄRENDE_SKAPAT' | 'BESLUT_VERSION_UPPDATERAD' | 'CONTROLLER_FLAG' | 'WORKFLOW_STARTED' | 'WORKFLOW_VALIDATION_PASS' | 'WORKFLOW_VALIDATION_FAIL' | 'WORKFLOW_COMPLETED' | 'PIPELINE_COMPLETED' | 'PIPELINE_ERROR';
   details: string;
   provenanceHashes: string[];
   actor: string;

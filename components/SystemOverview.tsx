@@ -160,37 +160,6 @@ const SystemOverview: React.FC<SystemOverviewProps> = ({
                     </div>
                 )}
             </Card>
-
-            <Card title="Juridiska Korpusar" icon={<LawIcon className="w-5 h-5" />}>
-                {legalCorpus.length > 0 ? (
-                    <ul className="space-y-3 max-h-[70vh] overflow-y-auto pr-2 custom-scrollbar">
-                        {legalCorpus.map((corpus, index) => (
-                            <li key={index} className="w-full p-4 rounded-xl transition-colors flex items-center justify-between group border bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 hover:border-blue-300 dark:hover:border-blue-800">
-                                <div className="flex items-center space-x-4">
-                                    <div className="p-2.5 rounded-lg border bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400">
-                                        <LawIcon className="h-5 w-5" />
-                                    </div>
-                                    <div>
-                                        <p className="font-medium text-[#1A202C] truncate max-w-[200px] md:max-w-md tracking-tight">{corpus.title}</p>
-                                        <div className="flex items-center space-x-3 mt-1">
-                                            <span className="text-xs text-gray-500">SFS: {corpus.sfsNumber}</span>
-                                            <div className="h-1 w-1 rounded-full bg-gray-300"></div>
-                                            <span className="text-xs font-mono text-gray-500">KÄLLA: {corpus.sourceCode}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        ))}
-                    </ul>
-                ) : (
-                    <div className="text-center py-24 text-gray-500">
-                        <div className="relative inline-block mb-6">
-                            <LawIcon className="h-16 w-16 mx-auto opacity-20" />
-                        </div>
-                        <p className="text-sm font-medium opacity-60">Inga juridiska korpusar laddade</p>
-                    </div>
-                )}
-            </Card>
         </div>
       </div>
       <SystemGuide isOpen={isGuideOpen} onClose={() => setGuideOpen(false)} />

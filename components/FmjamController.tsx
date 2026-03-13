@@ -6,7 +6,6 @@ import {
   CpuChipIcon, 
   CheckCircleIcon, 
   GlobeAltIcon,
-  LawIcon,
   UserIcon,
   CodeBracketIcon,
   LinkIcon
@@ -79,7 +78,7 @@ export const FmjamController: React.FC<FmjamControllerProps> = ({ analysis }) =>
         <div className="lg:col-span-4 space-y-6">
           <div className="bg-[#111111] border border-gray-800 rounded-2xl p-6 relative overflow-hidden group">
             <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-              <LawIcon className="w-24 h-24 text-white" />
+              <ShieldCheckIcon className="w-24 h-24 text-white" />
             </div>
             <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-6 flex items-center gap-2">
               <ShieldCheckIcon className="w-4 h-4 text-amber-500" />
@@ -94,18 +93,6 @@ export const FmjamController: React.FC<FmjamControllerProps> = ({ analysis }) =>
           </div>
 
           {/* Juridiska Korpusar Section */}
-          <div className="bg-[#111111] border border-gray-800 rounded-2xl p-6">
-            <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-6 flex items-center gap-2">
-              <LawIcon className="w-4 h-4 text-cyan-500" />
-              Juridiska Korpusar
-            </h3>
-            <div className="space-y-3">
-              <CorpusItem title="Socialtjänstlag" sfs="2025:400" source="SoL" />
-              <CorpusItem title="Förvaltningslag" sfs="2017:900" source="FL" />
-              <CorpusItem title="Barnkonventionen" sfs="2018:1197" source="BK" />
-            </div>
-          </div>
-
           <div className="bg-[#111111] border border-gray-800 rounded-2xl p-6">
             <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-6">System Resources</h3>
             <div className="space-y-6">
@@ -164,25 +151,6 @@ export const FmjamController: React.FC<FmjamControllerProps> = ({ analysis }) =>
     </div>
   );
 };
-
-const CorpusItem: React.FC<{ title: string, sfs: string, source: string }> = ({ title, sfs, source }) => (
-  <div className="flex flex-col p-3 bg-black/40 rounded-xl border border-white/5 hover:border-cyan-500/20 transition-all group">
-    <div className="flex justify-between items-center mb-1">
-      <span className="text-xs font-bold text-white group-hover:text-cyan-400 transition-colors">{title}</span>
-      <LinkIcon className="w-3 h-3 text-gray-600 group-hover:text-cyan-500" />
-    </div>
-    <div className="flex gap-4">
-      <div className="flex flex-col">
-        <span className="text-[8px] text-gray-500 uppercase font-bold">SFS</span>
-        <span className="text-[10px] font-mono text-cyan-500/80">{sfs}</span>
-      </div>
-      <div className="flex flex-col border-l border-white/10 pl-4">
-        <span className="text-[8px] text-gray-500 uppercase font-bold">Källa</span>
-        <span className="text-[10px] font-mono text-white/70">{source}</span>
-      </div>
-    </div>
-  </div>
-);
 
 const ControlItem: React.FC<{ label: string, status: string, value: string }> = ({ label, status, value }) => (
   <div className="flex justify-between items-center p-3 bg-black/40 rounded-xl border border-white/5 hover:border-amber-500/20 transition-colors">

@@ -16,7 +16,8 @@ import {
     BoltIcon,
     CheckCircleIcon,
     MagnifyingGlassIcon,
-    ActivityIcon
+    ActivityIcon,
+    DocumentTextIcon
 } from './icons';
 import AiReportTab from './ReportViewer';
 import MasterDashboard from './MasterDashboard';
@@ -34,6 +35,8 @@ import { SystemArchitectureView } from './SystemArchitectureView';
 import { FmjamController } from './FmjamController';
 import { IntelligenceCore } from './IntelligenceCore';
 import { InteractiveAnalyst } from './InteractiveAnalyst';
+import { LegalPipelineView } from './LegalPipelineView';
+import { QuickStartGuide } from './QuickStartGuide';
 
 interface AnalysisResultsProps {
   analysis: AnalysisResult;
@@ -47,7 +50,7 @@ interface AnalysisResultsProps {
 }
 
 const AnalysisResults: React.FC<AnalysisResultsProps> = (props) => {
-  const tabOptions = ['Översikt', 'Interactive Analyst', 'Forensisk Integritet', 'Intelligence Core', 'FMJAM Controller', 'Systemarkitektur', 'Tidslinje', 'Beviskedja', 'MEGAINLAGA', 'Audit Log', 'Processnotarie', 'Advokatbyrå', 'Rättegångssimulator', 'Analytics', 'Oracle Command'];
+  const tabOptions = ['Snabbstartsguide', 'Översikt', 'Interactive Analyst', 'Dokument-Pipeline', 'Forensisk Integritet', 'Intelligence Core', 'FMJAM Controller', 'Systemarkitektur', 'Tidslinje', 'Beviskedja', 'MEGAINLAGA', 'Audit Log', 'Processnotarie', 'Advokatbyrå', 'Rättegångssimulator', 'Analytics', 'Oracle Command'];
   const [selectedLegalRefId, setSelectedLegalRefId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState(tabOptions[0]);
 
@@ -71,28 +74,28 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = (props) => {
         </button>
 
         <button 
-          onClick={() => setActiveTab('Intelligence Core')}
+          onClick={() => setActiveTab('Dokument-Pipeline')}
           className="bg-white dark:bg-[#161616] border border-emerald-500/30 p-4 rounded-xl flex items-center gap-4 hover:bg-emerald-500/5 dark:hover:bg-emerald-500/10 transition-all group shadow-sm"
         >
           <div className="p-2 bg-emerald-500/10 rounded-lg text-emerald-600 dark:text-emerald-500 group-hover:scale-110 transition-transform">
-            <ShieldCheckIcon className="w-5 h-5" />
+            <DocumentTextIcon className="w-5 h-5" />
           </div>
           <div className="text-left">
-            <p className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">Integritetskontroll</p>
-            <p className="text-[10px] text-slate-500 dark:text-gray-500">Verifiera SFS 2025:400</p>
+            <p className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">Dokument-Pipeline</p>
+            <p className="text-[10px] text-slate-500 dark:text-gray-500">8-stegs verifiering</p>
           </div>
         </button>
 
         <button 
-          onClick={() => setActiveTab('Analytics')}
+          onClick={() => setActiveTab('Snabbstartsguide')}
           className="bg-white dark:bg-[#161616] border border-purple-500/30 p-4 rounded-xl flex items-center gap-4 hover:bg-purple-500/5 dark:hover:bg-purple-500/10 transition-all group shadow-sm"
         >
           <div className="p-2 bg-purple-500/10 rounded-lg text-purple-600 dark:text-purple-500 group-hover:scale-110 transition-transform">
             <ActivityIcon className="w-5 h-5" />
           </div>
           <div className="text-left">
-            <p className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">System-telemetri</p>
-            <p className="text-[10px] text-slate-500 dark:text-gray-500">Monitorera AI-pipeline</p>
+            <p className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">Snabbstartsguide</p>
+            <p className="text-[10px] text-slate-500 dark:text-gray-500">Lär dig systemet</p>
           </div>
         </button>
       </div>
@@ -101,8 +104,10 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = (props) => {
           <Tabs tabs={tabOptions} activeTab={activeTab} onTabChange={setActiveTab}>
             {(currentTab) => (
               <div className="p-6 md:p-8">
+                {currentTab === 'Snabbstartsguide' && <QuickStartGuide />}
                 {currentTab === 'Översikt' && <OverviewContent analysis={props.analysis} />}
                 {currentTab === 'Interactive Analyst' && <InteractiveAnalyst analysis={props.analysis} />}
+                {currentTab === 'Dokument-Pipeline' && <LegalPipelineView analysis={props.analysis} />}
                 {currentTab === 'Forensisk Integritet' && <ForensicIntegrityView analysis={props.analysis} />}
                 {currentTab === 'Intelligence Core' && <IntelligenceCore analysis={props.analysis} />}
                 {currentTab === 'FMJAM Controller' && <FmjamController analysis={props.analysis} />}
@@ -284,18 +289,6 @@ const OverviewContent: React.FC<{ analysis: AnalysisResult }> = ({ analysis }) =
                     ))}
                 </div>
             </Card>
-
-            <div className="bg-[#161616] p-8 rounded-xl border border-gray-800">
-                <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-6 flex items-center gap-2">
-                    <LawIcon className="w-4 h-4 text-cyan-500" />
-                    Juridiska Korpusar
-                </h3>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <CorpusItem title="Socialtjänstlag" sfs="2025:400" source="SoL" />
-                    <CorpusItem title="Förvaltningslag" sfs="2017:900" source="FL" />
-                    <CorpusItem title="Barnkonventionen" sfs="2018:1197" source="BK" />
-                </div>
-            </div>
         </div>
         <div className="lg:col-span-4">
             <Card title="QA-Revision" icon={<ShieldCheckIcon className="w-5 h-5" />}>
@@ -313,25 +306,6 @@ const OverviewContent: React.FC<{ analysis: AnalysisResult }> = ({ analysis }) =
                     ))}
                 </div>
             </Card>
-        </div>
-    </div>
-);
-
-const CorpusItem: React.FC<{ title: string, sfs: string, source: string }> = ({ title, sfs, source }) => (
-    <div className="flex flex-col p-4 bg-slate-50 dark:bg-[#111111] rounded-xl border border-slate-200 dark:border-gray-800 hover:border-cyan-500/30 transition-all group">
-        <div className="flex justify-between items-center mb-2">
-            <span className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-cyan-400 transition-colors">{title}</span>
-            <LinkIcon className="w-3 h-3 text-slate-400 dark:text-gray-600 group-hover:text-cyan-500" />
-        </div>
-        <div className="flex gap-4">
-            <div className="flex flex-col">
-                <span className="text-[10px] text-slate-500 dark:text-gray-500 uppercase font-bold">SFS</span>
-                <span className="text-xs font-mono text-cyan-600 dark:text-cyan-500/80">{sfs}</span>
-            </div>
-            <div className="flex flex-col border-l border-slate-200 dark:border-gray-800 pl-4">
-                <span className="text-[10px] text-slate-500 dark:text-gray-500 uppercase font-bold">Källa</span>
-                <span className="text-xs font-mono text-slate-600 dark:text-white/70">{source}</span>
-            </div>
         </div>
     </div>
 );

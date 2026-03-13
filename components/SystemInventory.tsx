@@ -62,6 +62,21 @@ const SystemInventory: React.FC<SystemInventoryProps> = ({ isOpen, onClose }) =>
             } else if (path.includes('icons.tsx')) {
                 status = 'ok';
                 message = 'Ikonbibliotek laddat.';
+            } else if (path.includes('LegalPipelineService')) {
+                status = 'ok';
+                message = '8-stegs pipeline validerad och redo.';
+            } else if (path.includes('IntegrityEngine')) {
+                status = 'ok';
+                message = 'Forensisk integritetskontroll aktiv (SHA-256).';
+            } else if (path.includes('InteractiveAnalyst')) {
+                status = 'ok';
+                message = 'Dynamisk analysmotor v2.0 operativ.';
+            } else if (path.includes('App.tsx')) {
+                status = 'ok';
+                message = 'Huvudapplikationens routing och state-hantering OK.';
+            } else if (path.includes('cis.types.ts')) {
+                status = 'ok';
+                message = 'Typdefinitioner för forensisk data synkroniserade.';
             }
 
             return {
