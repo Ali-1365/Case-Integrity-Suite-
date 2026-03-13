@@ -33,6 +33,7 @@ import { AdversarialDuelView } from './AdversarialDuelView';
 import { SystemArchitectureView } from './SystemArchitectureView';
 import { FmjamController } from './FmjamController';
 import { IntelligenceCore } from './IntelligenceCore';
+import { InteractiveAnalyst } from './InteractiveAnalyst';
 
 interface AnalysisResultsProps {
   analysis: AnalysisResult;
@@ -46,7 +47,7 @@ interface AnalysisResultsProps {
 }
 
 const AnalysisResults: React.FC<AnalysisResultsProps> = (props) => {
-  const tabOptions = ['Översikt', 'Forensisk Integritet', 'Intelligence Core', 'FMJAM Controller', 'Systemarkitektur', 'Tidslinje', 'Beviskedja', 'MEGAINLAGA', 'Audit Log', 'Processnotarie', 'Advokatbyrå', 'Rättegångssimulator', 'Analytics', 'Oracle Command'];
+  const tabOptions = ['Översikt', 'Interactive Analyst', 'Forensisk Integritet', 'Intelligence Core', 'FMJAM Controller', 'Systemarkitektur', 'Tidslinje', 'Beviskedja', 'MEGAINLAGA', 'Audit Log', 'Processnotarie', 'Advokatbyrå', 'Rättegångssimulator', 'Analytics', 'Oracle Command'];
   const [selectedLegalRefId, setSelectedLegalRefId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState(tabOptions[0]);
 
@@ -57,15 +58,15 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = (props) => {
       {/* Quick Actions Bar */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <button 
-          onClick={() => setActiveTab('Intelligence Core')}
+          onClick={() => setActiveTab('Interactive Analyst')}
           className="bg-white dark:bg-[#161616] border border-indigo-500/30 p-4 rounded-xl flex items-center gap-4 hover:bg-indigo-500/5 dark:hover:bg-indigo-500/10 transition-all group shadow-sm"
         >
           <div className="p-2 bg-indigo-500/10 rounded-lg text-indigo-600 dark:text-indigo-500 group-hover:scale-110 transition-transform">
             <MagnifyingGlassIcon className="w-5 h-5" />
           </div>
           <div className="text-left">
-            <p className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">Analysera Ärendearkiv</p>
-            <p className="text-[10px] text-slate-500 dark:text-gray-500">Fråga mot {props.analysis.caseId}</p>
+            <p className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">Interactive Analyst</p>
+            <p className="text-[10px] text-slate-500 dark:text-gray-500">Dynamisk Ärendeanalys</p>
           </div>
         </button>
 
@@ -83,7 +84,7 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = (props) => {
         </button>
 
         <button 
-          onClick={() => setActiveTab('Intelligence Core')}
+          onClick={() => setActiveTab('Analytics')}
           className="bg-white dark:bg-[#161616] border border-purple-500/30 p-4 rounded-xl flex items-center gap-4 hover:bg-purple-500/5 dark:hover:bg-purple-500/10 transition-all group shadow-sm"
         >
           <div className="p-2 bg-purple-500/10 rounded-lg text-purple-600 dark:text-purple-500 group-hover:scale-110 transition-transform">
@@ -101,6 +102,7 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = (props) => {
             {(currentTab) => (
               <div className="p-6 md:p-8">
                 {currentTab === 'Översikt' && <OverviewContent analysis={props.analysis} />}
+                {currentTab === 'Interactive Analyst' && <InteractiveAnalyst analysis={props.analysis} />}
                 {currentTab === 'Forensisk Integritet' && <ForensicIntegrityView analysis={props.analysis} />}
                 {currentTab === 'Intelligence Core' && <IntelligenceCore analysis={props.analysis} />}
                 {currentTab === 'FMJAM Controller' && <FmjamController analysis={props.analysis} />}
