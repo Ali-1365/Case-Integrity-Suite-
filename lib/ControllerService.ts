@@ -45,7 +45,15 @@ export class ControllerService {
     const systemicDeviations = this.detectSystemicErrors(cases);
     deviations.push(...systemicDeviations);
 
-    // 7. Journalför kritiska flaggor
+    // 7. Hallucinationskontroll [AUDIT-HALLUCINATION-01]
+    const hallucinationRisks = this.detectHallucinationRisks(cases);
+    deviations.push(...hallucinationRisks);
+
+    // 8. Algoritmisk Regelefterlevnad [AUDIT-ALGO-COMPLIANCE]
+    const complianceIssues = this.checkAlgoCompliance(cases);
+    deviations.push(...complianceIssues);
+
+    // 9. Journalför kritiska flaggor
     for (const dev of deviations) {
       if (dev.severity === 'CRITICAL') {
         await journalService.addEntry(
@@ -111,6 +119,50 @@ export class ControllerService {
     }
 
     return systemicDeviations;
+  }
+
+  /**
+   * [AUDIT-HALLUCINATION-01]
+   * Verifierar att faktapunkter har direkt textstöd.
+   */
+  private detectHallucinationRisks(cases: CISCase[]): Deviation[] {
+    const risks: Deviation[] = [];
+    cases.forEach(c => {
+        const facts = c.activeResult?.facts || [];
+        const factsWithoutSnippet = facts.filter(f => !f.source?.snippet || f.source.snippet.length < 10);
+        
+        if (factsWithoutSnippet.length > 0) {
+            risks.push({
+                caseId: c.caseId,
+                type: 'AUDIT-HALLUCINATION-01',
+                severity: 'HIGH',
+                details: `RISK FÖR HALLUCINATION: ${factsWithoutSnippet.length} faktapunkter saknar direkt textstöd i källmaterialet. Verifiera ATOM-mappning.`,
+                timestamp: new Date().toISOString()
+            });
+        }
+    });
+    return risks;
+  }
+
+  /**
+   * [AUDIT-ALGO-COMPLIANCE]
+   * Verifierar logikmotorns slutsatser.
+   */
+  private checkAlgoCompliance(cases: CISCase[]): Deviation[] {
+    const issues: Deviation[] = [];
+    cases.forEach(c => {
+        const reasoning = c.activeResult?.reasoning;
+        if (reasoning && reasoning.confidenceScore < 0.85) {
+            issues.push({
+                caseId: c.caseId,
+                type: 'AUDIT-ALGO-COMPLIANCE',
+                severity: 'MEDIUM',
+                details: `LOGIKMOTORN OSÄKER: Konfidensgrad (${Math.round(reasoning.confidenceScore * 100)}%) understiger GOLD-tröskelvärdet. Logikmotorn har inte kunnat verifiera samtliga slutsatser deterministiskt.`,
+                timestamp: new Date().toISOString()
+            });
+        }
+    });
+    return issues;
   }
 }
 

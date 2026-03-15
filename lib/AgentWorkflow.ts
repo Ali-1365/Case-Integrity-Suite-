@@ -210,7 +210,7 @@ export class AgentWorkflow {
         let cisCase = await caseManagementService.getCase(caseId);
         
         if (!cisCase) {
-            console.log(`[AgentWorkflow] Ärende ${caseId} saknas. Skapar virtuellt ärende för processen.`);
+            console.log(`[AgentWorkflow] Initierar virtuell kontext för ärende ${caseId}...`);
             cisCase = await caseManagementService.createCase(
                 caseData.substring(0, 50) + "...", 
                 { hasChildAspect: false, isPreventive: false }

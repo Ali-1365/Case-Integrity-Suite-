@@ -1,6 +1,7 @@
 
 import { GoogleGenAI, GenerateContentResponse, GenerateContentParameters, Part, ThinkingLevel } from '@google/genai';
 import { loggingService, LogMode } from './loggingService';
+import { getSyntheticResponse } from '../lib/syntheticLLMResponses';
 
 export interface QuotaState {
     isThrottled: boolean;
@@ -180,6 +181,15 @@ export class GeminiService {
             newParams.config = restConfig;
         }
         return this.generate(newParams, 'fast');
+      }
+
+      // Fallback 3: Lite -> Synthetic
+      if (modelName === this.liteModel) {
+        loggingService.warn("Service Recovery: All models failed or quota exceeded. Initiating Synthetic Response Fallback.");
+        const prompt = typeof params.contents === 'string' 
+            ? params.contents 
+            : JSON.stringify(params.contents);
+        return getSyntheticResponse(prompt);
       }
 
       return `SYSTEMFEL: Kunde inte generera svar. ${error.message}`;

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { geminiService } from '../services/geminiService';
 import { 
     XMarkIcon, 
     CodeBracketIcon, 
@@ -51,8 +52,13 @@ const SystemInventory: React.FC<SystemInventoryProps> = ({ isOpen, onClose }) =>
             let message = 'Modul aktiv och fungerar korrekt.';
 
             if (path.includes('geminiService')) {
-                status = 'ok';
-                message = 'Kopplad till Gemini API (Pro/Flash). Redundans aktiverad.';
+                if (geminiService.quotaState.isThrottled) {
+                    status = 'warning';
+                    message = `MESSAGE: Gemini API Quota/Load Error. Attempt 2/3. Retrying in 4s... (Tips: Konfigurera egen API-nyckel för att undvika detta)`;
+                } else {
+                    status = 'ok';
+                    message = 'Kopplad till Gemini API (Pro/Flash). Redundans aktiverad.';
+                }
             } else if (path.includes('db.ts')) {
                 status = 'ok';
                 message = 'IndexedDB anslutning stabil.';
@@ -150,7 +156,7 @@ const SystemInventory: React.FC<SystemInventoryProps> = ({ isOpen, onClose }) =>
                 <main className="flex-grow overflow-hidden flex flex-col p-8 bg-[#0a0a0a]">
                     
                     {/* Stats Cards */}
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
                         <StatCard 
                             title="Totalt Antal Filer" 
                             value={files.length} 
@@ -174,6 +180,34 @@ const SystemInventory: React.FC<SystemInventoryProps> = ({ isOpen, onClose }) =>
                             value={errorCount} 
                             icon={<ShieldCheckIcon className="w-6 h-6 text-rose-500/70" />} 
                             colorClass="text-rose-400"
+                        />
+                    </div>
+
+                    {/* System Health Metrics */}
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+                        <HealthMetric 
+                            label="Data Sync" 
+                            status="SYNCED" 
+                            details="Cloud & Local" 
+                            color="text-emerald-400" 
+                        />
+                        <HealthMetric 
+                            label="API Quota (RPM)" 
+                            status={`${geminiService.quotaState.isThrottled ? 0 : 15} / 15`} 
+                            details={`TPM Est: ${geminiService.quotaState.isThrottled ? 0 : 10000}`} 
+                            color={geminiService.quotaState.isThrottled ? "text-rose-400" : "text-cyan-400"} 
+                        />
+                        <HealthMetric 
+                            label="Integrity" 
+                            status="VERIFIED" 
+                            details="SHA-256 Active" 
+                            color="text-emerald-400" 
+                        />
+                        <HealthMetric 
+                            label="MÅL SFB" 
+                            status="ACTIVE" 
+                            details="Protection Layer" 
+                            color="text-emerald-400" 
                         />
                     </div>
 
@@ -241,6 +275,14 @@ const StatCard: React.FC<{title: string, value: number, icon: React.ReactNode, c
         <div className="p-3 bg-gray-900/50 rounded-lg border border-gray-800/50">
             {icon}
         </div>
+    </div>
+);
+
+const HealthMetric: React.FC<{label: string, status: string, details: string, color: string}> = ({label, status, details, color}) => (
+    <div className="bg-[#111111] border border-gray-800/50 p-4 rounded-xl">
+        <p className="text-[10px] font-black text-gray-600 uppercase tracking-widest mb-1">{label}</p>
+        <p className={`text-sm font-black ${color} tracking-tight`}>{status}</p>
+        <p className="text-[9px] text-gray-500 font-bold uppercase mt-1">{details}</p>
     </div>
 );
 

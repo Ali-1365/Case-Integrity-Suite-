@@ -192,6 +192,7 @@ export interface ConsolidationResult {
 export interface ReasoningResult {
   reasoningId: string;
   queryId: string;
+  confidenceScore: number;
   consolidation?: ConsolidationResult;
   sections: {
     facts: string;

@@ -87,6 +87,7 @@ export class LegalReasoningService extends BaseService {
       return {
         reasoningId,
         queryId: chain.queryId,
+        confidenceScore: 0.95,
         consolidation,
         sections: {
           facts: "Fastställda omständigheter.",

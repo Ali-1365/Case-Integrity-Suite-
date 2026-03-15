@@ -34,12 +34,13 @@ export class AutoAtomizer {
 
       // Forensisk hashning för total integritet
       const hash = await generateSHA256(segmentText);
-      const forensicId = `ATOM-${hash.substring(0, 10).toUpperCase()}`;
+      const currentPos = sequence++;
+      const forensicId = `ATOM-${hash.substring(0, 10).toUpperCase()}-${currentPos}`;
 
       atoms.push({
         id: forensicId,
         documentId,
-        position: sequence++,
+        position: currentPos,
         text: segmentText,
         hash, // Spara den fullständiga hashen för verifiering
         startIndex: match.index,

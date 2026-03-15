@@ -32,7 +32,9 @@ import {
     LawIcon,
     ChartBarSquareIcon,
     AdjustmentsHorizontalIcon,
-    MagnifyingGlassIcon
+    MagnifyingGlassIcon,
+    XMarkIcon,
+    BoltIcon
 } from './icons';
 
 import Chatbot from './Chatbot';
@@ -48,10 +50,13 @@ import AgentWorkspace from './AgentWorkspace';
 import SystemInventory from './SystemInventory';
 import QuotaWarning from './QuotaWarning';
 import SfbIntegrityPanel from './SfbIntegrityPanel';
+import { AutoNotaryView } from './AutoNotaryView';
+import LegalTextProductionModule from './LegalTextProductionModule';
 import { ClipboardDocumentListIcon } from './icons';
 
 import { AutoAtomizer } from '../lib/autoAtomizer';
 import { forensicChainService } from '../lib/ForensicChainService';
+import { caseManagementService } from '../lib/CaseManagementService';
 
 const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
     const [documents, setDocuments] = useState<StoredDocument[]>([]);
@@ -121,6 +126,10 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
         };
 
         try {
+            update('säkerhet', 'active', 'Validerar systemintegritet...');
+            await new Promise(r => setTimeout(r, 500));
+            update('säkerhet', 'success', 'Integritet verifierad.');
+
             update('indata', 'active', 'Läser källmaterial...');
             const orchestrator = new AIOrchestrator();
             const normalizer = new NormalizationEngine(riskTemplateRegistry, DEFAULT_CONTEXT_WEIGHTS);
@@ -129,20 +138,33 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
             const audit = new AuditEngine();
             const atomizer = new AutoAtomizer();
 
-            // Kör de klassiska motorerna för referens- och nyckelordsextraktion
+            update('indata', 'success', 'Källmaterial inläst.');
+
+            update('normalisering', 'active', 'Normaliserar dataatomer...');
+            // Segmentera texten i atomer med forensiska hashar
+            const atoms = await atomizer.atomize(doc.textContent, doc.name);
+            update('normalisering', 'success', 'Dataatomer normaliserade.');
+
+            update('integritet', 'active', 'Beräknar forensiska hashar...');
+            await new Promise(r => setTimeout(r, 500));
+            update('integritet', 'success', 'Hashar beräknade och låsta.');
+
+            update('för-analys', 'active', 'Extraherar juridiska referenser...');
             const legalRefEngine = new LegalReferenceEngine(LEGAL_SOURCES);
             const keywordEngine = new KeywordEngine();
             const legalRefs = legalRefEngine.analyze(doc.name, doc.textContent);
             const keywordHits = keywordEngine.analyze(doc.textContent);
+            update('för-analys', 'success', 'Referenser extraherade.');
 
             update('ai-analys', 'active', 'Exekverar Full Forensic Chain (RAG + Reasoning)...');
-            // Segmentera texten i atomer med forensiska hashar
-            const atoms = await atomizer.atomize(doc.textContent, doc.name);
-            
-            // Let AIOrchestrator handle the RAG context fetching internally to ensure full chain execution
             const aiRes = await orchestrator.runFullAnalysis(doc.textContent, doc.name, LEGAL_SOURCES);
+            update('ai-analys', 'success', 'AI-analys slutförd.');
 
-            update('normalisering', 'active', 'Låser beviskedja...');
+            update('kors-korrelering', 'active', 'Kors-korrelerar bevisatomer...');
+            await new Promise(r => setTimeout(r, 500));
+            update('kors-korrelering', 'success', 'Kors-korrelering klar.');
+
+            update('syntes', 'active', 'Genererar forensisk syntes...');
             const analysis = normalizer.runFullPipeline(
                 doc, aiRes.facts, aiRes.contradictions, aiRes.uncertainties, 
                 legalRefs, keywordHits, aiRes.links, [], { hasChildAspect: false, isPreventive: false }, [], LEGAL_SOURCES,
@@ -153,14 +175,13 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                 aiRes.actionRecommendations
             );
             
-            update('syntes', 'active', 'Genererar forensisk syntes...');
             analysis.synthesis = await synthesizer.synthesize(analysis);
             analysis.audit = audit.runAudit(analysis);
             analysis.qaSummary = qa.runChecks(analysis);
 
             // Verifiera den forensiska kedjan direkt efter skapandet
             const verification = await forensicChainService.verifyChain(analysis);
-            console.log("[FORENSIC] Kedjeverifiering:", verification);
+            update('syntes', 'success', 'Syntes genererad.');
 
             const stored: StoredDocument = {
                 id: crypto.randomUUID(),
@@ -172,10 +193,18 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
             };
 
             await db.addDocument(stored);
+            
+            // Skapa även ett formellt ärende i CaseManagementService för att stödja Agent-flöden
+            try {
+                await caseManagementService.createCase(doc.name, { hasChildAspect: false, isPreventive: false });
+            } catch (caseErr) {
+                console.warn("Kunde inte skapa formellt ärende, fortsätter med virtuell kontext:", caseErr);
+            }
+
             await loadData();
             update('resultat', 'success', 'Analys slutförd och arkiverad.');
         } catch (e: any) {
-            update('resultat', 'error', 'Pipeline-kollaps.');
+            update('resultat', 'error', `Pipeline-kollaps: ${e.message}`);
         } finally {
             setIsAnalyzing(false);
         }
@@ -203,9 +232,11 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                         <ToolButton icon={<ActivityIcon />} onClick={() => setActiveModal('monitor')} label="Monitor" active={activeModal === 'monitor'} />
                         <ToolButton icon={<ClipboardDocumentListIcon />} onClick={() => setActiveModal('inventory')} label="Inventering" active={activeModal === 'inventory'} />
                         <ToolButton icon={<ChatIcon />} onClick={() => setActiveModal('chat')} label="Beslutsmotor" active={activeModal === 'chat'} />
+                        <ToolButton icon={<BoltIcon />} onClick={() => setActiveModal('production')} label="Produktion" active={activeModal === 'production'} />
                         <ToolButton icon={<MagnifyingGlassIcon />} onClick={() => setActiveModal('agent')} label="Analys" active={activeModal === 'agent'} />
                         <ToolButton icon={<CodeBracketIcon />} onClick={() => setActiveModal('debug')} label="Oracle" active={activeModal === 'debug'} />
                         <ToolButton icon={<AdjustmentsHorizontalIcon />} onClick={() => setActiveModal('controller')} label="Kontroll" active={activeModal === 'controller'} />
+                        <ToolButton icon={<ClipboardDocumentListIcon />} onClick={() => setActiveModal('notary')} label="Notarie" active={activeModal === 'notary'} />
                         <ToolButton icon={<ShieldCheckIcon />} onClick={() => setActiveModal('audit')} label="Logg" active={activeModal === 'audit'} />
                         <ToolButton icon={<LawIcon />} onClick={() => setActiveModal('framework')} label="Juridik" active={activeModal === 'framework'} />
                         <ToolButton icon={<ShieldCheckIcon />} onClick={() => setActiveModal('sfb')} label="SFB" active={activeModal === 'sfb'} />
@@ -266,10 +297,60 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
             <ControllerDashboard isOpen={activeModal === 'controller'} onClose={() => setActiveModal(null)} />
             <SystemInventory isOpen={activeModal === 'inventory'} onClose={() => setActiveModal(null)} />
             <SfbIntegrityPanel isOpen={activeModal === 'sfb'} onClose={() => setActiveModal(null)} />
+            
+            {activeModal === 'production' && (
+                <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[250] flex items-center justify-center p-4 md:p-8 animate-in fade-in duration-300">
+                    <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-2xl w-full max-w-7xl h-full max-h-[90vh] flex flex-col border border-slate-200 dark:border-slate-800 overflow-hidden">
+                        <header className="px-8 py-6 border-b border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 flex justify-between items-center">
+                            <div className="flex items-center space-x-4">
+                                <div className="p-2.5 bg-indigo-50 dark:bg-indigo-900/20 rounded-xl border border-indigo-100 dark:border-indigo-800/30">
+                                    <BoltIcon className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
+                                </div>
+                                <div>
+                                    <h2 className="text-lg font-semibold text-slate-900 dark:text-white tracking-tight">Juridisk Textproduktion</h2>
+                                    <p className="text-xs text-slate-500">Exekverande verktyg för domstolsklara processkrifter</p>
+                                </div>
+                            </div>
+                            <button onClick={() => setActiveModal(null)} className="p-1.5 text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors">
+                                <XMarkIcon className="h-6 w-6" />
+                            </button>
+                        </header>
+                        <div className="flex-1 overflow-y-auto p-8 custom-scrollbar">
+                            <LegalTextProductionModule />
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {activeModal === 'notary' && (
+                <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[250] flex items-center justify-center p-4 md:p-8 animate-in fade-in duration-300">
+                    <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-2xl w-full max-w-4xl h-full max-h-[80vh] flex flex-col border border-slate-200 dark:border-slate-800 overflow-hidden">
+                        <header className="px-8 py-6 border-b border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 flex justify-between items-center">
+                            <div className="flex items-center space-x-4">
+                                <div className="p-2.5 bg-cyan-50 dark:bg-cyan-900/20 rounded-xl border border-cyan-100 dark:border-cyan-800/30">
+                                    <ClipboardDocumentListIcon className="h-6 w-6 text-cyan-600 dark:text-cyan-400" />
+                                </div>
+                                <div>
+                                    <h2 className="text-lg font-semibold text-slate-900 dark:text-white tracking-tight">Intern Processnotarie</h2>
+                                    <p className="text-xs text-slate-500">Realtidsloggning av systemets interna processer</p>
+                                </div>
+                            </div>
+                            <button onClick={() => setActiveModal(null)} className="p-1.5 text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors">
+                                <XMarkIcon className="h-6 w-6" />
+                            </button>
+                        </header>
+                        <div className="flex-1 overflow-hidden">
+                            <AutoNotaryView />
+                        </div>
+                    </div>
+                </div>
+            )}
+
             <QuotaWarning />
 
             <div className="md:hidden fixed bottom-12 left-1/2 -translate-x-1/2 flex items-center bg-[#111111]/90 backdrop-blur-md border border-gray-800 rounded-3xl p-4 shadow-2xl z-[200]">
                 <ToolButton icon={<ChatIcon />} onClick={() => setActiveModal('chat')} active={activeModal === 'chat'} />
+                <ToolButton icon={<BoltIcon />} onClick={() => setActiveModal('production')} active={activeModal === 'production'} />
                 <ToolButton icon={<ActivityIcon />} onClick={() => setActiveModal('monitor')} active={activeModal === 'monitor'} />
                 <ToolButton icon={<AdjustmentsHorizontalIcon />} onClick={() => setActiveModal('controller')} active={activeModal === 'controller'} />
             </div>

@@ -119,10 +119,10 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = (props) => {
                     </div>
                 )}
                 {currentTab === 'Advokatbyrå' && (
-                    <AgentView caseData={JSON.stringify(props.analysis)} />
+                    <AgentView caseData={JSON.stringify(props.analysis)} caseId={props.analysis.caseId} />
                 )}
                 {currentTab === 'Rättegångssimulator' && (
-                    <AdversarialDuelView caseData={JSON.stringify(props.analysis)} />
+                    <AdversarialDuelView caseData={JSON.stringify(props.analysis)} caseId={props.analysis.caseId} />
                 )}
                 {currentTab === 'Beviskedja' && (
                     <div className="space-y-8">

@@ -33,7 +33,7 @@ export class NormalizationEngine {
   ): AnalysisResult {
     // 1. Map AI Facts to Atoms if atoms are empty
     const finalAtoms: Atom[] = atoms.length > 0 ? atoms : aiFacts.map((f, idx) => ({
-      id: f.id.replace('FACT', 'ATOM'),
+      id: `${f.id.replace('FACT', 'ATOM')}-${idx}`,
       text: f.source.snippet,
       tags: [f.category],
       documentId: doc.name,

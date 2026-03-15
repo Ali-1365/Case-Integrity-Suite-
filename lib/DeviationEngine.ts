@@ -4,8 +4,8 @@ import { SystemPattern } from './PatternEngine';
 
 export interface Deviation {
   caseId: string;
-  type: 'DECISION_OUTLIER' | 'RISK_SPIKE' | 'PROP_DROP' | 'VERSION_VOLATILITY' | 'SYSTEMIC_INVESTIGATION_FAILURE';
-  severity: 'INFO' | 'WARN' | 'CRITICAL';
+  type: 'DECISION_OUTLIER' | 'RISK_SPIKE' | 'PROP_DROP' | 'VERSION_VOLATILITY' | 'SYSTEMIC_INVESTIGATION_FAILURE' | 'AUDIT-HALLUCINATION-01' | 'AUDIT-ALGO-COMPLIANCE';
+  severity: 'INFO' | 'WARN' | 'CRITICAL' | 'HIGH' | 'MEDIUM';
   details: string;
   timestamp?: string;
 }
