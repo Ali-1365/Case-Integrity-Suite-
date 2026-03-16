@@ -13,7 +13,7 @@ export class GeminiService {
   private ai: GoogleGenAI | null = null;
   private readonly flashModel = 'gemini-3-flash-preview';
   private readonly proModel = 'gemini-3.1-pro-preview';
-  private readonly liteModel = 'gemini-2.5-flash-lite-preview';
+  private readonly liteModel = 'gemini-3.1-flash-lite-preview';
 
   public quotaState: QuotaState = {
       isThrottled: false,
@@ -116,6 +116,11 @@ export class GeminiService {
       if (mode === 'think' && modelName === this.proModel) {
           config.thinkingConfig = { thinkingLevel: ThinkingLevel.HIGH };
           delete (config as any).maxOutputTokens;
+      } else {
+          // För andra modeller, säkerställ att vi inte begränsar i onödan
+          if (!(config as any).maxOutputTokens) {
+              (config as any).maxOutputTokens = 8192; // Högt värde för att undvika trunkering
+          }
       }
 
       const response = await this.executeWithRetry(async () => {
@@ -198,7 +203,7 @@ export class GeminiService {
 
   async embed(text: string): Promise<number[]> {
     const client = this.getClient();
-    const modelsToTry = ['gemini-embedding-001', 'models/gemini-embedding-001', 'text-embedding-004', 'models/text-embedding-004'];
+    const modelsToTry = ['gemini-embedding-2-preview', 'gemini-embedding-001', 'text-embedding-004'];
     
     let lastError = null;
     for (const modelName of modelsToTry) {

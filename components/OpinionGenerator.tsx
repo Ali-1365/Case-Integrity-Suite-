@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { OpinionConfig, OpinionResult } from '../types';
+import { OpinionConfig, OpinionResult, StoredDocument } from '../types';
 import { AnalysisResult } from '../lib/cis.types';
 import { opinionTemplateRegistry } from '../data/opinionTemplates';
 import Card from './shared/Card';
-import { BoltIcon, BrainIcon, DocumentTextIcon, SparklesIcon, Spinner } from './icons';
+import { BoltIcon, BrainIcon, DocumentTextIcon, SparklesIcon, Spinner, ShieldCheckIcon } from './icons';
+import { OpinionEngine } from '../lib/opinionEngine';
+import { GeminiLlmClient } from '../services/geminiService';
+import { db } from '../lib/db';
 
 interface OpinionGeneratorProps {
   analysis: AnalysisResult;
-  onGenerate: (config: OpinionConfig, mode: 'fast' | 'think') => void;
-  opinionResult: OpinionResult | null;
-  isGenerating: boolean;
 }
 
 type Mode = 'fast' | 'think';
 
-const OpinionGenerator: React.FC<OpinionGeneratorProps> = ({ analysis, onGenerate, opinionResult, isGenerating }) => {
+const OpinionGenerator: React.FC<OpinionGeneratorProps> = ({ analysis }) => {
   const [mode, setMode] = useState<Mode>('think');
   const [selectedTemplateId, setSelectedTemplateId] = useState<string>('FMJAM_REPORT_V1');
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [opinionResult, setOpinionResult] = useState<OpinionResult | null>(null);
   
   const [config, setConfig] = useState<OpinionConfig>({
     templateId: opinionTemplateRegistry[0].id,
@@ -37,8 +39,22 @@ const OpinionGenerator: React.FC<OpinionGeneratorProps> = ({ analysis, onGenerat
     }
   }, [selectedTemplateId]);
 
-  const handleGenerateClick = () => {
-    onGenerate(config, mode);
+  const handleGenerate = async () => {
+    setIsGenerating(true);
+    try {
+      const engine = new OpinionEngine(new GeminiLlmClient(), mode);
+      const result = await engine.generateOpinion(analysis, config);
+      setOpinionResult(result);
+      
+      // Save to DB if we have a document ID
+      if (analysis.documents && analysis.documents[0]) {
+        await db.saveOpinion(analysis.documents[0].id, result);
+      }
+    } catch (error) {
+      console.error("Opinion generation failed:", error);
+    } finally {
+      setIsGenerating(false);
+    }
   };
 
   const selectedTemplate = opinionTemplateRegistry.find(t => t.id === selectedTemplateId);
@@ -49,6 +65,20 @@ const OpinionGenerator: React.FC<OpinionGeneratorProps> = ({ analysis, onGenerat
       .map(line => line.trim())
       .filter(line => line.length > 0)
       .map((line, index) => {
+        if (line.startsWith('---')) {
+            return <hr key={`hr-${index}`} className="border-gray-800 my-4" />;
+        }
+        if (line.includes('**INTEGRITETSKEDJA (SHA-256):**')) {
+            return (
+                <div key={`integrity-${index}`} className="bg-emerald-500/10 border border-emerald-500/20 p-3 rounded-lg mb-4 flex items-center space-x-3">
+                    <ShieldCheckIcon className="w-5 h-5 text-emerald-400" />
+                    <div>
+                        <p className="text-[10px] font-black text-emerald-500 uppercase tracking-widest">Integritetsverifierad</p>
+                        <p className="text-[10px] font-mono text-gray-400 break-all">{line.split(': ')[1]}</p>
+                    </div>
+                </div>
+            );
+        }
         if (line.startsWith('### ')) {
           return <h3 key={`h3-${index}`} className="text-xl font-semibold text-cyan-300 mt-6 mb-2">{line.replace('### ', '')}</h3>;
         }
@@ -134,7 +164,7 @@ const OpinionGenerator: React.FC<OpinionGeneratorProps> = ({ analysis, onGenerat
           </div>
 
           <button
-            onClick={handleGenerateClick}
+            onClick={handleGenerate}
             disabled={isGenerating}
             className="w-full mt-2 bg-cyan-600 hover:bg-cyan-500 disabled:bg-gray-600 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center"
           >

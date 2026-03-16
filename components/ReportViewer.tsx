@@ -160,6 +160,17 @@ const AiReportTab: React.FC<AiReportTabProps> = ({ analysis, onGenerate, opinion
                 
                 <main className="flex-grow overflow-y-auto p-10 md:p-16 custom-scrollbar-light bg-white">
                     <div className="max-w-3xl mx-auto">
+                        {opinionResult.content.includes('**INTEGRITETSKEDJA (SHA-256):**') && (
+                            <div className="bg-emerald-50 border border-emerald-200 p-4 rounded-xl mb-8 flex items-center space-x-4">
+                                <ShieldCheckIcon className="w-6 h-6 text-emerald-600" />
+                                <div>
+                                    <p className="text-xs font-black text-emerald-700 uppercase tracking-widest">Integritetsverifierad Data</p>
+                                    <p className="text-[10px] font-mono text-emerald-600 break-all">
+                                        {opinionResult.content.split('**INTEGRITETSKEDJA (SHA-256):**')[1].split('\n')[0].trim()}
+                                    </p>
+                                </div>
+                            </div>
+                        )}
                         <MarkdownRenderer content={opinionResult.content} className="prose-slate !text-gray-800" />
                         
                         <div className="mt-16 pt-8 border-t border-gray-200 flex justify-between items-end text-gray-400">

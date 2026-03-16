@@ -177,3 +177,5 @@ export const LegalPipelineView: React.FC<LegalPipelineViewProps> = ({ analysis }
         </div>
     );
 };
+
+export default LegalPipelineView;

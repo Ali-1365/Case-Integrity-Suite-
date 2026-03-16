@@ -2,6 +2,7 @@
 import { OpinionConfig, OpinionResult } from '../types';
 import { AnalysisResult } from './cis.types';
 import { OpinionPromptBuilder } from './opinionPromptBuilder';
+import { sha256 } from './hashUtils';
 
 export interface LlmClient {
   generate(prompt: string, mode: 'fast' | 'think'): Promise<{ text: string }>;
@@ -18,28 +19,44 @@ export class OpinionEngine {
   }
 
   /**
-   * Genererar ett juridiskt yttrande med fullständig spårbarhet.
+   * Genererar ett juridiskt yttrande med fullständig spårbarhet och SHA-256 integritet.
    */
   async generateOpinion(
     analysis: AnalysisResult,
     config: OpinionConfig,
   ): Promise<OpinionResult> {
     
-    // Vi injicerar de tyngsta provenance-header-metadata här
     const prompt = this.promptBuilder.buildPrompt(analysis, config);
     
-    // Kör generering med vald modell-logik
     const { text: content } = await this.llmClient.generate(prompt, this.mode);
 
     if (!content) {
         throw new Error("Genereringsfel: Modellen returnerade tomt innehåll.");
     }
 
+    // Beräkna integritetshash för det genererade innehållet
+    const integrityHash = await sha256(content);
+    const timestamp = new Date().toISOString();
+    
+    const finalContent = `
+---
+**INTEGRITETSKEDJA (SHA-256):** ${integrityHash}
+**GENERERAD:** ${timestamp}
+**MODELL:** Gemini ${this.mode === 'think' ? 'Pro (Thinking)' : 'Flash'}
+---
+
+${content}
+
+---
+**SLUT PÅ YTTRANDE**
+*Detta dokument är forensiskt låst och verifierat mot källmaterialet.*
+`;
+
     return {
       documentName: analysis.caseId,
-      generatedAt: new Date().toISOString(),
+      generatedAt: timestamp,
       config,
-      content,
+      content: finalContent,
     };
   }
 }

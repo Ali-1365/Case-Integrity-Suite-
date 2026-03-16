@@ -263,26 +263,35 @@ export class LegalPipelineService {
             state.correctedV2 = await this.correctionModule(state.draftV1);
             updateStatus('2', 'completed', state.correctedV2);
 
-            // Steg 3-7 kan köras i parallell (eller sekventiellt för stabilitet)
+            // Steg 3-7 körs i parallell för bättre prestanda
             updateStatus('3', 'running');
-            state.judgeReport = await this.judgeSimulator(state.correctedV2);
+            updateStatus('4', 'running');
+            updateStatus('5', 'running');
+            updateStatus('6', 'running');
+            updateStatus('7', 'running');
+
+            const [judgeReport, evidenceReport, caseLawReport, attackModel] = await Promise.all([
+                this.judgeSimulator(state.correctedV2),
+                this.evidenceEngine(state.correctedV2),
+                this.caseLawEngine(state.correctedV2),
+                this.administrativeAttackModel(state.correctedV2)
+            ]);
+
+            state.judgeReport = judgeReport;
             updateStatus('3', 'completed', state.judgeReport);
 
-            updateStatus('4', 'running');
-            state.evidenceReport = await this.evidenceEngine(state.correctedV2);
+            state.evidenceReport = evidenceReport;
             updateStatus('4', 'completed', state.evidenceReport);
 
-            updateStatus('5', 'running');
-            state.caseLawReport = await this.caseLawEngine(state.correctedV2);
+            state.caseLawReport = caseLawReport;
             updateStatus('5', 'completed', state.caseLawReport);
 
-            updateStatus('6', 'running');
+            state.attackModel = attackModel;
+            updateStatus('7', 'completed', state.attackModel);
+
+            // Risk-analys kräver bevis och praxis rapporter
             state.riskLevel = await this.processRiskAnalysis(state.correctedV2, state.evidenceReport, state.caseLawReport);
             updateStatus('6', 'completed', `Riskklass: ${state.riskLevel}`);
-
-            updateStatus('7', 'running');
-            state.attackModel = await this.administrativeAttackModel(state.correctedV2);
-            updateStatus('7', 'completed', state.attackModel);
 
             // Steg 8
             updateStatus('8', 'running');

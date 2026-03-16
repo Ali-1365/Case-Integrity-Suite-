@@ -119,6 +119,11 @@ export const db = {
     await db.delete(CASE_STORE_NAME, caseId);
   },
 
+  async deleteDocument(id: string): Promise<void> {
+    const db = await getDb();
+    await db.delete(DOC_STORE_NAME, id);
+  },
+
   async repairPersistence(): Promise<void> {
       if (dbPromise) {
           const db = await dbPromise;
