@@ -2,6 +2,7 @@
 import { AnalysisResult, LegalFrameworkLink } from './cis.types';
 import { generateReportFromAnalysis, GeneratedReport } from './reportGenerator';
 import { LegalCorpus } from '../types';
+import { legalMappingService } from './LegalMappingService';
 
 interface VerificationError {
   missingFields: string[];
@@ -30,24 +31,32 @@ export function verifyAndLinkAnalysis(
     throw new Error(`HARD-FAIL: Obligatoriska fält saknas: ${missingFields.join(', ')}`);
   }
 
-  // 2. LAGKOPPLING (enligt systemprompt)
+  // 2. SYSTEMATISK LAGKOPPLING (v.2.0 - Nyckelordsbaserad)
+  const systematicReferences: { id: string; source: any; rawText: string; contextSnippet: string; }[] = [];
   const legalLinks: LegalFrameworkLink[] = analysis.facts.flatMap(fact => {
-    const uniqueCorpusMatches = new Set<LegalCorpus>();
-    legalCorpus.forEach(corpus => {
-      const hasMatch = corpus.paragraphs.some(p => fact.statement.toLowerCase().includes(p.text.toLowerCase()));
-      if (hasMatch) {
-        uniqueCorpusMatches.add(corpus);
-      }
+    const mappings = legalMappingService.mapFactToLaw(fact.statement, legalCorpus);
+    
+    mappings.slice(0, 3).forEach(m => {
+      systematicReferences.push({
+        id: `ref-${m.paragraph.id}`,
+        source: m.corpus.sourceCode,
+        rawText: `${m.corpus.shortName || m.corpus.sourceCode} ${m.paragraph.chapter}:${m.paragraph.section} §`,
+        contextSnippet: m.paragraph.text
+      });
     });
 
-    return Array.from(uniqueCorpusMatches).map(corpus => ({
-        id: `link-${fact.id}-${corpus.sourceCode}`,
-        label: `${corpus.title} (Automatisk koppling)`,
-        references: [corpus.sourceCode],
+    // Ta de 3 mest relevanta matchningarna per faktum
+    return mappings.slice(0, 3).map(m => ({
+        id: `link-${fact.id}-${m.paragraph.id}`,
+        label: `${m.corpus.title} ${m.paragraph.chapter}:${m.paragraph.section} §`,
+        references: [m.corpus.sourceCode],
         relatedFactIds: [fact.id],
-        reasoning: `Faktumets innehåll matchar text från lagkorpus ${corpus.sfsNumber}.`
+        reasoning: `Systematisk koppling via nyckelord: ${m.matchedKeywords.join(', ')}. Relevans: ${Math.round(m.score * 100)}%.`
     }));
   });
+
+  // Avduplicera referenser baserat på ID
+  const uniqueRefs = Array.from(new Map(systematicReferences.map(r => [r.id, r])).values());
 
   if (legalLinks.length === 0) {
     throw new Error('HARD-FAIL: Inga lagkopplingar kunde göras för fakta. Varje FactV2 måste ha minst en koppling till LegalCorpus.');
@@ -56,7 +65,8 @@ export function verifyAndLinkAnalysis(
   // Returnera det uppdaterade och verifierade analysresultatet
   return {
     ...analysis,
-    legalFrameworkLinks: legalLinks
+    legalFrameworkLinks: legalLinks,
+    legalReferences: uniqueRefs
   };
 }
 

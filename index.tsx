@@ -1,4 +1,6 @@
 
+import { startApp } from './bootstrap';
+
 /**
  * FMJAM BOOTSTRAP LOADER v.7.4.0-GOLD
  * PROTOCOL: RESILIENT_AUTO_BOOT
@@ -14,26 +16,8 @@ async function init() {
     "color:#06b6d4; font-weight:bold;",
     isBypassActive ? "color:black; background:orange; padding:2px 4px;" : "color:yellow; background:black; padding:2px 4px;");
 
-  const loadApp = async (retries = 3, delay = 1000): Promise<void> => {
-    try {
-      const module = await import('./bootstrap');
-      if (module && module.startApp) {
-        module.startApp();
-      } else {
-        throw new Error("Bootstrap export failure");
-      }
-    } catch (err) {
-      if (retries > 0) {
-        console.warn(`Boot attempt failed, retrying in ${delay}ms... (${retries} left)`);
-        await new Promise(r => setTimeout(r, delay));
-        return loadApp(retries - 1, delay * 2);
-      }
-      throw err;
-    }
-  };
-
   try {
-    await loadApp();
+    startApp();
   } catch (err) {
     console.error("CRITICAL_BOOT_ERROR:", err);
     const root = document.getElementById('root');

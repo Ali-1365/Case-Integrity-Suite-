@@ -11,6 +11,7 @@ export interface LegalParagraph {
   subSection?: number;
   reference?: string;
   text: string;
+  keywords?: string[];
   metadata: {
     validFrom?: string;
     validTo?: string;
@@ -23,6 +24,7 @@ export interface LegalCorpus {
   sourceCode: LegalSourceCode;
   sfsNumber: string;
   title: string;
+  shortName?: string;
   paragraphs: LegalParagraph[];
   versionChain: string[];
 }

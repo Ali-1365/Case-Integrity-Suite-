@@ -2,6 +2,7 @@
   "sourceCode": "SoL",
   "sfsNumber": "2025:400",
   "title": "Socialtjänstlag (2025:400)",
+  "shortName": "SoL",
   "versionChain": ["2001:453", "2025:400"],
   "ikraft": "2025-07-01",
   "description": "Mycket fullständig nyckelparagrafstruktur som systematiskt täcker lagens huvudkapitel. Inkluderar portalprinciper, yttersta ansvar, kvalitetssäkring, utredning, aktinsyn, samverkan med hälso- och sjukvården (16 kap.), barnskydd, ekonomiskt bistånd och komplett Lex Sarah (27 kap.).",
@@ -62,7 +63,7 @@
       "section": 1,
       "principleType": "utredningsskyldighet",
       "text": "Socialnämnden ska utan dröjsmål inleda utredning av vad som genom ansökan, anmälan eller på annat sätt har kommit till nämndens kännedom.",
-      "keywords": ["utredningsskyldighet"],
+      "keywords": ["utredningsskyldighet", "ansökan", "anmälan", "kännedom", "inleda utredning"],
       "relatedRules": ["LI-02", "PROC-02"],
       "metadata": { "validFrom": "2025-07-01", "legalWeight": "hög", "riskTrigger": true }
     },
@@ -72,7 +73,7 @@
       "section": 2,
       "principleType": "tidsfrist",
       "text": "En utredning som rör ett barns behov av skydd eller stöd ska vara slutförd senast inom fyra månader.",
-      "keywords": ["barnutredning", "4-månadersfrist"],
+      "keywords": ["barnutredning", "4-månadersfrist", "skydd", "stöd", "behov"],
       "relatedRules": ["LI-02"],
       "metadata": { "validFrom": "2025-07-01", "legalWeight": "hög", "riskTrigger": true }
     },
@@ -102,7 +103,7 @@
       "section": 1,
       "principleType": "biståndsregel",
       "text": "Bistånd ska ges om den enskilde inte kan tillgodose sina behov på annat sätt och ska utformas så att det stärker självständighet.",
-      "keywords": ["bistånd"],
+      "keywords": ["bistånd", "behov", "självständighet", "tillgodose behov"],
       "relatedRules": ["SOL-LSS-01"],
       "metadata": { "validFrom": "2025-07-01", "legalWeight": "hög", "riskTrigger": true }
     },
@@ -162,7 +163,7 @@
       "section": 1,
       "principleType": "ekonomiskt bistånd",
       "text": "Ekonomiskt bistånd ska ges till den som inte kan försörja sig själv eller få försörjning på annat sätt.",
-      "keywords": ["ekonomiskt bistånd"],
+      "keywords": ["ekonomiskt bistånd", "försörjning", "försörja sig själv"],
       "relatedRules": ["SOL-LSS-01"],
       "metadata": { "validFrom": "2025-07-01", "legalWeight": "hög", "riskTrigger": true }
     },
