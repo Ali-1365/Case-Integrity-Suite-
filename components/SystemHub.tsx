@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import { 
     BoltIcon, 
     CpuChipIcon, 
@@ -13,7 +13,13 @@ import {
     ExclamationTriangleIcon,
     ChartBarIcon,
     ScaleIcon,
-    FingerPrintIcon
+    FingerPrintIcon,
+    MagnifyingGlassIcon,
+    ChatIcon,
+    CodeBracketIcon,
+    AdjustmentsHorizontalIcon,
+    ClipboardDocumentListIcon,
+    MagnifyingGlassIcon as SearchIcon
 } from './icons';
 
 interface ModuleCardProps {
@@ -23,12 +29,13 @@ interface ModuleCardProps {
     status: 'active' | 'warning' | 'error';
     onClick: () => void;
     color: string;
+    category: string;
 }
 
-const ModuleCard: React.FC<ModuleCardProps> = ({ title, description, icon, status, onClick, color }) => (
+const ModuleCard: React.FC<ModuleCardProps> = ({ title, description, icon, status, onClick, color, category }) => (
     <button 
         onClick={onClick}
-        className="group relative bg-[#111111] border border-gray-800 rounded-3xl p-6 text-left hover:border-gray-600 transition-all hover:scale-[1.02] active:scale-[0.98] overflow-hidden"
+        className="group relative bg-[#111111] border border-gray-800 rounded-3xl p-6 text-left hover:border-gray-600 transition-all hover:scale-[1.02] active:scale-[0.98] overflow-hidden flex flex-col h-full"
     >
         <div className={`absolute top-0 right-0 w-32 h-32 -mr-8 -mt-8 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity ${color}`}>
             {icon}
@@ -38,14 +45,17 @@ const ModuleCard: React.FC<ModuleCardProps> = ({ title, description, icon, statu
             <div className={`p-3 rounded-2xl bg-opacity-10 border border-opacity-20 ${color.replace('text-', 'bg-').replace('text-', 'border-')}`}>
                 {React.cloneElement(icon as React.ReactElement<any>, { className: `w-6 h-6 ${color}` })}
             </div>
-            <div className="flex items-center space-x-1.5">
-                <span className={`w-2 h-2 rounded-full ${status === 'active' ? 'bg-emerald-500' : status === 'warning' ? 'bg-amber-500' : 'bg-rose-500'} animate-pulse`}></span>
-                <span className="text-[10px] font-black text-gray-500 uppercase tracking-widest">{status}</span>
+            <div className="flex flex-col items-end space-y-1">
+                <div className="flex items-center space-x-1.5">
+                    <span className={`w-2 h-2 rounded-full ${status === 'active' ? 'bg-emerald-500' : status === 'warning' ? 'bg-amber-500' : 'bg-rose-500'} animate-pulse`}></span>
+                    <span className="text-[10px] font-black text-gray-500 uppercase tracking-widest">{status}</span>
+                </div>
+                <span className="text-[9px] font-bold text-gray-600 uppercase tracking-widest">{category}</span>
             </div>
         </div>
         
         <h3 className="text-lg font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors">{title}</h3>
-        <p className="text-sm text-gray-500 leading-relaxed line-clamp-2">{description}</p>
+        <p className="text-sm text-gray-500 leading-relaxed line-clamp-2 flex-grow">{description}</p>
         
         <div className="mt-6 flex items-center text-[10px] font-black text-gray-400 uppercase tracking-widest group-hover:text-white transition-colors">
             <span>Öppna Modul</span>
@@ -59,14 +69,27 @@ interface SystemHubProps {
 }
 
 export const SystemHub: React.FC<SystemHubProps> = ({ onNavigate }) => {
-    const modules = [
+    const [searchQuery, setSearchQuery] = useState('');
+    const [activeCategory, setActiveCategory] = useState<string | null>(null);
+
+    const modules = useMemo(() => [
+        {
+            id: 'chat',
+            title: 'Beslutsmotor',
+            description: 'Interaktiv AI-rådgivare för komplexa juridiska frågeställningar.',
+            icon: <ChatIcon />,
+            status: 'active' as const,
+            color: 'text-cyan-400',
+            category: 'Expertis'
+        },
         {
             id: 'production',
             title: 'Juridisk Textproduktion',
             description: 'Exekverande verktyg för domstolsklara processkrifter enligt RB.',
             icon: <ScaleIcon />,
             status: 'active' as const,
-            color: 'text-cyan-400'
+            color: 'text-indigo-400',
+            category: 'Expertis'
         },
         {
             id: 'opinion',
@@ -74,7 +97,8 @@ export const SystemHub: React.FC<SystemHubProps> = ({ onNavigate }) => {
             description: 'Generera juridiska yttranden med 8-stegs bevisvärdering och SHA-256.',
             icon: <SparklesIcon />,
             status: 'active' as const,
-            color: 'text-purple-400'
+            color: 'text-purple-400',
+            category: 'Expertis'
         },
         {
             id: 'duel',
@@ -82,15 +106,26 @@ export const SystemHub: React.FC<SystemHubProps> = ({ onNavigate }) => {
             description: 'Simulera rättsprocesser mot en fientlig AI-motpart.',
             icon: <ExclamationTriangleIcon />,
             status: 'active' as const,
-            color: 'text-rose-400'
+            color: 'text-rose-400',
+            category: 'Expertis'
         },
         {
-            id: 'integrity',
-            title: 'Forensisk Integritet',
-            description: 'Verifiera dataatomer och integritetskedjor (SHA-256).',
-            icon: <FingerPrintIcon />,
+            id: 'profiler',
+            title: 'Case Profiler',
+            description: 'Sammanställning av nyckelinformation och riskprofiler för valda ärenden.',
+            icon: <UserGroupIcon />,
             status: 'active' as const,
-            color: 'text-emerald-400'
+            color: 'text-purple-400',
+            category: 'Analys'
+        },
+        {
+            id: 'agent',
+            title: 'Analys & Utredning',
+            description: 'Djupgående analys av bevisatomer och rättsliga förhållanden.',
+            icon: <MagnifyingGlassIcon />,
+            status: 'active' as const,
+            color: 'text-blue-400',
+            category: 'Analys'
         },
         {
             id: 'pipeline',
@@ -98,23 +133,17 @@ export const SystemHub: React.FC<SystemHubProps> = ({ onNavigate }) => {
             description: 'Övervaka de 8 stegen i den juridiska analysprocessen.',
             icon: <ActivityIcon />,
             status: 'active' as const,
-            color: 'text-blue-400'
+            color: 'text-blue-400',
+            category: 'Analys'
         },
         {
-            id: 'oracle',
-            title: 'Oracle Core',
-            description: 'Insyn i systemets centrala resonemangslogik och parametrar.',
-            icon: <CpuChipIcon />,
+            id: 'integrity',
+            title: 'Forensisk Integritet',
+            description: 'Verifiera dataatomer och integritetskedjor (SHA-256).',
+            icon: <FingerPrintIcon />,
             status: 'active' as const,
-            color: 'text-amber-400'
-        },
-        {
-            id: 'archive',
-            title: 'Archive Core',
-            description: 'Utforska det historiska arkivet och lagrade rättskällor.',
-            icon: <ArchiveBoxIcon />,
-            status: 'active' as const,
-            color: 'text-stone-400'
+            color: 'text-emerald-400',
+            category: 'Integritet'
         },
         {
             id: 'audit',
@@ -122,9 +151,102 @@ export const SystemHub: React.FC<SystemHubProps> = ({ onNavigate }) => {
             description: 'Granska systemloggar och efterlevnad av juridiska standarder.',
             icon: <ShieldCheckIcon />,
             status: 'active' as const,
-            color: 'text-indigo-400'
+            color: 'text-indigo-400',
+            category: 'Integritet'
+        },
+        {
+            id: 'notary',
+            title: 'Processnotarie',
+            description: 'Automatiserad protokollföring och tidsstämpling av händelser.',
+            icon: <ClipboardDocumentListIcon />,
+            status: 'active' as const,
+            color: 'text-cyan-400',
+            category: 'Integritet'
+        },
+        {
+            id: 'sfb',
+            title: 'SFB Integritet',
+            description: 'Särskild kontrollmodul för Socialförsäkringsbalken.',
+            icon: <ShieldCheckIcon />,
+            status: 'active' as const,
+            color: 'text-emerald-400',
+            category: 'Integritet'
+        },
+        {
+            id: 'archive',
+            title: 'Archive Core',
+            description: 'Utforska det historiska arkivet och lagrade rättskällor.',
+            icon: <ArchiveBoxIcon />,
+            status: 'active' as const,
+            color: 'text-stone-400',
+            category: 'System'
+        },
+        {
+            id: 'framework',
+            title: 'Juridisk Ramverk',
+            description: 'Bibliotek av lagar, förordningar och GOLD-standard data.',
+            icon: <LawIcon />,
+            status: 'active' as const,
+            color: 'text-indigo-400',
+            category: 'System'
+        },
+        {
+            id: 'whitebook',
+            title: 'Vitbok',
+            description: 'Systemets dokumentation och metodbeskrivningar.',
+            icon: <ClipboardDocumentListIcon />,
+            status: 'active' as const,
+            color: 'text-slate-400',
+            category: 'System'
+        },
+        {
+            id: 'oracle',
+            title: 'Oracle Core',
+            description: 'Insyn i systemets centrala resonemangslogik och parametrar.',
+            icon: <CpuChipIcon />,
+            status: 'active' as const,
+            color: 'text-amber-400',
+            category: 'System'
+        },
+        {
+            id: 'monitor',
+            title: 'System Monitor',
+            description: 'Realtidsövervakning av resursanvändning och API-hälsa.',
+            icon: <ActivityIcon />,
+            status: 'active' as const,
+            color: 'text-emerald-400',
+            category: 'System'
+        },
+        {
+            id: 'inventory',
+            title: 'System Inventory',
+            description: 'Inventering av systemkomponenter och versioner.',
+            icon: <ClipboardDocumentListIcon />,
+            status: 'active' as const,
+            color: 'text-slate-400',
+            category: 'System'
+        },
+        {
+            id: 'controller',
+            title: 'Kontrollpanel',
+            description: 'Globala systeminställningar och konfiguration.',
+            icon: <AdjustmentsHorizontalIcon />,
+            status: 'active' as const,
+            color: 'text-amber-400',
+            category: 'System'
         }
-    ];
+    ], []);
+
+    const categories = useMemo(() => Array.from(new Set(modules.map(m => m.category))), [modules]);
+
+    const filteredModules = useMemo(() => {
+        return modules.filter(m => {
+            const matchesSearch = m.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                                 m.description.toLowerCase().includes(searchQuery.toLowerCase());
+            const matchesCategory = !activeCategory || m.category === activeCategory;
+            return matchesSearch && matchesCategory;
+        });
+    }, [modules, searchQuery, activeCategory]);
 
     return (
         <div className="space-y-10 animate-in fade-in duration-500">
@@ -142,8 +264,39 @@ export const SystemHub: React.FC<SystemHubProps> = ({ onNavigate }) => {
                 </div>
             </header>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {modules.map(mod => (
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 bg-[#111111] p-6 rounded-[2rem] border border-gray-800">
+                <div className="relative flex-1 max-w-md">
+                    <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+                    <input 
+                        type="text" 
+                        placeholder="Sök efter moduler..." 
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="w-full bg-[#0a0a0a] border border-gray-800 rounded-2xl py-3 pl-12 pr-4 text-white placeholder-gray-600 focus:outline-none focus:border-cyan-500/50 transition-colors"
+                    />
+                </div>
+                
+                <div className="flex items-center space-x-2 overflow-x-auto no-scrollbar pb-2 md:pb-0">
+                    <button 
+                        onClick={() => setActiveCategory(null)}
+                        className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${!activeCategory ? 'bg-cyan-500 text-black' : 'bg-[#0a0a0a] text-gray-500 border border-gray-800 hover:border-gray-600'}`}
+                    >
+                        Alla
+                    </button>
+                    {categories.map(cat => (
+                        <button 
+                            key={cat}
+                            onClick={() => setActiveCategory(cat)}
+                            className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all whitespace-nowrap ${activeCategory === cat ? 'bg-cyan-500 text-black' : 'bg-[#0a0a0a] text-gray-500 border border-gray-800 hover:border-gray-600'}`}
+                        >
+                            {cat}
+                        </button>
+                    ))}
+                </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {filteredModules.map(mod => (
                     <ModuleCard 
                         key={mod.id}
                         title={mod.title}
@@ -151,9 +304,16 @@ export const SystemHub: React.FC<SystemHubProps> = ({ onNavigate }) => {
                         icon={mod.icon}
                         status={mod.status}
                         color={mod.color}
+                        category={mod.category}
                         onClick={() => onNavigate(mod.id)}
                     />
                 ))}
+                {filteredModules.length === 0 && (
+                    <div className="col-span-full py-20 text-center bg-[#111111] rounded-[2rem] border border-dashed border-gray-800">
+                        <ExclamationTriangleIcon className="w-12 h-12 text-gray-700 mx-auto mb-4" />
+                        <p className="text-gray-500 font-bold uppercase tracking-widest">Inga moduler matchar din sökning</p>
+                    </div>
+                )}
             </div>
 
             <div className="bg-[#0a0a0a] border border-gray-800 rounded-[2.5rem] p-8">

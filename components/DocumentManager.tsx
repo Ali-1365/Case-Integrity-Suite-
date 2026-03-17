@@ -41,7 +41,8 @@ import {
     SparklesIcon, 
     ExclamationTriangleIcon, 
     FingerPrintIcon, 
-    ArchiveBoxIcon
+    ArchiveBoxIcon,
+    UserGroupIcon
 } from './icons';
 
 import Chatbot from './Chatbot';
@@ -67,6 +68,7 @@ import LegalPipelineView from './LegalPipelineView';
 import { IntelligenceCore } from './IntelligenceCore';
 import ArchiveView from './ArchiveView';
 import { FmjamController } from './FmjamController';
+import { CaseProfiler } from './CaseProfiler';
 
 import { AutoAtomizer } from '../lib/autoAtomizer';
 import { forensicChainService } from '../lib/ForensicChainService';
@@ -128,6 +130,17 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
     }, []);
 
     useEffect(() => { loadData(); }, [loadData]);
+
+    const selectedDoc = documents.find(d => d.id === selectedDocId);
+    const currentAnalysis = selectedDoc?.analysis || null;
+
+    const [activeCase, setActiveCase] = useState<any>(null);
+
+    useEffect(() => {
+        if (currentAnalysis?.caseId) {
+            caseManagementService.getCase(currentAnalysis.caseId).then(setActiveCase);
+        }
+    }, [currentAnalysis?.caseId]);
 
     const handleAnalyze = async (doc: ParsedDocument) => {
         setIsAnalyzing(true);
@@ -231,9 +244,6 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
         </div>
     );
 
-    const selectedDoc = documents.find(d => d.id === selectedDocId);
-    const currentAnalysis = selectedDoc?.analysis || null;
-
     return (
         <div className={`flex flex-col min-h-screen ${isDarkMode ? 'bg-[#1C1917] text-[#FAFAF9]' : 'bg-[#FAFAF9] text-[#1C1917]'} font-sans transition-colors duration-300`}>
             <header className={`p-6 border-b ${isDarkMode ? 'border-[#292524] bg-[#1C1917]' : 'border-[#E7E5E4] bg-[#FAFAF9]'} flex justify-between items-center sticky top-0 z-[100] transition-colors duration-300`}>
@@ -303,7 +313,6 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
 
             <AgentWorkspace isOpen={activeModal === 'agent'} onClose={() => setActiveModal(null)} />
             <Chatbot isOpen={activeModal === 'chat'} onClose={() => setActiveModal(null)} ragService={ragService} currentAnalysis={currentAnalysis} />
-            <SystemMonitor isOpen={activeModal === 'monitor'} onClose={() => setActiveModal(null)} />
             <AIDebugPanel isOpen={activeModal === 'debug'} onClose={() => setActiveModal(null)} />
             <AuditPanel isOpen={activeModal === 'audit'} onClose={() => setActiveModal(null)} />
             <ControlPanel isOpen={activeModal === 'control'} onClose={() => setActiveModal(null)} />
@@ -311,8 +320,6 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
             <StaticArchitectureView isOpen={activeModal === 'arch'} onClose={() => setActiveModal(null)} />
             <WhitebookViewer isOpen={activeModal === 'whitebook'} onClose={() => setActiveModal(null)} />
             <ControllerDashboard isOpen={activeModal === 'controller'} onClose={() => setActiveModal(null)} />
-            <SystemInventory isOpen={activeModal === 'inventory'} onClose={() => setActiveModal(null)} />
-            <SfbIntegrityPanel isOpen={activeModal === 'sfb'} onClose={() => setActiveModal(null)} />
             
             {activeModal === 'hub' && (
                 <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[250] flex items-center justify-center p-4 md:p-8 animate-in fade-in duration-300">
@@ -338,7 +345,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                 </div>
             )}
 
-            {['production', 'opinion', 'duel', 'integrity', 'pipeline', 'oracle', 'archive', 'audit', 'chat', 'agent', 'debug', 'controller', 'notary', 'framework', 'arch', 'whitebook'].includes(activeModal || '') && (
+            {['production', 'opinion', 'duel', 'integrity', 'pipeline', 'oracle', 'archive', 'audit', 'chat', 'agent', 'debug', 'controller', 'notary', 'framework', 'arch', 'whitebook', 'sfb', 'monitor', 'inventory', 'profiler'].includes(activeModal || '') && (
                 <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[250] flex items-center justify-center p-4 md:p-8 animate-in fade-in duration-300">
                     <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-2xl w-full max-w-7xl h-full max-h-[90vh] flex flex-col border border-slate-200 dark:border-slate-800 overflow-hidden">
                         <header className="px-8 py-6 border-b border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 flex justify-between items-center">
@@ -360,6 +367,10 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                                     {activeModal === 'framework' && <LawIcon className="h-6 w-6 text-indigo-500" />}
                                     {activeModal === 'arch' && <ArchiveBoxIcon className="h-6 w-6 text-stone-500" />}
                                     {activeModal === 'whitebook' && <ClipboardDocumentListIcon className="h-6 w-6 text-slate-500" />}
+                                    {activeModal === 'sfb' && <ShieldCheckIcon className="h-6 w-6 text-emerald-500" />}
+                                    {activeModal === 'monitor' && <ActivityIcon className="h-6 w-6 text-emerald-500" />}
+                                    {activeModal === 'inventory' && <ClipboardDocumentListIcon className="h-6 w-6 text-slate-500" />}
+                                    {activeModal === 'profiler' && <UserGroupIcon className="h-6 w-6 text-purple-500" />}
                                 </div>
                                 <div>
                                     <h2 className="text-lg font-semibold text-slate-900 dark:text-white tracking-tight">
@@ -379,6 +390,10 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                                         {activeModal === 'framework' && 'Juridisk Ramverk'}
                                         {activeModal === 'arch' && 'Ärendearkiv'}
                                         {activeModal === 'whitebook' && 'Vitbok'}
+                                        {activeModal === 'sfb' && 'SFB Integritet'}
+                                        {activeModal === 'monitor' && 'System Monitor'}
+                                        {activeModal === 'inventory' && 'System Inventory'}
+                                        {activeModal === 'profiler' && 'Case Profiler'}
                                     </h2>
                                     <p className="text-xs text-slate-500">Systemmodul v.7.5</p>
                                 </div>
@@ -404,8 +419,12 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                             {activeModal === 'framework' && <LegalFrameworkView isOpen={true} onClose={() => setActiveModal(null)} />}
                             {activeModal === 'arch' && <ArchiveView onSelect={(id) => { setSelectedDocId(id); setActiveModal(null); }} />}
                             {activeModal === 'whitebook' && <WhitebookViewer isOpen={true} onClose={() => setActiveModal(null)} />}
+                            {activeModal === 'sfb' && <SfbIntegrityPanel isOpen={true} onClose={() => setActiveModal(null)} />}
+                            {activeModal === 'monitor' && <SystemMonitor isOpen={true} onClose={() => setActiveModal(null)} />}
+                            {activeModal === 'inventory' && <SystemInventory isOpen={true} onClose={() => setActiveModal(null)} />}
+                            {activeModal === 'profiler' && activeCase && <CaseProfiler caseData={activeCase} />}
                             
-                            {!currentAnalysis && ['opinion', 'duel', 'integrity', 'audit', 'agent', 'debug', 'controller'].includes(activeModal || '') && (
+                            {!currentAnalysis && ['opinion', 'duel', 'integrity', 'audit', 'agent', 'debug', 'controller', 'sfb', 'profiler'].includes(activeModal || '') && (
                                 <div className="h-full flex flex-col items-center justify-center text-center p-12">
                                     <ExclamationTriangleIcon className="w-16 h-16 text-amber-500 mb-6" />
                                     <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">Inget ärende valt</h3>
@@ -426,10 +445,10 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
             <QuotaWarning />
 
             <div className="md:hidden fixed bottom-12 left-1/2 -translate-x-1/2 flex items-center bg-[#111111]/90 backdrop-blur-md border border-gray-800 rounded-3xl p-4 shadow-2xl z-[200]">
+                <ToolButton icon={<Squares2X2Icon />} onClick={() => setActiveModal('hub')} active={activeModal === 'hub'} />
                 <ToolButton icon={<ChatIcon />} onClick={() => setActiveModal('chat')} active={activeModal === 'chat'} />
                 <ToolButton icon={<BoltIcon />} onClick={() => setActiveModal('production')} active={activeModal === 'production'} />
                 <ToolButton icon={<ActivityIcon />} onClick={() => setActiveModal('monitor')} active={activeModal === 'monitor'} />
-                <ToolButton icon={<AdjustmentsHorizontalIcon />} onClick={() => setActiveModal('controller')} active={activeModal === 'controller'} />
             </div>
         </div>
     );
