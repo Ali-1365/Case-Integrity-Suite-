@@ -2,13 +2,18 @@
   "sourceCode": "HSL",
   "sfsNumber": "2017:30",
   "title": "Hälso- och sjukvårdslag (2017:30)",
+  "versionChain": ["1982:763", "2017:30"],
   "paragraphs": [
     {
-      "id": "hsl_3_1",
+      "id": "hsl_2017_3_1",
       "chapter": 3,
-      "section": "1",
-      "text": "Målet med hälso- och sjukvården är en god hälsa och en vård på lika villkor för hela befolkningen. Vården ska ges med respekt för alla människors lika värde och för den enskilda människans värdighet.",
-      "metadata": { "provenanceHash": "", "lawId": "HSL" }
+      "section": 1,
+      "text": "Målet för hälso- och sjukvården är en god hälsa och en vård på lika villkor för hela befolkningen. Vården ska ges med respekt för alla människors lika värde och för den enskilda människans värdighet. Den som har det största behovet av hälso- och sjukvård ska ges företräde till vården.",
+      "metadata": {
+        "validFrom": "2017-04-01",
+        "provenanceHash": "sha256-hsl_3_1",
+        "revisionNote": "Regionens ansvar för hälso- och sjukvård (central samverkanspart)."
+      }
     }
   ]
 }

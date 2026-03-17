@@ -1,21 +1,15 @@
+
 {
   "sourceCode": "LSS",
   "sfsNumber": "1993:387",
   "title": "Lag (1993:387) om stöd och service till vissa funktionshindrade",
+  "versionChain": ["1993:387"],
   "paragraphs": [
     {
       "id": "lss_1",
-      "chapter": 0,
-      "section": "1",
-      "text": "Denna lag innehåller bestämmelser om insatser för särskilt stöd och särskild service åt personer med funktionshinder.",
-      "metadata": { "provenanceHash": "", "lawId": "LSS" }
-    },
-    {
-      "id": "lss_7",
-      "chapter": 0,
-      "section": "7",
-      "text": "Personer som anges i 1 § har rätt till insatser i form av särskilt stöd och särskild service enligt 9 § 1-10, om de behöver sådan hjälp i sin livsföring och deras behov inte tillgodoses på annat sätt.",
-      "metadata": { "provenanceHash": "", "lawId": "LSS" }
+      "section": 1,
+      "text": "Denna lag innehåller bestämmelser om insatser för särskilt stöd och särskild service åt personer 1. med utvecklingsstörning, autism eller autismliknande tillstånd, 2. med betydande och bestående begåvningsmässigt funktionshinder efter hjärnskada i vuxen ålder föranledd av yttre våld eller kroppslig sjukdom, eller 3. med andra varaktiga fysiska eller psykiska funktionshinder som uppenbart inte beror på normalt åldrande, om de är stora och förorsakar betydande svårigheter i den dagliga livsföringen och därmed behöver omfattande stöd eller service.",
+      "metadata": { "validFrom": "1994-01-01", "provenanceHash": "sha256-lss_1_h" }
     }
   ]
 }

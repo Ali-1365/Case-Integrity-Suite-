@@ -1,21 +1,16 @@
+
 {
   "sourceCode": "FB",
   "sfsNumber": "1949:381",
   "title": "Föräldrabalk (1949:381)",
+  "versionChain": ["1949:381"],
   "paragraphs": [
     {
       "id": "fb_6_1",
       "chapter": 6,
-      "section": "1",
-      "text": "Barn har rätt till omvårdnad, trygghet och en god fostran. Barn ska behandlas med aktning för sin person och egenart och får inte utsättas för kroppslig bestraffning eller annan kränkande behandling.",
-      "metadata": { "provenanceHash": "", "lawId": "FB" }
-    },
-    {
-      "id": "fb_6_11",
-      "chapter": 6,
-      "section": "11",
-      "text": "Vårdnadshavaren har rätt och skyldighet att bestämma i frågor som rör barnets personliga angelägenheter. Vårdnadshavaren ska i takt med barnets stigande ålder och utveckling ta allt större hänsyn till barnets synpunkter och önskemål.",
-      "metadata": { "provenanceHash": "", "lawId": "FB" }
+      "section": 1,
+      "text": "Barn har rätt till omvårdnad, trygghet och en god fostran. Barn skall behandlas med aktning för sin person och egenart och får inte utsättas för kroppslig bestraffning eller annan kränkande behandling.",
+      "metadata": { "validFrom": "1950-01-01", "provenanceHash": "fb_h1" }
     }
   ]
 }

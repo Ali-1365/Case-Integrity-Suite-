@@ -4,32 +4,24 @@
   "title": "Brottsbalken (1962:700)",
   "paragraphs": [
     {
-      "id": "brb_3_1",
-      "chapter": 3,
-      "section": "1",
-      "text": "Den som berövar annan livet, döms för mord till fängelse på viss tid, lägst tio och högst arton år, eller på livstid.",
-      "metadata": { "provenanceHash": "", "lawId": "BrB" }
+      "id": "brb_20_1",
+      "chapter": 20,
+      "section": 1,
+      "text": "Den som vid myndighetsutövning genom handling eller underlåtenhet åsidosätter vad som gäller för uppgiften ska dömas för tjänstefel till böter eller fängelse i högst två år. Om gärningen med hänsyn till tjänstemannens befogenheter eller uppgiftens samband med myndighetsutövningen i övrigt eller till andra omständigheter är att anse som ringa, ska det inte dömas till ansvar.",
+      "metadata": {
+        "provenanceHash": "sha256-brb_20_1_hash",
+        "revisionNote": "Tjänstefel: Straffansvar vid uppsåtligt eller oaktsamt åsidosättande av tjänsteplikt."
+      }
     },
     {
-      "id": "brb_3_5",
-      "chapter": 3,
-      "section": "5",
-      "text": "Den som tillfogar en annan person kroppsskada, sjukdom eller smärta eller försätter honom eller henne i vanmakt eller något annat sådant tillstånd, döms för misshandel till fängelse i högst två år eller, om brottet är ringa, till böter eller fängelse i högst sex månader.",
-      "metadata": { "provenanceHash": "", "lawId": "BrB" }
-    },
-    {
-      "id": "brb_4_1",
-      "chapter": 4,
-      "section": "1",
-      "text": "Den som i annat fall än som sägs i 1 a eller 1 b § eller i 6 kap. genom våld eller hot om våld tvingar någon att göra, tåla eller underlåta något, döms för olaga tvång till böter eller fängelse i högst två år.",
-      "metadata": { "provenanceHash": "", "lawId": "BrB" }
-    },
-    {
-      "id": "brb_4_4a",
-      "chapter": 4,
-      "section": "4a",
-      "text": "Den som begår brottsliga gärningar enligt 3, 4 eller 6 kap. mot en närstående eller tidigare närstående person, döms, om var och en av gärningarna utgjort led i en upprepad kränkning av personens integritet och gärningarna varit ägnade att allvarligt skada personens självkänsla, för grov fridskränkning till fängelse i lägst ett och högst sex år. Har gärningarna begåtts av en man mot en kvinna som han är eller har varit gift med eller som han bor eller har bott tillsammans med under äktenskapsliknande förhållanden, döms han i stället för grov kvinnofridskränkning till samma straff.",
-      "metadata": { "provenanceHash": "", "lawId": "BrB" }
+      "id": "brb_10_4",
+      "chapter": 10,
+      "section": 4,
+      "text": "Den som kommer i besittning av någon annans egendom på grund av avtal eller på annat sätt och vidtar en åtgärd med egendomen genom vilken den frånhänds den andre eller denne på annat sätt berövas sin rätt, döms för olovligt förfogande till böter eller fängelse i högst två år.",
+      "metadata": {
+        "provenanceHash": "sha256-brb_10_4_hash",
+        "revisionNote": "Olovligt förfogande (relevant vid krav på försäljning av egendom med ägarförbehåll)."
+      }
     }
   ]
 }

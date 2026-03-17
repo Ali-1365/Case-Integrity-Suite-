@@ -1,14 +1,16 @@
+
 {
   "sourceCode": "YGL",
   "sfsNumber": "1991:1469",
-  "title": "Yttrandefrihetsgrundlagen (1991:1469)",
+  "title": "Yttrandefrihetsgrundlag (1991:1469)",
+  "versionChain": ["1991:1469"],
   "paragraphs": [
     {
       "id": "ygl_1_1",
       "chapter": 1,
-      "section": "1",
-      "text": "Varje svensk medborgare är gentemot det allmänna tillförsäkrad rätt enligt denna grundlag att i radioprogram, genom tekniska upptagningar och i vissa databaser offentligen uttrycka tankar, åsikter och känslor...",
-      "metadata": { "provenanceHash": "", "lawId": "YGL" }
+      "section": 1,
+      "text": "Varje svensk medborgare är gentemot det allmänna tillförsäkrad rätt enligt denna grundlag att i radio, tv och vissa liknande överföringar offentligen uttrycka tankar, åsikter och känslor och i övrigt lämna uppgifter i vilket ämne som helst.",
+      "metadata": { "validFrom": "1992-01-01", "provenanceHash": "ygl_h1" }
     }
   ]
 }

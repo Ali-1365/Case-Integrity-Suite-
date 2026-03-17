@@ -1,14 +1,16 @@
+
 {
   "sourceCode": "TF",
   "sfsNumber": "1949:105",
-  "title": "Tryckfrihetsförordningen (1949:105)",
+  "title": "Tryckfrihetsförordning (1949:105)",
+  "versionChain": ["1949:105"],
   "paragraphs": [
     {
-      "id": "tf_2_1",
-      "chapter": 2,
-      "section": "1",
-      "text": "Till främjande av ett fritt meningsutbyte och en allsidig upplysning skall varje svensk medborgare ha rätt att taga del av allmänna handlingar.",
-      "metadata": { "provenanceHash": "", "lawId": "TF" }
+      "id": "tf_1_1",
+      "chapter": 1,
+      "section": 1,
+      "text": "Tryckfriheten innebär rätt för varje svensk medborgare att, utan några av myndighet eller annat allmänt organ i förväg lagda hinder, utge skrifter.",
+      "metadata": { "validFrom": "1949-01-01", "provenanceHash": "tf_h1" }
     }
   ]
 }

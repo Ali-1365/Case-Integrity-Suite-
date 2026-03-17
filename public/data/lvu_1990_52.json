@@ -1,21 +1,16 @@
 {
   "sourceCode": "LVU",
   "sfsNumber": "1990:52",
-  "title": "Lag (1990:52) om vård av unga",
+  "title": "Lag (1990:52) med särskilda bestämmelser om vård av unga",
   "paragraphs": [
     {
       "id": "lvu_1",
-      "chapter": 0,
-      "section": "1",
-      "text": "Insatser inom socialtjänsten för barn och ungdomar ska göras i samverkan med hemmet och i första hand bygga på frivillighet enligt socialtjänstlagen (2001:453). Vård ska dock beslutas enligt denna lag om det kan antas att behövlig vård inte kan ges med samtycke.",
-      "metadata": { "provenanceHash": "", "lawId": "LVU" }
-    },
-    {
-      "id": "lvu_2",
-      "chapter": 0,
-      "section": "2",
-      "text": "Vård ska beslutas om det på grund av fysisk eller psykisk misshandel, otillbörligt utnyttjande, brister i omsorgen eller något annat förhållande i hemmet finns en påtaglig risk för att den unges hälsa eller utveckling skadas.",
-      "metadata": { "provenanceHash": "", "lawId": "LVU" }
+      "section": 1,
+      "text": "Insatser inom socialtjänsten för barn och ungdom ska göras i samförstånd med den unge och hans eller hennes vårdnadshavare enligt bestämmelserna i socialtjänstlagen (2025:400). Beslut om vård enligt denna lag ska dock meddelas om det kan antas att behövlig vård inte kan ges med samtycke.",
+      "metadata": {
+        "provenanceHash": "sha256-lvu_1_hash",
+        "revisionNote": "Reglerar tvångsvård av unga."
+      }
     }
   ]
 }

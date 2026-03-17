@@ -269,6 +269,18 @@ export const LEGAL_SOURCES: LegalFrameworkItem[] = [
         auditTrail: goldAudit
     },
     {
+        id: "kl_2017",
+        label: "Kommunallagen",
+        type: "lagrum",
+        reference: "KL",
+        sfsNumber: "2017:725",
+        description: "Grundläggande lag om kommunernas och regionernas organisation och befogenheter.",
+        validFrom: "2018-01-01",
+        sourceUrl: "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/kommunallag-2017725_sfs-2017-725/",
+        version: "2017:725",
+        auditTrail: goldAudit
+    },
+    {
         id: "bk_art_3_1",
         label: "Barnkonventionen Art. 3.1",
         type: "lagrum",

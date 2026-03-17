@@ -1,21 +1,16 @@
 {
   "sourceCode": "LVM",
   "sfsNumber": "1988:870",
-  "title": "Lag (1988:870) om vård av missbrukare",
+  "title": "Lag (1988:870) om vård av missbrukare i vissa fall",
   "paragraphs": [
     {
       "id": "lvm_1",
-      "chapter": 0,
-      "section": "1",
-      "text": "Insatser inom socialtjänsten för missbrukare ska göras i samverkan med den enskilde och i första hand bygga på frivillighet enligt socialtjänstlagen (2001:453). Vård ska dock beslutas enligt denna lag om det kan antas att behövlig vård inte kan ges med samtycke.",
-      "metadata": { "provenanceHash": "", "lawId": "LVM" }
-    },
-    {
-      "id": "lvm_4",
-      "chapter": 0,
-      "section": "4",
-      "text": "Vård ska beslutas om någon till följd av ett fortgående missbruk av alkohol, narkotika eller flyktiga lösningsmedel är i behov av vård för att komma ifrån sitt missbruk och vårdbehovet inte kan tillgodoses enligt socialtjänstlagen eller på något annat sätt.",
-      "metadata": { "provenanceHash": "", "lawId": "LVM" }
+      "section": 1,
+      "text": "Insatser inom socialtjänsten för missbrukare ska göras i samförstånd med den enskilde enligt bestämmelserna i socialtjänstlagen (2025:400). Beslut om vård enligt denna lag ska dock meddelas om det kan antas att behövlig vård inte kan ges med samtycke.",
+      "metadata": {
+        "provenanceHash": "sha256-lvm_1_hash",
+        "revisionNote": "Reglerar tvångsvård av vuxna med missbruk."
+      }
     }
   ]
 }

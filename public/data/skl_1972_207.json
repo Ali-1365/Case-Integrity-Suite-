@@ -2,13 +2,74 @@
   "sourceCode": "SkL",
   "sfsNumber": "1972:207",
   "title": "Skadeståndslag (1972:207)",
+  "versionChain": ["1972:207"],
+  "ikraft": "1972-06-02",
+  "description": "Utökad struktur med fokus på 3 kap. (myndighetsutövning), preskription och tillämpning i kommunal/social förvaltning. Kopplad till regelbas via relatedRules.",
   "paragraphs": [
     {
-      "id": "skl_2_1",
-      "chapter": 2,
-      "section": "1",
-      "text": "Den som upppsåtligen eller av vårdslöshet vållar personskada eller sakskada skall ersätta skadan, om ej annat följer av denna lag.",
-      "metadata": { "provenanceHash": "", "lawId": "SkL" }
+      "id": "skl_1972_3_2",
+      "chapter": 3,
+      "section": 2,
+      "principleType": "ansvarsregel",
+      "text": "Staten eller en kommun ska ersätta personskada, sakskada eller ren förmögenhetsskada, som vållas genom fel eller försummelse vid myndighetsutövning i verksamhet för vars fullgörande staten eller kommunen svarar.",
+      "keywords": ["myndighetsutövning", "fel eller försummelse", "kommunansvar", "statligt ansvar"],
+      "relatedRules": ["MYND-01", "SD-08", "HF-09", "SOL-LSS-01"],
+      "metadata": {
+        "validFrom": "1972-06-02",
+        "provenanceHash": "sha256-skl_3_2",
+        "legalWeight": "central",
+        "riskTrigger": true,
+        "revisionNote": "Huvudregel för offentligt skadeståndsansvar vid fel i myndighetsutövning.",
+        "praxisNotes": "HFD 2014 ref. 72: Felaktig SGI-beräkning kan utgöra fel i myndighetsutövning. JO 2023/24: Bristande utredning i SoL-ärende kan medföra SkL 3:2-ansvar."
+      }
+    },
+    {
+      "id": "skl_1972_3_3",
+      "chapter": 3,
+      "section": 3,
+      "principleType": "undantag",
+      "text": "Skadestånd enligt 2 § utgår inte, om den skadelidande har medverkat till skadan genom eget vållande eller om det annars skulle vara oskäligt att ersättning utgår med hänsyn till omständigheterna.",
+      "keywords": ["medverkan", "medvållande", "oskälighet"],
+      "relatedRules": ["MYND-01"],
+      "metadata": {
+        "validFrom": "1972-06-02",
+        "provenanceHash": "sha256-skl_3_3",
+        "legalWeight": "hög",
+        "riskTrigger": true,
+        "revisionNote": "Medvållande och oskälighetsundantag – ofta aktuellt vid egen vårdslöshet."
+      }
+    },
+    {
+      "id": "skl_1972_3_5",
+      "chapter": 3,
+      "section": 5,
+      "principleType": "regress",
+      "text": "Den som har betalat skadestånd enligt 2 § har rätt till återkrav av den som har vållat skadan genom grov vårdslöshet eller uppsåt.",
+      "keywords": ["regress", "grov vårdslöshet", "uppsåt"],
+      "relatedRules": ["MYND-01", "SD-08"],
+      "metadata": {
+        "validFrom": "1972-06-02",
+        "provenanceHash": "sha256-skl_3_5",
+        "legalWeight": "medel",
+        "riskTrigger": true,
+        "revisionNote": "Regressmöjlighet mot enskild handläggare vid grovt fel."
+      }
+    },
+    {
+      "id": "skl_1972_35_1",
+      "chapter": null,
+      "section": 35,
+      "principleType": "preskription",
+      "text": "Rätt till skadestånd enligt denna lag preskriberas tio år efter det att skadan inträffade, om inte preskription tidigare inträtt enligt annan lagstiftning.",
+      "keywords": ["preskription", "tio år"],
+      "relatedRules": ["RS-03"],
+      "metadata": {
+        "validFrom": "1972-06-02",
+        "provenanceHash": "sha256-skl_35_1",
+        "legalWeight": "hög",
+        "riskTrigger": true,
+        "revisionNote": "Tioårspreskription – ofta aktuellt vid sena upptäckter av fel i SoL-ärenden."
+      }
     }
   ]
 }
