@@ -45,10 +45,9 @@ const AuditPanel: React.FC<AuditPanelProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[250] flex items-center justify-center p-4 md:p-8 outline-none animate-in fade-in duration-300">
-      <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] w-full max-w-5xl h-full max-h-[90vh] flex flex-col border border-slate-200 dark:border-slate-800 overflow-hidden font-sans transition-all">
-        
-        <header className="px-8 py-6 flex justify-between items-center border-b border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900">
+    <div className="flex flex-col h-full w-full bg-white dark:bg-slate-900 overflow-hidden font-sans transition-all">
+      
+      <header className="px-8 py-6 flex justify-between items-center border-b border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900">
           <div className="flex items-center space-x-4">
             <div className={`p-2.5 rounded-xl border ${status === 'GREEN' ? 'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-100 dark:border-emerald-800' : status === 'YELLOW' ? 'bg-amber-50 dark:bg-amber-900/20 border-amber-100 dark:border-amber-800' : 'bg-red-50 dark:bg-red-900/20 border-red-100 dark:border-red-800'}`}>
                 <ShieldCheckIcon className={`h-6 w-6 ${status === 'GREEN' ? 'text-emerald-600 dark:text-emerald-400' : status === 'YELLOW' ? 'text-amber-600 dark:text-amber-400' : 'text-red-600 dark:text-red-400'}`} />
@@ -127,7 +126,6 @@ const AuditPanel: React.FC<AuditPanelProps> = ({ isOpen, onClose }) => {
             </div>
             <span className="text-[9px] font-mono text-slate-400 uppercase opacity-50">{new Date().toLocaleTimeString()}</span>
         </footer>
-      </div>
     </div>
   );
 };

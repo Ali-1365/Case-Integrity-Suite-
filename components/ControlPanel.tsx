@@ -99,10 +99,9 @@ const FMJAMControlPanel: React.FC<FMJAMControlPanelProps> = ({ isOpen, onClose, 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[250] flex items-center justify-center p-4 md:p-8 outline-none animate-in fade-in duration-300">
-      <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] w-full max-w-7xl h-full max-h-[90vh] flex flex-col border border-slate-200 dark:border-slate-800 overflow-hidden ring-1 ring-white/5 transition-all">
-        
-        <header className="px-8 py-6 flex justify-between items-center border-b border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 relative overflow-hidden">
+    <div className="flex flex-col h-full w-full bg-white dark:bg-slate-900 overflow-hidden font-sans transition-all">
+      
+      <header className="px-8 py-6 flex justify-between items-center border-b border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 relative overflow-hidden">
           <div className="flex items-center space-x-4 relative z-10">
             <div className="p-2.5 bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-100 dark:border-blue-800">
               <CogIcon className="h-6 w-6 text-blue-600 dark:text-blue-400" />
@@ -258,8 +257,6 @@ const FMJAMControlPanel: React.FC<FMJAMControlPanelProps> = ({ isOpen, onClose, 
                 </span>
             </div>
         </footer>
-      </div>
-      <SystemHealthDashboard isOpen={showHealthDashboard} onClose={() => setShowHealthDashboard(false)} />
     </div>
   );
 };

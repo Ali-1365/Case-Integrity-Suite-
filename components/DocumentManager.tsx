@@ -249,7 +249,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
             <header className={`p-6 border-b ${isDarkMode ? 'border-[#292524] bg-[#1C1917]' : 'border-[#E7E5E4] bg-[#FAFAF9]'} flex justify-between items-center sticky top-0 z-[100] transition-colors duration-300`}>
                 <div className="flex items-center space-x-12 w-full overflow-hidden">
                     <div className="flex items-center space-x-4 cursor-pointer shrink-0" onClick={() => setSelectedDocId(null)}>
-                        <img src="/assets/Logo.png" alt="CIS Logo" className="h-[32px] w-auto" referrerPolicy="no-referrer" />
+                        <LogoIcon className="h-8 w-8 text-indigo-600 dark:text-indigo-400" />
                         <h1 className="text-xl font-serif tracking-tight hidden sm:block">Case Integrity Suite</h1>
                     </div>
                     
@@ -311,46 +311,13 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                 )}
             </main>
 
-            <AgentWorkspace isOpen={activeModal === 'agent'} onClose={() => setActiveModal(null)} />
-            <Chatbot isOpen={activeModal === 'chat'} onClose={() => setActiveModal(null)} ragService={ragService} currentAnalysis={currentAnalysis} />
-            <AIDebugPanel isOpen={activeModal === 'debug'} onClose={() => setActiveModal(null)} />
-            <AuditPanel isOpen={activeModal === 'audit'} onClose={() => setActiveModal(null)} />
-            <ControlPanel isOpen={activeModal === 'control'} onClose={() => setActiveModal(null)} />
-            <LegalFrameworkView isOpen={activeModal === 'framework'} onClose={() => setActiveModal(null)} />
-            <StaticArchitectureView isOpen={activeModal === 'arch'} onClose={() => setActiveModal(null)} />
-            <WhitebookViewer isOpen={activeModal === 'whitebook'} onClose={() => setActiveModal(null)} />
-            <ControllerDashboard isOpen={activeModal === 'controller'} onClose={() => setActiveModal(null)} />
-            
-            {activeModal === 'hub' && (
-                <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[250] flex items-center justify-center p-4 md:p-8 animate-in fade-in duration-300">
-                    <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-2xl w-full max-w-7xl h-full max-h-[90vh] flex flex-col border border-slate-200 dark:border-slate-800 overflow-hidden">
-                        <header className="px-8 py-6 border-b border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 flex justify-between items-center">
-                            <div className="flex items-center space-x-4">
-                                <div className="p-2.5 bg-cyan-50 dark:bg-cyan-900/20 rounded-xl border border-cyan-100 dark:border-cyan-800/30">
-                                    <Squares2X2Icon className="h-6 w-6 text-cyan-600 dark:text-cyan-400" />
-                                </div>
-                                <div>
-                                    <h2 className="text-lg font-semibold text-slate-900 dark:text-white tracking-tight">System Control Hub</h2>
-                                    <p className="text-xs text-slate-500">Central orkestrering av forensiska moduler</p>
-                                </div>
-                            </div>
-                            <button onClick={() => setActiveModal(null)} className="p-1.5 text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors">
-                                <XMarkIcon className="h-6 w-6" />
-                            </button>
-                        </header>
-                        <div className="flex-1 overflow-y-auto p-8 custom-scrollbar bg-[#050505]">
-                            <SystemHub onNavigate={(view) => setActiveModal(view)} />
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            {['production', 'opinion', 'duel', 'integrity', 'pipeline', 'oracle', 'archive', 'audit', 'chat', 'agent', 'debug', 'controller', 'notary', 'framework', 'arch', 'whitebook', 'sfb', 'monitor', 'inventory', 'profiler'].includes(activeModal || '') && (
-                <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[250] flex items-center justify-center p-4 md:p-8 animate-in fade-in duration-300">
-                    <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-2xl w-full max-w-7xl h-full max-h-[90vh] flex flex-col border border-slate-200 dark:border-slate-800 overflow-hidden">
-                        <header className="px-8 py-6 border-b border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 flex justify-between items-center">
+            {activeModal && (
+                <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[250] flex items-center justify-center p-0 md:p-4 lg:p-8 animate-in fade-in duration-300">
+                    <div className="bg-white dark:bg-slate-900 rounded-none md:rounded-[2.5rem] shadow-2xl w-full max-w-full md:max-w-7xl h-full md:h-[90vh] flex flex-col border-none md:border border-slate-200 dark:border-slate-800 overflow-hidden">
+                        <header className="px-6 md:px-8 py-4 md:py-6 border-b border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 flex justify-between items-center">
                             <div className="flex items-center space-x-4">
                                 <div className="p-2.5 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700">
+                                    {activeModal === 'hub' && <Squares2X2Icon className="h-6 w-6 text-cyan-600 dark:text-cyan-400" />}
                                     {activeModal === 'production' && <BoltIcon className="h-6 w-6 text-indigo-500" />}
                                     {activeModal === 'opinion' && <SparklesIcon className="h-6 w-6 text-purple-500" />}
                                     {activeModal === 'duel' && <ExclamationTriangleIcon className="h-6 w-6 text-rose-500" />}
@@ -374,6 +341,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                                 </div>
                                 <div>
                                     <h2 className="text-lg font-semibold text-slate-900 dark:text-white tracking-tight">
+                                        {activeModal === 'hub' && 'System Control Hub'}
                                         {activeModal === 'production' && 'Juridisk Textproduktion'}
                                         {activeModal === 'opinion' && 'AI-Expert (Yttranden)'}
                                         {activeModal === 'duel' && 'Adversarial Duel'}
@@ -402,7 +370,8 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                                 <XMarkIcon className="h-6 w-6" />
                             </button>
                         </header>
-                        <div className="flex-1 overflow-y-auto p-8 custom-scrollbar bg-white dark:bg-slate-950">
+                        <div className="flex-1 overflow-y-auto p-4 md:p-8 custom-scrollbar bg-white dark:bg-slate-950">
+                            {activeModal === 'hub' && <SystemHub onNavigate={(view) => setActiveModal(view)} />}
                             {activeModal === 'production' && <LegalTextProductionModule />}
                             {activeModal === 'opinion' && currentAnalysis && <OpinionGenerator analysis={currentAnalysis} />}
                             {activeModal === 'duel' && currentAnalysis && selectedDoc && <AdversarialDuelView caseData={selectedDoc.textContent} caseId={currentAnalysis.caseId} />}

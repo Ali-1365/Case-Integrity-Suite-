@@ -119,11 +119,10 @@ const SystemInventory: React.FC<SystemInventoryProps> = ({ isOpen, onClose }) =>
     const okCount = files.filter(f => f.status === 'ok').length;
 
     return (
-        <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[250] flex items-center justify-center p-4 md:p-8 outline-none animate-in fade-in duration-300">
-            <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] w-full max-w-7xl h-full max-h-[90vh] flex flex-col border border-slate-200 dark:border-slate-800 overflow-hidden transition-all">
-                
-                {/* Header */}
-                <header className="px-8 py-6 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-white dark:bg-slate-900">
+        <div className="flex flex-col h-full w-full bg-white dark:bg-slate-900 overflow-hidden transition-all">
+            
+            {/* Header */}
+            <header className="px-8 py-6 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-white dark:bg-slate-900">
                     <div className="flex items-center space-x-4">
                         <div className="p-2.5 rounded-xl bg-gray-800/50 border border-gray-700/50">
                             <CodeBracketIcon className="h-6 w-6 text-gray-300" />
@@ -261,7 +260,6 @@ const SystemInventory: React.FC<SystemInventoryProps> = ({ isOpen, onClose }) =>
                         <span>System Inventory v1.0</span>
                     </div>
                 </footer>
-            </div>
         </div>
     );
 };

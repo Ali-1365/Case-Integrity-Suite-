@@ -10,8 +10,8 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-[#FCFCFC]">
       <div className="text-center p-12 bg-white border border-gray-200 rounded-3xl shadow-xl max-w-md w-full">
-        <div className="mb-8">
-            <img src="/assets/Logo.png" alt="CIS Logo" className="h-12 mx-auto" referrerPolicy="no-referrer" />
+        <div className="mb-8 flex justify-center">
+            <LogoIcon className="h-16 w-16 text-blue-800" />
         </div>
         <h1 className="text-3xl font-serif tracking-tight text-[#1A202C] mb-3">
           Case Integrity Suite

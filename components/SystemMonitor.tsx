@@ -84,10 +84,9 @@ const SystemMonitor: React.FC<SystemMonitorProps> = ({ isOpen, onClose }) => {
     const isBypassed = repoStatus?.isBypassed;
 
     return (
-        <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[250] flex items-center justify-center p-4 md:p-8 outline-none animate-in fade-in duration-300">
-            <div className={`bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] w-full max-w-7xl h-full max-h-[90vh] flex flex-col border overflow-hidden transition-all ${isOffline ? 'border-orange-200' : 'border-slate-200 dark:border-slate-800'}`}>
-                
-                <header className="px-8 py-6 border-b border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 flex justify-between items-center relative overflow-hidden">
+        <div className="flex flex-col h-full w-full bg-white dark:bg-slate-900 overflow-hidden transition-all">
+            
+            <header className="px-8 py-6 border-b border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 flex justify-between items-center relative overflow-hidden">
                     <div className="flex items-center space-x-4 relative z-10">
                         <div className={`p-2.5 rounded-xl border ${isOffline ? 'bg-orange-50 border-orange-200' : 'bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700'}`}>
                             <BoltIcon className={`h-6 w-6 ${isOffline ? 'text-orange-600 animate-pulse' : 'text-slate-600 dark:text-slate-400'}`} />
@@ -229,7 +228,6 @@ const SystemMonitor: React.FC<SystemMonitorProps> = ({ isOpen, onClose }) => {
                     </div>
                     <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Integritet: SFB-GOLD</span>
                 </footer>
-            </div>
         </div>
     );
 };

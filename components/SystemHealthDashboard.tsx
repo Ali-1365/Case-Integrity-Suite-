@@ -100,11 +100,10 @@ const SystemHealthDashboard: React.FC<SystemHealthDashboardProps> = ({ isOpen, o
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[300] flex items-center justify-center p-4 animate-in fade-in duration-300">
-      <div className="bg-[#0f172a] w-full max-w-7xl h-[90vh] rounded-3xl border border-slate-800 shadow-2xl flex flex-col overflow-hidden">
-        
-        {/* Header */}
-        <header className="px-8 py-6 border-b border-slate-800 bg-[#0f172a] flex justify-between items-center">
+    <div className="flex flex-col h-full w-full bg-[#0f172a] overflow-hidden font-sans transition-all">
+      
+      {/* Header */}
+      <header className="px-8 py-6 border-b border-slate-800 bg-[#0f172a] flex justify-between items-center">
           <div className="flex items-center gap-4">
             <div className="p-3 bg-indigo-500/10 rounded-2xl border border-indigo-500/20">
               <ActivityIcon className="w-6 h-6 text-indigo-400" />
@@ -231,7 +230,6 @@ const SystemHealthDashboard: React.FC<SystemHealthDashboardProps> = ({ isOpen, o
           </div>
 
         </main>
-      </div>
     </div>
   );
 };
