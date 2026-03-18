@@ -138,7 +138,9 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
 
     useEffect(() => {
         if (currentAnalysis?.caseId) {
-            caseManagementService.getCase(currentAnalysis.caseId).then(setActiveCase);
+            caseManagementService.getCase(currentAnalysis.caseId)
+              .then(setActiveCase)
+              .catch(err => console.error('Failed to get case:', err));
         }
     }, [currentAnalysis?.caseId]);
 

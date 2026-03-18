@@ -64,10 +64,15 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
       const entry = legalFrameworkIndex.find(l => l.id === selectedLawId);
       if (entry) {
         setIsLoading(true);
-        corpusService.loadCorpus(entry.corpusFile).then(corpus => {
-          setActiveCorpus(corpus);
-          setIsLoading(false);
-        });
+        corpusService.loadCorpus(entry.corpusFile)
+          .then(corpus => {
+            setActiveCorpus(corpus);
+            setIsLoading(false);
+          })
+          .catch(err => {
+            console.error('Failed to load corpus:', err);
+            setIsLoading(false);
+          });
       }
     } else {
       setActiveCorpus(null);
@@ -81,8 +86,13 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
   const handleParagraphClick = async (p: any) => {
     setHighlightedParagraphId(p.id);
     const lawRef = `${activeCorpus?.shortName} ${p.section}`;
-    const praxis = await praxisService.getRelevantPraxis([lawRef]);
-    setRelevantPraxis(praxis);
+    try {
+      const praxis = await praxisService.getRelevantPraxis([lawRef]);
+      setRelevantPraxis(praxis);
+    } catch (err) {
+      console.error('Failed to fetch praxis:', err);
+      setRelevantPraxis([]);
+    }
   };
 
   const verifyIntegrity = async () => {

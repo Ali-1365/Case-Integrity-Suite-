@@ -32,7 +32,9 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
 
   useEffect(() => {
     if (isOpen) {
-        githubService.getRepoStatus().then(setRepoStatus);
+        githubService.getRepoStatus()
+          .then(setRepoStatus)
+          .catch(err => console.error('Failed to get repo status:', err));
         refreshLogs();
     }
   }, [isOpen, refreshLogs]);

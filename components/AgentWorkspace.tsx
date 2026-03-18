@@ -53,23 +53,28 @@ const AgentWorkspace: React.FC<AgentWorkspaceProps> = ({ isOpen, onClose }) => {
         setOpinion('');
         setQueryResult(null);
         
-        const [status, health] = await Promise.all([
-            githubService.getRepoStatus(),
-            githubService.getSyncHealth()
-        ]);
-        setRepoStatus(status);
-        setSyncHealth(health);
+        try {
+          const [status, health] = await Promise.all([
+              githubService.getRepoStatus(),
+              githubService.getSyncHealth()
+          ]);
+          setRepoStatus(status);
+          setSyncHealth(health);
 
-        await legalAIAgent.initialize();
-        
-        const allCases = await caseManagementService.getAllCases();
-        allCases.forEach(c => legalAIAgent.addCase(c));
-        
-        setCases(allCases);
-        if (allCases.length > 0 && !activeCaseId) {
-            setActiveCaseId(allCases[0].caseId);
+          await legalAIAgent.initialize();
+          
+          const allCases = await caseManagementService.getAllCases();
+          allCases.forEach(c => legalAIAgent.addCase(c));
+          
+          setCases(allCases);
+          if (allCases.length > 0 && !activeCaseId) {
+              setActiveCaseId(allCases[0].caseId);
+          }
+        } catch (err) {
+          console.error('AgentWorkspace initialization failed:', err);
+        } finally {
+          setIsReady(true);
         }
-        setIsReady(true);
       };
       init();
     }

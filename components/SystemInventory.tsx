@@ -30,76 +30,80 @@ const SystemInventory: React.FC<SystemInventoryProps> = ({ isOpen, onClose }) =>
 
     const scanSystem = async () => {
         setIsScanning(true);
-        
-        const tsxModules = import.meta.glob('../*.tsx', { eager: true });
-        const componentModules = import.meta.glob('../components/**/*.tsx', { eager: true });
-        const serviceModules = import.meta.glob('../services/**/*.ts', { eager: true });
-        const libModules = import.meta.glob('../lib/**/*.ts', { eager: true });
-        const hookModules = import.meta.glob('../hooks/**/*.ts', { eager: true });
-        
-        const allPaths = [
-            ...Object.keys(tsxModules),
-            ...Object.keys(componentModules),
-            ...Object.keys(serviceModules),
-            ...Object.keys(libModules),
-            ...Object.keys(hookModules)
-        ];
+        try {
+            const tsxModules = import.meta.glob('../*.tsx', { eager: true });
+            const componentModules = import.meta.glob('../components/**/*.tsx', { eager: true });
+            const serviceModules = import.meta.glob('../services/**/*.ts', { eager: true });
+            const libModules = import.meta.glob('../lib/**/*.ts', { eager: true });
+            const hookModules = import.meta.glob('../hooks/**/*.ts', { eager: true });
+            
+            const allPaths = [
+                ...Object.keys(tsxModules),
+                ...Object.keys(componentModules),
+                ...Object.keys(serviceModules),
+                ...Object.keys(libModules),
+                ...Object.keys(hookModules)
+            ];
 
-        const uniquePaths = Array.from(new Set(allPaths));
+            const uniquePaths = Array.from(new Set(allPaths));
 
-        const analyzedFiles: FileInfo[] = uniquePaths.map(path => {
-            let status: 'ok' | 'warning' | 'error' = 'ok';
-            let message = 'Modul aktiv och fungerar korrekt.';
+            const analyzedFiles: FileInfo[] = uniquePaths.map(path => {
+                let status: 'ok' | 'warning' | 'error' = 'ok';
+                let message = 'Modul aktiv och fungerar korrekt.';
 
-            if (path.includes('geminiService')) {
-                if (geminiService.quotaState.isThrottled) {
-                    status = 'warning';
-                    message = `MESSAGE: Gemini API Quota/Load Error. Attempt 2/3. Retrying in 4s... (Tips: Konfigurera egen API-nyckel för att undvika detta)`;
-                } else {
+                if (path.includes('geminiService')) {
+                    if (geminiService.quotaState.isThrottled) {
+                        status = 'warning';
+                        message = `MESSAGE: Gemini API Quota/Load Error. Attempt 2/3. Retrying in 4s... (Tips: Konfigurera egen API-nyckel för att undvika detta)`;
+                    } else {
+                        status = 'ok';
+                        message = 'Kopplad till Gemini API (Pro/Flash). Redundans aktiverad.';
+                    }
+                } else if (path.includes('db.ts')) {
                     status = 'ok';
-                    message = 'Kopplad till Gemini API (Pro/Flash). Redundans aktiverad.';
+                    message = 'IndexedDB anslutning stabil.';
+                } else if (path.includes('SystemMonitor')) {
+                    status = 'ok';
+                    message = 'Telemetri aktiv.';
+                } else if (path.includes('icons.tsx')) {
+                    status = 'ok';
+                    message = 'Ikonbibliotek laddat.';
+                } else if (path.includes('LegalPipelineService')) {
+                    status = 'ok';
+                    message = '8-stegs pipeline validerad och redo.';
+                } else if (path.includes('IntegrityEngine')) {
+                    status = 'ok';
+                    message = 'Forensisk integritetskontroll aktiv (SHA-256).';
+                } else if (path.includes('InteractiveAnalyst')) {
+                    status = 'ok';
+                    message = 'Dynamisk analysmotor v2.0 operativ.';
+                } else if (path.includes('App.tsx')) {
+                    status = 'ok';
+                    message = 'Huvudapplikationens routing och state-hantering OK.';
+                } else if (path.includes('cis.types.ts')) {
+                    status = 'ok';
+                    message = 'Typdefinitioner för forensisk data synkroniserade.';
                 }
-            } else if (path.includes('db.ts')) {
-                status = 'ok';
-                message = 'IndexedDB anslutning stabil.';
-            } else if (path.includes('SystemMonitor')) {
-                status = 'ok';
-                message = 'Telemetri aktiv.';
-            } else if (path.includes('icons.tsx')) {
-                status = 'ok';
-                message = 'Ikonbibliotek laddat.';
-            } else if (path.includes('LegalPipelineService')) {
-                status = 'ok';
-                message = '8-stegs pipeline validerad och redo.';
-            } else if (path.includes('IntegrityEngine')) {
-                status = 'ok';
-                message = 'Forensisk integritetskontroll aktiv (SHA-256).';
-            } else if (path.includes('InteractiveAnalyst')) {
-                status = 'ok';
-                message = 'Dynamisk analysmotor v2.0 operativ.';
-            } else if (path.includes('App.tsx')) {
-                status = 'ok';
-                message = 'Huvudapplikationens routing och state-hantering OK.';
-            } else if (path.includes('cis.types.ts')) {
-                status = 'ok';
-                message = 'Typdefinitioner för forensisk data synkroniserade.';
-            }
 
-            return {
-                path: path.replace('../', ''),
-                status,
-                message
-            };
-        });
+                return {
+                    path: path.replace('../', ''),
+                    status,
+                    message
+                };
+            });
 
-        analyzedFiles.sort((a, b) => {
-            const weight = { error: 3, warning: 2, ok: 1 };
-            return weight[b.status] - weight[a.status];
-        });
+            analyzedFiles.sort((a, b) => {
+                const weight = { error: 3, warning: 2, ok: 1 };
+                return weight[b.status] - weight[a.status];
+            });
 
-        setFiles(analyzedFiles);
-        setLastScan(new Date());
-        setIsScanning(false);
+            setFiles(analyzedFiles);
+            setLastScan(new Date());
+        } catch (err) {
+            console.error('System scan failed:', err);
+        } finally {
+            setIsScanning(false);
+        }
     };
 
     useEffect(() => {
