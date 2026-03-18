@@ -5,7 +5,6 @@ export type StageStatus = 'idle' | 'active' | 'success' | 'error';
 
 export interface PipelineStatusState {
   stages: {
-    säkerhet: StageStatus;
     normalisering: StageStatus;
     integritet: StageStatus;
     indata: StageStatus;
@@ -14,13 +13,13 @@ export interface PipelineStatusState {
     'kors-korrelering': StageStatus;
     syntes: StageStatus;
     resultat: StageStatus;
+    säkerhet: StageStatus;
   };
   log: { stage: string; message: string, status: StageStatus, metadata?: any }[];
 }
 
 export const initialPipelineStatus: PipelineStatusState = {
   stages: {
-    säkerhet: 'idle',
     normalisering: 'idle',
     integritet: 'idle',
     indata: 'idle',
@@ -29,6 +28,7 @@ export const initialPipelineStatus: PipelineStatusState = {
     'kors-korrelering': 'idle',
     syntes: 'idle',
     resultat: 'idle',
+    säkerhet: 'idle',
   },
   log: [],
 };
@@ -48,9 +48,11 @@ const PipelineStatus: React.FC<{ status: PipelineStatusState }> = ({ status }) =
     return (
       <div className="bg-white border border-slate-200 rounded-3xl p-8 shadow-sm">
           <div className="flex items-center justify-between mb-8">
-              <h2 className="text-xl font-serif font-medium text-slate-900">Systemstatus: Intelligence Core v.7.2.2-GOLD</h2>
-              <div className="flex items-center space-x-2 text-xs text-slate-500 font-medium bg-slate-100 px-3 py-1 rounded-full">
-                  <span>Real-time Forensic Monitoring</span>
+              <h2 className="text-xl font-serif font-medium text-slate-900">Systemstatus: Intelligenskärna v.7.2.2-GOLD</h2>
+              <div className="flex items-center space-x-2 text-[10px] text-slate-500 font-bold bg-slate-100 px-4 py-1.5 rounded-full uppercase tracking-widest overflow-hidden whitespace-nowrap">
+                  <div className="animate-marquee inline-block">
+                      Systemnav • Monitor • Inventering • Beslutsmotor • Produktion • Analys • Oracle • Kontroll • Notarie • Logg • Juridik • SFB • Arkiv • Vitbok
+                  </div>
               </div>
           </div>
 
@@ -64,7 +66,7 @@ const PipelineStatus: React.FC<{ status: PipelineStatusState }> = ({ status }) =
                   <div key={stageName} className={`p-4 rounded-xl border ${isActive ? 'border-blue-300 bg-blue-50' : isSuccess ? 'border-green-200 bg-green-50' : 'border-slate-200 bg-slate-50'}`}>
                       <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">{stageName}</span>
                       <div className={`mt-1 text-xs font-semibold ${isActive ? 'text-blue-800' : isSuccess ? 'text-green-800' : 'text-slate-700'}`}>
-                          {statusValue === 'active' ? 'RUNNING' : statusValue === 'success' ? 'LOCKED' : 'WAITING'}
+                          {statusValue === 'active' ? 'KÖR' : statusValue === 'success' ? 'LÅST' : 'VÄNTAR'}
                       </div>
                   </div>
                 );

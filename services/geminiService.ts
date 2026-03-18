@@ -2,6 +2,7 @@
 import { GoogleGenAI, GenerateContentResponse, GenerateContentParameters, Part, ThinkingLevel } from '@google/genai';
 import { loggingService, LogMode } from './loggingService';
 import { getSyntheticResponse } from '../lib/syntheticLLMResponses';
+import { ApiError } from '../lib/errors';
 
 export interface QuotaState {
     isThrottled: boolean;
@@ -77,22 +78,21 @@ export class GeminiService {
         if (isQuotaError) {
           const isLastRetry = i === retries - 1;
           if (!isLastRetry) {
-            loggingService.warn(`Gemini API Quota/Load Error. Attempt ${i + 1}/${retries}. Retrying in ${delay / 1000}s... (Tips: Konfigurera egen API-nyckel för att undvika detta)`, { error: error.message });
+            loggingService.warn(`Gemini API Quota/Load Error. Attempt ${i + 1}/${retries}. Retrying in ${delay / 1000}s...`, { error: error.message });
             this.quotaState.isThrottled = true;
             this.quotaState.lastError = error.message;
             this.quotaState.retryAfterMs = delay;
             await new Promise(resolve => setTimeout(resolve, delay));
             delay *= 2; // Exponential backoff
           } else {
-            loggingService.error(`Gemini API Error after ${i + 1} attempts`, { error: error.message, stack: error.stack });
-            this.quotaState.isThrottled = true; // Keep it true after last retry failure
+            this.quotaState.isThrottled = true;
             this.quotaState.lastError = error.message;
-            throw error;
+            throw new ApiError(`Gemini API Error after ${i + 1} attempts: ${error.message}`, { originalError: error });
           }
         } else {
           if (i === retries - 1) {
-             loggingService.error(`Gemini API Error after ${i + 1} attempts`, { error: error.message, stack: error.stack });
              this.quotaState.lastError = error.message;
+             throw new ApiError(`Gemini API Error after ${i + 1} attempts: ${error.message}`, { originalError: error });
           }
           throw error;
         }

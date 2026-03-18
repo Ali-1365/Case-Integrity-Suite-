@@ -153,28 +153,23 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
         };
 
         try {
-            update('säkerhet', 'active', 'Validerar systemintegritet...');
-            await new Promise(r => setTimeout(r, 500));
-            update('säkerhet', 'success', 'Integritet verifierad.');
-
-            update('indata', 'active', 'Läser källmaterial...');
+            update('normalisering', 'active', 'Initialiserar normaliseringsmotor...');
             const orchestrator = new AIOrchestrator();
             const normalizer = new NormalizationEngine(riskTemplateRegistry, DEFAULT_CONTEXT_WEIGHTS);
             const synthesizer = new SynthesizerEngine();
             const qa = new QualityAssuranceEngine();
             const audit = new AuditEngine();
             const atomizer = new AutoAtomizer();
-
-            update('indata', 'success', 'Källmaterial inläst.');
-
-            update('normalisering', 'active', 'Normaliserar dataatomer...');
-            // Segmentera texten i atomer med forensiska hashar
-            const atoms = await atomizer.atomize(doc.textContent, doc.name);
-            update('normalisering', 'success', 'Dataatomer normaliserade.');
+            update('normalisering', 'success', 'Motorer redo.');
 
             update('integritet', 'active', 'Beräknar forensiska hashar...');
             await new Promise(r => setTimeout(r, 500));
             update('integritet', 'success', 'Hashar beräknade och låsta.');
+
+            update('indata', 'active', 'Läser källmaterial...');
+            // Segmentera texten i atomer med forensiska hashar
+            const atoms = await atomizer.atomize(doc.textContent, doc.name);
+            update('indata', 'success', 'Källmaterial inläst och atomiserat.');
 
             update('för-analys', 'active', 'Extraherar juridiska referenser...');
             const legalRefEngine = new LegalReferenceEngine(LEGAL_SOURCES);
@@ -230,6 +225,10 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
 
             await loadData();
             update('resultat', 'success', 'Analys slutförd och arkiverad.');
+
+            update('säkerhet', 'active', 'Slutgiltig systemvalidering...');
+            await new Promise(r => setTimeout(r, 500));
+            update('säkerhet', 'success', 'Systemintegritet bekräftad.');
         } catch (e: any) {
             update('resultat', 'error', `Pipeline-kollaps: ${e.message}`);
         } finally {

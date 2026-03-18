@@ -1,4 +1,6 @@
 
+import { AppError, ErrorCode } from '../lib/errors';
+
 export type LogMode = 'fast' | 'think' | 'system';
 export type LogLevel = 'INFO' | 'WARN' | 'ERROR' | 'DEBUG';
 
@@ -48,7 +50,39 @@ class LoggingService {
   // Helper methods for common logging patterns
   info(message: string, details?: any) { this.log('INFO', 'system', message, details); }
   warn(message: string, details?: any) { this.log('WARN', 'system', message, details); }
-  error(message: string, details?: any) { this.log('ERROR', 'system', message, details); }
+  error(message: string, details?: any) { 
+    if (details instanceof Error) {
+      this.handleError(details, message);
+    } else {
+      this.log('ERROR', 'system', message, details); 
+    }
+  }
+
+  handleError(error: Error | AppError | any, context?: string): void {
+    const isAppErr = error instanceof AppError;
+    const errorCode = isAppErr ? error.code : ErrorCode.UNKNOWN_ERROR;
+    const message = context ? `${context}: ${error.message}` : error.message;
+    
+    this.log('ERROR', 'system', message, {
+      name: error.name,
+      code: errorCode,
+      stack: error.stack,
+      details: isAppErr ? error.details : undefined,
+      timestamp: isAppErr ? error.timestamp : new Date(),
+      isOperational: isAppErr ? error.isOperational : false
+    });
+
+    // Console output for developers
+    console.group(`%c🚨 FMJAM_ERROR: ${errorCode}`, "color: #f44; font-weight: bold; font-size: 14px;");
+    console.error("Context:", context || "N/A");
+    console.error("Message:", error.message);
+    console.error("Error Object:", error);
+    if (isAppErr && error.details) {
+      console.error("Details:", error.details);
+    }
+    console.groupEnd();
+  }
+
   debug(message: string, details?: any) { this.log('DEBUG', 'system', message, details); }
 
   // Backward compatibility for LLM logs

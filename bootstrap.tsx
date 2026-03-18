@@ -3,6 +3,19 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App";
 import AppErrorBoundary from "./components/AppErrorBoundary";
+import { loggingService } from "./services/loggingService";
+
+// Global Error Handling v.7.4.0-GOLD
+// Säkrar att alla ohanterade fel loggas för systemanalys.
+if (typeof window !== 'undefined') {
+  window.addEventListener('error', (event) => {
+    loggingService.handleError(event.error || new Error(event.message), "Global Window Error");
+  });
+
+  window.addEventListener('unhandledrejection', (event) => {
+    loggingService.handleError(event.reason, "Unhandled Promise Rejection");
+  });
+}
 
 export function startApp() {
   // System Heartbeat - Verifierar miljöns integritet efter synk (v.7.2.0-STABLE)

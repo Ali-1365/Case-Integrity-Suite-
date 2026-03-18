@@ -63,7 +63,6 @@ export const IntelligenceCore: React.FC<{ analysis: any }> = ({ analysis }) => {
     };
 
     const pipelineSteps = [
-        { id: 'security', label: 'säkerhet', icon: <ShieldCheckIcon className="w-4 h-4" /> },
         { id: 'normalization', label: 'normalisering', icon: <ArrowPathIcon className="w-4 h-4" /> },
         { id: 'integrity', label: 'integritet', icon: <FingerPrintIcon className="w-4 h-4" /> },
         { id: 'input', label: 'indata', icon: <LinkIcon className="w-4 h-4" /> },
@@ -72,6 +71,7 @@ export const IntelligenceCore: React.FC<{ analysis: any }> = ({ analysis }) => {
         { id: 'cross-correlation', label: 'kors-korrelering', icon: <AdjustmentsHorizontalIcon className="w-4 h-4" /> },
         { id: 'synthesis', label: 'syntes', icon: <CpuChipIcon className="w-4 h-4" /> },
         { id: 'results', label: 'resultat', icon: <CheckCircleIcon className="w-4 h-4" /> },
+        { id: 'security', label: 'säkerhet', icon: <ShieldCheckIcon className="w-4 h-4" /> },
     ];
 
     const systemActions = [
@@ -96,23 +96,27 @@ export const IntelligenceCore: React.FC<{ analysis: any }> = ({ analysis }) => {
                             <span className="px-2 py-0.5 bg-amber-500/10 text-amber-500 text-[10px] font-bold rounded border border-amber-500/20 uppercase tracking-widest">Systemstatus</span>
                             <div className="flex items-center gap-1.5">
                                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                                <span className="text-[10px] font-mono text-emerald-500 font-bold">ONLINE</span>
+                                <span className="text-[10px] font-mono text-emerald-500 font-bold">AKTIV</span>
                             </div>
                         </div>
                         <h2 className="text-3xl font-black text-white tracking-tighter uppercase italic">
-                            Intelligence Core <span className="text-amber-500">v.7.2.2-GOLD</span>
+                            Intelligenskärna <span className="text-amber-500">v.7.2.2-GOLD</span>
                         </h2>
-                        <p className="text-xs font-mono text-gray-500 mt-2 uppercase tracking-[0.3em]">Real-time Forensic Monitoring</p>
+                        <div className="text-[10px] font-mono text-gray-500 mt-2 uppercase tracking-[0.3em] overflow-hidden whitespace-nowrap w-full max-w-md">
+                            <div className="animate-marquee inline-block">
+                                Systemnav • Monitor • Inventering • Beslutsmotor • Produktion • Analys • Oracle • Kontroll • Notarie • Logg • Juridik • SFB • Arkiv • Vitbok
+                            </div>
+                        </div>
                     </div>
 
                     <div className="flex gap-4">
                         <div className="px-6 py-3 bg-black/40 border border-white/5 rounded-xl text-center min-w-[120px]">
-                            <p className="text-[10px] text-gray-500 font-bold uppercase mb-1">Load Factor</p>
+                            <p className="text-[10px] text-gray-500 font-bold uppercase mb-1">Belastningsfaktor</p>
                             <p className="text-xl font-black text-amber-500 font-mono">0.042</p>
                         </div>
                         <div className="px-6 py-3 bg-black/40 border border-white/5 rounded-xl text-center min-w-[120px]">
-                            <p className="text-[10px] text-gray-500 font-bold uppercase mb-1">Integrity</p>
-                            <p className="text-xl font-black text-emerald-500 font-mono">SECURE</p>
+                            <p className="text-[10px] text-gray-500 font-bold uppercase mb-1">Integritet</p>
+                            <p className="text-xl font-black text-emerald-500 font-mono">SÄKER</p>
                         </div>
                     </div>
                 </div>
@@ -127,7 +131,7 @@ export const IntelligenceCore: React.FC<{ analysis: any }> = ({ analysis }) => {
                                 <BoltIcon className="w-4 h-4 text-amber-500" />
                                 Manuell Pipeline-exekvering
                             </h3>
-                            <span className="text-[10px] font-mono text-gray-600">MANUAL_OVERRIDE_ENABLED</span>
+                            <span className="text-[10px] font-mono text-gray-600">MANUELL_ÖVERSTYRNING_AKTIVERAD</span>
                         </div>
                         
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
@@ -168,24 +172,24 @@ export const IntelligenceCore: React.FC<{ analysis: any }> = ({ analysis }) => {
                 <div className="lg:col-span-4 space-y-6">
                     <div className="bg-[#111111] border border-gray-800 rounded-2xl p-6 relative overflow-hidden">
                         <div className="absolute inset-0 bg-gradient-to-b from-amber-500/5 to-transparent pointer-events-none"></div>
-                        <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-6">Forensic Telemetry</h3>
+                        <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-6">Forensisk Telemetri</h3>
                         <div className="space-y-6 relative z-10">
-                            <TelemetryItem label="Entropy Level" value="0.88" sub="Optimal" />
-                            <TelemetryItem label="Sync Latency" value="4ms" sub="Nominal" />
-                            <TelemetryItem label="Neural Density" value="94%" sub="High" />
-                            <TelemetryItem label="Chain Stability" value="1.0" sub="Locked" />
+                            <TelemetryItem label="Entropinivå" value="0.88" sub="Optimal" />
+                            <TelemetryItem label="Synkroniseringslatens" value="4ms" sub="Nominell" />
+                            <TelemetryItem label="Neural Densitet" value="94%" sub="Hög" />
+                            <TelemetryItem label="Kedjestabilitet" value="1.0" sub="Låst" />
                         </div>
                     </div>
 
                     <div className="bg-[#0a0a0a] border border-gray-800 rounded-2xl p-6 font-mono text-[10px]">
                         <h3 className="text-gray-600 uppercase font-bold mb-4 flex items-center gap-2">
                             <CodeBracketIcon className="w-3 h-3" />
-                            Core Logs
+                            Kärnloggar
                         </h3>
                         <div className="space-y-2 text-gray-500">
-                            <p><span className="text-amber-500/50">[20:23:04]</span> CORE_INIT: v.7.2.2-GOLD active</p>
-                            <p><span className="text-cyan-500/50">[20:23:05]</span> MONITOR: Forensic chain verified</p>
-                            <p><span className="text-emerald-500/50">[20:23:06]</span> READY: Manual triggers standby</p>
+                            <p><span className="text-amber-500/50">[20:23:04]</span> CORE_INIT: v.7.2.2-GOLD aktiv</p>
+                            <p><span className="text-cyan-500/50">[20:23:05]</span> MONITOR: Forensisk kedja verifierad</p>
+                            <p><span className="text-emerald-500/50">[20:23:06]</span> READY: Manuella triggers standby</p>
                         </div>
                     </div>
                 </div>
