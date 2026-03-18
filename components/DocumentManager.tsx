@@ -328,6 +328,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                                     {activeModal === 'chat' && <ChatIcon className="h-6 w-6 text-cyan-500" />}
                                     {activeModal === 'agent' && <MagnifyingGlassIcon className="h-6 w-6 text-blue-500" />}
                                     {activeModal === 'debug' && <CodeBracketIcon className="h-6 w-6 text-amber-500" />}
+                                    {activeModal === 'oracle' && <CpuChipIcon className="h-6 w-6 text-amber-500" />}
                                     {activeModal === 'controller' && <AdjustmentsHorizontalIcon className="h-6 w-6 text-amber-500" />}
                                     {activeModal === 'notary' && <ClipboardDocumentListIcon className="h-6 w-6 text-cyan-500" />}
                                     {activeModal === 'framework' && <LawIcon className="h-6 w-6 text-indigo-500" />}
@@ -351,7 +352,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                                         {activeModal === 'audit' && 'Audit & Compliance'}
                                         {activeModal === 'chat' && 'Beslutsmotor'}
                                         {activeModal === 'agent' && 'Analys'}
-                                        {activeModal === 'debug' && 'Oracle Intelligence'}
+                                        {activeModal === 'debug' && 'AI Debug Panel'}
                                         {activeModal === 'controller' && 'Kontrollpanel'}
                                         {activeModal === 'notary' && 'Processnotarie'}
                                         {activeModal === 'framework' && 'Juridisk Ramverk'}
@@ -381,7 +382,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                             {activeModal === 'audit' && <AuditPanel isOpen={true} onClose={() => setActiveModal(null)} />}
                             {activeModal === 'chat' && <Chatbot isOpen={true} onClose={() => setActiveModal(null)} ragService={ragService} currentAnalysis={currentAnalysis} />}
                             {activeModal === 'agent' && <AgentWorkspace isOpen={true} onClose={() => setActiveModal(null)} />}
-                            {activeModal === 'debug' && <IntelligenceCore analysis={currentAnalysis} />}
+                            {activeModal === 'debug' && <AIDebugPanel isOpen={true} onClose={() => setActiveModal(null)} />}
                             {activeModal === 'controller' && <FmjamController analysis={currentAnalysis} />}
                             {activeModal === 'notary' && <AutoNotaryView />}
                             {activeModal === 'framework' && <LegalFrameworkView isOpen={true} onClose={() => setActiveModal(null)} />}
