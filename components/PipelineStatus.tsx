@@ -43,15 +43,49 @@ const getStatusColor = (status: StageStatus) => {
 };
 
 const PipelineStatus: React.FC<{ status: PipelineStatusState }> = ({ status }) => {
+    const [integrityVerified, setIntegrityVerified] = React.useState(false);
+    const [isVerifying, setIsVerifying] = React.useState(false);
+
+    React.useEffect(() => {
+        const checkIntegrity = async () => {
+            setIsVerifying(true);
+            try {
+                const response = await fetch('/api/verify-integrity');
+                if (response.ok) {
+                    setIntegrityVerified(true);
+                }
+            } catch (e) {
+                console.error('Integrity check failed');
+            } finally {
+                setIsVerifying(false);
+            }
+        };
+        checkIntegrity();
+    }, []);
+
     const stages = Object.keys(status.stages) as (keyof PipelineStatusState['stages'])[];
   
     return (
       <div className="bg-white border border-slate-200 rounded-3xl p-8 shadow-sm">
           <div className="flex items-center justify-between mb-8">
               <h2 className="text-xl font-serif font-medium text-slate-900">Systemstatus: Intelligenskärna v.7.2.2-GOLD</h2>
-              <div className="flex items-center space-x-2 text-[10px] text-slate-500 font-bold bg-slate-100 px-4 py-1.5 rounded-full uppercase tracking-widest overflow-hidden whitespace-nowrap">
-                  <div className="animate-marquee inline-block">
-                      Systemnav • Monitor • Inventering • Beslutsmotor • Produktion • Analys • Oracle • Kontroll • Notarie • Logg • Juridik • SFB • Arkiv • Vitbok
+              <div className="flex items-center gap-2">
+                  <div className={`flex items-center space-x-2 px-3 py-1 border rounded text-[9px] font-bold uppercase tracking-widest transition-all ${integrityVerified ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-500' : 'bg-amber-500/10 border-amber-500/20 text-amber-500'}`}>
+                      {isVerifying ? (
+                          <span className="animate-pulse">Validerar...</span>
+                      ) : integrityVerified ? (
+                          <>
+                              <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
+                              <span>Integritet Verifierad</span>
+                          </>
+                      ) : (
+                          <span>Integritet Väntar</span>
+                      )}
+                  </div>
+                  <div className="flex items-center space-x-2 text-[10px] text-slate-500 font-bold bg-slate-100 px-4 py-1.5 rounded-full uppercase tracking-widest overflow-hidden whitespace-nowrap">
+                      <div className="animate-marquee inline-block">
+                          Systemnav • Monitor • Inventering • Beslutsmotor • Produktion • Analys • Oracle • Kontroll • Notarie • Logg • Juridik • SFB • Arkiv • Vitbok
+                      </div>
                   </div>
               </div>
           </div>
