@@ -22,10 +22,15 @@ const ProvenanceViewer: React.FC<ProvenanceViewerProps> = ({ queryId, onClose })
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    queryProvenanceService.getChainForQuery(queryId).then(res => {
-      setChain(res);
-      setIsLoading(false);
-    });
+    queryProvenanceService.getChainForQuery(queryId)
+      .then(res => {
+        setChain(res);
+        setIsLoading(false);
+      })
+      .catch(err => {
+        console.error("Failed to fetch provenance chain:", err);
+        setIsLoading(false);
+      });
   }, [queryId]);
 
   if (isLoading) return (

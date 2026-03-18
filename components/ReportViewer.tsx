@@ -19,7 +19,7 @@ import {
 
 interface AiReportTabProps {
   analysis: AnalysisResult;
-  onGenerate: (config: OpinionConfig, mode: 'fast' | 'think') => void;
+  onGenerate: (config: OpinionConfig, mode: 'fast' | 'think') => void | Promise<void>;
   opinionResult: OpinionResult | null;
   isGenerating: boolean;
   error: string | null;
@@ -49,7 +49,10 @@ const AiReportTab: React.FC<AiReportTabProps> = ({ analysis, onGenerate, opinion
   }, [selectedTemplateId]);
 
   const handleGenerateClick = () => {
-    onGenerate(config, mode);
+    const result = onGenerate(config, mode);
+    if (result instanceof Promise) {
+      result.catch(err => console.error('Opinion generation failed:', err));
+    }
   };
 
   const selectedTemplate = opinionTemplateRegistry.find(t => t.id === selectedTemplateId);

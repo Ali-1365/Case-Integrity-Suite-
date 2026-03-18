@@ -135,6 +135,10 @@ export class GeminiService {
       });
 
       const text = response.text || "";
+      if (!text && config.responseMimeType === "application/json") {
+          loggingService.warn(`[GEMINI] Empty JSON response from model ${modelName}. This might be a safety block or model confusion.`);
+      }
+
       const duration = Date.now() - startTime;
       
       // Log grounding sources
@@ -194,7 +198,19 @@ export class GeminiService {
         const prompt = typeof params.contents === 'string' 
             ? params.contents 
             : JSON.stringify(params.contents);
-        return getSyntheticResponse(prompt);
+        
+        const synthetic = getSyntheticResponse(prompt);
+        
+        // If JSON was requested, wrap synthetic response in a JSON structure if it's not already
+        if (params.config?.responseMimeType === "application/json") {
+            return JSON.stringify({
+                status: "SYNTHETIC_FALLBACK",
+                content: synthetic,
+                warning: "Detta är ett syntetiskt svar på grund av API-begränsningar."
+            });
+        }
+        
+        return synthetic;
       }
 
       return `SYSTEMFEL: Kunde inte generera svar. ${error.message}`;

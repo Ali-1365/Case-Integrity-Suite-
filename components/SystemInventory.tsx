@@ -108,9 +108,9 @@ const SystemInventory: React.FC<SystemInventoryProps> = ({ isOpen, onClose }) =>
 
     useEffect(() => {
         if (isOpen) {
-            scanSystem();
+            scanSystem().catch(err => console.error('Initial scan failed:', err));
             const interval = setInterval(() => {
-                scanSystem();
+                scanSystem().catch(err => console.error('Interval scan failed:', err));
             }, 10000);
             return () => clearInterval(interval);
         }
@@ -142,7 +142,7 @@ const SystemInventory: React.FC<SystemInventoryProps> = ({ isOpen, onClose }) =>
 
                     <div className="flex items-center space-x-3">
                         <button 
-                            onClick={scanSystem}
+                            onClick={() => scanSystem().catch(err => console.error('Manual scan failed:', err))}
                             disabled={isScanning}
                             className="flex items-center space-x-2 bg-gray-800 hover:bg-gray-700 text-sm font-medium text-gray-200 px-4 py-2 rounded-lg border border-gray-700 transition-colors"
                         >

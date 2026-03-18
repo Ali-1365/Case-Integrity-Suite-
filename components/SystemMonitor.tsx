@@ -51,6 +51,8 @@ const SystemMonitor: React.FC<SystemMonitorProps> = ({ isOpen, onClose }) => {
             setLocalMetadata(metaRes);
             setQuotaUsage(usageMonitorService.getUsage());
             refreshLogs();
+        } catch (error) {
+            console.error("Failed to refresh system monitor data:", error);
         } finally {
             setIsRefreshing(false);
         }
@@ -63,6 +65,8 @@ const SystemMonitor: React.FC<SystemMonitorProps> = ({ isOpen, onClose }) => {
             githubService.setIntegrityBypass(true);
             await refreshData();
             // Notifiering om lyckad bypass-aktivering
+        } catch (error) {
+            console.error("Repair failed:", error);
         } finally {
             setIsRepairing(false);
         }
@@ -70,11 +74,13 @@ const SystemMonitor: React.FC<SystemMonitorProps> = ({ isOpen, onClose }) => {
 
     const handleDeactivateBypass = () => {
         githubService.setIntegrityBypass(false);
-        refreshData();
+        refreshData().catch(err => console.error("Failed to refresh data after deactivating bypass:", err));
     };
 
     useEffect(() => {
-        if (isOpen) refreshData();
+        if (isOpen) {
+            refreshData().catch(err => console.error("Failed to refresh data on open:", err));
+        }
     }, [isOpen]);
 
     if (!isOpen) return null;
@@ -102,7 +108,7 @@ const SystemMonitor: React.FC<SystemMonitorProps> = ({ isOpen, onClose }) => {
 
                     <div className="flex items-center space-x-3 relative z-10">
                         <button 
-                            onClick={refreshData}
+                            onClick={() => refreshData().catch(err => console.error("Manual refresh failed:", err))}
                             disabled={isRefreshing}
                             className="flex items-center space-x-2 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-xs font-medium text-slate-700 dark:text-slate-300 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 transition-colors"
                         >

@@ -23,13 +23,20 @@ const AuditPanel: React.FC<AuditPanelProps> = ({ isOpen, onClose }) => {
 
   const loadLogs = async () => {
     setIsLoading(true);
-    const data = await db.getAuditLogs();
-    setLogs(data);
-    setIsLoading(false);
+    try {
+      const data = await db.getAuditLogs();
+      setLogs(data);
+    } catch (error) {
+      console.error("Failed to load audit logs:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
-    if (isOpen) loadLogs();
+    if (isOpen) {
+      loadLogs().catch(err => console.error("Initial loadLogs failed:", err));
+    }
   }, [isOpen]);
 
   const getSystemStatus = () => {
@@ -65,7 +72,7 @@ const AuditPanel: React.FC<AuditPanelProps> = ({ isOpen, onClose }) => {
             <button onClick={() => auditService.exportLogs('ALL')} className="p-2 text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-all bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-100 dark:border-slate-700">
               <ArrowDownTrayIcon className="h-5 w-5" />
             </button>
-            <button onClick={loadLogs} className="p-2 text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-100 dark:border-slate-700">
+            <button onClick={() => loadLogs().catch(err => console.error("Manual loadLogs failed:", err))} className="p-2 text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-100 dark:border-slate-700">
               <ArrowPathIcon className={`h-5 w-5 ${isLoading ? 'animate-spin' : ''}`} />
             </button>
             <button onClick={onClose} className="p-2 text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all">

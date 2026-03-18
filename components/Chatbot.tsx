@@ -232,13 +232,13 @@ const Chatbot: React.FC<ChatbotProps> = ({ isOpen, onClose, ragService, currentA
                     type="text"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
-                    onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+                    onKeyPress={(e) => e.key === 'Enter' && handleSend().catch(err => console.error('Chat send failed:', err))}
                     placeholder="Skriv ett meddelande..."
                     className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl py-3 pl-4 pr-12 text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all"
                     disabled={isLoading}
                 />
                 <button
-                    onClick={() => handleSend()}
+                    onClick={() => handleSend().catch(err => console.error('Chat send failed:', err))}
                     disabled={isLoading || !input.trim()}
                     className="absolute right-2 top-2 p-2 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-200 dark:disabled:bg-slate-800 text-white rounded-lg transition-all"
                 >

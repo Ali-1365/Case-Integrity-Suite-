@@ -17,14 +17,20 @@ const QuotaWarning: React.FC = () => {
             setHasCustomKey(custom);
         };
 
-        checkQuota();
-        const interval = setInterval(checkQuota, 3000);
+        checkQuota().catch(err => console.error("checkQuota failed:", err));
+        const interval = setInterval(() => {
+            checkQuota().catch(err => console.error("Interval checkQuota failed:", err));
+        }, 3000);
         return () => clearInterval(interval);
     }, []);
 
     const handleSetupKey = async () => {
-        await geminiService.openKeySelection();
-        setIsVisible(false);
+        try {
+            await geminiService.openKeySelection();
+            setIsVisible(false);
+        } catch (error) {
+            console.error("Failed to open key selection:", error);
+        }
     };
 
     return (

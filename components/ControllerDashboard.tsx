@@ -27,14 +27,21 @@ const ControllerDashboard: React.FC<ControllerDashboardProps> = ({ isOpen, onClo
 
   const runAnalysis = async () => {
     setIsAnalyzing(true);
-    const cases = await caseManagementService.getAllCases();
-    const res = await controllerService.runFullControl(cases);
-    setReport(res);
-    setIsAnalyzing(false);
+    try {
+      const cases = await caseManagementService.getAllCases();
+      const res = await controllerService.runFullControl(cases);
+      setReport(res);
+    } catch (error) {
+      console.error("Analysis failed:", error);
+    } finally {
+      setIsAnalyzing(false);
+    }
   };
 
   useEffect(() => {
-    if (isOpen) runAnalysis();
+    if (isOpen) {
+      runAnalysis().catch(err => console.error("Initial analysis failed:", err));
+    }
   }, [isOpen]);
 
   if (!isOpen) return null;
@@ -61,7 +68,7 @@ const ControllerDashboard: React.FC<ControllerDashboardProps> = ({ isOpen, onClo
 
           <div className="flex items-center space-x-3 relative z-10">
             <button 
-                onClick={runAnalysis}
+                onClick={() => runAnalysis().catch(err => console.error("Manual analysis failed:", err))}
                 disabled={isAnalyzing}
                 className="flex items-center space-x-2 bg-gray-800 hover:bg-gray-700 text-sm font-medium text-gray-200 px-4 py-2 rounded-lg border border-gray-700 transition-colors"
             >

@@ -179,7 +179,7 @@ const AgentWorkspace: React.FC<AgentWorkspaceProps> = ({ isOpen, onClose }) => {
                     </div>
 
                     <div className="flex flex-col space-y-2">
-                        <button onClick={handleGenerateOpinion} disabled={isGenerating || isQuerying} className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded-lg flex items-center justify-center disabled:bg-slate-200 dark:disabled:bg-slate-800 transition-colors">
+                        <button onClick={() => handleGenerateOpinion().catch(err => console.error('Opinion generation failed:', err))} disabled={isGenerating || isQuerying} className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded-lg flex items-center justify-center disabled:bg-slate-200 dark:disabled:bg-slate-800 transition-colors">
                             {isGenerating ? <Spinner className="h-4 w-4 mr-2" /> : <SparklesIcon className="h-4 w-4 mr-2" />}
                             <span className="text-sm">{isGenerating ? 'Genererar...' : 'Generera Yttrande'}</span>
                         </button>

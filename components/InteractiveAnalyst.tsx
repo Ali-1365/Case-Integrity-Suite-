@@ -248,12 +248,12 @@ export const InteractiveAnalyst: React.FC<InteractiveAnalystProps> = ({ analysis
                             type="text" 
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
-                            onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+                            onKeyDown={(e) => e.key === 'Enter' && handleSend().catch(err => console.error("handleSend failed on Enter:", err))}
                             placeholder="Ställ en fråga om ärendet..."
                             className="w-full bg-[#0a0a0a] border border-gray-800 rounded-xl py-4 pl-6 pr-14 text-sm text-gray-200 focus:outline-none focus:border-cyan-500/50 transition-all placeholder:text-gray-600"
                         />
                         <button 
-                            onClick={handleSend}
+                            onClick={() => handleSend().catch(err => console.error("handleSend failed on click:", err))}
                             disabled={isLoading || !input.trim()}
                             className="absolute right-3 top-1/2 -translate-y-1/2 p-2 bg-cyan-600 hover:bg-cyan-500 disabled:bg-gray-800 disabled:text-gray-600 text-white rounded-lg transition-all"
                         >

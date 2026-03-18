@@ -83,7 +83,7 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
 
   const copyToClipboard = () => {
     if (!navigator.clipboard || !navigator.clipboard.writeText) {
-        alert('Kunde inte kopiera automatiskt. Vänligen markera och kopiera manuellt.');
+        console.error('Kunde inte kopiera automatiskt. Vänligen markera och kopiera manuellt.');
         return;
     }
     navigator.clipboard.writeText(response).then(() => {
@@ -91,7 +91,6 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
         setTimeout(() => setCopied(false), 2000);
     }).catch(err => {
         console.error('Failed to copy:', err);
-        alert('Kunde inte kopiera till urklipp.');
     });
   };
 
@@ -130,7 +129,6 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
                         setPrompt(prev => prev + text);
                     } catch (err) {
                         console.error('Failed to paste:', err);
-                        alert('Kunde inte klistra in automatiskt. Vänligen klistra in manuellt (Ctrl+V / Cmd+V) i textfältet nedan.');
                     }
                 }} className="px-3 py-1.5 hover:bg-white dark:hover:bg-slate-800 transition-colors bg-white dark:bg-slate-900 rounded-lg text-[10px] font-bold uppercase text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700">
                     Klistra in logg
@@ -212,13 +210,13 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
                 <textarea
                   value={prompt}
                   onChange={(e) => setPrompt(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), handleQuery())}
+                  onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), handleQuery().catch(err => console.error("Query failed:", err)))}
                   placeholder="Ställ en teknisk fråga..."
                   className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl px-6 py-4 pr-16 text-sm text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all resize-none shadow-inner placeholder-slate-400"
                   rows={2}
                 />
                 <button
-                  onClick={handleQuery}
+                  onClick={() => handleQuery().catch(err => console.error("Manual query failed:", err))}
                   disabled={isLoading || !prompt.trim()}
                   className="absolute bottom-4 right-4 p-2.5 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-200 dark:disabled:bg-slate-800 text-white rounded-xl shadow-lg active:scale-95 transition-all"
                 >

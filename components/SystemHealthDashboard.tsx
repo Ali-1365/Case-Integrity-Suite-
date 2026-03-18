@@ -85,7 +85,9 @@ const SystemHealthDashboard: React.FC<SystemHealthDashboardProps> = ({ isOpen, o
       setLogs(loggingService.getLogs().slice(0, 50));
     }, 3000);
 
-    githubService.getRepoStatus().then(setRepoStatus);
+    githubService.getRepoStatus()
+      .then(setRepoStatus)
+      .catch(err => console.error("Failed to fetch repo status in SystemHealthDashboard:", err));
 
     return () => clearInterval(interval);
   }, [isOpen]);

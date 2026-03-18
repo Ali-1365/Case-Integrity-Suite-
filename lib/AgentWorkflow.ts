@@ -31,6 +31,19 @@ const validationSchema = {
 
 export class AgentWorkflow {
     
+    private parseJsonResponse<T>(response: string, moduleName: string): T {
+        const cleaned = response.trim().replace(/^```json\n?/, '').replace(/\n?```$/, '');
+        if (!cleaned) {
+            throw new Error(`[${moduleName}] Tomt svar från AI-tjänsten. Detta kan bero på säkerhetsfilter eller nätverksproblem.`);
+        }
+        try {
+            return JSON.parse(cleaned) as T;
+        } catch (e: any) {
+            console.error(`[${moduleName}] JSON parse error:`, e, "Raw string:", response);
+            throw new Error(`[${moduleName}] Ogiltigt JSON-format i AI-svaret från ${moduleName}. Fel: ${e.message}`);
+        }
+    }
+
     // Modul 1: Utredare-modulen (Samlar in fakta och bevis)
     async modulUtredare(caseData: string, feedbackSignal: string | null = null): Promise<string[]> {
         const systemInstruction = `
@@ -42,15 +55,38 @@ export class AgentWorkflow {
             2. Om texten inte stödjer ett påstående, utelämna det.
             3. Citera källan (ID eller textsnutt) för varje fakta.
             
-            ${feedbackSignal ? `\nVIKTIG FEEDBACK FRÅN VALIDERING: ${feedbackSignal}\nDu måste gräva djupare i KÄLLMATERIALET och hitta fler bevis (premisser). Hitta INTE på nya.` : ''}
+            ${feedbackSignal ? `\nVIKTIG FEEDBACK FRÅN VALIDERING: ${feedbackSignal}\nDu måste gräva djupare i KÄLLMATERIALET och hitta fler bevis (premisser). Returnera en KOMPLETT lista med både gamla och nya fakta som adresserar feedbacken.` : ''}
+            
+            OUTPUT SKA VARA JSON: { "fakta": ["fakta 1", "fakta 2", ...] }
         `;
         
         const response = await geminiService.generate({
             contents: `RÅDATA:\n${caseData}\n\nUPPGIFT: Lista alla relevanta juridiska fakta och bevispunkter.`,
-            config: { systemInstruction, temperature: 0.0, thinkingConfig: { thinkingLevel: ThinkingLevel.HIGH } }
+            config: { 
+                systemInstruction, 
+                responseMimeType: "application/json",
+                responseSchema: {
+                    type: Type.OBJECT,
+                    properties: {
+                        fakta: { type: Type.ARRAY, items: { type: Type.STRING } }
+                    },
+                    required: ["fakta"]
+                },
+                temperature: 0.0, 
+                thinkingConfig: { thinkingLevel: ThinkingLevel.HIGH } 
+            }
         }, 'think');
         
-        return response.split('\n').filter(line => line.trim().length > 0);
+        try {
+            const parsed = this.parseJsonResponse<{ fakta: string[] }>(response, "Utredare");
+            return parsed.fakta || [];
+        } catch (e) {
+            // Fallback om JSON misslyckas men vi har text (för bakåtkompatibilitet eller oväntade svar)
+            if (response && !response.trim().startsWith('{') && !response.includes('SYSTEMFEL')) {
+                return response.split('\n').filter(line => line.trim().length > 0);
+            }
+            throw e;
+        }
     }
 
     // Modul 2: Grundorsaksanalys (Skapar Faktamaster_State)
@@ -88,7 +124,7 @@ export class AgentWorkflow {
             }
         }, 'think');
         
-        return JSON.parse(response.trim()) as FaktamasterState;
+        return this.parseJsonResponse<FaktamasterState>(response, "Grundorsaksanalys");
     }
 
     // Modul 3: Validering (Kontrollerar syllogismen och skapar loop)
@@ -119,7 +155,7 @@ export class AgentWorkflow {
             }
         }, 'think');
         
-        return JSON.parse(response.trim()) as ValidationResult;
+        return this.parseJsonResponse<ValidationResult>(response, "Validering");
     }
 
     // Modul 4: Advokat-modulen (Skapar slutgiltig sakframställan)
@@ -228,6 +264,13 @@ export class AgentWorkflow {
             
             // 1. Utredare samlar fakta
             const fakta = await this.modulUtredare(caseData, feedbackSignal);
+            
+            if (fakta.length === 0) {
+                console.log(`[AgentWorkflow] VARNING: Inga fakta hittades i loop ${loopCount + 1}.`);
+                if (loopCount === 0) {
+                    throw new Error("Utredare-modulen kunde inte hitta några fakta i källmaterialet. Kontrollera att dokumentet innehåller läsbar text.");
+                }
+            }
             
             // 2. Grundorsaksanalys skapar state
             faktamasterState = await this.modulGrundorsaksanalys(fakta);

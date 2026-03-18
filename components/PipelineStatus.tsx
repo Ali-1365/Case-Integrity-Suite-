@@ -60,7 +60,7 @@ const PipelineStatus: React.FC<{ status: PipelineStatusState }> = ({ status }) =
                 setIsVerifying(false);
             }
         };
-        checkIntegrity();
+        checkIntegrity().catch(err => console.error("checkIntegrity failed:", err));
     }, []);
 
     const stages = Object.keys(status.stages) as (keyof PipelineStatusState['stages'])[];

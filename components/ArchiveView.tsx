@@ -24,18 +24,28 @@ const ArchiveView: React.FC<ArchiveViewProps> = ({ onSelect }) => {
     useEffect(() => {
         const loadDocs = async () => {
             setIsLoading(true);
-            const allDocs = await db.getAllDocuments();
-            setDocuments(allDocs.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()));
-            setIsLoading(false);
+            try {
+                const allDocs = await db.getAllDocuments();
+                setDocuments(allDocs.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()));
+            } catch (error) {
+                console.error("Failed to load archived documents:", error);
+            } finally {
+                setIsLoading(false);
+            }
         };
-        loadDocs();
+        loadDocs().catch(err => console.error("Unhandled error in loadDocs:", err));
     }, []);
 
     const handleDelete = async (e: React.MouseEvent, id: string) => {
         e.stopPropagation();
         if (confirm('Är du säker på att du vill radera detta ärende permanent?')) {
-            await db.deleteDocument(id);
-            setDocuments(prev => prev.filter(d => d.id !== id));
+            try {
+                await db.deleteDocument(id);
+                setDocuments(prev => prev.filter(d => d.id !== id));
+            } catch (error) {
+                console.error(`Failed to delete document ${id}:`, error);
+                alert("Kunde inte radera ärendet. Se konsol för detaljer.");
+            }
         }
     };
 

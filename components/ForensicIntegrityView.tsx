@@ -23,13 +23,18 @@ const ForensicIntegrityView: React.FC<ForensicIntegrityViewProps> = ({ analysis 
 
   const runVerification = async () => {
     setIsValidating(true);
-    const result = await forensicChainService.verifyChain(analysis);
-    setVerification(result);
-    setIsValidating(false);
+    try {
+      const result = await forensicChainService.verifyChain(analysis);
+      setVerification(result);
+    } catch (error) {
+      console.error("Forensic verification failed:", error);
+    } finally {
+      setIsValidating(false);
+    }
   };
 
   useEffect(() => {
-    runVerification();
+    runVerification().catch(err => console.error("Initial verification failed:", err));
   }, [analysis.id]);
 
   return (
@@ -40,7 +45,7 @@ const ForensicIntegrityView: React.FC<ForensicIntegrityViewProps> = ({ analysis 
           <p className="text-sm text-slate-500 dark:text-gray-500">Verifiering av SHA-256 hashar för varje data-atom i ärendet.</p>
         </div>
         <button 
-          onClick={runVerification}
+          onClick={() => runVerification().catch(err => console.error("Manual verification failed:", err))}
           disabled={isValidating}
           className="bg-cyan-600 hover:bg-cyan-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2"
         >

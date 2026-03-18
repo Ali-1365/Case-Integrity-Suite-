@@ -147,7 +147,7 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
 
           <div className="flex items-center space-x-2">
             <button 
-                onClick={verifyIntegrity}
+                onClick={() => verifyIntegrity().catch(err => console.error('Integrity verification failed:', err))}
                 disabled={isVerifying}
                 className="flex items-center space-x-2 bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/40 text-blue-700 dark:text-blue-300 px-4 py-2 rounded-lg transition-all text-xs font-bold border border-blue-200 dark:border-blue-800"
             >

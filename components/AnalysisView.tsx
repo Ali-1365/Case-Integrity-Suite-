@@ -34,7 +34,7 @@ const AnalysisView: React.FC<AnalysisViewProps> = ({ documentId, onBack, onDocum
         setError("Kunde inte ladda dokumentet.");
       }
     };
-    fetchDoc();
+    fetchDoc().catch(err => console.error('Failed to fetch document:', err));
   }, [documentId]);
 
   const handleGenerateOpinion = useCallback(async (config: OpinionConfig, mode: 'fast' | 'think') => {

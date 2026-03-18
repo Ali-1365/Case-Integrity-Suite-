@@ -41,7 +41,7 @@ import { QuickStartGuide } from './QuickStartGuide';
 interface AnalysisResultsProps {
   analysis: AnalysisResult;
   onLegalReferenceSelect: (refId: string) => void;
-  onGenerateOpinion: (config: OpinionConfig, mode: 'fast' | 'think') => void;
+  onGenerateOpinion: (config: OpinionConfig, mode: 'fast' | 'think') => void | Promise<void>;
   onGenerateSynthesis: (templateId: string) => Promise<void>;
   opinionResult: OpinionResult | null;
   isGeneratingOpinion: boolean;
@@ -230,7 +230,7 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = (props) => {
                                 <p className="text-sm text-gray-400 mt-1">Genererar en deterministisk rättsutredning baserad på 100% källspårbarhet.</p>
                             </div>
                             <button 
-                                onClick={() => props.onGenerateSynthesis('FORENSIC_DETAILED_V1')}
+                                onClick={() => props.onGenerateSynthesis('FORENSIC_DETAILED_V1').catch(err => console.error('Synthesis generation failed:', err))}
                                 disabled={props.isGeneratingSynthesis}
                                 className="relative z-10 bg-cyan-600 hover:bg-cyan-500 text-white px-6 py-3 rounded-lg font-medium text-sm shadow-md transition-colors flex items-center space-x-2"
                             >

@@ -70,11 +70,17 @@ const FMJAMControlPanel: React.FC<FMJAMControlPanelProps> = ({ isOpen, onClose, 
 
   const handleRepair = async () => {
     setIsRepairing(true);
-    await db.repairPersistence();
-    setTimeout(() => {
-        setIsRepairing(false);
-        alert("Systemintegritet återställd. Lokala lås har hävts.");
-    }, 1500);
+    try {
+      await db.repairPersistence();
+      setTimeout(() => {
+          setIsRepairing(false);
+          alert("Systemintegritet återställd. Lokala lås har hävts.");
+      }, 1500);
+    } catch (error) {
+      console.error("Repair failed:", error);
+      setIsRepairing(false);
+      alert("Reparation misslyckades. Se konsol för detaljer.");
+    }
   };
 
   const handleBakeIndex = async () => {

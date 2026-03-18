@@ -129,7 +129,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
         }
     }, []);
 
-    useEffect(() => { loadData(); }, [loadData]);
+    useEffect(() => { loadData().catch(err => console.error('Initial data load failed:', err)); }, [loadData]);
 
     const selectedDoc = documents.find(d => d.id === selectedDocId);
     const currentAnalysis = selectedDoc?.analysis || null;

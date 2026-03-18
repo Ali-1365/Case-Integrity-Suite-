@@ -36,10 +36,14 @@ const LegalTextProductionModule: React.FC = () => {
 
     useEffect(() => {
         const loadDocs = async () => {
-            const allDocs = await db.getAllDocuments();
-            setDocuments(allDocs);
+            try {
+                const allDocs = await db.getAllDocuments();
+                setDocuments(allDocs);
+            } catch (err) {
+                console.error("Failed to load documents:", err);
+            }
         };
-        loadDocs();
+        loadDocs().catch(err => console.error("Initial loadDocs failed:", err));
     }, []);
 
     const handleToggleDraft = (id: string) => {
@@ -101,7 +105,7 @@ const LegalTextProductionModule: React.FC = () => {
                     </div>
                 </div>
                 <button 
-                    onClick={handleProduce}
+                    onClick={() => handleProduce().catch(err => console.error("Manual produce failed:", err))}
                     disabled={isProducing}
                     className="flex items-center space-x-2 bg-indigo-600 hover:bg-indigo-500 disabled:bg-slate-400 text-white px-6 py-3 rounded-2xl font-medium transition-all shadow-lg shadow-indigo-200 dark:shadow-none"
                 >
@@ -228,8 +232,9 @@ const LegalTextProductionModule: React.FC = () => {
                             {result && (
                                 <button 
                                     onClick={() => {
-                                        navigator.clipboard.writeText(result);
-                                        alert('Kopierat till urklipp');
+                                        navigator.clipboard.writeText(result)
+                                            .then(() => console.log('Kopierat till urklipp'))
+                                            .catch(err => console.error("Copy failed:", err));
                                     }}
                                     className="text-xs font-bold uppercase tracking-widest text-indigo-600 hover:text-indigo-500 transition-colors"
                                 >
