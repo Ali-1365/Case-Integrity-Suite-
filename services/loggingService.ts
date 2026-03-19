@@ -58,16 +58,25 @@ class LoggingService {
     }
   }
 
-  handleError(error: Error | AppError | any, context?: string): void {
+  handleError(error: any, context?: string): void {
     const isAppErr = error instanceof AppError;
     const errorCode = isAppErr ? error.code : ErrorCode.UNKNOWN_ERROR;
-    const message = context ? `${context}: ${error.message}` : error.message;
+    
+    // Robust message extraction
+    let errorMessage = "Okänt fel";
+    if (typeof error === 'string') {
+      errorMessage = error;
+    } else if (error && typeof error === 'object') {
+      errorMessage = error.message || error.reason?.message || JSON.stringify(error);
+    }
+    
+    const message = context ? `${context}: ${errorMessage}` : errorMessage;
     
     this.log('ERROR', 'system', message, {
-      name: error.name,
+      name: error?.name || (typeof error === 'string' ? 'StringError' : 'UnknownError'),
       code: errorCode,
-      stack: error.stack,
-      details: isAppErr ? error.details : undefined,
+      stack: error?.stack,
+      details: isAppErr ? error.details : (error?.details || error),
       timestamp: isAppErr ? error.timestamp : new Date(),
       isOperational: isAppErr ? error.isOperational : false
     });
@@ -75,7 +84,7 @@ class LoggingService {
     // Console output for developers
     console.group(`%c🚨 FMJAM_ERROR: ${errorCode}`, "color: #f44; font-weight: bold; font-size: 14px;");
     console.error("Context:", context || "N/A");
-    console.error("Message:", error.message);
+    console.error("Message:", errorMessage);
     console.error("Error Object:", error);
     if (isAppErr && error.details) {
       console.error("Details:", error.details);

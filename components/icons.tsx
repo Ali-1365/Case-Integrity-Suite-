@@ -237,6 +237,26 @@ export const DatabaseIcon: React.FC<{ className?: string }> = ({ className }) =>
 
 export const databaseIcon = DatabaseIcon;
 
+export const BanknotesIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75m0 1.5v.75m0 1.5v.75m0 1.5V15m-1.5-1.5h.75m1.5 0h.75m1.5 0h.75m1.5 0h.75m1.5 0H12m-7.5 3h7.5m-7.5 3h7.5m-7.5 3h7.5" />
+    <path strokeLinecap="round" strokeLinejoin="round" d="M12 12.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM19.5 12.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+  </svg>
+);
+
+export const ArrowTrendingUpIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18 9 11.25l4.5 4.5L21.75 7.5" />
+    <path strokeLinecap="round" strokeLinejoin="round" d="M18.75 7.5h3v3" />
+  </svg>
+);
+
+export const CurrencyDollarIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-1.937-.462-1.172-.586-1.172-2.035 0-2.621.487-.242 1.212-.462 1.937-.462 1.172 0 2.344.44 3.121 1.318l.879.659M12 6v12" />
+  </svg>
+);
+
 export const PlusIcon: React.FC<{ className?: string }> = ({ className }) => (
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className={className}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
