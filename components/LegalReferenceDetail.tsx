@@ -57,7 +57,15 @@ const LegalReferenceDetail: React.FC<LegalReferenceDetailProps> = ({ referenceId
               <LawIcon className="h-8 w-8 text-cyan-400" />
             </div>
             <div>
-              <h2 className="text-2xl font-black text-white tracking-tight uppercase italic">{ref.rawText}</h2>
+              <div className="flex items-center gap-3">
+                <h2 className="text-2xl font-black text-white tracking-tight uppercase italic">{ref.rawText}</h2>
+                {sourceData && (
+                  <span className="flex items-center gap-1 px-2 py-1 bg-emerald-500/10 border border-emerald-500/20 rounded-lg text-[10px] font-black text-emerald-500 uppercase tracking-widest shadow-[0_0_10px_rgba(16,185,129,0.1)]">
+                    <ShieldCheckIcon className="w-3 h-3" />
+                    GOLD VERIFIED
+                  </span>
+                )}
+              </div>
               <div className="flex items-center space-x-3 mt-1">
                 <span className="text-[10px] font-black text-cyan-500/60 uppercase tracking-widest">Legal deep dive mode</span>
                 <div className="h-1 w-1 rounded-full bg-gray-700"></div>

@@ -1,9 +1,10 @@
 
-export type SfbBenefitType = 'sickness' | 'parental' | 'housing' | 'other';
+export type SfbBenefitType = 'sickness' | 'parental' | 'housing' | 'other' | 'generic';
 
 export interface SfbCasePayload {
     id: string;
     type: SfbBenefitType;
+    chapter?: number;
     claimDate: string;
     clientData: Record<string, any>;
     context: {

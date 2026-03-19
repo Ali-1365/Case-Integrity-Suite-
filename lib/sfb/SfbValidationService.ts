@@ -1,9 +1,15 @@
 
 import { SfbCasePayload, SfbValidationResult, IBenefitStrategy, SfbBenefitType } from './types';
 import { loggingService } from '../../services/loggingService';
+import { GenericSfbStrategy } from './strategies/GenericSfbStrategy';
 
 export class SfbValidationService {
     private strategies: Map<SfbBenefitType, IBenefitStrategy> = new Map();
+
+    constructor() {
+        // Register generic strategy by default
+        this.registerStrategy(new GenericSfbStrategy());
+    }
 
     registerStrategy(strategy: IBenefitStrategy) {
         this.strategies.set(strategy.type, strategy);
@@ -11,7 +17,8 @@ export class SfbValidationService {
     }
 
     async validate(payload: SfbCasePayload): Promise<SfbValidationResult> {
-        const strategy = this.strategies.get(payload.type);
+        // If type is generic or not found, use generic strategy
+        const strategy = this.strategies.get(payload.type) || this.strategies.get('generic');
         
         if (!strategy) {
             loggingService.error(`No SFB strategy found for type: ${payload.type}`);

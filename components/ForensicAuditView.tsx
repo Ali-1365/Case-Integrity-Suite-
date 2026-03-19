@@ -8,7 +8,8 @@ import {
     SparklesIcon,
     CpuChipIcon,
     AlertIcon,
-    CodeBracketIcon
+    CodeBracketIcon,
+    DocumentTextIcon
 } from './icons';
 
 interface ForensicAuditViewProps {
@@ -71,31 +72,84 @@ const ForensicAuditView: React.FC<ForensicAuditViewProps> = ({ analysis }) => {
                 </div>
             </div>
 
-            <div className="bg-[#111111] border border-gray-800 rounded-xl overflow-hidden">
-                <div className="p-5 border-b border-gray-800 bg-[#161616] flex justify-between items-center">
-                    <h4 className="text-sm font-medium text-gray-300 flex items-center">
-                        <SparklesIcon className="w-4 h-4 mr-2 text-gray-400" />
-                        Deterministisk Beslutslogg
-                    </h4>
-                    <span className="text-xs font-mono text-cyan-500">v.1.0 CIS_SYNC</span>
-                </div>
-                <div className="divide-y divide-gray-800">
-                    {audit.checks.map(check => (
-                        <div key={check.id} className="p-5 flex items-start gap-4 hover:bg-[#161616] transition-colors">
-                            {check.status === 'ok' ? (
-                                <CheckCircleIcon className="w-5 h-5 text-emerald-400 flex-shrink-0 mt-0.5" />
-                            ) : (
-                                <AlertIcon className="w-5 h-5 text-rose-400 flex-shrink-0 mt-0.5" />
-                            )}
-                            <div>
-                                <div className="flex items-center gap-2 mb-1">
-                                    <p className="text-gray-200 font-medium text-sm">{check.label}</p>
-                                    <span className="text-xs font-mono text-gray-600">[{check.id}]</span>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="bg-[#111111] border border-gray-800 rounded-xl overflow-hidden">
+                    <div className="p-5 border-b border-gray-800 bg-[#161616] flex justify-between items-center">
+                        <h4 className="text-sm font-medium text-gray-300 flex items-center">
+                            <SparklesIcon className="w-4 h-4 mr-2 text-gray-400" />
+                            Deterministisk Beslutslogg
+                        </h4>
+                        <span className="text-xs font-mono text-cyan-500">v.1.0 CIS_SYNC</span>
+                    </div>
+                    <div className="divide-y divide-gray-800 max-h-[400px] overflow-y-auto">
+                        {audit.checks.map(check => (
+                            <div key={check.id} className="p-5 flex items-start gap-4 hover:bg-[#161616] transition-colors">
+                                {check.status === 'ok' ? (
+                                    <CheckCircleIcon className="w-5 h-5 text-emerald-400 flex-shrink-0 mt-0.5" />
+                                ) : (
+                                    <AlertIcon className="w-5 h-5 text-rose-400 flex-shrink-0 mt-0.5" />
+                                )}
+                                <div>
+                                    <div className="flex items-center gap-2 mb-1">
+                                        <p className="text-gray-200 font-medium text-sm">{check.label}</p>
+                                        <span className="text-xs font-mono text-gray-600">[{check.id}]</span>
+                                    </div>
+                                    <p className="text-sm text-gray-500 leading-relaxed">{check.details}</p>
                                 </div>
-                                <p className="text-sm text-gray-500 leading-relaxed">{check.details}</p>
                             </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
+                </div>
+
+                <div className="bg-[#111111] border border-gray-800 rounded-xl overflow-hidden flex flex-col">
+                    <div className="p-5 border-b border-gray-800 bg-[#161616] flex justify-between items-center">
+                        <h4 className="text-sm font-medium text-gray-300 flex items-center">
+                            <CodeBracketIcon className="w-4 h-4 mr-2 text-gray-400" />
+                            Forensisk Kedja - Atomisering
+                        </h4>
+                        <span className="text-[10px] font-mono text-emerald-500">SHA-256 ACTIVE</span>
+                    </div>
+                    <div className="p-6 space-y-6 flex-1 overflow-y-auto max-h-[400px]">
+                        {analysis.documents.map(doc => {
+                            const docAtoms = analysis.atoms.filter(a => a.documentId === doc.id);
+                            return (
+                                <div key={doc.id} className="space-y-4">
+                                    <div className="flex items-center justify-between p-3 bg-[#0a0a0a] rounded-lg border border-gray-800">
+                                        <div className="flex items-center gap-3">
+                                            <DocumentTextIcon className="w-4 h-4 text-gray-500" />
+                                            <div>
+                                                <p className="text-xs font-bold text-gray-300 uppercase">Källdokument: ID: {doc.id}</p>
+                                                <p className="text-[10px] text-emerald-500 font-medium">Atomisering: {docAtoms.length} diskreta segment skapade</p>
+                                            </div>
+                                        </div>
+                                        <div className="text-right">
+                                            <p className="text-[10px] font-mono text-emerald-500">SHA-256 SIGNERAD</p>
+                                            <p className="text-[9px] text-gray-600">Forensiskt Verifierad</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="space-y-2 pl-4 border-l border-gray-800">
+                                        {docAtoms.slice(0, 3).map(atom => (
+                                            <div key={atom.id} className="p-3 bg-[#161616] rounded-lg border border-gray-800 group">
+                                                <div className="flex justify-between items-center mb-2">
+                                                    <span className="text-[9px] font-mono text-gray-500">ATOM-{atom.id.substring(0,8)}</span>
+                                                    <span className="text-[9px] font-mono text-emerald-500/60 group-hover:text-emerald-500 transition-colors">LÅST_HASH</span>
+                                                </div>
+                                                <p className="text-[11px] text-gray-400 line-clamp-2 italic mb-2">"{atom.text}"</p>
+                                                <div className="flex items-center gap-2">
+                                                    <div className="flex-1 h-[1px] bg-gray-800"></div>
+                                                    <span className="text-[8px] font-mono text-gray-600 truncate max-w-[150px]">{atom.hash}</span>
+                                                </div>
+                                            </div>
+                                        ))}
+                                        {docAtoms.length > 3 && (
+                                            <p className="text-[10px] text-gray-600 italic text-center py-2">... ytterligare {docAtoms.length - 3} diskreta segment skapade och SHA-256 signerade</p>
+                                        )}
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
                 </div>
             </div>
         </div>

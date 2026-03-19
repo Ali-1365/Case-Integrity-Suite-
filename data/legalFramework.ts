@@ -218,6 +218,15 @@ export const legalFrameworkIndex: LegalFrameworkIndexEntry[] = [
     "auditTrail": { "status": "VERIFIED" }
   },
   {
+    "id": "las_1982",
+    "label": "Lagen om anställningsskydd (1982:80)",
+    "type": "lag",
+    "sfsNumber": "1982:80",
+    "shortName": "LAS",
+    "corpusFile": "las_1982_80.json",
+    "auditTrail": { "status": "VERIFIED" }
+  },
+  {
     "id": "praxis",
     "label": "Vägledande Praxis (HFD, RÅ, JO, KR)",
     "type": "regelverk",

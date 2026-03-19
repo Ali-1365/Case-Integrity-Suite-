@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { AnalysisResult } from '../lib/cis.types';
+import { LEGAL_SOURCES } from '../data/legalSources';
 import Card from './shared/Card';
 import Tabs from './shared/Tabs';
 import MarkdownRenderer from './shared/MarkdownRenderer';
@@ -177,19 +178,34 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = (props) => {
                             <div className="space-y-8">
                                 <Card title="Juridiskt Ramverk (SFS)" icon={<LawIcon className="w-5 h-5" />}>
                                     <div className="space-y-3">
-                                        {props.analysis.legalReferences.map(r => (
-                                            <button 
-                                                key={r.id} 
-                                                onClick={() => setSelectedLegalRefId(r.id)}
-                                                className="w-full text-left p-5 bg-[#161616] rounded-xl border border-gray-800 hover:border-cyan-500/40 hover:bg-cyan-500/5 transition-colors group flex justify-between items-center"
-                                            >
-                                                <div>
-                                                    <p className="text-sm font-semibold text-cyan-400">{r.rawText}</p>
-                                                    <p className="text-xs text-gray-500 italic mt-1 line-clamp-1">"{r.contextSnippet}"</p>
-                                                </div>
-                                                <LinkIcon className="w-4 h-4 text-gray-600 group-hover:text-cyan-400" />
-                                            </button>
-                                        ))}
+                                        {props.analysis.legalReferences.map(r => {
+                                            const isVerified = LEGAL_SOURCES.some(s => 
+                                                s.reference === r.source || 
+                                                s.label.toLowerCase() === r.rawText.toLowerCase() ||
+                                                (s.sfsNumber && r.rawText.includes(s.sfsNumber))
+                                            );
+                                            return (
+                                                <button 
+                                                    key={r.id} 
+                                                    onClick={() => setSelectedLegalRefId(r.id)}
+                                                    className="w-full text-left p-5 bg-[#161616] rounded-xl border border-gray-800 hover:border-cyan-500/40 hover:bg-cyan-500/5 transition-colors group flex justify-between items-center"
+                                                >
+                                                    <div className="flex-grow">
+                                                        <div className="flex items-center gap-2 mb-1">
+                                                            <p className="text-sm font-semibold text-cyan-400">{r.rawText}</p>
+                                                            {(r.valid || isVerified) && (
+                                                                <span className="flex items-center gap-0.5 px-1.5 py-0.5 bg-emerald-500/10 border border-emerald-500/20 rounded text-[8px] font-black text-emerald-500 uppercase tracking-widest">
+                                                                    <ShieldCheckIcon className="w-2.5 h-2.5" />
+                                                                    GOLD
+                                                                </span>
+                                                            )}
+                                                        </div>
+                                                        <p className="text-xs text-gray-500 italic line-clamp-1">"{r.contextSnippet}"</p>
+                                                    </div>
+                                                    <LinkIcon className="w-4 h-4 text-gray-600 group-hover:text-cyan-400" />
+                                                </button>
+                                            );
+                                        })}
                                         {props.analysis.legalReferences.length === 0 && (
                                             <p className="text-center py-8 text-gray-600 text-sm italic">Inga lagrum identifierade.</p>
                                         )}
@@ -270,13 +286,16 @@ const OverviewContent: React.FC<{ analysis: AnalysisResult }> = ({ analysis }) =
         <div className="lg:col-span-8 space-y-8">
             <div className="bg-[#161616] p-8 rounded-xl border border-gray-800 relative overflow-hidden shadow-sm">
                 <div className="flex items-center space-x-3 mb-6">
-                    <BoltIcon className="w-5 h-5 text-cyan-500" />
+                    <ShieldCheckIcon className="w-5 h-5 text-cyan-500" />
                     <h3 className="text-sm font-semibold text-cyan-500 uppercase tracking-wider">Forensic Chain Summary</h3>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
                     <StatCard label="Aktiverat Lagrum" value={analysis.legalReferences.length} color="cyan" />
-                    <StatCard label="Bevisatomer" value={analysis.facts.length} color="cyan" />
-                    <StatCard label="Audit Checks" value={analysis.qaSummary.length} color="cyan" />
+                    <StatCard label="Bevisatomer" value={analysis.atoms.length} color="cyan" />
+                    <StatCard label="Audit Checks Verifierade" value={analysis.audit?.checks.filter(c => c.status === 'ok').length || 0} color="cyan" />
+                    <StatCard label="Beviskategorier" value={new Set(analysis.atoms.flatMap(a => a.tags)).size} color="cyan" />
+                    <StatCard label="Lagrumskopplingar" value={analysis.legalFrameworkLinks.length} color="cyan" />
+                    <StatCard label="Integritets-Score" value={analysis.audit?.integrityScore || 100} suffix="%" color="cyan" />
                 </div>
             </div>
             <Card title="Verifierade Beviskategorier" icon={<TagIcon className="w-5 h-5" />}>
@@ -310,9 +329,9 @@ const OverviewContent: React.FC<{ analysis: AnalysisResult }> = ({ analysis }) =
     </div>
 );
 
-const StatCard: React.FC<{ label: string, value: number, color: string }> = ({ label, value, color }) => (
+const StatCard: React.FC<{ label: string, value: number, color: string, suffix?: string }> = ({ label, value, color, suffix = "" }) => (
     <div className="text-center p-6 bg-slate-50 dark:bg-[#111111] rounded-xl border border-slate-200 dark:border-gray-800 shadow-sm">
-        <p className={`text-4xl font-semibold text-cyan-600 dark:text-cyan-400 mb-2`}>{value}</p>
+        <p className={`text-4xl font-semibold text-cyan-600 dark:text-cyan-400 mb-2`}>{value}{suffix}</p>
         <p className="text-xs font-medium text-slate-500 dark:text-gray-500">{label}</p>
     </div>
 );

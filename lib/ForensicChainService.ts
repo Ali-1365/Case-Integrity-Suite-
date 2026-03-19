@@ -10,11 +10,18 @@ export interface ChainVerificationResult {
   failedAtoms: string[];
   integrityScore: number;
   timestamp: string;
+  documentSummary: {
+    id: string;
+    atomCount: number;
+    status: 'VERIFIED' | 'FAILED';
+  }[];
+  signingAlgorithm: string;
 }
 
 /**
- * FMJAM ForensicChainService v.1.0
+ * FMJAM ForensicChainService v.1.1-GOLD
  * Garanterar dataintegritet genom att verifiera den kryptografiska beviskedjan.
+ * Separerar metadata från faktiska data-atomer för att förhindra korruption.
  */
 export class ForensicChainService {
   /**
@@ -24,14 +31,36 @@ export class ForensicChainService {
     const atoms = result.atoms || [];
     let verifiedCount = 0;
     const failedAtoms: string[] = [];
+    const documentSummary: { id: string; atomCount: number; status: 'VERIFIED' | 'FAILED' }[] = [];
 
-    for (const atom of atoms) {
-      const isValid = await integrityEngine.verifyAtom(atom);
-      if (isValid) {
-        verifiedCount++;
-      } else {
-        failedAtoms.push(atom.id);
+    // Gruppera atomer per dokument för att visa atomisering
+    const docs = result.documents || [];
+    for (const doc of docs) {
+      const docAtoms = atoms.filter(a => a.documentId === doc.id);
+      let docVerified = true;
+      
+      for (const atom of docAtoms) {
+        // Verifiera att vi inte blandar metadata med atom-text
+        if (atom.text.includes('metadata:') || atom.text.includes('hash:')) {
+          failedAtoms.push(atom.id);
+          docVerified = false;
+          continue;
+        }
+
+        const isValid = await integrityEngine.verifyAtom(atom);
+        if (isValid) {
+          verifiedCount++;
+        } else {
+          failedAtoms.push(atom.id);
+          docVerified = false;
+        }
       }
+
+      documentSummary.push({
+        id: doc.id,
+        atomCount: docAtoms.length,
+        status: docVerified ? 'VERIFIED' : 'FAILED'
+      });
     }
 
     const integrityScore = atoms.length > 0 ? (verifiedCount / atoms.length) * 100 : 100;
@@ -43,16 +72,18 @@ export class ForensicChainService {
       verifiedAtoms: verifiedCount,
       failedAtoms,
       integrityScore,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
+      documentSummary,
+      signingAlgorithm: 'SHA-256 (FIPS 180-4)'
     };
 
     // Logga verifieringen i audit-loggen
     await auditService.log({
-      operationType: 'INDEX', // Eller lämplig typ
+      operationType: 'INDEX',
       actor: 'SYSTEM',
-      affectedLaws: [],
+      affectedLaws: result.legalReferences.map(r => r.source),
       provenanceHashes: atoms.map(a => a.hash),
-      resultSummary: `Forensisk verifiering slutförd. Score: ${integrityScore}%. Valid: ${isValid}`,
+      resultSummary: `Forensisk kedja verifierad för ${docs.length} dokument. ${atoms.length} segment låsta med SHA-256. Score: ${integrityScore}%`,
       status: isValid ? 'OK' : 'ERROR',
       metadata: { caseId: result.caseId, verificationResult }
     });

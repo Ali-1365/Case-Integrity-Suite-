@@ -1,7 +1,8 @@
 
 import { CISCase } from './CaseManagementService';
-import { Atom } from './cis.types';
+import { Atom, AnalysisResult, DecisionSupportResult } from './cis.types';
 import { generateSHA256 } from './hashHelper';
+import { LEGAL_SOURCES } from '../data/legalSources';
 
 export interface IntegrityIssue {
   caseId: string;
@@ -10,9 +11,9 @@ export interface IntegrityIssue {
 }
 
 /**
- * CIS IntegrityEngine v.1.1-GOLD
+ * CIS IntegrityEngine v.1.2-GOLD
  * Säkerställer att alla ärenden har komplett ID-kedja, versioner och journal.
- * Inkluderar nu forensisk hash-verifiering av data-atomer.
+ * Inkluderar nu forensisk hash-verifiering och legal källkontroll.
  */
 export class IntegrityEngine {
   /**
@@ -22,6 +23,52 @@ export class IntegrityEngine {
     if (localStorage.getItem('FMJAM_INTEGRITY_BYPASS') === '1') return true;
     const currentHash = await generateSHA256(atom.text);
     return currentHash === atom.hash;
+  }
+
+  /**
+   * Verifierar att alla lagrumshänvisningar i ett resultat är giltiga och existerar i GOLD-indexet.
+   */
+  validateLegalIntegrity(result: AnalysisResult | DecisionSupportResult, caseId: string): IntegrityIssue[] {
+    const issues: IntegrityIssue[] = [];
+    
+    // Hämta lagrumshänvisningar beroende på resultattyp
+    const references = 'legalReferences' in result 
+      ? result.legalReferences.map(r => ({ source: r.source, rawText: r.rawText }))
+      : result.machineReadable.legalBasis.map(b => ({ source: b as any, rawText: b }));
+
+    references.forEach(ref => {
+      const exists = LEGAL_SOURCES.some(source => 
+        source.reference === ref.source || 
+        source.label.toLowerCase() === ref.rawText.toLowerCase() ||
+        (source.sfsNumber && ref.rawText.includes(source.sfsNumber))
+      );
+
+      if (!exists) {
+        issues.push({
+          caseId: caseId,
+          issue: `Overifierat Lagrum: Hänvisningen "${ref.rawText}" kunde inte matchas mot systemets legala GOLD-index.`,
+          severity: 'WARN'
+        });
+      }
+    });
+
+    return issues;
+  }
+
+  /**
+   * Berikar ett resultat med verifieringsstatus för lagrumshänvisningar.
+   */
+  enrichWithLegalVerification(result: AnalysisResult): AnalysisResult {
+    const enrichedReferences = result.legalReferences.map(ref => {
+      const exists = LEGAL_SOURCES.some(source => 
+        source.reference === ref.source || 
+        source.label.toLowerCase() === ref.rawText.toLowerCase() ||
+        (source.sfsNumber && ref.rawText.includes(source.sfsNumber))
+      );
+      return { ...ref, valid: exists };
+    });
+
+    return { ...result, legalReferences: enrichedReferences };
   }
 
   async validateRepository(cases: CISCase[]): Promise<IntegrityIssue[]> {
@@ -56,9 +103,13 @@ export class IntegrityEngine {
             });
           }
         }
+
+        // 5. Legal Integritetskontroll
+        const legalIssues = this.validateLegalIntegrity(c.activeResult, c.caseId);
+        issues.push(...legalIssues);
       }
 
-      // 5. Versions-proveniens
+      // 6. Versions-proveniens
       c.versions.forEach(v => {
         if (v.provenance.length === 0) {
           issues.push({ caseId: c.caseId, issue: `Version ${v.versionId} saknar proveniens-hashar.`, severity: 'CRITICAL' });

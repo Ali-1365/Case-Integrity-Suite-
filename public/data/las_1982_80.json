@@ -1,0 +1,33 @@
+{
+  "sourceCode": "LAS",
+  "sfsNumber": "1982:80",
+  "title": "Lagen (1982:80) om anställningsskydd",
+  "shortName": "LAS",
+  "paragraphs": [
+    {
+      "id": "las_1",
+      "section": "1",
+      "text": "Denna lag gäller arbetstagare i allmän eller enskild tjänst. Från lagens tillämpning undantas dock arbetstagare som med hänsyn till arbetsuppgifter och anställningsvillkor får anses ha företagsledande eller därmed jämförlig ställning, arbetstagare som tillhör arbetsgivarens familj, arbetstagare som är anställda för arbete i arbetsgivarens hushåll och arbetstagare som har anvisats arbete i gymnasial lärlingsanställning.",
+      "metadata": {
+        "provenanceHash": "sha256-placeholder-las-1"
+      }
+    },
+    {
+      "id": "las_4",
+      "section": "4",
+      "text": "Anställningsavtal gäller tills vidare. Avtal om tidsbegränsad anställning får dock träffas i de fall som anges i 5, 5 a och 6 §§. Om ett sådant avtal träffas i andra fall, gäller avtalet tills vidare.",
+      "metadata": {
+        "provenanceHash": "sha256-placeholder-las-4"
+      }
+    },
+    {
+      "id": "las_7",
+      "section": "7",
+      "text": "Uppsägning från arbetsgivarens sida ska vara sakligt grundad. En uppsägning är inte sakligt grundad om det är skäligt att kräva att arbetsgivaren bereder arbetstagaren annat arbete hos sig.",
+      "metadata": {
+        "provenanceHash": "sha256-placeholder-las-7"
+      }
+    }
+  ],
+  "versionChain": ["1982:80"]
+}

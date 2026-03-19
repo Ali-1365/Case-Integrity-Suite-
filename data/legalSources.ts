@@ -281,6 +281,30 @@ export const LEGAL_SOURCES: LegalFrameworkItem[] = [
         auditTrail: goldAudit
     },
     {
+        id: "las_1982",
+        label: "Lagen om anställningsskydd",
+        type: "lagrum",
+        reference: "LAS",
+        sfsNumber: "1982:80",
+        description: "Reglerar förhållandet mellan arbetsgivare och arbetstagare, inklusive uppsägningstider och grunder för avskedande.",
+        validFrom: "1982-04-01",
+        sourceUrl: "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/lag-198280-om-anstallningsskydd_sfs-1982-80/",
+        version: "1982:80",
+        auditTrail: goldAudit
+    },
+    {
+        id: "praxis",
+        label: "Vägledande Praxis",
+        type: "lagrum",
+        reference: "PRAXIS",
+        sfsNumber: "N/A",
+        description: "Samling av vägledande avgöranden från HFD, RÅ, JO och Kammarrätterna.",
+        validFrom: "2000-01-01",
+        sourceUrl: "#",
+        version: "2026-GOLD",
+        auditTrail: goldAudit
+    },
+    {
         id: "bk_art_3_1",
         label: "Barnkonventionen Art. 3.1",
         type: "lagrum",

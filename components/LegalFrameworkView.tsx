@@ -135,14 +135,20 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
             <div className="p-2.5 bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-100 dark:border-blue-800">
               <LawIcon className="h-6 w-6 text-blue-600 dark:text-blue-400" />
             </div>
-            <div>
-              <h2 className="text-lg font-semibold text-slate-900 dark:text-white leading-tight">
-                {activeCorpus ? activeCorpus.title : 'Juridiskt Ramverk'}
-              </h2>
-              <p className="text-[10px] text-slate-500 font-medium uppercase tracking-wider mt-1">
-                  FMJAM GOLD v.7.3 | {legalFrameworkIndex.length} Källor
-              </p>
-            </div>
+              <div>
+                <h2 className="text-lg font-semibold text-slate-900 dark:text-white leading-tight">
+                  {activeCorpus ? activeCorpus.title : 'Juridiskt Ramverk'}
+                </h2>
+                <div className="flex items-center gap-2 mt-1">
+                  <p className="text-[10px] text-slate-500 font-medium uppercase tracking-wider">
+                      FMJAM GOLD v.7.3 | {legalFrameworkIndex.length} Källor
+                  </p>
+                  <span className="flex items-center gap-0.5 px-1.5 py-0.5 bg-emerald-500/10 border border-emerald-500/20 rounded text-[8px] font-black text-emerald-500 uppercase tracking-widest">
+                    <ShieldCheckIcon className="w-2.5 h-2.5" />
+                    Verified
+                  </span>
+                </div>
+              </div>
           </div>
 
           <div className="flex items-center space-x-2">

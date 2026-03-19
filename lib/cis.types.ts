@@ -287,7 +287,7 @@ export interface AnalysisResult {
       detectedCaseTypes: CaseType[];
   };
   themes: { id: string; label: string; keywords: string[] }[];
-  legalReferences: { id: string; source: LegalSourceCode; rawText: string; contextSnippet: string; }[];
+  legalReferences: { id: string; source: LegalSourceCode; rawText: string; contextSnippet: string; valid?: boolean; }[];
   qaSummary: QACheck[];
   matchedRules?: MatchedRule[];
   evidenceChain?: EvidenceChainItem[];
