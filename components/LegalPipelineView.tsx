@@ -41,11 +41,16 @@ export const LegalPipelineView: React.FC<LegalPipelineViewProps> = ({ analysis }
 
     const runPipeline = async () => {
         setIsRunning(true);
-        const caseData = JSON.stringify(analysis);
-        await legalPipelineService.runFullPipeline(analysis.caseId, caseData, (newState) => {
-            setState(newState);
-        });
-        setIsRunning(false);
+        try {
+            const caseData = JSON.stringify(analysis);
+            await legalPipelineService.runFullPipeline(analysis.caseId, caseData, (newState) => {
+                setState(newState);
+            });
+        } catch (error) {
+            console.error("Legal pipeline failed:", error);
+        } finally {
+            setIsRunning(false);
+        }
     };
 
     const getStepIcon = (stepId: string) => {

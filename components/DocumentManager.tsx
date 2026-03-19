@@ -302,8 +302,23 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                         legalCorpus={legalCorpora}
                         pipelineStatus={pipelineStatus} 
                         documents={documents} 
-                        onFilesSelect={async (files) => { for(const f of files) { const p = await parseFile(f); if(p) await handleAnalyze(p); } }}
-                        onTextSubmit={async (t) => await handleAnalyze({ name: 'Manuell inmatning', textContent: t, mimeType: 'text/plain' })}
+                        onFilesSelect={async (files) => { 
+                            try {
+                                for(const f of files) { 
+                                    const p = await parseFile(f); 
+                                    if(p) await handleAnalyze(p); 
+                                } 
+                            } catch (err) {
+                                console.error('File selection processing failed:', err);
+                            }
+                        }}
+                        onTextSubmit={async (t) => {
+                            try {
+                                await handleAnalyze({ name: 'Manuell inmatning', textContent: t, mimeType: 'text/plain' });
+                            } catch (err) {
+                                console.error('Text submission processing failed:', err);
+                            }
+                        }}
                         onSelectDocument={setSelectedDocId}
                         onAggregateSelected={() => {}}
                         isProcessing={isAnalyzing || isParsing}
