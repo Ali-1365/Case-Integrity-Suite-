@@ -14,11 +14,14 @@ import {
 } from './icons';
 import Card from './shared/Card';
 
-export const PaymentsView: React.FC<{ payments: Payment[] }> = ({ payments }) => (
+export const PaymentsView: React.FC<{ payments: Payment[], onAdd: () => void }> = ({ payments, onAdd }) => (
   <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
     <div className="flex justify-between items-center">
       <h3 className="text-xl font-bold text-slate-900 dark:text-white">Betalningshistorik</h3>
-      <button className="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center space-x-2 transition-all">
+      <button 
+        onClick={onAdd}
+        className="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center space-x-2 transition-all"
+      >
         <PlusIcon className="w-4 h-4" />
         <span>Ny Betalning</span>
       </button>
@@ -47,11 +50,14 @@ export const PaymentsView: React.FC<{ payments: Payment[] }> = ({ payments }) =>
   </div>
 );
 
-export const InvoicesView: React.FC<{ invoices: Invoice[] }> = ({ invoices }) => (
+export const InvoicesView: React.FC<{ invoices: Invoice[], onAdd: () => void }> = ({ invoices, onAdd }) => (
   <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
     <div className="flex justify-between items-center">
       <h3 className="text-xl font-bold text-slate-900 dark:text-white">Fakturahantering</h3>
-      <button className="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center space-x-2 transition-all">
+      <button 
+        onClick={onAdd}
+        className="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center space-x-2 transition-all"
+      >
         <PlusIcon className="w-4 h-4" />
         <span>Skapa Faktura</span>
       </button>
@@ -102,7 +108,7 @@ export const InvoicesView: React.FC<{ invoices: Invoice[] }> = ({ invoices }) =>
   </div>
 );
 
-export const DamagesView: React.FC<{ claims: DamagesClaim[] }> = ({ claims }) => (
+export const DamagesView: React.FC<{ claims: DamagesClaim[], onAdd: () => void, onAnalyze: (claim: DamagesClaim) => void }> = ({ claims, onAdd, onAnalyze }) => (
   <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
     <div className="flex justify-between items-center">
       <h3 className="text-xl font-bold text-slate-900 dark:text-white">Skadeståndsprocesser</h3>
@@ -110,7 +116,10 @@ export const DamagesView: React.FC<{ claims: DamagesClaim[] }> = ({ claims }) =>
         <button className="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-4 py-2 rounded-xl text-xs font-bold transition-all">
           Filtrera
         </button>
-        <button className="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center space-x-2 transition-all">
+        <button 
+          onClick={onAdd}
+          className="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center space-x-2 transition-all"
+        >
           <PlusIcon className="w-4 h-4" />
           <span>Nytt Krav</span>
         </button>
@@ -164,12 +173,21 @@ export const DamagesView: React.FC<{ claims: DamagesClaim[] }> = ({ claims }) =>
             </div>
             <div>
               <h5 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-4">Juridisk Grund & Analys</h5>
-              <div className="p-6 bg-indigo-50 dark:bg-indigo-950/30 rounded-3xl border border-indigo-100 dark:border-indigo-900/50">
-                <div className="flex items-center space-x-2 mb-4">
-                  <SparklesIcon className="w-5 h-5 text-indigo-500" />
-                  <span className="text-sm font-bold text-indigo-900 dark:text-indigo-300">AI-Legal Analys</span>
+              <div className="p-6 bg-indigo-50 dark:bg-indigo-950/30 rounded-3xl border border-indigo-100 dark:border-indigo-900/50 h-full flex flex-col">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center space-x-2">
+                    <SparklesIcon className="w-5 h-5 text-indigo-500" />
+                    <span className="text-sm font-bold text-indigo-900 dark:text-indigo-300">AI-Legal Analys</span>
+                  </div>
+                  <button 
+                    onClick={() => onAnalyze(claim)}
+                    className="text-[10px] font-black uppercase tracking-widest text-indigo-600 hover:text-indigo-500 transition-colors flex items-center space-x-1"
+                  >
+                    <SparklesIcon className="w-3 h-3" />
+                    <span>Uppdatera Analys</span>
+                  </button>
                 </div>
-                <div className="space-y-4">
+                <div className="space-y-4 flex-1">
                   <div>
                     <p className="text-[10px] text-indigo-800/50 dark:text-indigo-400/50 uppercase font-black tracking-widest mb-1">Rättskällor</p>
                     <div className="flex flex-wrap gap-2">
@@ -180,8 +198,8 @@ export const DamagesView: React.FC<{ claims: DamagesClaim[] }> = ({ claims }) =>
                       ))}
                     </div>
                   </div>
-                  <p className="text-xs text-indigo-800/70 dark:text-indigo-400/70 leading-relaxed">
-                    Analysen visar på starkt stöd i praxis för yrkandet gällande sveda och värk. Inkomstförlusten kräver dock ytterligare bevisning i form av lönespecifikationer för att nå fullt genomslag.
+                  <p className="text-xs text-indigo-800/70 dark:text-indigo-400/70 leading-relaxed italic">
+                    {claim.aiAnalysis || "Ingen analys tillgänglig. Klicka på 'Uppdatera Analys' för att generera en AI-driven juridisk bedömning."}
                   </p>
                 </div>
               </div>

@@ -17,6 +17,7 @@ export interface Payment {
   date: string;
   recipient: string;
   description: string;
+  category?: 'SERVICE' | 'GOODS' | 'LEGAL_FEE' | 'DAMAGES_PAYMENT' | 'TAX';
 }
 
 export interface Invoice {
@@ -49,8 +50,10 @@ export interface DamagesClaim {
   legalBasis: string[];
   estimatedAmount: number;
   probability: number; // 0 to 1
-  status: 'DRAFT' | 'FILED' | 'NEGOTIATION' | 'SETTLED' | 'LITIGATION';
+  status: 'DRAFT' | 'FILED' | 'NEGOTIATION' | 'SETTLED' | 'LITIGATION' | 'IN_PROGRESS';
   components: DamageComponent[];
+  description?: string;
+  aiAnalysis?: string;
 }
 
 export interface DamageComponent {

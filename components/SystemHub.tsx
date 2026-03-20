@@ -19,7 +19,8 @@ import {
     CodeBracketIcon,
     AdjustmentsHorizontalIcon,
     ClipboardDocumentListIcon,
-    MagnifyingGlassIcon as SearchIcon
+    MagnifyingGlassIcon as SearchIcon,
+    BanknotesIcon
 } from './icons';
 
 interface ModuleCardProps {
@@ -73,6 +74,15 @@ export const SystemHub: React.FC<SystemHubProps> = ({ onNavigate }) => {
     const [activeCategory, setActiveCategory] = useState<string | null>(null);
 
     const modules = useMemo(() => [
+        {
+            id: 'ekonomi',
+            title: 'Ekonomisk Motor',
+            description: 'Hantera betalningar, fakturor och skadeståndskrav med AI-precision.',
+            icon: <BanknotesIcon />,
+            status: 'active' as const,
+            color: 'text-emerald-400',
+            category: 'Expertis'
+        },
         {
             id: 'chat',
             title: 'Beslutsmotor',

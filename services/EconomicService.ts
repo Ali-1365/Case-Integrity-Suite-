@@ -1,8 +1,9 @@
 
 import { Payment, Invoice, DamagesClaim, BudgetForecast, EconomicState, DamageComponent } from '../lib/economic.types';
+import { geminiService } from './geminiService';
 
 /**
- * EconomicService v.1.0-GOLD
+ * EconomicService v.1.1-GOLD
  * Hanterar modulära ekonomiska funktioner, skadeståndsberäkningar och budgetprognoser.
  * Integrerar principer från komplexitetshantering och antifragila system.
  */
@@ -59,26 +60,13 @@ export class EconomicService {
         id: 'claim-2',
         claimant: 'Företag B',
         defendant: 'Privatperson Y',
-        type: 'INDIVIDUAL',
+        type: 'PRIVATE',
         legalBasis: ['Skadeståndslagen 2 kap. 1 §'],
         estimatedAmount: 120000,
         probability: 0.80,
         status: 'NEGOTIATION',
         components: [
           { id: 'comp-3', label: 'Sakskada', amount: 120000, description: 'Skadegörelse på maskinutrustning', legalReference: 'SkL 2 kap. 1 §' }
-        ]
-      },
-      {
-        id: 'claim-3',
-        claimant: 'Bostadsrättsförening Z',
-        defendant: 'Entreprenör Å',
-        type: 'CIVIL',
-        legalBasis: ['Köplagen', 'Allmänna skadeståndsprinciper'],
-        estimatedAmount: 450000,
-        probability: 0.45,
-        status: 'DISCOVERY',
-        components: [
-          { id: 'comp-4', label: 'Förmögenhetsskada', amount: 450000, description: 'Kostnader för avhjälpande av fel i entreprenad', legalReference: 'AB 04' }
         ]
       }
     ];
@@ -122,6 +110,13 @@ export class EconomicService {
     this.state.claims = [claim, ...this.state.claims];
   }
 
+  updateClaim(id: string, updates: Partial<DamagesClaim>) {
+    const claimIndex = this.state.claims.findIndex(c => c.id === id);
+    if (claimIndex !== -1) {
+      this.state.claims[claimIndex] = { ...this.state.claims[claimIndex], ...updates };
+    }
+  }
+
   /**
    * Beräknar skadestånd baserat på Skadeståndslagen (SkL).
    * Inkluderar sveda och värk, lyte och men, samt inkomstförlust.
@@ -129,6 +124,26 @@ export class EconomicService {
    */
   calculateDamages(components: DamageComponent[]): number {
     return components.reduce((acc, comp) => acc + comp.amount, 0);
+  }
+
+  async analyzeClaimAI(claim: DamagesClaim): Promise<string> {
+    const prompt = `Analysera följande skadeståndskrav baserat på svensk skadeståndsrätt (Skadeståndslagen, SkL):
+    Kärande: ${claim.claimant}
+    Svarande: ${claim.defendant}
+    Typ: ${claim.type}
+    Belopp: ${claim.estimatedAmount} SEK
+    Komponenter: ${claim.components.map(c => `${c.label}: ${c.amount} SEK (${c.description})`).join(', ')}
+    Juridisk grund: ${claim.legalBasis.join(', ')}
+    
+    Ge en kortfattad juridisk bedömning av sannolikheten för framgång och eventuella risker.`;
+
+    try {
+      const response = await geminiService.generate({ contents: prompt });
+      return response || "Kunde inte generera analys.";
+    } catch (error) {
+      console.error("AI Analysis failed:", error);
+      return "Ett fel uppstod vid AI-analysen.";
+    }
   }
 
   // --- Budgetanalys ---
@@ -146,7 +161,7 @@ export class EconomicService {
    */
   generateAntifragileForecast(baseData: any): BudgetForecast {
     // Simulering av komplexitet och osäkerhet
-    const variance = Math.random() * 0.2; // 20% osäkerhet
+    const variance = (Math.random() * 0.2) - 0.1; // +/- 10% osäkerhet
     return {
       id: crypto.randomUUID(),
       period: '2026-Q2',

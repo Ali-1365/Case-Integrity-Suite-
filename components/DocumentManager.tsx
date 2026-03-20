@@ -42,7 +42,8 @@ import {
     ExclamationTriangleIcon, 
     FingerPrintIcon, 
     ArchiveBoxIcon,
-    UserGroupIcon
+    UserGroupIcon,
+    BanknotesIcon
 } from './icons';
 
 import Chatbot from './Chatbot';
@@ -65,6 +66,7 @@ import ForensicIntegrityView from './ForensicIntegrityView';
 import OpinionGenerator from './OpinionGenerator';
 import { AdversarialDuelView } from './AdversarialDuelView';
 import LegalPipelineView from './LegalPipelineView';
+import EconomicDashboard from './EconomicDashboard';
 import { IntelligenceCore } from './IntelligenceCore';
 import ArchiveView from './ArchiveView';
 import { FmjamController } from './FmjamController';
@@ -256,6 +258,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                     
                     <nav className="hidden md:flex items-center space-x-6 flex-1 overflow-x-auto no-scrollbar nav-row">
                         <ToolButton icon={<Squares2X2Icon />} onClick={() => setActiveModal('hub')} label="System Hub" active={activeModal === 'hub'} />
+                        <ToolButton icon={<BanknotesIcon />} onClick={() => setActiveModal('ekonomi')} label="Ekonomi" active={activeModal === 'ekonomi'} />
                         <ToolButton icon={<ActivityIcon />} onClick={() => setActiveModal('monitor')} label="Monitor" active={activeModal === 'monitor'} />
                         <ToolButton icon={<ClipboardDocumentListIcon />} onClick={() => setActiveModal('inventory')} label="Inventering" active={activeModal === 'inventory'} />
                         <ToolButton icon={<ChatIcon />} onClick={() => setActiveModal('chat')} label="Beslutsmotor" active={activeModal === 'chat'} />
@@ -334,6 +337,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                             <div className="flex items-center space-x-4">
                                 <div className="p-2.5 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700">
                                     {activeModal === 'hub' && <Squares2X2Icon className="h-6 w-6 text-cyan-600 dark:text-cyan-400" />}
+                                    {activeModal === 'ekonomi' && <BanknotesIcon className="h-6 w-6 text-emerald-500" />}
                                     {activeModal === 'production' && <BoltIcon className="h-6 w-6 text-indigo-500" />}
                                     {activeModal === 'opinion' && <SparklesIcon className="h-6 w-6 text-purple-500" />}
                                     {activeModal === 'duel' && <ExclamationTriangleIcon className="h-6 w-6 text-rose-500" />}
@@ -359,6 +363,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                                 <div>
                                     <h2 className="text-lg font-semibold text-slate-900 dark:text-white tracking-tight">
                                         {activeModal === 'hub' && 'System Control Hub'}
+                                        {activeModal === 'ekonomi' && 'Ekonomisk Motor'}
                                         {activeModal === 'production' && 'Juridisk Textproduktion'}
                                         {activeModal === 'opinion' && 'AI-Expert (Yttranden)'}
                                         {activeModal === 'duel' && 'Adversarial Duel'}
@@ -389,6 +394,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                         </header>
                         <div className="flex-1 overflow-y-auto p-4 md:p-8 custom-scrollbar bg-white dark:bg-slate-950">
                             {activeModal === 'hub' && <SystemHub onNavigate={(view) => setActiveModal(view)} />}
+                            {activeModal === 'ekonomi' && <EconomicDashboard />}
                             {activeModal === 'production' && <LegalTextProductionModule />}
                             {activeModal === 'opinion' && currentAnalysis && <OpinionGenerator analysis={currentAnalysis} />}
                             {activeModal === 'duel' && currentAnalysis && selectedDoc && <AdversarialDuelView caseData={selectedDoc.textContent} caseId={currentAnalysis.caseId} />}
@@ -432,6 +438,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
 
             <div className="md:hidden fixed bottom-12 left-1/2 -translate-x-1/2 flex items-center bg-[#111111]/90 backdrop-blur-md border border-gray-800 rounded-3xl p-4 shadow-2xl z-[200]">
                 <ToolButton icon={<Squares2X2Icon />} onClick={() => setActiveModal('hub')} active={activeModal === 'hub'} />
+                <ToolButton icon={<BanknotesIcon />} onClick={() => setActiveModal('ekonomi')} active={activeModal === 'ekonomi'} />
                 <ToolButton icon={<ChatIcon />} onClick={() => setActiveModal('chat')} active={activeModal === 'chat'} />
                 <ToolButton icon={<BoltIcon />} onClick={() => setActiveModal('production')} active={activeModal === 'production'} />
                 <ToolButton icon={<ActivityIcon />} onClick={() => setActiveModal('monitor')} active={activeModal === 'monitor'} />
