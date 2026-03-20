@@ -200,9 +200,14 @@ const EconomicDashboard: React.FC = () => {
         {activeTab === 'OVERVIEW' && (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 h-full">
             <div className="lg:col-span-2 space-y-8">
+              <div className="space-y-2">
+                <h2 className="text-xl font-black text-slate-900 dark:text-white">Finansiell Överblick</h2>
+                <p className="text-xs text-slate-500">Realtidsanalys av pågående rättsliga processer och budgetstatus.</p>
+              </div>
+
               <Card title="Aktiva Skadeståndsprocesser" icon={<ScaleIcon className="w-5 h-5" />}>
                 <div className="space-y-4">
-                  {claims.map(claim => (
+                  {claims.length > 0 ? claims.map(claim => (
                     <div key={claim.id} className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 hover:border-indigo-500/30 transition-all cursor-pointer group">
                       <div className="flex items-center space-x-4">
                         <div className={`p-2 rounded-lg ${claim.type === 'STATE' ? 'bg-amber-100 text-amber-700' : 'bg-blue-100 text-blue-700'}`}>
@@ -215,13 +220,22 @@ const EconomicDashboard: React.FC = () => {
                       </div>
                       <div className="text-right flex items-center space-x-6">
                         <div>
-                          <p className="text-sm font-bold text-slate-900 dark:text-white">{claim.estimatedAmount.toLocaleString()} SEK</p>
-                          <p className="text-[10px] text-slate-500 uppercase tracking-widest">{claim.status}</p>
+                          <p className="text-sm font-bold text-slate-900 dark:text-white">
+                            {new Intl.NumberFormat('sv-SE', { style: 'currency', currency: 'SEK' }).format(claim.estimatedAmount)}
+                          </p>
+                          <p className="text-[10px] text-slate-500 uppercase tracking-widest">
+                            {claim.status === 'IN_PROGRESS' ? 'Pågående' : claim.status === 'SETTLED' ? 'Förlikad' : 'Avslutad'}
+                          </p>
                         </div>
                         <ChevronRightIcon className="w-5 h-5 text-slate-300 group-hover:text-indigo-500 transition-colors" />
                       </div>
                     </div>
-                  ))}
+                  )) : (
+                    <div className="py-8 text-center">
+                      <ScaleIcon className="w-10 h-10 text-slate-200 mx-auto mb-2" />
+                      <p className="text-xs text-slate-400">Inga aktiva skadeståndsprocesser registrerade.</p>
+                    </div>
+                  )}
                 </div>
               </Card>
 
@@ -265,17 +279,23 @@ const EconomicDashboard: React.FC = () => {
             <div className="space-y-8">
               <Card title="Senaste Betalningar" icon={<BanknotesIcon className="w-5 h-5" />}>
                 <div className="space-y-4">
-                  {payments.map(payment => (
+                  {payments.length > 0 ? payments.map(payment => (
                     <div key={payment.id} className="flex items-center justify-between py-2 border-b border-slate-100 dark:border-slate-800 last:border-0">
                       <div>
                         <p className="text-sm font-bold text-slate-900 dark:text-white">{payment.recipient}</p>
-                        <p className="text-[10px] text-slate-500 uppercase">{payment.date}</p>
+                        <p className="text-[10px] text-slate-500 uppercase">
+                          {new Date(payment.date).toLocaleDateString('sv-SE')}
+                        </p>
                       </div>
                       <p className={`text-sm font-mono font-bold ${payment.status === 'COMPLETED' ? 'text-emerald-600' : 'text-amber-600'}`}>
-                        {payment.amount.toLocaleString()} {payment.currency}
+                        {new Intl.NumberFormat('sv-SE', { style: 'currency', currency: payment.currency }).format(payment.amount)}
                       </p>
                     </div>
-                  ))}
+                  )) : (
+                    <div className="py-6 text-center">
+                      <p className="text-[10px] text-slate-400">Inga nyligen genomförda betalningar.</p>
+                    </div>
+                  )}
                   <button 
                     onClick={() => setActiveForm('PAYMENT')}
                     className="w-full py-3 mt-4 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-xl text-slate-400 hover:text-indigo-500 hover:border-indigo-500/50 transition-all flex items-center justify-center space-x-2 text-xs font-bold uppercase tracking-widest"

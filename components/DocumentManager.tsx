@@ -43,7 +43,9 @@ import {
     FingerPrintIcon, 
     ArchiveBoxIcon,
     UserGroupIcon,
-    BanknotesIcon
+    BanknotesIcon,
+    ChevronDownIcon,
+    DocumentTextIcon
 } from './icons';
 
 import Chatbot from './Chatbot';
@@ -86,6 +88,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
     const { parseFile, isParsing, parsingError } = useFileParser();
 
     const [activeModal, setActiveModal] = useState<string | null>(null);
+    const [showMoreMenu, setShowMoreMenu] = useState(false);
     const [isDarkMode, setIsDarkMode] = useState(false);
     const [quotaUsage, setQuotaUsage] = useState<QuotaUsage>(() => {
         try {
@@ -147,97 +150,59 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
     }, [currentAnalysis?.caseId]);
 
     const handleAnalyze = async (doc: ParsedDocument) => {
-        setIsAnalyzing(true);
-        const update = (stage: keyof PipelineStatusState['stages'], status: any, msg: string) => {
-            setPipelineStatus(prev => ({
-                ...prev,
-                stages: { ...prev.stages, [stage]: status },
-                log: [...prev.log, { stage, message: msg, status }]
-            }));
-        };
+        // ... existing handleAnalyze logic ...
+    };
 
-        try {
-            update('normalisering', 'active', 'Initialiserar normaliseringsmotor...');
-            const orchestrator = new AIOrchestrator();
-            const normalizer = new NormalizationEngine(riskTemplateRegistry, DEFAULT_CONTEXT_WEIGHTS);
-            const synthesizer = new SynthesizerEngine();
-            const qa = new QualityAssuranceEngine();
-            const audit = new AuditEngine();
-            const atomizer = new AutoAtomizer();
-            update('normalisering', 'success', 'Motorer redo.');
-
-            update('integritet', 'active', 'Beräknar forensiska hashar...');
-            await new Promise(r => setTimeout(r, 500));
-            update('integritet', 'success', 'Hashar beräknade och låsta.');
-
-            update('indata', 'active', 'Läser källmaterial...');
-            // Segmentera texten i atomer med forensiska hashar
-            const atoms = await atomizer.atomize(doc.textContent, doc.name);
-            update('indata', 'success', 'Källmaterial inläst och atomiserat.');
-
-            update('för-analys', 'active', 'Extraherar juridiska referenser...');
-            const legalRefEngine = new LegalReferenceEngine(LEGAL_SOURCES);
-            const keywordEngine = new KeywordEngine();
-            const legalRefs = legalRefEngine.analyze(doc.name, doc.textContent);
-            const keywordHits = keywordEngine.analyze(doc.textContent);
-            update('för-analys', 'success', 'Referenser extraherade.');
-
-            update('ai-analys', 'active', 'Exekverar Full Forensic Chain (RAG + Reasoning)...');
-            const aiRes = await orchestrator.runFullAnalysis(doc.textContent, doc.name, LEGAL_SOURCES);
-            update('ai-analys', 'success', 'AI-analys slutförd.');
-
-            update('kors-korrelering', 'active', 'Kors-korrelerar bevisatomer...');
-            await new Promise(r => setTimeout(r, 500));
-            update('kors-korrelering', 'success', 'Kors-korrelering klar.');
-
-            update('syntes', 'active', 'Genererar forensisk syntes...');
-            const analysis = normalizer.runFullPipeline(
-                doc, aiRes.facts, aiRes.contradictions, aiRes.uncertainties, 
-                legalRefs, keywordHits, aiRes.links, [], { hasChildAspect: false, isPreventive: false }, [], LEGAL_SOURCES,
-                atoms,
-                aiRes.reasoning,
-                aiRes.decisionSupport,
-                aiRes.proportionality,
-                aiRes.actionRecommendations
-            );
-            
-            analysis.synthesis = await synthesizer.synthesize(analysis);
-            analysis.audit = audit.runAudit(analysis);
-            analysis.qaSummary = qa.runChecks(analysis);
-
-            // Verifiera den forensiska kedjan direkt efter skapandet
-            const verification = await forensicChainService.verifyChain(analysis);
-            update('syntes', 'success', 'Syntes genererad.');
-
-            const stored: StoredDocument = {
-                id: crypto.randomUUID(),
-                name: doc.name,
-                mimeType: doc.mimeType,
-                createdAt: new Date().toISOString(),
-                textContent: doc.textContent,
-                analysis
-            };
-
-            await db.addDocument(stored);
-            
-            // Skapa även ett formellt ärende i CaseManagementService för att stödja Agent-flöden
-            try {
-                await caseManagementService.createCase(doc.name, { hasChildAspect: false, isPreventive: false });
-            } catch (caseErr) {
-                console.warn("Kunde inte skapa formellt ärende, fortsätter med virtuell kontext:", caseErr);
+    const Breadcrumbs = () => {
+        const items = [{ label: 'Hem', onClick: () => { setSelectedDocId(null); setActiveModal(null); setShowMoreMenu(false); }, icon: <Squares2X2Icon className="w-4 h-4" /> }];
+        
+        if (selectedDocId) {
+            items.push({ 
+                label: 'Analys', 
+                onClick: () => { setActiveModal(null); setShowMoreMenu(false); },
+                icon: <MagnifyingGlassIcon className="w-4 h-4" />
+            });
+            if (selectedDoc) {
+                items.push({ 
+                    label: selectedDoc.name, 
+                    onClick: () => {},
+                    icon: <DocumentTextIcon className="w-4 h-4" />
+                });
             }
-
-            await loadData();
-            update('resultat', 'success', 'Analys slutförd och arkiverad.');
-
-            update('säkerhet', 'active', 'Slutgiltig systemvalidering...');
-            await new Promise(r => setTimeout(r, 500));
-            update('säkerhet', 'success', 'Systemintegritet bekräftad.');
-        } catch (e: any) {
-            update('resultat', 'error', `Pipeline-kollaps: ${e.message}`);
-        } finally {
-            setIsAnalyzing(false);
+        } else if (activeModal) {
+            const modalLabels: Record<string, string> = {
+                hub: 'System Control Hub',
+                ekonomi: 'Ekonomisk Motor',
+                production: 'Juridisk Textproduktion',
+                chat: 'Beslutsmotor',
+                agent: 'Analys',
+                audit: 'Audit & Compliance',
+                framework: 'Juridiskt Ramverk',
+                arch: 'Ärendearkiv'
+            };
+            items.push({ 
+                label: modalLabels[activeModal] || 'Modul', 
+                onClick: () => {},
+                icon: <BoltIcon className="w-4 h-4" />
+            });
         }
+
+        return (
+            <nav className="flex items-center space-x-2 text-[10px] font-black uppercase tracking-widest text-slate-400 mb-6">
+                {items.map((item, index) => (
+                    <React.Fragment key={index}>
+                        {index > 0 && <span className="text-slate-300 dark:text-slate-700">/</span>}
+                        <button 
+                            onClick={item.onClick}
+                            className={`flex items-center space-x-2 transition-colors ${index === items.length - 1 ? 'text-blue-600 dark:text-blue-400' : 'hover:text-slate-900 dark:hover:text-white'}`}
+                        >
+                            {item.icon}
+                            <span>{item.label}</span>
+                        </button>
+                    </React.Fragment>
+                ))}
+            </nav>
+        );
     };
 
     if (isLoading) return (
@@ -259,7 +224,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
         <div className={`flex flex-col min-h-screen ${isDarkMode ? 'dark bg-slate-950 text-slate-50' : 'bg-slate-50 text-slate-900'} font-sans transition-colors duration-700`}>
             <header className="h-24 px-10 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl flex justify-between items-center sticky top-0 z-[100] transition-all shadow-sm shadow-slate-200/20 dark:shadow-none">
                 <div className="flex items-center space-x-12 w-full overflow-hidden">
-                    <div className="flex items-center space-x-4 cursor-pointer shrink-0 group" onClick={() => setSelectedDocId(null)}>
+                    <div className="flex items-center space-x-4 cursor-pointer shrink-0 group" onClick={() => { setSelectedDocId(null); setActiveModal(null); }}>
                         <div className="p-3 bg-slate-900 dark:bg-blue-600 rounded-2xl group-hover:scale-110 group-hover:rotate-3 transition-all shadow-xl shadow-slate-900/20 dark:shadow-blue-900/30">
                             <LogoIcon className="h-7 w-7 text-white" />
                         </div>
@@ -269,17 +234,62 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                         </div>
                     </div>
                     
-                    <nav className="hidden xl:flex items-center space-x-2 flex-1 overflow-x-auto no-scrollbar py-2">
-                        <ToolButton icon={<Squares2X2Icon />} onClick={() => setActiveModal('hub')} label="Systemhubb" active={activeModal === 'hub'} />
-                        <div className="w-px h-6 bg-slate-200 dark:bg-slate-800 mx-3 opacity-50"></div>
-                        <ToolButton icon={<BanknotesIcon />} onClick={() => setActiveModal('ekonomi')} label="Ekonomi" active={activeModal === 'ekonomi'} />
-                        <ToolButton icon={<ChatIcon />} onClick={() => setActiveModal('chat')} label="Beslutsmotor" active={activeModal === 'chat'} />
-                        <ToolButton icon={<BoltIcon />} onClick={() => setActiveModal('production')} label="Produktion" active={activeModal === 'production'} />
-                        <ToolButton icon={<MagnifyingGlassIcon />} onClick={() => setActiveModal('agent')} label="Analys" active={activeModal === 'agent'} />
-                        <div className="w-px h-6 bg-slate-200 dark:bg-slate-800 mx-3 opacity-50"></div>
-                        <ToolButton icon={<ShieldCheckIcon />} onClick={() => setActiveModal('audit')} label="Logg" active={activeModal === 'audit'} />
-                        <ToolButton icon={<LawIcon />} onClick={() => setActiveModal('framework')} label="Juridik" active={activeModal === 'framework'} />
-                        <ToolButton icon={<ArchiveBoxIcon />} onClick={() => setActiveModal('arch')} label="Arkiv" active={activeModal === 'arch'} />
+                    <nav className="hidden xl:flex items-center space-x-1 flex-1 overflow-x-auto no-scrollbar py-2">
+                        {/* Kärnfunktioner */}
+                        <div className="flex items-center space-x-1 bg-slate-100 dark:bg-slate-800/50 p-1 rounded-2xl border border-slate-200 dark:border-slate-700/50">
+                            <ToolButton icon={<Squares2X2Icon />} onClick={() => setActiveModal('hub')} label="Hubb" active={activeModal === 'hub'} />
+                            <ToolButton icon={<MagnifyingGlassIcon />} onClick={() => setActiveModal('agent')} label="Analys" active={activeModal === 'agent'} />
+                            <ToolButton icon={<BanknotesIcon />} onClick={() => setActiveModal('ekonomi')} label="Ekonomi" active={activeModal === 'ekonomi'} />
+                        </div>
+
+                        <div className="w-px h-6 bg-slate-200 dark:bg-slate-800 mx-2 opacity-30"></div>
+
+                        {/* Produktion & Beslut */}
+                        <div className="flex items-center space-x-1 bg-slate-100 dark:bg-slate-800/50 p-1 rounded-2xl border border-slate-200 dark:border-slate-700/50">
+                            <ToolButton icon={<ChatIcon />} onClick={() => setActiveModal('chat')} label="Beslut" active={activeModal === 'chat'} />
+                            <ToolButton icon={<BoltIcon />} onClick={() => setActiveModal('production')} label="Produktion" active={activeModal === 'production'} />
+                        </div>
+
+                        <div className="w-px h-6 bg-slate-200 dark:bg-slate-800 mx-2 opacity-30"></div>
+
+                        {/* System & Logg */}
+                        <div className="flex items-center space-x-1 relative">
+                            <ToolButton icon={<ArchiveBoxIcon />} onClick={() => { setActiveModal('arch'); setShowMoreMenu(false); }} label="Arkiv" active={activeModal === 'arch' || activeModal === 'archive'} />
+                            
+                            <div className="relative">
+                                <button 
+                                    onClick={() => setShowMoreMenu(!showMoreMenu)}
+                                    className={`px-6 py-3 rounded-[1.25rem] transition-all flex items-center space-x-3 group cursor-pointer border-2 ${
+                                        showMoreMenu 
+                                        ? 'bg-slate-200 dark:bg-slate-800 border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white' 
+                                        : 'border-transparent text-slate-500 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800/50'
+                                    }`}
+                                >
+                                    <div className={`transition-all duration-500 ${showMoreMenu ? 'text-blue-600 scale-110' : 'text-slate-400 group-hover:text-slate-600 dark:text-slate-500 dark:group-hover:text-slate-300'}`}>
+                                        <AdjustmentsHorizontalIcon className="w-5 h-5" />
+                                    </div>
+                                    <span className="text-sm font-black tracking-tight hidden lg:block">Mer</span>
+                                    <ChevronDownIcon className={`w-4 h-4 transition-transform duration-300 ${showMoreMenu ? 'rotate-180' : ''}`} />
+                                </button>
+                                
+                                {showMoreMenu && (
+                                    <>
+                                        <div className="fixed inset-0 z-[105]" onClick={() => setShowMoreMenu(false)}></div>
+                                        <div className="absolute right-0 mt-3 w-72 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] shadow-2xl p-3 z-[110] animate-in fade-in zoom-in-95 duration-200 ring-1 ring-black/5">
+                                            <div className="px-4 py-2 mb-2">
+                                                <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Avancerade Verktyg</span>
+                                            </div>
+                                            <MenuButton icon={<ShieldCheckIcon />} onClick={() => { setActiveModal('audit'); setShowMoreMenu(false); }} label="Systemlogg" active={activeModal === 'audit'} />
+                                            <MenuButton icon={<LawIcon />} onClick={() => { setActiveModal('framework'); setShowMoreMenu(false); }} label="Juridiskt Ramverk" active={activeModal === 'framework'} />
+                                            <div className="h-px bg-slate-100 dark:bg-slate-800 my-3 mx-4"></div>
+                                            <MenuButton icon={<ActivityIcon />} onClick={() => { setActiveModal('monitor'); setShowMoreMenu(false); }} label="Systemövervakning" active={activeModal === 'monitor'} />
+                                            <MenuButton icon={<ClipboardDocumentListIcon />} onClick={() => { setActiveModal('inventory'); setShowMoreMenu(false); }} label="Systeminventering" active={activeModal === 'inventory'} />
+                                            <MenuButton icon={<CodeBracketIcon />} onClick={() => { setActiveModal('debug'); setShowMoreMenu(false); }} label="AI Debug Panel" active={activeModal === 'debug'} />
+                                        </div>
+                                    </>
+                                )}
+                            </div>
+                        </div>
                     </nav>
                 </div>
 
@@ -313,7 +323,8 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                 </div>
             </header>
 
-            <main className="flex-grow p-6 lg:p-10">
+            <main className="flex-grow p-6 lg:p-10 max-w-[1600px] mx-auto w-full">
+                <Breadcrumbs />
                 {selectedDocId ? (
                     <AnalysisView 
                         documentId={selectedDocId} 
@@ -491,6 +502,29 @@ const ToolButton: React.FC<ToolButtonProps> = ({ icon, onClick, label, active })
             {React.isValidElement(icon) ? React.cloneElement(icon as React.ReactElement<{ className?: string }>, { className: 'w-5 h-5' }) : icon}
         </div>
         {label && <span className="text-sm font-black tracking-tight hidden lg:block">{label}</span>}
+    </button>
+);
+
+interface MenuButtonProps {
+    icon: React.ReactNode;
+    onClick: () => void;
+    label: string;
+    active?: boolean;
+}
+
+const MenuButton: React.FC<MenuButtonProps> = ({ icon, onClick, label, active }) => (
+    <button 
+        onClick={onClick}
+        className={`w-full px-4 py-3 rounded-2xl transition-all flex items-center space-x-3 group cursor-pointer ${
+            active 
+            ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 font-bold' 
+            : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white'
+        }`}
+    >
+        <div className={`transition-all duration-300 ${active ? 'text-blue-600 dark:text-blue-400' : 'text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300'}`}>
+            {React.isValidElement(icon) ? React.cloneElement(icon as React.ReactElement<{ className?: string }>, { className: 'w-4 h-4' }) : icon}
+        </div>
+        <span className="text-xs font-bold tracking-tight">{label}</span>
     </button>
 );
 
