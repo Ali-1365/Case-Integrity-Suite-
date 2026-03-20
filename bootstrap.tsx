@@ -13,6 +13,13 @@ if (typeof window !== 'undefined') {
   });
 
   window.addEventListener('unhandledrejection', (event) => {
+    // Ignore benign Vite WebSocket errors in sandboxed environments
+    const reason = event.reason;
+    const message = typeof reason === 'string' ? reason : reason?.message;
+    if (message && (message.includes('WebSocket closed without opened') || message.includes('failed to connect to websocket'))) {
+      event.preventDefault();
+      return;
+    }
     loggingService.handleError(event.reason, "Unhandled Promise Rejection");
   });
 }
