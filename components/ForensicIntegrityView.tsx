@@ -38,80 +38,80 @@ const ForensicIntegrityView: React.FC<ForensicIntegrityViewProps> = ({ analysis 
   }, [analysis.id]);
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-500">
-      <div className="flex justify-between items-center">
+    <div className="space-y-12 animate-in fade-in duration-700">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
         <div>
-          <h3 className="text-xl font-semibold text-slate-900 dark:text-white">Forensisk Integritetsanalys</h3>
-          <p className="text-sm text-slate-500 dark:text-gray-500">Verifiering av SHA-256 hashar för varje data-atom i ärendet.</p>
+          <h3 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight italic">Forensisk Integritetsanalys</h3>
+          <p className="text-slate-500 dark:text-slate-400 font-medium mt-2">Verifiering av SHA-256 hashar för varje data-atom i ärendet.</p>
         </div>
         <button 
           onClick={() => runVerification().catch(err => console.error("Manual verification failed:", err))}
           disabled={isValidating}
-          className="bg-cyan-600 hover:bg-cyan-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2"
+          className="bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-2xl text-sm font-black uppercase tracking-widest transition-all flex items-center gap-3 shadow-xl shadow-blue-500/20 active:scale-95 disabled:opacity-50"
         >
-          {isValidating ? <Spinner className="w-4 h-4" /> : <ShieldCheckIcon className="w-4 h-4" />}
+          {isValidating ? <Spinner className="w-5 h-5" /> : <ShieldCheckIcon className="w-5 h-5" />}
           <span>Kör Verifiering</span>
         </button>
       </div>
 
       {verification && (
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <div className="bg-white dark:bg-[#161616] p-6 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm">
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Status</p>
-            <div className="flex items-center gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="bg-white dark:bg-slate-900 p-8 rounded-[2.5rem] border border-slate-200 dark:border-slate-800 shadow-xl shadow-slate-200/50 dark:shadow-none">
+            <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">Status</p>
+            <div className="flex items-center gap-4">
               {verification.isValid ? (
-                <CheckCircleIcon className="w-6 h-6 text-emerald-500" />
+                <CheckCircleIcon className="w-8 h-8 text-emerald-500" />
               ) : (
-                <ExclamationTriangleIcon className="w-6 h-6 text-red-500" />
+                <ExclamationTriangleIcon className="w-8 h-8 text-rose-500" />
               )}
-              <span className={`text-xl font-bold ${verification.isValid ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400'}`}>
+              <span className={`text-2xl font-black tracking-tight ${verification.isValid ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
                 {verification.isValid ? 'VALIDERAD' : 'AVVIKELSE'}
               </span>
             </div>
           </div>
 
-          <div className="bg-white dark:bg-[#161616] p-6 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm">
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Integritetsscore</p>
-            <p className="text-3xl font-bold text-cyan-600 dark:text-cyan-400">{verification.integrityScore.toFixed(1)}%</p>
+          <div className="bg-white dark:bg-slate-900 p-8 rounded-[2.5rem] border border-slate-200 dark:border-slate-800 shadow-xl shadow-slate-200/50 dark:shadow-none">
+            <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">Integritetsscore</p>
+            <p className="text-4xl font-black text-blue-600 dark:text-blue-400 tracking-tighter italic">{verification.integrityScore.toFixed(1)}%</p>
           </div>
 
-          <div className="bg-white dark:bg-[#161616] p-6 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm">
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Atomer</p>
-            <p className="text-3xl font-bold text-slate-900 dark:text-white">{verification.verifiedAtoms} / {verification.totalAtoms}</p>
+          <div className="bg-white dark:bg-slate-900 p-8 rounded-[2.5rem] border border-slate-200 dark:border-slate-800 shadow-xl shadow-slate-200/50 dark:shadow-none">
+            <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">Atomer</p>
+            <p className="text-4xl font-black text-slate-900 dark:text-white tracking-tighter italic">{verification.verifiedAtoms} / {verification.totalAtoms}</p>
           </div>
 
-          <div className="bg-white dark:bg-[#161616] p-6 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm">
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Verifierad Tid</p>
-            <p className="text-xs font-mono text-slate-500 dark:text-gray-400 mt-2">{new Date(verification.timestamp).toLocaleTimeString()}</p>
+          <div className="bg-white dark:bg-slate-900 p-8 rounded-[2.5rem] border border-slate-200 dark:border-slate-800 shadow-xl shadow-slate-200/50 dark:shadow-none">
+            <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">Verifierad Tid</p>
+            <p className="text-xs font-mono font-black text-slate-500 dark:text-slate-400 mt-3 bg-slate-50 dark:bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-100 dark:border-slate-800 inline-block">{new Date(verification.timestamp).toLocaleTimeString()}</p>
           </div>
         </div>
       )}
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
         <div className="lg:col-span-2">
           <Card title="Data-atomer & Hash-kedja" icon={<FingerPrintIcon className="w-5 h-5" />}>
-            <div className="space-y-3">
+            <div className="space-y-4">
               {analysis.atoms.map((atom) => {
                 const isFailed = verification?.failedAtoms.includes(atom.id);
                 return (
-                  <div key={atom.id} className={`p-4 rounded-xl border transition-all ${isFailed ? 'bg-red-500/5 border-red-500/30' : 'bg-slate-50 dark:bg-[#0a0a0a] border-slate-200 dark:border-gray-800'}`}>
-                    <div className="flex justify-between items-start mb-2">
-                      <div className="flex items-center gap-2">
-                        <DocumentTextIcon className="w-4 h-4 text-slate-400" />
-                        <span className="text-[10px] font-mono text-slate-500 uppercase">{atom.id}</span>
+                  <div key={atom.id} className={`p-8 rounded-[2rem] border transition-all shadow-sm ${isFailed ? 'bg-rose-500/5 border-rose-500/30' : 'bg-slate-50 dark:bg-slate-950/50 border-slate-200 dark:border-slate-800 hover:border-blue-500/40'}`}>
+                    <div className="flex justify-between items-start mb-4">
+                      <div className="flex items-center gap-3">
+                        <DocumentTextIcon className="w-5 h-5 text-slate-400" />
+                        <span className="text-[10px] font-mono font-black text-slate-500 uppercase tracking-widest">ATOM_ID: {atom.id}</span>
                       </div>
-                      <div className="flex items-center gap-1.5">
+                      <div className="flex items-center gap-2">
                         {isFailed ? (
-                          <span className="text-[8px] font-bold bg-red-500/20 text-red-500 px-1.5 py-0.5 rounded border border-red-500/20">HASH_MISMATCH</span>
+                          <span className="text-[10px] font-black bg-rose-500/10 text-rose-600 dark:text-rose-400 px-3 py-1 rounded-full border border-rose-500/20 uppercase tracking-widest">HASH_MISMATCH</span>
                         ) : (
-                          <span className="text-[8px] font-bold bg-emerald-500/20 text-emerald-500 px-1.5 py-0.5 rounded border border-emerald-500/20">VERIFIED</span>
+                          <span className="text-[10px] font-black bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-3 py-1 rounded-full border border-emerald-500/20 uppercase tracking-widest">VERIFIED</span>
                         )}
                       </div>
                     </div>
-                    <p className="text-xs text-slate-700 dark:text-gray-300 leading-relaxed italic mb-3">"{atom.text}"</p>
-                    <div className="flex items-center gap-2 pt-2 border-t border-slate-200 dark:border-gray-800">
-                      <CpuChipIcon className="w-3 h-3 text-slate-400" />
-                      <span className="text-[9px] font-mono text-slate-500 truncate">{atom.hash}</span>
+                    <p className="text-base text-slate-700 dark:text-slate-300 leading-relaxed italic font-medium mb-6">"{atom.text}"</p>
+                    <div className="flex items-center gap-3 pt-4 border-t border-slate-200 dark:border-slate-800">
+                      <CpuChipIcon className="w-4 h-4 text-slate-400" />
+                      <span className="text-[10px] font-mono font-black text-slate-500 truncate bg-white dark:bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-100 dark:border-slate-800 shadow-inner w-full">{atom.hash}</span>
                     </div>
                   </div>
                 );
@@ -120,37 +120,40 @@ const ForensicIntegrityView: React.FC<ForensicIntegrityViewProps> = ({ analysis 
           </Card>
         </div>
 
-        <div className="space-y-8">
+        <div className="space-y-10">
           <Card title="Forensisk Kedja" icon={<ShieldCheckIcon className="w-5 h-5" />}>
-            <div className="space-y-6">
-              <div className="relative pl-6 border-l-2 border-cyan-500/30 space-y-8">
+            <div className="space-y-8">
+              <div className="relative pl-8 border-l-4 border-blue-500/20 space-y-10">
                 <div className="relative">
-                  <div className="absolute -left-[31px] top-0 w-4 h-4 rounded-full bg-cyan-500 border-4 border-[#FAFAF9] dark:border-[#111111]"></div>
-                  <p className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">Källdokument</p>
-                  <p className="text-[10px] text-slate-500 dark:text-gray-500 mt-1">ID: {analysis.documents[0]?.id}</p>
+                  <div className="absolute -left-[42px] top-0 w-6 h-6 rounded-full bg-blue-500 border-4 border-white dark:border-slate-900 shadow-lg shadow-blue-500/20"></div>
+                  <p className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-[0.15em]">Källdokument</p>
+                  <p className="text-[10px] font-black text-slate-400 uppercase mt-2 tracking-widest">ID: {analysis.documents[0]?.id}</p>
                 </div>
                 <div className="relative">
-                  <div className="absolute -left-[31px] top-0 w-4 h-4 rounded-full bg-cyan-500 border-4 border-[#FAFAF9] dark:border-[#111111]"></div>
-                  <p className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">Atomisering</p>
-                  <p className="text-[10px] text-slate-500 dark:text-gray-500 mt-1">{analysis.atoms.length} diskreta segment skapade</p>
+                  <div className="absolute -left-[42px] top-0 w-6 h-6 rounded-full bg-blue-500 border-4 border-white dark:border-slate-900 shadow-lg shadow-blue-500/20"></div>
+                  <p className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-[0.15em]">Atomisering</p>
+                  <p className="text-[10px] font-black text-slate-400 uppercase mt-2 tracking-widest">{analysis.atoms.length} diskreta segment skapade</p>
                 </div>
                 <div className="relative">
-                  <div className="absolute -left-[31px] top-0 w-4 h-4 rounded-full bg-cyan-500 border-4 border-[#FAFAF9] dark:border-[#111111]"></div>
-                  <p className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">SHA-256 Signering</p>
-                  <p className="text-[10px] text-slate-500 dark:text-gray-500 mt-1">Varje atom låst med unik hash</p>
+                  <div className="absolute -left-[42px] top-0 w-6 h-6 rounded-full bg-blue-500 border-4 border-white dark:border-slate-900 shadow-lg shadow-blue-500/20"></div>
+                  <p className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-[0.15em]">SHA-256 Signering</p>
+                  <p className="text-[10px] font-black text-slate-400 uppercase mt-2 tracking-widest">Varje atom låst med unik hash</p>
                 </div>
                 <div className="relative">
-                  <div className="absolute -left-[31px] top-0 w-4 h-4 rounded-full bg-emerald-500 border-4 border-[#FAFAF9] dark:border-[#111111]"></div>
-                  <p className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">Integritetskontroll</p>
-                  <p className="text-[10px] text-slate-500 dark:text-gray-500 mt-1">Status: {verification?.isValid ? 'GRÖN' : 'VÄNTAR'}</p>
+                  <div className="absolute -left-[42px] top-0 w-6 h-6 rounded-full bg-emerald-500 border-4 border-white dark:border-slate-900 shadow-lg shadow-emerald-500/20"></div>
+                  <p className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-[0.15em]">Integritetskontroll</p>
+                  <p className="text-[10px] font-black text-slate-400 uppercase mt-2 tracking-widest">Status: {verification?.isValid ? 'GRÖN' : 'VÄNTAR'}</p>
                 </div>
               </div>
             </div>
           </Card>
 
-          <div className="p-6 bg-slate-900 rounded-2xl border border-slate-800 shadow-xl">
-            <h4 className="text-xs font-bold text-cyan-400 uppercase tracking-widest mb-4">Forensisk Notering</h4>
-            <p className="text-[11px] text-slate-400 leading-relaxed italic">
+          <div className="p-10 bg-slate-900 rounded-[2.5rem] border border-slate-800 shadow-2xl relative overflow-hidden group">
+            <div className="absolute top-0 right-0 p-10 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity transform group-hover:scale-110 duration-500">
+                <ShieldCheckIcon className="w-32 h-32 text-white" />
+            </div>
+            <h4 className="text-[10px] font-black text-blue-400 uppercase tracking-[0.25em] mb-6 relative z-10">Forensisk Notering</h4>
+            <p className="text-sm text-slate-400 leading-relaxed italic font-medium relative z-10">
               "Denna beviskedja garanterar att faktaatomer inte har manipulerats efter extraktion. Varje atom är kryptografiskt länkad till källdokumentet via SHA-256, vilket skapar en obruten forensisk kedja för juridisk prövning."
             </p>
           </div>

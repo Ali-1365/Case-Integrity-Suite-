@@ -21,129 +21,144 @@ const ForensicAuditView: React.FC<ForensicAuditViewProps> = ({ analysis }) => {
 
     if (!audit) {
         return (
-            <div className="p-12 text-center bg-[#111111] rounded-xl border border-gray-800">
-                <CpuChipIcon className="w-12 h-12 text-gray-600 mx-auto mb-4" />
-                <p className="text-gray-300 font-medium">Ingen audit-data tillgänglig för detta ärende.</p>
-                <p className="text-sm text-gray-500 mt-2">Kör om analysen i GOLD-läge för att generera verifieringsdata.</p>
+            <div className="p-16 text-center bg-slate-50 dark:bg-slate-900 rounded-[2.5rem] border border-slate-200 dark:border-slate-800 shadow-inner">
+                <CpuChipIcon className="w-16 h-16 text-slate-300 dark:text-slate-700 mx-auto mb-6" />
+                <p className="text-slate-600 dark:text-slate-400 font-black uppercase tracking-widest">Ingen audit-data tillgänglig</p>
+                <p className="text-sm text-slate-400 dark:text-slate-500 mt-4 font-medium">Kör om analysen i GOLD-läge för att generera verifieringsdata.</p>
             </div>
         );
     }
 
     return (
-        <div className="space-y-6 animate-in fade-in duration-500">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="bg-[#111111] p-8 rounded-xl border border-gray-800 flex flex-col items-center justify-center text-center">
-                    <span className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-6">CIS Integrity Score</span>
-                    <div className="relative flex items-center justify-center">
-                        <svg className="w-32 h-32 transform -rotate-90">
-                            <circle cx="64" cy="64" r="56" stroke="currentColor" strokeWidth="8" fill="transparent" className="text-gray-800" />
+        <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="bg-white dark:bg-slate-900 p-10 rounded-[2.5rem] border border-slate-200 dark:border-slate-800 shadow-xl shadow-slate-200/50 dark:shadow-none flex flex-col items-center justify-center text-center relative overflow-hidden group">
+                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-8 relative z-10">CIS Integrity Score</span>
+                    <div className="relative flex items-center justify-center z-10">
+                        <svg className="w-40 h-40 transform -rotate-90 group-hover:scale-105 transition-transform duration-700">
+                            <circle cx="80" cy="80" r="70" stroke="currentColor" strokeWidth="10" fill="transparent" className="text-slate-100 dark:text-slate-800" />
                             <circle 
-                                cx="64" cy="64" r="56" stroke="currentColor" strokeWidth="8" fill="transparent" 
-                                className={`${audit.integrityScore > 80 ? 'text-emerald-400' : audit.integrityScore > 50 ? 'text-amber-400' : 'text-rose-400'}`}
-                                strokeDasharray={2 * Math.PI * 56}
-                                strokeDashoffset={2 * Math.PI * 56 * (1 - audit.integrityScore / 100)}
+                                cx="80" cy="80" r="70" stroke="currentColor" strokeWidth="10" fill="transparent" 
+                                className={`${audit.integrityScore > 80 ? 'text-emerald-500' : audit.integrityScore > 50 ? 'text-amber-500' : 'text-rose-500'} drop-shadow-[0_0_8px_rgba(var(--color-current),0.5)]`}
+                                strokeDasharray={2 * Math.PI * 70}
+                                strokeDashoffset={2 * Math.PI * 70 * (1 - audit.integrityScore / 100)}
+                                strokeLinecap="round"
                             />
                         </svg>
-                        <span className="absolute text-3xl font-semibold text-gray-100">{audit.integrityScore}%</span>
+                        <span className="absolute text-4xl font-black text-slate-900 dark:text-white tracking-tighter">{audit.integrityScore}%</span>
                     </div>
+                    
+                    {/* Decorative background */}
+                    <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-slate-500/5 rounded-full blur-3xl"></div>
                 </div>
 
-                <div className="bg-[#111111] p-8 rounded-xl border border-gray-800 md:col-span-2">
-                    <div className="flex items-center space-x-3 mb-6">
-                        <ShieldCheckIcon className="w-6 h-6 text-cyan-400" />
-                        <h3 className="text-lg font-semibold text-gray-100">Integritetskontroll & Regelefterlevnad</h3>
+                <div className="bg-white dark:bg-slate-900 p-10 rounded-[2.5rem] border border-slate-200 dark:border-slate-800 shadow-xl shadow-slate-200/50 dark:shadow-none md:col-span-2 relative overflow-hidden">
+                    <div className="flex items-center space-x-4 mb-8 relative z-10">
+                        <div className="p-3 bg-blue-500/10 rounded-2xl text-blue-600 dark:text-blue-400">
+                            <ShieldCheckIcon className="w-7 h-7" />
+                        </div>
+                        <h3 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Integritetskontroll & Regelefterlevnad</h3>
                     </div>
-                    <div className="space-y-3">
-                        <div className="flex justify-between items-center p-4 bg-[#161616] rounded-lg border border-gray-800">
-                            <span className="text-sm text-gray-400 font-medium">Algoritmisk Transparens</span>
-                            <span className="text-xs font-medium px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                    <div className="space-y-4 relative z-10">
+                        <div className="flex justify-between items-center p-5 bg-slate-50 dark:bg-slate-800/40 rounded-2xl border border-slate-200 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-800 transition-all">
+                            <span className="text-sm text-slate-500 dark:text-slate-400 font-bold uppercase tracking-widest">Algoritmisk Transparens</span>
+                            <span className="text-[10px] font-black px-4 py-2 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 uppercase tracking-widest">
                                 Verifierad Nivå 4 (GOLD)
                             </span>
                         </div>
-                        <div className="flex justify-between items-center p-4 bg-[#161616] rounded-lg border border-gray-800">
-                            <span className="text-sm text-gray-400 font-medium">Immutable Log ID</span>
-                            <span className="text-xs font-mono text-gray-500">{analysis.id.substring(0,18)}</span>
+                        <div className="flex justify-between items-center p-5 bg-slate-50 dark:bg-slate-800/40 rounded-2xl border border-slate-200 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-800 transition-all">
+                            <span className="text-sm text-slate-500 dark:text-slate-400 font-bold uppercase tracking-widest">Immutable Log ID</span>
+                            <span className="text-xs font-black text-slate-400 dark:text-slate-500 tracking-widest uppercase">{analysis.id.substring(0,18)}</span>
                         </div>
-                        <div className="flex justify-between items-center p-4 bg-[#161616] rounded-lg border border-gray-800">
-                            <span className="text-sm text-gray-400 font-medium">Verifieringstidpunkt</span>
-                            <span className="text-xs font-mono text-gray-500">{new Date(audit.verifiedAt).toLocaleString('sv-SE')}</span>
+                        <div className="flex justify-between items-center p-5 bg-slate-50 dark:bg-slate-800/40 rounded-2xl border border-slate-200 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-800 transition-all">
+                            <span className="text-sm text-slate-500 dark:text-slate-400 font-bold uppercase tracking-widest">Verifieringstidpunkt</span>
+                            <span className="text-xs font-black text-slate-400 dark:text-slate-500 tracking-widest uppercase">{new Date(audit.verifiedAt).toLocaleString('sv-SE')}</span>
                         </div>
                     </div>
+                    
+                    {/* Decorative background */}
+                    <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl"></div>
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div className="bg-[#111111] border border-gray-800 rounded-xl overflow-hidden">
-                    <div className="p-5 border-b border-gray-800 bg-[#161616] flex justify-between items-center">
-                        <h4 className="text-sm font-medium text-gray-300 flex items-center">
-                            <SparklesIcon className="w-4 h-4 mr-2 text-gray-400" />
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2.5rem] overflow-hidden shadow-xl shadow-slate-200/50 dark:shadow-none">
+                    <div className="p-8 border-b border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30 flex justify-between items-center">
+                        <h4 className="text-xs font-black text-slate-400 uppercase tracking-[0.2em] flex items-center">
+                            <SparklesIcon className="w-5 h-5 mr-3 text-blue-500" />
                             Deterministisk Beslutslogg
                         </h4>
-                        <span className="text-xs font-mono text-cyan-500">v.1.0 CIS_SYNC</span>
+                        <span className="text-[10px] font-black text-blue-500 uppercase tracking-widest">v.1.0 CIS_SYNC</span>
                     </div>
-                    <div className="divide-y divide-gray-800 max-h-[400px] overflow-y-auto">
+                    <div className="divide-y divide-slate-100 dark:divide-slate-800 max-h-[500px] overflow-y-auto">
                         {audit.checks.map(check => (
-                            <div key={check.id} className="p-5 flex items-start gap-4 hover:bg-[#161616] transition-colors">
-                                {check.status === 'ok' ? (
-                                    <CheckCircleIcon className="w-5 h-5 text-emerald-400 flex-shrink-0 mt-0.5" />
-                                ) : (
-                                    <AlertIcon className="w-5 h-5 text-rose-400 flex-shrink-0 mt-0.5" />
-                                )}
+                            <div key={check.id} className="p-8 flex items-start gap-6 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all group">
+                                <div className={`p-2 rounded-xl flex-shrink-0 mt-1 ${check.status === 'ok' ? 'bg-emerald-500/10 text-emerald-500' : 'bg-rose-500/10 text-rose-500'}`}>
+                                    {check.status === 'ok' ? (
+                                        <CheckCircleIcon className="w-6 h-6" />
+                                    ) : (
+                                        <AlertIcon className="w-6 h-6" />
+                                    )}
+                                </div>
                                 <div>
-                                    <div className="flex items-center gap-2 mb-1">
-                                        <p className="text-gray-200 font-medium text-sm">{check.label}</p>
-                                        <span className="text-xs font-mono text-gray-600">[{check.id}]</span>
+                                    <div className="flex items-center gap-3 mb-2">
+                                        <p className="text-slate-900 dark:text-white font-black text-base tracking-tight">{check.label}</p>
+                                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">[{check.id}]</span>
                                     </div>
-                                    <p className="text-sm text-gray-500 leading-relaxed">{check.details}</p>
+                                    <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed font-medium">{check.details}</p>
                                 </div>
                             </div>
                         ))}
                     </div>
                 </div>
 
-                <div className="bg-[#111111] border border-gray-800 rounded-xl overflow-hidden flex flex-col">
-                    <div className="p-5 border-b border-gray-800 bg-[#161616] flex justify-between items-center">
-                        <h4 className="text-sm font-medium text-gray-300 flex items-center">
-                            <CodeBracketIcon className="w-4 h-4 mr-2 text-gray-400" />
+                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2.5rem] overflow-hidden flex flex-col shadow-xl shadow-slate-200/50 dark:shadow-none">
+                    <div className="p-8 border-b border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30 flex justify-between items-center">
+                        <h4 className="text-xs font-black text-slate-400 uppercase tracking-[0.2em] flex items-center">
+                            <CodeBracketIcon className="w-5 h-5 mr-3 text-emerald-500" />
                             Forensisk Kedja - Atomisering
                         </h4>
-                        <span className="text-[10px] font-mono text-emerald-500">SHA-256 ACTIVE</span>
+                        <span className="text-[10px] font-black text-emerald-500 uppercase tracking-widest">SHA-256 ACTIVE</span>
                     </div>
-                    <div className="p-6 space-y-6 flex-1 overflow-y-auto max-h-[400px]">
+                    <div className="p-8 space-y-8 flex-1 overflow-y-auto max-h-[500px]">
                         {analysis.documents.map(doc => {
                             const docAtoms = analysis.atoms.filter(a => a.documentId === doc.id);
                             return (
-                                <div key={doc.id} className="space-y-4">
-                                    <div className="flex items-center justify-between p-3 bg-[#0a0a0a] rounded-lg border border-gray-800">
-                                        <div className="flex items-center gap-3">
-                                            <DocumentTextIcon className="w-4 h-4 text-gray-500" />
+                                <div key={doc.id} className="space-y-6">
+                                    <div className="flex items-center justify-between p-5 bg-slate-50 dark:bg-slate-800/40 rounded-2xl border border-slate-200 dark:border-slate-700">
+                                        <div className="flex items-center gap-4">
+                                            <div className="p-2 bg-slate-200 dark:bg-slate-700 rounded-lg text-slate-500 dark:text-slate-400">
+                                                <DocumentTextIcon className="w-5 h-5" />
+                                            </div>
                                             <div>
-                                                <p className="text-xs font-bold text-gray-300 uppercase">Källdokument: ID: {doc.id}</p>
-                                                <p className="text-[10px] text-emerald-500 font-medium">Atomisering: {docAtoms.length} diskreta segment skapade</p>
+                                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Källdokument: ID: {doc.id}</p>
+                                                <p className="text-[10px] text-emerald-600 dark:text-emerald-400 font-black uppercase tracking-widest mt-1">Atomisering: {docAtoms.length} segment</p>
                                             </div>
                                         </div>
                                         <div className="text-right">
-                                            <p className="text-[10px] font-mono text-emerald-500">SHA-256 SIGNERAD</p>
-                                            <p className="text-[9px] text-gray-600">Forensiskt Verifierad</p>
+                                            <p className="text-[9px] font-black text-emerald-500 uppercase tracking-widest">SHA-256 SIGNERAD</p>
+                                            <p className="text-[9px] text-slate-400 font-bold uppercase tracking-widest mt-0.5">Forensiskt Verifierad</p>
                                         </div>
                                     </div>
                                     
-                                    <div className="space-y-2 pl-4 border-l border-gray-800">
+                                    <div className="space-y-4 pl-6 border-l-2 border-slate-100 dark:border-slate-800">
                                         {docAtoms.slice(0, 3).map(atom => (
-                                            <div key={atom.id} className="p-3 bg-[#161616] rounded-lg border border-gray-800 group">
-                                                <div className="flex justify-between items-center mb-2">
-                                                    <span className="text-[9px] font-mono text-gray-500">ATOM-{atom.id.substring(0,8)}</span>
-                                                    <span className="text-[9px] font-mono text-emerald-500/60 group-hover:text-emerald-500 transition-colors">LÅST_HASH</span>
+                                            <div key={atom.id} className="p-5 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 group hover:border-blue-500/30 transition-all shadow-sm">
+                                                <div className="flex justify-between items-center mb-3">
+                                                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">ATOM-{atom.id.substring(0,8)}</span>
+                                                    <span className="text-[9px] font-black text-emerald-500/60 group-hover:text-emerald-500 transition-colors uppercase tracking-widest">LÅST_HASH</span>
                                                 </div>
-                                                <p className="text-[11px] text-gray-400 line-clamp-2 italic mb-2">"{atom.text}"</p>
-                                                <div className="flex items-center gap-2">
-                                                    <div className="flex-1 h-[1px] bg-gray-800"></div>
-                                                    <span className="text-[8px] font-mono text-gray-600 truncate max-w-[150px]">{atom.hash}</span>
+                                                <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-2 italic mb-4 font-medium leading-relaxed">"{atom.text}"</p>
+                                                <div className="flex items-center gap-3">
+                                                    <div className="flex-1 h-[1px] bg-slate-100 dark:bg-slate-800"></div>
+                                                    <span className="text-[8px] font-black text-slate-300 dark:text-slate-600 truncate max-w-[150px] uppercase tracking-widest">{atom.hash}</span>
                                                 </div>
                                             </div>
                                         ))}
                                         {docAtoms.length > 3 && (
-                                            <p className="text-[10px] text-gray-600 italic text-center py-2">... ytterligare {docAtoms.length - 3} diskreta segment skapade och SHA-256 signerade</p>
+                                            <div className="text-center py-2">
+                                                <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest">... ytterligare {docAtoms.length - 3} segment SHA-256 signerade</p>
+                                            </div>
                                         )}
                                     </div>
                                 </div>
