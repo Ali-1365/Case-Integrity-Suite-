@@ -46,7 +46,9 @@ const SystemHealthDashboard: React.FC<SystemHealthDashboardProps> = ({ isOpen, o
   const [quota, setQuota] = useState<QuotaState>(geminiService.quotaState);
   const [repoStatus, setRepoStatus] = useState<RepoStatus | null>(null);
   const [logs, setLogs] = useState<LogEntry[]>([]);
-  const [activeTab, setActiveTab] = useState<'overview' | 'api' | 'resources'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'api' | 'resources' | 'integrity'>('overview');
+  const [integrityResults, setIntegrityResults] = useState<{file: string, status: 'ok' | 'error', message?: string}[]>([]);
+  const [isCheckingIntegrity, setIsCheckingIntegrity] = useState(false);
 
   // Mock data generation for demonstration if real history is sparse
   useEffect(() => {
@@ -124,6 +126,7 @@ const SystemHealthDashboard: React.FC<SystemHealthDashboardProps> = ({ isOpen, o
               <TabButton active={activeTab === 'overview'} onClick={() => setActiveTab('overview')} icon={<GlobeAltIcon className="w-4 h-4" />}>Overview</TabButton>
               <TabButton active={activeTab === 'api'} onClick={() => setActiveTab('api')} icon={<BoltIcon className="w-4 h-4" />}>API & AI</TabButton>
               <TabButton active={activeTab === 'resources'} onClick={() => setActiveTab('resources')} icon={<CpuChipIcon className="w-4 h-4" />}>Resources</TabButton>
+              <TabButton active={activeTab === 'integrity'} onClick={() => setActiveTab('integrity')} icon={<DatabaseIcon className="w-4 h-4" />}>Data Integrity</TabButton>
             </div>
             <button onClick={onClose} className="p-2 hover:bg-slate-800 rounded-xl transition-colors text-slate-400 hover:text-white">
               <XMarkIcon className="w-6 h-6" />
@@ -211,25 +214,91 @@ const SystemHealthDashboard: React.FC<SystemHealthDashboardProps> = ({ isOpen, o
           </div>
 
           {/* Detailed Logs / Status */}
-          <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-6">
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="text-sm font-bold text-slate-300 uppercase tracking-wider">Recent System Events</h3>
-              <button className="text-xs text-indigo-400 hover:text-indigo-300 font-medium flex items-center gap-1">
-                <ArrowPathIcon className="w-3 h-3" /> Refresh
-              </button>
+          {activeTab === 'overview' && (
+            <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-6">
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="text-sm font-bold text-slate-300 uppercase tracking-wider">Recent System Events</h3>
+                <button className="text-xs text-indigo-400 hover:text-indigo-300 font-medium flex items-center gap-1">
+                  <ArrowPathIcon className="w-3 h-3" /> Refresh
+                </button>
+              </div>
+              <div className="space-y-2 font-mono text-xs">
+                {logs.slice(0, 8).map(log => (
+                  <div key={log.id} className="flex items-center gap-4 p-3 bg-slate-900 rounded-lg border border-slate-800/50 hover:border-slate-700 transition-colors">
+                    <span className={`w-2 h-2 rounded-full ${log.level === 'ERROR' ? 'bg-red-500' : log.level === 'WARN' ? 'bg-amber-500' : 'bg-emerald-500'}`}></span>
+                    <span className="text-slate-500">{new Date(log.timestamp).toLocaleTimeString()}</span>
+                    <span className={`font-bold ${log.level === 'ERROR' ? 'text-red-400' : 'text-slate-300'}`}>{log.level}</span>
+                    <span className="text-slate-400 truncate flex-grow">{log.message}</span>
+                    {log.duration && <span className="text-slate-600">{log.duration}ms</span>}
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className="space-y-2 font-mono text-xs">
-              {logs.slice(0, 8).map(log => (
-                <div key={log.id} className="flex items-center gap-4 p-3 bg-slate-900 rounded-lg border border-slate-800/50 hover:border-slate-700 transition-colors">
-                  <span className={`w-2 h-2 rounded-full ${log.level === 'ERROR' ? 'bg-red-500' : log.level === 'WARN' ? 'bg-amber-500' : 'bg-emerald-500'}`}></span>
-                  <span className="text-slate-500">{new Date(log.timestamp).toLocaleTimeString()}</span>
-                  <span className={`font-bold ${log.level === 'ERROR' ? 'text-red-400' : 'text-slate-300'}`}>{log.level}</span>
-                  <span className="text-slate-400 truncate flex-grow">{log.message}</span>
-                  {log.duration && <span className="text-slate-600">{log.duration}ms</span>}
+          )}
+
+          {activeTab === 'integrity' && (
+            <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-8">
+              <div className="flex justify-between items-center mb-8">
+                <div>
+                  <h3 className="text-lg font-bold text-white uppercase tracking-wider">Data Integrity Diagnostic</h3>
+                  <p className="text-xs text-slate-400 mt-1">Verifies runtime accessibility and parsing of all legal corpus files.</p>
                 </div>
-              ))}
+                <button 
+                  onClick={async () => {
+                    setIsCheckingIntegrity(true);
+                    const files = [
+                      'bk_2018_1197.json', 'brb_1962_700.json', 'dl_2008_567.json', 'fb_1949_381.json', 
+                      'fl_2017_900.json', 'fmu_2018_744.json', 'hsl_2017_30.json', 'kl_2017_725.json', 
+                      'lag_2017_612.json', 'las_1982_80.json', 'lss_1993_387.json', 'lvm_1988_870.json', 
+                      'lvu_1990_52.json', 'osl_2009_400.json', 'pl_2014_821.json', 'praxis.json', 
+                      'rb_1942_740.json', 'rf_1974_152.json', 'SampleFacts_FS_2026-01-08.json', 
+                      'sfb_2010_110.json', 'sjukl_1991_1047.json', 'skl_1972_207.json', 'sol_2025_400.json', 
+                      'tf_1949_105.json', 'ygl_1991_1469.json', 'ysl_1977_268.json', 'index.json'
+                    ];
+                    const results = [];
+                    for (const file of files) {
+                      const path = file === 'index.json' ? `/rag/${file}` : `/public/data/${file}`;
+                      try {
+                        const res = await fetch(path);
+                        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                        await res.json();
+                        results.push({ file, status: 'ok' as const });
+                      } catch (e) {
+                        results.push({ file, status: 'error' as const, message: e instanceof Error ? e.message : String(e) });
+                      }
+                    }
+                    setIntegrityResults(results);
+                    setIsCheckingIntegrity(false);
+                  }}
+                  disabled={isCheckingIntegrity}
+                  className="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-widest transition-all disabled:opacity-50"
+                >
+                  {isCheckingIntegrity ? <ArrowPathIcon className="w-4 h-4 animate-spin" /> : <ShieldCheckIcon className="w-4 h-4" />}
+                  Run Full Diagnostic
+                </button>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {integrityResults.map((res, i) => (
+                  <div key={i} className={`p-4 rounded-xl border ${res.status === 'ok' ? 'bg-emerald-500/5 border-emerald-500/20' : 'bg-red-500/5 border-red-500/20'} flex items-center justify-between`}>
+                    <div className="flex flex-col">
+                      <span className="text-xs font-mono text-slate-300 truncate max-w-[180px]">{res.file}</span>
+                      {res.message && <span className="text-[10px] text-red-400 mt-1">{res.message}</span>}
+                    </div>
+                    <span className={`text-[10px] font-black uppercase px-2 py-0.5 rounded-full ${res.status === 'ok' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400'}`}>
+                      {res.status}
+                    </span>
+                  </div>
+                ))}
+                {integrityResults.length === 0 && !isCheckingIntegrity && (
+                  <div className="col-span-full py-12 text-center opacity-20">
+                    <DatabaseIcon className="w-12 h-12 mx-auto mb-4" />
+                    <p className="text-sm font-bold uppercase tracking-widest">No diagnostic data available</p>
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
+          )}
 
         </main>
     </div>

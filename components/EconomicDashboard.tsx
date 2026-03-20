@@ -163,19 +163,19 @@ const EconomicDashboard: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <StatCard 
           title="Totala Betalningar" 
-          value={`${payments.reduce((acc, p) => acc + p.amount, 0).toLocaleString()} SEK`} 
+          value={new Intl.NumberFormat('sv-SE', { style: 'currency', currency: 'SEK', maximumFractionDigits: 0 }).format(payments.reduce((acc, p) => acc + p.amount, 0))} 
           icon={<BanknotesIcon className="w-6 h-6 text-emerald-500" />}
           trend="+5.2%"
         />
         <StatCard 
           title="Utestående Fakturor" 
-          value={`${invoices.filter(i => i.status !== 'PAID').reduce((acc, i) => acc + i.total, 0).toLocaleString()} SEK`} 
+          value={new Intl.NumberFormat('sv-SE', { style: 'currency', currency: 'SEK', maximumFractionDigits: 0 }).format(invoices.filter(i => i.status !== 'PAID').reduce((acc, i) => acc + i.total, 0))} 
           icon={<ClipboardDocumentListIcon className="w-6 h-6 text-amber-500" />}
           trend="-2.1%"
         />
         <StatCard 
           title="Skadeståndskrav (Est.)" 
-          value={`${claims.reduce((acc, c) => acc + c.estimatedAmount, 0).toLocaleString()} SEK`} 
+          value={new Intl.NumberFormat('sv-SE', { style: 'currency', currency: 'SEK', maximumFractionDigits: 0 }).format(claims.reduce((acc, c) => acc + c.estimatedAmount, 0))} 
           icon={<ScaleIcon className="w-6 h-6 text-indigo-500" />}
         />
         <StatCard 

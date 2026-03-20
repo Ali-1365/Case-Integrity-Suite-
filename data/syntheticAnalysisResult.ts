@@ -25,27 +25,27 @@ export const syntheticAnalysisResult: AnalysisResult = {
   ],
 
   atoms: [
-    { id: "atom_100", documentId: "doc_001", position: 1, text: "Sökande i akut nöd – saknar medel för uppehälle.", keywords: ["akut nöd"], tags: ["nöd", "ekonomi"], hash: "dummy_hash_100" },
-    { id: "atom_150", documentId: "doc_001", position: 2, text: "Barnet riskerar att fara illa – ingen mat hemma.", keywords: ["barn", "matbrist"], tags: ["barn", "nödsituation"], hash: "dummy_hash_150" },
-    { id: "atom_520", documentId: "doc_001", position: 11, text: "Medvetet oriktiga sakuppgifter i journalen – bryter mot dokumentationsplikten (14 kap. 3 § SoL).", tags: ["LexSarah", "medvetet fel"], hash: "dummy_hash_520" },
-    { id: "atom_560", documentId: "doc_001", position: 15, text: "Ansvarsomkastning: barnet och föräldern lastas för konsekvenserna av kommunens underlåtenhet.", tags: ["ansvarsomkastning", "barnrätt"], hash: "dummy_hash_560" },
-    { id: "atom_570", documentId: "doc_002", position: 1, text: "Dokumenterad diskrepans mellan handläggarnas muntliga uttalanden och journalföring.", tags: ["motstridiga besked", "journalfusk"], hash: "dummy_hash_570" },
-    { id: "atom_580", documentId: "doc_003", position: 1, text: "CRPS-rehabilitering förhindrad p.g.a. ekonomisk skada och avstängd el/telefon.", tags: ["personskada", "CRPS"], hash: "dummy_hash_580" },
-    { id: "atom_590", documentId: "doc_001", position: 16, text: "Suicidtankar och förvärrad smärtproblematik till följd av nödsituationen.", tags: ["personskada", "suicidrisk"], hash: "dummy_hash_590" },
-    { id: "atom_600", documentId: "doc_004", position: 1, text: "Dom underkänner bilkravet som avslagsgrund – ingen verkställighet.", tags: ["dom", "utebliven verkställighet"], hash: "dummy_hash_600" },
-    { id: "atom_610", documentId: "doc_001", position: 17, text: "Handläggaren vägrar träffa besökaren/klaganden.", tags: ["vägran möte", "processfel"], hash: "dummy_hash_610" },
-    { id: "atom_620", documentId: "doc_001", position: 18, text: "El och telefon fortsatt avstängda – akut nödsituation förvärras.", tags: ["nödsituation", "avstängning"], hash: "dummy_hash_620" },
-    { id: "atom_630", documentId: "doc_003", position: 2, text: "Nervskada, sensibilitet borta i tå 2–4, fotled – sjukskrivning och handikapp.", tags: ["nervskada", "handikapp"], hash: "dummy_hash_630" },
-    { id: "atom_640", documentId: "doc_001", position: 19, text: "Krav på lagbrott från tjänstemän – bevisbördan cirkulär och omvänd.", tags: ["cirkulär bevisbörda", "tjänstefel"], hash: "dummy_hash_640" },
-    { id: "atom_700", documentId: "doc_005", position: 1, text: "Kronofogden inblandad – betalningsföreläggande p.g.a. kommunens underlåtenhet.", tags: ["Kronofogden", "skuldsättning"], hash: "dummy_hash_700" },
-    { id: "atom_710", documentId: "doc_001", position: 22, text: "Bilens förlorade värde och uppsägning p.g.a. obetald hyra – orsakad av kommunens fel.", tags: ["bilförlust", "ekonomisk skada"], hash: "dummy_hash_710" },
-    { id: "atom_720", documentId: "doc_003", position: 3, text: "ADHD-operation försenad p.g.a. ekonomisk kris och stress.", tags: ["ADHD", "försenad vård"], hash: "dummy_hash_720" },
-    { id: "atom_800", documentId: "doc_007", position: 1, text: "FL 5 § – saklighet och proportionalitet åsidosatt genom oriktiga uppgifter och oproportionerliga krav.", keywords: ["FL5", "saklighet"], tags: ["FL"], hash: "dummy_hash_800" },
-    { id: "atom_810", documentId: "doc_007", position: 2, text: "FL 6 § – serviceskyldighet grovt åsidosatt genom vägran att träffa i akut nödsituation.", keywords: ["FL6", "serviceskyldighet"], tags: ["FL"], hash: "dummy_hash_810" },
-    { id: "atom_820", documentId: "doc_007", position: 3, text: "FL 23 § – utredningsskyldighet underlåten trots dokumenterad barnrisk.", keywords: ["FL23", "utredningsskyldighet"], tags: ["FL"], hash: "dummy_hash_820" },
-    { id: "atom_830", documentId: "doc_007", position: 4, text: "FL 32 § – utebliven motivering vid muntliga avslag trots upprepad begäran.", keywords: ["FL32", "motivering"], tags: ["FL"], hash: "dummy_hash_830" },
-    { id: "atom_840", documentId: "doc_007", position: 5, text: "FL 16–18 §§ – jäv och underlåten jävsanmälan – opartiskhet ifrågasatt.", keywords: ["FL16-18", "jäv"], tags: ["FL"], hash: "dummy_hash_840" },
-    { id: "atom_850", documentId: "doc_007", position: 6, text: "FL 33 § – underlåten information om överklaganderätt.", keywords: ["FL33", "överklagande"], tags: ["FL"], hash: "dummy_hash_850" }
+    { id: "atom_100", documentId: "doc_001", position: 1, text: "Sökande i akut nöd – saknar medel för uppehälle.", keywords: ["akut nöd"], tags: ["nöd", "ekonomi"], hash: "sha256:7a8b9c0d1e2f3g4h5i6j7k8l9m0n1o2p" },
+    { id: "atom_150", documentId: "doc_001", position: 2, text: "Barnet riskerar att fara illa – ingen mat hemma.", keywords: ["barn", "matbrist"], tags: ["barn", "nödsituation"], hash: "sha256:a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6" },
+    { id: "atom_520", documentId: "doc_001", position: 11, text: "Medvetet oriktiga sakuppgifter i journalen – bryter mot dokumentationsplikten (14 kap. 3 § SoL).", tags: ["LexSarah", "medvetet fel"], hash: "sha256:b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7" },
+    { id: "atom_560", documentId: "doc_001", position: 15, text: "Ansvarsomkastning: barnet och föräldern lastas för konsekvenserna av kommunens underlåtenhet.", tags: ["ansvarsomkastning", "barnrätt"], hash: "sha256:c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8" },
+    { id: "atom_570", documentId: "doc_002", position: 1, text: "Dokumenterad diskrepans mellan handläggarnas muntliga uttalanden och journalföring.", tags: ["motstridiga besked", "journalfusk"], hash: "sha256:d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9" },
+    { id: "atom_580", documentId: "doc_003", position: 1, text: "CRPS-rehabilitering förhindrad p.g.a. ekonomisk skada och avstängd el/telefon.", tags: ["personskada", "CRPS"], hash: "sha256:e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0" },
+    { id: "atom_590", documentId: "doc_001", position: 16, text: "Suicidtankar och förvärrad smärtproblematik till följd av nödsituationen.", tags: ["personskada", "suicidrisk"], hash: "sha256:f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1" },
+    { id: "atom_600", documentId: "doc_004", position: 1, text: "Dom underkänner bilkravet som avslagsgrund – ingen verkställighet.", tags: ["dom", "utebliven verkställighet"], hash: "sha256:g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2" },
+    { id: "atom_610", documentId: "doc_001", position: 17, text: "Handläggaren vägrar träffa besökaren/klaganden.", tags: ["vägran möte", "processfel"], hash: "sha256:h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3" },
+    { id: "atom_620", documentId: "doc_001", position: 18, text: "El och telefon fortsatt avstängda – akut nödsituation förvärras.", tags: ["nödsituation", "avstängning"], hash: "sha256:i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4" },
+    { id: "atom_630", documentId: "doc_003", position: 2, text: "Nervskada, sensibilitet borta i tå 2–4, fotled – sjukskrivning och handikapp.", tags: ["nervskada", "handikapp"], hash: "sha256:j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5" },
+    { id: "atom_640", documentId: "doc_001", position: 19, text: "Krav på lagbrott från tjänstemän – bevisbördan cirkulär och omvänd.", tags: ["cirkulär bevisbörda", "tjänstefel"], hash: "sha256:k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6" },
+    { id: "atom_700", documentId: "doc_005", position: 1, text: "Kronofogden inblandad – betalningsföreläggande p.g.a. kommunens underlåtenhet.", tags: ["Kronofogden", "skuldsättning"], hash: "sha256:l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7" },
+    { id: "atom_710", documentId: "doc_001", position: 22, text: "Bilens förlorade värde och uppsägning p.g.a. obetald hyra – orsakad av kommunens fel.", tags: ["bilförlust", "ekonomisk skada"], hash: "sha256:m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8" },
+    { id: "atom_720", documentId: "doc_003", position: 3, text: "ADHD-operation försenad p.g.a. ekonomisk kris och stress.", tags: ["ADHD", "försenad vård"], hash: "sha256:n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9" },
+    { id: "atom_800", documentId: "doc_007", position: 1, text: "FL 5 § – saklighet och proportionalitet åsidosatt genom oriktiga uppgifter och oproportionerliga krav.", keywords: ["FL5", "saklighet"], tags: ["FL"], hash: "sha256:o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9d0" },
+    { id: "atom_810", documentId: "doc_007", position: 2, text: "FL 6 § – serviceskyldighet grovt åsidosatt genom vägran att träffa i akut nödsituation.", keywords: ["FL6", "serviceskyldighet"], tags: ["FL"], hash: "sha256:p6q7r8s9t0u1v2w3x4y5z6a7b8c9d0e1" },
+    { id: "atom_820", documentId: "doc_007", position: 3, text: "FL 23 § – utredningsskyldighet underlåten trots dokumenterad barnrisk.", keywords: ["FL23", "utredningsskyldighet"], tags: ["FL"], hash: "sha256:q7r8s9t0u1v2w3x4y5z6a7b8c9d0e1f2" },
+    { id: "atom_830", documentId: "doc_007", position: 4, text: "FL 32 § – utebliven motivering vid muntliga avslag trots upprepad begäran.", keywords: ["FL32", "motivering"], tags: ["FL"], hash: "sha256:r8s9t0u1v2w3x4y5z6a7b8c9d0e1f2g3" },
+    { id: "atom_840", documentId: "doc_007", position: 5, text: "FL 16–18 §§ – jäv och underlåten jävsanmälan – opartiskhet ifrågasatt.", keywords: ["FL16-18", "jäv"], tags: ["FL"], hash: "sha256:s9t0u1v2w3x4y5z6a7b8c9d0e1f2g3h4" },
+    { id: "atom_850", documentId: "doc_007", position: 6, text: "FL 33 § – underlåten information om överklaganderätt.", keywords: ["FL33", "överklagande"], tags: ["FL"], hash: "sha256:t0u1v2w3x4y5z6a7b8c9d0e1f2g3h4i5" }
   ],
 
   facts: [
@@ -72,26 +72,26 @@ export const syntheticAnalysisResult: AnalysisResult = {
   ],
 
   uncertainties: [
-    { id: "unc_01", description: "Exakt uppsåtsgrad hos enskilda handläggare (krävs för tjänstefel och regress).", relatedFactIds: ["fact_13"], relevantLegalReferenceIds: ["lawlink_14"] },
-    { id: "unc_02", description: "Orsakssamband mellan kommunens fel och CRPS-förvärring (läkarutlåtande krävs).", relatedFactIds: ["fact_16"], relevantLegalReferenceIds: ["lawlink_13"] },
-    { id: "unc_03", description: "Preskriptionstidens början vid fortsatt nödsituation (varje ny skada?).", relatedFactIds: ["fact_17"], relevantLegalReferenceIds: ["lawlink_13"] },
-    { id: "unc_04", description: "Uppsåtsgrad vid underlåten jävsanmälan enligt FL 18 §.", relatedFactIds: ["fact_23"], relevantLegalReferenceIds: ["lawlink_11"] },
-    { id: "unc_05", description: "Om utebliven motivering enligt FL 32 § i sig utgör självständigt fel enligt SkL 3:2.", relatedFactIds: ["fact_22"], relevantLegalReferenceIds: ["lawlink_10"] }
+    { id: "unc_01", description: "Exakt uppsåtsgrad hos enskilda handläggare (krävs för tjänstefel och regress).", relatedFactIds: ["fact_13"], relevantLegalReferenceIds: ["lawlink_brb_20_1"] },
+    { id: "unc_02", description: "Orsakssamband mellan kommunens fel och CRPS-förvärring (läkarutlåtande krävs).", relatedFactIds: ["fact_16"], relevantLegalReferenceIds: ["lawlink_skl_3_2"] },
+    { id: "unc_03", description: "Preskriptionstidens början vid fortsatt nödsituation (varje ny skada?).", relatedFactIds: ["fact_17"], relevantLegalReferenceIds: ["lawlink_skl_3_2"] },
+    { id: "unc_04", description: "Uppsåtsgrad vid underlåten jävsanmälan enligt FL 18 §.", relatedFactIds: ["fact_23"], relevantLegalReferenceIds: ["lawlink_fl_16_18"] },
+    { id: "unc_05", description: "Om utebliven motivering enligt FL 32 § i sig utgör självständigt fel enligt SkL 3:2.", relatedFactIds: ["fact_22"], relevantLegalReferenceIds: ["lawlink_fl_32"] }
   ],
 
-  legalFrameworkLinks: [
-    { id: "lawlink_01", label: "Socialtjänstlagen (2025:400) 4 kap. 1 § – yttersta ansvar", references: ["SoL"], relatedFactIds: ["fact_15", "fact_17"] },
-    { id: "lawlink_02", label: "Socialtjänstlagen (2025:400) 3 kap. 1 § – barnets bästa", references: ["SoL"], relatedFactIds: ["fact_14", "fact_20"] },
-    { id: "lawlink_06", label: "Socialtjänstlagen (2025:400) 27 kap. – Lex Sarah", references: ["SoL"], relatedFactIds: ["fact_13"] },
-    { id: "lawlink_07", label: "Förvaltningslagen 5 § – saklighet, opartiskhet, proportionalitet", references: ["FL"], relatedFactIds: ["fact_13", "fact_21"] },
-    { id: "lawlink_08", label: "Förvaltningslagen 6 § – serviceskyldighet", references: ["FL"], relatedFactIds: ["fact_17"] },
-    { id: "lawlink_09", label: "Förvaltningslagen 23 § – utredningsskyldighet", references: ["FL"], relatedFactIds: ["fact_21"] },
-    { id: "lawlink_10", label: "Förvaltningslagen 32 § – motivering av beslut", references: ["FL"], relatedFactIds: ["fact_22"] },
-    { id: "lawlink_11", label: "Förvaltningslagen 16–18 §§ – jäv och jävsanmälan", references: ["FL"], relatedFactIds: ["fact_23"] },
-    { id: "lawlink_12", label: "Förvaltningslagen 33 § – överklagande och besvärsrätt", references: ["FL"], relatedFactIds: ["fact_24"] },
-    { id: "lawlink_13", label: "Skadeståndslagen 3 kap. 2 § – fel i myndighetsutövning", references: ["SkL"], relatedFactIds: ["fact_15", "fact_16"] },
-    { id: "lawlink_14", label: "Brottsbalken 20 kap. 1 § – tjänstefel", references: ["BrB"], relatedFactIds: ["fact_13", "fact_19"] }
-  ],
+    legalFrameworkLinks: [
+        { id: "lawlink_sol_4_1", label: "Socialtjänstlagen (2025:400) 4 kap. 1 § – yttersta ansvar", references: ["SoL"], relatedFactIds: ["fact_15", "fact_17"] },
+        { id: "lawlink_sol_3_1", label: "Socialtjänstlagen (2025:400) 3 kap. 1 § – barnets bästa", references: ["SoL"], relatedFactIds: ["fact_14", "fact_20"] },
+        { id: "lawlink_sol_27_lexsarah", label: "Socialtjänstlagen (2025:400) 27 kap. – Lex Sarah", references: ["SoL"], relatedFactIds: ["fact_13"] },
+        { id: "lawlink_fl_5", label: "Förvaltningslagen 5 § – saklighet, opartiskhet, proportionalitet", references: ["FL"], relatedFactIds: ["fact_13", "fact_21"] },
+        { id: "lawlink_fl_6", label: "Förvaltningslagen 6 § – serviceskyldighet", references: ["FL"], relatedFactIds: ["fact_17"] },
+        { id: "lawlink_fl_23", label: "Förvaltningslagen 23 § – utredningsskyldighet", references: ["FL"], relatedFactIds: ["fact_21"] },
+        { id: "lawlink_fl_32", label: "Förvaltningslagen 32 § – motivering av beslut", references: ["FL"], relatedFactIds: ["fact_22"] },
+        { id: "lawlink_fl_16_18", label: "Förvaltningslagen 16–18 §§ – jäv och jävsanmälan", references: ["FL"], relatedFactIds: ["fact_23"] },
+        { id: "lawlink_fl_33", label: "Förvaltningslagen 33 § – överklagande och besvärsrätt", references: ["FL"], relatedFactIds: ["fact_24"] },
+        { id: "lawlink_skl_3_2", label: "Skadeståndslagen 3 kap. 2 § – fel i myndighetsutövning", references: ["SkL"], relatedFactIds: ["fact_15", "fact_16"] },
+        { id: "lawlink_brb_20_1", label: "Brottsbalken 20 kap. 1 § – tjänstefel", references: ["BrB"], relatedFactIds: ["fact_13", "fact_19"] }
+    ],
 
   riskProfile: {
     id: "rp_synthetic_001_extreme",
@@ -162,14 +162,14 @@ export const syntheticAnalysisResult: AnalysisResult = {
   },
 
   evidenceChain: [
-    { id: "ev_01", factId: "fact_13", legalReferenceId: "lawlink_14", strength: 0.99, reasoning: "Muntliga löften om bistånd → saknas i journal → bevisundertryckande" },
-    { id: "ev_02", factId: "fact_18", legalReferenceId: "lawlink_13", strength: 0.98, reasoning: "Dom underkänner bilkrav → ingen verkställighet → fortsatt utmätning hos Kronofogden" },
-    { id: "ev_03", factId: "fact_16", legalReferenceId: "lawlink_13", strength: 0.97, reasoning: "Läkarintyg CRPS + nervskada → utebliven rehabilitering → förvärrad personskada" },
-    { id: "ev_04", factId: "fact_20", legalReferenceId: "lawlink_03", strength: 0.96, reasoning: "Barnet utan mat/el/telefon → kommunens underlåtenhet → ansvarsomkastning" },
-    { id: "ev_05", factId: "fact_13", legalReferenceId: "lawlink_08", strength: 0.99, reasoning: "FL 5 § – saklighetsbrott genom medvetet oriktiga uppgifter" },
-    { id: "ev_06", factId: "fact_21", legalReferenceId: "lawlink_09", strength: 0.98, reasoning: "FL 23 § – underlåten utredningsskyldighet → barnrisk och medicinska behov ignorerade" },
-    { id: "ev_07", factId: "fact_22", legalReferenceId: "lawlink_10", strength: 0.97, reasoning: "FL 32 § – utebliven motivering → muntliga avslag utan skriftlig grund" },
-    { id: "ev_08", factId: "fact_23", legalReferenceId: "lawlink_11", strength: 0.95, reasoning: "FL 16–18 §§ – jävsbrott → underlåten anmälan av opartiskhetsfråga" }
+    { id: "ev_01", factId: "fact_13", legalReferenceId: "lawlink_brb_20_1", strength: 0.99, reasoning: "Muntliga löften om bistånd → saknas i journal → bevisundertryckande" },
+    { id: "ev_02", factId: "fact_18", legalReferenceId: "lawlink_skl_3_2", strength: 0.98, reasoning: "Dom underkänner bilkrav → ingen verkställighet → fortsatt utmätning hos Kronofogden" },
+    { id: "ev_03", factId: "fact_16", legalReferenceId: "lawlink_skl_3_2", strength: 0.97, reasoning: "Läkarintyg CRPS + nervskada → utebliven rehabilitering → förvärrad personskada" },
+    { id: "ev_04", factId: "fact_20", legalReferenceId: "lawlink_sol_3_1", strength: 0.96, reasoning: "Barnet utan mat/el/telefon → kommunens underlåtenhet → ansvarsomkastning" },
+    { id: "ev_05", factId: "fact_13", legalReferenceId: "lawlink_fl_5", strength: 0.99, reasoning: "FL 5 § – saklighetsbrott genom medvetet oriktiga uppgifter" },
+    { id: "ev_06", factId: "fact_21", legalReferenceId: "lawlink_fl_23", strength: 0.98, reasoning: "FL 23 § – underlåten utredningsskyldighet → barnrisk och medicinska behov ignorerade" },
+    { id: "ev_07", factId: "fact_22", legalReferenceId: "lawlink_fl_32", strength: 0.97, reasoning: "FL 32 § – utebliven motivering → muntliga avslag utan skriftlig grund" },
+    { id: "ev_08", factId: "fact_23", legalReferenceId: "lawlink_fl_16_18", strength: 0.95, reasoning: "FL 16–18 §§ – jävsbrott → underlåten anmälan av opartiskhetsfråga" }
   ],
 
   externalLinks: [

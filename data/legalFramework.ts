@@ -233,5 +233,13 @@ export const legalFrameworkIndex: LegalFrameworkIndexEntry[] = [
     "shortName": "PRAXIS",
     "corpusFile": "praxis.json",
     "auditTrail": { "status": "VERIFIED" }
+  },
+  {
+    "id": "sample_facts_2026",
+    "label": "Sample Facts (FS 2026-01-08)",
+    "type": "regelverk",
+    "shortName": "FACTS",
+    "corpusFile": "SampleFacts_FS_2026-01-08.json",
+    "auditTrail": { "status": "VERIFIED" }
   }
 ];

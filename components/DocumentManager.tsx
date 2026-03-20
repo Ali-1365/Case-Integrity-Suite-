@@ -154,19 +154,19 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
     };
 
     const Breadcrumbs = () => {
-        const items = [{ label: 'Hem', onClick: () => { setSelectedDocId(null); setActiveModal(null); setShowMoreMenu(false); }, icon: <Squares2X2Icon className="w-4 h-4" /> }];
+        const items = [{ label: 'Hem', onClick: () => { setSelectedDocId(null); setActiveModal(null); setShowMoreMenu(false); }, icon: <Squares2X2Icon className="w-3.5 h-3.5" /> }];
         
         if (selectedDocId) {
             items.push({ 
                 label: 'Analys', 
                 onClick: () => { setActiveModal(null); setShowMoreMenu(false); },
-                icon: <MagnifyingGlassIcon className="w-4 h-4" />
+                icon: <MagnifyingGlassIcon className="w-3.5 h-3.5" />
             });
             if (selectedDoc) {
                 items.push({ 
                     label: selectedDoc.name, 
                     onClick: () => {},
-                    icon: <DocumentTextIcon className="w-4 h-4" />
+                    icon: <DocumentTextIcon className="w-3.5 h-3.5" />
                 });
             }
         } else if (activeModal) {
@@ -178,25 +178,32 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                 agent: 'Analys',
                 audit: 'Audit & Compliance',
                 framework: 'Juridiskt Ramverk',
-                arch: 'Ärendearkiv'
+                arch: 'Ärendearkiv',
+                monitor: 'System Monitor',
+                inventory: 'System Inventory',
+                debug: 'AI Debug Panel',
+                profiler: 'Case Profiler'
             };
             items.push({ 
                 label: modalLabels[activeModal] || 'Modul', 
                 onClick: () => {},
-                icon: <BoltIcon className="w-4 h-4" />
+                icon: <BoltIcon className="w-3.5 h-3.5" />
             });
         }
 
         return (
-            <nav className="flex items-center space-x-2 text-[10px] font-black uppercase tracking-widest text-slate-400 mb-6">
+            <nav className="flex items-center space-x-3 text-[11px] font-bold uppercase tracking-[0.2em] text-slate-600 dark:text-slate-400 mb-8 bg-white/50 dark:bg-slate-900/50 p-3 rounded-2xl border border-slate-200/50 dark:border-slate-800/50 backdrop-blur-sm w-fit" aria-label="Breadcrumb">
                 {items.map((item, index) => (
                     <React.Fragment key={index}>
-                        {index > 0 && <span className="text-slate-300 dark:text-slate-700">/</span>}
+                        {index > 0 && <span className="text-slate-400 dark:text-slate-600 font-normal">/</span>}
                         <button 
                             onClick={item.onClick}
-                            className={`flex items-center space-x-2 transition-colors ${index === items.length - 1 ? 'text-blue-600 dark:text-blue-400' : 'hover:text-slate-900 dark:hover:text-white'}`}
+                            className={`flex items-center space-x-2.5 transition-all duration-300 ${index === items.length - 1 ? 'text-blue-600 dark:text-blue-400' : 'hover:text-slate-900 dark:hover:text-white hover:translate-x-0.5'}`}
+                            aria-current={index === items.length - 1 ? 'page' : undefined}
                         >
-                            {item.icon}
+                            <div className={`${index === items.length - 1 ? 'text-blue-500' : 'text-slate-500 dark:text-slate-400'}`}>
+                                {item.icon}
+                            </div>
                             <span>{item.label}</span>
                         </button>
                     </React.Fragment>
@@ -204,6 +211,18 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
             </nav>
         );
     };
+
+    const PageHeader = ({ title, subtitle, icon }: { title: string, subtitle?: string, icon?: React.ReactNode }) => (
+        <div className="mb-10 flex items-start justify-between">
+            <div className="space-y-2">
+                <div className="flex items-center gap-4">
+                    {icon && <div className="p-2.5 bg-blue-600/10 rounded-xl text-blue-600 dark:text-blue-400">{icon}</div>}
+                    <h2 className="text-4xl font-black text-slate-900 dark:text-white tracking-tighter leading-none">{title}</h2>
+                </div>
+                {subtitle && <p className="text-sm text-slate-500 dark:text-slate-400 font-medium max-w-2xl">{subtitle}</p>}
+            </div>
+        </div>
+    );
 
     if (isLoading) return (
         <div className="flex flex-col h-screen items-center justify-center bg-slate-50 dark:bg-slate-950 space-y-8 animate-fade-in">
@@ -309,13 +328,15 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                             onClick={() => setIsDarkMode(!isDarkMode)} 
                             className="p-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700 transition-all shadow-sm hover:shadow-md active:scale-90"
                             title={isDarkMode ? 'Växla till ljust läge' : 'Växla till mörkt läge'}
+                            aria-label={isDarkMode ? 'Växla till ljust läge' : 'Växla till mörkt läge'}
                         >
                             {isDarkMode ? '☀️' : '🌙'}
                         </button>
                         <button 
                             onClick={onLogout} 
-                            className="p-2.5 text-slate-400 hover:text-red-600 hover:bg-white dark:hover:bg-red-900/20 rounded-xl transition-all ml-1.5 active:scale-90"
+                            className="p-2.5 text-slate-500 dark:text-slate-400 hover:text-red-600 hover:bg-white dark:hover:bg-red-900/20 rounded-xl transition-all ml-1.5 active:scale-90"
                             title="Logga ut"
+                            aria-label="Logga ut"
                         >
                             <LogoutIcon className="h-5 w-5" />
                         </button>
@@ -326,39 +347,55 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
             <main className="flex-grow p-6 lg:p-10 max-w-[1600px] mx-auto w-full">
                 <Breadcrumbs />
                 {selectedDocId ? (
-                    <AnalysisView 
-                        documentId={selectedDocId} 
-                        onBack={() => setSelectedDocId(null)} 
-                        onDocumentUpdate={loadData} 
-                        onLegalReferenceSelect={() => setActiveModal('control')} 
-                    />
+                    <>
+                        <PageHeader 
+                            title="Ärendeanalys" 
+                            subtitle="Djupgående granskning av bevisatomer, rättsliga kopplingar och riskprofiler."
+                            icon={<MagnifyingGlassIcon className="w-6 h-6" />}
+                        />
+                        <AnalysisView 
+                            documentId={selectedDocId} 
+                            onBack={() => setSelectedDocId(null)} 
+                            onDocumentUpdate={loadData} 
+                            onLegalReferenceSelect={() => setActiveModal('control')} 
+                        />
+                    </>
                 ) : (
-                    <SystemOverview 
-                        legalCorpus={legalCorpora}
-                        pipelineStatus={pipelineStatus} 
-                        documents={documents} 
-                        onFilesSelect={async (files) => { 
-                            try {
-                                for(const f of files) { 
-                                    const p = await parseFile(f); 
-                                    if(p) await handleAnalyze(p); 
-                                } 
-                            } catch (err) {
-                                console.error('File selection processing failed:', err);
-                            }
-                        }}
-                        onTextSubmit={async (t) => {
-                            try {
-                                await handleAnalyze({ name: 'Manuell inmatning', textContent: t, mimeType: 'text/plain' });
-                            } catch (err) {
-                                console.error('Text submission processing failed:', err);
-                            }
-                        }}
-                        onSelectDocument={setSelectedDocId}
-                        onAggregateSelected={() => {}}
-                        isProcessing={isAnalyzing || isParsing}
-                        parsingError={parsingError}
-                    />
+                    <>
+                        {!activeModal && (
+                            <PageHeader 
+                                title="Systemöversikt" 
+                                subtitle="Välkommen till Case Integrity Suite. Här kan du hantera ärenden, utföra analyser och övervaka systemets integritet."
+                                icon={<Squares2X2Icon className="w-6 h-6" />}
+                            />
+                        )}
+                        <SystemOverview 
+                            legalCorpus={legalCorpora}
+                            pipelineStatus={pipelineStatus} 
+                            documents={documents} 
+                            onFilesSelect={async (files) => { 
+                                try {
+                                    for(const f of files) { 
+                                        const p = await parseFile(f); 
+                                        if(p) await handleAnalyze(p); 
+                                    } 
+                                } catch (err) {
+                                    console.error('File selection processing failed:', err);
+                                }
+                            }}
+                            onTextSubmit={async (t) => {
+                                try {
+                                    await handleAnalyze({ name: 'Manuell inmatning', textContent: t, mimeType: 'text/plain' });
+                                } catch (err) {
+                                    console.error('Text submission processing failed:', err);
+                                }
+                            }}
+                            onSelectDocument={setSelectedDocId}
+                            onAggregateSelected={() => {}}
+                            isProcessing={isAnalyzing || isParsing}
+                            parsingError={parsingError}
+                        />
+                    </>
                 )}
             </main>
 
@@ -492,13 +529,14 @@ interface ToolButtonProps {
 const ToolButton: React.FC<ToolButtonProps> = ({ icon, onClick, label, active }) => (
     <button 
         onClick={onClick}
+        aria-label={label}
         className={`px-6 py-3 rounded-[1.25rem] transition-all flex items-center space-x-4 group cursor-pointer border-2 ${
             active 
             ? 'bg-slate-900 text-white border-slate-900 dark:bg-blue-600 dark:border-blue-600 dark:text-white shadow-2xl shadow-slate-900/20 dark:shadow-blue-900/40 scale-105' 
-            : 'border-transparent text-slate-500 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800/50'
+            : 'border-transparent text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800/50'
         }`}
     >
-        <div className={`transition-all duration-500 ${active ? 'text-white scale-110' : 'text-slate-400 group-hover:text-slate-600 dark:text-slate-500 dark:group-hover:text-slate-300 group-hover:scale-110 group-hover:rotate-6'}`}>
+        <div className={`transition-all duration-500 ${active ? 'text-white scale-110' : 'text-slate-500 group-hover:text-slate-700 dark:text-slate-500 dark:group-hover:text-slate-300 group-hover:scale-110 group-hover:rotate-6'}`}>
             {React.isValidElement(icon) ? React.cloneElement(icon as React.ReactElement<{ className?: string }>, { className: 'w-5 h-5' }) : icon}
         </div>
         {label && <span className="text-sm font-black tracking-tight hidden lg:block">{label}</span>}

@@ -346,21 +346,41 @@ export const SystemHub: React.FC<SystemHubProps> = ({ onNavigate }) => {
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                {filteredModules.map((mod, idx) => (
-                    <ModuleCard 
-                        key={mod.id}
-                        title={mod.title}
-                        description={mod.description}
-                        icon={mod.icon}
-                        status={mod.status}
-                        color={mod.color}
-                        category={mod.category}
-                        onClick={() => onNavigate(mod.id)}
-                    />
-                ))}
+            <div className="space-y-16">
+                {categories.map(cat => {
+                    const categoryModules = filteredModules.filter(m => m.category === cat);
+                    if (categoryModules.length === 0) return null;
+                    
+                    return (
+                        <div key={cat} className="space-y-8">
+                            <div className="flex items-center gap-4">
+                                <div className="h-px flex-grow bg-slate-200 dark:bg-slate-800"></div>
+                                <h2 className="text-xs font-black text-slate-400 uppercase tracking-[0.4em] whitespace-nowrap bg-slate-50 dark:bg-slate-950 px-4 py-1 rounded-full border border-slate-200 dark:border-slate-800">
+                                    {cat}
+                                </h2>
+                                <div className="h-px flex-grow bg-slate-200 dark:bg-slate-800"></div>
+                            </div>
+                            
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                                {categoryModules.map((mod) => (
+                                    <ModuleCard 
+                                        key={mod.id}
+                                        title={mod.title}
+                                        description={mod.description}
+                                        icon={mod.icon}
+                                        status={mod.status}
+                                        color={mod.color}
+                                        category={mod.category}
+                                        onClick={() => onNavigate(mod.id)}
+                                    />
+                                ))}
+                            </div>
+                        </div>
+                    );
+                })}
+                
                 {filteredModules.length === 0 && (
-                    <div className="col-span-full py-24 text-center space-y-6 bg-white dark:bg-slate-900 rounded-[3rem] border border-slate-200 dark:border-slate-800 border-dashed">
+                    <div className="py-24 text-center space-y-6 bg-white dark:bg-slate-900 rounded-[3rem] border border-slate-200 dark:border-slate-800 border-dashed">
                         <div className="w-20 h-20 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center mx-auto">
                             <ExclamationTriangleIcon className="h-10 w-10 text-slate-400" />
                         </div>
@@ -368,7 +388,7 @@ export const SystemHub: React.FC<SystemHubProps> = ({ onNavigate }) => {
                             <h3 className="text-2xl font-black text-slate-900 dark:text-white">Inga moduler hittades</h3>
                             <p className="text-slate-500 dark:text-slate-400 max-w-xs mx-auto font-medium">
                                 Prova att justera din sökning eller välj en annan kategori.
-                            </p>
+                             </p>
                         </div>
                         <button 
                             onClick={() => { setSearchQuery(''); setActiveCategory(null); }}
