@@ -1,4 +1,3 @@
-
 {
   "sourceCode": "FB",
   "sfsNumber": "1949:381",
@@ -6,11 +5,540 @@
   "versionChain": ["1949:381"],
   "paragraphs": [
     {
+      "id": "fb_1_1",
+      "chapter": 1,
+      "section": 1,
+      "principleType": "faderskapspresumtion",
+      "text": "Är vid barns födelse modern gift med en man, ska denne anses som barnets far, om inte annat följer av 2 § [cite: 370]. Detsamma gäller, om modern är änka och barnet föds inom sådan tid efter mannens död att barnet kan vara avlat dessförinnan [cite: 371].",
+      "keywords": ["faderskap", "presumtion", "äktenskap"],
+      "relatedRules": [],
+      "metadata": { "validFrom": "2009-01-01", "legalWeight": "grundläggande", "riskTrigger": false }
+    },
+    {
+      "id": "fb_1_3",
+      "chapter": 1,
+      "section": 3,
+      "principleType": "fastställande av faderskap",
+      "text": "Om det inte är fråga om fall som avses i 1 § eller 9 § första stycket eller om rätten har meddelat förklaring enligt 2 § första stycket eller 9 a § första stycket, fastställs faderskapet genom bekräftelse eller dom [cite: 375]. I fall som avses i 9 § andra stycket fastställs i stället föräldraskapet för en kvinna [cite: 376].",
+      "keywords": ["faderskap", "föräldraskap", "bekräftelse", "dom"],
+      "relatedRules": [],
+      "metadata": { "validFrom": "2021-01-01", "legalWeight": "central", "riskTrigger": false }
+    },
+    {
+      "id": "fb_1_7",
+      "chapter": 1,
+      "section": 7,
+      "principleType": "moderskap",
+      "text": "Om en kvinna föder ett barn som tillkommit genom att ett ägg från en annan kvinna efter befruktning utanför kroppen har förts in i hennes kropp, skall hon anses som barnets moder [cite: 393].",
+      "keywords": ["moderskap", "äggdonation", "befruktning"],
+      "relatedRules": [],
+      "metadata": { "validFrom": "2003-01-01", "legalWeight": "grundläggande", "riskTrigger": false }
+    },
+    {
+      "id": "fb_1_15",
+      "chapter": 1,
+      "section": 15,
+      "text": "Ett barn som har tillkommit genom en sådan insemination eller befruktning utanför kroppen som har utförts med andra könsceller än föräldrarnas egna har rätt att av sina föräldrar få veta det[cite: 434]. Föräldrarna ska så snart det är lämpligt upplysa barnet om att han eller hon har tillkommit genom en sådan behandling[cite: 435].",
+      "metadata": { 
+        "validFrom": "2019-01-01", 
+        "provenanceHash": "sha256-fb_1_15",
+        "revisionNote": "Barnets rätt till ursprungsinformation."
+      }
+    },
+    {
+      "id": "fb_2_1",
+      "chapter": 2,
+      "section": 1,
+      "text": "Om inte en viss man eller kvinna på grund av äktenskap eller registrerat partnerskap ska anses som far eller förälder enligt 1 kap. 9 § till ett barn som står under någons vårdnad, är socialnämnden skyldig att försöka utreda vem som är far till barnet och se till att faderskapet fastställs, om barnet har sin hemvist i Sverige[cite: 436, 437].",
+      "metadata": { 
+        "validFrom": "2021-01-01", 
+        "provenanceHash": "sha256-fb_2_1",
+        "revisionNote": "Socialnämndens utredningsskyldighet."
+      }
+    },
+    {
+      "id": "fb_4_1",
+      "chapter": 4,
+      "section": 1,
+      "text": "Vid alla frågor som rör adoption av ett barn ska barnets bästa ges störst vikt[cite: 542].",
+      "metadata": { 
+        "validFrom": "2019-01-01", 
+        "provenanceHash": "sha256-fb_4_1",
+        "revisionNote": "Barnets bästa vid adoption."
+      }
+    },
+    {
+      "id": "fb_4_8",
+      "chapter": 4,
+      "section": 8,
+      "text": "Ett barn får inte adopteras utan samtycke från den förälder som är vårdnadshavare[cite: 556]. Något samtycke behövs inte om 1. föräldern är varaktigt förhindrad att samtycka till följd av en psykisk sjukdom eller något annat liknande förhållande, 2. föräldern vistas på okänd ort, eller 3. det finns synnerliga skäl[cite: 557].",
+      "metadata": { 
+        "validFrom": "2021-01-01", 
+        "provenanceHash": "sha256-fb_4_8",
+        "revisionNote": "Krav på samtycke vid adoption."
+      }
+    },
+    {
+      "id": "fb_4_21",
+      "chapter": 4,
+      "section": 21,
+      "text": "Den som har adopterats ska anses som adoptivförälderns barn och inte som barn till sina tidigare föräldrar[cite: 586]. Om en make eller sambo har adopterat den andra makens eller sambons barn, ska den som har adopterats dock anses som makarnas eller sambornas gemensamma barn[cite: 587].",
+      "metadata": { 
+        "validFrom": "2019-01-01", 
+        "provenanceHash": "sha256-fb_4_21",
+        "revisionNote": "Rättsverkningar av adoption."
+      }
+    },
+    {
+      "id": "fb_5_1",
+      "chapter": 5,
+      "section": 1,
+      "text": "Om barnets namn är särskilt stadgat.",
+      "metadata": { 
+        "validFrom": "1963-01-01", 
+        "provenanceHash": "sha256-fb_5_1",
+        "revisionNote": "Hänvisning till namnlagen[cite: 595]."
+      }
+    },
+    {
       "id": "fb_6_1",
       "chapter": 6,
       "section": 1,
       "text": "Barn har rätt till omvårdnad, trygghet och en god fostran. Barn skall behandlas med aktning för sin person och egenart och får inte utsättas för kroppslig bestraffning eller annan kränkande behandling.",
-      "metadata": { "validFrom": "1950-01-01", "provenanceHash": "fb_h1" }
+      "metadata": { 
+        "validFrom": "1983-07-01", 
+        "provenanceHash": "sha256-fb_6_1",
+        "revisionNote": "Grundläggande rättigheter och förbud mot aga [cite: 596-597]."
+      }
+    },
+    {
+      "id": "fb_6_2",
+      "chapter": 6,
+      "section": 2,
+      "text": "1. Ett barn står under vårdnad av båda föräldrarna eller en av dem, om inte rätten har anförtrott vårdnaden åt en eller två särskilt förordnade vårdnadshavare eller åt en tillfällig vårdnadshavare. Vårdnaden om ett barn består till dess att barnet fyller 18 år. 2. Den som har vårdnaden om ett barn har ett ansvar för barnets personliga förhållanden och ska se till att barnets behov enligt 1 § blir tillgodosedda. Barnets vårdnadshavare svarar även för att barnet får den tillsyn som behövs med hänsyn till barnets ålder, utveckling och övriga omständigheter samt ska bevaka att barnet får tillfredsställande försörjning och utbildning. 3. I syfte att hindra att barnet orsakar skada för någon annan ska vårdnadshavaren vidare svara för att barnet står under uppsikt eller att andra lämpliga åtgärder vidtas.",
+      "metadata": { 
+        "validFrom": "2021-07-01", 
+        "provenanceHash": "sha256-fb_6_2",
+        "revisionNote": "Vårdnadshavarens ansvar och tillsynsplikt [cite: 598-603]."
+      }
+    },
+    {
+      "id": "fb_6_2a",
+      "chapter": 6,
+      "section": 2,
+      "text": "Barnets bästa ska vara avgörande för alla frågor om vårdnad, boende och umgänge. Vid bedömningen av vad som är bäst för barnet ska det fästas avseende särskilt vid risken för att barnet eller någon annan i familjen utsätts för våld eller annat övergrepp, eller att barnet olovligen förs bort eller hålls kvar eller annars far illa.",
+      "metadata": { 
+        "validFrom": "2024-12-01", 
+        "provenanceHash": "sha256-fb_6_2a",
+        "revisionNote": "Barnets bästa-principen med fokus på riskbedömning [cite: 604-605]."
+      }
+    },
+    {
+      "id": "fb_6_2b",
+      "chapter": 6,
+      "section": 2,
+      "text": "Barnet ska få information och ges möjlighet att framföra sina åsikter i frågor om vårdnad, boende och umgänge. Barnets åsikter ska tillmätas betydelse i förhållande till barnets ålder och mognad.",
+      "metadata": { 
+        "validFrom": "2021-07-01", 
+        "provenanceHash": "sha256-fb_6_2b",
+        "revisionNote": "Barnets rätten att bli hörd [cite: 606-607]."
+      }
+    },
+    {
+      "id": "fb_6_5",
+      "chapter": 6,
+      "section": 5,
+      "text": "Om barnet står under vårdnad av båda föräldrarna eller en av dem och någon av dem vill få ändring i vårdnaden, ska rätten besluta att föräldrarna ska ha gemensam vårdnad om barnet eller att en av dem ska ha ensam vårdnad. Vid bedömningen av om föräldrarna ska ha gemensam vårdnad eller om en av dem ska ha ensam vårdnad ska rätten fästa avseende särskilt vid föräldrarnas förmåga att sätta barnets behov främst och ta ett gemensamt ansvar i frågor som rör barnet.",
+      "metadata": { 
+        "validFrom": "2021-07-01", 
+        "provenanceHash": "sha256-fb_6_5",
+        "revisionNote": "Rättens prövning av vårdnadstvister [cite: 615-616]."
+      }
+    },
+    {
+      "id": "fb_6_11",
+      "chapter": 6,
+      "section": 11,
+      "text": "Vårdnadshavaren har rätt och skyldighet att bestämma i frågor som rör barnets personliga angelägenheter. Vårdnadshavaren skall därvid i takt med barnets stigande ålder och utveckling ta allt större hänsyn till barnets synpunkter och önskemål.",
+      "metadata": { 
+        "validFrom": "1983-07-01", 
+        "provenanceHash": "sha256-fb_6_11",
+        "revisionNote": "Vårdnadshavarens bestämmanderätt [cite: 663-664]."
+      }
+    },
+    {
+      "id": "fb_6_14a",
+      "chapter": 6,
+      "section": 14,
+      "text": "Står barnet under vårdnad av båda föräldrarna, får rätten på talan av en av dem eller båda besluta vem av föräldrarna barnet skall bo tillsammans med. Föräldrarna får avtala om barnets boende. Avtalet skall gälla, om det är skriftligt och socialnämnden godkänner det.",
+      "metadata": { 
+        "validFrom": "2006-07-01", 
+        "provenanceHash": "sha256-fb_6_14a",
+        "revisionNote": "Barnets boende vid gemensam vårdnad [cite: 682-683]."
+      }
+    },
+    {
+      "id": "fb_6_15",
+      "chapter": 6,
+      "section": 15,
+      "text": "Barnet ska ha rätt till umgänge med en förälder som det inte bor tillsammans med, utom när det strider mot barnets bästa. Umgänget kan ske genom att barnet och föräldern träffar varandra eller genom att de har annan kontakt. Barnets föräldrar har ett gemensamt ansvar för att barnets behov av umgänge med en förälder som barnet inte bor tillsammans med så långt möjligt tillgodoses. Särskilt förordnade vårdnadshavare och en tillfällig vårdnadshavare har motsvarande ansvar.",
+      "metadata": { 
+        "validFrom": "2024-12-01", 
+        "provenanceHash": "sha256-fb_6_15",
+        "revisionNote": "Barnets umgängesrätt [cite: 684-687]."
+      }
+    },
+    {
+      "id": "fb_6_19",
+      "chapter": 6,
+      "section": 19,
+      "text": "Rätten ska se till att frågor om vårdnad, boende och umgänge blir tillräckligt utredda. Innan rätten avgör ett mål eller ärende om vårdnad, boende eller umgänge ska socialnämnden ges tillfälle att lämna upplysningar. Om nämnden har tillgång till upplysningar som kan ha betydelse för frågans bedömning, är nämnden skyldig att lämna sådana upplysningar till rätten.",
+      "metadata": { 
+        "validFrom": "2021-07-01", 
+        "provenanceHash": "sha256-fb_6_19",
+        "revisionNote": "Utredningsskyldighet i familjemål [cite: 740-742]."
+      }
+    },
+    {
+      "id": "fb_7_1",
+      "chapter": 7,
+      "section": 1,
+      "text": "1. Föräldrarna skall svara för underhåll åt barnet efter vad som är skäligt med hänsyn till barnets behov och föräldrarnas samlade ekonomiska förmåga. När föräldrarnas underhållsskyldighet bestäms skall hänsyn tas till barnets egna inkomster och tillgångar samt till barnets sociala förmåner under beaktande av vad som följer av föreskrifterna om dessa. 2. Underhållsskyldigheten upphör när barnet fyller arton år. Går barnet i skolan efter denna tidpunkt, är föräldrarna underhållsskyldiga under den tid som skolgången pågår, dock längst intill dess barnet fyller tjugoett år. Till skolgång räknas studier i grundskolan eller gymnasieskolan och annan jämförlig grundutbildning. 3. I kostnaderna för barnets underhåll skall föräldrarna sinsemellan ta del var och en efter sin förmåga.",
+      "metadata": { 
+        "validFrom": "2002-01-01", 
+        "provenanceHash": "sha256-fb_7_1",
+        "revisionNote": "Huvudregeln för underhållsskyldighet och förlängning vid skolgång [cite: 2283-2287]."
+      }
+    },
+    {
+      "id": "fb_7_2",
+      "chapter": 7,
+      "section": 2,
+      "text": "En förälder skall fullgöra sin underhållsskyldighet genom att betala underhållsbidrag till barnet, om föräldern 1. inte har vårdnaden om barnet och inte heller varaktigt bor tillsammans med barnet, eller 2. har vårdnaden om barnet gemensamt med den andra föräldern men barnet varaktigt bor tillsammans med endast den andra föräldern. Underhållsbidrag fastställs genom dom eller avtal.",
+      "metadata": { 
+        "validFrom": "1997-02-01", 
+        "provenanceHash": "sha256-fb_7_2",
+        "revisionNote": "Förutsättningar för underhållsbidrag [cite: 2288-2289]."
+      }
+    },
+    {
+      "id": "fb_7_4",
+      "chapter": 7,
+      "section": 4,
+      "text": "Har en förälder som enligt 2 § skall betala underhållsbidrag haft barnet hos sig under en sammanhängande tid av minst fem hela dygn eller under en kalendermånad haft barnet hos sig i minst sex hela dygn, får föräldern vid fullgörande av sin bidragsskyldighet tillgodoräkna sig ett avdrag för varje helt dygn av barnets vistelse med 1/40 av det underhållsbidrag som räknat för kalendermånad gäller under tiden för vistelsen.",
+      "metadata": { 
+        "validFrom": "2006-01-01", 
+        "provenanceHash": "sha256-fb_7_4",
+        "revisionNote": "Regler om umgängesavdrag[cite: 2302]."
+      }
+    },
+    {
+      "id": "fb_7_5",
+      "chapter": 7,
+      "section": 5,
+      "text": "Den som varaktigt bor tillsammans med annans barn och med förälder som har vårdnaden om barnet är underhållsskyldig mot barnet, om han eller hon är gift med föräldern eller har eget barn tillsammans med föräldern. Om det finns särskilda skäl, kvarstår underhållsskyldigheten även sedan barnet har flyttat hemifrån.",
+      "metadata": { 
+        "validFrom": "1979-07-01", 
+        "provenanceHash": "sha256-fb_7_5",
+        "revisionNote": "Styvföräldrars underhållsskyldighet [cite: 2310-2311]."
+      }
+    },
+    {
+      "id": "fb_7_10",
+      "chapter": 7,
+      "section": 10,
+      "text": "Dom eller avtal om underhåll kan jämkas av rätten, om ändring i förhållandena föranleder det. För tiden innan talan har väckts får jämkning dock mot parts bestridande göras endast på så sätt att obetalda bidrag sätts ned eller tas bort. Avtal om underhåll kan också jämkas av rätten, om avtalet är oskäligt med hänsyn till omständigheterna vid dess tillkomst och förhållandena i övrigt.",
+      "metadata": { 
+        "validFrom": "1979-07-01", 
+        "provenanceHash": "sha256-fb_7_10",
+        "revisionNote": "Jämkning av underhåll [cite: 2328-2330]."
+      }
+    },
+    {
+      "id": "fb_7_20",
+      "chapter": 7,
+      "section": 20,
+      "text": "Det som sägs i 12, 15 och 16 §§ om fastställande av faderskap gäller även fastställande av föräldraskap enligt 1 kap. 9 §. Det som sägs i 18 § om en man tillämpas också i fråga om en kvinna som skall anses som förälder enligt 1 kap. 9 §.",
+      "metadata": { 
+        "validFrom": "2005-07-01", 
+        "provenanceHash": "sha256-fb_7_20",
+        "revisionNote": "Likställande av faderskap och föräldraskap vid underhållstalan [cite: 2359-2360]."
+      }
+    },
+    {
+      "id": "fb_9_1",
+      "chapter": 9,
+      "section": 1,
+      "text": "Den som är under arton år (underårig) är omyndig och får inte själv råda över sin egendom eller åta sig förbindelser i vidare mån än som följer av vad som ska gälla på grund av lag eller villkor vid förvärv genom gåva, testamente eller förmånstagarförordnande vid - försäkring, - pensionssparande enligt lagen (1993:931) om individuellt pensionssparande, eller - sparande i en sådan PEPP-produkt som avses i Europaparlamentets och rådets förordning (EU) 2019/1238.",
+      "metadata": { 
+        "validFrom": "2023-01-01", 
+        "provenanceHash": "sha256-fb_9_1",
+        "revisionNote": "Huvudregel om omyndighet [cite: 2361-2362]."
+      }
+    },
+    {
+      "id": "fb_9_3",
+      "chapter": 9,
+      "section": 3,
+      "text": "Underårig äge själv råda över vad han genom eget arbete förvärvat efter det han fyllt sexton år. Detsamma gäller avkastningen av sådan egendom och vad som trätt i egendomens ställe. Förmyndaren må med överförmyndarens samtycke omhändertaga egendom, varom i första stycket sägs, såvitt det må anses erforderligt med hänsyn till myndlingens uppfostran eller välfärd.",
+      "metadata": { 
+        "validFrom": "1949-01-01", 
+        "provenanceHash": "sha256-fb_9_3",
+        "revisionNote": "Rätten att förfoga över arbetsinkomster efter 16 år [cite: 2369-2371]."
+      }
+    },
+    {
+      "id": "fb_9_7",
+      "chapter": 9,
+      "section": 7,
+      "text": "Varder avtal, som underårig ingått utan erforderligt samtycke, ej gällande, bäre envar åter vad han mottagit eller utgive, om det ej kan ske, ersättning för dess värde. Dock vare den underårige... icke pliktig att utgiva sådan ersättning i vidare mån än vad han mottagit använts till skäligt underhåll eller eljest finnes hava för honom medfört nytta. Har den underårige... genom falska uppgifter om sin behörighet vilselett den, med vilken avtalet slöts... vare han... pliktig att... utgiva ersättning för den förlust som föranletts av avtalet.",
+      "metadata": { 
+        "validFrom": "1949-01-01", 
+        "provenanceHash": "sha256-fb_9_7",
+        "revisionNote": "Återgång av prestationer vid ogiltigt avtal [cite: 2383-2385]."
+      }
+    },
+    {
+      "id": "fb_10_2",
+      "chapter": 10,
+      "section": 2,
+      "text": "För barn som står under vårdnad av bägge föräldrarna är dessa förmyndare. Om någon av föräldrarna inte får vara förmyndare enligt 1 § eller blir entledigad från förmynderskapet, är den andre barnets förmyndare. För barn som står under vårdnad av endast den ene av sina föräldrar är denne ensam förmyndare.",
+      "metadata": { 
+        "validFrom": "1989-01-01", 
+        "provenanceHash": "sha256-fb_10_2",
+        "revisionNote": "Huvudregel om vilka som är barnets förmyndare [cite: 515-517]."
+      }
+    },
+    {
+      "id": "fb_11_4",
+      "chapter": 11,
+      "section": 4,
+      "text": "Om någon på grund av sjukdom, psykisk störning, försvagat hälsotillstånd eller liknande förhållande behöver hjälp med att bevaka sin rätt, förvalta sin egendom eller sörja för sin person, skall rätten, om det behövs, besluta att anordna godmanskap för honom eller henne. Ett sådant beslut får inte meddelas utan samtycke av den för vilken godmanskap skall anordnas, om inte den enskildes tillstånd hindrar att hans eller hennes mening inhämtas.",
+      "metadata": { 
+        "validFrom": "1995-07-01", 
+        "provenanceHash": "sha256-fb_11_4",
+        "revisionNote": "Förutsättningar för anordnande av godmanskap [cite: 559-561]."
+      }
+    },
+    {
+      "id": "fb_11_7",
+      "chapter": 11,
+      "section": 7,
+      "text": "Om någon som befinner sig i en sådan situation som anges i 4 § är ur stånd att vårda sig eller sin egendom, får rätten besluta att anordna förvaltarskap för honom eller henne. Förvaltarskap får dock inte anordnas, om det är tillräckligt att godmanskap anordnas eller att den enskilde på något annat, mindre ingripande sätt får hjälp. Förvaltaruppdraget skall anpassas till den enskildes behov i varje särskilt fall och får begränsas till att avse viss egendom eller angelägenhet eller egendom överstigande ett visst värde.",
+      "metadata": { 
+        "validFrom": "1995-07-01", 
+        "provenanceHash": "sha256-fb_11_7",
+        "revisionNote": "Förutsättningar för anordnande av förvaltarskap [cite: 569-571]."
+      }
+    },
+    {
+      "id": "fb_11_12",
+      "chapter": 11,
+      "section": 12,
+      "text": "Till god man eller förvaltare ska utses en rättrådig, erfaren och i övrigt lämplig person. Föreslår den enskilde en viss person som god man eller förvaltare, ska den personen förordnas, om han eller hon är lämplig och vill åta sig uppdraget. Detsamma gäller om en god man ska förordnas att bevaka en underårigs eller bortavarandes rätt i ett dödsbo och den avlidne har gett till känna vem den avlidne önskar till god man. Innan någon förordnas till god man eller förvaltare ska hans eller hennes lämplighet kontrolleras i den utsträckning som behövs. Den som är underårig eller som själv har förvaltare får inte vara god man eller förvaltare.",
+      "metadata": { 
+        "validFrom": "2015-01-01", 
+        "provenanceHash": "sha256-fb_11_12",
+        "revisionNote": "Krav på lämplighet för gode män och förvaltare [cite: 582-586]."
+      }
+    },
+    {
+      "id": "fb_12_3",
+      "chapter": 12,
+      "section": 3,
+      "text": "Förmyndare, gode män och förvaltare skall omsorgsfullt fullgöra sina skyldigheter och alltid handla på det sätt som bäst gagnar den enskilde.",
+      "metadata": { 
+        "validFrom": "1995-07-01", 
+        "provenanceHash": "sha256-fb_12_3",
+        "revisionNote": "Den allmänna omsorgsplikten för ställföreträdare[cite: 658]."
+      }
+    },
+    {
+      "id": "fb_12_14",
+      "chapter": 12,
+      "section": 14,
+      "text": "Förmyndare, gode män och förvaltare är skyldiga att ersätta skada som de uppsåtligen eller av vårdslöshet har orsakat den enskilde. Om flera förmyndare, gode män eller förvaltare är ansvariga, svarar de solidariskt för ersättningen. Ersättningsansvaret skall slutligt fördelas mellan de ansvariga efter vars och ens grad av vållande.",
+      "metadata": { 
+        "validFrom": "1995-07-01", 
+        "provenanceHash": "sha256-fb_12_14",
+        "revisionNote": "Skadeståndsansvar vid försumlig förvaltning [cite: 690-692]."
+      }
+    },
+    {
+      "id": "fb_12_16",
+      "chapter": 12,
+      "section": 16,
+      "text": "Förordnade förmyndare, gode män och förvaltare har rätt till ett skäligt arvode för uppdraget och ersättning för de utgifter som har varit skäligen påkallade för uppdragets fullgörande. Beslut om arvode och ersättning för utgifter fattas av överförmyndaren. Överförmyndaren bestämmer dessutom i vad mån arvode och ersättning för utgifter ska betalas med medel som tillhör den enskilde.",
+      "metadata": { 
+        "validFrom": "2011-01-01", 
+        "provenanceHash": "sha256-fb_12_16",
+        "revisionNote": "Rätt till arvode och ersättning för utlägg [cite: 697-698]."
+      }
+    },
+    {
+      "id": "fb_13_1",
+      "chapter": 13,
+      "section": 1,
+      "text": "När en omyndigs föräldrar är förmyndare, bestämmer de hur tillgångar som står under deras förvaltning skall användas eller placeras, om inte annat följer av denna balk eller annan författning. Om en av föräldrarna till följd av frånvaro eller sjukdom... är förhindrad att ta del i sådana beslut... bestämmer den andra föräldern ensam. Denna förälder får dock inte ensam fatta beslut av ingripande betydelse, om inte den omyndiges bästa uppenbarligen kräver det.",
+      "metadata": { 
+        "validFrom": "1995-07-01", 
+        "provenanceHash": "sha256-fb_13_1",
+        "revisionNote": "Föräldrars fria förvaltningsrätt som huvudregel [cite: 706-710]."
+      }
+    },
+    {
+      "id": "fb_13_2",
+      "chapter": 13,
+      "section": 2,
+      "text": "När värdet på en omyndigs tillgångar, som ska förvaltas av föräldrarna... har kommit att överstiga åtta gånger gällande prisbasbelopp... tillämpas bestämmelserna i 3-7 §§ för förvaltningen. Dessa bestämmelser gäller även egendom som, under villkor om att förvaltningen av den ska stå under överförmyndarens kontroll (särskild överförmyndarkontroll), har tillfallit den omyndige genom arv eller testamente...",
+      "metadata": { 
+        "validFrom": "2023-01-01", 
+        "provenanceHash": "sha256-fb_13_2",
+        "revisionNote": "Gräns för när överförmyndarkontroll inträder (8 prisbasbelopp) [cite: 711-714]."
+      }
+    },
+    {
+      "id": "fb_13_10",
+      "chapter": 13,
+      "section": 10,
+      "text": "För den omyndiges räkning får föräldrar endast med överförmyndarens samtycke 1. genom köp, byte eller gåva förvärva fast egendom... 2. ingå avtal om nyttjanderätt till någon annans fasta egendom... 3. sälja eller byta bort fast egendom... eller 4. låta inteckna, hyra ut eller på något annat sätt med nyttjanderätt upplåta fast egendom eller tomträtt.",
+      "metadata": { 
+        "validFrom": "1995-07-01", 
+        "provenanceHash": "sha256-fb_13_10",
+        "revisionNote": "Krav på samtycke vid fastighetsaffärer [cite: 732-736]."
+      }
+    },
+    {
+      "id": "fb_14_1",
+      "chapter": 14,
+      "section": 1,
+      "text": "Förordnade förmyndare, gode män och förvaltare skall inom två månader efter förordnandet lämna en förteckning till överförmyndaren över den egendom som de förvaltar. Förteckningen skall avges på heder och samvete.",
+      "metadata": { 
+        "validFrom": "1995-07-01", 
+        "provenanceHash": "sha256-fb_14_1",
+        "revisionNote": "Skyldighet att lämna tillgångsförteckning [cite: 769-771]."
+      }
+    },
+    {
+      "id": "fb_14_15",
+      "chapter": 14,
+      "section": 15,
+      "text": "Förordnade förmyndare, gode män och förvaltare skall före den 1 mars varje år i en årsräkning till överförmyndaren redogöra för förvaltningen under föregående år av egendom som har stått under ställföreträdarens förvaltning. Årsräkningen skall avges på heder och samvete.",
+      "metadata": { 
+        "validFrom": "1995-07-01", 
+        "provenanceHash": "sha256-fb_14_15",
+        "revisionNote": "Skyldighet att lämna årsräkning [cite: 803-806]."
+      }
+    },
+    {
+      "id": "fb_15_1",
+      "chapter": 15,
+      "section": 1,
+      "text": "Har en omyndig del i ett dödsbo eller något annat oskiftat bo, skall förmyndaren vårda den omyndiges rätt i boet enligt bestämmelserna i detta kapitel. Bestämmelserna gäller också i fråga om god man och förvaltare...",
+      "metadata": { 
+        "validFrom": "1995-07-01", 
+        "provenanceHash": "sha256-fb_15_1",
+        "revisionNote": "Bevakning av rätt i dödsbo [cite: 832-833]."
+      }
+    },
+    {
+      "id": "fb_16_1",
+      "chapter": 16,
+      "section": 1,
+      "text": "Överförmyndaren skall enligt bestämmelserna i detta kapitel utöva tillsyn över förmyndares, gode mäns och förvaltares verksamhet. Vid tillsynen skall överförmyndaren särskilt se till att den enskildes tillgångar i skälig omfattning används för hans eller hennes nytta och att tillgångarna i övrigt är placerade så att tillräcklig trygghet finns...",
+      "metadata": { 
+        "validFrom": "1995-07-01", 
+        "provenanceHash": "sha256-fb_16_1",
+        "revisionNote": "Överförmyndarens tillsynsansvar [cite: 854-855]."
+      }
+    },
+    {
+      "id": "fb_16_11",
+      "chapter": 16,
+      "section": 11,
+      "text": "När en omyndig på grund av arv eller testamente har fått pengar till ett värde som överstiger ett prisbasbelopp... ska den som ombesörjer utbetalningen från dödsboet för den omyndiges räkning sätta in medlen hos bank... med uppgift om att medlen inte får tas ut utan överförmyndarens tillstånd.",
+      "metadata": { 
+        "validFrom": "2023-01-01", 
+        "provenanceHash": "sha256-fb_16_11",
+        "revisionNote": "Skyldighet att spärra arv över ett prisbasbelopp [cite: 887-888]."
+      }
+    },
+    {
+      "id": "fb_17_1",
+      "chapter": 17,
+      "section": 1,
+      "text": "Om det är uppenbart att någon på grund av sjukdom, psykisk störning, försvagat hälsotillstånd eller något liknande förhållande inte längre har förmåga att ha hand om sina ekonomiska angelägenheter, är en anhörig behörig att för den enskilde vidta ordinära rättshandlingar med anknytning till dennes dagliga livsföring. Behörigheten gäller om den situation som avses i första stycket har inträffat sedan den enskilde har fyllt 18 år.",
+      "metadata": { 
+        "validFrom": "2017-07-01", 
+        "provenanceHash": "sha256-fb_17_1",
+        "revisionNote": "Innebörden av anhörigbehörighet [cite: 905-906]."
+      }
+    },
+    {
+      "id": "fb_17_2",
+      "chapter": 17,
+      "section": 2,
+      "text": "Behörigheten enligt 1 § gäller i tur och ordning för 1. make eller sambo, 2. barn, 3. barnbarn, 4. föräldrar, 5. syskon, och 6. syskonbarn. Två eller flera anhöriga under samma punkt företräder den enskilde gemensamt.",
+      "metadata": { 
+        "validFrom": "2017-07-01", 
+        "provenanceHash": "sha256-fb_17_2",
+        "revisionNote": "Turordning för behöriga anhöriga [cite: 908-909]."
+      }
+    },
+    {
+      "id": "fb_19_17",
+      "chapter": 19,
+      "section": 17,
+      "text": "Länsstyrelsen ska utöva tillsyn över överförmyndares och överförmyndarnämnders verksamhet. Länsstyrelsen ska - med råd stödja överförmyndarna... främja en enhetlig rättstillämpning, och - se till att utbildningen... är tillfredsställande.",
+      "metadata": { 
+        "validFrom": "2009-01-01", 
+        "provenanceHash": "sha256-fb_19_17",
+        "revisionNote": "Länsstyrelsens tillsynsansvar [cite: 957-958]."
+      }
+    },
+    {
+      "id": "fb_20_1",
+      "chapter": 20,
+      "section": 1,
+      "text": "I mål om faderskap, föräldraskap enligt 1 kap. 9 §, vårdnad, boende, umgänge och underhåll tillämpas 14 kap. 17 och 18 §§ äktenskapsbalken. Vid handläggning som sker enligt lagen (1996:242) om domstolsärenden består tingsrätten av en lagfaren domare. Om det finns särskilda skäl... får tingsrätten dock bestå av en lagfaren domare och tre nämndemän.",
+      "metadata": { 
+        "validFrom": "2005-07-01", 
+        "provenanceHash": "sha256-fb_20_1",
+        "revisionNote": "Rättegångsregler och rättens sammansättning [cite: 963-966]."
+      }
+    },
+    {
+      "id": "fb_21_1",
+      "chapter": 21,
+      "section": 1,
+      "text": "Vid verkställighet ska barnets bästa komma i främsta rummet. Barnets åsikter ska tillmätas betydelse i förhållande till barnets ålder och mognad.",
+      "metadata": { 
+        "validFrom": "2021-07-01", 
+        "provenanceHash": "sha256-fb_21_1",
+        "revisionNote": "Barnets bästa vid verkställighet [cite: 1012-1013]."
+      }
+    },
+    {
+      "id": "fb_21_3",
+      "chapter": 21,
+      "section": 3,
+      "text": "Beslutar rätten om verkställighet, får den även utan yrkande förelägga vite eller besluta att barnet ska hämtas genom Polismyndighetens försorg... Är det fråga om en dom eller ett beslut om vårdnad, boende eller överlämnande av barn, får rätten besluta om hämtning... om verkställighet annars inte kan ske eller om hämtning är nödvändig för att undvika att barnet lider allvarlig skada.",
+      "metadata": { 
+        "validFrom": "2014-07-01", 
+        "provenanceHash": "sha256-fb_21_3",
+        "revisionNote": "Tvångsmedel vid verkställighet [cite: 1027-1030]."
+      }
+    },
+    {
+      "id": "fb_21_6",
+      "chapter": 21,
+      "section": 6,
+      "text": "Rätten skall vägra verkställighet, om det är uppenbart att verkställigheten är oförenlig med barnets bästa.",
+      "metadata": { 
+        "validFrom": "2006-07-01", 
+        "provenanceHash": "sha256-fb_21_6",
+        "revisionNote": "Hinder mot verkställighet[cite: 1037]."
+      }
     }
   ]
 }

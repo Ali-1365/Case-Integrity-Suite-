@@ -14,20 +14,28 @@ import {
 } from './icons';
 import Card from './shared/Card';
 
-export const PaymentsView: React.FC<{ payments: Payment[], onAdd: () => void }> = ({ payments, onAdd }) => (
+export const PaymentsView: React.FC<{ payments: Payment[], onAdd: () => void, onFilter?: () => void }> = ({ payments, onAdd, onFilter }) => (
   <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
     <div className="flex justify-between items-center">
       <div>
         <h3 className="text-xl font-bold text-slate-900 dark:text-white">Betalningshistorik</h3>
         <p className="text-xs text-slate-500 mt-1">Översikt över alla utgående betalningar och transaktioner.</p>
       </div>
-      <button 
-        onClick={onAdd}
-        className="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center space-x-2 transition-all shadow-lg shadow-indigo-500/20"
-      >
-        <PlusIcon className="w-4 h-4" />
-        <span>Ny Betalning</span>
-      </button>
+      <div className="flex gap-2">
+        <button 
+          onClick={onFilter}
+          className="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-4 py-2 rounded-xl text-xs font-bold transition-all hover:bg-slate-200 dark:hover:bg-slate-700"
+        >
+          Filtrera
+        </button>
+        <button 
+          onClick={onAdd}
+          className="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center space-x-2 transition-all shadow-lg shadow-indigo-500/20"
+        >
+          <PlusIcon className="w-4 h-4" />
+          <span>Ny Betalning</span>
+        </button>
+      </div>
     </div>
     <div className="grid grid-cols-1 gap-4">
       {payments.length === 0 ? (
@@ -62,7 +70,7 @@ export const PaymentsView: React.FC<{ payments: Payment[], onAdd: () => void }> 
   </div>
 );
 
-export const InvoicesView: React.FC<{ invoices: Invoice[], onAdd: () => void }> = ({ invoices, onAdd }) => (
+export const InvoicesView: React.FC<{ invoices: Invoice[], onAdd: () => void, onViewDetails?: (invoice: Invoice) => void }> = ({ invoices, onAdd, onViewDetails }) => (
   <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
     <div className="flex justify-between items-center">
       <div>
@@ -123,7 +131,10 @@ export const InvoicesView: React.FC<{ invoices: Invoice[], onAdd: () => void }> 
                   {new Intl.NumberFormat('sv-SE', { style: 'currency', currency: 'SEK' }).format(invoice.total)}
                 </p>
               </div>
-              <button className="p-2 bg-slate-50 dark:bg-slate-800 rounded-xl hover:bg-indigo-50 dark:hover:bg-indigo-950/30 transition-colors">
+              <button 
+                onClick={() => onViewDetails?.(invoice)}
+                className="p-2 bg-slate-50 dark:bg-slate-800 rounded-xl hover:bg-indigo-50 dark:hover:bg-indigo-950/30 transition-colors"
+              >
                 <ChevronRightIcon className="w-5 h-5 text-slate-400 group-hover:text-indigo-500" />
               </button>
             </div>
@@ -258,14 +269,17 @@ export const DamagesView: React.FC<{ claims: DamagesClaim[], onAdd: () => void, 
   </div>
 );
 
-export const BudgetView: React.FC<{ forecasts: BudgetForecast[] }> = ({ forecasts }) => (
+export const BudgetView: React.FC<{ forecasts: BudgetForecast[], onGenerate?: () => void }> = ({ forecasts, onGenerate }) => (
   <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-300">
     <div className="flex justify-between items-center">
       <div>
         <h3 className="text-xl font-bold text-slate-900 dark:text-white">Budget & Prognos</h3>
         <p className="text-xs text-slate-500 mt-1">AI-drivna prognoser baserade på historisk data och framtida risker.</p>
       </div>
-      <button className="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center space-x-2 transition-all shadow-lg shadow-emerald-500/20">
+      <button 
+        onClick={onGenerate}
+        className="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center space-x-2 transition-all shadow-lg shadow-emerald-500/20"
+      >
         <ArrowTrendingUpIcon className="w-4 h-4" />
         <span>Generera Ny Prognos</span>
       </button>

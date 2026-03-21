@@ -1,16 +1,155 @@
-
 {
   "sourceCode": "YGL",
   "sfsNumber": "1991:1469",
   "title": "Yttrandefrihetsgrundlag (1991:1469)",
-  "versionChain": ["1991:1469"],
+  "shortName": "YGL",
+  "versionChain": ["1991:1469", "2022:1525"],
+  "ikraft": "1992-01-01",
+  "description": "Grundlag som skyddar yttrandefriheten i radio, tv, film, tekniska upptagningar och databaser[cite: 149]. Syftet är att säkra ett fritt meningsutbyte och allsidig upplysning[cite: 150].",
   "paragraphs": [
     {
       "id": "ygl_1_1",
       "chapter": 1,
       "section": 1,
-      "text": "Varje svensk medborgare är gentemot det allmänna tillförsäkrad rätt enligt denna grundlag att i radio, tv och vissa liknande överföringar offentligen uttrycka tankar, åsikter och känslor och i övrigt lämna uppgifter i vilket ämne som helst.",
-      "metadata": { "validFrom": "1992-01-01", "provenanceHash": "ygl_h1" }
+      "principleType": "Syfte och grunder",
+      "text": "Var och en är gentemot det allmänna tillförsäkrad rätt enligt denna grundlag att i ljudradio, tv och vissa liknande överföringar, offentliga uppspelningar ur en databas samt filmer, videogram, ljudupptagningar och andra tekniska upptagningar offentligen uttrycka tankar, åsikter och känslor och i övrigt lämna uppgifter i vilket ämne som helst[cite: 149]. Yttrandefriheten enligt denna grundlag har till ändamål att säkra ett fritt meningsutbyte, en fri och allsidig upplysning och ett fritt konstnärligt skapande[cite: 150]. I den får inga andra begränsningar göras än de som följer av denna grundlag[cite: 151].",
+      "keywords": ["yttrandefrihet", "meningsutbyte", "grundlagsskydd"],
+      "relatedRules": ["RF 2:1"],
+      "metadata": { "validFrom": "2018-12-31", "legalWeight": "konstitutionell", "riskTrigger": false }
+    },
+    {
+      "id": "ygl_1_2",
+      "chapter": 1,
+      "section": 2,
+      "principleType": "Definitioner",
+      "text": "I denna grundlag avses med program: innehållet i ljudradio, tv eller andra sådana överföringar av ljud, bild eller text som sker med hjälp av elektromagnetiska vågor samt innehållet i offentliga uppspelningar ur en databas. Tekniska upptagningar: upptagningar som innehåller text, bild eller ljud och som kan läsas, avlyssnas eller på annat sätt uppfattas endast med ett tekniskt hjälpmedel. Databas: en samling av information lagrad för automatiserad behandling.",
+      "keywords": ["program", "teknisk upptagning", "databas"],
+      "relatedRules": [],
+      "metadata": { "validFrom": "2018-12-31", "legalWeight": "definitiv", "riskTrigger": false }
+    },
+    {
+      "id": "ygl_1_3",
+      "chapter": 1,
+      "section": 3,
+      "principleType": "Sändningar",
+      "text": "Denna grundlag är tillämplig på sändningar av program som är riktade till allmänheten och avsedda att tas emot med tekniska hjälpmedel[cite: 153]. Som sändningar av program anses också tillhandahållande till allmänheten på särskild begäran av direktsända eller inspelade program, om starttidpunkten och innehållet inte kan påverkas av mottagaren och programmen tillhandahålls av någon som omfattas av 4 §[cite: 154]. Det som föreskrivs om program i denna grundlag gäller även program som förmedlas genom satellitsändning som utgår från Sverige[cite: 155]. Program i tv som förmedlas hit genom satellitsändning som utgår från utlandet anses utgå från Sverige, om programmen huvudsakligen är avsedda att tas emot här i landet och vidaresänds här samtidigt och oförändrat[cite: 156].",
+      "keywords": ["satellitsändning", "program", "allmänheten"],
+      "relatedRules": ["YGL 1:4"],
+      "metadata": { "validFrom": "2022-12-31", "legalWeight": "konstitutionell", "riskTrigger": false }
+    },
+    {
+      "id": "ygl_1_4",
+      "chapter": 1,
+      "section": 4,
+      "principleType": "Tillhandahållande ur databaser",
+      "text": "Denna grundlags föreskrifter om sändningar av program tillämpas också när information ur en databas, vars innehåll kan ändras endast av den som driver verksamheten, tillhandahålls allmänheten med hjälp av elektromagnetiska vågor[cite: 157]. Detta gäller om det sker av en redaktion för en periodisk skrift eller ett program, ett företag för yrkesmässig framställning av skrifter (TF) eller tekniska upptagningar, en nyhetsbyrå, eller någon annan med utgivningsbevis[cite: 157]. Informationen ska tillhandahållas genom överföring på särskild begäran, överenskommelse i förväg, framställning på begäran eller offentlig uppspelning[cite: 158]. Grundlagen gäller även om viss information tillförts av annan, om det framstår som klart att informationen härrör från den som driver verksamheten[cite: 159].",
+      "keywords": ["databas", "utgivningsbevis", "elektromagnetiska vågor"],
+      "relatedRules": ["YGL 1:5"],
+      "metadata": { "validFrom": "2022-12-31", "legalWeight": "konstitutionell", "riskTrigger": true }
+    },
+    {
+      "id": "ygl_1_10",
+      "chapter": 1,
+      "section": 10,
+      "principleType": "Meddelar- och anskaffarfrihet",
+      "text": "Det står var och en fritt att meddela uppgifter i vilket ämne som helst i syfte att göra dem offentliga i program eller genom tekniska upptagningar (meddelarfrihet)[cite: 176]. Denna frihet avser uppgifter som lämnas till en författare eller annan upphovsman, en utgivare, redaktion eller nyhetsbyrå, eller ett företag för framställning av tekniska upptagningar[cite: 177]. Det står också var och en fritt att anskaffa uppgifter i vilket ämne som helst i syfte att meddela eller offentliggöra dem (anskaffarfrihet)[cite: 178]. I dessa friheter får inga andra begränsningar göras än de som följer av denna grundlag[cite: 179].",
+      "keywords": ["meddelarfrihet", "anskaffarfrihet"],
+      "relatedRules": ["YGL 5:4", "YGL 5:5"],
+      "metadata": { "validFrom": "2018-12-31", "legalWeight": "grundläggande", "riskTrigger": false }
+    },
+    {
+      "id": "ygl_1_11",
+      "chapter": 1,
+      "section": 11,
+      "principleType": "Censurförbud",
+      "text": "Det som är avsett att framföras i program eller genom tekniska upptagningar får inte först granskas av en myndighet eller ett annat allmänt organ[cite: 180]. Det är inte heller tillåtet för en myndighet eller ett annat allmänt organ att på grund av innehållet förbjuda eller hindra framställning, offentliggörande eller spridning bland allmänheten av ett program eller en teknisk upptagning, om åtgärden inte har stöd i denna grundlag[cite: 181].",
+      "keywords": ["censurförbud", "förhandsgranskning"],
+      "relatedRules": ["YGL 1:12"],
+      "metadata": { "validFrom": "2018-12-31", "legalWeight": "absolut", "riskTrigger": true }
+    },
+    {
+      "id": "ygl_2_1",
+      "chapter": 2,
+      "section": 1,
+      "principleType": "Rätten till anonymitet",
+      "text": "Upphovsmannen till ett program eller en teknisk upptagning är inte skyldig att röja sin identitet[cite: 202]. Detsamma gäller för den som har framträtt i en sådan framställning och den som har meddelat en uppgift för offentliggörande enligt 1 kap. 10 §[cite: 203].",
+      "keywords": ["anonymitet", "identitet", "skydd"],
+      "relatedRules": ["YGL 1:10"],
+      "metadata": { "validFrom": "2018-12-31", "legalWeight": "skyddande", "riskTrigger": false }
+    },
+    {
+      "id": "ygl_2_5",
+      "chapter": 2,
+      "section": 5,
+      "principleType": "Efterforskningsförbud",
+      "text": "En myndighet eller ett annat allmänt organ får inte efterforska upphovsmannen till en framställning som har offentliggjorts eller varit avsedd att offentliggöras i ett program eller en teknisk upptagning eller den som har framträtt i en sådan framställning[cite: 217]. Myndigheter får inte heller efterforska den som tillhandahållit framställningen eller meddelat uppgifter enligt 1 kap. 10 §[cite: 217]. Förbudet hindrar inte efterforskning när det behövs för åtal eller ingripande om det inte står i strid med grundlagen[cite: 218]. I sådana fall ska tystnadsplikten i 3 § beaktas[cite: 219].",
+      "keywords": ["efterforskning", "myndighetskontroll"],
+      "relatedRules": ["YGL 2:3"],
+      "metadata": { "validFrom": "2018-12-31", "legalWeight": "skyddande", "riskTrigger": true }
+    },
+    {
+      "id": "ygl_3_10",
+      "chapter": 3,
+      "section": 10,
+      "principleType": "Rätten till framställning och spridning",
+      "text": "Varje fysisk och juridisk person har rätt att framställa och sprida tekniska upptagningar[cite: 240]. För rätten att offentligt visa film, videogram eller någon annan teknisk upptagning med rörliga bilder kan det dock krävas granskning och godkännande i enlighet med 1 kap. 12 §[cite: 241].",
+      "keywords": ["spridningsrätt", "film", "videogram"],
+      "relatedRules": ["YGL 1:12"],
+      "metadata": { "validFrom": "2018-12-31", "legalWeight": "grundläggande", "riskTrigger": false }
+    },
+    {
+      "id": "ygl_4_1",
+      "chapter": 4,
+      "section": 1,
+      "principleType": "Utgivarkrav",
+      "text": "Program och tekniska upptagningar ska ha en utgivare[cite: 266]. Utgivare av program ska enligt vad som närmare föreskrivs i lag utses för varje program eller för hela eller delar av programverksamheten[cite: 267]. Utgivaren utses av den som bedriver sändningsverksamheten eller låter framställa den tekniska upptagningen[cite: 268].",
+      "keywords": ["utgivare", "ansvarig utgivare"],
+      "relatedRules": ["YGL 6:1"],
+      "metadata": { "validFrom": "2018-12-31", "legalWeight": "skyldighet", "riskTrigger": true }
+    },
+    {
+      "id": "ygl_5_1",
+      "chapter": 5,
+      "section": 1,
+      "principleType": "Yttrandefrihetsbrott",
+      "text": "De gärningar som anges som tryckfrihetsbrott i 7 kap. 2-20 §§ tryckfrihetsförordningen ska anses vara yttrandefrihetsbrott, om de begås i ett program eller en teknisk upptagning och är straffbara enligt lag [cite: 286-287].",
+      "keywords": ["yttrandefrihetsbrott", "tryckfrihetsförordningen"],
+      "relatedRules": ["TF 7 kap."],
+      "metadata": { "validFrom": "2018-12-31", "legalWeight": "central", "riskTrigger": true }
+    },
+    {
+      "id": "ygl_6_1",
+      "chapter": 6,
+      "section": 1,
+      "principleType": "Ansvar för brott",
+      "text": "Utgivaren är ansvarig för yttrandefrihetsbrott i ett program eller en teknisk upptagning[cite: 308]. Om en ställföreträdare har inträtt som utgivare, är han eller hon ansvarig[cite: 309].",
+      "keywords": ["utgivaransvar", "ensampersonansvar"],
+      "relatedRules": ["YGL 4:1"],
+      "metadata": { "validFrom": "2018-12-31", "legalWeight": "central", "riskTrigger": true }
+    },
+    {
+      "id": "ygl_9_1",
+      "chapter": 9,
+      "section": 1,
+      "principleType": "Skadestånd",
+      "text": "Skadestånd för missbruk av yttrandefriheten genom innehållet i ett program eller en teknisk upptagning får grundas endast på att det program eller den tekniska upptagning som kravet avser innefattar yttrandefrihetsbrott[cite: 367]. I fråga om skadestånd på grund av brott som avses i 5 kap. 3-5 §§ gäller vad som är föreskrivet i lag[cite: 368]. Bestämmelsen i 6 kap. 9 § gäller också i fråga om skadestånd på grund av yttrandefrihetsbrott[cite: 370].",
+      "keywords": ["skadestånd", "missbruk", "exklusivitet"],
+      "relatedRules": ["YGL 5:3", "YGL 6:9"],
+      "metadata": { "validFrom": "2018-12-31", "legalWeight": "exklusiv", "riskTrigger": true }
+    }
+  ],
+  "authorities_and_supervision": {
+    "justitiekanslern": "Justitiekanslern utövar tillsyn och är ensam åklagare i yttrandefrihetsmål om inte annat föreskrivs [cite: 328-330]. JK får överlämna vissa mål rörande tekniska upptagningar till allmän åklagare[cite: 331].",
+    "jury": "I yttrandefrihetsmål ska frågan om brott föreligger prövas av en jury[cite: 391]. De som utsetts till juryledamöter för tryckfrihetsmål är också juryledamöter i yttrandefrihetsmål[cite: 391]."
+  },
+  "overgangsbestammelser": [
+    {
+      "id": "trans_1991",
+      "text": "Grundlagen trädde i kraft den 1 januari 1992[cite: 422]. Den tillämpas inte på radioprogram sända före detta datum[cite: 422]. För filmer och ljudupptagningar utgivna före ikraftträdandet gäller särskilda undantagsregler [cite: 423-429]."
+    },
+    {
+      "id": "trans_2018",
+      "text": "Ändringar enligt SFS 2018:1802 trädde i kraft den 1 januari 2019[cite: 450]. Bestämmelserna i 6 kap. 6 och 7 §§ tillämpas även på information som började tillhandahållas före ikraftträdandet[cite: 451]."
     }
   ]
 }

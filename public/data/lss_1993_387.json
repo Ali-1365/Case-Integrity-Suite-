@@ -7,9 +7,93 @@
   "paragraphs": [
     {
       "id": "lss_1",
-      "section": 1,
-      "text": "Denna lag innehåller bestämmelser om insatser för särskilt stöd och särskild service åt personer 1. med utvecklingsstörning, autism eller autismliknande tillstånd, 2. med betydande och bestående begåvningsmässigt funktionshinder efter hjärnskada i vuxen ålder föranledd av yttre våld eller kroppslig sjukdom, eller 3. med andra varaktiga fysiska eller psykiska funktionshinder som uppenbart inte beror på normalt åldrande, om de är stora och förorsakar betydande svårigheter i den dagliga livsföringen och därmed behöver omfattande stöd eller service.",
-      "metadata": { "validFrom": "1994-01-01", "provenanceHash": "sha256-lss_1_h" }
+      "section": "1 §",
+      "principleType": "personkrets",
+      "text": "Denna lag innehåller bestämmelser om insatser för särskilt stöd och särskild service åt personer 1. med utvecklingsstörning, autism eller autismliknande tillstånd, 2. med betydande och bestående begåvningsmässigt funktionshinder efter hjärnskada i vuxen ålder föranledd av yttre våld eller kroppslig sjukdom, eller 3. med andra varaktiga fysiska eller psykiska funktionshinder som uppenbart inte beror på normalt åldrande, om de är stora och förorsakar betydande svårigheter i den dagliga livsföringen och därmed behöver omfattande stöd eller service. [cite: 201-203]",
+      "keywords": ["personkrets", "utvecklingsstörning", "autism", "funktionshinder"],
+      "relatedRules": [],
+      "metadata": { "validFrom": "1994-01-01", "legalWeight": "grundläggande", "riskTrigger": true }
+    },
+    {
+      "id": "lss_2",
+      "section": "2 §",
+      "principleType": "huvudmannaskap",
+      "text": "Varje kommun ansvarar för att de som bor i kommunen får det stöd och den service som de behöver enligt denna lag, om inte annat följer av 3 eller 4 §. [cite: 204]",
+      "keywords": ["kommun", "ansvar", "huvudman"],
+      "relatedRules": ["SoL 2:1"],
+      "metadata": { "validFrom": "1994-01-01", "legalWeight": "central", "riskTrigger": false }
+    },
+    {
+      "id": "lss_3",
+      "section": "3 §",
+      "principleType": "regionens ansvar",
+      "text": "Regionen ansvarar för insatser enligt 9 § 1, om inte kommunen och regionen kommer överens om något annat. [cite: 205]",
+      "keywords": ["region", "ansvar", "rådgivning"],
+      "relatedRules": ["HSL 7:1"],
+      "metadata": { "validFrom": "2019-01-01", "legalWeight": "central", "riskTrigger": false }
+    },
+    {
+      "id": "lss_4",
+      "section": "4 §",
+      "principleType": "samråd",
+      "text": "Kommunen och regionen ska samråda vid planering och genomförande av insatser enligt denna lag. [cite: 206]",
+      "keywords": ["samråd", "planering", "samverkan"],
+      "relatedRules": ["SoL 2:1", "HSL 16:1"],
+      "metadata": { "validFrom": "1994-01-01", "legalWeight": "central", "riskTrigger": false }
+    },
+    {
+      "id": "lss_5",
+      "section": "5 §",
+      "principleType": "mål",
+      "text": "Verksamhet enligt denna lag ska främja jämlikhet i levnadsvillkor och full delaktighet i samhällslivet för de personer som anges i 1 §. Målet ska vara att den enskilde får möjlighet att leva som andra. [cite: 207-208]",
+      "keywords": ["mål", "jämlikhet", "delaktighet"],
+      "relatedRules": ["SoL 1:1"],
+      "metadata": { "validFrom": "1994-01-01", "legalWeight": "central", "riskTrigger": true }
+    },
+    {
+      "id": "lss_6",
+      "section": "6 §",
+      "principleType": "kvalitet",
+      "text": "Verksamheten enligt denna lag ska vara av god kvalitet. För verksamheten ska det finnas den personal som behövs för att ett gott stöd och en god service och omvårdnad ska kunna ges. [cite: 209-210]",
+      "keywords": ["kvalitet", "personal", "omvårdnad"],
+      "relatedRules": ["SoL 3:3", "HSL 3:1"],
+      "metadata": { "validFrom": "1994-01-01", "legalWeight": "central", "riskTrigger": true }
+    },
+    {
+      "id": "lss_7",
+      "section": "7 §",
+      "principleType": "rätt till insatser",
+      "text": "Personer som anges i 1 § har rätt till insatser i form av särskilt stöd och särskild service enligt 9 § 1-10, om de behöver sådan hjälp i sin livsföring och om deras behov inte tillgodoses på annat sätt. [cite: 211-212]",
+      "keywords": ["rättighet", "insatser", "behov"],
+      "relatedRules": ["SoL 4:1"],
+      "metadata": { "validFrom": "1994-01-01", "legalWeight": "definitiv", "riskTrigger": true }
+    },
+    {
+      "id": "lss_8",
+      "section": "8 §",
+      "principleType": "inflytande",
+      "text": "Insatserna ska vara varaktiga och samordnade. De ska anpassas till mottagarens individuella behov samt utformas så att de är lättillgängliga för de personer som behöver dem och stärker deras förmåga att leva ett självständigt liv. [cite: 213-214]",
+      "keywords": ["inflytande", "samordning", "självständighet"],
+      "relatedRules": ["SoL 3:5"],
+      "metadata": { "validFrom": "1994-01-01", "legalWeight": "central", "riskTrigger": false }
+    },
+    {
+      "id": "lss_9",
+      "section": "9 §",
+      "principleType": "insatser",
+      "text": "Insatserna för särskilt stöd och särskild service är: 1. rådgivning och annat personligt stöd, 2. biträde av personlig assistent eller ekonomiskt stöd till skäliga kostnader för sådan assistans, 3. ledsagarservice, 4. biträde av kontaktperson, 5. avlösarservice i hemmet, 6. korttidsvistelse utanför det egna hemmet, 7. korttidstillsyn för skolungdom över 12 år, 8. boende i familjehem eller bostad med särskild service för barn eller ungdomar, 9. bostad med särskild service för vuxna eller annan särskilt anpassad bostad för vuxna, 10. daglig verksamhet. [cite: 215-225]",
+      "keywords": ["insatser", "personlig assistans", "boende", "daglig verksamhet"],
+      "relatedRules": [],
+      "metadata": { "validFrom": "1994-01-01", "legalWeight": "central", "riskTrigger": true }
+    },
+    {
+      "id": "lss_10",
+      "section": "10 §",
+      "principleType": "barnets bästa",
+      "text": "När åtgärder rör barn ska barnets bästa särskilt beaktas. [cite: 226]",
+      "keywords": ["barnets bästa", "barnperspektiv"],
+      "relatedRules": ["BK 3", "SoL 1:2"],
+      "metadata": { "validFrom": "2011-01-01", "legalWeight": "central", "riskTrigger": true }
     }
   ]
 }

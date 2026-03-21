@@ -51,11 +51,20 @@ const ManualTrigger: React.FC<ManualTriggerProps> = ({ label, icon, onClick, isL
 
 export const IntelligenceCore: React.FC<{ analysis: any }> = ({ analysis }) => {
     const [activeProcesses, setActiveProcesses] = useState<Record<string, 'idle' | 'running' | 'completed' | 'error'>>({});
+    const [localLogs, setLocalLogs] = useState<{ id: string, msg: string, time: string }[]>([]);
 
-    const triggerProcess = (id: string) => {
+    const addLog = (msg: string) => {
+        const time = new Date().toLocaleTimeString();
+        setLocalLogs(prev => [{ id: Math.random().toString(36).substr(2, 9), msg, time }, ...prev].slice(0, 10));
+    };
+
+    const triggerProcess = (id: string, label: string) => {
         setActiveProcesses(prev => ({ ...prev, [id]: 'running' }));
+        addLog(`Initierar ${label}...`);
+        
         setTimeout(() => {
             setActiveProcesses(prev => ({ ...prev, [id]: 'completed' }));
+            addLog(`${label.charAt(0).toUpperCase() + label.slice(1)} slutförd.`);
             setTimeout(() => {
                 setActiveProcesses(prev => ({ ...prev, [id]: 'idle' }));
             }, 3000);
@@ -142,7 +151,7 @@ export const IntelligenceCore: React.FC<{ analysis: any }> = ({ analysis }) => {
                                     icon={step.icon}
                                     status={activeProcesses[step.id]}
                                     isLoading={activeProcesses[step.id] === 'running'}
-                                    onClick={() => triggerProcess(step.id)}
+                                    onClick={() => triggerProcess(step.id, step.label)}
                                 />
                             ))}
                         </div>
@@ -161,7 +170,7 @@ export const IntelligenceCore: React.FC<{ analysis: any }> = ({ analysis }) => {
                                     icon={action.icon}
                                     status={activeProcesses[action.id]}
                                     isLoading={activeProcesses[action.id] === 'running'}
-                                    onClick={() => triggerProcess(action.id)}
+                                    onClick={() => triggerProcess(action.id, action.label)}
                                 />
                             ))}
                         </div>
@@ -186,10 +195,18 @@ export const IntelligenceCore: React.FC<{ analysis: any }> = ({ analysis }) => {
                             <CodeBracketIcon className="w-3 h-3" />
                             Kärnloggar
                         </h3>
-                        <div className="space-y-2 text-gray-500">
-                            <p><span className="text-amber-500/50">[20:23:04]</span> CORE_INIT: v.7.2.2-GOLD aktiv</p>
-                            <p><span className="text-cyan-500/50">[20:23:05]</span> MONITOR: Forensisk kedja verifierad</p>
-                            <p><span className="text-emerald-500/50">[20:23:06]</span> READY: Manuella triggers standby</p>
+                        <div className="space-y-2 text-gray-500 max-h-40 overflow-y-auto custom-scrollbar">
+                            {localLogs.length > 0 ? localLogs.map(log => (
+                                <p key={log.id} className="animate-in slide-in-from-left duration-300">
+                                    <span className="text-amber-500/50">[{log.time}]</span> {log.msg}
+                                </p>
+                            )) : (
+                                <>
+                                    <p><span className="text-amber-500/50">[20:23:04]</span> CORE_INIT: v.7.2.2-GOLD aktiv</p>
+                                    <p><span className="text-cyan-500/50">[20:23:05]</span> MONITOR: Forensisk kedja verifierad</p>
+                                    <p><span className="text-emerald-500/50">[20:23:06]</span> READY: Manuella triggers standby</p>
+                                </>
+                            )}
                         </div>
                     </div>
                 </div>

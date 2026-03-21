@@ -1,52 +1,141 @@
 {
   "sourceCode": "OSL",
   "sfsNumber": "2009:400",
-  "title": "Offentlighets- och sekretesslag (2009:400)",
-  "versionChain": ["2009:400"],
+  "title": "Offentlighets- och sekretesslag (2009:400) [cite: 300]",
+  "shortName": "OSL",
+  "versionChain": ["2009:400", "2023:100"],
+  "ikraft": "2009-06-30",
+  "description": "Lagen innehåller bestämmelser om myndigheters handläggning vid registrering, utlämnande och övrig hantering av allmänna handlingar samt om tystnadsplikt och sekretess [cite: 301].",
   "paragraphs": [
+    {
+      "id": "osl_2009_2_1",
+      "chapter": 2,
+      "section": 1,
+      "principleType": "definition av sekretess",
+      "text": "Sekretess innebär ett förbud att röja en uppgift, vare sig det sker muntligen, genom utlämnande av en allmän handling eller på något annat sätt. [cite: 302]",
+      "keywords": ["sekretess", "definition", "tystnadsplikt"],
+      "relatedRules": ["TF 2:2"],
+      "metadata": { "validFrom": "2009-06-30", "legalWeight": "definitiv", "riskTrigger": false }
+    },
+    {
+      "id": "osl_2009_8_1",
+      "chapter": 8,
+      "section": 1,
+      "principleType": "utrikessekretess",
+      "text": "En uppgift för vilken sekretess gäller enligt denna lag får inte röjas för en utländsk myndighet eller en internationell organisation, om inte utlämnandet sker i enlighet med en särskild föreskrift i lag eller förordning eller om uppgiften i ett motsvarande fall skulle få lämnas ut till en svensk myndighet och den utlämnande myndigheten finner det förenligt med svenska intressen att uppgiften lämnas till den utländska myndigheten eller den internationella organisationen. [cite: 305]",
+      "keywords": ["utrikessekretess", "internationell organisation"],
+      "relatedRules": [],
+      "metadata": { "validFrom": "2009-06-30", "legalWeight": "central", "riskTrigger": true }
+    },
+    {
+      "id": "osl_2009_10_1",
+      "chapter": 10,
+      "section": 1,
+      "principleType": "eftergift av sekretess",
+      "text": "Sekretess till skydd för en enskild gäller inte i förhållande till den enskilde själv och kan i övrigt helt eller delvis efterges av honom eller henne, om inte annat följer av lag. [cite: 310]",
+      "keywords": ["eftergift", "samtycke", "enskild"],
+      "relatedRules": [],
+      "metadata": { "validFrom": "2009-06-30", "legalWeight": "central", "riskTrigger": false }
+    },
     {
       "id": "osl_2009_10_2",
       "chapter": 10,
       "section": 2,
-      "text": "Sekretess hindrar inte att en uppgift lämnas till en annan myndighet, om det är nödvändigt för att den utlämnande myndigheten ska kunna fullgöra sin verksamhet.",
-      "metadata": {
-        "validFrom": "2009-06-30",
-        "provenanceHash": "sha256-osl_10_2",
-        "revisionNote": "Sekretessbrytande regel vid nödvändighet."
-      }
+      "principleType": "utlämnande för verksamheten",
+      "text": "Sekretess hindrar inte att en uppgift lämnas till en annan myndighet, om det är nödvändigt för att den utlämnande myndigheten ska kunna fullgöra sin verksamhet. [cite: 311]",
+      "keywords": ["utlämnande", "myndighetssamverkan"],
+      "relatedRules": [],
+      "metadata": { "validFrom": "2009-06-30", "legalWeight": "central", "riskTrigger": false }
     },
     {
-      "id": "osl_2009_10_18a",
+      "id": "osl_2009_10_3",
       "chapter": 10,
-      "section": "18 a",
-      "text": "Sekretess hindrar inte att en uppgift som rör misstanke om ett begånget brott lämnas till en polismyndighet eller en annan myndighet som har till uppgift att ingripa mot brottet, om brottet har begåtts i myndighetens verksamhet.",
-      "metadata": {
-        "validFrom": "2009-06-30",
-        "provenanceHash": "sha256-osl_10_18a",
-        "revisionNote": "Sekretessbrytande regel vid brottsprevention."
-      }
+      "section": 3,
+      "principleType": "nöd och skydd",
+      "text": "Sekretess hindrar inte att en uppgift lämnas till en enskild eller till en annan myndighet, om det är nödvändigt för att den utlämnande myndigheten ska kunna förebygga, avvärja eller undanröja fara för liv, hälsa eller personlig säkerhet. [cite: 312]",
+      "keywords": ["nöd", "skydd", "liv och hälsa"],
+      "relatedRules": [],
+      "metadata": { "validFrom": "2009-06-30", "legalWeight": "central", "riskTrigger": true }
+    },
+    {
+      "id": "osl_2009_10_27",
+      "chapter": 10,
+      "section": 27,
+      "principleType": "brottsmisstanke",
+      "text": "Sekretess enligt 25 kap. 1 §, 26 kap. 1 §... hindrar inte att en uppgift som rör misstanke om brott lämnas till en åklagarmyndighet, Polismyndigheten eller någon annan myndighet som har till uppgift att ingripa mot brottet, om misstanken avser brott för vilket det inte är stadgat lindrigare straff än fängelse i ett år. [cite: 315]",
+      "keywords": ["brottsmisstanke", "åklagare", "polis"],
+      "relatedRules": ["OSL 25:1", "OSL 26:1"],
+      "metadata": { "validFrom": "2009-06-30", "legalWeight": "central", "riskTrigger": true }
     },
     {
       "id": "osl_2009_10_28",
       "chapter": 10,
       "section": 28,
-      "text": "Sekretess hindrar inte att en uppgift lämnas till en annan myndighet, om uppgiftsskyldighet följer av lag eller förordning.",
-      "metadata": {
-        "validFrom": "2009-06-30",
-        "provenanceHash": "sha256-osl_10_28",
-        "revisionNote": "Sekretessbrytande regel vid lagstadgad uppgiftsskyldighet (tillsyn IVO/JO)."
-      }
+      "principleType": "lagstadgad uppgiftsskyldighet",
+      "text": "Sekretess hindrar inte att en uppgift lämnas till en annan myndighet, om uppgiftsskyldighet följer av lag eller förordning. [cite: 316]",
+      "keywords": ["uppgiftsskyldighet", "lagstadgad"],
+      "relatedRules": [],
+      "metadata": { "validFrom": "2009-06-30", "legalWeight": "central", "riskTrigger": false }
+    },
+    {
+      "id": "osl_2009_21_1",
+      "chapter": 21,
+      "section": 1,
+      "principleType": "integritetsskydd",
+      "text": "Sekretess gäller för uppgift om en enskilds bostadsadress, telefonnummer, personnummer och andra liknande uppgifter om personliga förhållanden, om det kan antas att den enskilde eller någon närstående lider men om uppgiften röjs. [cite: 320]",
+      "keywords": ["integritet", "personuppgifter", "men"],
+      "relatedRules": [],
+      "metadata": { "validFrom": "2009-06-30", "legalWeight": "central", "riskTrigger": true }
+    },
+    {
+      "id": "osl_2009_23_1",
+      "chapter": 23,
+      "section": 1,
+      "principleType": "skolsekretess",
+      "text": "Sekretess gäller i förskoleklass, skola och vuxenutbildning för uppgift om en enskilds personliga förhållanden, om det kan antas att den enskilde eller någon närstående lider men om uppgiften röjs. [cite: 325]",
+      "keywords": ["skola", "elevhälsa", "sekretess"],
+      "relatedRules": [],
+      "metadata": { "validFrom": "2009-06-30", "legalWeight": "central", "riskTrigger": true }
     },
     {
       "id": "osl_2009_25_1",
       "chapter": 25,
       "section": 1,
-      "text": "Sekretess gäller inom hälso- och sjukvården för uppgift om en enskilds hälsotillstånd eller andra personliga förhållanden, om det inte står klart att uppgiften kan röjas utan att den enskilde eller någon närstående lider men.",
-      "metadata": {
-        "validFrom": "2009-06-30",
-        "provenanceHash": "sha256-osl_25_1",
-        "revisionNote": "Mycket stark huvudregel om sekretess för personliga förhållanden."
-      }
+      "principleType": "sjukvårdssekretess",
+      "text": "Sekretess gäller inom hälso- och sjukvården för uppgift om en enskilds hälsotillstånd eller andra personliga förhållanden, om det inte står klart att uppgiften kan röjas utan att den enskilde eller någon närstående lider men. [cite: 330]",
+      "keywords": ["sjukvård", "patientsekretess", "hälsa"],
+      "relatedRules": [],
+      "metadata": { "validFrom": "2009-06-30", "legalWeight": "central", "riskTrigger": true }
+    },
+    {
+      "id": "osl_2009_26_1",
+      "chapter": 26,
+      "section": 1,
+      "principleType": "socialtjänstsekretess",
+      "text": "Sekretess gäller inom socialtjänsten för uppgift om en enskilds personliga förhållanden, om det inte står klart att uppgiften kan röjas utan att den enskilde eller någon närstående lider men. [cite: 335]",
+      "keywords": ["socialtjänst", "sekretess", "personliga förhållanden"],
+      "relatedRules": [],
+      "metadata": { "validFrom": "2009-06-30", "legalWeight": "central", "riskTrigger": true }
+    },
+    {
+      "id": "osl_2009_35_1",
+      "chapter": 35,
+      "section": 1,
+      "principleType": "förundersökningssekretess",
+      "text": "Sekretess gäller för uppgift som hänför sig till förundersökning i brottmål... om det kan antas att syftet med beslutade eller förutsedda åtgärder motverkas eller den framtida verksamheten skadas om uppgiften röjs. [cite: 340]",
+      "keywords": ["förundersökning", "brottmål", "polis"],
+      "relatedRules": ["RB"],
+      "metadata": { "validFrom": "2009-06-30", "legalWeight": "central", "riskTrigger": true }
+    },
+    {
+      "id": "osl_2009_42_1",
+      "chapter": 42,
+      "section": 1,
+      "principleType": "överklagande",
+      "text": "En myndighets beslut att inte lämna ut en handling till en enskild eller att lämna ut en allmän handling med förbehåll som begränsar den enskildes rätt att röja innehållet eller annars förfoga över den, får överklagas hos kammarrätten. [cite: 345]",
+      "keywords": ["överklagande", "kammarrätten", "beslut"],
+      "relatedRules": [],
+      "metadata": { "validFrom": "2009-06-30", "legalWeight": "central", "riskTrigger": false }
     }
   ]
 }

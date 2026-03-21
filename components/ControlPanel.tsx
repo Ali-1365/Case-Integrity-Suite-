@@ -39,6 +39,15 @@ const FMJAMControlPanel: React.FC<FMJAMControlPanelProps> = ({ isOpen, onClose, 
   const [isRepairing, setIsRepairing] = useState(false);
   const [isBaking, setIsBaking] = useState(false);
   const [showHealthDashboard, setShowHealthDashboard] = useState(false);
+  const [statusMessage, setStatusMessage] = useState<{ text: string, type: 'success' | 'error' | 'info' } | null>(null);
+  const [showBakeConfirm, setShowBakeConfirm] = useState(false);
+
+  useEffect(() => {
+    if (statusMessage) {
+      const timer = setTimeout(() => setStatusMessage(null), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [statusMessage]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -74,26 +83,27 @@ const FMJAMControlPanel: React.FC<FMJAMControlPanelProps> = ({ isOpen, onClose, 
       await db.repairPersistence();
       setTimeout(() => {
           setIsRepairing(false);
-          alert("Systemintegritet återställd. Lokala lås har hävts.");
+          setStatusMessage({ text: "Systemintegritet återställd. Lokala lås har hävts.", type: 'success' });
       }, 1500);
     } catch (error) {
       console.error("Repair failed:", error);
       setIsRepairing(false);
-      alert("Reparation misslyckades. Se konsol för detaljer.");
+      setStatusMessage({ text: "Reparation misslyckades. Se konsol för detaljer.", type: 'error' });
     }
   };
 
   const handleBakeIndex = async () => {
-    if(!confirm("VARNING: Detta kommer att exekvera en fullständig RAG-indexering mot samtliga 17 korpusar. Detta förbrukar Quota. Fortsätta?")) return;
     setIsBaking(true);
+    setStatusMessage({ text: "Startar fullständig RAG-indexering...", type: 'info' });
     try {
       const index = await ragIndexService.buildIndex();
       ragIndexService.exportIndex(index);
-      alert("SYSTEM_BAKE slutförd. Indexfil genererad för produktion.");
+      setStatusMessage({ text: "SYSTEM_BAKE slutförd. Indexfil genererad för produktion.", type: 'success' });
     } catch (e) {
-      alert("Baking failure: Se konsol för detaljer.");
+      setStatusMessage({ text: "Baking failure: Se konsol för detaljer.", type: 'error' });
     } finally {
       setIsBaking(false);
+      setShowBakeConfirm(false);
     }
   };
 
@@ -130,7 +140,7 @@ const FMJAMControlPanel: React.FC<FMJAMControlPanelProps> = ({ isOpen, onClose, 
                 <span>Hälsostatus</span>
             </button>
             <button 
-                onClick={handleBakeIndex}
+                onClick={() => setShowBakeConfirm(true)}
                 disabled={isBaking}
                 className="hidden lg:flex items-center space-x-3 bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-600 dark:hover:bg-blue-600 hover:text-white dark:hover:text-white text-blue-700 dark:text-blue-400 px-5 py-2.5 rounded-xl transition-all duration-300 font-black text-[10px] uppercase tracking-[0.2em] border border-blue-100 dark:border-blue-800/50 shadow-sm hover:shadow-lg"
             >
@@ -153,6 +163,50 @@ const FMJAMControlPanel: React.FC<FMJAMControlPanelProps> = ({ isOpen, onClose, 
         </header>
 
         {/* STATUS BAR (STATISTIK & QUOTA) */}
+        {statusMessage && (
+          <div className={`px-10 py-4 border-b flex items-center justify-between animate-in slide-in-from-top-4 duration-300 ${
+            statusMessage.type === 'success' ? 'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-100 dark:border-emerald-800 text-emerald-700 dark:text-emerald-400' :
+            statusMessage.type === 'error' ? 'bg-rose-50 dark:bg-rose-900/20 border-rose-100 dark:border-rose-800 text-rose-700 dark:text-rose-400' :
+            'bg-blue-50 dark:bg-blue-900/20 border-blue-100 dark:border-blue-800 text-blue-700 dark:text-blue-400'
+          }`}>
+            <div className="flex items-center space-x-3">
+              {statusMessage.type === 'success' ? <CheckCircleIcon className="w-5 h-5" /> : 
+               statusMessage.type === 'error' ? <ExclamationTriangleIcon className="w-5 h-5" /> : 
+               <InformationCircleIcon className="w-5 h-5" />}
+              <span className="text-xs font-bold uppercase tracking-wider">{statusMessage.text}</span>
+            </div>
+            <button onClick={() => setStatusMessage(null)}>
+              <XMarkIcon className="w-4 h-4 opacity-50 hover:opacity-100" />
+            </button>
+          </div>
+        )}
+
+        {showBakeConfirm && (
+          <div className="px-10 py-6 bg-amber-50 dark:bg-amber-900/20 border-b border-amber-100 dark:border-amber-800 flex items-center justify-between animate-in slide-in-from-top-4 duration-300">
+            <div className="flex items-center space-x-4">
+              <ExclamationTriangleIcon className="w-6 h-6 text-amber-600" />
+              <div>
+                <p className="text-xs font-black text-amber-900 dark:text-amber-400 uppercase tracking-widest">Bekräfta RAG-indexering</p>
+                <p className="text-[10px] text-amber-700 dark:text-amber-500 font-bold mt-1 uppercase">Detta kommer att exekvera en fullständig indexering mot samtliga 17 korpusar. Detta förbrukar Quota.</p>
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <button 
+                onClick={() => setShowBakeConfirm(false)}
+                className="px-4 py-2 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 rounded-lg text-[10px] font-black uppercase tracking-widest border border-slate-200 dark:border-slate-800"
+              >
+                Avbryt
+              </button>
+              <button 
+                onClick={handleBakeIndex}
+                className="px-4 py-2 bg-amber-600 text-white rounded-lg text-[10px] font-black uppercase tracking-widest shadow-lg shadow-amber-600/20"
+              >
+                Fortsätt
+              </button>
+            </div>
+          </div>
+        )}
+
         <div className="grid grid-cols-1 md:grid-cols-4 border-b border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/20">
             <StatCard label="Verifierade Lagrum" value={`${stats.percent}%`} sub={`${stats.verified} av ${stats.total} SFS-poster verifierade`} color="cyan" />
             <StatCard label="Väntande Granskning" value={stats.pending.toString()} sub="Poster som kräver manuell validering" color="purple" />

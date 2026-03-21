@@ -22,6 +22,7 @@ export const FmjamController: React.FC<FmjamControllerProps> = ({ analysis }) =>
 
   const handleActivate = () => {
     setIsActivating(true);
+    console.log("Initierar Official Layer aktivering...");
     let progress = 0;
     const interval = setInterval(() => {
       progress += 5;
@@ -30,6 +31,7 @@ export const FmjamController: React.FC<FmjamControllerProps> = ({ analysis }) =>
         clearInterval(interval);
         setIsActivating(false);
         setIsActivated(true);
+        console.log("Official Layer aktiverat framgångsrikt.");
       }
     }, 50);
   };

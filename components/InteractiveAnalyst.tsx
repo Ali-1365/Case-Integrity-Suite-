@@ -196,10 +196,18 @@ export const InteractiveAnalyst: React.FC<InteractiveAnalystProps> = ({ analysis
                         </div>
                     </div>
                     <div className="flex gap-2">
-                        <button className="p-2 hover:bg-white/5 rounded-lg transition-colors text-gray-500">
+                        <button 
+                            onClick={() => setInput('Sammanfatta bevisläget för detta ärende.')}
+                            className="p-2 hover:bg-white/5 rounded-lg transition-colors text-gray-500"
+                            title="Sök i ärendet"
+                        >
                             <MagnifyingGlassIcon className="w-4 h-4" />
                         </button>
-                        <button className="p-2 hover:bg-white/5 rounded-lg transition-colors text-gray-500">
+                        <button 
+                            onClick={() => setInput('Vilka är de mest kritiska juridiska riskerna här?')}
+                            className="p-2 hover:bg-white/5 rounded-lg transition-colors text-gray-500"
+                            title="Snabb-analys"
+                        >
                             <BoltIcon className="w-4 h-4" />
                         </button>
                     </div>
@@ -262,11 +270,23 @@ export const InteractiveAnalyst: React.FC<InteractiveAnalystProps> = ({ analysis
                     </div>
                     <div className="mt-3 flex justify-between items-center px-2">
                         <div className="flex gap-4">
-                            <button className="text-[10px] font-bold text-gray-600 hover:text-cyan-500 uppercase tracking-widest transition-colors flex items-center gap-1">
+                            <button 
+                                onClick={() => {
+                                    setInput('Gör en snabb-analys av bevisatomer och lagrum.');
+                                    handleSend().catch(err => console.error("Quick analysis failed:", err));
+                                }}
+                                className="text-[10px] font-bold text-gray-600 hover:text-cyan-500 uppercase tracking-widest transition-colors flex items-center gap-1"
+                            >
                                 <BoltIcon className="w-3 h-3" />
                                 Snabb-analys
                             </button>
-                            <button className="text-[10px] font-bold text-gray-600 hover:text-cyan-500 uppercase tracking-widest transition-colors flex items-center gap-1">
+                            <button 
+                                onClick={() => {
+                                    setInput('Verifiera källorna för de juridiska referenserna i detta ärende.');
+                                    handleSend().catch(err => console.error("Source verification failed:", err));
+                                }}
+                                className="text-[10px] font-bold text-gray-600 hover:text-cyan-500 uppercase tracking-widest transition-colors flex items-center gap-1"
+                            >
                                 <ShieldCheckIcon className="w-3 h-3" />
                                 Verifiera Källa
                             </button>

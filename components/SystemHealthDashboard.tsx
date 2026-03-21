@@ -22,11 +22,14 @@ import {
   ShieldCheckIcon,
   XMarkIcon,
   ArrowPathIcon,
-  DatabaseIcon
+  DatabaseIcon,
+  ExclamationTriangleIcon
 } from './icons';
 import { geminiService, QuotaState } from '../services/geminiService';
 import { githubService, RepoStatus } from '../services/githubService';
 import { loggingService, LogEntry } from '../services/loggingService';
+import { corpusService } from '../lib/CorpusService';
+import { FULL_LEGAL_CORPUS } from '../data/legalCorpus';
 
 interface SystemHealthDashboardProps {
   isOpen: boolean;
@@ -49,6 +52,7 @@ const SystemHealthDashboard: React.FC<SystemHealthDashboardProps> = ({ isOpen, o
   const [activeTab, setActiveTab] = useState<'overview' | 'api' | 'resources' | 'integrity'>('overview');
   const [integrityResults, setIntegrityResults] = useState<{file: string, status: 'ok' | 'error', message?: string}[]>([]);
   const [isCheckingIntegrity, setIsCheckingIntegrity] = useState(false);
+  const [isUsingFallback, setIsUsingFallback] = useState(corpusService.isUsingFallback || FULL_LEGAL_CORPUS.length > 0);
 
   // Mock data generation for demonstration if real history is sparse
   useEffect(() => {
@@ -137,6 +141,19 @@ const SystemHealthDashboard: React.FC<SystemHealthDashboardProps> = ({ isOpen, o
         {/* Main Content */}
         <main className="flex-grow overflow-y-auto p-8 bg-[#0b1120] custom-scrollbar">
           
+          {/* Fallback Warning */}
+          {isUsingFallback && (
+            <div className="mb-8 p-4 bg-amber-500/10 border border-amber-500/30 rounded-2xl flex items-center gap-4 animate-pulse">
+              <div className="p-2 bg-amber-500/20 rounded-xl">
+                <ExclamationTriangleIcon className="w-5 h-5 text-amber-500" />
+              </div>
+              <div>
+                <h4 className="text-sm font-bold text-amber-400 uppercase tracking-wider">Varning: Hårdkodad Fallback-data Aktiv</h4>
+                <p className="text-xs text-amber-500/70 mt-0.5">Systemet använder statiska lagrum istället för att ladda från dynamiska JSON-filer. Detta kan leda till inkonsekvens i analysen.</p>
+              </div>
+            </div>
+          )}
+
           {/* KPI Grid */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
             <KPICard 

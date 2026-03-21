@@ -4,6 +4,9 @@ import { Spinner, CheckCircleIcon, ShieldCheckIcon, CpuChipIcon, BoltIcon, Arrow
 export type StageStatus = 'idle' | 'active' | 'success' | 'error';
 
 export interface PipelineStatusState {
+  status?: 'idle' | 'running' | 'completed' | 'error';
+  currentStep?: string;
+  progress?: number;
   stages: {
     normalisering: StageStatus;
     integritet: StageStatus;
@@ -19,6 +22,9 @@ export interface PipelineStatusState {
 }
 
 export const initialPipelineStatus: PipelineStatusState = {
+  status: 'idle',
+  currentStep: '',
+  progress: 0,
   stages: {
     normalisering: 'idle',
     integritet: 'idle',

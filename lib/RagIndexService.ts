@@ -76,6 +76,35 @@ export class RagIndexService {
     return `LAG: ${corpus.title}\nSFS: ${corpus.sfsNumber}\n${p.chapter ? 'KAPITEL: ' + p.chapter + '\n' : ''}PARAGRAF: ${p.section}\nINNEHÅLL: ${p.text}`;
   }
 
+  async bakeMissingEmbeddings(currentIndex: RagIndex): Promise<RagIndex> {
+    console.log(`[RAG_INDEX] Baking missing embeddings for index v${currentIndex.version}...`);
+    const updatedChunks = [...currentIndex.chunks];
+    let bakedCount = 0;
+
+    for (let i = 0; i < updatedChunks.length; i++) {
+      const chunk = updatedChunks[i];
+      if (!chunk.embedding || chunk.embedding.length === 0) {
+        // Find the corpus to get full context if possible, or use chunk text
+        const chunkText = `LAG: ${chunk.metadata.title}\nSFS: ${chunk.sfsNumber}\nPARAGRAF: ${chunk.section}\nINNEHÅLL: ${chunk.text}`;
+        try {
+          const embedding = await geminiService.embed(chunkText);
+          updatedChunks[i] = { ...chunk, embedding };
+          bakedCount++;
+          if (bakedCount % 10 === 0) console.log(`[RAG_INDEX] Baked ${bakedCount} embeddings...`);
+        } catch (e) {
+          console.error(`[RAG_INDEX] Failed to bake embedding for chunk ${chunk.id}:`, e);
+        }
+      }
+    }
+
+    console.log(`[RAG_INDEX] Baking complete. ${bakedCount} new embeddings generated.`);
+    return {
+      ...currentIndex,
+      createdAt: new Date().toISOString(),
+      chunks: updatedChunks
+    };
+  }
+
   exportIndex(index: RagIndex): void {
     const data = JSON.stringify(index, null, 2);
     const blob = new Blob([data], { type: 'application/json' });

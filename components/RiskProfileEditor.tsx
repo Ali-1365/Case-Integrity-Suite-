@@ -311,7 +311,7 @@ const RiskProfileEditor: React.FC<RiskProfileEditorProps> = ({
                         <h4 className="text-xl font-black text-white mb-2 uppercase tracking-tight">Matematiska Konstanten v.6.2</h4>
                         <p className="text-sm text-gray-400 leading-relaxed max-w-3xl">
                             Dessa multiplikatorer används för att korrigera risk-score baserat på ärendets natur. 
-                            Exempel: Om en risk rör ett <strong>barn</strong> multipliceras grundrisken automatiskt med <strong>1.85</strong> för att garantera kritisk prioritet.
+                            Notera: Om en risk rör ett <strong>barn</strong> multipliceras grundrisken automatiskt med <strong>1.85</strong> för att garantera kritisk prioritet.
                         </p>
                     </div>
                 </div>

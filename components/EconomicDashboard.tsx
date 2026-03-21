@@ -125,6 +125,26 @@ const EconomicDashboard: React.FC = () => {
     }
   };
 
+  const handleFilterPayments = () => {
+    console.log("Filtering payments...");
+    // Simulerad filtrering
+    setPayments(prev => [...prev].reverse());
+  };
+
+  const handleViewInvoiceDetails = (invoice: Invoice) => {
+    console.log("Viewing invoice details:", invoice);
+    // Här kan man öppna en modal eller navigera
+  };
+
+  const handleGenerateForecast = () => {
+    setIsAnalyzing(true);
+    setTimeout(() => {
+      console.log("New forecast generated");
+      setIsAnalyzing(false);
+      loadData();
+    }, 1500);
+  };
+
   return (
     <div className="flex flex-col h-full space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 relative">
       {/* Form Overlay */}
@@ -324,10 +344,10 @@ const EconomicDashboard: React.FC = () => {
           </div>
         )}
 
-        {activeTab === 'PAYMENTS' && <PaymentsView payments={payments} onAdd={() => setActiveForm('PAYMENT')} />}
-        {activeTab === 'INVOICES' && <InvoicesView invoices={invoices} onAdd={() => setActiveForm('INVOICE')} />}
+        {activeTab === 'PAYMENTS' && <PaymentsView payments={payments} onAdd={() => setActiveForm('PAYMENT')} onFilter={handleFilterPayments} />}
+        {activeTab === 'INVOICES' && <InvoicesView invoices={invoices} onAdd={() => setActiveForm('INVOICE')} onViewDetails={handleViewInvoiceDetails} />}
         {activeTab === 'DAMAGES' && <DamagesView claims={claims} onAdd={() => setActiveForm('CLAIM')} onAnalyze={handleAnalyzeClaim} />}
-        {activeTab === 'BUDGET' && <BudgetView forecasts={forecasts} />}
+        {activeTab === 'BUDGET' && <BudgetView forecasts={forecasts} onGenerate={handleGenerateForecast} />}
       </div>
     </div>
   );

@@ -20,6 +20,15 @@ const ArchiveView: React.FC<ArchiveViewProps> = ({ onSelect }) => {
     const [documents, setDocuments] = useState<StoredDocument[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
+    const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
+    const [statusMessage, setStatusMessage] = useState<{ text: string, type: 'success' | 'error' } | null>(null);
+
+    useEffect(() => {
+        if (statusMessage) {
+            const timer = setTimeout(() => setStatusMessage(null), 3000);
+            return () => clearTimeout(timer);
+        }
+    }, [statusMessage]);
 
     useEffect(() => {
         const loadDocs = async () => {
@@ -36,16 +45,16 @@ const ArchiveView: React.FC<ArchiveViewProps> = ({ onSelect }) => {
         loadDocs().catch(err => console.error("Unhandled error in loadDocs:", err));
     }, []);
 
-    const handleDelete = async (e: React.MouseEvent, id: string) => {
-        e.stopPropagation();
-        if (confirm('Är du säker på att du vill radera detta ärende permanent?')) {
-            try {
-                await db.deleteDocument(id);
-                setDocuments(prev => prev.filter(d => d.id !== id));
-            } catch (error) {
-                console.error(`Failed to delete document ${id}:`, error);
-                alert("Kunde inte radera ärendet. Se konsol för detaljer.");
-            }
+    const handleDelete = async (id: string) => {
+        try {
+            await db.deleteDocument(id);
+            setDocuments(prev => prev.filter(d => d.id !== id));
+            setStatusMessage({ text: "Ärendet raderat permanent.", type: 'success' });
+        } catch (error) {
+            console.error(`Failed to delete document ${id}:`, error);
+            setStatusMessage({ text: "Kunde inte radera ärendet.", type: 'error' });
+        } finally {
+            setDeleteConfirmId(null);
         }
     };
 
@@ -55,7 +64,43 @@ const ArchiveView: React.FC<ArchiveViewProps> = ({ onSelect }) => {
     );
 
     return (
-        <div className="space-y-8 animate-in fade-in duration-500">
+        <div className="space-y-8 animate-in fade-in duration-500 relative">
+            {statusMessage && (
+                <div className={`fixed top-8 right-8 z-50 px-6 py-3 rounded-2xl shadow-2xl border animate-in slide-in-from-right-8 duration-300 ${
+                    statusMessage.type === 'success' ? 'bg-emerald-500 text-white border-emerald-400' : 'bg-rose-500 text-white border-rose-400'
+                }`}>
+                    <p className="text-xs font-black uppercase tracking-widest">{statusMessage.text}</p>
+                </div>
+            )}
+
+            {deleteConfirmId && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-6 animate-in fade-in duration-300">
+                    <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] p-10 max-w-md w-full border border-slate-200 dark:border-slate-800 shadow-2xl">
+                        <div className="w-16 h-16 bg-rose-50 dark:bg-rose-900/20 rounded-2xl flex items-center justify-center mb-6 mx-auto">
+                            <TrashIcon className="w-8 h-8 text-rose-500" />
+                        </div>
+                        <h3 className="text-xl font-serif text-slate-900 dark:text-white text-center mb-2">Radera ärende?</h3>
+                        <p className="text-sm text-slate-500 dark:text-gray-500 text-center mb-8">
+                            Är du säker på att du vill radera detta ärende permanent? Denna åtgärd kan inte ångras.
+                        </p>
+                        <div className="grid grid-cols-2 gap-4">
+                            <button 
+                                onClick={() => setDeleteConfirmId(null)}
+                                className="py-4 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 rounded-2xl text-xs font-black uppercase tracking-widest hover:bg-slate-100 dark:hover:bg-slate-700 transition-all"
+                            >
+                                Avbryt
+                            </button>
+                            <button 
+                                onClick={() => handleDelete(deleteConfirmId)}
+                                className="py-4 bg-rose-600 text-white rounded-2xl text-xs font-black uppercase tracking-widest shadow-lg shadow-rose-600/20 hover:bg-rose-500 transition-all"
+                            >
+                                Radera
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div>
                     <h3 className="text-2xl font-serif font-medium text-slate-900 dark:text-white">Ärendearkiv</h3>
@@ -109,7 +154,10 @@ const ArchiveView: React.FC<ArchiveViewProps> = ({ onSelect }) => {
                             </div>
                             <div className="flex items-center gap-4">
                                 <button 
-                                    onClick={(e) => handleDelete(e, doc.id)}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        setDeleteConfirmId(doc.id);
+                                    }}
                                     className="p-3 text-slate-400 hover:text-red-500 hover:bg-red-500/10 rounded-xl transition-all"
                                 >
                                     <TrashIcon className="w-5 h-5" />

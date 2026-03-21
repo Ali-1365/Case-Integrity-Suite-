@@ -14,6 +14,7 @@ interface SystemOverviewProps {
   onTextSubmit: (text: string) => void;
   onSelectDocument: (id: string) => void;
   onAggregateSelected: (ids: string[]) => void;
+  onAction: (action: string) => void;
   isProcessing: boolean;
   parsingError: string | null;
   legalCorpus: LegalCorpus[];
@@ -26,6 +27,7 @@ const SystemOverview: React.FC<SystemOverviewProps> = ({
   onTextSubmit,
   onSelectDocument,
   onAggregateSelected,
+  onAction,
   isProcessing,
   parsingError,
   legalCorpus
@@ -49,18 +51,21 @@ const SystemOverview: React.FC<SystemOverviewProps> = ({
             label="Analysera Ärendearkiv" 
             sub="Välj ärende för djupanalys" 
             color="blue"
+            onClick={() => onAction('arch')}
           />
           <QuickAction 
             icon={<ShieldCheckIcon className="w-6 h-6" />} 
             label="Integritetskontroll" 
             sub="Verifiera forensisk kedja" 
             color="emerald"
+            onClick={() => onAction('integrity')}
           />
           <QuickAction 
             icon={<ActivityIcon className="w-6 h-6" />} 
             label="Systemtelemetri" 
             sub="Monitorera AI-noder" 
             color="indigo"
+            onClick={() => onAction('monitor')}
           />
       </div>
 
@@ -185,7 +190,7 @@ const SystemOverview: React.FC<SystemOverviewProps> = ({
   );
 };
 
-const QuickAction: React.FC<{ icon: React.ReactElement<{ className?: string }>, label: string, sub: string, color: 'blue' | 'emerald' | 'indigo' }> = ({ icon, label, sub, color }) => {
+const QuickAction: React.FC<{ icon: React.ReactElement<{ className?: string }>, label: string, sub: string, color: 'blue' | 'emerald' | 'indigo', onClick?: () => void }> = ({ icon, label, sub, color, onClick }) => {
     const colors = {
         blue: 'border-blue-100 dark:border-blue-900/30 bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 hover:border-blue-400 dark:hover:border-blue-600 shadow-blue-500/5',
         emerald: 'border-emerald-100 dark:border-emerald-900/30 bg-white dark:bg-slate-900 text-emerald-600 dark:text-emerald-400 hover:border-emerald-400 dark:hover:border-emerald-600 shadow-emerald-500/5',
@@ -193,7 +198,10 @@ const QuickAction: React.FC<{ icon: React.ReactElement<{ className?: string }>, 
     };
 
     return (
-        <div className={`p-10 rounded-[3rem] border-2 transition-all cursor-pointer group flex items-center space-x-8 shadow-sm hover:shadow-2xl hover:-translate-y-2 ${colors[color]}`}>
+        <div 
+            onClick={onClick}
+            className={`p-10 rounded-[3rem] border-2 transition-all cursor-pointer group flex items-center space-x-8 shadow-sm hover:shadow-2xl hover:-translate-y-2 ${colors[color]}`}
+        >
             <div className="p-5 bg-slate-50 dark:bg-slate-800 rounded-[1.5rem] border border-slate-100 dark:border-slate-700 group-hover:scale-110 group-hover:rotate-6 transition-transform shadow-inner">
                 {React.cloneElement(icon, { className: 'w-7 h-7' })}
             </div>

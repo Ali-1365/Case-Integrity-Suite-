@@ -1,16 +1,131 @@
-
 {
   "sourceCode": "TF",
   "sfsNumber": "1949:105",
-  "title": "Tryckfrihetsförordning (1949:105)",
-  "versionChain": ["1949:105"],
+  "title": "Tryckfrihetsförordning (1949:105) [cite: 100]",
+  "shortName": "TF",
+  "versionChain": ["1949:105", "2022:1524"],
+  "ikraft": "1949-03-23",
+  "description": "Grundlag som reglerar tryckfriheten i Sverige, inklusive rätten att ge ut skrifter och ta del av allmänna handlingar [cite: 101].",
   "paragraphs": [
     {
       "id": "tf_1_1",
       "chapter": 1,
       "section": 1,
-      "text": "Tryckfriheten innebär rätt för varje svensk medborgare att, utan några av myndighet eller annat allmänt organ i förväg lagda hinder, utge skrifter.",
-      "metadata": { "validFrom": "1949-01-01", "provenanceHash": "tf_h1" }
+      "principleType": "tryckfrihetens grunder",
+      "text": "Tryckfriheten syftar till att säkerställa ett fritt meningsutbyte, en fri och allsidig upplysning och ett fritt konstnärligt skapande. Tryckfriheten innebär en frihet för var och en att i tryckt skrift uttrycka tankar, åsikter och känslor samt att offentliggöra allmänna handlingar och i övrigt lämna uppgifter i vilket ämne som helst. Tryckfriheten innebär också en rätt för var och en att ge ut skrifter utan att en myndighet eller ett annat allmänt organ hindrar detta i förväg. Åtal för en skrifts innehåll får väckas först efter det att den har getts ut och då vid en domstol. Ingen får straffas för en skrifts innehåll i andra fall än om innehållet strider mot tydlig lag som är meddelad för att bevara allmänt lugn men som inte håller tillbaka allmän upplysning. När tryckfriheten utövas ska bestämmelser i denna grundlag som skyddar enskildas rätt och allmän säkerhet iakttas. För tryckfriheten får inga andra begränsningar finnas än de som följer av denna grundlag. [cite: 102-105]",
+      "keywords": ["tryckfrihet", "censurförbud", "grundlag"],
+      "relatedRules": ["RF 2:1"],
+      "metadata": { "validFrom": "2019-01-01", "legalWeight": "konstitutionell", "riskTrigger": false }
+    },
+    {
+      "id": "tf_1_7",
+      "chapter": 1,
+      "section": 7,
+      "principleType": "meddelarfrihet",
+      "text": "Det står var och en fritt att meddela uppgifter i vilket ämne som helst i syfte att de ska göras offentliga i en tryckt skrift (meddelarfrihet). Denna frihet avser uppgifter som lämnas till en författare eller någon annan upphovsman, skriftens utgivare eller redaktion, eller ett företag för yrkesmässig förmedling av nyheter. Det står också var och en fritt att anskaffa uppgifter i vilket ämne som helst i syfte att göra dem offentliga i en tryckt skrift (anskaffarfrihet). [cite: 106-108]",
+      "keywords": ["meddelarfrihet", "anskaffarfrihet", "källskydd"],
+      "relatedRules": ["TF 3:1"],
+      "metadata": { "validFrom": "2019-01-01", "legalWeight": "konstitutionell", "riskTrigger": false }
+    },
+    {
+      "id": "tf_2_1",
+      "chapter": 2,
+      "section": 1,
+      "principleType": "offentlighetsprincipen",
+      "text": "Till främjande av ett fritt meningsutbyte, en fri och allsidig upplysning och ett fritt konstnärligt skapande ska var och en ha rätt att ta del av allmänna handlingar. [cite: 110]",
+      "keywords": ["offentlighetsprincipen", "allmän handling"],
+      "relatedRules": ["OSL"],
+      "metadata": { "validFrom": "2019-01-01", "legalWeight": "konstitutionell", "riskTrigger": false }
+    },
+    {
+      "id": "tf_2_2",
+      "chapter": 2,
+      "section": 2,
+      "principleType": "begränsningar i offentligheten",
+      "text": "Rätten att ta del av allmänna handlingar får begränsas endast om det krävs med hänsyn till rikets säkerhet, central finanspolitik, myndigheters inspektion, förebyggande av brott, det allmännas ekonomiska intresse, skyddet för enskildas personliga eller ekonomiska förhållanden, eller intresset av att bevara djur- eller växtart. [cite: 111]",
+      "keywords": ["sekretess", "begränsningar", "allmänna handlingar"],
+      "relatedRules": ["OSL"],
+      "metadata": { "validFrom": "2019-01-01", "legalWeight": "konstitutionell", "riskTrigger": true }
+    },
+    {
+      "id": "tf_3_1",
+      "chapter": 3,
+      "section": 1,
+      "principleType": "anonymitetsrätt",
+      "text": "En författare till en tryckt skrift är inte skyldig att sätta ut namn, pseudonym eller signatur på skriften. Detsamma gäller för den som har meddelat uppgifter för offentliggörande enligt 1 kap. 7 §. [cite: 115]",
+      "keywords": ["anonymitet", "författare", "meddelare"],
+      "relatedRules": ["TF 1:7"],
+      "metadata": { "validFrom": "2019-01-01", "legalWeight": "konstitutionell", "riskTrigger": false }
+    },
+    {
+      "id": "tf_3_5",
+      "chapter": 3,
+      "section": 5,
+      "principleType": "efterforskningsförbud",
+      "text": "En myndighet eller ett annat allmänt organ får inte efterforska författaren till en framställning, den som har gett ut en framställning, eller meddelare enligt 1 kap. 7 §. [cite: 116]",
+      "keywords": ["efterforskningsförbud", "källskydd"],
+      "relatedRules": ["TF 3:1"],
+      "metadata": { "validFrom": "2019-01-01", "legalWeight": "konstitutionell", "riskTrigger": true }
+    },
+    {
+      "id": "tf_5_1",
+      "chapter": 5,
+      "section": 1,
+      "principleType": "utgivare",
+      "text": "En periodisk skrift ska ha en utgivare. Utgivaren utses av skriftens ägare. [cite: 120]",
+      "keywords": ["utgivare", "periodisk skrift"],
+      "relatedRules": [],
+      "metadata": { "validFrom": "2019-01-01", "legalWeight": "konstitutionell", "riskTrigger": false }
+    },
+    {
+      "id": "tf_7_1",
+      "chapter": 7,
+      "section": 1,
+      "principleType": "tryckfrihetsbrott",
+      "text": "Med beaktande av tryckfrihetens syfte ska de gärningar som anges i 2-20 §§ anses vara tryckfrihetsbrott, om de begås i en tryckt skrift och är straffbara enligt lag. [cite: 125]",
+      "keywords": ["tryckfrihetsbrott", "ansvar"],
+      "relatedRules": ["BrB"],
+      "metadata": { "validFrom": "2019-01-01", "legalWeight": "konstitutionell", "riskTrigger": true }
+    },
+    {
+      "id": "tf_7_3",
+      "chapter": 7,
+      "section": 3,
+      "principleType": "förtal",
+      "text": "Som tryckfrihetsbrott anses förtal som innebär att någon utpekar någon annan som brottslig eller klandervärd i sitt levnadssätt eller annars lämnar en uppgift som är ägnad att utsätta denne för andras missaktning. [cite: 126]",
+      "keywords": ["förtal", "missaktning"],
+      "relatedRules": ["BrB 5:1"],
+      "metadata": { "validFrom": "2019-01-01", "legalWeight": "konstitutionell", "riskTrigger": true }
+    },
+    {
+      "id": "tf_9_2",
+      "chapter": 9,
+      "section": 2,
+      "principleType": "Justitiekanslerns roll",
+      "text": "Justitiekanslern är ensam åklagare i mål om tryckfrihetsbrott. Ingen annan än Justitiekanslern får inleda förundersökning om ett sådant brott. [cite: 130]",
+      "keywords": ["Justitiekanslern", "åklagare", "förundersökning"],
+      "relatedRules": ["RB"],
+      "metadata": { "validFrom": "2019-01-01", "legalWeight": "konstitutionell", "riskTrigger": false }
+    },
+    {
+      "id": "tf_12_3",
+      "chapter": 12,
+      "section": 3,
+      "principleType": "jury",
+      "text": "I tryckfrihetsmål som gäller ansvar för brott ska en jury som består av nio medlemmar pröva om brott föreligger. Är parterna överens om det, avgörs målet av rätten utan medverkan av jury. [cite: 135]",
+      "keywords": ["jury", "tryckfrihetsmål"],
+      "relatedRules": ["RB"],
+      "metadata": { "validFrom": "2019-01-01", "legalWeight": "konstitutionell", "riskTrigger": false }
+    }
+  ],
+  "transitionRules_summary": [
+    {
+      "sfs": "1976:955",
+      "text": "Denna lag träder i kraft den 1 januari 1978. De nya bestämmelserna äger ej tillämpning på skrift som utgivits före ikraftträdandet. [cite: 680]"
+    },
+    {
+      "sfs": "1998:1438",
+      "text": "Denna lag träder i kraft den 1 januari 1999. Äldre föreskrifter tillämpas på sådana tekniska upptagningar som spritts före ikraftträdandet. [cite: 681]"
     }
   ]
 }

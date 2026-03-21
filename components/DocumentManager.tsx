@@ -90,6 +90,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
     const [activeModal, setActiveModal] = useState<string | null>(null);
     const [showMoreMenu, setShowMoreMenu] = useState(false);
     const [isDarkMode, setIsDarkMode] = useState(false);
+    const orchestrator = React.useMemo(() => new AIOrchestrator(), []);
     const [quotaUsage, setQuotaUsage] = useState<QuotaUsage>(() => {
         try {
             return usageMonitorService.getUsage();
@@ -149,8 +150,127 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
         }
     }, [currentAnalysis?.caseId]);
 
-    const handleAnalyze = async (doc: ParsedDocument) => {
-        // ... existing handleAnalyze logic ...
+    const handleAnalyze = async (doc: any) => {
+        setIsAnalyzing(true);
+        setPipelineStatus({
+            ...initialPipelineStatus,
+            status: 'running',
+            currentStep: 'Initierar analys...',
+            progress: 10
+        });
+
+        try {
+            // 1. Skapa ärende om det inte finns
+            const caseId = `CASE-${doc.id?.substring(0, 8) || Date.now()}`;
+            const existingCase = await caseManagementService.getCase(caseId);
+            if (!existingCase) {
+                await caseManagementService.createCase(doc.name, { hasChildAspect: false, isPreventive: false });
+            }
+
+            setPipelineStatus(prev => ({ ...prev, currentStep: 'Kör AI-orkestrering...', progress: 30 }));
+            
+            // 2. Kör full analys via AIOrchestrator
+            const analysisResult = await orchestrator.runFullAnalysis(
+                doc.content || doc.textContent || '', 
+                doc.id || `DOC-${Date.now()}`, 
+                legalFrameworkIndex as any, 
+                undefined, 
+                caseId
+            );
+
+            setPipelineStatus(prev => ({ ...prev, currentStep: 'Slutför analys...', progress: 80 }));
+
+            // 3. Uppdatera dokumentet med analysresultat
+            const updatedDoc: StoredDocument = {
+                id: doc.id || `DOC-${Date.now()}`,
+                name: doc.name,
+                textContent: doc.content || doc.textContent || '',
+                mimeType: doc.mimeType || 'text/plain',
+                createdAt: doc.createdAt || new Date().toISOString(),
+                analysis: analysisResult as any
+            };
+
+            await db.addDocument(updatedDoc);
+            setDocuments(prev => {
+                const exists = prev.find(d => d.id === updatedDoc.id);
+                if (exists) {
+                    return prev.map(d => d.id === updatedDoc.id ? updatedDoc : d);
+                }
+                return [updatedDoc, ...prev];
+            });
+            
+            setPipelineStatus({
+                ...initialPipelineStatus,
+                status: 'completed',
+                currentStep: 'Analys slutförd',
+                progress: 100
+            });
+        } catch (error) {
+            console.error("Analysis failed:", error);
+            setPipelineStatus({
+                ...initialPipelineStatus,
+                status: 'error',
+                currentStep: 'Analys misslyckades',
+                progress: 0
+            });
+        } finally {
+            setIsAnalyzing(false);
+        }
+    };
+
+    const handleAggregateSelected = async (ids: string[]) => {
+        setIsAnalyzing(true);
+        setPipelineStatus({
+            ...initialPipelineStatus,
+            status: 'running',
+            currentStep: 'Initierar batch-analys...',
+            progress: 10
+        });
+
+        try {
+            const selectedDocs = documents.filter(d => ids.includes(d.id));
+            const batchDocs = selectedDocs.map(d => ({
+                id: d.id,
+                name: d.name,
+                facts: d.analysis?.facts || []
+            }));
+
+            setPipelineStatus(prev => ({ ...prev, currentStep: 'Kör korskorrelering...', progress: 50 }));
+            
+            const correlations = await orchestrator.runCrossCorrelation(batchDocs);
+
+            const aggregateDoc: StoredDocument = {
+                id: `AGG-${Date.now()}`,
+                name: `Batch-analys (${ids.length} dokument)`,
+                textContent: `Korsanalys av: ${selectedDocs.map(d => d.name).join(', ')}`,
+                mimeType: 'application/aggregate',
+                createdAt: new Date().toISOString(),
+                analysis: {
+                    correlations
+                } as any
+            };
+
+            await db.addDocument(aggregateDoc);
+            setDocuments(prev => [aggregateDoc, ...prev]);
+            setSelectedDocId(aggregateDoc.id);
+
+            setPipelineStatus({
+                ...initialPipelineStatus,
+                status: 'completed',
+                currentStep: 'Batch-analys slutförd',
+                progress: 100
+            });
+        } catch (error) {
+            console.error("Batch analysis failed:", error);
+            setPipelineStatus({
+                ...initialPipelineStatus,
+                status: 'error',
+                currentStep: 'Batch-analys misslyckades',
+                progress: 0
+            });
+        } finally {
+            setIsAnalyzing(false);
+        }
     };
 
     const Breadcrumbs = () => {
@@ -391,7 +511,8 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                                 }
                             }}
                             onSelectDocument={setSelectedDocId}
-                            onAggregateSelected={() => {}}
+                            onAggregateSelected={handleAggregateSelected}
+                            onAction={setActiveModal}
                             isProcessing={isAnalyzing || isParsing}
                             parsingError={parsingError}
                         />

@@ -12,6 +12,7 @@ interface AppErrorBoundaryState {
   hasError: boolean;
   error: Error | null;
   errorInfo: ErrorInfo | null;
+  copySuccess: boolean;
 }
 
 /**
@@ -26,7 +27,8 @@ export default class AppErrorBoundary extends Component<AppErrorBoundaryProps, A
     this.state = { 
       hasError: false, 
       error: null, 
-      errorInfo: null 
+      errorInfo: null,
+      copySuccess: false
     };
   }
 
@@ -45,11 +47,11 @@ export default class AppErrorBoundary extends Component<AppErrorBoundaryProps, A
   };
   
   handleCopyStack = () => {
-      // Fix: Access state property from React.Component, fixed error on line 44
       const { error, errorInfo } = this.state;
       const stack = (error?.toString() || "") + "\n" + (errorInfo?.componentStack || "");
       navigator.clipboard.writeText(stack).then(() => {
-          alert("Stack trace kopierad till urklipp.");
+          this.setState({ copySuccess: true });
+          setTimeout(() => this.setState({ copySuccess: false }), 3000);
       }).catch(err => {
           console.error('Kunde inte kopiera fel-loggen:', err);
       });
@@ -98,10 +100,12 @@ export default class AppErrorBoundary extends Component<AppErrorBoundaryProps, A
                         </div>
                         <button 
                             onClick={this.handleCopyStack} 
-                            className="flex items-center gap-1.5 hover:text-gray-300 transition-colors px-2 py-1 rounded hover:bg-[#161616] border border-transparent hover:border-gray-700"
+                            className={`flex items-center gap-1.5 transition-colors px-2 py-1 rounded border ${
+                                this.state.copySuccess ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' : 'hover:text-gray-300 hover:bg-[#161616] border-transparent hover:border-gray-700'
+                            }`}
                         >
                             <Copy size={12} />
-                            <span className="text-[10px]">COPY_TRACE</span>
+                            <span className="text-[10px]">{this.state.copySuccess ? 'COPIED' : 'COPY_TRACE'}</span>
                         </button>
                      </div>
                      <div className="overflow-auto max-h-48 custom-scrollbar">

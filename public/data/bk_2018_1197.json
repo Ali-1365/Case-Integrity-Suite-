@@ -5,23 +5,420 @@
   "versionChain": ["2018:1197"],
   "paragraphs": [
     {
+      "id": "bk_2018_1",
+      "section": "Artikel 1",
+      "principleType": "definition",
+      "text": "I denna konvention avses med barn varje människa under 18 års ålder, om inte barnet blir myndigt tidigare enligt den lag som gäller för barnet. [cite: 8]",
+      "keywords": ["definition", "barn", "ålder"],
+      "relatedRules": [],
+      "metadata": { "validFrom": "2020-01-01", "legalWeight": "grundläggande", "riskTrigger": false }
+    },
+    {
+      "id": "bk_2018_2",
+      "section": "Artikel 2",
+      "principleType": "icke-diskriminering",
+      "text": "1. Konventionsstaterna ska respektera och tillförsäkra varje barn inom deras jurisdiktion de rättigheter som anges i denna konvention utan åtskillnad av något slag, oavsett barnets eller dess föräldrs eller vårdnadshavares ras, hudfärg, kön, språk, religion, politiska eller annan åskådning, nationella, etniska eller sociala ursprung, egendom, funktionsnedsättning, börd eller ställning i övrigt. 2. Konventionsstaterna ska vidta alla lämpliga åtgärder för att säkerställa att barnet skyddas mot alla former av diskriminering eller bestraffning på grund av föräldrars, vårdnadshavares eller familjemedlemmars ställning, verksamhet, uttryckta åsikter eller tro. [cite: 9, 10]",
+      "keywords": ["icke-diskriminering", "rättigheter", "skydd"],
+      "relatedRules": ["SoL 1:1"],
+      "metadata": { "validFrom": "2020-01-01", "legalWeight": "central", "riskTrigger": true }
+    },
+    {
       "id": "bk_2018_3",
       "section": "Artikel 3",
-      "text": "Vid alla åtgärder som rör barn, vare sig de vidtas av offentliga eller privata sociala välfärdsinstitutioner, domstolar, administrativa myndigheter eller lagstiftande organ, ska barnets bästa komma i främsta rummet.",
+      "principleType": "barnets bästa",
+      "text": "1. Vid alla åtgärder som rör barn, vare sig de vidtas av offentliga eller privata sociala välfärdsinstitutioner, domstolar, administrativa myndigheter eller lagstiftande organ, ska i första hand beaktas vad som bedöms vara barnets bästa. 2. Konventionsstaterna åtar sig att tillförsäkra barnet sådant skydd och sådan omvårdnad som behövs för dess välfärd, med hänsyn tagen till de rättigheter och skyldigheter som tillkommer dess föräldrar, vårdnadshavare eller andra personer som har juridiskt ansvar för barnet, och ska för detta ändamål vidta alla lämpliga lagstiftningsåtgärder och administrativa åtgärder. 3. Konventionsstaterna ska säkerställa att institutioner, tjänster och inrättningar som ansvarar för omvårdnad eller skydd av barn uppfyller av behöriga myndigheter fastställda normer, särskilt vad gäller säkerhet, hälsa, personalens antal och lämplighet samt behörig tillsyn. [cite: 11, 12, 13]",
+      "keywords": ["barnets bästa", "välfärd", "skydd", "normer"],
+      "relatedRules": ["SoL 1:2", "HSL 2:1"],
+      "metadata": { "validFrom": "2020-01-01", "legalWeight": "central", "riskTrigger": true }
+    },
+    {
+      "id": "bk_2018_4",
+      "section": "Artikel 4",
+      "text": "Konventionsstaterna ska vidta alla lämpliga lagstiftningsåtgärder, administrativa åtgärder och andra åtgärder för att genomföra de rättigheter som erkänns i denna konvention. I fråga om ekonomiska, sociala och kulturella rättigheter ska konventionsstaterna till fullo utnyttja sina tillgängliga resurser för att vidta sådana åtgärder. Vid behov ska sådana åtgärder vidtas inom ramen för det internationella samarbetet.",
       "metadata": {
         "validFrom": "2020-01-01",
-        "provenanceHash": "sha256-bk_art_3",
-        "revisionNote": "Barnets bästa som ett av konventionens grundprinciper."
+        "provenanceHash": "sha256-bk_art_4",
+        "revisionNote": "Statens skyldigheter vid genomförande[cite: 14, 15, 16]."
+      }
+    },
+    {
+      "id": "bk_2018_5",
+      "section": "Artikel 5",
+      "text": "Konventionsstaterna ska respektera det ansvar och de rättigheter och skyldigheter som tillkommer föräldrar eller, där så är tillämpligt, medlemmar av den utvidgade familjen eller gemenskapen enligt lokal sedvänja, vårdnadshavare eller andra personer som har juridiskt ansvar för barnet, att på ett sätt som står i överensstämmelse med den fortlöpande utvecklingen av barnets förmåga ge lämplig ledning och råd då barnet utövar de rättigheter som erkänns i denna konvention.",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "provenanceHash": "sha256-bk_art_5",
+        "revisionNote": "Föräldrars ledning och barnets mognad[cite: 17]."
+      }
+    },
+    {
+      "id": "bk_2018_6",
+      "section": "Artikel 6",
+      "text": "1. Konventionsstaterna erkänner varje barns inneboende rätt till livet. 2. Konventionsstaterna ska till det yttersta av sin förmåga säkerställa barnets överlevnad och utveckling.",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "provenanceHash": "sha256-bk_art_6",
+        "revisionNote": "Rätt till liv och utveckling[cite: 18]."
+      }
+    },
+    {
+      "id": "bk_2018_7",
+      "section": "Artikel 7",
+      "text": "1. Barnet ska registreras omedelbart efter födelsen och från födelsen ha rätt till ett namn, rätt att förvärva ett medborgarskap och, så långt det är möjligt, rätt att få veta vilka dess föräldrar är och få deras omvårdnad. 2. Konventionsstaterna ska säkerställa genomförandet av dessa rättigheter i enlighet med sin nationella lagstiftning och sina åtaganden enligt tillämpliga internationella instrument på detta område, särskilt i de fall då barnet annars skulle vara statslöst.",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "provenanceHash": "sha256-bk_art_7",
+        "revisionNote": "Namn och medborgarskap[cite: 19, 20]."
+      }
+    },
+    {
+      "id": "bk_2018_8",
+      "section": "Artikel 8",
+      "text": "1. Konventionsstaterna förbinder sig att respektera barnets rätt att behålla sin identitet, inklusive medborgarskap, namn och släktförhållanden såsom dessa erkänns i lag, utan olagligt ingripande. 2. Om ett barn olagligt berövas en del av eller hela sin identitet, ska konventionsstaterna ge lämpligt stöd och skydd i syfte att snabbt återupprätta barnets identitet.",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "provenanceHash": "sha256-bk_art_8",
+        "revisionNote": "Skydd av identitet[cite: 21, 22]."
+      }
+    },
+    {
+      "id": "bk_2018_9",
+      "section": "Artikel 9",
+      "text": "1. Konventionsstaterna ska säkerställa att ett barn inte skiljs från sina föräldrar mot deras vilja utom i de fall då behöriga myndigheter, som är underställda rättslig prövning, i enlighet med tillämplig lag och tillämpliga förfaranden, bedömer att ett sådant åtskiljande är nödvändigt för barnets bästa. Ett sådant beslut kan vara nödvändigt i ett särskilt fall, t.ex. vid övergrepp mot eller vanvård av barnet från föräldrarnas sida eller då föräldrarna lever åtskilda och ett beslut måste fattas om var barnet ska bo. 2. Vid förfaranden enligt punkt 1 i denna artikel ska alla berörda parter beredas möjlighet att delta i förfarandet och att lägga fram sina synpunkter. 3. Konventionsstaterna ska respektera rätten för det barn som är skilt från den ena av eller båda föräldrarna att regelbundet upprätthålla ett personligt förhållande till och direkta kontakter med båda föräldrarna, utom då detta strider mot barnets bästa. 4. Då ett sådant åtskiljande är följden av åtgärder som en konventionsstat tagit initiativet till, t.ex. frihetsberövande, fängslande, förvisning, utvisning eller dödsfall... ska den konventionsstaten på begäran ge föräldrarna, barnet eller, där så är lämpligt, någon annan medlem av familjen väsentliga upplysningar om var den eller de frånvarande familjemedlemmarna vistas, såvida inte lämnandet av upplysningarna skulle vara till skada för barnet.",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "provenanceHash": "sha256-bk_art_9",
+        "revisionNote": "Separation från föräldrar [cite: 23-30]."
+      }
+    },
+    {
+      "id": "bk_2018_10",
+      "section": "Artikel 10",
+      "text": "1. I enlighet med konventionsstaternas skyldighet under artikel 9.1 ska ansökningar från ett barn eller dess föräldrar om att resa in i eller lämna en konventionsstat i familjeåterföreningssyfte behandlas på ett positivt, humant och skyndsamt sätt av konventionsstaterna. Konventionsstaterna ska vidare säkerställa att framställandet av en sådan begäran inte medför negativa följder för de sökande och medlemmar av deras familj. 2. Ett barn vars föräldrar är bosatta i olika stater ska ha rätt, utom i undantagsfall, att regelbundet upprätthålla ett personligt förhållande till och direkta kontakter med båda föräldrarna.",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "provenanceHash": "sha256-bk_art_10",
+        "revisionNote": "Familjeåterförening [cite: 31-35]."
+      }
+    },
+    {
+      "id": "bk_2018_11",
+      "section": "Artikel 11",
+      "text": "1. Konventionsstaterna ska vidta åtgärder för att bekämpa olovligt bortförande och kvarhållande av barn i utlandet. 2. För detta ändamål ska konventionsstaterna främja ingåendet av bilaterala eller multilaterala överenskommelser eller anslutning till befintliga överenskommelser.",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "provenanceHash": "sha256-bk_art_11",
+        "revisionNote": "Olovligt bortförande[cite: 36, 37]."
       }
     },
     {
       "id": "bk_2018_12",
       "section": "Artikel 12",
-      "text": "Konventionsstaterna ska tillförsäkra det barn som är i stånd att bilda egna åsikter rätten att fritt uttrycka dessa åsikter i alla frågor som rör barnet, varvid barnets åsikter ska tillmätas betydelse i förhållande till barnets ålder och mognad.",
+      "text": "1. Konventionsstaterna ska tillförsäkra det barn som är i stånd att bilda egna åsikter rätten att fritt uttrycka dessa i alla frågor som rör barnet. Barnets åsikter ska tillmätas betydelse i förhållande till barnets ålder och mognad. 2. För detta ändamål ska barnet, i alla domstolsförfaranden och administrativa förfaranden som rör barnet, särskilt beredas möjlighet att höras, antingen direkt eller genom en företrädare eller ett lämpligt organ och på ett sätt som är förenligt med nationella procedurregler.",
       "metadata": {
         "validFrom": "2020-01-01",
         "provenanceHash": "sha256-bk_art_12",
-        "revisionNote": "Barnets ovillkorliga rätt att bli hörd."
+        "revisionNote": "Barnets rätten att höras[cite: 38, 39, 40]."
+      }
+    },
+    {
+      "id": "bk_2018_13",
+      "section": "Artikel 13",
+      "text": "1. Barnet ska ha rätt till yttrandefrihet. Denna rätt innefattar frihet att oberoende av territoriella gränser söka, ta emot och sprida information och tankar av alla slag, i tal, skrift eller tryck, i konstnärlig form eller genom annat uttrycksmedel som barnet väljer. 2. Utövandet av denna rätt får underkastas vissa inskränkningar men endast sådana som är föreskrivna i lag och som är nödvändiga: (a) för att respektera andra personers rättigheter eller anseende, eller, (b) för att skydda den nationella säkerheten, rättsordningens grunder (ordre public) eller folkhälsan eller den allmänna moralen.",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "provenanceHash": "sha256-bk_art_13",
+        "revisionNote": "Yttrandefrihet[cite: 41, 42]."
+      }
+    },
+    {
+      "id": "bk_2018_14",
+      "section": "Artikel 14",
+      "text": "1. Konventionsstaterna ska respektera barnets rätt till tankefrihet, samvetsfrihet och religionsfrihet. 2. Konventionsstaterna ska respektera föräldrarnas och, i förekommande fall, vårdnadshavares rättigheter och skyldigheter att på ett sätt som är förenligt med barnets fortlöpande utveckling ge barnet ledning då det utövar sin rätt. 3. Friheten att utöva sin religion eller tro får underkastas endast sådana inskränkningar som är föreskrivna i lag och som är nödvändiga för att skydda den allmänna säkerheten, rättsordningens grunder, folkhälsan eller den allmänna moralen eller andra personers grundläggande fri- och rättigheter.",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "provenanceHash": "sha256-bk_art_14",
+        "revisionNote": "Religionsfrihet[cite: 43, 44, 45]."
+      }
+    },
+    {
+      "id": "bk_2018_15",
+      "section": "Artikel 15",
+      "text": "1. Konventionsstaterna erkänner barnets rätt till föreningsfrihet och till fredliga sammankomster. 2. Utövandet av dessa rättigheter får inte underkastas andra inskränkningar än sådana som är föreskrivna i lag och som är nödvändiga i ett demokratiskt samhälle med hänsyn till den nationella säkerheten eller den allmänna säkerheten, rättsordningens grunder (ordre public), skyddet av folkhälsan eller den allmänna moralen eller skyddet av andra personers fri- och rättigheter.",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "provenanceHash": "sha256-bk_art_15",
+        "revisionNote": "Föreningsfrihet[cite: 46, 47]."
+      }
+    },
+    {
+      "id": "bk_2018_16",
+      "section": "Artikel 16",
+      "text": "1. Inget barn får utsättas för godtyckliga eller olagliga ingripanden i sitt privat- och familjeliv, sitt hem eller sin korrespondens och inte heller för olagliga angrepp på sin heder och sitt anseende. 2. Barnet har rätt till lagens skydd mot sådana ingripanden eller angrepp.",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "provenanceHash": "sha256-bk_art_16",
+        "revisionNote": "Privatliv och heder[cite: 48, 49]."
+      }
+    },
+    {
+      "id": "bk_2018_17",
+      "section": "Artikel 17",
+      "text": "Konventionsstaterna erkänner den viktiga uppgift som massmedier utför och ska säkerställa att barnet har tillgång till information och material från olika nationella och internationella källor, särskilt sådant som syftar till att främja dess sociala, andliga och moraliska välmående samt fysiska och psykiska hälsa. Konventionsstaterna ska för detta ändamål: (a) uppmuntra massmedier att sprida information... (b) uppmuntra internationellt samarbete... (c) uppmuntra produktion och spridning av barnböcker... (d) uppmuntra massmedier att ta särskild hänsyn till de språkliga behoven hos ett barn som tillhör en minoritetsgrupp... (e) uppmuntra utvecklingen av lämpliga riktlinjer för att skydda barnet mot information och material som är till skada för barnets välfärd...",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "provenanceHash": "sha256-bk_art_17",
+        "revisionNote": "Tillgång till information via medier[cite: 50, 51]."
+      }
+    },
+    {
+      "id": "bk_2018_18",
+      "section": "Artikel 18",
+      "text": "1. Konventionsstaterna ska göra sitt bästa för att säkerställa erkännandet av principen att båda föräldrarna har gemensamt ansvar för barnets uppfostran och utveckling. Föräldrar eller, i förekommande fall, vårdnadshavare har huvudansvaret för barnets uppfostran och utveckling. Dessa ska låta sig vägledas av vad som bedöms vara barnets bästa. 2. För att garantera och främja de rättigheter som anges i denna konvention ska konventionsstaterna ge lämpligt stöd till föräldrar och vårdnadshavare då de fullgör sitt ansvar för barnets uppfostran och säkerställa utvecklingen av institutioner, inrättningar och tjänster för omvårdnad av barn. 3. Konventionsstaterna ska vidta alla lämpliga åtgärder för att säkerställa att barn till förvärvsarbetande föräldrar har rätt att åtnjuta den barnomsorg som de är berättigade till.",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "provenanceHash": "sha256-bk_art_18",
+        "revisionNote": "Föräldrars gemensamma ansvar [cite: 51-56]."
+      }
+    },
+    {
+      "id": "bk_2018_19",
+      "section": "Artikel 19",
+      "text": "1. Konventionsstaterna ska vidta alla lämpliga lagstiftningsåtgärder, administrativa, sociala och utbildningsmässiga åtgärder för att skydda barnet mot alla former av fysiskt eller psykiskt våld, skada eller övergrepp, vanvård eller försumlig behandling, misshandel eller utnyttjande, inklusive sexuella övergrepp, medan barnet är i föräldrarnas eller den ena förälderns, vårdnadshavares eller annan persons vård. 2. Sådana skyddsåtgärder bör, där så är lämpligt, innefatta effektiva förfaranden för såväl upprättandet av sociala program som syftar till att give barnet och de personer som har hand om barnet nödvändigt stöd, som för andra former av förebyggande och för identifiering, rapportering, remittering, undersökning, behandling och uppföljning av fall av ovan beskrivna sätt att behandla barn illa och, där så är lämpligt, förfaranden för rättsligt ingripande.",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "provenanceHash": "sha256-bk_art_19",
+        "revisionNote": "Skydd mot våld och övergrepp[cite: 57, 58]."
+      }
+    },
+    {
+      "id": "bk_2018_20",
+      "section": "Artikel 20",
+      "text": "1. Ett barn som tillfälligt eller varaktigt berövats sin familjemiljö, eller som för sitt eget bästa inte kan tillåtas stanna kvar i denna miljö, ska ha rätt till särskilt skydd och stöd från statens sida. 2. Konventionsstaterna ska i enlighet med sin nationella lagstiftning säkerställa alternativ omvårdnad för ett sådant barn. 3. Sådan omvårdnad kan bl.a. innefatta placering i familjehem, kafalah i islamsk rätt, adoption eller, om nödvändigt, placering i lämpliga institutioner för omvårdnad av barn. Då lösningar övervägs ska vederbörlig hänsyn tas till önskvärdheten av kontinuitet i ett barns uppfostran och till barnets etniska, religiösa, kulturella och språkliga bakgrund.",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "provenanceHash": "sha256-bk_art_20",
+        "revisionNote": "Barn utan familjemiljö [cite: 59-62]."
+      }
+    },
+    {
+      "id": "bk_2018_21",
+      "section": "Artikel 21",
+      "text": "Konventionsstater som erkänner och/eller tillåter adoption ska säkerställa att största vikt ges till vad som bedöms vara barnets bästa och ska: (a) säkerställa att adoption av ett barn godkänns endast av behöriga myndigheter... (b) erkänna att internationell adoption kan övervägas som en alternativ form av omvårdnad... (c) säkerställa att det barn som berörs av internationell adoption omfattas av garantier och normer som motsvarar dem som gäller vid nationell adoption... (d) vidta alla lämpliga åtgärder för att vid internationell adoption säkerställa att placeringen inte leder till otillbörlig ekonomisk vinning... (e) främja målen i denna artikel genom att ingå bilaterala eller multilaterala arrangemang.",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "provenanceHash": "sha256-bk_art_21",
+        "revisionNote": "Adoption[cite: 63, 64]."
+      }
+    },
+    {
+      "id": "bk_2018_22",
+      "section": "Artikel 22",
+      "text": "1. Konventionsstaterna ska vidta lämpliga åtgärder för att säkerställa att ett barn som söker flyktingstatus eller anses som flykting... får lämpligt skydd och humanitärt bistånd... 2. För detta ändamål ska konventionsstaterna samarbeta i varje ansträngning som görs av Förenta nationerna och andra behöriga mellanstatliga organisationer... för att skydda och bistå ett sådant barn och för att spåra föräldrarna eller andra familjemedlemmar... I fall då föräldrar eller andra familjemedlemmar inte kan påträffas, ska barnet ges samma skydd som varje annat barn som varaktigt eller tillfälligt berövats sin familjemiljö.",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "provenanceHash": "sha256-bk_art_22",
+        "revisionNote": "Flyktingbarn[cite: 65, 66, 67]."
+      }
+    },
+    {
+      "id": "bk_2018_23",
+      "section": "Artikel 23",
+      "text": "1. Konventionsstaterna erkänner att ett barn med fysisk eller psykisk funktionsnedsättning bör åtnjuta ett fullvärdigt och anständigt liv under förhållanden som säkerställer värdighet, främjar tilltron till den egna förmågan och möjliggör barnets aktiva deltagande i samhället. 2. Konventionsstaterna erkänner rätten till särskild omvårdnad för ett barn med funktionsnedsättning... 3. Med hänsyn till att ett barn med funktionsnedsättning har särskilda behov ska det stöd som lämnas enligt punkt 2 i denna artikel vara kostnadsfritt, då så är möjligt... Stödet ska syfta till att säkerställa att barnet har effektiv tillgång till och får utbildning, hälso- och sjukvård, rehabilitering och habilitering... 4. Konventionsstaterna ska i en detta av internationellt samarbete främja utbyte av lämplig information på området för förebyggande hälso-vård och medicinsk, psykologisk och funktionell behandling...",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "provenanceHash": "sha256-bk_art_23",
+        "revisionNote": "Barn med funktionsnedsättning [cite: 68-73]."
+      }
+    },
+    {
+      "id": "bk_2018_24",
+      "section": "Artikel 24",
+      "text": "1. Konventionsstaterna erkänner barnets rätt till bästa möjliga hälsa och tillgång till hälso- och sjukvård och rehabilitering. Konventionsstaterna ska sträva efter att säkerställa att inget barn berövas sin rätt att ha tillgång till sådan hälso- och sjukvård. 2. Konventionsstaterna ska sträva efter att till fullo förverkliga denna rätt och ska särskilt vidta lämpliga åtgärder för att: (a) minska spädbarns- och barnadödligheten, (b) säkerställa att alla barn tillhandahålls nödvändig hälso- och sjukvård med tonvikt på utveckling av primärvården, (c) bekämpa sjukdom och undernäring... genom utnyttjande av lättillgänglig teknik... (d) säkerställa tillfredsställande hälso- och sjukvård för mödrar före och efter förlossningen... (e) säkerställa att alla grupper i samhället... får information om och har tillgång till undervisning om barnhälsovård... (f) utveckla förebyggande hälso- och sjukvård, föräldrarådgivning samt undervisning om och hjälp i familjeplaneringsfrågor. 3. Konventionsstaterna ska vidta alla effektiva och lämpliga åtgärder i syfte att avskaffa traditionella sedvänjor som är skadliga för barns hälsa. 4. Konventionsstaterna åtar sig att främja och uppmuntra internationellt samarbete...",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "provenanceHash": "sha256-bk_art_24",
+        "revisionNote": "Hälsa och sjukvård [cite: 73-78]."
+      }
+    },
+    {
+      "id": "bk_2018_25",
+      "section": "Artikel 25",
+      "text": "Konventionsstaterna erkänner rätten för ett barn som har omhändertagits av behöriga myndigheter för omvårdnad, skydd eller behandling av sin fysiska eller psykiska hälsa till regelbunden översyn av den behandling som barnet får och alla andra omständigheter som rör barnets omhändertagande.",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "provenanceHash": "sha256-bk_art_25",
+        "revisionNote": "Översyn av omhändertagande[cite: 79]."
+      }
+    },
+    {
+      "id": "bk_2018_26",
+      "section": "Artikel 26",
+      "text": "1. Konventionsstaterna ska erkänna varje barns rätt att åtnjuta social trygghet, inklusive socialförsäkring, och ska vidta nödvändiga åtgärder för att till fullo förverkliga denna rätt i enlighet med nationell lagstiftning. 2. Förmånerna ska, där så är lämpligt, beviljas med hänsyn till de resurser som barnet och de personer som ansvarar för dess underhåll har och deras omständigheter i övrigt...",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "provenanceHash": "sha256-bk_art_26",
+        "revisionNote": "Social trygghet[cite: 80, 81]."
+      }
+    },
+    {
+      "id": "bk_2018_27",
+      "section": "Artikel 27",
+      "text": "1. Konventionsstaterna erkänner varje barns rätt till den levnadsstandard som krävs för barnets fysiska, psykiska, andliga, moraliska och sociala utveckling. 2. Föräldrar eller andra som är ansvariga för barnet har, inom ramen för sin förmåga och sina ekonomiska resurser, huvudansvaret för att säkerställa de levnadsvillkor som är nödvändiga för barnets utveckling. 3. Konventionsstaterna ska i enlighet med nationella förhållanden och inom ramen för sina resurser vidta lämpliga åtgärder för att bistå föräldrar och andra som är ansvariga för barnet... och ska vid behov tillhandahålla materiellt bistånd och stödprogram, särskilt i fråga om mat, kläder och bostad. 4. Konventionsstaterna ska vidta alla lämpliga åtgärder för att säkerställa indrivning av underhåll för barnet från föräldrar eller andra som har ekonomiskt ansvar för barnet...",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "provenanceHash": "sha256-bk_art_27",
+        "revisionNote": "Levnadsstandard [cite: 82-86]."
+      }
+    },
+    {
+      "id": "bk_2018_28",
+      "section": "Artikel 28",
+      "text": "1. Konventionsstaterna erkänner barnets rätt till utbildning. I syfte att gradvis förverkliga denna rätt och på grundval av lika möjligheter ska de särskilt: (a) göra grundskoleutbildning obligatorisk och kostnadsfritt tillgänglig för alla, (b) uppmuntra utvecklingen av olika former av gymnasial utbildning inklusive såväl högskoleförberedande utbildning som yrkesutbildning... (c) genom varje lämpligt medel göra högre utbildning tillgänglig för alla på grundval av förmåga, (d) göra utbildnings- och yrkesrelaterad information och vägledning tillgänglig och åtkomliga för alla barn, (e) vidta åtgärder för att uppmuntra regelbunden närvaro i skolan och minska antalet studieavbrott. 2. Konventionsstaterna ska vidta alla lämpliga åtgärder för att säkerställa att disciplinen i skolan upprätthålls på ett sätt som är förenligt med barnets mänskliga värdighet... 3. Konventionsstaterna ska främja och uppmuntra internationellt samarbete i utbildningsfrågor...",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "provenanceHash": "sha256-bk_art_28",
+        "revisionNote": "Utbildning[cite: 87, 88, 89]."
+      }
+    },
+    {
+      "id": "bk_2018_29",
+      "section": "Artikel 29",
+      "text": "1. Konventionsstaterna är överens om att barnets utbildning ska syfta till att: (a) utveckla barnets fulla möjligheter i fråga om personlighet, anlag och fysisk och psykisk förmåga, (b) utveckla respekt för mänskliga rättigheter och grundläggande friheter... (c) utveckla respekt för barnets föräldrar, för barnets egna kulturella identitet, språk och värden... (d) förbereda barnet för ett ansvarsfullt liv i ett fritt samhälle i en anda av förståelse, fred, tolerans, jämställdhet mellan könen och vänskap... (e) utveckla respekt för naturmiljön. 2. Inget i denna artikel eller i artikel 28 får tolkas så att det medför inskränkning i den enskildes och organisationers rätt att inrätta och driva utbildningsinstitutioner...",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "provenanceHash": "sha256-bk_art_29",
+        "revisionNote": "Utbildningens syfte[cite: 90, 91]."
+      }
+    },
+    {
+      "id": "bk_2018_30",
+      "section": "Artikel 30",
+      "text": "I de stater där det finns etniska, religiösa eller språkliga minoriteter eller personer som tillhör ett urfolk ska ett barn som tillhör en sådan minoritet eller ett sådant urfolk inte förvägras rätten att tillsammans med andra medlemmar av sin grupp ha sitt eget kulturliv, att bekänna sig till och utöva sin egen religion eller att använda sitt eget språk.",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "provenanceHash": "sha256-bk_art_30",
+        "revisionNote": "Minoritetsskydd[cite: 92]."
+      }
+    },
+    {
+      "id": "bk_2018_31",
+      "section": "Artikel 31",
+      "text": "1. Konventionsstaterna erkänner barnets rätt till vila och fritid, till lek och rekreation anpassad till barnets ålder och rätt att fritt delta i det kulturella och konstnärliga livet. 2. Konventionsstaterna ska respektera och främja barnets rätt att till fullo delta i det kulturella och konstnärliga livet och ska uppmuntra tillhandahållandet av lämpliga och lika möjligheter till kulturell och konstnärlig verksamhet samt till rekreations- och fritidsverksamhet.",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "provenanceHash": "sha256-bk_art_31",
+        "revisionNote": "Vila, fritid och lek[cite: 93, 94]."
+      }
+    },
+    {
+      "id": "bk_2018_32",
+      "section": "Artikel 32",
+      "text": "1. Konventionsstaterna erkänner barnets rätt till skydd mot ekonomiskt utnyttjande och mot att utföra arbete som kan vara skadligt eller hindra barnets utbildning eller inverka skadligt på barnets hälsa eller fysiska, psykiska, andliga, moraliska eller sociala utveckling. 2. Konventionsstaterna ska vidta lagstiftningsåtgärder, administrativa, sociala och utbildningsmässiga åtgärder för att säkerställa genomförandet av denna artikel. För detta ändamål... ska konventionsstaterna särskilt: (a) fastställa en minimiålder eller minimiåldrar för tillträde till arbete, (b) föreskriva en lämplig reglering av arbetstid och arbetsvillkor, (c) föreskriva lämpliga påföljder eller andra sanktioner...",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "provenanceHash": "sha256-bk_art_32",
+        "revisionNote": "Ekonomiskt utnyttjande och barnarbete[cite: 95, 96, 97]."
+      }
+    },
+    {
+      "id": "bk_2018_33",
+      "section": "Artikel 33",
+      "text": "Konventionsstaterna ska vidta alla lämpliga åtgärder, inklusive lagstiftningsåtgärder, administrativa, sociala och utbildningsmässiga åtgärder, för att skydda barn från olaglig användning av narkotika och psykotropa ämnen såsom dessa definieras i tillämpliga internationella fördrag och för att förhindra att barn utnyttjas i den olagliga framställningen av och handeln med sådana ämnen.",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "provenanceHash": "sha256-bk_art_33",
+        "revisionNote": "Skydd mot narkotika[cite: 98]."
+      }
+    },
+    {
+      "id": "bk_2018_34",
+      "section": "Artikel 34",
+      "text": "Konventionsstaterna åtar sig att skydda barnet mot alla former av sexuellt utnyttjande och sexuella övergrepp. För detta ändamål ska konventionsstaterna särskilt vidta alla lämpliga nationella, bilaterala och multilaterala åtgärder för att förhindra: (a) att ett barn förmås eller tvingas att delta i en olaglig sexuell handling, (b) att barn utnyttjas för prostitution eller annan olaglig sexuell verksamhet, (c) att barn utnyttjas i pornografiska föreställningar och i pornografiskt material.",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "provenanceHash": "sha256-bk_art_34",
+        "revisionNote": "Sexuellt utnyttjande[cite: 99, 100]."
+      }
+    },
+    {
+      "id": "bk_2018_35",
+      "section": "Artikel 35",
+      "text": "Konventionsstaterna ska vidta alla lämpliga nationella, bilaterala och multilaterala åtgärder för att förhindra bortförande och försäljning av eller handel med barn oavsett syfte och form.",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "provenanceHash": "sha256-bk_art_35",
+        "revisionNote": "Handel med barn[cite: 101]."
+      }
+    },
+    {
+      "id": "bk_2018_36",
+      "section": "Artikel 36",
+      "text": "Konventionsstaterna ska skydda barnet mot alla andra former av utnyttjande som kan skada barnet i något avseende.",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "provenanceHash": "sha256-bk_art_36",
+        "revisionNote": "Övrigt utnyttjande[cite: 102]."
+      }
+    },
+    {
+      "id": "bk_2018_37",
+      "section": "Artikel 37",
+      "text": "Konventionsstaterna ska säkerställa följande: (a) Inget barn får utsättas för tortyr eller annan grym, omänsklig eller förnedrande behandling eller bestraffning. Varken dödsstraff eller livstids fängelse utan möjlighet till frigivning får utdömas för brott som begåtts av personer under 18 års ålder, (b) Inget barn får olagligt eller godtyckligt berövas sin frihet. Gripande, anhållande, häktning, fängslande eller annat frihetsberövande av ett barn ska ske i enlighet med lag och får endast användas som en sista utväg och för kortast lämpliga tid, (c) Varje frihetsberövat barn ska behandlas humant och med respekt för människans inneboende värdighet... Särskilt ska varje frihetsberövat barn hållas åtskilt från vuxna... och ska... ha rätt att hålla kontakt med sin familj genom brevväxling och besök, (d) Varje frihetsberövat barn ska ha rätt att snarast få tillgång till såväl juridiskt biträde som annat lämpligt stöd, rätt att få lagligheten i sitt frihetsberövande prövad av en domstol...",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "provenanceHash": "sha256-bk_art_37",
+        "revisionNote": "Tortyr och frihetsberövande[cite: 103, 104, 105, 106]."
+      }
+    },
+    {
+      "id": "bk_2018_38",
+      "section": "Artikel 38",
+      "text": "1. Konventionsstaterna åtar sig att respektera och säkerställa respekten för regler i internationell humanitär rätt som är tillämpliga på dem i väpnade konflikter och som är relevanta för barnet. 2. Konventionsstaterna ska vidta alla tänkbara åtgärder för att säkerställa att personer som inte uppnått 15 års ålder inte deltar direkt i fientligheter. 3. Konventionsstaterna ska avstå från att rekrytera en person som inte har uppnått 15 års ålder till sina väpnade styrkor. Då rekrytering sker bland personer som fyllt 15 men inte 18 år, ska konventionsstaterna sträva efter att i första hand rekrytera dem som är äldst. 4. Konventionsstaterna ska... vidta alla tänkbara åtgärder för att säkerställa skydd och omvårdnad av barn som berörs av en väpnad konflikt.",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "provenanceHash": "sha256-bk_art_38",
+        "revisionNote": "Väpnade konflikter[cite: 107, 108, 109, 110, 111]."
+      }
+    },
+    {
+      "id": "bk_2018_39",
+      "section": "Artikel 39",
+      "text": "Konventionsstaterna ska vidta alla lämpliga åtgärder för att främja fysisk och psykisk rehabilitering samt social återanpassning av ett barn som utsatts för någon form av vanvård, utnyttjande eller övergrepp; tortyr eller någon annan form av grym, omänsklig eller förnedrande behandling eller bestraffning; eller väpnade konflikter. Sådan rehabilitering och sådan återanpassning ska äga rum i en miljö som främjar barnets hälsa, självrespekt och värdighet.",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "provenanceHash": "sha256-bk_art_39",
+        "revisionNote": "Rehabilitering och återanpassning[cite: 112, 113, 114]."
+      }
+    },
+    {
+      "id": "bk_2018_40",
+      "section": "Artikel 40",
+      "text": "1. Konventionsstaterna erkänner rätten för varje barn som misstänks eller åtalas för eller befunnits skyldigt att ha begått brott att behandlas på ett sätt som främjar barnets känsla av värdighet och värde, som stärker barnets respekt för andras mänskliga rättigheter och grundläggande friheter och som tar hänsyn till barnets ålder... 2. För detta ändamål... ska konventionsstaterna säkerställa följande: (a) Inget barn ska misstänkas eller åtalas... på grund av en handling eller underlåtenhet som inte var förbjuden enligt nationell eller internationell rätt vid den tidpunkt då den begicks, (b) Varje barn... ska ha åtminstone följande garantier: (i) att betraktas som oskyldigt till dess att barnets skuld lagligen fastställts, (ii) att snarast och direkt underrättas om anklagelserna mot sig... (iii) att utan dröjsmål få saken avgjord av en behörig, oberoende och opartisk myndighet... (iv) att inte tvingas att avge vittnesmål eller erkänna sig skyldigt... (v) att... få detta beslut... omprövade av en högre behörig... myndighet... (vi) att utan kostnad få hjälp av tolk... (vii) att få sitt privatliv till fullo respekterat under alla stadier i förfarandet. 3. Konventionsstaterna ska söka främja införandet av lagar och förfaranden... speciellt anpassade för barn... 4. Olika åtgärder som t.ex. vård, ledning och föreskrifter om tillsyn... ska finnas tillgängliga för att säkerställa att barn behandlas på ett sätt som är lämpligt för deras välmående...",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "provenanceHash": "sha256-bk_art_40",
+        "revisionNote": "Rättigheter vid misstanke om brott[cite: 115, 116, 117, 118, 119, 120]."
+      }
+    },
+    {
+      "id": "bk_2018_41",
+      "section": "Artikel 41",
+      "text": "Inget i denna konvention ska inverka på bestämmelser som är mer långtgående vad gäller att förverkliga barnets rättigheter och som kan finnas i: (a) en konventionsstats lagstiftning, eller (b) för den staten gällande internationell rätt.",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "provenanceHash": "sha256-bk_art_41",
+        "revisionNote": "Skydd av befintliga rättigheter[cite: 121]."
+      }
+    },
+    {
+      "id": "bk_2018_42",
+      "section": "Artikel 42",
+      "text": "Konventionsstaterna åtar sig att genom lämpliga och aktiva åtgärder göra konventionens bestämmelser och principer allmänt kända bland såväl vuxna som barn.",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "provenanceHash": "sha256-bk_art_42",
+        "revisionNote": "Skyldighet att sprida information[cite: 122]."
       }
     }
   ]

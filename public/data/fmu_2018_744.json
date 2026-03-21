@@ -1,15 +1,181 @@
-
 {
   "sourceCode": "FMU",
   "sfsNumber": "2018:744",
   "title": "Lag (2018:744) om försäkringsmedicinska utredningar",
-  "versionChain": ["2018:744"],
+  "versionChain": [
+    "2018:744",
+    "2019:989",
+    "2022:918"
+  ],
   "paragraphs": [
     {
       "id": "fmu_1",
       "section": 1,
-      "text": "Denna lag reglerar ansvar, befogenheter och krav vid undersökningar som Försäkringskassan får begära att den försäkrade ska genomgå när det behövs för bedömningen av frågan om ersättning eller andra förmåner enligt socialförsäkringsbalken (försäkringsmedicinska utredningar).",
-      "metadata": { "validFrom": "2019-01-01", "provenanceHash": "sha256-fmu_1_h" }
+      "text": "Denna lag reglerar ansvar, befogenheter och krav vid undersökningar som Försäkringskassan får begära att den försäkrade ska genomgå när det behövs för bedömningen av frågan om ersättning eller andra förmåner enligt socialförsäkringsbalken (försäkringsmedicinska utredningar). Med försäkrad avses detsamma som i 4 kap. 3 § socialförsäkringsbalken. I en försäkringsmedicinsk utredning ska den försäkrades funktions- och aktivitetsförmåga bedömas. En sådan utredning utgör inte hälso- och sjukvård i den mening som avses i hälso- och sjukvårdslagen (2017:30).",
+      "metadata": {
+        "validFrom": "2019-01-01",
+        "provenanceHash": "sha256-fmu_1_h",
+        "externalReferences": [
+          { "title": "Socialförsäkringsbalken", "section": "4 kap. 3 §" },
+          { "title": "Hälso- och sjukvårdslagen (2017:30)", "sfs": "2017:30" }
+        ]
+      }
+    },
+    {
+      "id": "fmu_2",
+      "section": 2,
+      "text": "Regionerna ansvarar för att försäkringsmedicinska utredningar kan tillhandahållas på begäran av Försäkringskassan. Det som sägs om regioner gäller även en kommun som inte ingår i en region.",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "sfsReference": "2019:989",
+        "provenanceHash": "sha256-fmu_2_h"
+      }
+    },
+    {
+      "id": "fmu_3",
+      "section": 3,
+      "text": "En regions ansvar enligt 2 § avser försäkrade som är bosatta inom regionen. Detsamma gäller i fråga om försäkrade som har skyddad folkbokföring enligt 16 § folkbokföringslagen (1991:481) och som stadigvarande vistas inom regionen. Regionens ansvar omfattar även den som, utan att vara bosatt inom regionen, är försäkrad i Sverige enligt vad som följer av Europaparlamentets och rådets förordning (EG) nr 883/2004 av den 29 april 2004 om samordning av de sociala trygghetssystemen och är förvärvsverksam eller registrerad som arbetssökande inom regionens område.",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "sfsReference": "2019:989",
+        "provenanceHash": "sha256-fmu_3_h",
+        "externalReferences": [
+          { "title": "Folkbokföringslagen (1991:481)", "section": "16 §" },
+          { "title": "Förordning (EG) nr 883/2004", "celex": "32004R0883" }
+        ]
+      }
+    },
+    {
+      "id": "fmu_4",
+      "section": 4,
+      "text": "En region får sluta avtal med en annan region eller någon annan om att i egenskap av vårdgivare utföra de uppgifter som regionen ansvarar för enligt denna lag. Ett sådant avtal ska ange de villkor som gäller för överlämnandet och utförandet av uppgifterna.",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "sfsReference": "2019:989",
+        "provenanceHash": "sha256-fmu_4_h"
+      }
+    },
+    {
+      "id": "fmu_5",
+      "section": 5,
+      "text": "Regionen ska informera Försäkringskassan om vilken eller vilka vårdgivare som ska utföra de försäkringsmedicinska utredningar som regionen ansvarar för.",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "sfsReference": "2019:989",
+        "provenanceHash": "sha256-fmu_5_h"
+      }
+    },
+    {
+      "id": "fmu_6",
+      "section": 6,
+      "text": "Försäkringskassan ska inför en försäkringsmedicinsk utredning informera den försäkrade om utredningens syfte och förutsättningarna för den samt om vad utredningen närmare innebär för den försäkrade. Försäkringskassan ska vidare informera den försäkrade om vilka uppgifter som kommer att överlämnas till den vårdgivare som ska utföra utredningen. Den försäkrade ska ges möjlighet att lämna kompletterande uppgifter som kan vara av betydelse för utredningen.",
+      "metadata": {
+        "validFrom": "2019-01-01",
+        "provenanceHash": "sha256-fmu_6_h"
+      }
+    },
+    {
+      "id": "fmu_7",
+      "section": 7,
+      "text": "Försäkringskassan ska lämna ett underlag till den vårdgivare som ska utföra den försäkringsmedicinska utredningen. Underlaget ska innehålla de uppgifter om den försäkrade som vårdgivaren behöver för att utföra utredningen. Försäkringskassan ska även informera vårdgivaren om den försäkrade har särskilda behov som måste beaktas i samband med utredningen.",
+      "metadata": {
+        "validFrom": "2019-01-01",
+        "provenanceHash": "sha256-fmu_7_h"
+      }
+    },
+    {
+      "id": "fmu_8",
+      "section": 8,
+      "text": "En försäkringsmedicinsk utredning ska utföras av legitimerad läkare och annan hälso- och sjukvårdspersonal hos vårdgivaren. Vårdgivaren ska utse en legitimerad läkare som ansvarig för utredningen.",
+      "metadata": {
+        "validFrom": "2019-01-01",
+        "provenanceHash": "sha256-fmu_8_h"
+      }
+    },
+    {
+      "id": "fmu_9",
+      "section": 9,
+      "text": "Den hälso- och sjukvårdspersonal som utför försäkringsmedicinska utredningar ska ha den kompetens som krävs för att bedöma den försäkrades funktions- och aktivitetsförmåga. Regeringen eller den myndighet som regeringen bestämmer får meddela föreskrifter om kompetenskrav för den personal som ska utföra försäkringsmedicinska utredningar.",
+      "metadata": {
+        "validFrom": "2019-01-01",
+        "provenanceHash": "sha256-fmu_9_h"
+      }
+    },
+    {
+      "id": "fmu_10",
+      "section": 10,
+      "text": "Iakttagelser och bedömningar av den försäkrades funktions- och aktivitetsförmåga ska sammanställas i ett skriftligt utlåtande. Regeringen eller den myndighet som regeringen bestämmer får meddela föreskrifter om de krav som ska gälla för utlåtandet, dess innehåll och utformning.",
+      "metadata": {
+        "validFrom": "2019-01-01",
+        "provenanceHash": "sha256-fmu_10_h"
+      }
+    },
+    {
+      "id": "fmu_11",
+      "section": 11,
+      "text": "Regeringen eller den myndighet som regeringen bestämmer får meddela föreskrifter om olika slag av försäkringsmedicinska utredningar.",
+      "metadata": {
+        "validFrom": "2019-01-01",
+        "provenanceHash": "sha256-fmu_11_h"
+      }
+    },
+    {
+      "id": "fmu_12",
+      "section": 12,
+      "text": "När försäkringsmedicinska utredningar utförs inom en enskild verksamhet ska den vårdgivare som bedriver verksamheten, utöver vad som i övrigt föreskrivs, tillämpa följande bestämmelser i förvaltningslagen (2017:900): – legalitet, objektivitet och proportionalitet 5 §, – tolkning och översättning 13 §, och – jäv 16–18 §§.",
+      "metadata": {
+        "validFrom": "2019-01-01",
+        "provenanceHash": "sha256-fmu_12_h",
+        "externalReferences": [
+          { "title": "Förvaltningslagen (2017:900)", "sfs": "2017:900" }
+        ]
+      }
+    },
+    {
+      "id": "fmu_13",
+      "section": 13,
+      "text": "Av patientdatalagen (2008:355) framgår att den lagen gäller vid tillämpningen av denna lag. Behörigheten enligt 4 kap. 2 § patientdatalagen ska alltid begränsas så att personuppgifter som behandlas hos en annan vårdenhet eller inom en annan vårdprocess hos vårdgivaren inte får göras tillgängliga genom elektronisk åtkomst vid en försäkringsmedicinsk utredning. En vårdgivare får vid en försäkringsmedicinsk utredning inte genom direktåtkomst eller annat elektroniskt utlämnande enligt lagen (2022:913) om sammanhållen vård- och omsorgsdokumentation ha tillgång till sådana personuppgifter om den försäkrade som behandlas av andra vårdgivare.",
+      "metadata": {
+        "validFrom": "2023-01-01",
+        "sfsReference": "2022:918",
+        "provenanceHash": "sha256-fmu_13_h",
+        "externalReferences": [
+          { "title": "Patientdatalagen (2008:355)", "sfs": "2008:355" },
+          { "title": "Lag (2022:913) om sammanhållen vård- och omsorgsdokumentation", "sfs": "2022:913" }
+        ]
+      }
+    },
+    {
+      "id": "fmu_14",
+      "section": 14,
+      "text": "Av patientskadelagen (1996:799) och patientsäkerhetslagen (2010:659) framgår att dessa lagar gäller vid tillämpningen av denna lag.",
+      "metadata": {
+        "validFrom": "2019-01-01",
+        "provenanceHash": "sha256-fmu_14_h",
+        "externalReferences": [
+          { "title": "Patientskadelagen (1996:799)", "sfs": "1996:799" },
+          { "title": "Patientsäkerhetslagen (2010:659)", "sfs": "2010:659" }
+        ]
+      }
+    },
+    {
+      "id": "fmu_15",
+      "section": 15,
+      "text": "En region har rätt till ersättning från staten för kostnader för försäkringsmedicinska utredningar. Regeringen eller den myndighet som regeringen bestämmer kan med stöd av 8 kap. 7 § regeringsformen meddela ytterligare föreskrifter om ersättning för kostnader som en region har med anledning av skyldigheter enligt denna lag.",
+      "metadata": {
+        "validFrom": "2020-01-01",
+        "sfsReference": "2019:989",
+        "provenanceHash": "sha256-fmu_15_h",
+        "externalReferences": [
+          { "title": "Regeringsformen", "section": "8 kap. 7 §" }
+        ]
+      }
+    }
+  ],
+  "transitionalProvisions": [
+    {
+      "sfs": "2018:744",
+      "text": "1. Denna lag träder i kraft den 1 januari 2019. 2. Lagen ska tillämpas på försäkringsmedicinska utredningar som Försäkringskassan begär från och med ikraftträdandet."
     }
   ]
 }

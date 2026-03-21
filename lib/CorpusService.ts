@@ -25,6 +25,7 @@ export interface LegalParagraph {
 export class CorpusService extends BaseService {
   protected serviceName = 'CORPUS';
   private cache: Map<string, LegalCorpus> = new Map();
+  public isUsingFallback: boolean = false;
 
   /**
    * Läser in en specifik lagfil från den publika datamappen och saniterar innehållet.

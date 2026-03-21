@@ -1,19 +1,359 @@
-
 {
   "sourceCode": "RB",
   "sfsNumber": "1942:740",
   "title": "Rättegångsbalk (1942:740)",
-  "versionChain": ["1942:740"],
+  "shortName": "RB",
+  "versionChain": ["1942:740", "2025:1466"],
+  "ikraft": "1948-01-01",
+  "description": "Del 1 av 4: Reglerar domstolarnas organisation, domares behörighet, offentlighet, åklagarväsendet och advokatsamfundet.",
   "paragraphs": [
     {
-      "id": "rb_1942_35_1",
+      "id": "rb_1_1",
+      "chapter": 1,
+      "section": 1,
+      "principleType": "instansordning",
+      "text": "Tingsrätten är allmän underrätt och, om något annat inte är föreskrivet, första domstol. Regeringen kan med stöd av 8 kap. 7 § regeringsformen meddela föreskrifter om tingsrätternas domkretsar. [cite: 1924, 1925]",
+      "keywords": ["tingsrätt", "domkrets"],
+      "relatedRules": ["RF 8:7"],
+      "metadata": { "validFrom": "2018-04-11", "legalWeight": "grundläggande", "riskTrigger": false }
+    },
+    {
+      "id": "rb_1_3a",
+      "chapter": 1,
+      "section": 3,
+      "subSection": "a",
+      "principleType": "domförhet tvistemål",
+      "text": "Vid huvudförhandling i tvistemål ska tingsrätten bestå av tre lagfarna domare, om något annat inte är föreskrivet. Rätten ska bestå av en lagfaren domare när huvudförhandlingen hålls i förenklad form. [cite: 1932, 1933]",
+      "keywords": ["huvudförhandling", "lagfaren domare"],
+      "relatedRules": ["RB 1:3 d"],
+      "metadata": { "validFrom": "2016-04-01", "legalWeight": "processuell", "riskTrigger": true }
+    },
+    {
+      "id": "rb_4_11",
+      "chapter": 4,
+      "section": 11,
+      "principleType": "domared",
+      "text": "Domare skall, innan han må tjänstgöra, avlägga denna ed: 'Jag N.N. lovar och försäkrar på heder och samvete, att jag vill och skall efter mitt bästa förstånd och samvete i alla domar rätt göra, ej mindre den fattige än den rike, och döma efter Sveriges lag och laga stadgar...' [cite: 2073, 2074]",
+      "keywords": ["domared", "opartiskhet"],
+      "relatedRules": [],
+      "metadata": { "validFrom": "1975-12-11", "legalWeight": "konstitutionell", "riskTrigger": false }
+    },
+    {
+      "id": "rb_4_13",
+      "chapter": 4,
+      "section": 13,
+      "principleType": "domarjäv",
+      "text": "En domare är jävig att handlägga mål om han eller hon själv är part, är närstående till part, eller om det annars finns någon särskild omständighet som är ägnad att rubba förtroendet till hans eller hennes opartiskhet. [cite: 2079, 2082]",
+      "keywords": ["jäv", "opartiskhet"],
+      "relatedRules": ["RB 4:14"],
+      "metadata": { "validFrom": "2024-11-20", "legalWeight": "grundläggande", "riskTrigger": true }
+    },
+    {
+      "id": "rb_5_1",
+      "chapter": 5,
+      "section": 1,
+      "principleType": "offentlighetsprincipen",
+      "text": "En förhandling vid domstol ska vara offentlig. Om det bedöms vara av synnerlig vikt att en sekretessbelagd uppgift inte röjs, får rätten besluta att förhandlingen ska hållas inom stängda dörrar. [cite: 2090, 2091]",
+      "keywords": ["offentlighet", "stängda dörrar", "sekretess"],
+      "relatedRules": ["OSL"],
+      "metadata": { "validFrom": "2024-11-20", "legalWeight": "grundläggande", "riskTrigger": true }
+    },
+    {
+      "id": "rb_7_2",
+      "chapter": 7,
+      "section": 2,
+      "principleType": "åklagarväsendet",
+      "text": "Riksåklagaren är under regeringen högste åklagare och har ansvaret för och ledningen av åklagarväsendet. Vice riksåklagaren är riksåklagarens ställföreträdare. [cite: 2175, 2176]",
+      "keywords": ["riksåklagaren", "åklagarväsendet"],
+      "relatedRules": [],
+      "metadata": { "validFrom": "2004-12-17", "legalWeight": "organisatorisk", "riskTrigger": false }
+    },
+    {
+      "id": "rb_8_4",
+      "chapter": 8,
+      "section": 4,
+      "principleType": "god advokatsed",
+      "text": "En advokat skall i sin verksamhet redbart och nitiskt utföra de uppdrag som anförtrotts honom och iaktta god advokatsed. En advokat är skyldig att förtiga vad han får kännedom om i sin yrkesutövning när god advokatsed kräver detta. [cite: 2212, 2213]",
+      "keywords": ["advokat", "tystnadsplikt", "god advokatsed"],
+      "relatedRules": ["RB 8:7"],
+      "metadata": { "validFrom": "2000-03-23", "legalWeight": "etisk/juridisk", "riskTrigger": true }
+    },
+    {
+      "id": "rb_9_7",
+      "chapter": 9,
+      "section": 7,
+      "principleType": "vitesföreläggande",
+      "text": "Rätten får, om en part eller någon annan bör komma tillstädes eller infinna sig personligen vid en förhandling, förelägga vite. [cite: 2266]",
+      "keywords": ["vite", "inställelse"],
+      "relatedRules": ["RB 9_8"],
+      "metadata": { "validFrom": "2000-06-08", "legalWeight": "tvångsmedel", "riskTrigger": true }
+    },
+    {
+      "id": "rb_10_1",
+      "chapter": 10,
+      "section": 1,
+      "principleType": "Huvudregel för laga domstol",
+      "text": "Laga domstol i tvistemål i allmänhet är rätten i den ort, där svaranden har sitt hemvist. Är svaranden folkbokförd i Sverige anses som hans hemvist den ort där han var folkbokförd den 1 november föregående år. För bolag, förening eller annat samfund, stiftelse eller annan sådan inrättning gälle som hemvist den ort, där styrelsen har sitt säte eller, om säte för styrelsen ej är bestämt eller styrelse ej finnes, där förvaltningen föres. Lag samma vare i fråga om kommun eller annan sådan menighet. Dödsbo sökes vid den rätt, där den döde skolat svara. Den som icke äger känt hemvist vare sig inom eller utom riket sökes där han uppehåller sig. Är han svensk medborgare och uppehåller han sig utom riket eller är hans uppehållsort okänd, sökes han där han inom riket senast haft hemvist eller uppehållit sig. [cite: 2274-2279]",
+      "keywords": ["hemvist", "forum", "svarandeforum"],
+      "relatedRules": ["RB 10:2", "RB 10:3"],
+      "metadata": { "validFrom": "1991-04-11", "legalWeight": "grundläggande", "riskTrigger": false }
+    },
+    {
+      "id": "rb_10_8",
+      "chapter": 10,
+      "section": 8,
+      "principleType": "Forum för skadestånd",
+      "text": "Talan i anledning av skadegörande handling må väckas vid rätten i den ort, där handlingen företogs eller skadan uppkom. Företogs handlingen eller uppkom skadan å orter under skilda domstolar, må talan väckas vid envar av dem. [cite: 2290-2291]",
+      "keywords": ["skadestånd", "forum delicti", "skadegörande handling"],
+      "relatedRules": ["SkL 2:1"],
+      "metadata": { "validFrom": "1948-01-01", "legalWeight": "central", "riskTrigger": false }
+    },
+    {
+      "id": "rb_12_1",
+      "chapter": 12,
+      "section": 1,
+      "principleType": "Rättegångsombud",
+      "text": "Parts talan må föras genom ombud. Om skyldighet för part att infinna sig personligen stadgas i 11 kap. 5 §. [cite: 2352-2353]",
+      "keywords": ["ombud", "talan", "inställelse"],
+      "relatedRules": ["RB 11:5"],
+      "metadata": { "validFrom": "1948-01-01", "legalWeight": "processuell", "riskTrigger": false }
+    },
+    {
+      "id": "rb_12_14",
+      "chapter": 12,
+      "section": 14,
+      "principleType": "Ombuds behörighet",
+      "text": "Fullmakt medför behörighet för ombudet att å partens vägnar angående saken 1. väcka talan samt påkalla åtgärd, även om åtgärden ankommer å annan myndighet än rätten; 2. mottaga delgivning av inlagor och andra handlingar, dock ej föreläggande för parten att infinna sig personligen; 3. företaga alla handlingar för utförande av partens talan samt avgiva svaromål å alla mot parten framställda yrkanden; 4. avstå från yrkande, som framställts av parten, och medgiva motpartens yrkande; 5. ingå förlikning; 6. söka verkställighet av rättens dom; samt 7. uppbära parten tillerkänd ersättning för rättegångskostnad. [cite: 2384-2392]",
+      "keywords": ["fullmakt", "behörighet", "förlikning"],
+      "relatedRules": ["RB 12:15"],
+      "metadata": { "validFrom": "1987-07-47", "legalWeight": "central", "riskTrigger": true }
+    },
+    {
+      "id": "rb_13_3",
+      "chapter": 13,
+      "section": 3,
+      "principleType": "Ändring av talan",
+      "text": "Väckt talan får inte ändras. Käranden får dock 1. på grund av omständighet, som inträffat under rättegången eller först då blivit för honom känd, kräva annan fullgörelse än den, om vilken talan väckts, 2. yrka fastställelse enligt 2 § andra stycket samt 3. kräva ränta eller annan tilläggsförpliktelse, som följer av huvudförpliktelsen, och även i övrigt framställa nytt yrkande, om det stöder sig på väsentligen samma grund. Framställs yrkande enligt första stycket 2 eller 3 sedan huvudförhandling påbörjats eller målet på annat sätt företagits till avgörande, får det nya yrkandet avvisas, om det inte utan olägenhet kan prövas i målet. [cite: 2419-2422]",
+      "keywords": ["talan", "talanändring", "fastställelse"],
+      "relatedRules": ["RB 13:2"],
+      "metadata": { "validFrom": "1987-07-47", "legalWeight": "central", "riskTrigger": true }
+    },
+    {
+      "id": "rb_15_1",
+      "chapter": 15,
+      "section": 1,
+      "principleType": "Kvarstad för fordran",
+      "text": "Om någon visar sannolika skäl för att han har en fordran, som är eller kan antas bli föremål för rättegång eller prövning i annan liknande ordning, och det skäligen kan befaras att motparten genom att avvika, skaffa undan egendom eller förfara på annat sätt undandrar sig att betala skulden, får domstol förordna om kvarstad på så mycket av motpartens egendom att fordringen kan antas bli täckt vid utmätning. [cite: 2460]",
+      "keywords": ["kvarstad", "säkerhetsåtgärd", "utmätningsbar egendom"],
+      "relatedRules": ["RB 15:5", "RB 15:6"],
+      "metadata": { "validFrom": "1981-08-28", "legalWeight": "tvångsmedel", "riskTrigger": true }
+    },
+    {
+      "id": "rb_17_11",
+      "chapter": 17,
+      "section": 11,
+      "principleType": "Domens rättskraft",
+      "text": "Dom äge, sedan tid för talan utgått, rättskraft, såvitt därigenom avgjorts den sak, varom talan väckts. Domen äge ock rättskraft, i vad den innefattar prövning av fordran, som åberopats till kvittning. Ej må fråga, som sålunda avgjorts, ånyo upptagas till prövning. [cite: 2542-2544]",
+      "keywords": ["rättskraft", "res judicata", "kvittning"],
+      "relatedRules": ["RB 17:1", "RB 58:1"],
+      "metadata": { "validFrom": "1948-01-01", "legalWeight": "grundläggande", "riskTrigger": false }
+    },
+    {
+      "id": "rb_18_1",
+      "chapter": 18,
+      "section": 1,
+      "principleType": "Ansvar för rättegångskostnad",
+      "text": "Part, som tappar målet, skall ersätta motparten hans rättegångskostnad, om ej annat är stadgat. [cite: 2566]",
+      "keywords": ["rättegångskostnad", "tappande part", "ersättningsskyldighet"],
+      "relatedRules": ["RB 18:3", "RB 18:8"],
+      "metadata": { "validFrom": "1948-01-01", "legalWeight": "central", "riskTrigger": true }
+    },
+    {
+      "id": "rb_18_8",
+      "chapter": 18,
+      "section": 8,
+      "principleType": "Ersättningsgilla kostnader",
+      "text": "Ersättning för rättegångskostnad skall fullt motsvara kostnaden för rättegångens förberedande och talans utförande jämte arvode till ombud eller biträde, såvitt kostnaden skäligen varit påkallad för tillvaratagande av partens rätt. Ersättning skall ock utgå för partens arbete och tidspillan i anledning av rättegången. Såsom åtgärd för rättegångens förberedande anses förhandling för biläggande av tvistefråga som har omedelbar betydelse för partens talan. Ersättning för rättegångskostnad skall även innefatta ränta enligt 6 § räntelagen (1975:635) från dagen då målet avgörs till dess betalning sker. [cite: 2578-2581]",
+      "keywords": ["skälig ersättning", "ombudsarvode", "ränta"],
+      "relatedRules": ["RB 18:1", "Räntelag 6 §"],
+      "metadata": { "validFrom": "1987-03-28", "legalWeight": "central", "riskTrigger": false }
+    },
+    {
+      "id": "rb_19_1",
+      "chapter": 19,
+      "section": 1,
+      "principleType": "Laga domstol i brottmål",
+      "text": "Laga domstol i brottmål är rätten i den ort där brottet begåtts. Ett brott anses ha begåtts på den ort där gärningsmannen handlade. I fråga om straffbar underlåtenhet anses brottet ha begåtts där gärningsmannen borde ha handlat eller där han eller hon befann sig när han eller hon borde ha handlat. Vid tillämpning av straffbestämmelser enligt vilka gärningen ska ha medfört en viss effekt anses brottet ha begåtts på den ort där effekten inträdde eller, vid försök, enligt brottsplanen sannolikt skulle ha inträtt. Begicks brottet på orter under skilda domstolar, har de lika behörighet. Har det skett på svenskt fartyg eller luftfartyg under resa inom eller utom landet, är även rätten i den ort, dit den misstänkte med fartyget eller luftfartyget först ankommer eller där han eller hon gripits eller annars uppehåller sig, behörig. Är det, när åtal väcks, ovisst var brottet begåtts, får åtal tas upp av rätten i någon av de orter, där det kan antas ha skett, eller i den ort, där den misstänkte gripits eller annars uppehåller sig. Åtal för brott får också tas upp av den rätt, där den misstänkte ska svara i tvistemål i allmänhet, eller rätten i den ort, där den misstänkte mera varaktigt uppehåller sig, om rätten med hänsyn till utredningen samt kostnader och andra omständigheter finner det lämpligt. [cite: 2618-2624]",
+      "keywords": ["forum", "brottsplats", "behörighet"],
+      "relatedRules": ["RB 19:2", "RB 19:12"],
+      "metadata": { "validFrom": "2021-10-17", "legalWeight": "grundläggande", "riskTrigger": false }
+    },
+    {
+      "id": "rb_20_2",
+      "chapter": 20,
+      "section": 2,
+      "principleType": "Allmän åklagares talerätt",
+      "text": "Allmän åklagare äge tala å brott, som hör under allmänt åtal, om ej annat är stadgat. Om befogenhet för särskild åklagare att tala å brott, som hör under allmänt åtal, gälle vad särskilt är föreskrivet. Åklagare må i högre rätt fullfölja talan även till den misstänktes förmån. [cite: 2656-2658]",
+      "keywords": ["allmänt åtal", "talerätt", "åklagare"],
+      "relatedRules": ["RB 20:3", "RB 20:6"],
+      "metadata": { "validFrom": "1948-01-01", "legalWeight": "central", "riskTrigger": false }
+    },
+    {
+      "id": "rb_20_8",
+      "chapter": 20,
+      "section": 8,
+      "principleType": "Målsägandens åtalsrätt",
+      "text": "Målsäganden må ej väcka åtal för brott, som hör under allmänt åtal, med mindre han angivit brottet och åklagaren beslutat, att åtal ej skall äga rum. Har åklagare väckt talan, äge målsäganden biträda åtalet; han må ock i högre rätt fullfölja talan. Utan hinder av vad i första stycket sägs må målsägande väcka talan om ansvar för falskt eller obefogat åtal, falsk angivelse eller annan osann tillvitelse angående brott. Målsägande är den, mot vilken brott är begånget eller som därav blivit förnärmad eller lidit skada. [cite: 2670-2673]",
+      "keywords": ["målsägande", "enskilt åtal", "talerätt"],
+      "relatedRules": ["RB 20:9", "RB 47:1"],
+      "metadata": { "validFrom": "1964-01-01", "legalWeight": "grundläggande", "riskTrigger": true }
+    },
+    {
+      "id": "rb_21_3a",
+      "chapter": 21,
+      "section": 3,
+      "subSection": "a",
+      "principleType": "Offentlig försvarare",
+      "text": "Är den misstänkte anhållen eller häktad ska offentlig försvarare förordnas för honom eller henne, om han eller hon begär det. Offentlig försvarare ska också på begäran förordnas för den som är misstänkt för ett brott, för vilket det inte är stadgat lindrigare straff än fängelse i sex månader. Offentlig försvarare ska därutöver förordnas 1. om den misstänkte är i behov av försvarare med hänsyn till utredningen om brottet, 2. om försvarare behövs med hänsyn till att det är tveksamt vilken påföljd som ska väljas och det finns anledning att döma till en annan påföljd än böter eller villkorlig dom eller sådana påföljder i förening, eller 3. om det i övrigt finns särskilda skäl med hänsyn till den misstänktes personliga förhållanden eller till vad målet rör. Om den misstänkte biträds av en försvarare som han eller hon själv har utsett, ska det inte förordnas någon offentlig försvarare vid sidan av denne. Offentlig försvarare ska dock förordnas om det finns synnerliga skäl. [cite: 2711-2715]",
+      "keywords": ["försvarare", "rättshjälp", "misstänkt"],
+      "relatedRules": ["RB 21:5", "RB 21:10"],
+      "metadata": { "validFrom": "2019-01-01", "legalWeight": "central", "riskTrigger": true }
+    },
+    {
+      "id": "rb_22_2",
+      "chapter": 22,
+      "section": 2,
+      "principleType": "Åklagarens skyldighet vid enskilt anspråk",
+      "text": "Grundas enskilt anspråk på ett brott som hör under allmänt åtal, är åklagaren på målsägandens begäran skyldig att i samband med åtalet förbereda och utföra även målsägandens talan, om det kan ske utan väsentlig olägenhet och hans anspråk inte är uppenbart obefogat. Vill målsäganden att anspråket skall tas upp i samband med åtalet, skall han anmäla anspråket till undersökningsledaren eller åklagaren och lämna uppgift om de omständigheter på vilka det grundas. Finner undersökningsledaren eller åklagaren vid utredning angående brott, att enskilt anspråk kan grundas på brottet, skall han, om det kan ske, i god tid före åtalet underrätta målsäganden om detta. Första och andra styckena skall tillämpas också när anspråket övertagits av någon annan. [cite: 2757-2760]",
+      "keywords": ["skadestånd", "enskilt anspråk", "åklagarplikt"],
+      "relatedRules": ["RB 22:1", "SkL 3:11"],
+      "metadata": { "validFrom": "1988-01-01", "legalWeight": "skyldighet", "riskTrigger": false }
+    },
+    {
+      "id": "rb_23_4",
+      "chapter": 23,
+      "section": 4,
+      "principleType": "Objektivitetsprincipen",
+      "text": "En förundersökning ska bedrivas objektivt. Vid förundersökningen ska undersökningsledaren och den som biträder honom eller henne söka efter, ta till vara och beakta omständigheter och bevis som talar såväl till den misstänktes fördel som till hans eller hennes nackdel. Förundersökningen ska bedrivas så att inte någon onödigt utsätts för misstanke eller orsakas kostnad eller olägenhet. Förundersökningen ska också bedrivas så skyndsamt som omständigheterna medger. Om det inte längre finns anledning att fullfölja förundersökningen, ska den läggas ned. Även brottsbekämpande verksamhet före en förundersökning ska bedrivas objektivt. [cite: 2788-2791]",
+      "keywords": ["objektivitet", "skyndsamhet", "förundersökning"],
+      "relatedRules": ["RB 23:1", "RB 23:18"],
+      "metadata": { "validFrom": "2016-01-01", "legalWeight": "grundläggande", "riskTrigger": true }
+    },
+    {
+      "id": "rb_24_1",
+      "chapter": 24,
+      "section": 1,
+      "principleType": "Häktningsskäl",
+      "text": "Den som på sannolika skäl är misstänkt för ett brott, för vilket är föreskrivet fängelse i ett år eller däröver, får häktas, om det med hänsyn till brottets beskaffenhet, den misstänktes förhållande eller någon annan omständighet finns risk för att han 1. avviker eller på annat sätt undandrar sig lagföring eller straff, 2. genom att undanröja bevis eller på annat sätt försvårar sakens utredning, eller 3. fortsätter sin brottsliga verksamhet. Är för brottet inte föreskrivet lindrigare straff än fängelse i två år, ska häktning ske, om det inte är uppenbart att skäl till häktning saknas. Häktning får ske endast om skälen för åtgärden uppväger det intrång eller men i övrigt som åtgärden innebär för den misstänkte eller för något annat motstående intresse. [cite: 861-865]",
+      "keywords": ["häktning", "flyktrisk", "kollusionsfara", "recidivfara"],
+      "relatedRules": ["RB 24:13"],
+      "metadata": { "validFrom": "2021-01-01", "legalWeight": "tvångsmedel", "riskTrigger": true }
+    },
+    {
+      "id": "rb_27_1",
+      "chapter": 27,
+      "section": 1,
+      "principleType": "Beslag",
+      "text": "Ett föremål får tas i beslag om det skäligen kan antas att 1. föremålet har betydelse för utredning om brott, 2. någon har blivit av med föremålet genom brott, 3. föremålet kan bli förverkat, 4. föremålet kan användas för att utföra en genomsökning på distans, eller 5. föremålet har betydelse för en utredning om förverkande. Det som sägs i detta kapitel om föremål ska också tillämpas i fråga om skriftlig handling, om inte annat är föreskrivet. Tvångsmedel enligt detta kapitel får beslutas endast om skälen för åtgärden uppväger det intrång eller men i övrigt som åtgärden innebär för den misstänkte eller för något annat motstående intresse. [cite: 953-955]",
+      "keywords": ["beslag", "bevisning", "proportionalitet"],
+      "relatedRules": ["RB 27:12"],
+      "metadata": { "validFrom": "2024-01-01", "legalWeight": "tvångsmedel", "riskTrigger": true }
+    },
+    {
+      "id": "rb_31_1",
+      "chapter": 31,
+      "section": 1,
+      "principleType": "Rättegångskostnad vid fällande dom",
+      "text": "Döms den tilltalade för brottet i ett mål där åklagaren för talan, ska den tilltalade ersätta staten för det som betalats av allmänna medel i ersättning till försvarare. Han eller hon ska också ersätta staten för kostnaden att hämta honom eller henne till rätten och för kostnad för provtagning och analys av blod, urin och saliv som avser honom eller henne och som har gjorts för utredning om brottet. Ersättningsskyldigheten omfattar dock inte kostnad som inte skäligen varit påkallad för utredningen eller kostnad som vållats genom vårdslöshet eller försummelse av någon annan än den tilltalade, hans eller hennes ombud eller försvarare som han eller hon utsett. [cite: 1160-1163]",
+      "keywords": ["rättegångskostnad", "ersättningsskyldighet", "staten"],
+      "relatedRules": ["RB 31:3"],
+      "metadata": { "validFrom": "2023-01-01", "legalWeight": "ekonomisk", "riskTrigger": true }
+    },
+    {
+      "id": "rb_33_9",
+      "chapter": 33,
+      "section": 9,
+      "principleType": "Översättning av handlingar",
+      "text": "Rätten får vid behov översätta handlingar som kommer in till eller skickas ut från rätten. Rätten är skyldig att åt den misstänkte eller på begäran av en målsägande översätta en handling i ett brottmål eller de viktigaste delarna av den, om en översättning är av väsentlig betydelse för att den misstänkte eller målsäganden ska kunna ta tillvara sin rätt. Översättningen får göras muntligen om det inte är olämpligt med hänsyn till det som handlingen eller målet rör eller någon annan omständighet. Rätten är också skyldig att översätta en handling i ett brottmål eller de viktigaste delarna av den, om handlingen ska sändas till någon som vistas i en annan stat och det finns anledning att anta att personen inte förstår språket i handlingen. [cite: 1178-1182]",
+      "keywords": ["översättning", "rättssäkerhet", "brottmål"],
+      "relatedRules": ["RB 33:10"],
+      "metadata": { "validFrom": "2015-04-29", "legalWeight": "skyldighet", "riskTrigger": false }
+    },
+    {
+      "id": "rb_35_1",
       "chapter": 35,
       "section": 1,
-      "text": "Rätten skall efter samvetsgrann prövning av allt, som förekommit, avgöra, vad i målet är bevisat.",
-      "metadata": {
-        "validFrom": "1948-01-01",
-        "provenanceHash": "sha256-rb_35_1"
-      }
+      "principleType": "Fri bevisprövning",
+      "text": "Rätten skall efter samvetsgrann prövning av allt, som förekommit, avgöra, vad i målet är bevisat. [cite: 1190]",
+      "keywords": ["bevisprövning", "fri bevisföring"],
+      "relatedRules": ["RB 35:2"],
+      "metadata": { "validFrom": "1948-01-01", "legalWeight": "grundläggande", "riskTrigger": true }
+    },
+    {
+      "id": "rb_36_1",
+      "chapter": 36,
+      "section": 1,
+      "principleType": "Vittnesplikt",
+      "text": "Var och en, som inte är part i målet, får höras som vittne. I brottmål får dock målsäganden inte höras som vittne, även om han eller hon inte för talan. Den som är under femton år eller som lider av en psykisk störning får höras som vittne endast om rätten med hänsyn till omständigheterna finner det lämpligt. [cite: 1195-1197]",
+      "keywords": ["vittne", "vittnesplikt", "målsägande"],
+      "relatedRules": ["RB 36:3"],
+      "metadata": { "validFrom": "2001-07-01", "legalWeight": "central", "riskTrigger": true }
+    },
+    {
+      "id": "rb_38_2",
+      "chapter": 38,
+      "section": 2,
+      "principleType": "Edition (Skyldighet att förete handling)",
+      "text": "Innehar någon skriftlig handling, som kan antagas äga betydelse som bevis, vare han skyldig att förete den; sådan skyldighet åligge dock ej i brottmål den misstänkte eller den som till honom står i sådant förhållande, som avses i 36 kap. 3 §. Ej vare part eller honom närstående, som nu sagts, skyldig att förete skriftligt meddelande mellan parten och någon honom närstående eller mellan sådana närstående inbördes. Befattningshavare eller annan, som avses i 36 kap. 5 §, må ej förete skriftlig handling, om dess innehåll kan antagas vara sådant, att han ej må höras som vittne därom. [cite: 1235-1238]",
+      "keywords": ["edition", "skriftligt bevis", "tystnadsplikt"],
+      "relatedRules": ["RB 38:4", "RB 36:5"],
+      "metadata": { "validFrom": "1948-01-01", "legalWeight": "tvångsmedel", "riskTrigger": true }
+    },
+    {
+      "id": "rb_42_17",
+      "chapter": 42,
+      "section": 17,
+      "principleType": "Materiell processledning och förlikning",
+      "text": "Rätten ska verka för att parterna förliks eller på annat sätt uppnår en samförståndslösning, om det inte är olämpligt med hänsyn till målets beskaffenhet och övriga omständigheter. Rätten får vid tillämpning av första stycket, i ett mål där förlikning om saken är tillåten, besluta om särskild medling, om parterna samtycker till det. [cite: 1310-1311]",
+      "keywords": ["förlikning", "medling", "processledning"],
+      "relatedRules": ["RB 42_18"],
+      "metadata": { "validFrom": "2016-04-01", "legalWeight": "skyldighet", "riskTrigger": false }
+    },
+    {
+      "id": "rb_48_1",
+      "chapter": 48,
+      "section": 1,
+      "principleType": "Strafföreläggande",
+      "text": "Fråga om ansvar för brott, som hör under allmänt åtal, får under de villkor som föreskrivas i detta kapitel upptagas av åklagare genom strafföreläggande och av polisman genom föreläggande av ordningsbot. Föreläggande som nu nämnts träder i stället för åtal i den utsträckning som framgår av 3 §. [cite: 1475-1476]",
+      "keywords": ["strafföreläggande", "ordningsbot", "åklagare"],
+      "relatedRules": ["RB 48:2", "RB 48:13"],
+      "metadata": { "validFrom": "1974-01-01", "legalWeight": "central", "riskTrigger": true }
+    },
+    {
+      "id": "rb_50_1",
+      "chapter": 50,
+      "section": 1,
+      "principleType": "Överklagande till hovrätt",
+      "text": "En part som vill överklaga en tingsrätts dom i ett tvistemål skall göra detta skriftligen. Skrivelsen skall ges in till tingsrätten. Den skall ha kommit in till rätten inom tre veckor från den dag då domen meddelades. [cite: 1530-1531]",
+      "keywords": ["överklagande", "hovrätt", "klagotid"],
+      "relatedRules": ["RB 50:2"],
+      "metadata": { "validFrom": "1994-10-34", "legalWeight": "processuell", "riskTrigger": true }
+    },
+    {
+      "id": "rb_58_1",
+      "chapter": 58,
+      "section": 1,
+      "principleType": "Resning i tvistemål",
+      "text": "Sedan dom i tvistemål vunnit laga kraft, må till förmån för någon av parterna resning beviljas: 1. om ledamot av rätten gjort sig skyldig till brottsligt förfarande; 2. om skriftlig handling varit falsk; 3. om omständighet eller bevis, som ej tidigare förebragts, åberopas och dess förebringande sannolikt skulle hava lett till annan utgång; 4. om rättstillämpning uppenbart strider mot lag. [cite: 1759-1762]",
+      "keywords": ["resning", "laga kraft", "rättelse"],
+      "relatedRules": ["RB 58:2", "RB 58:4"],
+      "metadata": { "validFrom": "1975-06-70", "legalWeight": "extraordinärt", "riskTrigger": true }
     }
+  ],
+  "transitionRules_summary": [
+    { "year": "1984", "text": "Äldre bestämmelser om tingsrätternas domförhet gäller vid huvudförhandlingar påbörjade före ikraftträdandet. [cite: 1832]" },
+    { "year": "1987", "text": "Upphävande av lagen (1974:8) om rättegången i tvistemål om mindre värden. [cite: 1839]" },
+    { "year": "1994", "text": "Bestämmelser om hovrättens behörighet vid obehörig tingsrätt hänvisas till 19 kap. 11 §. [cite: 1606]" },
+    { "year": "2000", "text": "Nya regler för rättegångskostnader i 'småmål' tillämpas om ansökan skett efter ikraftträdandet. [cite: 1889-1891]" }
   ]
 }

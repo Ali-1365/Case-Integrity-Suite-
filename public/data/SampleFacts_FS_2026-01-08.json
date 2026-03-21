@@ -24,5 +24,15 @@
     "id": "FACT_005",
     "category": "bistånd",
     "description": "Enligt 4 kap 1 § SoL har den enskilde rätt till bistånd för sin försörjning."
+  },
+  {
+    "id": "FACT_006",
+    "category": "skadestånd",
+    "description": "Sökande har framställt ett skadeståndsanspråk mot staten på grund av felaktig myndighetsutövning."
+  },
+  {
+    "id": "FACT_007",
+    "category": "LSS-insats",
+    "description": "Sökande har ansökt om personlig assistans enligt 9 § 2 LSS på grund av omfattande funktionshinder."
   }
 ]

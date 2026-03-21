@@ -5,15 +5,794 @@
   "versionChain": ["1982:763", "2017:30"],
   "paragraphs": [
     {
-      "id": "hsl_2017_3_1",
+      "id": "hsl_1_1",
+      "chapter": 1,
+      "section": 1,
+      "principleType": "tillämpningsområde",
+      "text": "Denna lag innehåller bestämmelser om hur hälso- och sjukvårdsverksamhet ska organiseras och bedrivas. Lagen gäller för samtliga vårdgivare samt regioner och kommuner som huvudmän. Lagen består av fem avdelningar: Avdelning I innehåller inledande bestämmelser (1 och 2 kap.). Avdelning II innehåller bestämmelser för all hälso- och sjukvård (3-6 kap.). Avdelning III innehåller bestämmelser om regionens ansvar som huvudman (7-10 kap.). Avdelning IV innehåller bestämmelser om kommunens ansvar som huvudman (11-13 kap.). Avdelning V innehåller övriga bestämmelser för huvudmännen (13 a-18 kap.). [cite: 36-39]",
+      "keywords": ["organisation", "vårdgivare", "huvudmän"],
+      "relatedRules": [],
+      "metadata": { "validFrom": "2017-04-01", "legalWeight": "grundläggande", "riskTrigger": false }
+    },
+    {
+      "id": "hsl_1_2",
+      "chapter": 1,
+      "section": 2,
+      "principleType": "regioner och kommuner",
+      "text": "Det som sägs i denna lag om regioner gäller också kommuner som inte ingår i en region. Avdelning IV gäller de kommuner som inte ingår i en region enbart i de fall det är särskilt föreskrivet. [cite: 40-41]",
+      "keywords": ["regioner", "kommuner", "undantag"],
+      "relatedRules": [],
+      "metadata": { "validFrom": "2019-01-01", "legalWeight": "grundläggande", "riskTrigger": false }
+    },
+    {
+      "id": "hsl_2_1",
+      "chapter": 2,
+      "section": 1,
+      "principleType": "definition",
+      "text": "Med hälso- och sjukvård avses i denna lag 1. åtgärder för att medicinskt förebygga, utreda och behandla sjukdomar och skador, 2. sjuktransporter, och 3. omhändertagande av avlidna. Lagen omfattar inte tandvård enligt tandvårdslagen (1985:125). [cite: 42-43]",
+      "keywords": ["definition", "förebygga", "utreda", "behandla"],
+      "relatedRules": [],
+      "metadata": { "validFrom": "2017-04-01", "legalWeight": "grundläggande", "riskTrigger": false }
+    },
+    {
+      "id": "hsl_2_2",
+      "chapter": 2,
+      "section": 2,
+      "text": "Med huvudman avses i denna lag den region eller den kommun som enligt lagen ansvarar för att erbjuda hälso- och sjukvård. Inom en huvudmans geografiska område kan en eller flera vårdgivare bedriva verksamhet. [cite: 43-44]",
+      "metadata": { "validFrom": "2019-01-01", "sfsReference": "2019:973", "provenanceHash": "sha256-hsl_2_2" }
+    },
+    {
+      "id": "hsl_2_3",
+      "chapter": 2,
+      "section": 3,
+      "text": "Med vårdgivare avses i denna lag statlig myndighet, region, kommun, annan juridisk person eller enskild näringsidkare som bedriver hälso- och sjukvårdsverksamhet. [cite: 45]",
+      "metadata": { "validFrom": "2019-01-01", "sfsReference": "2019:973", "provenanceHash": "sha256-hsl_2_3" }
+    },
+    {
+      "id": "hsl_2_4",
+      "chapter": 2,
+      "section": 4,
+      "text": "Med sluten vård avses i denna lag hälso- och sjukvård som ges till en patient som är intagen vid en vårdinrättning. [cite: 46]",
+      "metadata": { "validFrom": "2017-04-01", "provenanceHash": "sha256-hsl_2_4" }
+    },
+    {
+      "id": "hsl_2_5",
+      "chapter": 2,
+      "section": 5,
+      "text": "Med öppen vård avses i denna lag annan hälso- och sjukvård än sluten vård. [cite: 47]",
+      "metadata": { "validFrom": "2017-04-01", "provenanceHash": "sha256-hsl_2_5" }
+    },
+    {
+      "id": "hsl_2_6",
+      "chapter": 2,
+      "section": 6,
+      "text": "Med primärvård avses i denna lag hälso- och sjukvårdsverksamhet där öppen vård ges utan avgränsning när det gäller sjukdomar, ålder eller patientgrupper. Primärvården svarar för behovet av sådana åtgärder i form av medicinsk bedömning och behandling, omvårdnad, förebyggande arbete och rehabilitering som inte kräver särskilda medicinska eller tekniska resurser eller någon annan särskild kompetens. [cite: 48-49]",
+      "metadata": { "validFrom": "2020-01-01", "sfsReference": "2020:1043", "provenanceHash": "sha256-hsl_2_6" }
+    },
+    {
+      "id": "hsl_2_7",
+      "chapter": 2,
+      "section": 7,
+      "text": "Med nationell högspecialiserad vård avses i denna lag offentligt finansierad hälso- och sjukvård som behöver koncentreras till en eller flera enheter men inte till varje samverkansregion för att kvaliteten, patientsäkerheten och kunskapsutvecklingen ska kunna upprätthållas och ett effektivt användande av hälso- och sjukvårdens resurser ska kunna uppnå. [cite: 50]",
+      "metadata": { "validFrom": "2019-01-01", "sfsReference": "2019:973", "provenanceHash": "sha256-hsl_2_7" }
+    },
+    {
+      "id": "hsl_2_8",
+      "chapter": 2,
+      "section": 8,
+      "text": "Med sjukvårdsprodukter avses i denna lag läkemedel, medicintekniska produkter, personlig skyddsutrustning, livsmedel för speciella medicinska ändamål och tillverkningsmaterial. [cite: 51]",
+      "metadata": { "validFrom": "2023-01-01", "sfsReference": "2023:191", "provenanceHash": "sha256-hsl_2_8" }
+    },
+    {
+      "id": "hsl_2_9",
+      "chapter": 2,
+      "section": 9,
+      "text": "Med katastroftillstånd avses i denna lag att 1. en kommun eller region inte kan erbjuda vård som är nödvändig för liv och hälsa av den anledningen att resurserna är otillräckliga, och 2. det inte är möjligt för den kommunen eller regionen att inom kort tillföra de nödvändiga resurserna. [cite: 52]",
+      "metadata": { "validFrom": "2026-01-01", "sfsReference": "2025:1399", "provenanceHash": "sha256-hsl_2_9" }
+    },
+    {
+      "id": "hsl_3_1",
       "chapter": 3,
       "section": 1,
-      "text": "Målet för hälso- och sjukvården är en god hälsa och en vård på lika villkor för hela befolkningen. Vården ska ges med respekt för alla människors lika värde och för den enskilda människans värdighet. Den som har det största behovet av hälso- och sjukvård ska ges företräde till vården.",
-      "metadata": {
-        "validFrom": "2017-04-01",
-        "provenanceHash": "sha256-hsl_3_1",
-        "revisionNote": "Regionens ansvar för hälso- och sjukvård (central samverkanspart)."
-      }
+      "text": "Målet med hälso- och sjukvården är en god hälsa och en vård på lika villkor för hela befolkningen. Vården ska ges med respekt för alla människors lika värde och för den enskilda människans värdighet. Den som har det största behovet av hälso- och sjukvård ska ges företräde till vården. [cite: 54-56]",
+      "metadata": { "validFrom": "2017-04-01", "provenanceHash": "sha256-hsl_3_1" }
+    },
+    {
+      "id": "hsl_3_2",
+      "chapter": 3,
+      "section": 2,
+      "text": "Hälso- och sjukvården ska arbeta för att förebygga ohälsa. [cite: 57]",
+      "metadata": { "validFrom": "2017-04-01", "provenanceHash": "sha256-hsl_3_2" }
+    },
+    {
+      "id": "hsl_4_1",
+      "chapter": 4,
+      "section": 1,
+      "text": "Offentligt finansierad hälso- och sjukvårdsverksamhet ska vara organiserad så att den främjar kostnadseffektivitet. [cite: 58]",
+      "metadata": { "validFrom": "2017-04-01", "provenanceHash": "sha256-hsl_4_1" }
+    },
+    {
+      "id": "hsl_4_2",
+      "chapter": 4,
+      "section": 2,
+      "text": "Där det bedrivs hälso- och sjukvårdsverksamhet ska det finnas någon som svarar för verksamheten (verksamhetschef). Regeringen eller den myndighet som regeringen bestämmer får meddela föreskrifter om ansvar och uppgifter för verksamhetschefen. [cite: 59-60]",
+      "metadata": { "validFrom": "2017-04-01", "provenanceHash": "sha256-hsl_4_2" }
+    },
+    {
+      "id": "hsl_4_3",
+      "chapter": 4,
+      "section": 3,
+      "text": "Ansvaret för ledningsuppgifter i fråga om psykiatrisk tvångsvård samt isolering enligt 5 kap. 1 och 3 §§ smittskyddslagen (2004:168) ska utövas av en chefsöverläkare. Denne ska ha specialistkompetens. Om verksamhetschefen inte är en läkare med specialistkompetens, ska ledningsuppgifterna fullgöras av en särskilt utsedd chefsöverläkare eller, i fråga om smittskydd, av en befattningshavare som har förordnats med stöd av 5 kap. 24 § smittskyddslagen. [cite: 61-64]",
+      "metadata": { "validFrom": "2017-04-01", "provenanceHash": "sha256-hsl_4_3" }
+    },
+    {
+      "id": "hsl_5_1",
+      "chapter": 5,
+      "section": 1,
+      "text": "Hälso- och sjukvårdsverksamhet ska bedrivas så att kraven på en god vård uppfylls. Det innebär att vården särskilt ska 1. vara av god kvalitet med en god hygienisk standard, 2. tillgodose patientens behov av trygghet, kontinuitet och säkerhet, 3. bygga på respekt för patientens självbestämmande och integritet, 4. främja goda kontakter mellan patienten och hälso- och sjukvårdspersonalen, och 5. vara lätt tillgänglig. [cite: 64-65]",
+      "metadata": { "validFrom": "2017-04-01", "provenanceHash": "sha256-hsl_5_1" }
+    },
+    {
+      "id": "hsl_5_2",
+      "chapter": 5,
+      "section": 2,
+      "text": "Där det bedrivs hälso- och sjukvårdsverksamhet ska det finnas den personal, de lokaler, de sjukvårdsprodukter och den övriga utrustning som behövs för att god vård ska kunna ges. [cite: 66]",
+      "metadata": { "validFrom": "2023-01-01", "sfsReference": "2023:191", "provenanceHash": "sha256-hsl_5_2" }
+    },
+    {
+      "id": "hsl_5_3",
+      "chapter": 5,
+      "section": 3,
+      "text": "Innan en ny diagnos- eller behandlingsmetod som kan ha betydelse för människovärde och integritet börjar tillämpas, ska vårdgivaren se till att metoden har bedömts från individ- och samhällsetiska aspekter. [cite: 67]",
+      "metadata": { "validFrom": "2017-04-01", "provenanceHash": "sha256-hsl_5_3" }
+    },
+    {
+      "id": "hsl_5_4",
+      "chapter": 5,
+      "section": 4,
+      "text": "Kvaliteten i verksamheten ska systematiskt och fortlöpande utvecklas och säkras. [cite: 68]",
+      "metadata": { "validFrom": "2017-04-01", "provenanceHash": "sha256-hsl_5_4" }
+    },
+    {
+      "id": "hsl_5_5",
+      "chapter": 5,
+      "section": 5,
+      "text": "Vårdgivaren ska tillhandahålla en specificerad faktura avseende kostnaderna för den hälso- och sjukvård en patient tagit emot, om patienten avser att begära ersättning för sina kostnader för vården i enlighet med Europaparlamentets och rådets direktiv 2011/24/EU av den 9 mars 2011 om tillämpningen av patienträttigheter vid gränsöverskridande hälso- och sjukvård, i den ursprungliga lydelsen. [cite: 69]",
+      "metadata": { "validFrom": "2017-04-01", "provenanceHash": "sha256-hsl_5_5" }
+    },
+    {
+      "id": "hsl_5_6",
+      "chapter": 5,
+      "section": 6,
+      "text": "När hälso- och sjukvård ges till barn ska barnets bästa särskilt beaktas. [cite: 70]",
+      "metadata": { "validFrom": "2017-04-01", "provenanceHash": "sha256-hsl_5_6" }
+    },
+    {
+      "id": "hsl_5_7",
+      "chapter": 5,
+      "section": 7,
+      "text": "Ett barns behov av information, råd och stöd ska särskilt beaktas om barnets förälder eller någon annan vuxen som barnet varaktigt bor tillsammans med 1. har en psykisk störning eller en psykisk funktionsnedsättning, 2. har en allvarlig fysisk sjukdom eller skada, 3. har ett missbruk av alkohol, annat beroendeframkallande medel eller spel om pengar, eller 4. utsätter eller har utsatt barnet eller en närstående till barnet för våld eller andra övergrepp. Detsamma gäller om barnets förälder eller någon annan vuxen som barnet varaktigt bor tillsammans med oväntat avlider. [cite: 71-72]",
+      "metadata": { "validFrom": "2021-07-01", "sfsReference": "2021:648", "provenanceHash": "sha256-hsl_5_7" }
+    },
+    {
+      "id": "hsl_5_8_up_to_2026",
+      "chapter": 5,
+      "section": 8,
+      "text": "/Upphör att gälla U:2026-01-15/ Hälso- och sjukvården ska på socialnämndens initiativ, i frågor som rör barn som far illa eller riskerar att fara illa, samverka med samhällsorgan, organisationer och andra som berörs. I fråga om utlämnande av uppgifter gäller de begränsningar som följer av 6 kap. 12-14 §§ patientsäkerhetslagen (2010:659) och av offentlighets- och sekretesslagen (2009:400). Bestämmelser om skyldighet att anmäla till socialnämnden att ett barn kan behöva nämndens skydd finns i 19 kap. 1 och 2 §§ socialtjänstlagen (2025:400). [cite: 73-76]",
+      "metadata": { "validTo": "2026-01-15", "sfsReference": "2025:446", "provenanceHash": "sha256-hsl_5_8_old" }
+    },
+    {
+      "id": "hsl_5_8_from_2026",
+      "chapter": 5,
+      "section": 8,
+      "text": "/Träder i kraft I:2026-01-15/ Hälso- och sjukvården ska på socialnämndens initiativ, i frågor som rör barn som far illa eller riskerar att fara illa, samverka med samhällsorgan, organisationer och andra som berörs. I fråga om utlämnande av uppgifter gäller de begränsningar som följer av 6 kap. 12-14 §§ patientsäkerhetslagen (2010:659) och av offentlighets- och sekretesslagen (2009:400). Bestämmelser om skyldigheten att vid kännedom eller misstanke om att ett barn far illa genast anmäla det till socialnämnden finns i 19 kap. 1 och 2 §§ socialtjänstlagen (2025:400). [cite: 76-79]",
+      "metadata": { "validFrom": "2026-01-15", "sfsReference": "2025:1498", "provenanceHash": "sha256-hsl_5_8_new" }
+    },
+    {
+      "id": "hsl_5_9",
+      "chapter": 5,
+      "section": 9,
+      "text": "När hälso- och sjukvård enligt denna lag ges till personer som har stora och varaktiga funktionsnedsättningar ska det särskilt övervägas om vården kan ges på ett sätt som bidrar till att den enskilde får möjlighet att delta i samhällslivet och kan leva som andra. [cite: 79-80]",
+      "metadata": { "validFrom": "2022-01-01", "sfsReference": "2022:1255", "provenanceHash": "sha256-hsl_5_9" }
+    },
+    {
+      "id": "hsl_6_1",
+      "chapter": 6,
+      "section": 1,
+      "text": "Regeringen får meddela föreskrifter om 1. att landet ska delas in i samverkansregioner för den hälso- och sjukvård som berör flera regioner, och 2. bedrivande av hälso- och sjukvårdsverksamhet i övrigt. [cite: 80-81]",
+      "metadata": { "validFrom": "2026-01-01", "sfsReference": "2025:1399", "provenanceHash": "sha256-hsl_6_1" }
+    },
+    {
+      "id": "hsl_6_2",
+      "chapter": 6,
+      "section": 2,
+      "text": "Regeringen eller den myndighet som regeringen bestämmer får meddela föreskrifter om 1. behörighet för anställning och tillsättning av tjänster inom hälso- och sjukvården, 2. skyldigheter för läkare som är anställda vid sjukvårdsenheter där det bedrivs högskoleutbildning för läkarexamen och forskning, 3. hälso- och sjukvård som behövs till skydd för enskilda, 4. hälso- och sjukvård under fredstida krissituationer och höjd beredskap, 5. planering för att hantera katastroftillstånd och händelser som medför ett stort antal skadade eller sjuka, och 6. planeringsanvisningar för hälso- och sjukvård inför och under höjd beredskap. [cite: 81-82]",
+      "metadata": { "validFrom": "2026-01-01", "sfsReference": "2025:1399", "provenanceHash": "sha256-hsl_6_2" }
+    },
+    {
+      "id": "hsl_7_1",
+      "chapter": 7,
+      "section": 1,
+      "text": "Ledningen av hälso- och sjukvårdsverksamheten i regionen ska utövas av en eller flera nämnder. För en sådan nämnd gäller det som är föreskrivet om nämnder i kommunallagen (2017:725). Bestämmelser om gemensam nämnd finns i lagen (2003:192) om gemensam nämnd inom vård- och omsorgsområdet. [cite: 82-84]",
+      "metadata": { "validFrom": "2019-01-01", "sfsReference": "2019:973", "provenanceHash": "sha256-hsl_7_1" }
+    },
+    {
+      "id": "hsl_7_2",
+      "chapter": 7,
+      "section": 2,
+      "text": "Regionen ska planera sin hälso- och sjukvård med utgångspunkt i behovet av vård hos dem som omfattas av regionens ansvar för hälso- och sjukvård. Regionen ska vid planeringen beakta den hälso- och sjukvård som erbjuds av andra vårdgivare. [cite: 85-86]",
+      "metadata": { "validFrom": "2026-01-01", "sfsReference": "2025:1399", "provenanceHash": "sha256-hsl_7_2" }
+    },
+    {
+      "id": "hsl_7_2a",
+      "chapter": 7,
+      "section": "2 a",
+      "text": "Regionen ska organisera hälso- och sjukvårdsverksamheten så att vården kan ges nära befolkningen. Om det är motiverat av kvalitets- eller effektivitetsskäl, får vården koncentreras geografiskt. [cite: 87-88]",
+      "metadata": { "validFrom": "2019-01-01", "sfsReference": "2019:973", "provenanceHash": "sha256-hsl_7_2a" }
+    },
+    {
+      "id": "hsl_7_2b",
+      "chapter": 7,
+      "section": "2 b",
+      "text": "Regionen ska planera sin hälso- och sjukvård så att beredskap upprätthålls för 1. katastroftillstånd, 2. händelser som medför ett stort antal skadade eller sjuka, och 3. andra händelser som allvarligt kan inverka på regionens förutsättningar att fullgöra sina skyldigheter enligt 8 kap. eller andra föreskrivna krav som gäller för hälso- och sjukvård. Regionen ska särskilt beakta behovet av gemensam planering med kommuner inom regionen för att säkerställa en sammanhängande vårdkedja i situationer som avses i första stycket. [cite: 89-91]",
+      "metadata": { "validFrom": "2026-01-01", "sfsReference": "2025:1399", "provenanceHash": "sha256-hsl_7_2b" }
+    },
+    {
+      "id": "hsl_7_2c",
+      "chapter": 7,
+      "section": "2 c",
+      "text": "Regionen ska på begäran lämna de uppgifter som behövs för att ta fram föreskrifter om planeringsanvisningar för hälso- och sjukvård inför och under höjd beredskap. Uppgifterna ska lämnas till den myndighet som regeringen bestämmer. Regeringen eller den myndighet som regeringen bestämmer får meddela föreskrifter om uppgiftsskyldighet enligt första stycket. [cite: 91-93]",
+      "metadata": { "validFrom": "2026-01-01", "sfsReference": "2025:1399", "provenanceHash": "sha256-hsl_7_2c" }
+    },
+    {
+      "id": "hsl_7_3",
+      "chapter": 7,
+      "section": 3,
+      "text": "Regionen ska organisera primärvården så att alla som omfattas av regionens ansvar för hälso- och sjukvård kan välja utförare av hälso- och sjukvårdstjänster samt välja och få tillgång till en fast läkarkontakt (vårdvalssystem). Regionen får inte begränsa den enskildes val till ett visst geografiskt område inom regionen. Regionens geografiska område får delas upp i två eller flera delområden med separata vårdvalssystem. Ett vårdvalssystem ska utformas så att alla utförare behandlas lika, om det inte finns skäl för något annat. Ersättningen från regionen till utförare inom ett vårdvalssystem ska följa den enskildes val av utförare. När regionen beslutat att införa ett vårdvalssystem ska lagen (2008:962) om valfrihetssystem tillämpas. [cite: 93-98]",
+      "metadata": { "validFrom": "2022-07-01", "sfsReference": "2022:273", "provenanceHash": "sha256-hsl_7_3" }
+    },
+    {
+      "id": "hsl_7_3a",
+      "chapter": 7,
+      "section": "3 a",
+      "text": "Val av en sådan utförare inom ett vårdvalssystem i primärvården där enskilda kan välja och få tillgång till en fast läkarkontakt ska ske genom att uppgifter om den enskilde förs in i en förteckning över utförarens patienter (listning). Den enskilde får inte vara listad hos mer än en sådan utförare i taget. Listning får göras endast hos 1. utförare i en regions egen regi, eller 2. utförare som med en region har ett kontrakt enligt 8 kap. 3 § lagen (2008:962) om valfrihetssystem eller ett därmed jämförligt kontrakt enligt lagen (2016:1145) om offentlig upphandling. Regionen ska tillhandahålla ett elektroniskt system för listningen (listningstjänst). Regeringen eller den myndighet som regeringen bestämmer får meddela föreskrifter om 1. listningstjänstens innehåll, 2. kösystem, och 3. val av utförare på annat sätt än genom listningstjänsten. Listning påverkar inte den enskildes möjlighet att välja utförare av offentligt finansierad öppen vård enligt 9 kap. 1 § patientlagen (2014:821). [cite: 99-105]",
+      "metadata": { "validFrom": "2022-07-01", "sfsReference": "2022:273", "provenanceHash": "sha256-hsl_7_3a" }
+    },
+    {
+      "id": "hsl_7_3b",
+      "chapter": 7,
+      "section": "3 b",
+      "text": "Byte av sådana utförare som avses i 3 a § första stycket får göras högst två gånger under en period om ett år. Om det finns särskilda skäl får regionen dock medge fler byten. [cite: 105-106]",
+      "metadata": { "validFrom": "2022-07-01", "sfsReference": "2022:273", "provenanceHash": "sha256-hsl_7_3b" }
+    },
+    {
+      "id": "hsl_7_3c",
+      "chapter": 7,
+      "section": "3 c",
+      "text": "På begäran av en sådan utförare som avses i 3 a § första stycket får regionen besluta att begränsa det antal patienter som får vara listade hos utföraren. Regionen får avslå begäran helt eller delvis endast om det finns särskilda skäl. [cite: 107-108]",
+      "metadata": { "validFrom": "2022-07-01", "sfsReference": "2022:273", "provenanceHash": "sha256-hsl_7_3c" }
+    },
+    {
+      "id": "hsl_7_4",
+      "chapter": 7,
+      "section": 4,
+      "text": "För hälso- och sjukvård som kräver intagning vid vårdinrättning ska det finnas sjukhus. [cite: 109]",
+      "metadata": { "validFrom": "2017-04-01", "provenanceHash": "sha256-hsl_7_4" }
+    },
+    {
+      "id": "hsl_7_5",
+      "chapter": 7,
+      "section": 5,
+      "text": "Den myndighet som regeringen bestämmer beslutar vilken hälso- och sjukvård som ska utgöra nationell högspecialiserad vård och på hur många enheter sådan vård ska bedrivas. Vid bedömningen av om en åtgärd ska utgöra nationell högspecialiserad vård ska hänsyn särskilt tas till om vården är komplex eller sällan förekommande och om den kräver en viss volym, multidisciplinär kompetens eller stora investeringar eller medför höga kostnader. Beslut enligt första stycket får inte överklagas. [cite: 110-112]",
+      "metadata": { "validFrom": "2018-07-01", "sfsReference": "2018:143", "provenanceHash": "sha256-hsl_7_5" }
+    },
+    {
+      "id": "hsl_7_5a",
+      "chapter": 7,
+      "section": "5 a",
+      "text": "För att få bedriva nationell högspecialiserad vård krävs det tillstånd. Den myndighet som regeringen bestämmer får efter ansökan från en region besluta om ett sådant tillstånd. Tillståndet ska gälla tills vidare och vara förenat med villkor. Ett tillstånd får återkallas om villkoren för det inte längre är uppfyllda, om förutsättningarna för tillståndet har ändrats eller om tillståndshavaren begär det. Beslut enligt första och andra styckena får inte överklagas. [cite: 112-115]",
+      "metadata": { "validFrom": "2019-01-01", "sfsReference": "2019:973", "provenanceHash": "sha256-hsl_7_5a" }
+    },
+    {
+      "id": "hsl_7_5b",
+      "chapter": 7,
+      "section": "5 b",
+      "text": "Regeringen eller den myndighet som regeringen bestämmer får meddela föreskrifter om de villkor som ska gälla för tillstånd att bedriva nationell högspecialiserad vård och om återkallelse av ett sådant tillstånd. [cite: 116-117]",
+      "metadata": { "validFrom": "2018-07-01", "sfsReference": "2018:143", "provenanceHash": "sha256-hsl_7_5b" }
+    },
+    {
+      "id": "hsl_7_6",
+      "chapter": 7,
+      "section": 6,
+      "text": "Regionen svarar för att det inom regionen finns en ändamålsenlig organisation för att till och från vårdinrättning eller läkare transportera personer vars tillstånd kräver att transporten utförs med transportmedel som är särskilt inrättade för ändamålet. [cite: 117-118]",
+      "metadata": { "validFrom": "2019-01-01", "sfsReference": "2019:973", "provenanceHash": "sha256-hsl_7_6" }
+    },
+    {
+      "id": "hsl_7_7",
+      "chapter": 7,
+      "section": 7,
+      "text": "I planeringen och utvecklingen av hälso- och sjukvården ska regionen samverka med samhällsorgan, organisationer och vårdgivare. [cite: 118]",
+      "metadata": { "validFrom": "2019-01-01", "sfsReference": "2019:973", "provenanceHash": "sha256-hsl_7_7" }
+    },
+    {
+      "id": "hsl_7_8",
+      "chapter": 7,
+      "section": 8,
+      "text": "I frågor om hälso- och sjukvård som berör flera regioner ska regionerna samverka. [cite: 119]",
+      "metadata": { "validFrom": "2019-01-01", "sfsReference": "2019:973", "provenanceHash": "sha256-hsl_7_8" }
+    },
+    {
+      "id": "hsl_7_9",
+      "chapter": 7,
+      "section": 9,
+      "text": "Regionen får träffa överenskommelser med kommuner, Försäkringskassan och Arbetsförmedlingen om att inom ramen för regionens uppgifter enligt denna lag samverka i syfte att uppnå en effektivare användning av tillgängliga resurser. Regionen ska bidra till finansieringen av sådan verksamhet som bedrivs i samverkan. Enligt lagen (2003:1210) om finansiell samordning av rehabiliteringsinsatser får regionen delta i finansiell samordning inom rehabiliteringsområdet. Riksrevisionen får granska sådan verksamhet som bedrivits i samverkan med och delvis finansierats av Försäkringskassan eller Arbetsförmedlingen. Riksrevisionen har rätt att ta del av de uppgifter som behövs för granskningen. [cite: 120-124]",
+      "metadata": { "validFrom": "2019-01-01", "sfsReference": "2019:973", "provenanceHash": "sha256-hsl_7_9" }
+    },
+    {
+      "id": "hsl_8_1",
+      "chapter": 8,
+      "section": 1,
+      "text": "Regionen ska erbjuda en god hälso- och sjukvård åt den som är bosatt inom regionen. Detsamma gäller i fråga om den som har skyddad folkbokföring enligt 16 § folkbokföringslagen (1991:481) och som stadigvarande vistas inom regionen. Även i övrigt ska regionen verka för en god hälsa hos befolkningen. [cite: 125-127]",
+      "metadata": { "validFrom": "2019-01-01", "sfsReference": "2019:973", "provenanceHash": "sha256-hsl_8_1" }
+    },
+    {
+      "id": "hsl_8_2",
+      "chapter": 8,
+      "section": 2,
+      "text": "Regionen ska även erbjuda en god hälso- och sjukvård åt 1. den som, utan att vara bosatt här, har rätt till vårdförmåner i Sverige vid sjukdom och moderskap enligt vad som följer av Europaparlamentets och rådets förordning (EG) nr 883/2004 av den 29 april 2004 om samordning av de sociala trygghetssystemen, och 2. den som avses i 5 kap. 7 § första stycket socialförsäkringsbalken och som omfattas av förordningen. Vården ska erbjudas av den region inom vars område personen är förvärvsverksam eller, i fråga om en person som är arbetslös, den region inom vars område denne är registrerad som arbetssökande. I den utsträckning familjemedlemmar till dessa personer har rätt till vårdförmåner i Sverige vid sjukdom och moderskap enligt vad som följer av förordningen, ska familjemedlemmarna erbjudas vård av samma region. Om familjemedlemmarna är bosatta i Sverige gäller dock 1 §. [cite: 128-131]",
+      "metadata": { "validFrom": "2019-01-01", "sfsReference": "2019:973", "provenanceHash": "sha256-hsl_8_2" }
+    },
+    {
+      "id": "hsl_8_3",
+      "chapter": 8,
+      "section": 3,
+      "text": "Regionen ska erbjuda öppen vård åt den som omfattas av en annan regions ansvar för hälso- och sjukvård. En sådan patient omfattas inte av regionens vårdgaranti enligt 9 kap. 1 §. I övrigt ska vården ges på samma villkor som de villkor som gäller för de egna invånarna. Om patienten omfattas av en annan regions ansvar för hälso- och sjukvård enligt 1 §, svarar den regionen för kostnaderna för vård som patienten ges med stöd av första stycket. Detta gäller dock inte om den regionen ställer krav på remiss för vården och dessa remissregler inte följs. [cite: 132-136]",
+      "metadata": { "validFrom": "2019-01-01", "sfsReference": "2019:973", "provenanceHash": "sha256-hsl_8_3" }
+    },
+    {
+      "id": "hsl_8_4",
+      "chapter": 8,
+      "section": 4,
+      "text": "Om någon som vistas inom regionen utan att vara bosatt där behöver omedelbar hälso- och sjukvård, ska regionen erbjuda sådan vård. [cite: 137-138]",
+      "metadata": { "validFrom": "2019-01-01", "sfsReference": "2019:973", "provenanceHash": "sha256-hsl_8_4" }
+    },
+    {
+      "id": "hsl_8_5",
+      "chapter": 8,
+      "section": 5,
+      "text": "Regionen får också i andra fall erbjuda hälso- och sjukvård åt den som omfattas av en annan regions ansvar för hälso- och sjukvård, om 1. regionerna kommer överens om det, eller 2. det är fråga om nationell högspecialiserad vård. [cite: 138-139]",
+      "metadata": { "validFrom": "2019-01-01", "sfsReference": "2019:973", "provenanceHash": "sha256-hsl_8_5" }
+    },
+    {
+      "id": "hsl_8_6",
+      "chapter": 8,
+      "section": 6,
+      "text": "Regionens ansvar omfattar inte sådan hälso- och sjukvård som en kommun inom regionen har ansvar för enligt 12 kap. 1 § eller 14 kap. 1 §. [cite: 139-140]",
+      "metadata": { "validFrom": "2019-01-01", "sfsReference": "2019:973", "provenanceHash": "sha256-hsl_8_6" }
+    },
+    {
+      "id": "hsl_8_7",
+      "chapter": 8,
+      "section": 7,
+      "text": "Regionen ska erbjuda dem som avses i 1 § 1. habilitering och rehabilitering, 2. hjälpmedel för personer med funktionsnedsättning, och 3. tolktjänst för vardagstolkning för barndomsdöva, dövblinda, vuxendöva och hörselskadade. Regionens ansvar omfattar dock inte insatser enligt första stycket 1 och 2 som en kommun inom regionen ansvarar för enligt 12 kap. 5 §. Regionens ansvar innebär inte någon inskränkning i de skyldigheter som arbetsgivare eller andra kan ha enligt annan lag. Regionen ska, i samverkan med patienten, upprätta en individuell plan när insatser som avses i första stycket 1 eller 2 erbjuds. Av planen ska planerade och beslutade insatser framgå. [cite: 140-144]",
+      "metadata": { "validFrom": "2019-01-01", "sfsReference": "2019:973", "provenanceHash": "sha256-hsl_8_7" }
+    },
+    {
+      "id": "hsl_8_8",
+      "chapter": 8,
+      "section": 8,
+      "text": "Regionen får erbjuda läkemedel utan kostnad till den som får hälso- och sjukvård i hemmet (hemsjukvård). [cite: 144-145]",
+      "metadata": { "validFrom": "2019-01-01", "sfsReference": "2019:973", "provenanceHash": "sha256-hsl_8_8" }
+    },
+    {
+      "id": "hsl_8_9",
+      "chapter": 8,
+      "section": 9,
+      "text": "Regionen ska tillhandahålla den som avses i 1 § förbrukningsartiklar som fortlöpande behövs på grund av allvarlig sjukdom eller efter behandling för sådan sjukdom. Detta gäller inte om kommunen har motsvarande ansvar enligt 12 kap. 6 §. Regeringen eller den myndighet som regeringen bestämmer får meddela föreskrifter om vilka förbrukningsartiklar som omfattas av första stycket. [cite: 145-147]",
+      "metadata": { "validFrom": "2019-01-01", "sfsReference": "2019:973", "provenanceHash": "sha256-hsl_8_9" }
+    },
+    {
+      "id": "hsl_8_10",
+      "chapter": 8,
+      "section": 10,
+      "text": "Regionen ska lagerhålla sjukvårdsprodukter för sådan vård som regionen ska erbjuda enligt denna lag. Regeringen får meddela föreskrifter om innehållet i och omfattningen av sådan lagerhållning. [cite: 150-151]",
+      "metadata": { "validFrom": "2027-01-01", "sfsReference": "2025:1399", "provenanceHash": "sha256-hsl_8_10" }
+    },
+    {
+      "id": "hsl_8_11",
+      "chapter": 8,
+      "section": 11,
+      "text": "Särskilda bestämmelser om hälso- och sjukvård finns i lagen (2008:344) om hälso- och sjukvård åt asylsökande m.fl. och lagen (2013:407) om hälso- och sjukvård till vissa utlänningar som vistas i Sverige utan nödvändiga tillstånd. [cite: 148-153]",
+      "metadata": { "validFrom": "2019-01-01", "provenanceHash": "sha256-hsl_8_11" }
+    },
+    {
+      "id": "hsl_9_1",
+      "chapter": 9,
+      "section": 1,
+      "text": "Regionen ska erbjuda vårdgaranti åt den som omfattas av regionens ansvar enligt 8 kap. 1 eller 2 §. Vårdgarantin ska innehålla en försäkran om att den enskilde inom viss tid får 1. kontakt med primärvården, 2. en medicinsk bedömning av läkare eller annan legitimerad hälso- och sjukvårdspersonal inom primärvården, 3. besöka den specialiserade vården, och 4. planerad vård. Hos en sådan utförare som avses i 7 kap. 3 a § första stycket gäller vårdgarantin enligt första stycket 1 och 2 endast om den enskilde är listad hos utföraren. [cite: 154-157]",
+      "metadata": { "validFrom": "2022-07-01", "sfsReference": "2022:273", "provenanceHash": "sha256-hsl_9_1" }
+    },
+    {
+      "id": "hsl_9_2",
+      "chapter": 9,
+      "section": 2,
+      "text": "Om regionen inte uppfyller garantin enligt 1 § 3 eller 4, ska regionen se till att patienten får vård hos en annan vårdgivare utan extra kostnad för patienten. [cite: 157-158]",
+      "metadata": { "validFrom": "2019-01-01", "sfsReference": "2019:973", "provenanceHash": "sha256-hsl_9_2" }
+    },
+    {
+      "id": "hsl_9_3",
+      "chapter": 9,
+      "section": 3,
+      "text": "Regionen ska rapportera in uppgifter om väntetider till en nationell databas. [cite: 158]",
+      "metadata": { "validFrom": "2019-01-01", "sfsReference": "2019:973", "provenanceHash": "sha256-hsl_9_3" }
+    },
+    {
+      "id": "hsl_9_4",
+      "chapter": 9,
+      "section": 4,
+      "text": "Regeringen eller den myndighet som regeringen bestämmer får meddela föreskrifter om 1. de tidsperioder inom vilka vårdgarantin enligt 1 § ska vara uppfylld och i övrigt om garantins innehåll, och 2. regionernas rapporteringsskyldighet enligt 3 §. [cite: 159-160]",
+      "metadata": { "validFrom": "2019-01-01", "sfsReference": "2019:973", "provenanceHash": "sha256-hsl_9_4" }
+    },
+    {
+      "id": "hsl_10_1",
+      "chapter": 10,
+      "section": 1,
+      "text": "Regionen ska ge patienten möjlighet att välja behandlingsalternativ enligt vad som anges i 7 kap. 1 § patientlagen (2014:821). [cite: 160-161]",
+      "metadata": { "validFrom": "2019-01-01", "sfsReference": "2019:973", "provenanceHash": "sha256-hsl_10_1" }
+    },
+    {
+      "id": "hsl_10_2",
+      "chapter": 10,
+      "section": 2,
+      "text": "Regionen ska ge patienten möjlighet att välja hjälpmedel enligt vad som anges i 7 kap. 2 § patientlagen (2014:821). [cite: 161-162]",
+      "metadata": { "validFrom": "2019-01-01", "sfsReference": "2019:973", "provenanceHash": "sha256-hsl_10_2" }
+    },
+    {
+      "id": "hsl_10_3",
+      "chapter": 10,
+      "section": 3,
+      "text": "Regionen ska ge patienten möjlighet att få en ny medicinsk bedömning enligt vad som anges i 8 kap. 1 § patientlagen (2014:821). [cite: 162-163]",
+      "metadata": { "validFrom": "2019-01-01", "sfsReference": "2019:973", "provenanceHash": "sha256-hsl_10_3" }
+    },
+    {
+      "id": "hsl_10_4",
+      "chapter": 10,
+      "section": 4,
+      "text": "I samband med sjöräddningsinsatser i de delar av havet utanför Sveriges sjöterritorium, där sjöräddningstjänsten ankommer på svenska myndigheter, får regionen bedriva hälso- och sjukvård i syfte att minimera de fysiska och psykiska följdverkningarna av en olycka. [cite: 163-164]",
+      "metadata": { "validFrom": "2019-01-01", "sfsReference": "2019:973", "provenanceHash": "sha256-hsl_10_4" }
+    },
+    {
+      "id": "hsl_10_5",
+      "chapter": 10,
+      "section": 5,
+      "text": "I regionerna ska det finnas möjligheter till anställning för läkares specialiseringstjänstgöring inklusive bastjänstgöring i en omfattning som motsvarar det planerade framtida behovet av läkare med specialistkompetens i klinisk verksamhet. [cite: 164-165]",
+      "metadata": { "validFrom": "2019-07-01", "sfsReference": "2019:996", "provenanceHash": "sha256-hsl_10_5" }
+    },
+    {
+      "id": "hsl_11_1",
+      "chapter": 11,
+      "section": 1,
+      "text": "Ledningen av den kommunala hälso- och sjukvårdsverksamheten ska utövas av den eller de nämnder som kommunfullmäktige enligt 4 kap. 2 § socialtjänstlagen (2025:400) bestämmer. Bestämmelser om gemensam nämnd finns i lagen (2003:192) om gemensam nämnd inom vård- och omsorgsområdet. [cite: 165-166]",
+      "metadata": { "validFrom": "2025-01-01", "sfsReference": "2025:446", "provenanceHash": "sha256-hsl_11_1" }
+    },
+    {
+      "id": "hsl_11_2",
+      "chapter": 11,
+      "section": 2,
+      "text": "Kommunen ska planera sin hälso- och sjukvård med utgångspunkt i befolkningens behov av sådan vård. Kommunen ska vid planeringen beakta den hälso- och sjukvård som erbjuds av andra vårdgivare. [cite: 167-168]",
+      "metadata": { "validFrom": "2017-04-01", "provenanceHash": "sha256-hsl_11_2" }
+    },
+    {
+      "id": "hsl_11_2a",
+      "chapter": 11,
+      "section": "2 a",
+      "text": "Kommunen ska planera sin hälso- och sjukvård så att beredskap upprätthålls för 1. katastroftillstånd, 2. händelser som medför ett stort antal skadade eller sjuka, och 3. andra händelser som allvarligt kan inverka på kommunens förutsättningar att fullgöra sina skyldigheter enligt 12 kap. eller andra föreskrivna krav som gäller för hälso- och sjukvård. Kommunen ska särskilt beakta behovet av gemensam planering med regionen för att säkerställa en sammanhängande vårdkedja i situationer som avses i första stycket. [cite: 169-171]",
+      "metadata": { "validFrom": "2026-01-01", "sfsReference": "2025:1399", "provenanceHash": "sha256-hsl_11_2a" }
+    },
+    {
+      "id": "hsl_11_2b",
+      "chapter": 11,
+      "section": "2 b",
+      "text": "Kommunen ska på begäran lämna de uppgifter som behövs för att ta fram föreskrifter om planeringsanvisningar för hälso- och sjukvård inför och under höjd beredskap. Uppgifterna ska lämnas till den myndighet som regeringen bestämmer. Regeringen eller den myndighet som regeringen bestämmer får meddela föreskrifter om uppgiftsskyldighet enligt första stycket. [cite: 171-173]",
+      "metadata": { "validFrom": "2026-01-01", "sfsReference": "2025:1399", "provenanceHash": "sha256-hsl_11_2b" }
+    },
+    {
+      "id": "hsl_11_3",
+      "chapter": 11,
+      "section": 3,
+      "text": "I planeringen och utvecklingen av hälso- och sjukvården ska kommunen samverka med samhällsorgan, organisationer och vårdgivare. [cite: 173]",
+      "metadata": { "validFrom": "2017-04-01", "provenanceHash": "sha256-hsl_11_3" }
+    },
+    {
+      "id": "hsl_11_4",
+      "chapter": 11,
+      "section": 4,
+      "text": "Inom det verksamhetsområde som kommunen bestämmer ska det finnas en medicinskt ansvarig sjuksköterska. Om ett verksamhetsområde i huvudsak omfattar rehabilitering, får en fysioterapeut eller en arbetsterapeut fullgöra de uppgifter som åligger en medicinskt ansvarig sjuksköterska. Första och andra styckena gäller sådan hälso- och sjukvårdsverksamhet som avses i 12 kap. 1 och 2 §§ i en kommun som inte ingår i en region, om det i verksamheten inte finns någon läkare. Regeringen eller den myndighet som regeringen bestämmer får meddela föreskrifter om ansvar och uppgifter för personal som avses i första och andra styckena. [cite: 174-179]",
+      "metadata": { "validFrom": "2019-01-01", "sfsReference": "2019:973", "provenanceHash": "sha256-hsl_11_4" }
+    },
+    {
+      "id": "hsl_12_1",
+      "chapter": 12,
+      "section": 1,
+      "text": "Kommunen ska erbjuda en god hälso- och sjukvård åt den som efter beslut av kommunen bor i en sådan särskild boendeform eller bostad som avses i 8 kap. 4 § första stycket, 8 kap. 11 § eller motsvarande tillståndspliktig boendeform eller bostad som avses i 26 kap. 1 § första stycket 2 socialtjänstlagen (2025:400). Kommunen ska även i samband med dagverksamhet enligt 8 kap. 1 § samma lag erbjuda en god hälso- och sjukvård åt den som vistas i dagverksamheten. [cite: 179-182]",
+      "metadata": { "validFrom": "2025-01-01", "sfsReference": "2025:446", "provenanceHash": "sha256-hsl_12_1" }
+    },
+    {
+      "id": "hsl_12_2",
+      "chapter": 12,
+      "section": 2,
+      "text": "Kommunen får erbjuda den som vistas i kommunen hälso- och sjukvård i hemmet (hemsjukvård) i ordinärt boende och i sådan särskild boendeform som avses i 8 kap. 4 § andra stycket socialtjänstlagen (2025:400). [cite: 183-184]",
+      "metadata": { "validFrom": "2025-01-01", "sfsReference": "2025:446", "provenanceHash": "sha256-hsl_12_2" }
+    },
+    {
+      "id": "hsl_12_3",
+      "chapter": 12,
+      "section": 3,
+      "text": "Med undantag för vad som anges i 16 kap. 1 § tredje stycket gäller vad som sägs i 1 och 2 §§ inte sådan hälso- och sjukvård som ges av läkare. [cite: 184-185]",
+      "metadata": { "validFrom": "2017-04-01", "provenanceHash": "sha256-hsl_12_3" }
+    },
+    {
+      "id": "hsl_12_4",
+      "chapter": 12,
+      "section": 4,
+      "text": "Regionen får på framställning av en kommun inom regionen erbjuda läkemedel utan kostnad ur läkemedelsförråd till den som 1. bor i en sådan särskild boendeform som avses i 8 kap. 4 § första stycket socialtjänstlagen (2025:400), eller 2. får hemsjukvård genom kommunens försorg. Regionen svarar för kostnaderna för läkemedel som rekvireras till läkemedelsförråden. [cite: 186-188]",
+      "metadata": { "validFrom": "2025-01-01", "sfsReference": "2025:446", "provenanceHash": "sha256-hsl_12_4" }
+    },
+    {
+      "id": "hsl_12_5",
+      "chapter": 12,
+      "section": 5,
+      "text": "Kommunen ska i samband med hälso- och sjukvård enligt 1 eller 2 § eller 14 kap. 1 § erbjuda habilitering och rehabilitering samt hjälpmedel för personer med funktionsnedsättning. Kommunen ska, i samverkan med den enskilde, upprätta en individuell plan när insatser som avses i första stycket erbjuds. Av planen ska planerade och beslutade insatser framgå. [cite: 188-191]",
+      "metadata": { "validFrom": "2017-04-01", "provenanceHash": "sha256-hsl_12_5" }
+    },
+    {
+      "id": "hsl_12_6",
+      "chapter": 12,
+      "section": 6,
+      "text": "Kommunen ska i samband med hälso- och sjukvård enligt 1 § tillhandahålla sådana förbrukningsartiklar som avses i 8 kap. 9 §. [cite: 191-192]",
+      "metadata": { "validFrom": "2017-04-01", "provenanceHash": "sha256-hsl_12_6" }
+    },
+    {
+      "id": "hsl_12_7",
+      "chapter": 12,
+      "section": 7,
+      "text": "Kommunen ska lagerhålla sjukvårdsprodukter för sådan vård som kommunen ska erbjuda enligt denna lag. Regeringen får meddela föreskrifter om innehållet i och omfattningen av sådan lagerhållning. [cite: 192-193]",
+      "metadata": { "validFrom": "2027-01-01", "sfsReference": "2025:1399", "provenanceHash": "sha256-hsl_12_7" }
+    },
+    {
+      "id": "hsl_13_1",
+      "chapter": 13,
+      "section": 1,
+      "text": "Kommunen ska ge den enskilde möjlighet att välja behandlingsalternativ inom sådan hälso- och sjukvård som avses i 12 kap. 1 och 2 §§ och 14 kap. 1 § enligt vad som anges i 7 kap. 1 § patientlagen (2014:821). [cite: 194-195]",
+      "metadata": { "validFrom": "2017-04-01", "provenanceHash": "sha256-hsl_13_1" }
+    },
+    {
+      "id": "hsl_13_2",
+      "chapter": 13,
+      "section": 2,
+      "text": "Kommunen ska ge den enskilde möjlighet att välja hjälpmedel enligt vad som anges i 7 kap. 2 § patientlagen (2014:821). [cite: 196-197]",
+      "metadata": { "validFrom": "2017-04-01", "provenanceHash": "sha256-hsl_13_2" }
+    },
+    {
+      "id": "hsl_13a_1",
+      "chapter": "13 a",
+      "section": 1,
+      "text": "Regioner och kommuner ska inom ramen för verksamhet som utgör primärvård särskilt 1. tillhandahålla de hälso- och sjukvårdstjänster som krävs för att tillgodose vanligt förekommande vårdbehov, 2. se till att vården är lätt tillgänglig, 3. tillhandahålla förebyggande insatser utifrån såväl befolkningens behov som patientens individuella behov och förutsättningar, 4. tillhandahålla rehabiliterande insatser utifrån patientens individuella behov och förutsättningar, 5. samordna olika insatser för patienten i de fall det är mest ändamålsenligt att samordningen sker inom primärvården, och 6. möjliggöra medverkan vid genomförande av forskningsarbete. [cite: 198-199]",
+      "metadata": { "validFrom": "2023-01-01", "sfsReference": "2023:37", "provenanceHash": "sha256-hsl_13a_1" }
+    },
+    {
+      "id": "hsl_14_1",
+      "chapter": 14,
+      "section": 1,
+      "text": "Regionen får till en kommun inom regionen överlåta skyldigheten att erbjuda hälso- och sjukvård i hemmet (hemsjukvård) i ordinärt boende och i sådan särskild boendeform som avses i 8 kap. 4 § andra stycket socialtjänstlagen (2025:400), om regionen och kommunen kommer överens om det. Överenskommelsen får inte avse ansvar för hälso- och sjukvård som ges av läkare. Överenskommelsen får även avse ansvar för sådana förbrukningsartiklar som avses i 8 kap. 9 §. Regionen får lämna sådant ekonomiskt bidrag till kommunen som motiveras av överlåtelsen. [cite: 199-203]",
+      "metadata": { "validFrom": "2025-01-01", "sfsReference": "2025:446", "provenanceHash": "sha256-hsl_14_1" }
+    },
+    {
+      "id": "hsl_14_2",
+      "chapter": 14,
+      "section": 2,
+      "text": "Om samtliga kommuner inom en regions område ingår i en överlåtelse av ansvar för hemsjukvård enligt 1 § och om det behövs för kostnadsutjämning mellan kommunerna, får kommunerna lämna ekonomiskt bidrag till varandra. [cite: 204-205]",
+      "metadata": { "validFrom": "2019-01-01", "sfsReference": "2019:973", "provenanceHash": "sha256-hsl_14_2" }
+    },
+    {
+      "id": "hsl_14_3",
+      "chapter": 14,
+      "section": 3,
+      "text": "Regionen får träffa överenskommelse med en kommun inom regionen om att kommunen ska ha ansvar för hjälpmedel för personer med funktionsnedsättning. Bestämmelserna om individuell plan i 12 kap. 5 § andra stycket och om val av hjälpmedel i 13 kap. 2 § gäller även i dessa fall. [cite: 205-207]",
+      "metadata": { "validFrom": "2019-01-01", "sfsReference": "2019:973", "provenanceHash": "sha256-hsl_14_3" }
+    },
+    {
+      "id": "hsl_15_1",
+      "chapter": 15,
+      "section": 1,
+      "text": "Regioner och kommuner får med bibehållet huvudmannaskap sluta avtal med någon annan om att utför de uppgifter som regionen eller kommunen ansvarar för enligt denna lag. Av avtalet ska framgå de särskilda villkor som gäller för överlämnandet. En uppgift som innefattar myndighetsutövning får dock inte med stöd av denna bestämmelse överlämnas till en juridisk person eller en enskild individ. [cite: 208-210]",
+      "metadata": { "validFrom": "2019-01-01", "sfsReference": "2019:973", "provenanceHash": "sha256-hsl_15_1" }
+    },
+    {
+      "id": "hsl_16_1",
+      "chapter": 16,
+      "section": 1,
+      "text": "Regionen ska till kommunerna inom regionen avsätta de läkarresurser som behövs för att enskilda ska kunna erbjudas en god hälso- och sjukvård i särskilt boende och i dagverksamhet enligt 12 kap. 1 §. Detsamma gäller hemsjukvård i ordinärt boende och i sådan särskild boendeform som avses i 8 kap. 4 § andra stycket socialtjänstlagen (2025:400), om en kommun ansvarar för vården enligt 14 kap. 1 §. Regionen ska med kommunerna inom regionen sluta avtal om omfattningen av och formerna för läkarmedverkan. Om regionen inte uppfyller sina skyldigheter enligt avtalet att tillhandahålla läkare, har kommunen rätt att på egen hand anlita läkare och få ersättning för sina kostnader för det från regionen. [cite: 210-215]",
+      "metadata": { "validFrom": "2025-01-01", "sfsReference": "2025:446", "provenanceHash": "sha256-hsl_16_1" }
+    },
+    {
+      "id": "hsl_16_2",
+      "chapter": 16,
+      "section": 2,
+      "text": "Regionen och kommunen ska samverka så att en enskild, som kommunen enligt 12 kap. 1 eller 2 § har ansvar för, också får övrig vård och behandling, hjälpmedel samt förbrukningsartiklar enligt 8 kap. 9 § som hans eller hennes tillstånd fordrar. [cite: 215-217]",
+      "metadata": { "validFrom": "2019-01-01", "sfsReference": "2019:973", "provenanceHash": "sha256-hsl_16_2" }
+    },
+    {
+      "id": "hsl_16_3",
+      "chapter": 16,
+      "section": 3,
+      "text": "Regionen ska ingå en överenskommelse med kommunen om ett samarbete i fråga om 1. personer med psykisk funktionsnedsättning, 2. personer som missbrukar alkohol, narkotika, andra beroendeframkallande medel, läkemedel, dopningsmedel eller spel om pengar, och 3. barn och unga som vårdas utanför det egna hemmet eller är placerade i ett skyddat boende. Om det är möjligt bör organisationer som företräder dessa personer eller deras närstående ges möjlighet att lämna synpunkter på innehållet i överenskommelsen. [cite: 217-219]",
+      "metadata": { "validFrom": "2024-01-01", "sfsReference": "2024:90", "provenanceHash": "sha256-hsl_16_3" }
+    },
+    {
+      "id": "hsl_16_4",
+      "chapter": 16,
+      "section": 4,
+      "text": "När den enskilde har behov av insatser både från hälso- och sjukvården och från socialtjänsten, ska regionen tillsammans med kommunen upprätta en individuell plan. Planen ska upprättas om regionen eller kommunen bedömer att den behövs för att den enskilde ska få sina behov tillgodosedda och om den enskilde samtycker till det. Arbetet med planen ska påbörjas utan dröjsmål. Planen ska, när det är möjligt, upprättas tillsammans med den enskilde. Närstående ska ges möjlighet att delta i arbetet med planen, om det är lämpligt och den enskilde inte motsätter sig det. Av planen ska det framgå 1. vilka insatser som behövs, 2. vilka insatser som respektive huvudman ska svara för, 3. vilka åtgärder som vidtas av någon annan än regionen eller kommunen, och 4. vem av huvudmännen som ska ha det övergripande ansvaret för planen. [cite: 219-224]",
+      "metadata": { "validFrom": "2019-01-01", "sfsReference": "2019:973", "provenanceHash": "sha256-hsl_16_4" }
+    },
+    {
+      "id": "hsl_16a_1",
+      "chapter": "16 a",
+      "section": 1,
+      "text": "Kommuner och regioner ska under fredstida krissituationer och höjd beredskap endast vara skyldiga att erbjuda vård som är nödvändig för liv och hälsa. [cite: 224-225]",
+      "metadata": { "validFrom": "2026-01-01", "sfsReference": "2025:1399", "provenanceHash": "sha256-hsl_16a_1" }
+    },
+    {
+      "id": "hsl_16a_2",
+      "chapter": "16 a",
+      "section": 2,
+      "text": "Kommuner och regioner ska skyndsamt lämna hjälp till andra kommuner eller regioner där det råder katastroftillstånd. Om det i en kommun eller region råder katastroftillstånd eller om en kommun eller region inom överskådlig tid kan antas hamna i ett sådant tillstånd, är den kommunen eller regionen inte skyldig att lämna hjälp enligt första stycket. En kommun eller region är trots vad som anges i andra stycket skyldig att lämna hjälp till andra kommuner eller regioner som har avsevärt sämre förutsättningar att erbjuda vård som är nödvändig för liv och hälsa. [cite: 225-228]",
+      "metadata": { "validFrom": "2026-01-01", "sfsReference": "2025:1399", "provenanceHash": "sha256-hsl_16a_2" }
+    },
+    {
+      "id": "hsl_16a_3",
+      "chapter": "16 a",
+      "section": 3,
+      "text": "En kommun eller region som behöver eller kan antas komma att behöva hjälp av andra kommuner eller regioner ska anmäla detta till den myndighet som regeringen bestämmer. [cite: 228-229]",
+      "metadata": { "validFrom": "2026-01-01", "sfsReference": "2025:1399", "provenanceHash": "sha256-hsl_16a_3" }
+    },
+    {
+      "id": "hsl_16a_4",
+      "chapter": "16 a",
+      "section": 4,
+      "text": "Kommuner, regioner och statliga myndigheter ska på begäran av den myndighet som regeringen bestämmer samverka i frågor om att lämna hjälp enligt 2 §. [cite: 229-230]",
+      "metadata": { "validFrom": "2026-01-01", "sfsReference": "2025:1399", "provenanceHash": "sha256-hsl_16a_4" }
+    },
+    {
+      "id": "hsl_16a_5",
+      "chapter": "16 a",
+      "section": 5,
+      "text": "Regeringen eller den myndighet som regeringen bestämmer får i ett enskilt fall besluta att en kommun eller region ska lämna hjälp enligt 2 § och om omfattningen av sådan hjälp, om det kan antas att en hjälpbehövande kommun eller region saknar förutsättningar att ordna tillräcklig hjälp på egen hand eller genom samverkan enligt 4 §. Beslut enligt första stycket får inte överklagas. [cite: 230-231]",
+      "metadata": { "validFrom": "2026-01-01", "sfsReference": "2025:1399", "provenanceHash": "sha256-hsl_16a_5" }
+    },
+    {
+      "id": "hsl_16a_6",
+      "chapter": "16 a",
+      "section": 6,
+      "text": "Kommuner och regioner ska på begäran lämna de uppgifter som behövs i ärenden om hjälp enligt 5 § till den myndighet som regeringen bestämmer. [cite: 232]",
+      "metadata": { "validFrom": "2026-01-01", "sfsReference": "2025:1399", "provenanceHash": "sha256-hsl_16a_6" }
+    },
+    {
+      "id": "hsl_16a_7",
+      "chapter": "16 a",
+      "section": 7,
+      "text": "Regeringen får meddela ytterligare föreskrifter om ärenden om hjälp enligt 5 §. Regeringen eller den myndighet som regeringen bestämmer får meddela ytterligare föreskrifter om anmälan om hjälp enligt 3 §, samverkan i frågor om att lämna hjälp enligt 4 § och uppgiftsskyldighet enligt 6 §. [cite: 232-234]",
+      "metadata": { "validFrom": "2026-01-01", "sfsReference": "2025:1399", "provenanceHash": "sha256-hsl_16a_7" }
+    },
+    {
+      "id": "hsl_16a_8",
+      "chapter": "16 a",
+      "section": 8,
+      "text": "En kommun eller region som efter beslut enligt 5 § har lämnat hjälp har rätt till skälig ersättning för hjälpen. Ersättningen ska betalas av den kommun eller region som har tagit emot hjälpen. [cite: 234-235]",
+      "metadata": { "validFrom": "2026-01-01", "sfsReference": "2025:1399", "provenanceHash": "sha256-hsl_16a_8" }
+    },
+    {
+      "id": "hsl_16a_9",
+      "chapter": "16 a",
+      "section": 9,
+      "text": "Om det råder katastroftillstånd i en kommun eller region och det inte med stöd av 2 § eller på andra sätt är möjligt att ge den hjälp som krävs för att tillståndet ska upphöra, får regeringen besluta om kvalificerat katastroftillstånd i den kommunen eller regionen. När förhållandena inte längre är sådana som avses i första stycket ska regeringen besluta att det kvalificerade katastroftillståndet inte längre ska gälla. [cite: 236-238]",
+      "metadata": { "validFrom": "2026-01-01", "sfsReference": "2025:1399", "provenanceHash": "sha256-hsl_16a_9" }
+    },
+    {
+      "id": "hsl_16a_10",
+      "chapter": "16 a",
+      "section": 10,
+      "text": "Om ett beslut om kvalificerat katastroftillstånd har meddelats enligt 9 §, ska den kommun eller region som beslutet avser så långt det är möjligt 1. erbjuda vård som är nödvändig för liv och hälsa, och 2. fullgöra sina skyldigheter när det gäller 5 kap. 1 § 1, 2, 4 och 5 och 5 kap. 2 och 4 §§. Första stycket 2 gäller även andra vårdgivare som bedriver verksamhet i en sådan kommun eller region. [cite: 238-240]",
+      "metadata": { "validFrom": "2026-01-01", "sfsReference": "2025:1399", "provenanceHash": "sha256-hsl_16a_10" }
+    },
+    {
+      "id": "hsl_17_1",
+      "chapter": 17,
+      "section": 1,
+      "text": "Vårdavgifter och avgifter med anledning av att patienter uteblir från avtalade besök får tas ut enligt grunder som regionen eller kommunen bestämmer. Patienter som omfattas av en regions eller en kommuns ansvar för hälso- och sjukvård enligt 8 kap. 1-3 §§ respektive 12 kap. 1 och 2 §§ och 14 kap. 1 § ska behandlas lika. Första stycket gäller inte i den mån annat är särskilt föreskrivet. [cite: 241-244]",
+      "metadata": { "validFrom": "2019-01-01", "sfsReference": "2019:973", "provenanceHash": "sha256-hsl_17_1" }
+    },
+    {
+      "id": "hsl_17_2",
+      "chapter": 17,
+      "section": 2,
+      "text": "Regionen får för sluten vård fastställa avgiftsnivåer i olika inkomstintervall och besluta om vilka regler om nedsättning av avgiften som ska gälla. Avgiften för sluten vård får för varje vårddag uppgå till högst 0,0023 prisbasbelopp enligt 2 kap. 6 och 7 §§ socialförsäkringsbalken, avrundat nedåt till närmaste tiotal kronor. [cite: 245-247]",
+      "metadata": { "validFrom": "2019-01-01", "sfsReference": "2019:973", "provenanceHash": "sha256-hsl_17_2" }
+    },
+    {
+      "id": "hsl_17_3",
+      "chapter": 17,
+      "section": 3,
+      "text": "Av patienter som är 85 år eller äldre får vårdavgifter och andra avgifter för sådan vård och sådana förbrukningsartiklar som avses i 6 § inte tas ut. [cite: 248]",
+      "metadata": { "validFrom": "2017-04-01", "provenanceHash": "sha256-hsl_17_3" }
+    },
+    {
+      "id": "hsl_17_5",
+      "chapter": 17,
+      "section": 5,
+      "text": "Avgiften tas ut av patientens förmyndare om patienten är under 18 år när vården ges eller patienten uteblir från ett avtalat besök. Om det finns flera förmyndare svarar de solidariskt för avgiften. Avgiften får tas ut av den underårige om det finns särskilda skäl. [cite: 249-251]",
+      "metadata": { "validFrom": "2017-04-01", "provenanceHash": "sha256-hsl_17_5" }
+    },
+    {
+      "id": "hsl_17_6",
+      "chapter": 17,
+      "section": 6,
+      "text": "För den enskilde får följande poster tillsammans under ett år, räknat från det första tillfälle då avgift betalats, uppgå till högst 0,025 prisbasbelopp enligt 2 kap. 6 och 7 §§ socialförsäkringsbalken, avrundat nedåt till närmaste femtiotal kronor, eller det lägre belopp som bestämts av regionen: 1. vårdavgifter som avser öppen vård enligt denna lag i andra fall än som avses i 8 § första stycket 1, 2. avgifter för förbrukningsartiklar som avses i 8 kap. 9 §, och 3. avgifter för tandvård som avses i 8 a § tandvårdslagen (1985:125). Vid beräkning av avgiftsbefrielse enligt första stycket ska även sådana avdrag som har gjorts enligt 7 § andra stycket lagen (2013:513) om ersättning för kostnader till följd av vård inom Europeiska ekonomiska samarbetsområdet medräknas. [cite: 251-255]",
+      "metadata": { "validFrom": "2019-01-01", "sfsReference": "2019:973", "provenanceHash": "sha256-hsl_17_6" }
+    },
+    {
+      "id": "hsl_17_7",
+      "chapter": 17,
+      "section": 7,
+      "text": "Har en förälder eller föräldrar gemensamt flera barn under 18 år i sin vård, får barnen gemensamt avgiftsbefrielse när kostnaderna för avgifter och gjorda avdrag enligt 6 § sammanlagt uppgår till det belopp som avses där. Sådan avgiftsbefrielse gäller även för barn som under den tid som avses i 6 § fyller 18 år. Med förälder avses även familjehemsförälder. Som förälder räknas även den med vilken en förälder stadigvarande sammanbor och som är eller har varit gift med eller har eller har haft barn med föräldern. [cite: 255-258]",
+      "metadata": { "validFrom": "2017-04-01", "provenanceHash": "sha256-hsl_17_7" }
+    },
+    {
+      "id": "hsl_17_8",
+      "chapter": 17,
+      "section": 8,
+      "text": "För den enskilde får avgifter för följande poster tillsammans per månad uppgå till högst en tolftedel av 0,5392 prisbasbelopp enligt 2 kap. 6 och 7 §§ socialförsäkringsbalken: 1. vård enligt 12 kap. 1 eller 2 § eller 14 kap. 1 §, 2. förbrukningsartiklar enligt 12 kap. 6 §, och 3. hemtjänst och dagverksamhet enligt 32 kap. 6 § socialtjänstlagen (2025:400). Avgifterna får dock inte uppgå till ett så stort belopp att den enskilde inte förbehålls tillräckliga medel av sitt avgiftsunderlag för sina personliga behov och andra normala levnadskostnader (förbehållsbelopp). När avgifterna fastställs, ska kommunen dessutom försäkra sig om att den enskildes make eller sambo inte drabbas av en oskäligt försämrad ekonomisk situation. Vid beräkning av avgiftsunderlag och förbehållsbelopp enligt andra stycket ska 32 kap. 4, 5, 8 och 9 §§ socialtjänstlagen tillämpas. [cite: 258-263]",
+      "metadata": { "validFrom": "2025-01-01", "sfsReference": "2025:446", "provenanceHash": "sha256-hsl_17_8" }
+    },
+    {
+      "id": "hsl_18_1",
+      "chapter": 18,
+      "section": 1,
+      "text": "Om en nämnd som utövar ledning enligt 7 kap. 1 § eller 11 kap. 1 § i sin verksamhet iakttagit något som tyder på att nya medel används för missbruksändamål eller att ändringar sker i missbruksmönster av kända medel, ska nämnden utan dröjsmål anmäla detta till Folkhälsomyndigheten. [cite: 264-266]",
+      "metadata": { "validFrom": "2017-04-01", "provenanceHash": "sha256-hsl_18_1" }
+    },
+    {
+      "id": "hsl_18_2",
+      "chapter": 18,
+      "section": 2,
+      "text": "Regioner och kommuner ska medverka vid finansiering, planering och genomförande av dels kliniskt forskningsarbete på hälso- och sjukvårdens område, dels folkhälsovetenskapligt forskningsarbete. Regioner och kommuner ska i dessa frågor, i den omfattning som behövs, samverka med varandra och med berörda universitet och högskolor. [cite: 266-268]",
+      "metadata": { "validFrom": "2019-01-01", "sfsReference": "2019:973", "provenanceHash": "sha256-hsl_18_2" }
+    },
+    {
+      "id": "hsl_18_3",
+      "chapter": 18,
+      "section": 3,
+      "text": "Personer som tas emot från en annan kommun eller en annan region enligt 4 kap. 1 § lagen (2006:544) om kommuners och regioners åtgärder inför och vid extraordinära händelser i fredstid och höjd beredskap omfattas av mottagande kommuns och regions skyldigheter enligt denna lag. [cite: 268-270]",
+      "metadata": { "validFrom": "2019-01-01", "sfsReference": "2019:973", "provenanceHash": "sha256-hsl_18_3" }
+    }
+  ],
+  "transitionalProvisions": [
+    {
+      "sfs": "2017:30",
+      "text": "1. Denna lag träder i kraft den 1 april 2017. 2. Genom lagen upphävs hälso- och sjukvårdslagen (1982:763). 3. Bestämmelsen i 8 kap. 3 § första stycket gäller inte vård som ges enligt avtal om hälso- och sjukvårdstjänster som landstinget träffat med vårdgivare före den 1 januari 2015, så länge avtalet gäller. Efter den 1 april 2017 får ett sådant avtal inte förlängas utan att 8 kap. 3 § första stycket beaktas. 4. Bestämmelserna i 17 kap. 5 § gäller inte avgifter för vilka betalningsskyldighet uppkommit före den 1 juni 2010. 5. För den som omfattas av rådets förordning (EEG) nr 1408/71 av den 14 juni 1971 om tillämpningen av systemen för social trygghet när anställda, egenföretagare eller deras familjemedlemmar flyttar inom gemenskapen gäller fortfarande 3 c § den upphävda lagen i dess lydelse före den 1 januari 2011. 6. För sjukgymnaster gäller fortfarande 24 § den upphävda lagen i dess lydelse före den 1 januari 2014. [cite: 271-274]"
+    },
+    {
+      "sfs": "2018:143",
+      "text": "1. Denna lag träder i kraft den 1 juli 2018. 2. För tillstånd som gäller vid tidpunkten för ikraftträdandet och som har beslutats enligt 9 b § den upphävda hälso- och sjukvårdslagen (1982:763) eller enligt 7 kap. 5 § hälso- och sjukvårdslagen (2017:30) i dess lydelse före den 1 juli 2018, gäller vad som föreskrivs för nationell högspecialiserad vård i de nya bestämmelserna och i föreskrifter som meddelats i anslutning till lagen. Sådana tillstånd ska fortsätta att gälla även om tiden för tillståndet har gått ut. [cite: 274-276]"
+    },
+    {
+      "sfs": "2018:1997",
+      "text": "1. Denna lag träder i kraft den 1 juli 2021. 2. Regeringen eller den myndighet som regeringen bestämmer får meddela föreskrifter om i vilka fall och på vilket sätt äldre föreskrifter om möjligheter till anställning i landstingen för läkares allmäntjänstgöring ska gälla. [cite: 276-278]"
+    },
+    {
+      "sfs": "2025:1399",
+      "text": "Denna lag träder i kraft den 1 januari 2027 i fråga om 8 kap. 10 § och 12 kap. 7 § och i övrigt den 1 januari 2026. [cite: 278-279]"
     }
   ]
 }

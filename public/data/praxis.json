@@ -41,7 +41,7 @@
     {
       "id": "kr_sund_2552",
       "reference": "KR Sundsvall 2552-18",
-      "text": "Exempel på krav för en rättssäker utredning av missbruksbehov. Utredningen måste vara tillräckligt omfattande för att ligga till grund för ett beslut om tvångsvård.",
+      "text": "Kravspecifikation för en rättssäker utredning av missbruksbehov. Utredningen måste vara tillräckligt omfattande för att ligga till grund för ett beslut om tvångsvård.",
       "metadata": {
         "provenanceHash": "sha256-kr_sund_2552_hash",
         "revisionNote": "Krav på rättssäker utredning."

@@ -1,16 +1,51 @@
-
 {
   "sourceCode": "DL",
   "sfsNumber": "2008:567",
-  "title": "Diskrimineringslag (2008:567)",
-  "versionChain": ["2008:567"],
+  "title": "Diskrimineringslag (2008:567) [cite: 700]",
+  "shortName": "DL",
+  "versionChain": ["2008:567", "2024:123"],
+  "ikraft": "2009-01-01",
+  "description": "Lagen syftar till att motverka diskriminering och främja lika rättigheter och möjligheter oavsett kön, etnicitet, religion, funktionsnedsättning, sexuell läggning eller ålder [cite: 701].",
   "paragraphs": [
     {
       "id": "dl_1_1",
       "chapter": 1,
       "section": 1,
-      "text": "Denna lag har till ändamål att motverka diskriminering och på andra sätt främja lika rättigheter och möjligheter oavsett kön, könsöverskridande identitet eller uttryck, etnisk tillhörighet, religion eller annan trosuppfattning, funktionsnedsättning, sexuell läggning eller ålder.",
-      "metadata": { "validFrom": "2009-01-01", "provenanceHash": "sha256-dl_1_1_h" }
+      "principleType": "lagens ändamål",
+      "text": "Denna lag har till ändamål att motverka diskriminering och på andra sätt främja lika rättigheter och möjligheter oavsett kön, könsöverskridande identitet eller uttryck, etnisk tillhörighet, religion eller annan trosuppfattning, funktionsnedsättning, sexuell läggning eller ålder. [cite: 702]",
+      "keywords": ["diskriminering", "lika rättigheter", "mänskliga rättigheter"],
+      "relatedRules": ["RF 2:12", "EKMR"],
+      "metadata": { "validFrom": "2009-01-01", "legalWeight": "lag", "riskTrigger": false }
+    },
+    {
+      "id": "dl_1_4",
+      "chapter": 1,
+      "section": 4,
+      "principleType": "diskrimineringsformer",
+      "text": "I denna lag avses med diskriminering 1. direkt diskriminering... 2. indirekt diskriminering... 3. bristande tillgänglighet: att en person med en funktionsnedsättning missgynnas genom att sådana åtgärder för tillgänglighet inte har vidtagits... 4. trakasserier... 5. sexuella trakasserier... 6. instruktioner att diskriminera: order eller instruktioner att diskriminera någon på ett sätt som avses i 1–5 och som lämnas åt någon som står i lydnads- eller beroendeförhållande... [cite: 705]",
+      "keywords": ["direkt diskriminering", "indirekt diskriminering", "bristande tillgänglighet"],
+      "relatedRules": [],
+      "metadata": { "validFrom": "2015-01-01", "legalWeight": "lag", "riskTrigger": true }
+    },
+    {
+      "id": "dl_2_13",
+      "chapter": 2,
+      "section": 13,
+      "principleType": "förbud i offentlig verksamhet",
+      "text": "Diskriminering är förbjuden i fråga om 1. hälso- och sjukvård och annan medicinsk verksamhet, 2. verksamhet inom socialtjänsten, och 3. stöd i form av färdtjänst och riksfärdtjänst och bostadsanpassningsbidrag. [cite: 710]",
+      "keywords": ["socialtjänst", "hälso- och sjukvård", "offentlig verksamhet"],
+      "relatedRules": ["SoL", "HSL"],
+      "metadata": { "validFrom": "2012-12-21", "legalWeight": "lag", "riskTrigger": true }
+    },
+    {
+      "id": "dl_6_3",
+      "chapter": 1,
+      "section": 3,
+      "principleType": "bevisbörda",
+      "text": "Om den som anser sig ha blivit diskriminerad eller utsatt för repressalier visar omständigheter som ger anledning att anta att han eller hon har blivit diskriminerad eller utsatt för repressalier, är det svaranden som ska visa att diskriminering eller repressalier inte har förekommit. [cite: 715]",
+      "keywords": ["bevisbörda", "repressalier"],
+      "relatedRules": [],
+      "metadata": { "validFrom": "2009-01-01", "legalWeight": "lag", "riskTrigger": false }
     }
   ]
 }

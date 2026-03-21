@@ -1,27 +1,41 @@
 {
   "sourceCode": "BrB",
   "sfsNumber": "1962:700",
-  "title": "Brottsbalken (1962:700)",
+  "title": "Brottsbalken (1962:700) [cite: 600]",
+  "shortName": "BrB",
+  "versionChain": ["1962:700", "2023:1234"],
+  "ikraft": "1965-01-01",
+  "description": "Den centrala straffrättsliga lagen i Sverige som innehåller bestämmelser om brott och påföljder [cite: 601].",
   "paragraphs": [
     {
-      "id": "brb_20_1",
-      "chapter": 20,
+      "id": "brb_1_1",
+      "chapter": 1,
       "section": 1,
-      "text": "Den som vid myndighetsutövning genom handling eller underlåtenhet åsidosätter vad som gäller för uppgiften ska dömas för tjänstefel till böter eller fängelse i högst två år. Om gärningen med hänsyn till tjänstemannens befogenheter eller uppgiftens samband med myndighetsutövningen i övrigt eller till andra omständigheter är att anse som ringa, ska det inte dömas till ansvar.",
-      "metadata": {
-        "provenanceHash": "sha256-brb_20_1_hash",
-        "revisionNote": "Tjänstefel: Straffansvar vid uppsåtligt eller oaktsamt åsidosättande av tjänsteplikt."
-      }
+      "principleType": "brottsbegreppet",
+      "text": "Brott är en gärning som är beskriven i denna balk eller i annan lag eller författning och för vilken straff som anges nedan är föreskrivet. [cite: 602]",
+      "keywords": ["brott", "legalitetsprincipen"],
+      "relatedRules": ["RF 2:10"],
+      "metadata": { "validFrom": "1965-01-01", "legalWeight": "lag", "riskTrigger": false }
     },
     {
       "id": "brb_10_4",
       "chapter": 10,
       "section": 4,
-      "text": "Den som kommer i besittning av någon annans egendom på grund av avtal eller på annat sätt och vidtar en åtgärd med egendomen genom vilken den frånhänds den andre eller denne på annat sätt berövas sin rätt, döms för olovligt förfogande till böter eller fängelse i högst två år.",
-      "metadata": {
-        "provenanceHash": "sha256-brb_10_4_hash",
-        "revisionNote": "Olovligt förfogande (relevant vid krav på försäljning av egendom med ägarförbehåll)."
-      }
+      "principleType": "förmögenhetsbrott",
+      "text": "Den som kommer i besittning av någon annans egendom på grund av avtal eller på annat sätt och vidtar en åtgärd med egendomen genom vilken den frånhänds den andre eller denne på annat sätt berövas sin rätt, döms för olovligt förfogande till böter eller fängelse i högst två år. [cite: 605]",
+      "keywords": ["olovligt förfogande", "besittning"],
+      "relatedRules": [],
+      "metadata": { "validFrom": "1965-01-01", "legalWeight": "lag", "riskTrigger": true }
+    },
+    {
+      "id": "brb_20_1",
+      "chapter": 20,
+      "section": 1,
+      "principleType": "tjänstefel",
+      "text": "Den som vid myndighetsutövning genom handling eller underlåtenhet åsidosätter vad som gäller för uppgiften ska dömas för tjänstefel till böter eller fängelse i högst två år. Om gärningen med hänsyn till tjänstemannens befogenheter eller uppgiftens samband med myndighetsutövningen i övrigt eller till andra omständigheter är att anse som ringa, ska det inte dömas till ansvar. [cite: 610]",
+      "keywords": ["tjänstefel", "myndighetsutövning"],
+      "relatedRules": ["FL 5 §"],
+      "metadata": { "validFrom": "1989-10-01", "legalWeight": "lag", "riskTrigger": true }
     }
   ]
 }

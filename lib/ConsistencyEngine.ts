@@ -24,7 +24,7 @@ export class ConsistencyEngine {
         const risk = c1.activeResult.machineReadable.riskLevel;
         const proposal = c1.activeResult.proposal;
         
-        // Exempel: Högt intrång (t.ex. tvångsåtgärd eller totalt avslag) vid låg risk/svaga bevis
+        // Illustration: Högt intrång (t.ex. tvångsåtgärd eller totalt avslag) vid låg risk/svaga bevis
         if (risk === 'GRÖN' && (proposal.toLowerCase().includes('avslag') || proposal.toLowerCase().includes('tvång'))) {
           inconsistencies.push({
             caseIds: [c1.caseId, c1.caseId],
