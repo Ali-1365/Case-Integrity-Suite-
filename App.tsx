@@ -903,7 +903,7 @@ const App: React.FC = () => {
       <OfflineBanner />
       <TopBar
         activeTab={activeTab}
-        onTabChange={handleTabChange}  {/* ← använder handleTabChange */}
+        onTabChange={handleTabChange}  
         onHubOpen={() => setHubOpen(true)}
       />
 
