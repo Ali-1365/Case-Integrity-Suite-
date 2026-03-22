@@ -5,6 +5,7 @@ import { FactV2 as Fact } from '../types';
 import { CISCase as Case } from '../lib/cis.types';
 import { geminiService } from './geminiService';
 import { loggingService } from './loggingService';
+import { ragService } from '../lib/ragService';
 
 // Ny typ för mer granulär lagdata
 interface EnrichedLegalParagraph {
@@ -52,6 +53,10 @@ class LegalAIAgent {
         });
       });
       this.laws = allParagraphs;
+      
+      // Initialize RAG service as well
+      await ragService.initialize();
+      
       loggingService.info(`[AGENT] Initialization complete. Loaded ${this.laws.length} paragraphs.`, {
         duration: Date.now() - startTime
       });
@@ -112,12 +117,9 @@ class LegalAIAgent {
     
     const facts = caseData.activeResult?.facts || [];
     const factsForPrompt = facts.map(f => ({ id: f.id, description: f.statement }));
-    const lawsForPrompt = this.laws.map(p => ({
-      id: p.id,
-      law: p.lawTitle,
-      ref: p.reference || `${p.chapter ? p.chapter + ' kap. ' : ''}${p.section} §`,
-      text: p.text.substring(0, 250) + '...' // Truncate to save tokens
-    }));
+    
+    // Use RAG to get the most relevant legal context
+    const ragResult = await ragService.getContextForText(facts.map(f => f.statement).join(' '), true, caseId);
 
     const userPrompt = `
       **ÄRENDE:** ${caseData.caseId}
@@ -128,10 +130,8 @@ class LegalAIAgent {
       ${JSON.stringify(factsForPrompt, null, 2)}
       \`\`\`
 
-      **TILLGÄNGLIGA LAGRUM:**
-      \`\`\`json
-      ${JSON.stringify(lawsForPrompt, null, 2)}
-      \`\`\`
+      **JURIDISK KONTEXT (RAG):**
+      ${ragResult.context}
 
       Analysera ärendet enligt systeminstruktionerna och generera ett komplett juridiskt yttrande.
     `;

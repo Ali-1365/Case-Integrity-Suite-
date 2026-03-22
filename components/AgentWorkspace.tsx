@@ -4,6 +4,7 @@ import { legalAIAgent } from '../services/LegalAIAgent';
 import { caseManagementService } from '../lib/CaseManagementService';
 import { CISCase as Case } from '../lib/cis.types';
 import { githubService, RepoStatus, SyncHealth } from '../services/githubService';
+import { offlineService } from '../services/offlineService';
 import { 
   XMarkIcon, 
   SparklesIcon, 
@@ -17,7 +18,8 @@ import {
   ClockIcon,
   UserGroupIcon,
   CheckCircleIcon,
-  ExclamationTriangleIcon
+  ExclamationTriangleIcon,
+  BoltIcon
 } from './icons';
 import Card from './shared/Card';
 import MarkdownRenderer from './shared/MarkdownRenderer';
@@ -40,11 +42,19 @@ const AgentWorkspace: React.FC<AgentWorkspaceProps> = ({ isOpen, onClose }) => {
   const [isQuerying, setIsQuerying] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const [activeTab, setActiveTab] = useState<TabType>('analys');
+  const [isOffline, setIsOffline] = useState(offlineService.getIsOffline());
   
   const [repoStatus, setRepoStatus] = useState<RepoStatus | null>(null);
   const [syncHealth, setSyncHealth] = useState<SyncHealth | null>(null);
 
   const activeCase = useMemo(() => cases.find(c => c.caseId === activeCaseId), [cases, activeCaseId]);
+
+  useEffect(() => {
+    const unsubscribe = offlineService.subscribe((offline) => {
+        setIsOffline(offline);
+    });
+    return unsubscribe;
+  }, []);
 
   useEffect(() => {
     if (isOpen) {
@@ -94,7 +104,7 @@ const AgentWorkspace: React.FC<AgentWorkspaceProps> = ({ isOpen, onClose }) => {
         const allCases = await caseManagementService.getAllCases();
         setCases(allCases);
       } catch (e) {
-        setOpinion("Ett fel uppstod vid generering av yttrande.");
+        setOpinion("### Kritiskt fel vid generering\n\nDet gick inte att generera ett yttrande för detta ärende. Kontrollera att ärendet har tillräckligt med data.");
       } finally {
         setIsGenerating(false);
       }
@@ -144,9 +154,9 @@ const AgentWorkspace: React.FC<AgentWorkspaceProps> = ({ isOpen, onClose }) => {
                 <p className="text-[8px] md:text-[10px] text-slate-500 font-medium uppercase tracking-wider">Dynamisk Ärendeanalys</p>
                 <span className="text-[8px] text-slate-300 hidden sm:inline">•</span>
                 <div className="hidden sm:flex items-center space-x-2">
-                    <span className={`flex items-center gap-1 text-[8px] font-bold uppercase ${repoStatus?.isBypassed ? 'text-red-500' : 'text-emerald-500'}`}>
-                        <ShieldCheckIcon className="w-2.5 h-2.5" />
-                        {repoStatus?.isBypassed ? 'BYPASSED' : 'INTEGRITY: OK'}
+                    <span className={`flex items-center gap-1 text-[8px] font-bold uppercase ${isOffline ? 'text-orange-500' : 'text-emerald-500'}`}>
+                        {isOffline ? <ExclamationTriangleIcon className="w-2.5 h-2.5" /> : <ShieldCheckIcon className="w-2.5 h-2.5" />}
+                        {isOffline ? 'OFFLINE_MODE' : 'INTEGRITY: OK'}
                     </span>
                     <span className={`flex items-center gap-1 text-[8px] font-bold uppercase ${syncHealth ? 'text-blue-500' : 'text-slate-400'}`}>
                         <ArrowPathIcon className="w-2.5 h-2.5" />

@@ -3,6 +3,7 @@ import { GoogleGenAI, GenerateContentResponse, GenerateContentParameters, Part, 
 import { loggingService, LogMode } from './loggingService';
 import { getSyntheticResponse } from '../lib/syntheticLLMResponses';
 import { ApiError } from '../lib/errors';
+import { offlineService } from './offlineService';
 
 export interface QuotaState {
     isThrottled: boolean;
@@ -45,6 +46,7 @@ export class GeminiService {
     const apiKey = process.env.GEMINI_API_KEY || process.env.API_KEY;
     if (!apiKey) {
       loggingService.error("System Configuration Error: GEMINI_API_KEY is missing. AI services will be unavailable.");
+      offlineService.setOffline(true, 'API_KEY_MISSING');
       return;
     }
     this.ai = new GoogleGenAI({ apiKey, apiVersion: 'v1beta' } as any);
@@ -87,11 +89,15 @@ export class GeminiService {
           } else {
             this.quotaState.isThrottled = true;
             this.quotaState.lastError = error.message;
+            // Trigger offline mode on persistent quota error
+            offlineService.setOffline(true, 'QUOTA_EXCEEDED');
             throw new ApiError(`Gemini API Error after ${i + 1} attempts: ${error.message}`, { originalError: error });
           }
         } else {
           if (i === retries - 1) {
              this.quotaState.lastError = error.message;
+             // Trigger offline mode on persistent network/other error
+             offlineService.setOffline(true, 'NETWORK_ERROR');
              throw new ApiError(`Gemini API Error after ${i + 1} attempts: ${error.message}`, { originalError: error });
           }
           throw error;
@@ -107,6 +113,15 @@ export class GeminiService {
   ): Promise<string> {
     const startTime = Date.now();
     let modelName = params.model || (mode === 'think' ? this.proModel : this.flashModel);
+
+    // If already offline, use synthetic immediately
+    if (offlineService.getIsOffline()) {
+        loggingService.warn(`[GEMINI] System is OFFLINE. Using synthetic fallback for prompt.`);
+        const prompt = typeof params.contents === 'string' 
+            ? params.contents 
+            : JSON.stringify(params.contents);
+        return getSyntheticResponse(prompt);
+    }
 
     try {
       const client = this.getClient();

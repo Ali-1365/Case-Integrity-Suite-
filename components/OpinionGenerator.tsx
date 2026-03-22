@@ -10,11 +10,12 @@ import { db } from '../lib/db';
 
 interface OpinionGeneratorProps {
   analysis: AnalysisResult;
+  onComplete?: () => void;
 }
 
 type Mode = 'fast' | 'think';
 
-const OpinionGenerator: React.FC<OpinionGeneratorProps> = ({ analysis }) => {
+const OpinionGenerator: React.FC<OpinionGeneratorProps> = ({ analysis, onComplete }) => {
   const [mode, setMode] = useState<Mode>('think');
   const [selectedTemplateId, setSelectedTemplateId] = useState<string>('FMJAM_REPORT_V1');
   const [isGenerating, setIsGenerating] = useState(false);
@@ -177,6 +178,14 @@ const OpinionGenerator: React.FC<OpinionGeneratorProps> = ({ analysis }) => {
         <Card title="Genererat Yttrande" icon={<DocumentTextIcon />}>
           <div className="prose prose-invert prose-p:text-gray-300 prose-headings:text-cyan-400 max-w-none bg-gray-900 p-4 rounded-lg">
              {renderMarkdown(opinionResult.content)}
+          </div>
+          <div className="mt-8 flex justify-end">
+            <button 
+              onClick={onComplete}
+              className="px-6 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-lg font-bold transition-all border border-gray-700"
+            >
+              Stäng
+            </button>
           </div>
         </Card>
       )}

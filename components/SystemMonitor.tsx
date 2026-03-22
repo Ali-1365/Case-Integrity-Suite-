@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { githubService, RepoStatus, SyncHealth } from '../services/githubService';
 import { usageMonitorService, QuotaUsage } from '../services/usageMonitorService';
 import { loggingService } from '../services/loggingService';
+import { offlineService } from '../services/offlineService';
 import { useLogging } from '../hooks/useLogging';
 import { db } from '../lib/db';
 import { 
@@ -20,7 +21,8 @@ import {
     CodeBracketIcon,
     InformationCircleIcon,
     LinkIcon,
-    CheckCircleIcon
+    CheckCircleIcon,
+    SignalIcon
 } from './icons';
 
 interface SystemMonitorProps {
@@ -32,6 +34,7 @@ const SystemMonitor: React.FC<SystemMonitorProps> = ({ isOpen, onClose }) => {
     const [repoStatus, setRepoStatus] = useState<RepoStatus | null>(null);
     const [syncHealth, setSyncHealth] = useState<SyncHealth | null>(null);
     const [quotaUsage, setQuotaUsage] = useState<QuotaUsage | null>(null);
+    const [isOffline, setIsOffline] = useState(offlineService.getIsOffline());
     const { logs, refreshLogs, clearLogs } = useLogging(50);
     const [isRefreshing, setIsRefreshing] = useState(false);
     const [localMetadata, setLocalMetadata] = useState<any>(null);
@@ -50,6 +53,7 @@ const SystemMonitor: React.FC<SystemMonitorProps> = ({ isOpen, onClose }) => {
             setSyncHealth(health);
             setLocalMetadata(metaRes);
             setQuotaUsage(usageMonitorService.getUsage());
+            setIsOffline(offlineService.getIsOffline());
             refreshLogs();
         } catch (error) {
             console.error("Failed to refresh system monitor data:", error);
@@ -77,16 +81,29 @@ const SystemMonitor: React.FC<SystemMonitorProps> = ({ isOpen, onClose }) => {
         refreshData().catch(err => console.error("Failed to refresh data after deactivating bypass:", err));
     };
 
+    const toggleOffline = () => {
+        const newOffline = !isOffline;
+        offlineService.setOffline(newOffline, newOffline ? 'MANUAL' : null);
+        setIsOffline(newOffline);
+    };
+
     useEffect(() => {
         if (isOpen) {
             refreshData().catch(err => console.error("Failed to refresh data on open:", err));
         }
     }, [isOpen]);
 
+    useEffect(() => {
+        const unsubscribe = offlineService.subscribe((offline) => {
+            setIsOffline(offline);
+        });
+        return unsubscribe;
+    }, []);
+
     if (!isOpen) return null;
 
     const isSyncOk = syncHealth && localMetadata && syncHealth.remoteSyncId === localMetadata.sync_id;
-    const isOffline = repoStatus?.errorContext === 'API_GATEWAY_DOWN';
+    const isOfflineGateway = repoStatus?.errorContext === 'API_GATEWAY_DOWN' || isOffline;
     const isBypassed = repoStatus?.isBypassed;
 
     return (
@@ -94,19 +111,26 @@ const SystemMonitor: React.FC<SystemMonitorProps> = ({ isOpen, onClose }) => {
             
             <header className="px-8 py-6 border-b border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 flex justify-between items-center relative overflow-hidden">
                     <div className="flex items-center space-x-4 relative z-10">
-                        <div className={`p-2.5 rounded-xl border ${isOffline ? 'bg-orange-50 border-orange-200' : 'bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700'}`}>
-                            <BoltIcon className={`h-6 w-6 ${isOffline ? 'text-orange-600 animate-pulse' : 'text-slate-600 dark:text-slate-400'}`} />
+                        <div className={`p-2.5 rounded-xl border ${isOfflineGateway ? 'bg-orange-50 border-orange-200' : 'bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700'}`}>
+                            <BoltIcon className={`h-6 w-6 ${isOfflineGateway ? 'text-orange-600 animate-pulse' : 'text-slate-600 dark:text-slate-400'}`} />
                         </div>
                         <div>
                             <h2 className="text-lg font-semibold text-slate-900 dark:text-white tracking-tight">System Oracle Monitor</h2>
-                            <p className={`text-xs mt-0.5 flex items-center ${isOffline ? 'text-orange-600' : 'text-slate-500'}`}>
-                                <span className={`w-1.5 h-1.5 rounded-full mr-2 ${isOffline ? 'bg-orange-600 animate-ping' : 'bg-emerald-600'}`}></span>
-                                {isBypassed ? 'SÄKERHETSBypass AKTIV' : (isOffline ? 'Gateway-förbindelse förlorad' : 'GitHub-länk: Stabil')}
+                            <p className={`text-xs mt-0.5 flex items-center ${isOfflineGateway ? 'text-orange-600' : 'text-slate-500'}`}>
+                                <span className={`w-1.5 h-1.5 rounded-full mr-2 ${isOfflineGateway ? 'bg-orange-600 animate-ping' : 'bg-emerald-600'}`}></span>
+                                {isOffline ? 'OFFLINE-LÄGE AKTIVT' : (isBypassed ? 'SÄKERHETSBypass AKTIV' : (isOfflineGateway ? 'Gateway-förbindelse förlorad' : 'GitHub-länk: Stabil'))}
                             </p>
                         </div>
                     </div>
 
                     <div className="flex items-center space-x-3 relative z-10">
+                        <button 
+                            onClick={toggleOffline}
+                            className={`flex items-center space-x-2 px-3 py-1.5 rounded-lg border text-xs font-bold transition-all ${isOffline ? 'bg-orange-600 text-white border-orange-700' : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700'}`}
+                        >
+                            <SignalIcon className="h-3.5 w-3.5" />
+                            <span>{isOffline ? 'GÅ ONLINE' : 'GÅ OFFLINE'}</span>
+                        </button>
                         <button 
                             onClick={() => refreshData().catch(err => console.error("Manual refresh failed:", err))}
                             disabled={isRefreshing}
@@ -124,7 +148,7 @@ const SystemMonitor: React.FC<SystemMonitorProps> = ({ isOpen, onClose }) => {
                 <main className="flex-grow overflow-y-auto p-6 space-y-6 custom-scrollbar bg-slate-50 dark:bg-slate-950/20">
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                        <StatusCard label="Gateway API" status={isBypassed ? 'BYPASSED' : (isOffline ? 'UNREACHABLE' : 'STABLE')} color={isOffline ? 'red' : 'green'} details={repoStatus?.errorContext || 'READY'} />
+                        <StatusCard label="Gateway API" status={isOffline ? 'OFFLINE' : (isBypassed ? 'BYPASSED' : (isOfflineGateway ? 'UNREACHABLE' : 'STABLE'))} color={isOfflineGateway ? 'red' : 'green'} details={isOffline ? 'MANUAL_OVERRIDE' : (repoStatus?.errorContext || 'READY')} />
                         <StatusCard label="Data Sync" status={isSyncOk ? 'ALIGNED' : 'CONFLICT'} color={isSyncOk ? 'green' : 'red'} details={syncHealth?.remoteSyncId?.substring(0,10) || 'LOCAL_ONLY'} />
                         <StatusCard 
                             label="API Quota (RPM)" 

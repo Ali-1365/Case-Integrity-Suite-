@@ -35,21 +35,16 @@ export function startApp() {
   
   const container = document.getElementById("root");
   if (!container) {
-    console.error("FATAL: Root container #root saknas i DOM. Synkroniseringsfel i index.html?");
+    console.error("FATAL: Root container #root saknas i DOM.");
     return;
   }
 
-  // Check if root already exists to prevent "already been passed to createRoot()" error
-  const root = (container as any)._reactRoot || createRoot(container);
-  if (!(container as any)._reactRoot) {
-    (container as any)._reactRoot = root;
+  console.log("FMJAM_STARTUP: Rendering App...");
+  try {
+    const root = createRoot(container);
+    root.render(<App />);
+    console.log("FMJAM_STARTUP: Render call completed.");
+  } catch (err) {
+    console.error("React Root Initialization Error:", err);
   }
-
-  root.render(
-    <React.StrictMode>
-      <AppErrorBoundary>
-        <App />
-      </AppErrorBoundary>
-    </React.StrictMode>
-  );
 }

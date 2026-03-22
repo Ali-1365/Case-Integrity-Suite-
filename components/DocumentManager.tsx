@@ -180,7 +180,12 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
 
             setPipelineStatus(prev => ({ ...prev, currentStep: 'Slutför analys...', progress: 80 }));
 
-            // 3. Uppdatera dokumentet med analysresultat
+            // 3. Uppdatera ärendet med analysresultat
+            if (analysisResult.decisionSupport) {
+                await caseManagementService.updateCaseWithResult(caseId, analysisResult.decisionSupport, 'Automatisk systemanalys');
+            }
+
+            // 4. Uppdatera dokumentet med analysresultat
             const updatedDoc: StoredDocument = {
                 id: doc.id || `DOC-${Date.now()}`,
                 name: doc.name,
@@ -586,10 +591,37 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                             </button>
                         </header>
                         <div className="flex-1 overflow-y-auto p-12 custom-scrollbar bg-white dark:bg-slate-950">
+                            {/* Moduler som kräver en aktiv analys/ärende */}
+                            {!currentAnalysis && ['production', 'opinion', 'duel', 'integrity', 'pipeline', 'profiler', 'controller', 'oracle'].includes(activeModal || '') && (
+                                <div className="h-full flex flex-col items-center justify-center text-center p-12 bg-slate-50 dark:bg-slate-950/20 rounded-[3rem] border-2 border-dashed border-slate-200 dark:border-slate-800">
+                                    <div className="w-24 h-24 bg-blue-50 dark:bg-blue-900/20 rounded-[2rem] flex items-center justify-center mb-8 border border-blue-100 dark:border-blue-800">
+                                        <DocumentTextIcon className="w-12 h-12 text-blue-500" />
+                                    </div>
+                                    <h3 className="text-2xl font-black text-slate-900 dark:text-white uppercase italic tracking-tight mb-4">Inget aktivt ärende</h3>
+                                    <p className="text-slate-500 dark:text-slate-400 max-w-md mb-10 font-medium">
+                                        Denna modul kräver ett aktivt ärende för att fungera. Vänligen välj ett ärende från arkivet eller skapa ett nytt i analysvyn.
+                                    </p>
+                                    <div className="flex gap-4">
+                                        <button 
+                                            onClick={() => setActiveModal('archive')}
+                                            className="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl text-xs font-black uppercase tracking-widest transition-all shadow-xl shadow-blue-500/20 active:scale-95"
+                                        >
+                                            Öppna Arkiv
+                                        </button>
+                                        <button 
+                                            onClick={() => setActiveModal(null)}
+                                            className="px-8 py-4 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-2xl text-xs font-black uppercase tracking-widest transition-all border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700"
+                                        >
+                                            Avbryt
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+
                             {activeModal === 'hub' && <SystemHub onNavigate={(view) => setActiveModal(view)} />}
                             {activeModal === 'ekonomi' && <EconomicDashboard />}
                             {activeModal === 'production' && <LegalTextProductionModule />}
-                            {activeModal === 'opinion' && currentAnalysis && <OpinionGenerator analysis={currentAnalysis} />}
+                            {activeModal === 'opinion' && currentAnalysis && <OpinionGenerator analysis={currentAnalysis} onComplete={() => setActiveModal(null)} />}
                             {activeModal === 'duel' && currentAnalysis && selectedDoc && <AdversarialDuelView caseData={selectedDoc.textContent} caseId={currentAnalysis.caseId} />}
                             {activeModal === 'integrity' && currentAnalysis && <ForensicIntegrityView analysis={currentAnalysis} />}
                             {activeModal === 'pipeline' && currentAnalysis && <LegalPipelineView analysis={currentAnalysis} />}
@@ -608,20 +640,6 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                             {activeModal === 'monitor' && <SystemMonitor isOpen={true} onClose={() => setActiveModal(null)} />}
                             {activeModal === 'inventory' && <SystemInventory isOpen={true} onClose={() => setActiveModal(null)} />}
                             {activeModal === 'profiler' && activeCase && <CaseProfiler caseData={activeCase} />}
-                            
-                            {!currentAnalysis && ['opinion', 'duel', 'integrity', 'audit', 'agent', 'debug', 'controller', 'sfb', 'profiler'].includes(activeModal || '') && (
-                                <div className="h-full flex flex-col items-center justify-center text-center p-12">
-                                    <ExclamationTriangleIcon className="w-16 h-16 text-amber-500 mb-6" />
-                                    <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">Inget ärende valt</h3>
-                                    <p className="text-slate-500 max-w-md">Denna modul kräver ett aktivt ärende. Vänligen välj ett ärende i arkivet eller ladda upp ett nytt dokument för analys.</p>
-                                    <button 
-                                        onClick={() => setActiveModal('arch')}
-                                        className="mt-8 bg-cyan-600 hover:bg-cyan-500 text-white px-6 py-3 rounded-2xl font-bold transition-all"
-                                    >
-                                        Gå till Arkivet
-                                    </button>
-                                </div>
-                            )}
                         </div>
                     </div>
                 </div>

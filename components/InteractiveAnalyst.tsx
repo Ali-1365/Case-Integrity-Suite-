@@ -1,7 +1,9 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { geminiService } from '../services/geminiService';
+import { ragService } from '../lib/ragService';
 import { AnalysisResult } from '../lib/cis.types';
+import { offlineService } from '../services/offlineService';
 import { 
     ChatIcon, 
     PaperAirplaneIcon, 
@@ -12,7 +14,10 @@ import {
     BoltIcon,
     MagnifyingGlassIcon,
     ActivityIcon,
-    CpuChipIcon
+    CpuChipIcon,
+    CheckCircleIcon,
+    ClockIcon,
+    ExclamationTriangleIcon
 } from './icons';
 import MarkdownRenderer from './shared/MarkdownRenderer';
 
@@ -22,11 +27,14 @@ interface Message {
     timestamp: Date;
 }
 
+type AnalysisStatus = 'IDLE' | 'INITIERAT' | 'ANALYSERAR' | 'SLUTFÖRT' | 'ERROR';
+
 interface InteractiveAnalystProps {
     analysis: AnalysisResult;
 }
 
 export const InteractiveAnalyst: React.FC<InteractiveAnalystProps> = ({ analysis }) => {
+    const [isOffline, setIsOffline] = useState(offlineService.getIsOffline());
     const [messages, setMessages] = useState<Message[]>([
         {
             role: 'assistant',
@@ -36,6 +44,8 @@ export const InteractiveAnalyst: React.FC<InteractiveAnalystProps> = ({ analysis
     ]);
     const [input, setInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const [analysisStatus, setAnalysisStatus] = useState<AnalysisStatus>('IDLE');
+    const [statusMessage, setStatusMessage] = useState('');
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
     const scrollToBottom = () => {
@@ -45,6 +55,81 @@ export const InteractiveAnalyst: React.FC<InteractiveAnalystProps> = ({ analysis
     useEffect(() => {
         scrollToBottom();
     }, [messages]);
+
+    useEffect(() => {
+        const unsubscribe = offlineService.subscribe((offline) => {
+            setIsOffline(offline);
+        });
+        return unsubscribe;
+    }, []);
+
+    const handleGenerateOpinion = async () => {
+        if (isLoading) return;
+        
+        setIsLoading(true);
+        setAnalysisStatus('INITIERAT');
+        setStatusMessage(isOffline ? 'Initierar lokal analys (OFFLINE)...' : 'Initierar juridisk analys...');
+        
+        try {
+            // 1. Hämta kontext via RAG
+            setAnalysisStatus('ANALYSERAR');
+            setStatusMessage(isOffline ? 'Söker i lokalt ramverk (RAG)...' : 'Söker i juridiskt ramverk (RAG)...');
+            const ragResult = await ragService.getContextForText(analysis.facts.map(f => f.statement).join(' '), true, analysis.caseId);
+            
+            setStatusMessage(isOffline ? 'Genererar yttrande via lokal motor...' : 'Genererar juridiskt yttrande via Gemini...');
+            const systemPrompt = `
+                DU ÄR FMJAM INTERACTIVE ANALYST v.2.0.
+                DIN UPPGIFT ÄR ATT GENERERA ETT JURIDISKT YTTRANDE BASERAT PÅ FÖLJANDE DATA:
+                
+                ÄRENDE_ID: ${analysis.caseId}
+                FAKTA_ATOMER: ${JSON.stringify(analysis.facts)}
+                LAGRUM_FRÅN_ANALYS: ${JSON.stringify(analysis.legalReferences)}
+                TEMAN: ${JSON.stringify(analysis.themes)}
+                
+                JURIDISK KONTEXT (RAG):
+                ${ragResult.context}
+                
+                INSTRUKTIONER:
+                1. Producera ett formellt juridiskt yttrande.
+                2. Strukturera med rubriker: Inledning, Rättslig bedömning, Slutsats.
+                3. Hänvisa till specifika lagrum och faktaatomer.
+                4. Var proaktiv i att identifiera myndighetsbrister.
+                5. Använd Markdown.
+                ${isOffline ? '6. NOTERA: Detta svar är genererat i OFFLINE-LÄGE och kan sakna den senaste AI-precisionen.' : ''}
+            `;
+
+            const response = await geminiService.generate({
+                contents: `Generera ett fullständigt juridiskt yttrande för ärende ${analysis.caseId}.`,
+                config: {
+                    systemInstruction: systemPrompt,
+                    temperature: 0.1,
+                    thinkingConfig: { thinkingBudget: 16384 }
+                }
+            }, 'think');
+
+            const assistantMessage: Message = {
+                role: 'assistant',
+                content: response,
+                timestamp: new Date()
+            };
+
+            setMessages(prev => [...prev, assistantMessage]);
+            setAnalysisStatus('SLUTFÖRT');
+            setStatusMessage(isOffline ? 'Lokal analys slutförd.' : 'Analys slutförd.');
+        } catch (error) {
+            console.error("Opinion generation failed:", error);
+            setAnalysisStatus('ERROR');
+            setStatusMessage('Ett fel uppstod vid generering.');
+            setMessages(prev => [...prev, {
+                role: 'assistant',
+                content: "Kunde inte generera yttrandet. Kontrollera systemloggarna.",
+                timestamp: new Date()
+            }]);
+        } finally {
+            setIsLoading(false);
+            setTimeout(() => setAnalysisStatus('IDLE'), 3000);
+        }
+    };
 
     const handleSend = async () => {
         if (!input.trim() || isLoading) return;
@@ -75,6 +160,7 @@ export const InteractiveAnalyst: React.FC<InteractiveAnalystProps> = ({ analysis
                 3. Om användaren frågar om något som inte finns i datan, var tydlig med det.
                 4. Använd Markdown för att formatera dina svar.
                 5. Fokusera på bevisvärdering och juridisk logik.
+                ${isOffline ? '6. NOTERA: Detta svar är genererat i OFFLINE-LÄGE.' : ''}
             `;
 
             const response = await geminiService.generate({
@@ -156,6 +242,38 @@ export const InteractiveAnalyst: React.FC<InteractiveAnalystProps> = ({ analysis
                             </div>
                         </div>
 
+                        <div className="space-y-3">
+                            <button 
+                                onClick={handleGenerateOpinion}
+                                disabled={isLoading}
+                                className="w-full py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-xl font-black text-xs uppercase tracking-widest flex items-center justify-center gap-3 shadow-xl shadow-blue-500/20 transition-all active:scale-95 disabled:opacity-50"
+                            >
+                                {isLoading ? <Spinner className="w-4 h-4" /> : <SparklesIcon className="w-4 h-4" />}
+                                Generera Yttrande
+                            </button>
+
+                            {analysisStatus !== 'IDLE' && (
+                                <div className="p-4 bg-blue-500/5 border border-blue-500/20 rounded-xl animate-in fade-in slide-in-from-top-2">
+                                    <div className="flex items-center gap-3 mb-2">
+                                        {analysisStatus === 'SLUTFÖRT' ? (
+                                            <CheckCircleIcon className="w-4 h-4 text-emerald-500" />
+                                        ) : analysisStatus === 'ERROR' ? (
+                                            <ShieldCheckIcon className="w-4 h-4 text-rose-500" />
+                                        ) : (
+                                            <ClockIcon className="w-4 h-4 text-blue-500 animate-spin" />
+                                        )}
+                                        <span className={`text-[10px] font-bold uppercase tracking-wider ${
+                                            analysisStatus === 'SLUTFÖRT' ? 'text-emerald-500' : 
+                                            analysisStatus === 'ERROR' ? 'text-rose-500' : 'text-blue-500'
+                                        }`}>
+                                            {analysisStatus}
+                                        </span>
+                                    </div>
+                                    <p className="text-[10px] text-gray-400 font-medium">{statusMessage}</p>
+                                </div>
+                            )}
+                        </div>
+
                         <div className="p-4 bg-amber-500/5 border border-amber-500/20 rounded-xl">
                             <div className="flex items-center gap-2 mb-2">
                                 <ShieldCheckIcon className="w-4 h-4 text-amber-500" />
@@ -190,8 +308,10 @@ export const InteractiveAnalyst: React.FC<InteractiveAnalystProps> = ({ analysis
                         <div>
                             <h3 className="font-bold text-gray-100 text-sm uppercase tracking-wider">Interactive Analyst</h3>
                             <div className="flex items-center gap-1.5">
-                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                                <span className="text-[9px] font-mono text-emerald-500 uppercase font-bold">Session Aktiv</span>
+                                <span className={`w-1.5 h-1.5 rounded-full ${isOffline ? 'bg-orange-500' : 'bg-emerald-500 animate-pulse'}`}></span>
+                                <span className={`text-[9px] font-mono uppercase font-bold ${isOffline ? 'text-orange-500' : 'text-emerald-500'}`}>
+                                    {isOffline ? 'Offline-Läge' : 'Session Aktiv'}
+                                </span>
                             </div>
                         </div>
                     </div>
