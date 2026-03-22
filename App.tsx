@@ -1,32 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
-// ─────────────────────────────────────────────
-//  OFFLINE BANNER
-// ─────────────────────────────────────────────
-const OfflineBanner: React.FC = () => {
-  const [isOffline, setIsOffline] = useState((window as any).OFFLINE_MODE === true);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIsOffline((window as any).OFFLINE_MODE === true);
-    }, 2000);
-    return () => clearInterval(interval);
-  }, []);
-
-  if (!isOffline) return null;
-
-  return (
-    <div style={{
-      position: 'fixed', top: 0, left: 0, right: 0, zIndex: 9999,
-      background: '#f59e0b', color: '#000', padding: '6px 16px',
-      fontSize: '13px', fontWeight: 500, textAlign: 'center',
-      display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px'
-    }}>
-      <span>⚠</span>
-      <span>OFFLINE-LÄGE — API-kvot slut eller nyckel saknas. AI-funktioner inaktiverade. Lokala funktioner fungerar normalt.</span>
-    </div>
-  );
-};
+import OfflineBanner from './components/OfflineBanner';
 
 // ─────────────────────────────────────────────
 //  BOOT SCREEN
@@ -821,21 +795,54 @@ const AnalysView: React.FC = () => {
 };
 
 // ─────────────────────────────────────────────
-//  BESLUT-VY  (oförändrad)
+//  BESLUT-VY
 // ─────────────────────────────────────────────
 const BeslutView: React.FC = () => {
   const isOffline = (window as any).OFFLINE_MODE === true;
   const [fraga, setFraga] = useState('');
+  const [svar, setSvar] = useState('');
+  const [laddar, setLaddar] = useState(false);
+
+  const handleSubmit = async () => {
+    if (isOffline || !fraga.trim() || laddar) return;
+    setLaddar(true);
+    setSvar('');
+    try {
+      const { geminiService } = await import('./services/geminiService');
+      const response = await geminiService.generate({
+        contents: fraga,
+        config: {
+          systemInstruction: "Du är en svensk juridisk rådgivare. Svara professionellt med hänvisningar till svenska lagrum."
+        }
+      });
+      setSvar(response);
+    } catch (error) {
+      console.error(error);
+      setSvar("Ett fel uppstod vid kommunikation med AI-motorn.");
+    } finally {
+      setLaddar(false);
+    }
+  };
+
   return (
     <div className="p-6 max-w-3xl mx-auto">
       <h1 className="text-xl font-bold text-slate-900 mb-1">Beslutsmotor</h1>
       <p className="text-xs text-slate-400 mb-6">Interaktiv AI-rådgivare för komplexa juridiska frågeställningar</p>
-      <div className="bg-white border border-slate-200 rounded-xl p-4">
-        <textarea className="w-full border border-slate-200 rounded-lg p-3 text-sm resize-none h-32 focus:outline-none focus:border-blue-400" placeholder="Ställ din juridiska fråga här..." value={fraga} onChange={e => setFraga(e.target.value)} disabled={isOffline} />
-        <button disabled={isOffline || !fraga.trim()} className="mt-3 w-full bg-blue-600 text-white rounded-lg py-2 text-sm font-medium hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-          {isOffline ? '⚠ Kräver API — offline-läge aktivt' : 'Analysera fråga'}
+      <div className="bg-white border border-slate-200 rounded-xl p-4 mb-4">
+        <textarea className="w-full border border-slate-200 rounded-lg p-3 text-sm resize-none h-32 focus:outline-none focus:border-blue-400" placeholder="Ställ din juridiska fråga här..." value={fraga} onChange={e => setFraga(e.target.value)} disabled={isOffline || laddar} />
+        <button onClick={handleSubmit} disabled={isOffline || !fraga.trim() || laddar} className="mt-3 w-full bg-blue-600 text-white rounded-lg py-2 text-sm font-medium hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center">
+          {laddar ? <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span> : isOffline ? '⚠ Kräver API — offline-läge aktivt' : 'Analysera fråga'}
         </button>
       </div>
+      {svar && (
+        <div className="bg-white border border-slate-200 rounded-xl p-4">
+          <h3 className="text-sm font-semibold text-slate-700 mb-3 flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-blue-500 inline-block" />
+            Svar från Beslutsmotor
+          </h3>
+          <div className="text-sm text-slate-700 whitespace-pre-wrap">{svar}</div>
+        </div>
+      )}
     </div>
   );
 };
@@ -858,7 +865,7 @@ const ProduktionView: React.FC = () => {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {['Stämningsansökan', 'Svaromål', 'Överklagande', 'Yttrande'].map(dok => (
-            <button key={dok} className="bg-white border border-slate-200 rounded-xl p-4 text-left hover:border-blue-300 hover:bg-blue-50 transition-all">
+            <button key={dok} onClick={() => alert(`Genererar ${dok}... (Denna funktion kräver full integration med produktionsmotorn)`)} className="bg-white border border-slate-200 rounded-xl p-4 text-left hover:border-blue-300 hover:bg-blue-50 transition-all">
               <div className="text-sm font-semibold text-slate-900 mb-1">{dok}</div>
               <div className="text-xs text-slate-400">Generera {dok.toLowerCase()} med AI-stöd</div>
             </button>
@@ -903,6 +910,7 @@ const App: React.FC = () => {
       <OfflineBanner />
       <TopBar
         activeTab={activeTab}
+        onTabChange={handleTabChange}
         onTabChange={handleTabChange}  
         onHubOpen={() => setHubOpen(true)}
       />
@@ -914,6 +922,7 @@ const App: React.FC = () => {
           else if (mod === 'arkiv')      { handleTabChange('arkiv'); }
           else if (mod === 'beslut')     { handleTabChange('beslut'); }
           else if (mod === 'produktion') { handleTabChange('produktion'); }
+          else { console.warn(`[Navigering] Modul '${mod}' är inte ansluten till en aktiv flik ännu.`); }
         }} />}
         {activeTab === 'analys'     && <AnalysView />}
         {activeTab === 'ekonomi'    && <EkonomiView />}

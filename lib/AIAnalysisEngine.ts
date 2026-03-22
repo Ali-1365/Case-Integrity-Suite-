@@ -221,7 +221,7 @@ export class AIAnalysisEngine {
             responseMimeType: "application/json",
           },
         },
-        'pro'
+        'think'
       );
 
       const parsed = JSON.parse(res);
@@ -299,7 +299,7 @@ export class AIAnalysisEngine {
             responseMimeType: "application/json",
           },
         },
-        'pro'
+        'think'
       );
 
       const parsed = JSON.parse(res);
@@ -344,7 +344,7 @@ export class AIAnalysisEngine {
           contents: "Svara med ordet OK.",
           config: { responseMimeType: "text/plain" },
         },
-        'flash'
+        'fast'
       );
       const latencyMs = Date.now() - start;
       (window as any).OFFLINE_MODE = false;

@@ -152,6 +152,26 @@ export const LegalPipelineView: React.FC<LegalPipelineViewProps> = ({ analysis }
                                 </div>
                             )}
                         </div>
+                        <div className="p-4 border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/20 flex justify-end">
+                            {state?.reports && state.reports.every(r => r.status === 'completed' || r.status === 'blocked') ? (
+                                state.riskLevel === 'HIGH' ? (
+                                    <button disabled className="px-4 py-2 rounded-lg bg-gray-200 text-gray-500 font-bold text-xs flex items-center gap-2 cursor-not-allowed">
+                                        <AlertIcon className="w-4 h-4" />
+                                        Export blockerad — hög processuell risk
+                                    </button>
+                                ) : (
+                                    <button className="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-2 shadow-sm transition-colors">
+                                        <PrinterIcon className="w-4 h-4" />
+                                        Exportera Dokument
+                                    </button>
+                                )
+                            ) : (
+                                <button disabled className="px-4 py-2 rounded-lg bg-gray-100 text-gray-400 font-bold text-xs flex items-center gap-2 cursor-not-allowed">
+                                    <PrinterIcon className="w-4 h-4" />
+                                    Exportera Dokument
+                                </button>
+                            )}
+                        </div>
                         <div className="flex-1 p-6 overflow-y-auto font-mono text-sm">
                             {expandedStep ? (
                                 <div className="prose prose-slate dark:prose-invert max-w-none">
