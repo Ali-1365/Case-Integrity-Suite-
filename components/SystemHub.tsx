@@ -78,6 +78,9 @@ const ModuleCard: React.FC<ModuleCardProps> = ({ title, description, icon, statu
     </button>
 );
 
+import { db } from '../lib/db';
+import { geminiService } from '../services/geminiService';
+
 interface SystemHubProps {
     onNavigate: (view: string) => void;
 }
@@ -85,6 +88,16 @@ interface SystemHubProps {
 export const SystemHub: React.FC<SystemHubProps> = ({ onNavigate }) => {
     const [searchQuery, setSearchQuery] = useState('');
     const [activeCategory, setActiveCategory] = useState<string | null>(null);
+    const [docCount, setDocCount] = useState(0);
+    const [apiStatus, setApiStatus] = useState<'OK' | 'THROTTLED' | 'ERROR'>('OK');
+
+    React.useEffect(() => {
+        db.getAllDocuments().then(docs => setDocCount(docs.length)).catch(() => {});
+        const quota = geminiService.quotaState;
+        if (quota.isThrottled) setApiStatus('THROTTLED');
+        else if (quota.lastError) setApiStatus('ERROR');
+        else setApiStatus('OK');
+    }, []);
 
     const modules = useMemo(() => [
         {
@@ -296,14 +309,21 @@ export const SystemHub: React.FC<SystemHubProps> = ({ onNavigate }) => {
 
                     <div className="flex flex-wrap gap-4">
                         <div className="px-6 py-4 rounded-3xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 flex items-center gap-4 shadow-sm">
-                            <div className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_12px_rgba(16,185,129,0.4)]"></div>
+                            <div className={`w-3 h-3 rounded-full animate-pulse shadow-lg ${apiStatus === 'OK' ? 'bg-emerald-500 shadow-emerald-500/40' : apiStatus === 'THROTTLED' ? 'bg-amber-500 shadow-amber-500/40' : 'bg-rose-500 shadow-rose-500/40'}`}></div>
                             <div>
-                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Systemstatus</p>
-                                <p className="text-sm font-bold text-slate-900 dark:text-white">Operativ & Säkrad</p>
+                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">API Status</p>
+                                <p className="text-sm font-bold text-slate-900 dark:text-white">{apiStatus === 'OK' ? 'OPERATIV' : apiStatus === 'THROTTLED' ? 'RATE LIMITED' : 'FEL'}</p>
                             </div>
                         </div>
                         <div className="px-6 py-4 rounded-3xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 flex items-center gap-4 shadow-sm">
-                            <ShieldCheckIcon className="h-6 w-6 text-blue-500" />
+                            <DocumentTextIcon className="h-6 w-6 text-blue-500" />
+                            <div>
+                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Ärenden i Databas</p>
+                                <p className="text-sm font-bold text-slate-900 dark:text-white">{docCount} st</p>
+                            </div>
+                        </div>
+                        <div className="px-6 py-4 rounded-3xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 flex items-center gap-4 shadow-sm hidden md:flex">
+                            <ShieldCheckIcon className="h-6 w-6 text-indigo-500" />
                             <div>
                                 <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Säkerhetsnivå</p>
                                 <p className="text-sm font-bold text-slate-900 dark:text-white">FMJAM-LOCKED</p>
