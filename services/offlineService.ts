@@ -1,57 +1,74 @@
-
-import { loggingService } from './loggingService';
-
-export type OfflineReason = 'QUOTA_EXCEEDED' | 'NETWORK_ERROR' | 'API_KEY_MISSING' | 'MANUAL';
+export type OfflineReason = 'QUOTA_EXCEEDED' | 'NETWORK_ERROR' | 'API_KEY_MISSING' | 'MANUAL' | null;
 
 class OfflineService {
-    private isOffline: boolean = false;
-    private reason: OfflineReason | null = null;
-    private listeners: ((isOffline: boolean, reason: OfflineReason | null) => void)[] = [];
+  private _isOffline: boolean = false;
+  private _reason: OfflineReason = null;
+  private _subscribers: ((offline: boolean, reason: OfflineReason) => void)[] = [];
 
-    constructor() {
-        // Check if we were offline in previous session (optional, maybe better to start fresh)
-        const saved = localStorage.getItem('cis_offline_mode');
-        if (saved === 'true') {
-            this.isOffline = true;
-            this.reason = 'MANUAL';
-        }
+  constructor() {
+    this.syncFromWindow();
+
+    // Listen for manual changes to window.OFFLINE_MODE if any other script modifies it
+    if (typeof window !== 'undefined') {
+      const originalSetItem = localStorage.setItem;
+      // We can periodically sync or just rely on our own setOffline method.
+      // For full bidirectionality, let's add a setter to window if possible, but
+      // for now, we'll initialize from window state.
+      setInterval(() => {
+        this.syncFromWindow();
+      }, 1000);
+    }
+  }
+
+  private syncFromWindow() {
+    if (typeof window !== 'undefined') {
+      const winOffline = (window as any).OFFLINE_MODE;
+      const winReason = (window as any).OFFLINE_REASON;
+
+      if (winOffline !== undefined && winOffline !== this._isOffline) {
+        this._isOffline = winOffline;
+        this._reason = winReason || null;
+        this.notifySubscribers();
+      }
+    }
+  }
+
+  public setOffline(offline: boolean, reason: OfflineReason = null): void {
+    if (this._isOffline === offline && this._reason === reason) return;
+
+    this._isOffline = offline;
+    this._reason = reason;
+
+    if (typeof window !== 'undefined') {
+      (window as any).OFFLINE_MODE = offline;
+      (window as any).OFFLINE_REASON = reason;
     }
 
-    public setOffline(offline: boolean, reason: OfflineReason | null = null) {
-        if (this.isOffline === offline && this.reason === reason) return;
-        
-        this.isOffline = offline;
-        this.reason = offline ? reason : null;
-        
-        if (offline) {
-            loggingService.warn(`[OFFLINE] Systemet har växlat till OFFLINE-LÄGE. Orsak: ${reason}`);
-            localStorage.setItem('cis_offline_mode', 'true');
-        } else {
-            loggingService.info(`[OFFLINE] Systemet är nu ONLINE.`);
-            localStorage.removeItem('cis_offline_mode');
-        }
+    this.notifySubscribers();
+  }
 
-        this.notify();
-    }
+  public getIsOffline(): boolean {
+    return this._isOffline;
+  }
 
-    public getIsOffline(): boolean {
-        return this.isOffline;
-    }
+  public getReason(): OfflineReason {
+    return this._reason;
+  }
 
-    public getReason(): OfflineReason | null {
-        return this.reason;
-    }
+  public subscribe(listener: (isOffline: boolean, reason: OfflineReason) => void): () => void {
+    this._subscribers.push(listener);
+    // Immediately call listener with current state
+    listener(this._isOffline, this._reason);
 
-    public subscribe(listener: (isOffline: boolean, reason: OfflineReason | null) => void) {
-        this.listeners.push(listener);
-        return () => {
-            this.listeners = this.listeners.filter(l => l !== listener);
-        };
-    }
+    return () => {
+      this._subscribers = this._subscribers.filter(l => l !== listener);
+    };
+  }
 
-    private notify() {
-        this.listeners.forEach(l => l(this.isOffline, this.reason));
-    }
+  private notifySubscribers() {
+    this._subscribers.forEach(l => l(this._isOffline, this._reason));
+  }
 }
 
 export const offlineService = new OfflineService();
+export default offlineService;

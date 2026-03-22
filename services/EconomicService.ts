@@ -1,6 +1,7 @@
 
 import { Payment, Invoice, DamagesClaim, BudgetForecast, EconomicState, DamageComponent } from '../lib/economic.types';
 import { geminiService } from './geminiService';
+import { db } from '../lib/db';
 
 /**
  * EconomicService v.1.1-GOLD
@@ -16,8 +17,22 @@ export class EconomicService {
   };
 
   constructor() {
-    // Initialisera med exempeldata om det behövs
-    this.initializeMockData();
+    // Attempt to load from IndexedDB first
+    this.loadState().catch(err => console.error("Could not load economic state", err));
+  }
+
+  private async loadState() {
+    const savedState = await db.getEconomicState('main_state');
+    if (savedState) {
+      this.state = savedState;
+    } else {
+      this.initializeMockData();
+      await this.persistState();
+    }
+  }
+
+  private async persistState() {
+    await db.saveEconomicState('main_state', this.state);
   }
 
   private initializeMockData() {
@@ -81,8 +96,9 @@ export class EconomicService {
     return this.state.payments;
   }
 
-  addPayment(payment: Payment) {
+  async addPayment(payment: Payment) {
     this.state.payments = [payment, ...this.state.payments];
+    await this.persistState();
   }
 
   // --- Fakturahantering ---
@@ -90,14 +106,16 @@ export class EconomicService {
     return this.state.invoices;
   }
 
-  addInvoice(invoice: Invoice) {
+  async addInvoice(invoice: Invoice) {
     this.state.invoices = [invoice, ...this.state.invoices];
+    await this.persistState();
   }
 
-  updateInvoiceStatus(id: string, status: Invoice['status']) {
+  async updateInvoiceStatus(id: string, status: Invoice['status']) {
     const invoice = this.state.invoices.find(i => i.id === id);
     if (invoice) {
       invoice.status = status;
+      await this.persistState();
     }
   }
 
@@ -106,14 +124,16 @@ export class EconomicService {
     return this.state.claims;
   }
 
-  addClaim(claim: DamagesClaim) {
+  async addClaim(claim: DamagesClaim) {
     this.state.claims = [claim, ...this.state.claims];
+    await this.persistState();
   }
 
-  updateClaim(id: string, updates: Partial<DamagesClaim>) {
+  async updateClaim(id: string, updates: Partial<DamagesClaim>) {
     const claimIndex = this.state.claims.findIndex(c => c.id === id);
     if (claimIndex !== -1) {
       this.state.claims[claimIndex] = { ...this.state.claims[claimIndex], ...updates };
+      await this.persistState();
     }
   }
 
@@ -151,8 +171,9 @@ export class EconomicService {
     return this.state.forecasts;
   }
 
-  addForecast(forecast: BudgetForecast) {
+  async addForecast(forecast: BudgetForecast) {
     this.state.forecasts = [forecast, ...this.state.forecasts];
+    await this.persistState();
   }
 
   /**
