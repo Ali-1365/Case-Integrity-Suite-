@@ -56,7 +56,7 @@ const EconomicDashboard: React.FC = () => {
     loadData();
   }, [loadData]);
 
-  const handleSavePayment = (data: Partial<Payment>) => {
+  const handleSavePayment = async (data: Partial<Payment>) => {
     const newPayment: Payment = {
       id: `pay-${Date.now()}`,
       date: new Date().toISOString().split('T')[0],
@@ -67,12 +67,12 @@ const EconomicDashboard: React.FC = () => {
       status: 'PENDING',
       category: data.category || 'SERVICE'
     };
-    economicService.addPayment(newPayment);
+    await economicService.addPayment(newPayment);
     loadData();
     setActiveForm('NONE');
   };
 
-  const handleSaveInvoice = (data: Partial<Invoice>) => {
+  const handleSaveInvoice = async (data: Partial<Invoice>) => {
     const total = data.total || 0;
     const vat = total * 0.2; // 25% VAT (total = amount + vat, so vat = total * 0.2 if vat is 25% of amount)
     const amount = total - vat;
@@ -89,12 +89,12 @@ const EconomicDashboard: React.FC = () => {
       status: 'SENT',
       items: data.items || []
     };
-    economicService.addInvoice(newInvoice);
+    await economicService.addInvoice(newInvoice);
     loadData();
     setActiveForm('NONE');
   };
 
-  const handleSaveClaim = (data: Partial<DamagesClaim>) => {
+  const handleSaveClaim = async (data: Partial<DamagesClaim>) => {
     const newClaim: DamagesClaim = {
       id: `claim-${Date.now()}`,
       claimant: data.claimant || 'Okänd',
@@ -107,7 +107,7 @@ const EconomicDashboard: React.FC = () => {
       components: [],
       description: data.description || ''
     };
-    economicService.addClaim(newClaim);
+    await economicService.addClaim(newClaim);
     loadData();
     setActiveForm('NONE');
   };
@@ -116,7 +116,7 @@ const EconomicDashboard: React.FC = () => {
     setIsAnalyzing(true);
     try {
       const analysis = await economicService.analyzeClaimAI(claim);
-      economicService.updateClaim(claim.id, { aiAnalysis: analysis });
+      await economicService.updateClaim(claim.id, { aiAnalysis: analysis });
       loadData();
     } catch (error) {
       console.error("AI Analysis failed:", error);

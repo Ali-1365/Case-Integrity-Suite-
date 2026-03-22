@@ -503,7 +503,8 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                                     for(const f of files) { 
                                         const p = await parseFile(f); 
                                         if(p) await handleAnalyze(p); 
-                                    } 
+                                    }
+                                    onLogout(); // Navigate back to archive/hub
                                 } catch (err) {
                                     console.error('File selection processing failed:', err);
                                 }
@@ -511,6 +512,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                             onTextSubmit={async (t) => {
                                 try {
                                     await handleAnalyze({ name: 'Manuell inmatning', textContent: t, mimeType: 'text/plain' });
+                                    onLogout();
                                 } catch (err) {
                                     console.error('Text submission processing failed:', err);
                                 }
@@ -636,7 +638,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                             {activeModal === 'framework' && <LegalFrameworkView isOpen={true} onClose={() => setActiveModal(null)} />}
                             {activeModal === 'arch' && <ArchiveView onSelect={(id) => { setSelectedDocId(id); setActiveModal(null); }} />}
                             {activeModal === 'whitebook' && <WhitebookViewer isOpen={true} onClose={() => setActiveModal(null)} />}
-                            {activeModal === 'sfb' && <SfbIntegrityPanel isOpen={true} onClose={() => setActiveModal(null)} />}
+                            {activeModal === 'sfb' && currentAnalysis && <SfbIntegrityPanel isOpen={true} onClose={() => setActiveModal(null)} analysis={currentAnalysis} />}
                             {activeModal === 'monitor' && <SystemMonitor isOpen={true} onClose={() => setActiveModal(null)} />}
                             {activeModal === 'inventory' && <SystemInventory isOpen={true} onClose={() => setActiveModal(null)} />}
                             {activeModal === 'profiler' && activeCase && <CaseProfiler caseData={activeCase} />}
