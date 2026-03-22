@@ -5,12 +5,11 @@ import { AuditLogEntry, CISCase } from './cis.types';
 export type { AuditLogEntry, CISCase };
 
 const DB_NAME = 'LegalAnalysisDB';
-const DB_VERSION = 5; // Upgraded version for economic data
+const DB_VERSION = 4; // Upgraded version
 const DOC_STORE_NAME = 'documents';
 const SETTINGS_STORE_NAME = 'settings';
 const AUDIT_STORE_NAME = 'audit_logs';
 const CASE_STORE_NAME = 'cases';
-const ECONOMIC_STORE_NAME = 'economic_state';
 
 interface Settings {
     key: string;
@@ -34,10 +33,6 @@ interface LegalDB extends DBSchema {
     key: string;
     value: CISCase;
   };
-  [ECONOMIC_STORE_NAME]: {
-    key: string;
-    value: any;
-  };
 }
 
 let dbPromise: Promise<IDBPDatabase<LegalDB>> | null = null;
@@ -57,9 +52,6 @@ const getDb = (): Promise<IDBPDatabase<LegalDB>> => {
                 }
                 if (oldVersion < 4 && !db.objectStoreNames.contains(CASE_STORE_NAME)) {
                     db.createObjectStore(CASE_STORE_NAME, { keyPath: 'caseId' });
-                }
-                if (oldVersion < 5 && !db.objectStoreNames.contains(ECONOMIC_STORE_NAME)) {
-                    db.createObjectStore(ECONOMIC_STORE_NAME, { keyPath: 'key' });
                 }
             },
         });
@@ -139,16 +131,5 @@ export const db = {
       }
       dbPromise = null;
       console.log("[PERSISTENCE] Integrity Repair Executed. Locks released.");
-  },
-
-  async saveEconomicState(key: string, data: any): Promise<void> {
-    const db = await getDb();
-    await db.put(ECONOMIC_STORE_NAME, { key, value: data });
-  },
-
-  async getEconomicState(key: string): Promise<any | undefined> {
-    const db = await getDb();
-    const result = await db.get(ECONOMIC_STORE_NAME, key);
-    return result?.value;
   }
 };
