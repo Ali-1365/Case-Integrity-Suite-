@@ -1,11 +1,18 @@
-
 {
-  "name": "Case Integrity Suitet",
-  "version": "7.3.1-GOLD",
-  "description": "FMJAM v.7.3.1-GOLD. FORCE_NUKE_PROTOCOL active. SFS 2025:400 Compliant.",
-  "requestFramePermissions": [
-    "camera",
-    "microphone"
-  ],
-  "sync_id": "sync_gold_v731"
+  "name": "Case Integrity Suite",
+  "version": "8.0.0-GOLD",
+  "description": "FMJAM v.8.0.0-GOLD. SFS 2025:400 Compliant. Offline-resilient.",
+  "build": {
+    "date": "2026-03-22",
+    "environment": "production",
+    "offlineMode": "auto-detect"
+  },
+  "legalLibrary": {
+    "totalLaws": 30,
+    "verifiedLaws": 30,
+    "ragChunks": 12,
+    "embeddingModel": "text-embedding-004",
+    "embeddingStatus": "PLACEHOLDER — kör npm run ingest för riktiga vektorer"
+  },
+  "requestFramePermissions": []
 }

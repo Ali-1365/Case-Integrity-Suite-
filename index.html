@@ -1,16 +1,17 @@
-
 <!DOCTYPE html>
 <html lang="sv">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Juridisk Analysmotor</title>
+    <title>Case Integrity Suite</title>
 
     <!-- pdf.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <script>
-      pdfjsLib.GlobalWorkerOptions.workerSrc =
-        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+      if (typeof pdfjsLib !== 'undefined') {
+        pdfjsLib.GlobalWorkerOptions.workerSrc =
+          "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+      }
     </script>
 
     <!-- mammoth.js -->
@@ -18,11 +19,27 @@
 
     <!-- Mermaid.js -->
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
-    
+
     <link rel="stylesheet" href="/index.css">
+
+    <style>
+      /* Förhindrar vitt blixt vid sidladdning */
+      html { background-color: #F8FAFC; }
+      #root:empty::before {
+        content: '';
+        display: block;
+        height: 100vh;
+        background: #F8FAFC;
+      }
+    </style>
   </head>
 
-  <body class="bg-[#0a0a0a] text-gray-200">
+  <!--
+    OBS: body-klassen här SKA matcha --bg-main i index.css.
+    Vi använder ljust tema som standard (slate-50).
+    Mörkt tema aktiveras via .dark-klass på html-elementet om det behövs.
+  -->
+  <body class="bg-slate-50 text-slate-900 antialiased">
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
   </body>

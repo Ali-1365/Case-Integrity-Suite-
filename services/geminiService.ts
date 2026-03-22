@@ -1,279 +1,320 @@
-
-import { GoogleGenAI, GenerateContentResponse, GenerateContentParameters, Part, ThinkingLevel } from '@google/genai';
+import { GoogleGenAI, GenerateContentParameters, ThinkingLevel } from '@google/genai';
 import { loggingService, LogMode } from './loggingService';
 import { getSyntheticResponse } from '../lib/syntheticLLMResponses';
 import { ApiError } from '../lib/errors';
-import { offlineService } from './offlineService';
 
-export interface QuotaState {
-    isThrottled: boolean;
-    retryAfterMs: number;
-    lastError: string | null;
+// ─────────────────────────────────────────────
+//  OFFLINE SERVICE (inbyggd — ingen extern fil behövs)
+// ─────────────────────────────────────────────
+type OfflineReason = 'API_KEY_MISSING' | 'QUOTA_EXCEEDED' | 'NETWORK_ERROR' | 'MANUAL' | null;
+
+class OfflineService {
+  private _isOffline: boolean = false;
+  private _reason: OfflineReason = null;
+  private _subscribers: ((offline: boolean, reason: OfflineReason) => void)[] = [];
+
+  constructor() {
+    const apiKey =
+      (typeof process !== 'undefined'
+        ? process.env?.GEMINI_API_KEY || process.env?.API_KEY
+        : null) || '';
+
+    if (!apiKey) {
+      this._isOffline = true;
+      this._reason = 'API_KEY_MISSING';
+      if (typeof window !== 'undefined') {
+        (window as any).OFFLINE_MODE = true;
+        (window as any).OFFLINE_REASON = 'API_KEY_MISSING';
+      }
+    }
+  }
+
+  getIsOffline(): boolean {
+    return this._isOffline ||
+      (typeof window !== 'undefined' && (window as any).OFFLINE_MODE === true);
+  }
+
+  getReason(): OfflineReason { return this._reason; }
+
+  setOffline(offline: boolean, reason: OfflineReason = null): void {
+    this._isOffline = offline;
+    this._reason = reason;
+    if (typeof window !== 'undefined') {
+      (window as any).OFFLINE_MODE = offline;
+      (window as any).OFFLINE_REASON = reason;
+    }
+    this._subscribers.forEach(fn => fn(offline, reason));
+    if (offline) {
+      console.warn(`[OfflineService] Offline aktiverat. Anledning: ${reason}`);
+    } else {
+      console.log('[OfflineService] System återkopplat till online-läge.');
+    }
+  }
+
+  subscribe(fn: (offline: boolean, reason: OfflineReason) => void): () => void {
+    this._subscribers.push(fn);
+    return () => { this._subscribers = this._subscribers.filter(s => s !== fn); };
+  }
 }
 
+export const offlineService = new OfflineService();
+
+// ─────────────────────────────────────────────
+//  QUOTA STATE
+// ─────────────────────────────────────────────
+export interface QuotaState {
+  isThrottled: boolean;
+  retryAfterMs: number;
+  lastError: string | null;
+}
+
+// ─────────────────────────────────────────────
+//  GEMINI SERVICE
+// ─────────────────────────────────────────────
 export class GeminiService {
   private ai: GoogleGenAI | null = null;
-  private readonly flashModel = 'gemini-3-flash-preview';
-  private readonly proModel = 'gemini-3.1-pro-preview';
-  private readonly liteModel = 'gemini-3.1-flash-lite-preview';
+
+  // ✅ KORREKTA modellnamn (mars 2026)
+  private readonly flashModel = 'gemini-2.0-flash';
+  private readonly proModel   = 'gemini-2.5-pro-preview-05-06';
+  private readonly liteModel  = 'gemini-2.0-flash-lite';
 
   public quotaState: QuotaState = {
-      isThrottled: false,
-      retryAfterMs: 0,
-      lastError: null
+    isThrottled: false,
+    retryAfterMs: 0,
+    lastError: null,
   };
 
-  public async hasCustomKey(): Promise<boolean> {
-    if (typeof window !== 'undefined' && (window as any).aistudio?.hasSelectedApiKey) {
-      return await (window as any).aistudio.hasSelectedApiKey();
+  constructor() { this.initializeClient(); }
+
+  private initializeClient(): void {
+    const apiKey =
+      (typeof process !== 'undefined'
+        ? process.env?.GEMINI_API_KEY || process.env?.API_KEY
+        : null) || '';
+
+    if (!apiKey) {
+      loggingService.error('[GeminiService] GEMINI_API_KEY saknas. AI-tjänster otillgängliga.');
+      offlineService.setOffline(true, 'API_KEY_MISSING');
+      return;
     }
+    try {
+      this.ai = new GoogleGenAI({ apiKey } as any);
+      console.log('[GeminiService] Klient initierad.');
+    } catch (e: any) {
+      loggingService.error(`[GeminiService] Initiering misslyckades: ${e.message}`);
+      offlineService.setOffline(true, 'NETWORK_ERROR');
+    }
+  }
+
+  private getClient(): GoogleGenAI {
+    if (!this.ai) {
+      this.initializeClient();
+      if (!this.ai) throw new Error('Gemini-klienten kunde inte initialiseras. API-nyckel saknas.');
+    }
+    return this.ai;
+  }
+
+  private async executeWithRetry<T>(
+    operation: () => Promise<T>,
+    retries = 3,
+    initialDelay = 2000
+  ): Promise<T> {
+    let delay = initialDelay;
+    for (let i = 0; i < retries; i++) {
+      try {
+        this.quotaState = { isThrottled: false, retryAfterMs: 0, lastError: null };
+        return await operation();
+      } catch (error: any) {
+        const msg = (error.message || '').toLowerCase();
+        const isQuota = msg.includes('quota') || msg.includes('429') ||
+          msg.includes('resource_exhausted') || msg.includes('overloaded') ||
+          error.status === 429 || error.status === 503;
+        const isAuth = msg.includes('401') || msg.includes('api_key') ||
+          msg.includes('unauthorized') || error.status === 401;
+
+        if (isAuth) {
+          offlineService.setOffline(true, 'API_KEY_MISSING');
+          throw new ApiError(`Auth-fel: ${error.message}`, { originalError: error });
+        }
+        if (isQuota && i < retries - 1) {
+          console.warn(`[GeminiService] Kvotfel. Försök ${i + 1}/${retries}. Väntar ${delay / 1000}s...`);
+          this.quotaState = { isThrottled: true, retryAfterMs: delay, lastError: error.message };
+          await new Promise(r => setTimeout(r, delay));
+          delay *= 2;
+        } else if (i === retries - 1) {
+          this.quotaState.lastError = error.message;
+          if (isQuota) offlineService.setOffline(true, 'QUOTA_EXCEEDED');
+          else offlineService.setOffline(true, 'NETWORK_ERROR');
+          throw new ApiError(`API-fel efter ${i + 1} försök: ${error.message}`, { originalError: error });
+        } else {
+          throw error;
+        }
+      }
+    }
+    throw new Error('Oväntad retry-loop exit');
+  }
+
+  // ─── GENERATE ───────────────────────────────
+  async generate(
+    params: Omit<GenerateContentParameters, 'model'> & { model?: string },
+    mode: LogMode = 'fast'
+  ): Promise<string> {
+    const startTime = Date.now();
+
+    if (offlineService.getIsOffline()) {
+      console.warn('[GeminiService] Offline → syntetiskt svar.');
+      const prompt = typeof params.contents === 'string'
+        ? params.contents : JSON.stringify(params.contents);
+      return getSyntheticResponse(prompt);
+    }
+
+    let modelName = params.model || (mode === 'think' ? this.proModel : this.flashModel);
+
+    try {
+      const client = this.getClient();
+      const config = { ...(params.config || {}) };
+
+      if (mode === 'think' && modelName === this.proModel) {
+        (config as any).thinkingConfig = {
+          thinkingBudget: (config as any).thinkingConfig?.thinkingBudget ?? 8000
+        };
+      } else {
+        delete (config as any).thinkingConfig;
+        if (!(config as any).maxOutputTokens) (config as any).maxOutputTokens = 8192;
+      }
+
+      const response = await this.executeWithRetry(async () =>
+        client.models.generateContent({
+          model: modelName,
+          contents: typeof params.contents === 'string'
+            ? [{ role: 'user', parts: [{ text: params.contents as string }] }]
+            : (params.contents as any),
+          config,
+        })
+      );
+
+      const text = (response as any).text || '';
+      const duration = Date.now() - startTime;
+
+      loggingService.addLog({
+        mode,
+        prompt: JSON.stringify(params.contents).substring(0, 500),
+        response: text.substring(0, 500),
+        error: null,
+        duration,
+        metadata: { model: modelName },
+      });
+
+      return text;
+    } catch (error: any) {
+      const duration = Date.now() - startTime;
+      loggingService.addLog({
+        mode,
+        prompt: JSON.stringify(params.contents).substring(0, 500),
+        response: null,
+        error: error.message,
+        duration,
+      });
+
+      // Fallback-kedja: Pro → Flash → Lite → Syntetiskt
+      if (modelName === this.proModel) {
+        console.warn('[GeminiService] Pro misslyckades → Flash.');
+        const np = { ...params, model: this.flashModel };
+        if (np.config) { const { thinkingConfig, ...r } = np.config as any; np.config = r; }
+        return this.generate(np, 'fast');
+      }
+      if (modelName === this.flashModel) {
+        console.warn('[GeminiService] Flash misslyckades → Lite.');
+        const np = { ...params, model: this.liteModel };
+        if (np.config) { const { thinkingConfig, ...r } = np.config as any; np.config = r; }
+        return this.generate(np, 'fast');
+      }
+      if (modelName === this.liteModel) {
+        console.warn('[GeminiService] Alla modeller misslyckades → Syntetiskt.');
+        const prompt = typeof params.contents === 'string'
+          ? params.contents : JSON.stringify(params.contents);
+        const synthetic = getSyntheticResponse(prompt);
+        if ((params.config as any)?.responseMimeType === 'application/json') {
+          return JSON.stringify({ status: 'SYNTHETIC_FALLBACK', content: synthetic,
+            warning: 'Syntetiskt svar på grund av API-begränsningar.' });
+        }
+        return synthetic;
+      }
+      return `SYSTEMFEL: Kunde inte generera svar. ${error.message}`;
+    }
+  }
+
+  // ─── EMBED ──────────────────────────────────
+  async embed(text: string): Promise<number[]> {
+    if (offlineService.getIsOffline()) {
+      console.warn('[GeminiService] Offline → pseudo-embedding.');
+      return this.pseudoEmbed(text);
+    }
+    const client = this.getClient();
+    for (const modelName of ['text-embedding-004', 'gemini-embedding-001']) {
+      try {
+        const response = await this.executeWithRetry(async () =>
+          (client as any).models.embedContent({
+            model: modelName,
+            contents: { parts: [{ text }] },
+          })
+        );
+        const values = response?.embeddings?.[0]?.values || (response as any)?.embedding?.values;
+        if (values?.length > 0) return values;
+      } catch (e: any) {
+        console.warn(`[GeminiService] Embed misslyckades (${modelName}): ${e.message}`);
+      }
+    }
+    console.warn('[GeminiService] Embed API helt nere → pseudo-embedding.');
+    return this.pseudoEmbed(text);
+  }
+
+  // Deterministisk pseudo-embedding för offline
+  private pseudoEmbed(text: string): number[] {
+    const dim = 768;
+    const result = new Array(dim).fill(0);
+    for (let i = 0; i < text.length; i++) {
+      const c = text.charCodeAt(i);
+      result[(c * (i + 1)) % dim] = (result[(c * (i + 1)) % dim] + c / 255) % 1;
+    }
+    const mag = Math.sqrt(result.reduce((s, v) => s + v * v, 0)) || 1;
+    return result.map(v => v / mag);
+  }
+
+  // ─── API-STATUSKONTROLL ──────────────────────
+  async checkApiStatus(): Promise<{ online: boolean; latencyMs?: number; message: string }> {
+    const start = Date.now();
+    try {
+      await this.generate({ contents: 'Svara med OK.' }, 'fast');
+      const latencyMs = Date.now() - start;
+      offlineService.setOffline(false);
+      return { online: true, latencyMs, message: 'API ansluten och operativ.' };
+    } catch (e: any) {
+      return { online: false, message: `API ej tillgänglig: ${e.message}` };
+    }
+  }
+
+  public async hasCustomKey(): Promise<boolean> {
+    if (typeof window !== 'undefined' && (window as any).aistudio?.hasSelectedApiKey)
+      return (window as any).aistudio.hasSelectedApiKey();
     return false;
   }
 
   public async openKeySelection(): Promise<void> {
     if (typeof window !== 'undefined' && (window as any).aistudio?.openSelectKey) {
       await (window as any).aistudio.openSelectKey();
-      // After selection, we should re-initialize the client to use the new key
       this.initializeClient();
     }
-  }
-
-  constructor() {
-    this.initializeClient();
-  }
-
-  private initializeClient(): void {
-    const apiKey = process.env.GEMINI_API_KEY || process.env.API_KEY;
-    if (!apiKey) {
-      loggingService.error("System Configuration Error: GEMINI_API_KEY is missing. AI services will be unavailable.");
-      offlineService.setOffline(true, 'API_KEY_MISSING');
-      return;
-    }
-    this.ai = new GoogleGenAI({ apiKey, apiVersion: 'v1beta' } as any);
-  }
-
-  private getClient(): GoogleGenAI {
-    if (!this.ai) {
-      this.initializeClient();
-      if (!this.ai) {
-        throw new Error("Gemini API-klienten kunde inte initialiseras. API-nyckel saknas.");
-      }
-    }
-    return this.ai;
-  }
-
-  private async executeWithRetry<T>(operation: () => Promise<T>, retries = 3, initialDelay = 2000): Promise<T> {
-    let delay = initialDelay;
-    for (let i = 0; i < retries; i++) {
-      try {
-        this.quotaState.isThrottled = false;
-        this.quotaState.lastError = null;
-        this.quotaState.retryAfterMs = 0;
-        return await operation();
-      } catch (error: any) {
-        const isQuotaError = error.message?.toLowerCase().includes('quota') || 
-                             error.message?.toLowerCase().includes('429') || 
-                             error.status === 429 ||
-                             error.status === 503 ||
-                             error.message?.toLowerCase().includes('overloaded');
-        
-        if (isQuotaError) {
-          const isLastRetry = i === retries - 1;
-          if (!isLastRetry) {
-            loggingService.warn(`Gemini API Quota/Load Error. Attempt ${i + 1}/${retries}. Retrying in ${delay / 1000}s...`, { error: error.message });
-            this.quotaState.isThrottled = true;
-            this.quotaState.lastError = error.message;
-            this.quotaState.retryAfterMs = delay;
-            await new Promise(resolve => setTimeout(resolve, delay));
-            delay *= 2; // Exponential backoff
-          } else {
-            this.quotaState.isThrottled = true;
-            this.quotaState.lastError = error.message;
-            // Trigger offline mode on persistent quota error
-            offlineService.setOffline(true, 'QUOTA_EXCEEDED');
-            throw new ApiError(`Gemini API Error after ${i + 1} attempts: ${error.message}`, { originalError: error });
-          }
-        } else {
-          if (i === retries - 1) {
-             this.quotaState.lastError = error.message;
-             // Trigger offline mode on persistent network/other error
-             offlineService.setOffline(true, 'NETWORK_ERROR');
-             throw new ApiError(`Gemini API Error after ${i + 1} attempts: ${error.message}`, { originalError: error });
-          }
-          throw error;
-        }
-      }
-    }
-    throw new Error("Unexpected retry loop exit");
-  }
-
-  async generate(
-    params: Omit<GenerateContentParameters, 'model'> & { model?: string }, 
-    mode: LogMode = 'fast'
-  ): Promise<string> {
-    const startTime = Date.now();
-    let modelName = params.model || (mode === 'think' ? this.proModel : this.flashModel);
-
-    // If already offline, use synthetic immediately
-    if (offlineService.getIsOffline()) {
-        loggingService.warn(`[GEMINI] System is OFFLINE. Using synthetic fallback for prompt.`);
-        const prompt = typeof params.contents === 'string' 
-            ? params.contents 
-            : JSON.stringify(params.contents);
-        return getSyntheticResponse(prompt);
-    }
-
-    try {
-      const client = this.getClient();
-      let contents: GenerateContentParameters['contents'] = params.contents;
-      const config = params.config || {};
-      
-      if (mode === 'think' && modelName === this.proModel) {
-          config.thinkingConfig = { thinkingLevel: ThinkingLevel.HIGH };
-          delete (config as any).maxOutputTokens;
-      } else {
-          // För andra modeller, säkerställ att vi inte begränsar i onödan
-          if (!(config as any).maxOutputTokens) {
-              (config as any).maxOutputTokens = 8192; // Högt värde för att undvika trunkering
-          }
-      }
-
-      const response = await this.executeWithRetry(async () => {
-        return await client.models.generateContent({
-          model: modelName,
-          contents: typeof contents === 'string' ? [{ text: contents }] : contents as any,
-          config: {
-            ...config,
-            tools: [{ googleSearch: {} }]
-          }
-        });
-      });
-
-      const text = response.text || "";
-      if (!text && config.responseMimeType === "application/json") {
-          loggingService.warn(`[GEMINI] Empty JSON response from model ${modelName}. This might be a safety block or model confusion.`);
-      }
-
-      const duration = Date.now() - startTime;
-      
-      // Log grounding sources
-      const chunks = response.candidates?.[0]?.groundingMetadata?.groundingChunks;
-      const sources = chunks?.map(c => c.web?.uri).filter(Boolean) || [];
-      
-      loggingService.addLog({ 
-        mode, 
-        prompt: JSON.stringify(contents).substring(0, 500), 
-        response: text.substring(0, 500), 
-        error: null, 
-        duration,
-        metadata: { model: modelName, sourcesCount: sources.length }
-      });
-
-      if (sources.length > 0) {
-        loggingService.debug(`[GEMINI] Grounding sources found: ${sources.length}`, { sources });
-      }
-
-      return text;
-    } catch (error: any) {
-      const duration = Date.now() - startTime;
-      loggingService.addLog({ 
-        mode, 
-        prompt: JSON.stringify(params.contents).substring(0, 500), 
-        response: null, 
-        error: error.message, 
-        duration 
-      });
-      
-      // Fallback 1: Pro -> Flash
-      if (modelName === this.proModel) {
-        loggingService.warn("Service Recovery: Pro model failed, initiating fallback to Flash model...", { originalModel: modelName });
-        const newParams = { ...params, model: this.flashModel };
-        // Remove thinking config for Flash to ensure compatibility
-        if (newParams.config) {
-            const { thinkingConfig, ...restConfig } = newParams.config as any;
-            newParams.config = restConfig;
-        }
-        return this.generate(newParams, 'fast');
-      }
-
-      // Fallback 2: Flash -> Lite
-      if (modelName === this.flashModel) {
-        loggingService.warn("Service Recovery: Flash model failed, initiating fallback to Lite model...", { originalModel: modelName });
-        const newParams = { ...params, model: this.liteModel };
-        if (newParams.config) {
-            const { thinkingConfig, ...restConfig } = newParams.config as any;
-            newParams.config = restConfig;
-        }
-        return this.generate(newParams, 'fast');
-      }
-
-      // Fallback 3: Lite -> Synthetic
-      if (modelName === this.liteModel) {
-        loggingService.warn("Service Recovery: All models failed or quota exceeded. Initiating Synthetic Response Fallback.");
-        const prompt = typeof params.contents === 'string' 
-            ? params.contents 
-            : JSON.stringify(params.contents);
-        
-        const synthetic = getSyntheticResponse(prompt);
-        
-        // If JSON was requested, wrap synthetic response in a JSON structure if it's not already
-        if (params.config?.responseMimeType === "application/json") {
-            return JSON.stringify({
-                status: "SYNTHETIC_FALLBACK",
-                content: synthetic,
-                warning: "Detta är ett syntetiskt svar på grund av API-begränsningar."
-            });
-        }
-        
-        return synthetic;
-      }
-
-      return `SYSTEMFEL: Kunde inte generera svar. ${error.message}`;
-    }
-  }
-
-  async embed(text: string): Promise<number[]> {
-    const client = this.getClient();
-    const modelsToTry = ['gemini-embedding-2-preview', 'gemini-embedding-001', 'text-embedding-004'];
-    
-    let lastError = null;
-    for (const modelName of modelsToTry) {
-      try {
-        const response = await this.executeWithRetry(async () => {
-          const result = await client.models.embedContent({
-            model: modelName,
-            contents: { parts: [{ text }] },
-          });
-          return result;
-        });
-
-        if (response.embeddings && response.embeddings.length > 0) {
-          const values = response.embeddings[0].values;
-          if (values) return values;
-        }
-        if ((response as any).embedding) {
-          return (response as any).embedding.values;
-        }
-      } catch (error: any) {
-        console.warn(`Failed to generate embedding with model ${modelName}:`, error.message);
-        lastError = error;
-      }
-    }
-    
-    const errorDetails = lastError?.message || JSON.stringify(lastError);
-    throw new Error(`KRITISKT FEL: Systemet kunde inte generera inbäddning från Gemini API med någon av de tillgängliga modellerna. Senaste fel: ${errorDetails}`);
   }
 }
 
 export const geminiService = new GeminiService();
 
-/**
- * GeminiLlmClient v.1.0
- * Implementation of LlmClient interface for OpinionEngine compatibility.
- */
+// ─── GeminiLlmClient ────────────────────────
 export class GeminiLlmClient {
   async generate(prompt: string, mode: 'fast' | 'think'): Promise<{ text: string }> {
     const text = await geminiService.generate({ contents: prompt }, mode);
-    return { text: text || "" };
+    return { text: text || '' };
   }
 }

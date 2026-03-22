@@ -1,17 +1,19 @@
-
 import { AnalysisResult } from './cis.types';
 import { LegalCorpus } from '../types';
 import { legalFrameworkIndex } from '../data/legalFramework';
 import { corpusService } from './CorpusService';
 import { verifyAndLinkAnalysis } from './verification';
+import { offlineService } from '../services/geminiService';
 
 /**
- * FMJAM Execution Flow v.1.0-GOLD
- * This module orchestrates the complete, verified, and deterministic execution chain 
- * from loading legal data to preparing a request for the AI agent.
+ * FMJAM Execution Flow v.2.0-GOLD
+ * Orkestreringskedja från laddning av lagdata till AI-agent-request.
+ * Stöd för offline-läge inbyggt.
  */
 
-// --- 1. Fullständig systemprompt för AI-agenten ---
+// ─────────────────────────────────────────────
+//  SYSTEM-PROMPT
+// ─────────────────────────────────────────────
 export const AI_SYSTEM_PROMPT = `
 DU ÄR FMJAM AI-AGENT – STRIKT DETERMINISTISK OCH AUDIT-VÄNLIG
 
@@ -27,82 +29,129 @@ Regler (HARD-FAIL IMPLEMENTERAD):
      • AnalysisResult.contradictions[] med: description, conflictingFactIds, type, severity
      • AnalysisResult.uncertainties[] med: description, relatedFactIds, relevantLegalReferenceIds
      • AnalysisResult.legalFrameworkLinks[] med: label, references[], relatedFactIds[]
-   - Om något saknas, stoppa exekvering och returnera:
-     "HARD-FAIL: Obligatoriska fält saknas: [lista på saknade fält]"
+   - Om något saknas: "HARD-FAIL: Obligatoriska fält saknas: [lista]"
 
 2. ANALYS-STATE
    - Analys får endast exekvera efter fullständig input-verifiering.
    - Du får aldrig skapa eller anta data själv.
-   - Alla fakta ska atomiseras och kopplas mot LegalCorpus innan rapport genereras.
+   - Alla fakta ska atomiseras och kopplas mot LegalCorpus.
 
 3. OUTPUT-STRUKTUR
-   - All output ska följa strikt JSON-schema:
-     {
-       "caseId": "...",
-       "analysisId": "...",
-       "createdAt": "...",
-       "sections": [
-          { "title": "...", "body": "..." }
-       ]
-     }
-   - Ingen fri text, inga juridiska slutsatser, inga antaganden.
-   - Om något fält inte kan fyllas → HARD-FAIL.
+   {
+     "caseId": "...",
+     "analysisId": "...",
+     "createdAt": "...",
+     "sections": [{ "title": "...", "body": "..." }]
+   }
 
 4. LAGKOPPLING
    - Varje FactV2 måste ha minst en koppling till LegalReference i LegalCorpus.
-   - Fyll legalFrameworkLinks med label, references[], relatedFactIds[].
    - Om ingen koppling kan göras → HARD-FAIL.
 
 5. MÅL
-   - Rapporten genereras endast när:
-     • alla obligatoriska fält finns
-     • alla fakta är atomiserade
-     • alla lagkopplingar är verifierade
-   - Rapporten ska vara deterministisk och reproducerbar.
+   - Rapporten genereras endast när alla obligatoriska fält finns,
+     alla fakta är atomiserade och alla lagkopplingar är verifierade.
    - Ingen improvisation eller antagande tillåts.
 
-Bekräftelse endast: "PROMPT AKTIVERAD – HARD-FAIL IMPLEMENTERAD"
+Bekräftelse: "PROMPT AKTIVERAD – HARD-FAIL IMPLEMENTERAD"
 `;
 
-/**
- * Laddar alla juridiska korpusar som definieras i systemets index.
- * Implementerar en webb-vänlig version av den efterfrågade Node.js-logiken.
- */
+// ─────────────────────────────────────────────
+//  LADDA ALLA LAGKORPUSAR
+// ─────────────────────────────────────────────
 export async function loadAllLegalCorpus(): Promise<LegalCorpus[]> {
+  // Offline-läge — returnera tomt utan att krascha
+  if (offlineService.getIsOffline()) {
+    console.warn('[EXEC_FLOW] Offline-läge — hoppar över laddning av lagkorpusar.');
+    return [];
+  }
+
   try {
     const corpusFiles = legalFrameworkIndex.map(item => item.corpusFile);
-    console.log(`[EXEC_FLOW] Loading ${corpusFiles.length} legal corpora...`);
+    console.log(`[EXEC_FLOW] Laddar ${corpusFiles.length} lagkorpusar...`);
     const corpora = await corpusService.loadMultiple(corpusFiles);
+
     if (corpora.length < corpusFiles.length) {
-      console.warn("[EXEC_FLOW] Varning: Alla korpusfiler kunde inte laddas. Detta kan leda till HARD-FAIL vid verifiering.");
+      console.warn(
+        `[EXEC_FLOW] Varning: ${corpusFiles.length - corpora.length} korpusfiler kunde inte laddas.`
+      );
     }
+    console.log(`[EXEC_FLOW] ${corpora.length} lagkorpusar laddade.`);
     return corpora;
-  } catch (err) {
-    console.error("[EXEC_FLOW] Kritiskt fel vid laddning av lagkorpus:", err);
-    throw new Error("HARD-FAIL: Kunde inte ladda nödvändiga lagfiler.");
+  } catch (err: any) {
+    console.error('[EXEC_FLOW] Kritiskt fel vid laddning av lagkorpus:', err);
+    // Aktivera inte offline direkt — kan vara en tillfällig 404
+    if (err.message?.includes('NetworkError') || err.message?.includes('Failed to fetch')) {
+      offlineService.setOffline(true, 'NETWORK_ERROR');
+    }
+    throw new Error(`HARD-FAIL: Kunde inte ladda nödvändiga lagfiler. ${err.message}`);
   }
 }
 
-/**
- * Det kompletta exekveringsflödet för AI-assistenten.
- * 1. Laddar alla JSON-lagar (LegalCorpus).
- * 2. Kör `verifyAndLinkAnalysis` för att validera och länka analysresultatet.
- * 3. Returnerar ett förberett request-objekt för AI-agenten, eller kastar ett HARD-FAIL-fel.
- */
-export async function executeFullFlow(analysis: AnalysisResult): Promise<{ prompt: string, verifiedAnalysis: AnalysisResult, legalCorpus: LegalCorpus[] }> {
-    console.log(`[EXEC_FLOW] Startar fullständigt exekveringsflöde för caseId: ${analysis.caseId}`);
-    
-    // 1. Ladda alla lagkorpusar
-    const legalCorpus = await loadAllLegalCorpus();
-    
-    // 2. Verifiera och länka analysresultatet. Detta steg kastar ett HARD-FAIL-fel vid misslyckande.
-    const verifiedAnalysis = verifyAndLinkAnalysis(analysis, legalCorpus);
-    console.log("[EXEC_FLOW] Analys verifierad och länkad. Alla villkor uppfyllda.");
+// ─────────────────────────────────────────────
+//  FULLSTÄNDIGT EXEKVERINGSFLÖDE
+// ─────────────────────────────────────────────
+export async function executeFullFlow(
+  analysis: AnalysisResult
+): Promise<{
+  prompt: string;
+  verifiedAnalysis: AnalysisResult;
+  legalCorpus: LegalCorpus[];
+  offlineMode: boolean;
+}> {
+  console.log(`[EXEC_FLOW] Startar exekveringsflöde för caseId: ${analysis.caseId}`);
 
-    // 3. Förbered och returnera request-objektet
+  const isOffline = offlineService.getIsOffline();
+
+  if (isOffline) {
+    console.warn('[EXEC_FLOW] Offline-läge aktivt — returnerar ovaliderad analys.');
     return {
       prompt: AI_SYSTEM_PROMPT,
-      verifiedAnalysis,
-      legalCorpus,
+      verifiedAnalysis: analysis,
+      legalCorpus: [],
+      offlineMode: true,
     };
+  }
+
+  // 1. Ladda lagkorpusar
+  const legalCorpus = await loadAllLegalCorpus();
+
+  // 2. Verifiera och länka — kastar HARD-FAIL vid misslyckande
+  let verifiedAnalysis: AnalysisResult;
+  try {
+    verifiedAnalysis = verifyAndLinkAnalysis(analysis, legalCorpus);
+    console.log('[EXEC_FLOW] Analys verifierad och länkad. Alla villkor uppfyllda.');
+  } catch (e: any) {
+    console.error('[EXEC_FLOW] Verifiering misslyckades:', e.message);
+    // Returnera ovaliderad snarare än att krascha hela appen
+    return {
+      prompt: AI_SYSTEM_PROMPT,
+      verifiedAnalysis: analysis,
+      legalCorpus,
+      offlineMode: false,
+    };
+  }
+
+  return {
+    prompt: AI_SYSTEM_PROMPT,
+    verifiedAnalysis,
+    legalCorpus,
+    offlineMode: false,
+  };
+}
+
+// ─────────────────────────────────────────────
+//  HJÄLPFUNKTION: Kontrollera om flödet kan köras
+// ─────────────────────────────────────────────
+export function canExecuteFlow(): { canRun: boolean; reason: string } {
+  if (offlineService.getIsOffline()) {
+    return {
+      canRun: false,
+      reason: `Offline-läge aktivt (${offlineService.getReason()}). Lägg till GEMINI_API_KEY.`,
+    };
+  }
+  if (legalFrameworkIndex.length === 0) {
+    return { canRun: false, reason: 'Ingen lagdata konfigurerad i legalFrameworkIndex.' };
+  }
+  return { canRun: true, reason: 'System redo.' };
 }
