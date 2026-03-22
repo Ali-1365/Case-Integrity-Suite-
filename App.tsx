@@ -911,6 +911,7 @@ const App: React.FC = () => {
       <TopBar
         activeTab={activeTab}
         onTabChange={handleTabChange}
+        onTabChange={handleTabChange}  
         onHubOpen={() => setHubOpen(true)}
       />
 
