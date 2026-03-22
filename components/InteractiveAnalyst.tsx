@@ -246,7 +246,6 @@ export const InteractiveAnalyst: React.FC<InteractiveAnalystProps> = ({ analysis
                             <button 
                                 onClick={handleGenerateOpinion}
                                 disabled={isLoading}
-                                title={isOffline ? "Kräver API-anslutning" : "Generera Yttrande"}
                                 className="w-full py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-xl font-black text-xs uppercase tracking-widest flex items-center justify-center gap-3 shadow-xl shadow-blue-500/20 transition-all active:scale-95 disabled:opacity-50"
                             >
                                 {isLoading ? <Spinner className="w-4 h-4" /> : <SparklesIcon className="w-4 h-4" />}

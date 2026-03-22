@@ -61,26 +61,10 @@ export class RagService {
     try {
       const queryEmb = await geminiService.embed(query);
       
-      // 1. Sök i Global Legal Ground Truth (De 30 lagrummen)
-      const queryKeywords = query.toLowerCase().split(/\s+/).filter(w => w.length > 3);
-
+      // 1. Sök i Global Legal Ground Truth (De 23 lagrummen)
       const lawHits = this.index ? this.index.chunks
-        .map(c => {
-          let sim = 0;
-          if (c.embedding && c.embedding.length > 0) {
-              sim = this.cosineSim(queryEmb, c.embedding);
-          } else {
-              // Fallback till keyword matching om embedding saknas
-              const chunkText = c.text.toLowerCase();
-              let matchCount = 0;
-              for (const kw of queryKeywords) {
-                  if (chunkText.includes(kw)) matchCount++;
-              }
-              sim = queryKeywords.length > 0 ? (matchCount / queryKeywords.length) * 0.8 : 0; // Max 0.8 för keyword match
-          }
-          return { ...c, sim };
-        })
-        .filter(r => r.sim > 0.30) // Lägre tröskel för att fånga keyword matches
+        .map(c => ({ ...c, sim: this.cosineSim(queryEmb, c.embedding) }))
+        .filter(r => r.sim > 0.60)
         .sort((a, b) => b.sim - a.sim)
         .slice(0, 20) : [];
 

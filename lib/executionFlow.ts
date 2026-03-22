@@ -3,7 +3,7 @@ import { LegalCorpus } from '../types';
 import { legalFrameworkIndex } from '../data/legalFramework';
 import { corpusService } from './CorpusService';
 import { verifyAndLinkAnalysis } from './verification';
-import { offlineService } from '../services/offlineService';
+import { offlineService } from '../services/geminiService';
 
 /**
  * FMJAM Execution Flow v.2.0-GOLD

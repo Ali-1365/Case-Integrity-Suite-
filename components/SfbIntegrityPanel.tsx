@@ -4,7 +4,6 @@ import { sfbValidationService } from '../lib/sfb/SfbValidationService';
 import { SicknessBenefitStrategy } from '../lib/sfb/strategies/SicknessBenefitStrategy';
 import { ParentalBenefitStrategy } from '../lib/sfb/strategies/ParentalBenefitStrategy';
 import { SfbCasePayload, SfbValidationResult, SfbBenefitType } from '../lib/sfb/types';
-import { AnalysisResult } from '../lib/cis.types';
 import { 
     XMarkIcon, 
     ShieldCheckIcon, 
@@ -19,24 +18,13 @@ import {
 interface SfbIntegrityPanelProps {
     isOpen: boolean;
     onClose: () => void;
-    analysis: AnalysisResult;
 }
 
-const SfbIntegrityPanel: React.FC<SfbIntegrityPanelProps> = ({ isOpen, onClose, analysis }) => {
+const SfbIntegrityPanel: React.FC<SfbIntegrityPanelProps> = ({ isOpen, onClose }) => {
     const [benefitType, setBenefitType] = useState<SfbBenefitType>('generic');
     const [selectedChapter, setSelectedChapter] = useState<number>(28);
     const [chapters, setChapters] = useState<{ chapter: number; title: string }[]>([]);
-
-    // Auto-populate clientData based on analysis facts if available
-    const initialData = {
-      caseId: analysis.caseId,
-      income: 350000,
-      daysClaimed: 120,
-      hasMedicalCertificate: true,
-      childId: "20230101-1234",
-      facts: analysis.facts.map(f => f.statement)
-    };
-    const [clientData, setClientData] = useState<string>(JSON.stringify(initialData, null, 2));
+    const [clientData, setClientData] = useState<string>('{\n  "hasMedicalCertificate": true,\n  "income": 350000,\n  "childId": "20230101-1234",\n  "daysClaimed": 120\n}');
     const [result, setResult] = useState<SfbValidationResult | null>(null);
     const [isValidating, setIsValidating] = useState(false);
 
@@ -83,23 +71,6 @@ const SfbIntegrityPanel: React.FC<SfbIntegrityPanelProps> = ({ isOpen, onClose, 
     };
 
     if (!isOpen) return null;
-
-    if (!analysis) {
-        return (
-            <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[250] flex items-center justify-center p-4 md:p-8 animate-in fade-in duration-300">
-                <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-2xl w-full max-w-md p-8 flex flex-col items-center justify-center text-center border border-slate-200 dark:border-slate-800">
-                    <div className="w-20 h-20 bg-blue-50 dark:bg-blue-900/20 rounded-full flex items-center justify-center mb-6">
-                        <LawIcon className="w-10 h-10 text-blue-500" />
-                    </div>
-                    <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-2">Inget ärende valt</h2>
-                    <p className="text-sm text-slate-500 dark:text-slate-400 mb-8">Välj ett ärende från Arkivet för att köra SFB-validering.</p>
-                    <button onClick={onClose} className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl transition-all shadow-lg">
-                        Stäng
-                    </button>
-                </div>
-            </div>
-        );
-    }
 
     return (
         <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[250] flex items-center justify-center p-4 md:p-8 animate-in fade-in duration-300">

@@ -4,7 +4,6 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "generate:embeddings": "node scripts/generate-embeddings.js",
     "dev": "tsx server.ts",
     "build": "vite build",
     "preview": "vite preview",
@@ -12,6 +11,7 @@
   },
   "dependencies": {
     "@google/genai": "^1.35.0",
+    "dotenv": "^17.2.3",
     "express": "^5.2.1",
     "idb": "8.0.0",
     "lucide-react": "0.471.0",
@@ -30,7 +30,6 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.0.0",
     "autoprefixer": "^10.4.27",
-    "dotenv": "^17.3.1",
     "postcss": "^8.5.8",
     "tailwindcss": "^4.2.1",
     "typescript": "~5.8.2",
