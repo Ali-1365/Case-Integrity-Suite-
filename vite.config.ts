@@ -9,14 +9,17 @@ export default defineConfig(({ mode }) => {
       server: {
         port: 3000,
         host: '0.0.0.0',
-        hmr: process.env.DISABLE_HMR === 'true' ? false : {
-          overlay: false
+        hmr: {
+          overlay: false,
+          clientPort: 443,
+          protocol: 'wss',
+          timeout: 5000,
         }
       },
       plugins: [react(), tailwindcss()],
       define: {
-        'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
-        'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY)
+        'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY ?? ''),
+        'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY ?? '')
       },
       resolve: {
         alias: {
