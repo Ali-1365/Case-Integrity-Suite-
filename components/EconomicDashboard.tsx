@@ -23,18 +23,6 @@ import {
   DamagesView, 
   BudgetView 
 } from './EconomicSubViews';
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  LineChart,
-  Line,
-  Legend
-} from 'recharts';
 
 import {
   NewPaymentForm,
@@ -272,30 +260,29 @@ const EconomicDashboard: React.FC = () => {
               </Card>
 
               <Card title="Budgetprognos (Antifragil Analys)" icon={<ArrowTrendingUpIcon className="w-5 h-5" />}>
-                <div className="h-64 px-4 pb-4">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart
-                      data={forecasts.length > 0 ? forecasts.map(f => ({ name: f.period, Intäkter: f.forecastedIncome, Utgifter: f.forecastedExpenses, Resultat: f.variance })) : [{
-                        name: 'Q2 Prognos',
-                        Intäkter: 500000,
-                        Utgifter: 420000,
-                        Resultat: 80000,
-                      }]}
-                      margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
-                    >
-                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
-                      <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: '#64748b' }} />
-                      <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: '#64748b' }} tickFormatter={(value) => `${value / 1000}k`} />
-                      <Tooltip
-                        cursor={{ fill: '#f8fafc' }}
-                        contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
-                      />
-                      <Legend iconType="circle" wrapperStyle={{ fontSize: 10, paddingTop: 10 }} />
-                      <Bar dataKey="Intäkter" fill="#6366f1" radius={[4, 4, 0, 0]} maxBarSize={40} />
-                      <Bar dataKey="Utgifter" fill="#f43f5e" radius={[4, 4, 0, 0]} maxBarSize={40} />
-                      <Bar dataKey="Resultat" fill="#10b981" radius={[4, 4, 0, 0]} maxBarSize={40} />
-                    </BarChart>
-                  </ResponsiveContainer>
+                <div className="h-64 flex items-end justify-between space-x-4 px-4 pb-4">
+                  {/* Enkel visualisering av budget vs faktiskt */}
+                  <div className="flex-1 flex flex-col items-center space-y-2">
+                    <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-t-lg relative h-48">
+                      <div className="absolute bottom-0 left-0 right-0 bg-indigo-500/40 rounded-t-lg h-[85%]"></div>
+                      <div className="absolute bottom-0 left-1/4 right-1/4 bg-indigo-600 rounded-t-lg h-[92%] shadow-lg"></div>
+                    </div>
+                    <span className="text-[10px] font-bold text-slate-500 uppercase">Intäkter</span>
+                  </div>
+                  <div className="flex-1 flex flex-col items-center space-y-2">
+                    <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-t-lg relative h-48">
+                      <div className="absolute bottom-0 left-0 right-0 bg-rose-500/40 rounded-t-lg h-[70%]"></div>
+                      <div className="absolute bottom-0 left-1/4 right-1/4 bg-rose-600 rounded-t-lg h-[65%] shadow-lg"></div>
+                    </div>
+                    <span className="text-[10px] font-bold text-slate-500 uppercase">Utgifter</span>
+                  </div>
+                  <div className="flex-1 flex flex-col items-center space-y-2">
+                    <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-t-lg relative h-48">
+                      <div className="absolute bottom-0 left-0 right-0 bg-emerald-500/40 rounded-t-lg h-[40%]"></div>
+                      <div className="absolute bottom-0 left-1/4 right-1/4 bg-emerald-600 rounded-t-lg h-[45%] shadow-lg"></div>
+                    </div>
+                    <span className="text-[10px] font-bold text-slate-500 uppercase">Resultat</span>
+                  </div>
                 </div>
                 <div className="mt-6 p-4 bg-indigo-50 dark:bg-indigo-950/30 rounded-2xl border border-indigo-100 dark:border-indigo-900/50 flex items-start space-x-4">
                   <SparklesIcon className="w-6 h-6 text-indigo-500 shrink-0" />
