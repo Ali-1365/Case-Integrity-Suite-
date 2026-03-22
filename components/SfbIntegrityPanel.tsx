@@ -37,8 +37,12 @@ const SfbIntegrityPanel: React.FC<SfbIntegrityPanelProps> = ({ isOpen, onClose }
         fetch('/data/sfb_2010_110.json')
             .then(res => res.json())
             .then(data => {
-                if (data.hierarchy) {
-                    setChapters(data.hierarchy);
+                if (data.kapitel) {
+                    const mappedChapters = data.kapitel.map((k: any) => ({
+                        chapter: parseInt(k.kapitel),
+                        title: k.rubrik
+                    }));
+                    setChapters(mappedChapters);
                 }
             })
             .catch(err => console.error('Failed to load SFB chapters:', err));

@@ -1,16 +1,1338 @@
-
 {
-  "sourceCode": "PL",
-  "sfsNumber": "2014:821",
-  "title": "Patientlag (2014:821)",
-  "versionChain": ["2014:821"],
-  "paragraphs": [
+  "metadata": {
+    "id": "lag_2014_821",
+    "titel": "# **Sektion: Patientlag (2014:821)**",
+    "sfs": "2014:821",
+    "departement": "Socialdepartementet",
+    "ikraftträdande": "",
+    "senast_ändrad": "",
+    "rättsområde": "hälso_sjukvård",
+    "kategori": "hälso_sjukvård",
+    "beskrivning": "Konverterad från Patientlag (2014821).txt — 2026-03-22",
+    "antal_paragrafer": 60,
+    "har_kapitelindelning": true
+  },
+  "kapitel": [
     {
-      "id": "pl_1_1",
-      "chapter": 1,
-      "section": 1,
-      "text": "Denna lag syftar till att inom hälso- och sjukvårdsverksamhet stärka och tydliggöra patientens ställning samt till att främja patientens integritet, självbestämmande och delaktighet.",
-      "metadata": { "validFrom": "2015-01-01", "provenanceHash": "sha256-pl_1_1_h" }
+      "kapitel": "1",
+      "rubrik": "Inledande bestämmelser",
+      "paragrafer": [
+        {
+          "id": "lag_2014_821_1kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "Lagen innehåller bestämmelser om\n   - tillgänglighet (",
+          "stycken": [
+            "Lagen innehåller bestämmelser om\n   - tillgänglighet ("
+          ],
+          "nyckelord": [
+            "lagen",
+            "innehåller",
+            "bestämmelser",
+            "tillgänglighet"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "1",
+      "rubrik": ").",
+      "paragrafer": [
+        {
+          "id": "lag_2014_821_1kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "",
+          "text": "2 §   Bestämmelserna i",
+          "stycken": [
+            "2 §   Bestämmelserna i"
+          ],
+          "nyckelord": [
+            "bestämmelserna"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "1",
+      "rubrik": "9 §,",
+      "paragrafer": [
+        {
+          "id": "lag_2014_821_1kap_9p",
+          "paragraf": "9 §",
+          "rubrik": "",
+          "text": "9 §,",
+          "stycken": [
+            "9 §,"
+          ],
+          "nyckelord": [],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "6",
+      "rubrik": "4 § och",
+      "paragrafer": [
+        {
+          "id": "lag_2014_821_6kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "4 § och",
+          "stycken": [
+            "4 § och"
+          ],
+          "nyckelord": [],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "7",
+      "rubrik": "1 och 2 §§ gäller endast hälso- och sjukvårdsverksamhet som bedrivs med en region eller en kommun som huvudman.",
+      "paragrafer": [
+        {
+          "id": "lag_2014_821_7kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "",
+          "text": "Bestämmelserna i",
+          "stycken": [
+            "Bestämmelserna i"
+          ],
+          "nyckelord": [
+            "bestämmelserna"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "2",
+      "rubrik": "3 och 4 §§,",
+      "paragrafer": [
+        {
+          "id": "lag_2014_821_2kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "4 §§,",
+          "stycken": [
+            "4 §§,"
+          ],
+          "nyckelord": [],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "6",
+      "rubrik": "3 §,",
+      "paragrafer": [
+        {
+          "id": "lag_2014_821_6kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "3 §,",
+          "stycken": [
+            "3 §,"
+          ],
+          "nyckelord": [],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "8",
+      "rubrik": "1 § och",
+      "paragrafer": [
+        {
+          "id": "lag_2014_821_8kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "1 § och",
+          "stycken": [
+            "1 § och"
+          ],
+          "nyckelord": [],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "9",
+      "rubrik": "1 § gäller endast hälso- och sjukvårdsverksamhet som bedrivs med en region som huvudman. Lag (2019:964).",
+      "paragrafer": [
+        {
+          "id": "lag_2014_821_9kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "1 § gäller endast hälso- och sjukvårdsverksamhet som bedrivs med en region som huvudman. Lag (2019:964).",
+          "stycken": [
+            "1 § gäller endast hälso- och sjukvårdsverksamhet som bedrivs med en region som huvudman. Lag (2019:964)."
+          ],
+          "nyckelord": [
+            "gäller",
+            "endast",
+            "hälso",
+            "sjukvårdsverksamhet",
+            "bedrivs",
+            "region"
+          ],
+          "relaterade_lagrum": [
+            "22 kap. SFB",
+            "2 § Sjukl.",
+            "3 kap. HSL"
+          ],
+          "kategori": "Definitioner och tillämpning"
+        },
+        {
+          "id": "lag_2014_821_9kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "3 §   Lagen omfattar inte tandvård enligt tandvårdslagen (1985:125).",
+          "stycken": [
+            "3 §   Lagen omfattar inte tandvård enligt tandvårdslagen (1985:125)."
+          ],
+          "nyckelord": [
+            "lagen",
+            "omfattar",
+            "tandvård",
+            "enligt",
+            "tandvårdslagen"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner och tillämpning"
+        },
+        {
+          "id": "lag_2014_821_9kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "Bestämmelser om hälso- och sjukvårdspersonalens skyldigheter och ansvar för vården av patienter finns i patientsäkerhetslagen (2010:659). Lag (2017:66).",
+          "stycken": [
+            "Bestämmelser om hälso- och sjukvårdspersonalens skyldigheter och ansvar för vården av patienter finns i patientsäkerhetslagen (2010:659). Lag (2017:66)."
+          ],
+          "nyckelord": [
+            "bestämmelser",
+            "hälso",
+            "sjukvårdspersonalens",
+            "skyldigheter",
+            "ansvar",
+            "vården"
+          ],
+          "relaterade_lagrum": [
+            "22 kap. SFB",
+            "2 § Sjukl.",
+            "3 kap. HSL"
+          ],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_2014_821_9kap_5p",
+          "paragraf": "5 §",
+          "rubrik": "",
+          "text": "5 §   Med hälso- och sjukvård avses i denna lag dels åtgärder för att medicinskt förebygga, utreda och behandla sjukdomar och skador, dels sjuktransporter.",
+          "stycken": [
+            "5 §   Med hälso- och sjukvård avses i denna lag dels åtgärder för att medicinskt förebygga, utreda och behandla sjukdomar och skador, dels sjuktransporter."
+          ],
+          "nyckelord": [
+            "dels",
+            "hälso",
+            "sjukvård",
+            "avses",
+            "åtgärder",
+            "medicinskt"
+          ],
+          "relaterade_lagrum": [
+            "22 kap. SFB",
+            "2 § Sjukl.",
+            "3 kap. HSL"
+          ],
+          "kategori": "Definitioner"
+        },
+        {
+          "id": "lag_2014_821_9kap_6p",
+          "paragraf": "6 §",
+          "rubrik": "",
+          "text": "Vården ska ges med respekt för alla människors lika värde och för den enskilda människans värdighet. Den som har det största behovet av hälso- och sjukvård ska ges företräde till vården.",
+          "stycken": [
+            "Vården ska ges med respekt för alla människors lika värde och för den enskilda människans värdighet. Den som har det största behovet av hälso- och sjukvård ska ges företräde till vården."
+          ],
+          "nyckelord": [
+            "vården",
+            "respekt",
+            "alla",
+            "människors",
+            "lika",
+            "värde"
+          ],
+          "relaterade_lagrum": [
+            "22 kap. SFB",
+            "2 § Sjukl.",
+            "3 kap. HSL"
+          ],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_2014_821_9kap_7p",
+          "paragraf": "7 §",
+          "rubrik": "",
+          "text": "Lag (2017:66).",
+          "stycken": [
+            "Lag (2017:66)."
+          ],
+          "nyckelord": [],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_2014_821_9kap_8p",
+          "paragraf": "8 §",
+          "rubrik": "",
+          "text": "8 §   När hälso- och sjukvård ges till barn ska barnets bästa särskilt beaktas.",
+          "stycken": [
+            "8 §   När hälso- och sjukvård ges till barn ska barnets bästa särskilt beaktas."
+          ],
+          "nyckelord": [
+            "hälso",
+            "sjukvård",
+            "barn",
+            "barnets",
+            "bästa",
+            "särskilt"
+          ],
+          "relaterade_lagrum": [
+            "22 kap. SFB",
+            "2 § Sjukl.",
+            "3 kap. HSL",
+            "6 kap. 1 § FB"
+          ],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_2014_821_9kap_9p",
+          "paragraf": "9 §",
+          "rubrik": "",
+          "text": "9 §   Bestämmelser om habilitering och rehabilitering, hjälpmedel för personer med funktionsnedsättning och tolktjänst för vardagstolkning finns i",
+          "stycken": [
+            "9 §   Bestämmelser om habilitering och rehabilitering, hjälpmedel för personer med funktionsnedsättning och tolktjänst för vardagstolkning finns i"
+          ],
+          "nyckelord": [
+            "bestämmelser",
+            "habilitering",
+            "rehabilitering",
+            "hjälpmedel",
+            "personer",
+            "funktionsnedsättning"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "8",
+      "rubrik": "7 § och",
+      "paragrafer": [
+        {
+          "id": "lag_2014_821_8kap_7p",
+          "paragraf": "7 §",
+          "rubrik": "",
+          "text": "7 § och",
+          "stycken": [
+            "7 § och"
+          ],
+          "nyckelord": [],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "2",
+      "rubrik": "5 § hälso- och sjukvårdslagen (2017:30). Lag (2017:66).",
+      "paragrafer": [
+        {
+          "id": "lag_2014_821_2kap_5p",
+          "paragraf": "5 §",
+          "rubrik": "",
+          "text": "5 § hälso- och sjukvårdslagen (2017:30). Lag (2017:66).",
+          "stycken": [
+            "5 § hälso- och sjukvårdslagen (2017:30). Lag (2017:66)."
+          ],
+          "nyckelord": [
+            "hälso",
+            "sjukvårdslagen"
+          ],
+          "relaterade_lagrum": [
+            "22 kap. SFB",
+            "2 § Sjukl.",
+            "3 kap. HSL"
+          ],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "2",
+      "rubrik": "Tillgänglighet",
+      "paragrafer": [
+        {
+          "id": "lag_2014_821_2kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "1 §   Hälso- och sjukvården ska vara lätt tillgänglig.",
+          "stycken": [
+            "1 §   Hälso- och sjukvården ska vara lätt tillgänglig."
+          ],
+          "nyckelord": [
+            "hälso",
+            "sjukvården",
+            "vara",
+            "lätt",
+            "tillgänglig"
+          ],
+          "relaterade_lagrum": [
+            "22 kap. SFB",
+            "2 § Sjukl.",
+            "3 kap. HSL"
+          ],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_2014_821_2kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "",
+          "text": "2 §   Patienten ska, om det inte är uppenbart obehövligt, snarast få en medicinsk bedömning av sitt hälsotillstånd.",
+          "stycken": [
+            "2 §   Patienten ska, om det inte är uppenbart obehövligt, snarast få en medicinsk bedömning av sitt hälsotillstånd."
+          ],
+          "nyckelord": [
+            "patienten",
+            "uppenbart",
+            "obehövligt",
+            "snarast",
+            "medicinsk",
+            "bedömning"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_2014_821_2kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "3 §   Enligt",
+          "stycken": [
+            "3 §   Enligt"
+          ],
+          "nyckelord": [
+            "enligt"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "9",
+      "rubrik": "1 § hälso- och sjukvårdslagen (2017:30) ska patienter erbjudas en vårdgaranti. Den ska innehålla en försäkran om att den enskilde inom viss tid får",
+      "paragrafer": [
+        {
+          "id": "lag_2014_821_9kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "1. kontakt med primärvården,\n   2. en medicinsk bedömning av läkare eller annan legitimerad hälso- och sjukvårdspersonal inom primärvården,\n   3. besöka den specialiserade vården, och\n   4. planerad vård.\nLag (2018:554).",
+          "stycken": [
+            "1. kontakt med primärvården,\n   2. en medicinsk bedömning av läkare eller annan legitimerad hälso- och sjukvårdspersonal inom primärvården,\n   3. besöka den specialiserade vården, och\n   4. planerad vård.\nLag (2018:554)."
+          ],
+          "nyckelord": [
+            "primärvården",
+            "kontakt",
+            "medicinsk",
+            "bedömning",
+            "läkare",
+            "annan"
+          ],
+          "relaterade_lagrum": [
+            "22 kap. SFB",
+            "2 § Sjukl.",
+            "3 kap. HSL"
+          ],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_2014_821_9kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "4 §   Om vårdgarantin enligt",
+          "stycken": [
+            "4 §   Om vårdgarantin enligt"
+          ],
+          "nyckelord": [
+            "vårdgarantin",
+            "enligt"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_2014_821_9kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "3 § 3 eller 4 inte uppfylls, ska patienten få vård hos en annan vårdgivare utan extra kostnad för patienten.",
+          "stycken": [
+            "3 § 3 eller 4 inte uppfylls, ska patienten få vård hos en annan vårdgivare utan extra kostnad för patienten."
+          ],
+          "nyckelord": [
+            "patienten",
+            "uppfylls",
+            "vård",
+            "annan",
+            "vårdgivare",
+            "utan"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        }
+      ]
+    },
+    {
+      "kapitel": "3",
+      "rubrik": "Information",
+      "paragrafer": [
+        {
+          "id": "lag_2014_821_3kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "1. sitt hälsotillstånd,\n   2. de metoder som finns för undersökning, vård och behandling,\n   3. de hjälpmedel som finns för personer med funktionsnedsättning,\n   4. vid vilken tidpunkt han eller hon kan förvänta sig att få vård,\n   5. det förväntade vård- och behandlingsförloppet,\n   6. väsentliga risker för komplikationer och biverkningar,\n   7. eftervård, och\n   8. metoder för att förebygga sjukdom eller skada.",
+          "stycken": [
+            "1. sitt hälsotillstånd,\n   2. de metoder som finns för undersökning, vård och behandling,\n   3. de hjälpmedel som finns för personer med funktionsnedsättning,\n   4. vid vilken tidpunkt han eller hon kan förvänta sig att få vård,\n   5. det förväntade vård- och behandlingsförloppet,\n   6. väsentliga risker för komplikationer och biverkningar,\n   7. eftervård, och\n   8. metoder för att förebygga sjukdom eller skada."
+          ],
+          "nyckelord": [
+            "vård",
+            "metoder",
+            "finns",
+            "sitt",
+            "hälsotillstånd",
+            "undersökning"
+          ],
+          "relaterade_lagrum": [
+            "22 kap. SFB",
+            "2 § Sjukl.",
+            "3 kap. HSL"
+          ],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_2014_821_3kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "",
+          "text": "1. möjligheten att välja behandlingsalternativ samt vårdgivare och utförare av offentligt finansierad hälso- och sjukvård,\n   2. regionens elektroniska system för listning av patienter hos utförare,\n   3. möjligheten att välja och få tillgång till en fast läkarkontakt,\n   4. möjligheten att få en ny medicinsk bedömning och en fast vårdkontakt,\n   5. vårdgarantin, och\n   6. möjligheten att hos Försäkringskassan få upplysningar om vård i ett annat land inom Europeiska ekonomiska samarbetsområdet (EES) eller i Schweiz. Lag (2022:272).\n\n2 a §   Om kostnaden för vården av en patient ska ersättas i enlighet med Europaparlamentets och rådets direktiv 2011/24/EU av den 9 mars 2011 om tillämpning av patienträttigheter vid gränsöverskridande hälso- och sjukvård, i den ursprungliga lydelsen, ska vårdgivaren informera patienten om\n   1. att hälso- och sjukvården och dess personal står under tillsyn av Inspektionen för vård och omsorg (IVO),\n   2. det register om anmälan av verksamhet m.m. som förs av IVO enligt",
+          "stycken": [
+            "1. möjligheten att välja behandlingsalternativ samt vårdgivare och utförare av offentligt finansierad hälso- och sjukvård,\n   2. regionens elektroniska system för listning av patienter hos utförare,\n   3. möjligheten att välja och få tillgång till en fast läkarkontakt,\n   4. möjligheten att få en ny medicinsk bedömning och en fast vårdkontakt,\n   5. vårdgarantin, och\n   6. möjligheten att hos Försäkringskassan få upplysningar om vård i ett annat land inom Europeiska ekonomiska samarbetsområdet (EES) eller i Schweiz. Lag (2022:272).",
+            "2 a §   Om kostnaden för vården av en patient ska ersättas i enlighet med Europaparlamentets och rådets direktiv 2011/24/EU av den 9 mars 2011 om tillämpning av patienträttigheter vid gränsöverskridande hälso- och sjukvård, i den ursprungliga lydelsen, ska vårdgivaren informera patienten om\n   1. att hälso- och sjukvården och dess personal står under tillsyn av Inspektionen för vård och omsorg (IVO),\n   2. det register om anmälan av verksamhet m.m. som förs av IVO enligt"
+          ],
+          "nyckelord": [
+            "möjligheten",
+            "hälso",
+            "välja",
+            "utförare",
+            "sjukvård",
+            "fast"
+          ],
+          "relaterade_lagrum": [
+            "22 kap. SFB",
+            "2 § Sjukl.",
+            "3 kap. HSL",
+            "5 kap. SFB"
+          ],
+          "kategori": "Skyldigheter"
+        }
+      ]
+    },
+    {
+      "kapitel": "4",
+      "rubrik": "7 § biobankslagen (2023:38) finns bestämmelser om information och samtycke vid insamling och bevarande av ett prov i en biobank och användning av ett prov. Lag (2023:42).",
+      "paragrafer": [
+        {
+          "id": "lag_2014_821_4kap_7p",
+          "paragraf": "7 §",
+          "rubrik": "",
+          "text": "7 § biobankslagen (2023:38) finns bestämmelser om information och samtycke vid insamling och bevarande av ett prov i en biobank och användning av ett prov. Lag (2023:42).",
+          "stycken": [
+            "7 § biobankslagen (2023:38) finns bestämmelser om information och samtycke vid insamling och bevarande av ett prov i en biobank och användning av ett prov. Lag (2023:42)."
+          ],
+          "nyckelord": [
+            "prov",
+            "biobankslagen",
+            "finns",
+            "bestämmelser",
+            "information",
+            "samtycke"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_2014_821_4kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "3 §   När patienten är ett barn ska även barnets vårdnadshavare få information enligt 1 och",
+          "stycken": [
+            "3 §   När patienten är ett barn ska även barnets vårdnadshavare få information enligt 1 och"
+          ],
+          "nyckelord": [
+            "patienten",
+            "barn",
+            "barnets",
+            "vårdnadshavare",
+            "information",
+            "enligt"
+          ],
+          "relaterade_lagrum": [
+            "6 kap. 1 § FB",
+            "5 kap. 1 § SoL",
+            "1 § LVU",
+            "6 kap. 2 § FB"
+          ],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_2014_821_4kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "",
+          "text": "2 §§.",
+          "stycken": [
+            "2 §§."
+          ],
+          "nyckelord": [],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_2014_821_4kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "4 §   Om informationen inte kan lämnas till patienten, ska den i stället såvitt möjligt lämnas till en närstående till honom eller henne.",
+          "stycken": [
+            "4 §   Om informationen inte kan lämnas till patienten, ska den i stället såvitt möjligt lämnas till en närstående till honom eller henne."
+          ],
+          "nyckelord": [
+            "lämnas",
+            "informationen",
+            "patienten",
+            "stället",
+            "såvitt",
+            "möjligt"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_2014_821_4kap_5p",
+          "paragraf": "5 §",
+          "rubrik": "",
+          "text": "5 §   Informationen får inte lämnas till patienten eller någon närstående om bestämmelser om sekretess eller tystnadsplikt hindrar detta.",
+          "stycken": [
+            "5 §   Informationen får inte lämnas till patienten eller någon närstående om bestämmelser om sekretess eller tystnadsplikt hindrar detta."
+          ],
+          "nyckelord": [
+            "informationen",
+            "lämnas",
+            "patienten",
+            "någon",
+            "närstående",
+            "bestämmelser"
+          ],
+          "relaterade_lagrum": [
+            "26 kap. 1 § OSL",
+            "25 kap. 1 § OSL"
+          ],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_2014_821_4kap_6p",
+          "paragraf": "6 §",
+          "rubrik": "",
+          "text": "Mottagarens önskan om att avstå från information ska respekteras.",
+          "stycken": [
+            "Mottagarens önskan om att avstå från information ska respekteras."
+          ],
+          "nyckelord": [
+            "mottagarens",
+            "önskan",
+            "avstå",
+            "information",
+            "respekteras"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_2014_821_4kap_7p",
+          "paragraf": "7 §",
+          "rubrik": "",
+          "text": "Informationen ska lämnas skriftligen om det behövs med hänsyn till mottagarens individuella förutsättningar eller om han eller hon ber om det.",
+          "stycken": [
+            "Informationen ska lämnas skriftligen om det behövs med hänsyn till mottagarens individuella förutsättningar eller om han eller hon ber om det."
+          ],
+          "nyckelord": [
+            "informationen",
+            "lämnas",
+            "skriftligen",
+            "behövs",
+            "hänsyn",
+            "mottagarens"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        }
+      ]
+    },
+    {
+      "kapitel": "4",
+      "rubrik": "Samtycke",
+      "paragrafer": [
+        {
+          "id": "lag_2014_821_4kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "1 §   Patientens självbestämmande och integritet ska respekteras.",
+          "stycken": [
+            "1 §   Patientens självbestämmande och integritet ska respekteras."
+          ],
+          "nyckelord": [
+            "patientens",
+            "självbestämmande",
+            "integritet",
+            "respekteras"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_2014_821_4kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "",
+          "text": "2 §   Hälso- och sjukvård får inte ges utan patientens samtycke om inte annat följer av denna eller någon annan lag. Innan samtycke inhämtas ska patienten få information enligt",
+          "stycken": [
+            "2 §   Hälso- och sjukvård får inte ges utan patientens samtycke om inte annat följer av denna eller någon annan lag. Innan samtycke inhämtas ska patienten få information enligt"
+          ],
+          "nyckelord": [
+            "samtycke",
+            "hälso",
+            "sjukvård",
+            "utan",
+            "patientens",
+            "annat"
+          ],
+          "relaterade_lagrum": [
+            "22 kap. SFB",
+            "2 § Sjukl.",
+            "3 kap. HSL"
+          ],
+          "kategori": "Skyldigheter"
+        }
+      ]
+    },
+    {
+      "kapitel": "3",
+      "rubrik": "Patienten kan, om inte annat särskilt följer av lag, lämna sitt samtycke skriftligen, muntligen eller genom att på annat sätt visa att han eller hon samtycker till den aktuella åtgärden.",
+      "paragrafer": [
+        {
+          "id": "lag_2014_821_3kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "3 §   När patienten är ett barn ska barnets inställning till den aktuella vården eller behandlingen så långt som möjligt klarläggas. Barnets inställning ska tillmätas betydelse i förhållande till hans eller hennes ålder och mognad.",
+          "stycken": [
+            "3 §   När patienten är ett barn ska barnets inställning till den aktuella vården eller behandlingen så långt som möjligt klarläggas. Barnets inställning ska tillmätas betydelse i förhållande till hans eller hennes ålder och mognad."
+          ],
+          "nyckelord": [
+            "barnets",
+            "inställning",
+            "patienten",
+            "barn",
+            "aktuella",
+            "vården"
+          ],
+          "relaterade_lagrum": [
+            "6 kap. 1 § FB",
+            "5 kap. 1 § SoL",
+            "1 § LVU"
+          ],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_2014_821_3kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "4 §   Patienten ska få den hälso- och sjukvård som behövs för att avvärja fara som akut och allvarligt hotar patientens liv eller hälsa, även om hans eller hennes vilja på grund av medvetslöshet eller av någon annan orsak inte kan utredas.",
+          "stycken": [
+            "4 §   Patienten ska få den hälso- och sjukvård som behövs för att avvärja fara som akut och allvarligt hotar patientens liv eller hälsa, även om hans eller hennes vilja på grund av medvetslöshet eller av någon annan orsak inte kan utredas."
+          ],
+          "nyckelord": [
+            "patienten",
+            "hälso",
+            "sjukvård",
+            "behövs",
+            "avvärja",
+            "fara"
+          ],
+          "relaterade_lagrum": [
+            "22 kap. SFB",
+            "2 § Sjukl.",
+            "3 kap. HSL"
+          ],
+          "kategori": "Skyldigheter"
+        }
+      ]
+    },
+    {
+      "kapitel": "5",
+      "rubrik": "Delaktighet",
+      "paragrafer": [
+        {
+          "id": "lag_2014_821_5kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "1 §   Hälso- och sjukvården ska så långt som möjligt utformas och genomföras i samråd med patienten.",
+          "stycken": [
+            "1 §   Hälso- och sjukvården ska så långt som möjligt utformas och genomföras i samråd med patienten."
+          ],
+          "nyckelord": [
+            "hälso",
+            "sjukvården",
+            "långt",
+            "möjligt",
+            "utformas",
+            "genomföras"
+          ],
+          "relaterade_lagrum": [
+            "22 kap. SFB",
+            "2 § Sjukl.",
+            "3 kap. HSL"
+          ],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_2014_821_5kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "",
+          "text": "Lag (2022:1254).",
+          "stycken": [
+            "Lag (2022:1254)."
+          ],
+          "nyckelord": [],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_2014_821_5kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "3 §   Patientens närstående ska få möjlighet att medverka vid utformningen och genomförandet av vården, om det är lämpligt och om bestämmelser om sekretess eller tystnadsplikt inte hindrar detta.",
+          "stycken": [
+            "3 §   Patientens närstående ska få möjlighet att medverka vid utformningen och genomförandet av vården, om det är lämpligt och om bestämmelser om sekretess eller tystnadsplikt inte hindrar detta."
+          ],
+          "nyckelord": [
+            "patientens",
+            "närstående",
+            "möjlighet",
+            "medverka",
+            "utformningen",
+            "genomförandet"
+          ],
+          "relaterade_lagrum": [
+            "26 kap. 1 § OSL",
+            "25 kap. 1 § OSL"
+          ],
+          "kategori": "Skyldigheter"
+        }
+      ]
+    },
+    {
+      "kapitel": "6",
+      "rubrik": "Fast vårdkontakt och individuell planering",
+      "paragrafer": [
+        {
+          "id": "lag_2014_821_6kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "1 §   Patientens behov av trygghet, kontinuitet och säkerhet ska tillgodoses. Olika insatser för patienten ska samordnas på ett ändamålsenligt sätt.",
+          "stycken": [
+            "1 §   Patientens behov av trygghet, kontinuitet och säkerhet ska tillgodoses. Olika insatser för patienten ska samordnas på ett ändamålsenligt sätt."
+          ],
+          "nyckelord": [
+            "patientens",
+            "behov",
+            "trygghet",
+            "kontinuitet",
+            "säkerhet",
+            "tillgodoses"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_2014_821_6kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "",
+          "text": "2 §   En fast vårdkontakt ska utses för patienten om han eller hon begär det, eller om det är nödvändigt för att tillgodose hans eller hennes behov av trygghet, kontinuitet, samordning och säkerhet.",
+          "stycken": [
+            "2 §   En fast vårdkontakt ska utses för patienten om han eller hon begär det, eller om det är nödvändigt för att tillgodose hans eller hennes behov av trygghet, kontinuitet, samordning och säkerhet."
+          ],
+          "nyckelord": [
+            "fast",
+            "vårdkontakt",
+            "utses",
+            "patienten",
+            "begär",
+            "nödvändigt"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_2014_821_6kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "3 §   Patienten ska få möjlighet att välja och få tillgång till en fast läkarkontakt hos den utförare inom primärvården som patienten valt genom listning enligt",
+          "stycken": [
+            "3 §   Patienten ska få möjlighet att välja och få tillgång till en fast läkarkontakt hos den utförare inom primärvården som patienten valt genom listning enligt"
+          ],
+          "nyckelord": [
+            "patienten",
+            "möjlighet",
+            "välja",
+            "tillgång",
+            "fast",
+            "läkarkontakt"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        }
+      ]
+    },
+    {
+      "kapitel": "7",
+      "rubrik": "3 a § hälso- och sjukvårdslagen (2017:30). Lag (2022:272).",
+      "paragrafer": [
+        {
+          "id": "lag_2014_821_7kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "4 §   För en enskild som har behov av både hälso- och sjukvård och insatser från socialtjänsten ska en individuell plan upprättas under de förutsättningar som anges i",
+          "stycken": [
+            "4 §   För en enskild som har behov av både hälso- och sjukvård och insatser från socialtjänsten ska en individuell plan upprättas under de förutsättningar som anges i"
+          ],
+          "nyckelord": [
+            "enskild",
+            "behov",
+            "både",
+            "hälso",
+            "sjukvård",
+            "insatser"
+          ],
+          "relaterade_lagrum": [
+            "22 kap. SFB",
+            "2 § Sjukl.",
+            "3 kap. HSL"
+          ],
+          "kategori": "Skyldigheter"
+        }
+      ]
+    },
+    {
+      "kapitel": "6",
+      "rubrik": "4 § hälso- och sjukvårdslagen (2017:30). Lag (2017:66).",
+      "paragrafer": [
+        {
+          "id": "lag_2014_821_6kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "4 § hälso- och sjukvårdslagen (2017:30). Lag (2017:66).",
+          "stycken": [
+            "4 § hälso- och sjukvårdslagen (2017:30). Lag (2017:66)."
+          ],
+          "nyckelord": [
+            "hälso",
+            "sjukvårdslagen"
+          ],
+          "relaterade_lagrum": [
+            "22 kap. SFB",
+            "2 § Sjukl.",
+            "3 kap. HSL"
+          ],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "7",
+      "rubrik": "Val av behandlingsalternativ och hjälpmedel",
+      "paragrafer": [
+        {
+          "id": "lag_2014_821_7kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "Patienten har inte rätt att välja en sådan behandling som kommunen ansvarar för enligt",
+          "stycken": [
+            "Patienten har inte rätt att välja en sådan behandling som kommunen ansvarar för enligt"
+          ],
+          "nyckelord": [
+            "patienten",
+            "rätt",
+            "välja",
+            "behandling",
+            "kommunen",
+            "ansvarar"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "2",
+      "rubrik": "1 eller 2 § eller",
+      "paragrafer": [
+        {
+          "id": "lag_2014_821_2kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "",
+          "text": "2 § eller",
+          "stycken": [
+            "2 § eller"
+          ],
+          "nyckelord": [],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "4",
+      "rubrik": "1 § hälso- och sjukvårdslagen (2017:30) utanför den kommun inom vilken han eller hon är bosatt, om denna kommun kan erbjuda en behandling som står i överensstämmelse med vetenskap och beprövad erfarenhet. Lag (2017:66).",
+      "paragrafer": [
+        {
+          "id": "lag_2014_821_4kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "1 § hälso- och sjukvårdslagen (2017:30) utanför den kommun inom vilken han eller hon är bosatt, om denna kommun kan erbjuda en behandling som står i överensstämmelse med vetenskap och beprövad erfarenhet. Lag (2017:66).",
+          "stycken": [
+            "1 § hälso- och sjukvårdslagen (2017:30) utanför den kommun inom vilken han eller hon är bosatt, om denna kommun kan erbjuda en behandling som står i överensstämmelse med vetenskap och beprövad erfarenhet. Lag (2017:66)."
+          ],
+          "nyckelord": [
+            "kommun",
+            "hälso",
+            "sjukvårdslagen",
+            "utanför",
+            "inom",
+            "bosatt"
+          ],
+          "relaterade_lagrum": [
+            "22 kap. SFB",
+            "2 § Sjukl.",
+            "3 kap. HSL"
+          ],
+          "kategori": "Ansökan och beslut"
+        },
+        {
+          "id": "lag_2014_821_4kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "",
+          "text": "Patienten ska få det valda hjälpmedlet, om det med hänsyn till hans eller hennes behov och till kostnaderna för hjälpmedlet framstår som befogat.",
+          "stycken": [
+            "Patienten ska få det valda hjälpmedlet, om det med hänsyn till hans eller hennes behov och till kostnaderna för hjälpmedlet framstår som befogat."
+          ],
+          "nyckelord": [
+            "hjälpmedlet",
+            "patienten",
+            "valda",
+            "hänsyn",
+            "hans",
+            "hennes"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        }
+      ]
+    },
+    {
+      "kapitel": "8",
+      "rubrik": "Ny medicinsk bedömning",
+      "paragrafer": [
+        {
+          "id": "lag_2014_821_8kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "Patienten ska erbjudas den behandling som den nya bedömningen kan ge anledning till om\n   1. behandlingen står i överensstämmelse med vetenskap och beprövad erfarenhet, och\n   2. det med hänsyn till den aktuella sjukdomen eller skadan och till kostnaderna för behandlingen framstår som befogat.\nLag (2019:964).",
+          "stycken": [
+            "Patienten ska erbjudas den behandling som den nya bedömningen kan ge anledning till om\n   1. behandlingen står i överensstämmelse med vetenskap och beprövad erfarenhet, och\n   2. det med hänsyn till den aktuella sjukdomen eller skadan och till kostnaderna för behandlingen framstår som befogat.\nLag (2019:964)."
+          ],
+          "nyckelord": [
+            "behandlingen",
+            "patienten",
+            "erbjudas",
+            "behandling",
+            "bedömningen",
+            "anledning"
+          ],
+          "relaterade_lagrum": [
+            "22 kap. SFB",
+            "2 § Sjukl.",
+            "3 kap. HSL"
+          ],
+          "kategori": "Ansökan och beslut"
+        }
+      ]
+    },
+    {
+      "kapitel": "9",
+      "rubrik": "Val av utförare",
+      "paragrafer": [
+        {
+          "id": "lag_2014_821_9kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "Bestämmelser om val av utförare inom primärvården genom listning finns i",
+          "stycken": [
+            "Bestämmelser om val av utförare inom primärvården genom listning finns i"
+          ],
+          "nyckelord": [
+            "bestämmelser",
+            "utförare",
+            "inom",
+            "primärvården",
+            "genom",
+            "listning"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "0",
+      "rubrik": "Personuppgifter och intyg",
+      "paragrafer": [
+        {
+          "id": "lag_2014_821_0kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "Bestämmelser om patientens rätt att ta del av journalhandlingar och andra uppgifter och att motsätta sig behandling av personuppgifter samt andra bestämmelser om behandling av personuppgifter inom hälso- och sjukvårdsverksamhet finns i patientdatalagen (2008:355) och lagen (2022:913) om sammanhållen vård- och omsorgsdokumentation. Lag (2022:917).",
+          "stycken": [
+            "Bestämmelser om patientens rätt att ta del av journalhandlingar och andra uppgifter och att motsätta sig behandling av personuppgifter samt andra bestämmelser om behandling av personuppgifter inom hälso- och sjukvårdsverksamhet finns i patientdatalagen (2008:355) och lagen (2022:913) om sammanhållen vård- och omsorgsdokumentation. Lag (2022:917)."
+          ],
+          "nyckelord": [
+            "bestämmelser",
+            "andra",
+            "behandling",
+            "personuppgifter",
+            "patientens",
+            "rätt"
+          ],
+          "relaterade_lagrum": [
+            "22 kap. SFB",
+            "2 § Sjukl.",
+            "3 kap. HSL"
+          ],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_2014_821_0kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "",
+          "text": "2 §   Bestämmelser om sekretess inom allmän hälso- och sjukvårdsverksamhet finns i",
+          "stycken": [
+            "2 §   Bestämmelser om sekretess inom allmän hälso- och sjukvårdsverksamhet finns i"
+          ],
+          "nyckelord": [
+            "bestämmelser",
+            "sekretess",
+            "inom",
+            "allmän",
+            "hälso",
+            "sjukvårdsverksamhet"
+          ],
+          "relaterade_lagrum": [
+            "22 kap. SFB",
+            "2 § Sjukl.",
+            "3 kap. HSL",
+            "26 kap. 1 § OSL"
+          ],
+          "kategori": "Sekretess"
+        }
+      ]
+    },
+    {
+      "kapitel": "6",
+      "rubrik": "12, 13 och 16 §§ patientsäkerhetslagen (2010:659).",
+      "paragrafer": [
+        {
+          "id": "lag_2014_821_6kap_6p",
+          "paragraf": "6 §",
+          "rubrik": "",
+          "text": "6 §§ patientsäkerhetslagen (2010:659).",
+          "stycken": [
+            "6 §§ patientsäkerhetslagen (2010:659)."
+          ],
+          "nyckelord": [
+            "patientsäkerhetslagen"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_2014_821_6kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "3 §   Den som är skyldig att föra patientjournal ska på begäran av patienten utfärda intyg om vården.",
+          "stycken": [
+            "3 §   Den som är skyldig att föra patientjournal ska på begäran av patienten utfärda intyg om vården."
+          ],
+          "nyckelord": [
+            "skyldig",
+            "föra",
+            "patientjournal",
+            "begäran",
+            "patienten",
+            "utfärda"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        }
+      ]
+    },
+    {
+      "kapitel": "1",
+      "rubrik": "Synpunkter, klagomål och patientsäkerhet",
+      "paragrafer": [
+        {
+          "id": "lag_2014_821_1kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "1. hjälpa patienter och deras närstående att föra fram klagomål och att få svar av vårdgivaren i enlighet med",
+          "stycken": [
+            "1. hjälpa patienter och deras närstående att föra fram klagomål och att få svar av vårdgivaren i enlighet med"
+          ],
+          "nyckelord": [
+            "hjälpa",
+            "patienter",
+            "deras",
+            "närstående",
+            "föra",
+            "fram"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "3",
+      "rubrik": "8 b § patientsäkerhetslagen (2010:659),",
+      "paragrafer": [
+        {
+          "id": "lag_2014_821_3kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "",
+          "text": "1. att det har inträffat en händelse som medfört en vårdskada,\n   2. vilka åtgärder som vårdgivaren avser att vidta för att en liknande händelse inte ska inträffa igen,\n   3. vårdgivarens skyldighet att hantera klagomål och synpunkter,\n   4. patientnämndernas uppgift att hjälpa patienten att föra fram klagomål och att få svar av vårdgivaren,\n   5. möjligheten att anmäla klagomål till Inspektionen för vård och omsorg, och\n   6. möjligheten att begära ersättning enligt patientskadelagen (1996:799) eller från läkemedelsförsäkringen. Lag (2017:379).\n\n2 a §   Vårdgivaren ska snarast besvara klagomål från patienter och deras närstående. Klagomålen ska besvaras på lämpligt sätt och med hänsyn till klagomålets art och den enskildes förmåga att tillgodogöra sig information.\n\nVårdgivaren ska ge klaganden\n   1. en förklaring till vad som har inträffat, och\n   2. i förekommande fall, en beskrivning av vilka åtgärder som vårdgivaren avser att vidta för att en liknande händelse inte ska inträffa igen. Lag (2017:379).",
+          "stycken": [
+            "1. att det har inträffat en händelse som medfört en vårdskada,\n   2. vilka åtgärder som vårdgivaren avser att vidta för att en liknande händelse inte ska inträffa igen,\n   3. vårdgivarens skyldighet att hantera klagomål och synpunkter,\n   4. patientnämndernas uppgift att hjälpa patienten att föra fram klagomål och att få svar av vårdgivaren,\n   5. möjligheten att anmäla klagomål till Inspektionen för vård och omsorg, och\n   6. möjligheten att begära ersättning enligt patientskadelagen (1996:799) eller från läkemedelsförsäkringen. Lag (2017:379).",
+            "2 a §   Vårdgivaren ska snarast besvara klagomål från patienter och deras närstående. Klagomålen ska besvaras på lämpligt sätt och med hänsyn till klagomålets art och den enskildes förmåga att tillgodogöra sig information.",
+            "Vårdgivaren ska ge klaganden\n   1. en förklaring till vad som har inträffat, och\n   2. i förekommande fall, en beskrivning av vilka åtgärder som vårdgivaren avser att vidta för att en liknande händelse inte ska inträffa igen. Lag (2017:379)."
+          ],
+          "nyckelord": [
+            "vårdgivaren",
+            "klagomål",
+            "händelse",
+            "inträffat",
+            "åtgärder",
+            "avser"
+          ],
+          "relaterade_lagrum": [
+            "5 kap. SFB",
+            "6 kap. SFB"
+          ],
+          "kategori": "Rätt till ersättning"
+        },
+        {
+          "id": "lag_2014_821_3kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "3 §   Inspektionen för vård och omsorg ska enligt vad som anges i",
+          "stycken": [
+            "3 §   Inspektionen för vård och omsorg ska enligt vad som anges i"
+          ],
+          "nyckelord": [
+            "inspektionen",
+            "vård",
+            "omsorg",
+            "enligt",
+            "anges"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        }
+      ]
+    },
+    {
+      "kapitel": "7",
+      "rubrik": "10-18 §§ patientsäkerhetslagen (2010:659) efter anmälan pröva klagomål mot verksamheter som bedriver hälso- och sjukvård och mot hälso- och sjukvårdspersonal.",
+      "paragrafer": [
+        {
+          "id": "lag_2014_821_7kap_8p",
+          "paragraf": "8 §",
+          "rubrik": "",
+          "text": "8 §§ patientsäkerhetslagen (2010:659) efter anmälan pröva klagomål mot verksamheter som bedriver hälso- och sjukvård och mot hälso- och sjukvårdspersonal.",
+          "stycken": [
+            "8 §§ patientsäkerhetslagen (2010:659) efter anmälan pröva klagomål mot verksamheter som bedriver hälso- och sjukvård och mot hälso- och sjukvårdspersonal."
+          ],
+          "nyckelord": [
+            "hälso",
+            "patientsäkerhetslagen",
+            "anmälan",
+            "pröva",
+            "klagomål",
+            "verksamheter"
+          ],
+          "relaterade_lagrum": [
+            "22 kap. SFB",
+            "2 § Sjukl.",
+            "3 kap. HSL"
+          ],
+          "kategori": "Ansökan och beslut"
+        },
+        {
+          "id": "lag_2014_821_7kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "4 §   Patienten och dennes närstående ska få möjlighet att delta i vårdgivarens patientsäkerhetsarbete.",
+          "stycken": [
+            "4 §   Patienten och dennes närstående ska få möjlighet att delta i vårdgivarens patientsäkerhetsarbete."
+          ],
+          "nyckelord": [
+            "patienten",
+            "dennes",
+            "närstående",
+            "möjlighet",
+            "delta",
+            "vårdgivarens"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        }
+      ]
     }
-  ]
+  ],
+  "overgangsbestammelser": []
 }

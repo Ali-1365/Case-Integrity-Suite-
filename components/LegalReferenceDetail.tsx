@@ -12,8 +12,10 @@ import {
   CpuChipIcon,
   SparklesIcon,
   FileIcon,
-  CheckCircleIcon
+  CheckCircleIcon,
+  MagnifyingGlassIcon
 } from './icons';
+import { ArchiveSearch } from './ArchiveSearch';
 
 interface LegalReferenceDetailProps {
   referenceId: string;
@@ -158,6 +160,15 @@ const LegalReferenceDetail: React.FC<LegalReferenceDetailProps> = ({ referenceId
                     Fullständig lagtext saknas i det lokala registret för denna specifika referens.
                   </div>
                 )}
+              </div>
+
+              {/* Bakgrundssökning i arkivet */}
+              <div className="animate-in slide-in-from-left duration-1000 delay-300">
+                <ArchiveSearch 
+                  query={ref.rawText} 
+                  title="Arkivsökning (Bakgrund)" 
+                  limit={3} 
+                />
               </div>
             </div>
           </div>

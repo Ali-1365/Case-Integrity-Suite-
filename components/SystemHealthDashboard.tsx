@@ -265,16 +265,17 @@ const SystemHealthDashboard: React.FC<SystemHealthDashboardProps> = ({ isOpen, o
                     setIsCheckingIntegrity(true);
                     const files = [
                       'bk_2018_1197.json', 'brb_1962_700.json', 'dl_2008_567.json', 'fb_1949_381.json', 
-                      'fl_2017_900.json', 'fmu_2018_744.json', 'hsl_2017_30.json', 'kl_2017_725.json', 
-                      'lag_2017_612.json', 'las_1982_80.json', 'lss_1993_387.json', 'lvm_1988_870.json', 
-                      'lvu_1990_52.json', 'osl_2009_400.json', 'pl_2014_821.json', 'praxis.json', 
-                      'rb_1942_740.json', 'rf_1974_152.json', 'SampleFacts_FS_2026-01-08.json', 
+                      'fhs_1995_1301.json', 'fl_2017_900.json', 'fmu_2018_744.json', 'hsl_2017_30.json', 
+                      'kl_2017_725.json', 'lag_2017_612.json', 'las_1982_80.json', 'lss_1993_387.json', 
+                      'lvm_1988_870.json', 'lvu_1990_52.json', 'osl_2009_400.json', 'pl_2014_821.json', 
+                      'praxis.json', 'rb_1942_740.json', 'rf_1974_152.json', 'SampleFacts_FS_2026-01-08.json', 
                       'sfb_2010_110.json', 'sjukl_1991_1047.json', 'skl_1972_207.json', 'sol_2025_400.json', 
-                      'tf_1949_105.json', 'ygl_1991_1469.json', 'ysl_1977_268.json', 'index.json'
+                      'tf_1949_105.json', 'yfo_statlig_1967_920.json', 'ygl_1991_1469.json', 'ysl_1977_268.json', 
+                      'ysl_statlig_1977_269.json', 'ysl_varde_1967_919.json', 'index.json'
                     ];
                     const results = [];
                     for (const file of files) {
-                      const path = file === 'index.json' ? `/rag/${file}` : `/public/data/${file}`;
+                      const path = file === 'index.json' ? `/rag/${file}` : `/data/${file}`;
                       try {
                         const res = await fetch(path);
                         if (!res.ok) throw new Error(`HTTP ${res.status}`);

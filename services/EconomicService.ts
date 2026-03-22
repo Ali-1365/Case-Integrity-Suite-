@@ -47,7 +47,7 @@ export class EconomicService {
         claimant: 'Privatperson X',
         defendant: 'Staten',
         type: 'STATE',
-        legalBasis: ['Skadeståndslagen 3 kap. 2 §', 'Europakonventionen art. 6'],
+        legalBasis: ['Skadeståndslagen 3 kap. 2 §', 'Europakonventionen art. 6', 'HSS 3 §'],
         estimatedAmount: 75000,
         probability: 0.65,
         status: 'FILED',
@@ -127,7 +127,7 @@ export class EconomicService {
   }
 
   async analyzeClaimAI(claim: DamagesClaim): Promise<string> {
-    const prompt = `Analysera följande skadeståndskrav baserat på svensk skadeståndsrätt (Skadeståndslagen, SkL):
+    const prompt = `Analysera följande skadeståndskrav baserat på svensk skadeståndsrätt (Skadeståndslagen, SkL) och i förekommande fall Förordning (1995:1301) om handläggning av skadeståndsanspråk mot staten (HSS):
     Kärande: ${claim.claimant}
     Svarande: ${claim.defendant}
     Typ: ${claim.type}
@@ -135,7 +135,7 @@ export class EconomicService {
     Komponenter: ${claim.components.map(c => `${c.label}: ${c.amount} SEK (${c.description})`).join(', ')}
     Juridisk grund: ${claim.legalBasis.join(', ')}
     
-    Ge en kortfattad juridisk bedömning av sannolikheten för framgång och eventuella risker.`;
+    Ge en kortfattad juridisk bedömning av sannolikheten för framgång och eventuella risker. Om kravet riktas mot staten, beakta särskilt handläggningsreglerna i HSS.`;
 
     try {
       const response = await geminiService.generate({ contents: prompt });

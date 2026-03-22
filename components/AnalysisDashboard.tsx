@@ -2,7 +2,8 @@
 import React from 'react';
 import { AnalysisResult } from '../lib/cis.types';
 import Card from './shared/Card';
-import { ShieldCheckIcon, AlertIcon, LawIcon, ActivityIcon } from './icons';
+import { ShieldCheckIcon, AlertIcon, LawIcon, ActivityIcon, MagnifyingGlassIcon } from './icons';
+import { ArchiveSearch } from './ArchiveSearch';
 
 interface AnalysisDashboardProps {
   analysis: AnalysisResult;
@@ -115,6 +116,38 @@ const AnalysisDashboard: React.FC<AnalysisDashboardProps> = ({ analysis }) => {
           </div>
         </div>
       </div>
+
+      {/* Automatisk Arkivsökning för Risker */}
+      {analysis.riskProfile.dominantRisks.length > 0 && (
+        <div className="animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-500">
+          <div className="bg-slate-50 dark:bg-slate-800/20 p-12 rounded-[3.5rem] border border-slate-200 dark:border-slate-800 shadow-sm">
+            <div className="flex items-center justify-between mb-10">
+              <div className="flex items-center gap-5">
+                <div className="p-3 bg-amber-500/10 rounded-2xl text-amber-600 dark:text-amber-400">
+                  <MagnifyingGlassIcon className="w-6 h-6" />
+                </div>
+                <div>
+                  <h3 className="text-sm font-black text-slate-400 uppercase tracking-[0.3em]">Automatisk Arkivmatchning</h3>
+                  <p className="text-[10px] font-black text-amber-600 dark:text-amber-400 uppercase mt-1.5 tracking-widest">Baserat på identifierade risker</p>
+                </div>
+              </div>
+              <span className="text-[10px] font-black text-slate-400 bg-white dark:bg-slate-900 px-5 py-2.5 rounded-full border border-slate-200 dark:border-slate-700 uppercase tracking-[0.2em] opacity-70">Bakgrundssökning Aktiv</span>
+            </div>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+              {analysis.riskProfile.dominantRisks.slice(0, 2).map((riskLabel, idx) => (
+                <ArchiveSearch 
+                  key={`risk-search-${idx}`}
+                  query={riskLabel} 
+                  title={`Relaterade fall: ${riskLabel}`} 
+                  limit={2}
+                  className="bg-white dark:bg-slate-900/50 p-8 rounded-[2.5rem] border border-slate-200 dark:border-slate-800 shadow-sm"
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

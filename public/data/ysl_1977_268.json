@@ -1,81 +1,188 @@
 {
-  "sourceCode": "ysl",
-  "sfsNumber": "1977:268",
-  "title": "Lag (1977:268) om uppräkning av yrkesskadelivräntor m.m.",
-  "shortName": "ysl",
-  "versionChain": ["1977:268", "2010:1222"],
-  "ikraft": "1977-07-01",
-  "description": "Lagstiftning som reglerar värdesäkring och procentuell uppräkning av livräntor och sjukpenning fastställda enligt äldre yrkesskadeförsäkringslagar [cite: 452-453].",
-  "paragraphs": [
+  "metadata": {
+    "id": "ysl_1977_268",
+    "titel": "Lag (1977:268) om uppräkning av yrkesskadelivräntor m.m.",
+    "sfs": "1977:268",
+    "kortnamn": "ysl",
+    "departement": "Socialdepartementet",
+    "ikraftträdande": "1977-04-28",
+    "senast_ändrad": "2010-01-01",
+    "senast_andrad_sfs": "2010:1222",
+    "rättsområde": "socialförsäkring",
+    "kategori": "yrkesskada",
+    "beskrivning": "Lag om uppräkning och värdesäkring av yrkesskadelivräntor på grund av obligatorisk försäkring.",
+    "antal_paragrafer": 7,
+    "har_kapitelindelning": false
+  },
+  "paragrafer": [
     {
-      "id": "ysl_1977_1",
-      "chapter": 0,
-      "section": 1,
-      "principleType": "tillämpningsområde",
-      "text": "Denna lag gäller livränta och sjukpenning på grund av obligatorisk försäkring enligt: 1. lagen (1916:235) om försäkring för olycksfall i arbete, 2. lagen (1929:131) om försäkring för vissa yrkessjukdomar, 3. lagen (1937:348) om krigsförsäkring för ombord å fartyg tjänstgörande personer, 4. lagen (1954:243) om yrkesskadeförsäkring, 5. lagen (1954:246) om krigsförsäkring för sjömän m.fl.[cite: 452]. Lagen gäller ej ersättning som utgår av statsmedel eller livränta som har bytts ut mot engångsbelopp[cite: 453].",
-      "keywords": ["obligatorisk försäkring", "yrkesskadeförsäkring", "olycksfall i arbete"],
-      "relatedRules": [],
-      "metadata": { "validFrom": "1977-07-01", "legalWeight": "grundläggande", "riskTrigger": false }
+      "id": "ysl_1p",
+      "paragraf": "1 §",
+      "rubrik": "Lagens tillämpningsområde",
+      "text": "Denna lag gäller livränta och sjukpenning på grund av obligatorisk försäkring enligt\n\n1. lagen (1916:235) om försäkring för olycksfall i arbete,\n2. lagen (1929:131) om försäkring för vissa yrkessjukdomar,\n3. lagen (1937:348) om krigsförsäkring för ombord å fartyg tjänstgörande personer,\n4. lagen (1954:243) om yrkesskadeförsäkring,\n5. lagen (1954:246) om krigsförsäkring för sjömän m.fl.\n\nLagen gäller ej ersättning som utgår av statsmedel eller livränta som har bytts ut mot engångsbelopp.",
+      "stycken": [
+        "Denna lag gäller livränta och sjukpenning på grund av obligatorisk försäkring enligt punkterna 1–5 ovan.",
+        "Lagen gäller ej ersättning som utgår av statsmedel eller livränta som har bytts ut mot engångsbelopp."
+      ],
+      "nyckelord": [
+        "livränta",
+        "sjukpenning",
+        "obligatorisk försäkring",
+        "yrkesskada",
+        "tillämpningsområde"
+      ],
+      "relaterade_lagrum": [
+        "1 § Lag (1977:269)",
+        "22 kap. SFB",
+        "1 § Lag (1967:919)"
+      ],
+      "kategori": "Allmänna bestämmelser"
     },
     {
-      "id": "ysl_1977_2",
-      "chapter": 0,
-      "section": 2,
-      "principleType": "uppräkningssatser",
-      "text": "Livränta till försäkrad vars arbetsförmåga är nedsatt med minst en fjärdedel och livränta till försäkrads efterlevande skall räknas upp med 30 procent om skadan har inträffat år 1954 eller tidigare, med 20 procent om skadan har inträffat något av åren 1955-1967 och med 10 procent om skadan har inträffat senare[cite: 454]. Uppräkning skall dock ske med lägst 500 kronor[cite: 455].",
-      "keywords": ["uppräkning", "arbetsförmåga", "efterlevande"],
-      "relatedRules": ["ysl 3 §"],
-      "metadata": { "validFrom": "1977-07-01", "legalWeight": "central", "riskTrigger": false }
+      "id": "ysl_2p",
+      "paragraf": "2 §",
+      "rubrik": "Uppräkning av livränta",
+      "text": "Livränta till försäkrad vars arbetsförmåga är nedsatt med minst en fjärdedel och livränta till försäkrads efterlevande skall räknas upp med 30 procent om skadan har inträffat år 1954 eller tidigare, med 20 procent om skadan har inträffat något av åren 1955-1967 och med 10 procent om skadan har inträffat senare. Uppräkning skall dock ske med lägst 500 kronor.",
+      "stycken": [
+        "Livränta till försäkrad vars arbetsförmåga är nedsatt med minst en fjärdedel och livränta till försäkrads efterlevande skall räknas upp med 30 procent om skadan har inträffat år 1954 eller tidigare, med 20 procent om skadan har inträffat något av åren 1955-1967 och med 10 procent om skadan har inträffat senare.",
+        "Uppräkning skall dock ske med lägst 500 kronor."
+      ],
+      "nyckelord": [
+        "livränta",
+        "uppräkning",
+        "arbetsförmåga",
+        "nedsatt",
+        "procent",
+        "efterlevande"
+      ],
+      "relaterade_lagrum": [
+        "3 § Lag (1977:268)",
+        "2 § Lag (1967:919)",
+        "2 § Lag (1967:920)"
+      ],
+      "kategori": "Rätt till ersättning"
     },
     {
-      "id": "ysl_1977_3",
-      "chapter": 0,
-      "section": 3,
-      "principleType": "värdesäkring",
-      "text": "Den uppräknade livräntan anknytes till prisbasbeloppet enligt 2 kap. 6 och 7 §§ socialförsäkringsbalken och omräknas vid förändring av detta[cite: 455, 456]. Livräntebeloppet avrundas till närmast lägre hela krontal som är jämnt delbart med tolv[cite: 457].",
-      "keywords": ["prisbasbelopp", "omräkning", "avrundning"],
-      "relatedRules": ["SFB 2:6", "SFB 2:7"],
-      "metadata": { "validFrom": "2010-12-22", "legalWeight": "central", "riskTrigger": false }
+      "id": "ysl_3p",
+      "paragraf": "3 §",
+      "rubrik": "Anknytning till prisbasbelopp",
+      "text": "Den uppräknade livräntan anknytes till prisbasbeloppet enligt 2 kap. 6 och 7 §§ socialförsäkringsbalken och omräknas vid förändring av detta. Livräntebeloppet avrundas till närmast lägre hela krontal som är jämnt delbart med tolv.\nLag (2010:1222).",
+      "stycken": [
+        "Den uppräknade livräntan anknytes till prisbasbeloppet enligt 2 kap. 6 och 7 §§ socialförsäkringsbalken och omräknas vid förändring av detta.",
+        "Livräntebeloppet avrundas till närmast lägre hela krontal som är jämnt delbart med tolv.",
+        "Lag (2010:1222)."
+      ],
+      "nyckelord": [
+        "prisbasbelopp",
+        "livränta",
+        "omräkning",
+        "socialförsäkringsbalken",
+        "avrundning"
+      ],
+      "relaterade_lagrum": [
+        "2 kap. 6 § SFB",
+        "2 kap. 7 § SFB",
+        "3 § Lag (1967:919)"
+      ],
+      "kategori": "Rätt till ersättning"
     },
     {
-      "id": "ysl_1977_4",
-      "chapter": 0,
-      "section": 4,
-      "principleType": "sjukpenninggaranti",
-      "text": "Har livränta utgått, får hel sjukpenning som senare utgår med anledning av samma skada ej understiga en trehundrasextiofemtedel av den livränta som efter uppräkning och värdesäkring enligt denna lag skulle ha utgått till den försäkrade vid förlust av arbetsförmågan[cite: 458].",
-      "keywords": ["sjukpenning", "garantibelopp", "arbetsförmåga"],
-      "relatedRules": ["ysl 2 §"],
-      "metadata": { "validFrom": "1977-07-01", "legalWeight": "central", "riskTrigger": false }
+      "id": "ysl_4p",
+      "paragraf": "4 §",
+      "rubrik": "Sjukpenningens minimibelopp",
+      "text": "Har livränta utgått, får hel sjukpenning som senare utgår med anledning av samma skada ej understiga en trehundrasextiofemtedel av den livränta som efter uppräkning och värdesäkring enligt denna lag skulle ha utgått till den försäkrade vid förlust av arbetsförmågan.",
+      "stycken": [
+        "Har livränta utgått, får hel sjukpenning som senare utgår med anledning av samma skada ej understiga en trehundrasextiofemtedel av den livränta som efter uppräkning och värdesäkring enligt denna lag skulle ha utgått till den försäkrade vid förlust av arbetsförmågan."
+      ],
+      "nyckelord": [
+        "sjukpenning",
+        "livränta",
+        "minimibelopp",
+        "arbetsförmåga",
+        "förlust",
+        "trehundrasextiofemtedel"
+      ],
+      "relaterade_lagrum": [
+        "22 kap. SFB",
+        "4 § Lag (1967:919)",
+        "4 § Lag (1967:920)"
+      ],
+      "kategori": "Rätt till ersättning"
     },
     {
-      "id": "ysl_1977_5",
-      "chapter": 0,
-      "section": 5,
-      "principleType": "samordningsregel",
-      "text": "Belopp med vilket livränta höjs enligt denna lag ska inte beaktas vid tillämpning av 36 kap. 3 §, 69 kap. 2 § eller 85 kap. 3 § socialförsäkringsbalken i fråga om den som vid utgången av juni 1977 uppbar pension vilken enligt 17 kap. 2 § i den upphävda lagen (1962:381) om allmän försäkring hade minskats med hänsyn till livräntan [cite: 459-461]. Detta gäller också för den som vid utgången av juni 1977 uppbar sjukpenning med anledning av skada för vilken livränta tidigare hade utgetts [cite: 462-463].",
-      "keywords": ["socialförsäkringsbalken", "pension", "sjukpenning", "minstbelopp"],
-      "relatedRules": ["SFB 36:3", "SFB 69:2", "SFB 85:3"],
-      "metadata": { "validFrom": "2010-12-22", "legalWeight": "undantag", "riskTrigger": false }
+      "id": "ysl_5p",
+      "paragraf": "5 §",
+      "rubrik": "Undantag vid pensionsberäkning",
+      "text": "Belopp med vilket livränta höjs enligt denna lag ska inte beaktas vid tillämpning av 36 kap. 3 §, 69 kap. 2 § eller 85 kap. 3 § socialförsäkringsbalken i fråga om den som vid utgången av juni 1977 uppbar pension vilken enligt 17 kap. 2 § i den upphävda lagen (1962:381) om allmän försäkring hade minskats med hänsyn till livräntan. Detta gäller också för den som vid utgången av juni 1977 uppbar sjukpenning med anledning av skada för vilken livränta tidigare hade utgetts.\nLag (2010:1222).",
+      "stycken": [
+        "Belopp med vilket livränta höjs enligt denna lag ska inte beaktas vid tillämpning av 36 kap. 3 §, 69 kap. 2 § eller 85 kap. 3 § socialförsäkringsbalken i fråga om den som vid utgången av juni 1977 uppbar pension vilken enligt 17 kap. 2 § i den upphävda lagen (1962:381) om allmän försäkring hade minskats med hänsyn till livräntan.",
+        "Detta gäller också för den som vid utgången av juni 1977 uppbar sjukpenning med anledning av skada för vilken livränta tidigare hade utgetts.",
+        "Lag (2010:1222)."
+      ],
+      "nyckelord": [
+        "livränta",
+        "pension",
+        "sjukpenning",
+        "undantag",
+        "socialförsäkringsbalken",
+        "höjning"
+      ],
+      "relaterade_lagrum": [
+        "36 kap. 3 § SFB",
+        "69 kap. 2 § SFB",
+        "85 kap. 3 § SFB",
+        "5 § Lag (1967:919)"
+      ],
+      "kategori": "Undantag"
     },
     {
-      "id": "ysl_1977_6",
-      "chapter": 0,
-      "section": 6,
-      "principleType": "ersättningssammanläggning",
-      "text": "Den som uppbär livränta med anledning av yrkesskada och som på nytt blir sjuk på grund av skadan har utan hinder av äldre bestämmelser rätt till både livräntan och sjukpenning med belopp som motsvarar hans sjukpenning enligt 24–28 kap. socialförsäkringsbalken [cite: 463-464]. Sjukpenning utgår dock ej i den mån den sammanlagda ersättningen för dag överstiger 90 procent av sju och en halv gånger prisbasbeloppet enligt 2 kap. 6 och 7 §§ socialförsäkringsbalken, delat med trehundrasextiofem [cite: 464-465].",
-      "keywords": ["yrkesskada", "sjukpenning", "ersättningstak"],
-      "relatedRules": ["SFB 24-28 kap.", "SFB 2:6", "SFB 2:7"],
-      "metadata": { "validFrom": "2010-12-22", "legalWeight": "central", "riskTrigger": true }
+      "id": "ysl_6p",
+      "paragraf": "6 §",
+      "rubrik": "Rätt till både livränta och sjukpenning",
+      "text": "Den som uppbär livränta med anledning av yrkesskada och som på nytt blir sjuk på grund av skadan har utan hinder av äldre bestämmelser rätt till både livräntan och sjukpenning med belopp som motsvarar hans sjukpenning enligt 24–28 kap. socialförsäkringsbalken. Sjukpenning utgår dock ej i den mån den sammanlagda ersättningen för dag överstiger 90 procent av sju och en halv gånger prisbasbeloppet enligt 2 kap. 6 och 7 §§ socialförsäkringsbalken, delat med trehundrasextiofem.\nLag (2010:1222).",
+      "stycken": [
+        "Den som uppbär livränta med anledning av yrkesskada och som på nytt blir sjuk på grund av skadan har utan hinder av äldre bestämmelser rätt till både livräntan och sjukpenning med belopp som motsvarar hans sjukpenning enligt 24–28 kap. socialförsäkringsbalken.",
+        "Sjukpenning utgår dock ej i den mån den sammanlagda ersättningen för dag överstiger 90 procent av sju och en halv gånger prisbasbeloppet enligt 2 kap. 6 och 7 §§ socialförsäkringsbalken, delat med trehundrasextiofem.",
+        "Lag (2010:1222)."
+      ],
+      "nyckelord": [
+        "livränta",
+        "sjukpenning",
+        "yrkesskada",
+        "sjuk",
+        "prisbasbelopp",
+        "ersättning"
+      ],
+      "relaterade_lagrum": [
+        "24 kap. SFB",
+        "25 kap. SFB",
+        "28 kap. SFB",
+        "2 kap. 6 § SFB"
+      ],
+      "kategori": "Rätt till ersättning"
     },
     {
-      "id": "ysl_1977_7",
-      "chapter": 0,
-      "section": 7,
-      "principleType": "finansiering",
-      "text": "Kostnad som föranledes av denna lag täcks av arbetsskadeavgifter enligt socialavgiftslagen (2000:980)[cite: 466].",
-      "keywords": ["arbetsskadeavgift", "finansiering", "socialavgiftslagen"],
-      "relatedRules": ["SAL 2000:980"],
-      "metadata": { "validFrom": "2010-12-22", "legalWeight": "administrativ", "riskTrigger": false }
+      "id": "ysl_7p",
+      "paragraf": "7 §",
+      "rubrik": "Finansiering",
+      "text": "Kostnad som föranledes av denna lag täcks av arbetsskadeavgifter enligt socialavgiftslagen (2000:980).\nLag (2010:1222).",
+      "stycken": [
+        "Kostnad som föranledes av denna lag täcks av arbetsskadeavgifter enligt socialavgiftslagen (2000:980).",
+        "Lag (2010:1222)."
+      ],
+      "nyckelord": [
+        "kostnad",
+        "arbetsskadeavgifter",
+        "socialavgiftslagen",
+        "finansiering"
+      ],
+      "relaterade_lagrum": [
+        "socialavgiftslagen (2000:980)",
+        "3 § Lag (1977:269)",
+        "6 § Lag (1967:919)"
+      ],
+      "kategori": "Skyldigheter"
     }
-  ]
+  ],
+  "overgangsbestammelser": []
 }

@@ -1,155 +1,4545 @@
 {
-  "sourceCode": "YGL",
-  "sfsNumber": "1991:1469",
-  "title": "Yttrandefrihetsgrundlag (1991:1469)",
-  "shortName": "YGL",
-  "versionChain": ["1991:1469", "2022:1525"],
-  "ikraft": "1992-01-01",
-  "description": "Grundlag som skyddar yttrandefriheten i radio, tv, film, tekniska upptagningar och databaser[cite: 149]. Syftet är att säkra ett fritt meningsutbyte och allsidig upplysning[cite: 150].",
-  "paragraphs": [
+  "metadata": {
+    "id": "lag_1991_1469",
+    "titel": "# **Sektion: Yttrandefrihetsgrundlag (1991:1469) **",
+    "sfs": "1991:1469",
+    "departement": "Justitiedepartementet",
+    "ikraftträdande": "",
+    "senast_ändrad": "",
+    "rättsområde": "straffrätt",
+    "kategori": "straffrätt",
+    "beskrivning": "Konverterad från Yttrandefrihetsgrundlag (19911469).txt — 2026-03-22",
+    "antal_paragrafer": 226,
+    "har_kapitelindelning": true
+  },
+  "kapitel": [
     {
-      "id": "ygl_1_1",
-      "chapter": 1,
-      "section": 1,
-      "principleType": "Syfte och grunder",
-      "text": "Var och en är gentemot det allmänna tillförsäkrad rätt enligt denna grundlag att i ljudradio, tv och vissa liknande överföringar, offentliga uppspelningar ur en databas samt filmer, videogram, ljudupptagningar och andra tekniska upptagningar offentligen uttrycka tankar, åsikter och känslor och i övrigt lämna uppgifter i vilket ämne som helst[cite: 149]. Yttrandefriheten enligt denna grundlag har till ändamål att säkra ett fritt meningsutbyte, en fri och allsidig upplysning och ett fritt konstnärligt skapande[cite: 150]. I den får inga andra begränsningar göras än de som följer av denna grundlag[cite: 151].",
-      "keywords": ["yttrandefrihet", "meningsutbyte", "grundlagsskydd"],
-      "relatedRules": ["RF 2:1"],
-      "metadata": { "validFrom": "2018-12-31", "legalWeight": "konstitutionell", "riskTrigger": false }
+      "kapitel": "1",
+      "rubrik": "Yttrandefriheten enligt denna grundlag",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_1kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "Yttrandefriheten enligt denna grundlag har till ändamål att säkra ett fritt meningsutbyte, en fri och allsidig upplysning och ett fritt konstnärligt skapande. I den får inga andra begränsningar göras än de som följer av denna grundlag. Lag (2018:1802).\n\nTillämpningsområde\n\nDefinitioner",
+          "stycken": [
+            "Yttrandefriheten enligt denna grundlag har till ändamål att säkra ett fritt meningsutbyte, en fri och allsidig upplysning och ett fritt konstnärligt skapande. I den får inga andra begränsningar göras än de som följer av denna grundlag. Lag (2018:1802).",
+            "Tillämpningsområde",
+            "Definitioner"
+          ],
+          "nyckelord": [
+            "grundlag",
+            "fritt",
+            "yttrandefriheten",
+            "enligt",
+            "ändamål",
+            "säkra"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner"
+        },
+        {
+          "id": "lag_1991_1469_1kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "",
+          "text": "program: innehållet i ljudradio, tv eller andra sådana överföringar av ljud, bild eller text som sker med hjälp av elektromagnetiska vågor samt innehållet i offentliga uppspelningar ur en databas, tekniska upptagningar: upptagningar som innehåller text, bild eller ljud och som kan läsas, avlyssnas eller på annat sätt uppfattas endast med ett tekniskt hjälpmedel, databas: en samling av information lagrad för automatiserad behandling. Lag (2018:1802).\n\nSändningar",
+          "stycken": [
+            "program: innehållet i ljudradio, tv eller andra sådana överföringar av ljud, bild eller text som sker med hjälp av elektromagnetiska vågor samt innehållet i offentliga uppspelningar ur en databas, tekniska upptagningar: upptagningar som innehåller text, bild eller ljud och som kan läsas, avlyssnas eller på annat sätt uppfattas endast med ett tekniskt hjälpmedel, databas: en samling av information lagrad för automatiserad behandling. Lag (2018:1802).",
+            "Sändningar"
+          ],
+          "nyckelord": [
+            "innehållet",
+            "ljud",
+            "bild",
+            "text",
+            "databas",
+            "upptagningar"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_1kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "Som sändningar av program anses också tillhandahållande till allmänheten på särskild begäran av direktsända eller inspelade program, om starttidpunkten och innehållet inte kan påverkas av mottagaren och programmen tillhandahålls av någon som omfattas av",
+          "stycken": [
+            "Som sändningar av program anses också tillhandahållande till allmänheten på särskild begäran av direktsända eller inspelade program, om starttidpunkten och innehållet inte kan påverkas av mottagaren och programmen tillhandahålls av någon som omfattas av"
+          ],
+          "nyckelord": [
+            "program",
+            "sändningar",
+            "anses",
+            "också",
+            "tillhandahållande",
+            "allmänheten"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner och tillämpning"
+        },
+        {
+          "id": "lag_1991_1469_1kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "Det som föreskrivs om program i denna grundlag gäller även program som förmedlas genom satellitsändning som utgår från Sverige. Program i tv som förmedlas hit genom satellitsändning som utgår från utlandet anses utgå från Sverige, om programmen huvudsakligen är avsedda att tas emot här i landet och vidaresänds här samtidigt och oförändrat. Lag (2022:1525).\n\nTillhandahållande ur databaser",
+          "stycken": [
+            "Det som föreskrivs om program i denna grundlag gäller även program som förmedlas genom satellitsändning som utgår från Sverige. Program i tv som förmedlas hit genom satellitsändning som utgår från utlandet anses utgå från Sverige, om programmen huvudsakligen är avsedda att tas emot här i landet och vidaresänds här samtidigt och oförändrat. Lag (2022:1525).",
+            "Tillhandahållande ur databaser"
+          ],
+          "nyckelord": [
+            "program",
+            "förmedlas",
+            "genom",
+            "satellitsändning",
+            "utgår",
+            "sverige"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner och tillämpning"
+        },
+        {
+          "id": "lag_1991_1469_1kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "1. av någon av följande:\n      a) en redaktion för en periodisk skrift eller ett program, b) ett företag för yrkesmässig framställning av sådana skrifter som avses i tryckfrihetsförordningen eller av tekniska upptagningar, c) en nyhetsbyrå, eller\n      d) någon annan, om det finns utgivningsbevis för verksamheten enligt",
+          "stycken": [
+            "1. av någon av följande:\n      a) en redaktion för en periodisk skrift eller ett program, b) ett företag för yrkesmässig framställning av sådana skrifter som avses i tryckfrihetsförordningen eller av tekniska upptagningar, c) en nyhetsbyrå, eller\n      d) någon annan, om det finns utgivningsbevis för verksamheten enligt"
+          ],
+          "nyckelord": [
+            "någon",
+            "följande",
+            "redaktion",
+            "periodisk",
+            "skrift",
+            "program"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner"
+        },
+        {
+          "id": "lag_1991_1469_1kap_5p",
+          "paragraf": "5 §",
+          "rubrik": "",
+          "text": "2. på något av följande sätt:\n      a) överföring på särskild begäran, b) överföring enligt överenskommelse i förväg, c) framställning på särskild begäran av tekniska upptagningar, skrifter eller bilder, eller\n      d) offentlig uppspelning.\n\nÄven om viss information i databasen har tillförts av någon annan gäller grundlagen för sådana delar av databasen där det framstår som klart att informationen härrör från den som driver verksamheten.\n\nFörsta stycket 1 a gäller inte en redaktion som tillhandahåller enbart sådana program som avses i",
+          "stycken": [
+            "2. på något av följande sätt:\n      a) överföring på särskild begäran, b) överföring enligt överenskommelse i förväg, c) framställning på särskild begäran av tekniska upptagningar, skrifter eller bilder, eller\n      d) offentlig uppspelning.",
+            "Även om viss information i databasen har tillförts av någon annan gäller grundlagen för sådana delar av databasen där det framstår som klart att informationen härrör från den som driver verksamheten.",
+            "Första stycket 1 a gäller inte en redaktion som tillhandahåller enbart sådana program som avses i"
+          ],
+          "nyckelord": [
+            "överföring",
+            "särskild",
+            "begäran",
+            "databasen",
+            "gäller",
+            "något"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner"
+        },
+        {
+          "id": "lag_1991_1469_1kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "Särskilt om databaser med utgivningsbevis",
+          "stycken": [
+            "Särskilt om databaser med utgivningsbevis"
+          ],
+          "nyckelord": [
+            "särskilt",
+            "databaser",
+            "utgivningsbevis"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_1kap_5p",
+          "paragraf": "5 §",
+          "rubrik": "",
+          "text": "1. verksamheten är ordnad på det sätt som anges i",
+          "stycken": [
+            "1. verksamheten är ordnad på det sätt som anges i"
+          ],
+          "nyckelord": [
+            "verksamheten",
+            "ordnad",
+            "sätt",
+            "anges"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_1kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "2. en behörig utgivare har utsetts och åtagit sig uppdraget, och\n   3. verksamheten har ett namn som är sådant att det inte lätt kan förväxlas med namnet på en annan verksamhet enligt",
+          "stycken": [
+            "2. en behörig utgivare har utsetts och åtagit sig uppdraget, och\n   3. verksamheten har ett namn som är sådant att det inte lätt kan förväxlas med namnet på en annan verksamhet enligt"
+          ],
+          "nyckelord": [
+            "behörig",
+            "utgivare",
+            "utsetts",
+            "åtagit",
+            "uppdraget",
+            "verksamheten"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_1kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "4 §. Lag (2018:1802).",
+          "stycken": [
+            "4 §. Lag (2018:1802)."
+          ],
+          "nyckelord": [],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_1kap_6p",
+          "paragraf": "6 §",
+          "rubrik": "",
+          "text": "Beviset får förnyas, om det finns förutsättningar att utfärda ett sådant bevis. Det förnyas varje gång för tio år från utgången av den föregående tioårsperioden.\n\nOm det inte längre finns förutsättningar att utfärda ett utgivningsbevis, får det återkallas. Detsamma gäller om verksamheten inte har påbörjats inom sex månader från den dag då utgivningsbeviset utfärdades eller om den som driver verksamheten har anmält att verksamheten har upphört. Lag (2018:1802).",
+          "stycken": [
+            "Beviset får förnyas, om det finns förutsättningar att utfärda ett sådant bevis. Det förnyas varje gång för tio år från utgången av den föregående tioårsperioden.",
+            "Om det inte längre finns förutsättningar att utfärda ett utgivningsbevis, får det återkallas. Detsamma gäller om verksamheten inte har påbörjats inom sex månader från den dag då utgivningsbeviset utfärdades eller om den som driver verksamheten har anmält att verksamheten har upphört. Lag (2018:1802)."
+          ],
+          "nyckelord": [
+            "verksamheten",
+            "förnyas",
+            "finns",
+            "förutsättningar",
+            "utfärda",
+            "beviset"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner och tillämpning"
+        },
+        {
+          "id": "lag_1991_1469_1kap_7p",
+          "paragraf": "7 §",
+          "rubrik": "",
+          "text": "Föreskrifter om utfärdande, upphörande, förnyelse och återkallelse av utgivningsbevis och om namn på databaser får meddelas i lag.\n\nFöreskrifter om straff för den som bryter mot en föreskrift som har meddelats med stöd av andra stycket får meddelas i lag. Lag (2018:1802).\n\nTekniska upptagningar",
+          "stycken": [
+            "Föreskrifter om utfärdande, upphörande, förnyelse och återkallelse av utgivningsbevis och om namn på databaser får meddelas i lag.",
+            "Föreskrifter om straff för den som bryter mot en föreskrift som har meddelats med stöd av andra stycket får meddelas i lag. Lag (2018:1802).",
+            "Tekniska upptagningar"
+          ],
+          "nyckelord": [
+            "föreskrifter",
+            "meddelas",
+            "utfärdande",
+            "upphörande",
+            "förnyelse",
+            "återkallelse"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_1kap_8p",
+          "paragraf": "8 §",
+          "rubrik": "",
+          "text": "En teknisk upptagning ska inte anses utlämnad för att spridas till allmänheten i Sverige enbart på den grunden att den skickas härifrån till mottagare i utlandet.\n\nOm grundlagen är tillämplig eller inte prövas i det enskilda fallet med utgångspunkt i vad som kan antas om spridningen. Om det inte framgår något annat av omständigheterna, ska grundlagen anses tillämplig på en upptagning som är försedd med sådana uppgifter som avses i",
+          "stycken": [
+            "En teknisk upptagning ska inte anses utlämnad för att spridas till allmänheten i Sverige enbart på den grunden att den skickas härifrån till mottagare i utlandet.",
+            "Om grundlagen är tillämplig eller inte prövas i det enskilda fallet med utgångspunkt i vad som kan antas om spridningen. Om det inte framgår något annat av omständigheterna, ska grundlagen anses tillämplig på en upptagning som är försedd med sådana uppgifter som avses i"
+          ],
+          "nyckelord": [
+            "upptagning",
+            "anses",
+            "grundlagen",
+            "tillämplig",
+            "teknisk",
+            "utlämnad"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner"
+        }
+      ]
     },
     {
-      "id": "ygl_1_2",
-      "chapter": 1,
-      "section": 2,
-      "principleType": "Definitioner",
-      "text": "I denna grundlag avses med program: innehållet i ljudradio, tv eller andra sådana överföringar av ljud, bild eller text som sker med hjälp av elektromagnetiska vågor samt innehållet i offentliga uppspelningar ur en databas. Tekniska upptagningar: upptagningar som innehåller text, bild eller ljud och som kan läsas, avlyssnas eller på annat sätt uppfattas endast med ett tekniskt hjälpmedel. Databas: en samling av information lagrad för automatiserad behandling.",
-      "keywords": ["program", "teknisk upptagning", "databas"],
-      "relatedRules": [],
-      "metadata": { "validFrom": "2018-12-31", "legalWeight": "definitiv", "riskTrigger": false }
+      "kapitel": "3",
+      "rubrik": "16 § eller",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_3kap_6p",
+          "paragraf": "6 §",
+          "rubrik": "",
+          "text": "6 § eller",
+          "stycken": [
+            "6 § eller"
+          ],
+          "nyckelord": [],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
     },
     {
-      "id": "ygl_1_3",
-      "chapter": 1,
-      "section": 3,
-      "principleType": "Sändningar",
-      "text": "Denna grundlag är tillämplig på sändningar av program som är riktade till allmänheten och avsedda att tas emot med tekniska hjälpmedel[cite: 153]. Som sändningar av program anses också tillhandahållande till allmänheten på särskild begäran av direktsända eller inspelade program, om starttidpunkten och innehållet inte kan påverkas av mottagaren och programmen tillhandahålls av någon som omfattas av 4 §[cite: 154]. Det som föreskrivs om program i denna grundlag gäller även program som förmedlas genom satellitsändning som utgår från Sverige[cite: 155]. Program i tv som förmedlas hit genom satellitsändning som utgår från utlandet anses utgå från Sverige, om programmen huvudsakligen är avsedda att tas emot här i landet och vidaresänds här samtidigt och oförändrat[cite: 156].",
-      "keywords": ["satellitsändning", "program", "allmänheten"],
-      "relatedRules": ["YGL 1:4"],
-      "metadata": { "validFrom": "2022-12-31", "legalWeight": "konstitutionell", "riskTrigger": false }
+      "kapitel": "4",
+      "rubrik": "5 §. Lag (2018:1802).",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_4kap_5p",
+          "paragraf": "5 §",
+          "rubrik": "",
+          "text": "Program och tekniska upptagningar som jämställs med tryckta skrifter",
+          "stycken": [
+            "Program och tekniska upptagningar som jämställs med tryckta skrifter"
+          ],
+          "nyckelord": [
+            "program",
+            "tekniska",
+            "upptagningar",
+            "jämställs",
+            "tryckta",
+            "skrifter"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_4kap_9p",
+          "paragraf": "9 §",
+          "rubrik": "",
+          "text": "9 §   Att vissa program och tekniska upptagningar ska jämställas med tryckta skrifter framgår av",
+          "stycken": [
+            "9 §   Att vissa program och tekniska upptagningar ska jämställas med tryckta skrifter framgår av"
+          ],
+          "nyckelord": [
+            "vissa",
+            "program",
+            "tekniska",
+            "upptagningar",
+            "jämställas",
+            "tryckta"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        }
+      ]
     },
     {
-      "id": "ygl_1_4",
-      "chapter": 1,
-      "section": 4,
-      "principleType": "Tillhandahållande ur databaser",
-      "text": "Denna grundlags föreskrifter om sändningar av program tillämpas också när information ur en databas, vars innehåll kan ändras endast av den som driver verksamheten, tillhandahålls allmänheten med hjälp av elektromagnetiska vågor[cite: 157]. Detta gäller om det sker av en redaktion för en periodisk skrift eller ett program, ett företag för yrkesmässig framställning av skrifter (TF) eller tekniska upptagningar, en nyhetsbyrå, eller någon annan med utgivningsbevis[cite: 157]. Informationen ska tillhandahållas genom överföring på särskild begäran, överenskommelse i förväg, framställning på begäran eller offentlig uppspelning[cite: 158]. Grundlagen gäller även om viss information tillförts av annan, om det framstår som klart att informationen härrör från den som driver verksamheten[cite: 159].",
-      "keywords": ["databas", "utgivningsbevis", "elektromagnetiska vågor"],
-      "relatedRules": ["YGL 1:5"],
-      "metadata": { "validFrom": "2022-12-31", "legalWeight": "konstitutionell", "riskTrigger": true }
+      "kapitel": "1",
+      "rubrik": "5 och 6 §§ tryckfrihetsförordningen. Lag (2018:1802).",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_1kap_6p",
+          "paragraf": "6 §",
+          "rubrik": "",
+          "text": "Grundläggande bestämmelser\n\nMeddelar- och anskaffarfrihet",
+          "stycken": [
+            "Grundläggande bestämmelser",
+            "Meddelar- och anskaffarfrihet"
+          ],
+          "nyckelord": [
+            "grundläggande",
+            "bestämmelser",
+            "meddelar",
+            "anskaffarfrihet"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_1kap_0p",
+          "paragraf": "0 §",
+          "rubrik": "",
+          "text": "- en författare eller någon annan upphovsman, - en utgivare, redaktion eller nyhetsbyrå, eller\n   - ett företag för framställning av tekniska upptagningar.\n\nDet står också var och en fritt att anskaffa uppgifter i vilket ämne som helst i syfte att meddela eller offentliggöra dem enligt första stycket (anskaffarfrihet).\n\nI dessa friheter får inga andra begränsningar göras än de som följer av denna grundlag. Lag (2018:1802).\n\nCensurförbud och förbud mot andra hindrande åtgärder",
+          "stycken": [
+            "- en författare eller någon annan upphovsman, - en utgivare, redaktion eller nyhetsbyrå, eller\n   - ett företag för framställning av tekniska upptagningar.",
+            "Det står också var och en fritt att anskaffa uppgifter i vilket ämne som helst i syfte att meddela eller offentliggöra dem enligt första stycket (anskaffarfrihet).",
+            "I dessa friheter får inga andra begränsningar göras än de som följer av denna grundlag. Lag (2018:1802).",
+            "Censurförbud och förbud mot andra hindrande åtgärder"
+          ],
+          "nyckelord": [
+            "andra",
+            "författare",
+            "någon",
+            "annan",
+            "upphovsman",
+            "utgivare"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_1kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "1 §   Det som är avsett att framföras i program eller genom tekniska upptagningar får inte först granskas av en myndighet eller ett annat allmänt organ. Det är inte heller tillåtet för en myndighet eller ett annat allmänt organ att på grund av innehållet förbjuda eller hindra framställning, offentliggörande eller spridning bland allmänheten av ett program eller en teknisk upptagning, om åtgärden inte har stöd i denna grundlag. Lag (2018:1802).",
+          "stycken": [
+            "1 §   Det som är avsett att framföras i program eller genom tekniska upptagningar får inte först granskas av en myndighet eller ett annat allmänt organ. Det är inte heller tillåtet för en myndighet eller ett annat allmänt organ att på grund av innehållet förbjuda eller hindra framställning, offentliggörande eller spridning bland allmänheten av ett program eller en teknisk upptagning, om åtgärden inte har stöd i denna grundlag. Lag (2018:1802)."
+          ],
+          "nyckelord": [
+            "program",
+            "myndighet",
+            "annat",
+            "allmänt",
+            "organ",
+            "avsett"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_1kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "",
+          "text": "2 §   Trots",
+          "stycken": [
+            "2 §   Trots"
+          ],
+          "nyckelord": [
+            "trots"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_1kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "1 § får det i lag meddelas föreskrifter om granskning och godkännande av rörliga bilder i en sådan offentlig uppspelning ur en databas som avses i",
+          "stycken": [
+            "1 § får det i lag meddelas föreskrifter om granskning och godkännande av rörliga bilder i en sådan offentlig uppspelning ur en databas som avses i"
+          ],
+          "nyckelord": [
+            "meddelas",
+            "föreskrifter",
+            "granskning",
+            "godkännande",
+            "rörliga",
+            "bilder"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner"
+        },
+        {
+          "id": "lag_1991_1469_1kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "4 § första stycket 2 d. Detsamma gäller rörliga bilder i tekniska upptagningar som ska visas offentligt. Lag (2018:1802).",
+          "stycken": [
+            "4 § första stycket 2 d. Detsamma gäller rörliga bilder i tekniska upptagningar som ska visas offentligt. Lag (2018:1802)."
+          ],
+          "nyckelord": [
+            "första",
+            "stycket",
+            "detsamma",
+            "gäller",
+            "rörliga",
+            "bilder"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_1kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "Exklusivitetsprincipen",
+          "stycken": [
+            "Exklusivitetsprincipen"
+          ],
+          "nyckelord": [
+            "exklusivitetsprincipen"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_1kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "Instruktion för tillämpningen",
+          "stycken": [
+            "Instruktion för tillämpningen"
+          ],
+          "nyckelord": [
+            "instruktion",
+            "tillämpningen"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner och tillämpning"
+        },
+        {
+          "id": "lag_1991_1469_1kap_5p",
+          "paragraf": "5 §",
+          "rubrik": "",
+          "text": "Undantag från grundlagen\n\nDirektsändningar",
+          "stycken": [
+            "Undantag från grundlagen",
+            "Direktsändningar"
+          ],
+          "nyckelord": [
+            "undantag",
+            "grundlagen",
+            "direktsändningar"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Undantag"
+        },
+        {
+          "id": "lag_1991_1469_1kap_6p",
+          "paragraf": "6 §",
+          "rubrik": "",
+          "text": "-",
+          "stycken": [
+            "-"
+          ],
+          "nyckelord": [],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_1kap_0p",
+          "paragraf": "0 §",
+          "rubrik": "",
+          "text": "0 § om rätt att meddela och anskaffa uppgifter för offentliggörande, -",
+          "stycken": [
+            "0 § om rätt att meddela och anskaffa uppgifter för offentliggörande, -"
+          ],
+          "nyckelord": [
+            "rätt",
+            "meddela",
+            "anskaffa",
+            "uppgifter",
+            "offentliggörande"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_1kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "4 § om förbud mot ingripanden, -",
+          "stycken": [
+            "4 § om förbud mot ingripanden, -"
+          ],
+          "nyckelord": [
+            "förbud",
+            "ingripanden"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_1kap_5p",
+          "paragraf": "5 §",
+          "rubrik": "",
+          "text": "5 § om förhållningssättet vid tillämpning av denna grundlag, -",
+          "stycken": [
+            "5 § om förhållningssättet vid tillämpning av denna grundlag, -"
+          ],
+          "nyckelord": [
+            "förhållningssättet",
+            "tillämpning",
+            "grundlag"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner och tillämpning"
+        }
+      ]
     },
     {
-      "id": "ygl_1_10",
-      "chapter": 1,
-      "section": 10,
-      "principleType": "Meddelar- och anskaffarfrihet",
-      "text": "Det står var och en fritt att meddela uppgifter i vilket ämne som helst i syfte att göra dem offentliga i program eller genom tekniska upptagningar (meddelarfrihet)[cite: 176]. Denna frihet avser uppgifter som lämnas till en författare eller annan upphovsman, en utgivare, redaktion eller nyhetsbyrå, eller ett företag för framställning av tekniska upptagningar[cite: 177]. Det står också var och en fritt att anskaffa uppgifter i vilket ämne som helst i syfte att meddela eller offentliggöra dem (anskaffarfrihet)[cite: 178]. I dessa friheter får inga andra begränsningar göras än de som följer av denna grundlag[cite: 179].",
-      "keywords": ["meddelarfrihet", "anskaffarfrihet"],
-      "relatedRules": ["YGL 5:4", "YGL 5:5"],
-      "metadata": { "validFrom": "2018-12-31", "legalWeight": "grundläggande", "riskTrigger": false }
+      "kapitel": "1",
+      "rubrik": "7 § om rätt att meddela och anskaffa uppgifter för offentlig-görande i program från utlandet. Lag (2018:1802).",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_1kap_7p",
+          "paragraf": "7 §",
+          "rubrik": "",
+          "text": "Vissa frågor som får regleras i lag",
+          "stycken": [
+            "Vissa frågor som får regleras i lag"
+          ],
+          "nyckelord": [
+            "vissa",
+            "frågor",
+            "regleras"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_1kap_7p",
+          "paragraf": "7 §",
+          "rubrik": "",
+          "text": "1. sändningar av program som huvudsakligen är avsedda att tas emot utomlands, eller\n   2. program som sänds genom tråd men som inte är avsedda att tas emot av någon större allmänhet.\n\nSådana föreskrifter får dock inte gälla det som sägs i 10-",
+          "stycken": [
+            "1. sändningar av program som huvudsakligen är avsedda att tas emot utomlands, eller\n   2. program som sänds genom tråd men som inte är avsedda att tas emot av någon större allmänhet.",
+            "Sådana föreskrifter får dock inte gälla det som sägs i 10-"
+          ],
+          "nyckelord": [
+            "program",
+            "avsedda",
+            "emot",
+            "sändningar",
+            "huvudsakligen",
+            "utomlands"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Undantag"
+        },
+        {
+          "id": "lag_1991_1469_1kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "3 §§. Lag (2018:1802).",
+          "stycken": [
+            "3 §§. Lag (2018:1802)."
+          ],
+          "nyckelord": [],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_1kap_8p",
+          "paragraf": "8 §",
+          "rubrik": "",
+          "text": "8 §   Det som sägs i",
+          "stycken": [
+            "8 §   Det som sägs i"
+          ],
+          "nyckelord": [
+            "sägs"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
     },
     {
-      "id": "ygl_1_11",
-      "chapter": 1,
-      "section": 11,
-      "principleType": "Censurförbud",
-      "text": "Det som är avsett att framföras i program eller genom tekniska upptagningar får inte först granskas av en myndighet eller ett annat allmänt organ[cite: 180]. Det är inte heller tillåtet för en myndighet eller ett annat allmänt organ att på grund av innehållet förbjuda eller hindra framställning, offentliggörande eller spridning bland allmänheten av ett program eller en teknisk upptagning, om åtgärden inte har stöd i denna grundlag[cite: 181].",
-      "keywords": ["censurförbud", "förhandsgranskning"],
-      "relatedRules": ["YGL 1:12"],
-      "metadata": { "validFrom": "2018-12-31", "legalWeight": "absolut", "riskTrigger": true }
+      "kapitel": "1",
+      "rubrik": "11 och 12 §§ tryckfrihetsförordningen om att det i lag får meddelas föreskrifter om upphovsmäns rättigheter, vissa kommersiella annonser, kreditupplysningsverksamhet, produktinformation, tillvägagångssätt för anskaffande av uppgifter samt förbud mot att göra avbildningar, beskrivningar eller mätningar gäller också i fråga om program och om innehållet i tekniska upptagningar. Lag (2022:1525).",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_1kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "",
+          "text": "2 §§ tryckfrihetsförordningen om att det i lag får meddelas föreskrifter om upphovsmäns rättigheter, vissa kommersiella annonser, kreditupplysningsverksamhet, produktinformation, tillvägagångssätt för anskaffande av uppgifter samt förbud mot att göra avbildningar, beskrivningar eller mätningar gäller också i fråga om program och om innehållet i tekniska upptagningar. Lag (2022:1525).",
+          "stycken": [
+            "2 §§ tryckfrihetsförordningen om att det i lag får meddelas föreskrifter om upphovsmäns rättigheter, vissa kommersiella annonser, kreditupplysningsverksamhet, produktinformation, tillvägagångssätt för anskaffande av uppgifter samt förbud mot att göra avbildningar, beskrivningar eller mätningar gäller också i fråga om program och om innehållet i tekniska upptagningar. Lag (2022:1525)."
+          ],
+          "nyckelord": [
+            "tryckfrihetsförordningen",
+            "meddelas",
+            "föreskrifter",
+            "upphovsmäns",
+            "rättigheter",
+            "vissa"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_1kap_9p",
+          "paragraf": "9 §",
+          "rubrik": "",
+          "text": "Detsamma gäller föreskrifter om förbud mot och villkor för sådan annonsering och sändning av program som helt eller delvis bekostas av någon annan än den som bedriver programverksamheten. Lag (2018:1802).",
+          "stycken": [
+            "Detsamma gäller föreskrifter om förbud mot och villkor för sådan annonsering och sändning av program som helt eller delvis bekostas av någon annan än den som bedriver programverksamheten. Lag (2018:1802)."
+          ],
+          "nyckelord": [
+            "detsamma",
+            "gäller",
+            "föreskrifter",
+            "förbud",
+            "villkor",
+            "annonsering"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner och tillämpning"
+        },
+        {
+          "id": "lag_1991_1469_1kap_0p",
+          "paragraf": "0 §",
+          "rubrik": "",
+          "text": "1. som avslöjar etniskt ursprung, hudfärg eller annat liknande förhållande, politiska åsikter, religiös eller filosofisk övertygelse eller medlemskap i fackförening,\n   2. om hälsa, sexualliv eller sexuell läggning, eller\n   3. som består av genetiska uppgifter eller biometriska uppgifter för att entydigt identifiera en fysisk person.\n\nVad som anges i första stycket gäller endast om\n   1. personuppgifterna ingår i en uppgiftssamling som har ordnats så att det är möjligt att söka efter eller sammanställa dessa, och\n   2. det med hänsyn till verksamheten och de former under vilka uppgiftssamlingen hålls tillgänglig finns särskilda risker för otillbörliga intrång i enskildas personliga integritet. Lag (2022:1525).\n\nUndantag för barnpornografi",
+          "stycken": [
+            "1. som avslöjar etniskt ursprung, hudfärg eller annat liknande förhållande, politiska åsikter, religiös eller filosofisk övertygelse eller medlemskap i fackförening,\n   2. om hälsa, sexualliv eller sexuell läggning, eller\n   3. som består av genetiska uppgifter eller biometriska uppgifter för att entydigt identifiera en fysisk person.",
+            "Vad som anges i första stycket gäller endast om\n   1. personuppgifterna ingår i en uppgiftssamling som har ordnats så att det är möjligt att söka efter eller sammanställa dessa, och\n   2. det med hänsyn till verksamheten och de former under vilka uppgiftssamlingen hålls tillgänglig finns särskilda risker för otillbörliga intrång i enskildas personliga integritet. Lag (2022:1525).",
+            "Undantag för barnpornografi"
+          ],
+          "nyckelord": [
+            "uppgifter",
+            "avslöjar",
+            "etniskt",
+            "ursprung",
+            "hudfärg",
+            "annat"
+          ],
+          "relaterade_lagrum": [
+            "7 § LAS",
+            "11 § LAS",
+            "32 § LAS",
+            "6 kap. 1 § FB"
+          ],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_1kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "1 §   Denna grundlag är inte tillämplig på pornografiska bilder av personer vars pubertetsutveckling inte är fullbordad eller som är under arton år. Lag (2018:1802).",
+          "stycken": [
+            "1 §   Denna grundlag är inte tillämplig på pornografiska bilder av personer vars pubertetsutveckling inte är fullbordad eller som är under arton år. Lag (2018:1802)."
+          ],
+          "nyckelord": [
+            "grundlag",
+            "tillämplig",
+            "pornografiska",
+            "bilder",
+            "personer",
+            "vars"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        }
+      ]
     },
     {
-      "id": "ygl_2_1",
-      "chapter": 2,
-      "section": 1,
-      "principleType": "Rätten till anonymitet",
-      "text": "Upphovsmannen till ett program eller en teknisk upptagning är inte skyldig att röja sin identitet[cite: 202]. Detsamma gäller för den som har framträtt i en sådan framställning och den som har meddelat en uppgift för offentliggörande enligt 1 kap. 10 §[cite: 203].",
-      "keywords": ["anonymitet", "identitet", "skydd"],
-      "relatedRules": ["YGL 1:10"],
-      "metadata": { "validFrom": "2018-12-31", "legalWeight": "skyddande", "riskTrigger": false }
+      "kapitel": "2",
+      "rubrik": "Rätten till anonymitet",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_2kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "1 §   Upphovsmannen till ett program eller en teknisk upptagning är inte skyldig att röja sin identitet. Detsamma gäller för den som har framträtt i en sådan framställning och den som har meddelat en uppgift för offentliggörande enligt",
+          "stycken": [
+            "1 §   Upphovsmannen till ett program eller en teknisk upptagning är inte skyldig att röja sin identitet. Detsamma gäller för den som har framträtt i en sådan framställning och den som har meddelat en uppgift för offentliggörande enligt"
+          ],
+          "nyckelord": [
+            "upphovsmannen",
+            "program",
+            "teknisk",
+            "upptagning",
+            "skyldig",
+            "röja"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        }
+      ]
     },
     {
-      "id": "ygl_2_5",
-      "chapter": 2,
-      "section": 5,
-      "principleType": "Efterforskningsförbud",
-      "text": "En myndighet eller ett annat allmänt organ får inte efterforska upphovsmannen till en framställning som har offentliggjorts eller varit avsedd att offentliggöras i ett program eller en teknisk upptagning eller den som har framträtt i en sådan framställning[cite: 217]. Myndigheter får inte heller efterforska den som tillhandahållit framställningen eller meddelat uppgifter enligt 1 kap. 10 §[cite: 217]. Förbudet hindrar inte efterforskning när det behövs för åtal eller ingripande om det inte står i strid med grundlagen[cite: 218]. I sådana fall ska tystnadsplikten i 3 § beaktas[cite: 219].",
-      "keywords": ["efterforskning", "myndighetskontroll"],
-      "relatedRules": ["YGL 2:3"],
-      "metadata": { "validFrom": "2018-12-31", "legalWeight": "skyddande", "riskTrigger": true }
+      "kapitel": "1",
+      "rubrik": "10 §. Lag (2018:1802).",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_1kap_0p",
+          "paragraf": "0 §",
+          "rubrik": "",
+          "text": "0 §. Lag (2018:1802).",
+          "stycken": [
+            "0 §. Lag (2018:1802)."
+          ],
+          "nyckelord": [],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_1kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "",
+          "text": "2 §   I mål om ansvar, skadestånd eller särskild rättsverkan på grund av yttrandefrihetsbrott i ett program eller en teknisk upptagning får ingen ta upp frågan om vem som är framställningens upphovsman, vem som har framträtt i den, vem som har tillhandahållit den för offentliggörande eller vem som är meddelare enligt",
+          "stycken": [
+            "2 §   I mål om ansvar, skadestånd eller särskild rättsverkan på grund av yttrandefrihetsbrott i ett program eller en teknisk upptagning får ingen ta upp frågan om vem som är framställningens upphovsman, vem som har framträtt i den, vem som har tillhandahållit den för offentliggörande eller vem som är meddelare enligt"
+          ],
+          "nyckelord": [
+            "ansvar",
+            "skadestånd",
+            "särskild",
+            "rättsverkan",
+            "grund",
+            "yttrandefrihetsbrott"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        }
+      ]
     },
     {
-      "id": "ygl_3_10",
-      "chapter": 3,
-      "section": 10,
-      "principleType": "Rätten till framställning och spridning",
-      "text": "Varje fysisk och juridisk person har rätt att framställa och sprida tekniska upptagningar[cite: 240]. För rätten att offentligt visa film, videogram eller någon annan teknisk upptagning med rörliga bilder kan det dock krävas granskning och godkännande i enlighet med 1 kap. 12 §[cite: 241].",
-      "keywords": ["spridningsrätt", "film", "videogram"],
-      "relatedRules": ["YGL 1:12"],
-      "metadata": { "validFrom": "2018-12-31", "legalWeight": "grundläggande", "riskTrigger": false }
+      "kapitel": "1",
+      "rubrik": "10 §.",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_1kap_0p",
+          "paragraf": "0 §",
+          "rubrik": "",
+          "text": "Om någon har angetts som upphovsman till framställningen eller som den som har framträtt i denna, är det dock tillåtet att i målet pröva om han eller hon är ansvarig. Detsamma gäller om någon i målet har uppgett sig vara upphovsmannen eller den som har framträtt.\n\nFörsta stycket hindrar inte att det i en och samma rättegång handläggs både mål om yttrandefrihetsbrott och mål om brott som avses i",
+          "stycken": [
+            "Om någon har angetts som upphovsman till framställningen eller som den som har framträtt i denna, är det dock tillåtet att i målet pröva om han eller hon är ansvarig. Detsamma gäller om någon i målet har uppgett sig vara upphovsmannen eller den som har framträtt.",
+            "Första stycket hindrar inte att det i en och samma rättegång handläggs både mål om yttrandefrihetsbrott och mål om brott som avses i"
+          ],
+          "nyckelord": [
+            "någon",
+            "framträtt",
+            "målet",
+            "angetts",
+            "upphovsman",
+            "framställningen"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner"
+        }
+      ]
     },
     {
-      "id": "ygl_4_1",
-      "chapter": 4,
-      "section": 1,
-      "principleType": "Utgivarkrav",
-      "text": "Program och tekniska upptagningar ska ha en utgivare[cite: 266]. Utgivare av program ska enligt vad som närmare föreskrivs i lag utses för varje program eller för hela eller delar av programverksamheten[cite: 267]. Utgivaren utses av den som bedriver sändningsverksamheten eller låter framställa den tekniska upptagningen[cite: 268].",
-      "keywords": ["utgivare", "ansvarig utgivare"],
-      "relatedRules": ["YGL 6:1"],
-      "metadata": { "validFrom": "2018-12-31", "legalWeight": "skyldighet", "riskTrigger": true }
+      "kapitel": "5",
+      "rubrik": "4 och 5 §§. Lag (2018:1802).",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_5kap_5p",
+          "paragraf": "5 §",
+          "rubrik": "",
+          "text": "Tystnadsplikt",
+          "stycken": [
+            "Tystnadsplikt"
+          ],
+          "nyckelord": [
+            "tystnadsplikt"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_5kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "3 §   Den som har tagit befattning med tillkomsten eller spridningen av en framställning som utgjort eller varit avsedd att ingå i ett program eller en teknisk upptagning får inte röja vad han eller hon då har fått veta om vem som är upphovsman till framställningen eller har tillhandahållit den för att offentliggöras eller om vem som har framträtt i den eller är meddelare enligt",
+          "stycken": [
+            "3 §   Den som har tagit befattning med tillkomsten eller spridningen av en framställning som utgjort eller varit avsedd att ingå i ett program eller en teknisk upptagning får inte röja vad han eller hon då har fått veta om vem som är upphovsman till framställningen eller har tillhandahållit den för att offentliggöras eller om vem som har framträtt i den eller är meddelare enligt"
+          ],
+          "nyckelord": [
+            "tagit",
+            "befattning",
+            "tillkomsten",
+            "spridningen",
+            "framställning",
+            "utgjort"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
     },
     {
-      "id": "ygl_5_1",
-      "chapter": 5,
-      "section": 1,
-      "principleType": "Yttrandefrihetsbrott",
-      "text": "De gärningar som anges som tryckfrihetsbrott i 7 kap. 2-20 §§ tryckfrihetsförordningen ska anses vara yttrandefrihetsbrott, om de begås i ett program eller en teknisk upptagning och är straffbara enligt lag [cite: 286-287].",
-      "keywords": ["yttrandefrihetsbrott", "tryckfrihetsförordningen"],
-      "relatedRules": ["TF 7 kap."],
-      "metadata": { "validFrom": "2018-12-31", "legalWeight": "central", "riskTrigger": true }
+      "kapitel": "1",
+      "rubrik": "10 §.",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_1kap_0p",
+          "paragraf": "0 §",
+          "rubrik": "",
+          "text": "Tystnadsplikt enligt första stycket gäller även för den som på något annat sätt har varit verksam inom ett företag som ger ut tekniska upptagningar eller sänder program eller på en nyhetsbyrå. Lag (2018:1802).",
+          "stycken": [
+            "Tystnadsplikt enligt första stycket gäller även för den som på något annat sätt har varit verksam inom ett företag som ger ut tekniska upptagningar eller sänder program eller på en nyhetsbyrå. Lag (2018:1802)."
+          ],
+          "nyckelord": [
+            "tystnadsplikt",
+            "enligt",
+            "första",
+            "stycket",
+            "gäller",
+            "något"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_1kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "4 §   Tystnadsplikt enligt",
+          "stycken": [
+            "4 §   Tystnadsplikt enligt"
+          ],
+          "nyckelord": [
+            "tystnadsplikt",
+            "enligt"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_1kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "1. Den till vars förmån tystnadsplikten gäller har samtyckt till att hans eller hennes identitet röjs.\n   2. Det är tillåtet enligt",
+          "stycken": [
+            "1. Den till vars förmån tystnadsplikten gäller har samtyckt till att hans eller hennes identitet röjs.\n   2. Det är tillåtet enligt"
+          ],
+          "nyckelord": [
+            "vars",
+            "förmån",
+            "tystnadsplikten",
+            "gäller",
+            "samtyckt",
+            "hans"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Rätt till ersättning"
+        },
+        {
+          "id": "lag_1991_1469_1kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "",
+          "text": "3. Det rör sig om något av de brott som avses i",
+          "stycken": [
+            "3. Det rör sig om något av de brott som avses i"
+          ],
+          "nyckelord": [
+            "något",
+            "brott",
+            "avses"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner"
+        }
+      ]
     },
     {
-      "id": "ygl_6_1",
-      "chapter": 6,
-      "section": 1,
-      "principleType": "Ansvar för brott",
-      "text": "Utgivaren är ansvarig för yttrandefrihetsbrott i ett program eller en teknisk upptagning[cite: 308]. Om en ställföreträdare har inträtt som utgivare, är han eller hon ansvarig[cite: 309].",
-      "keywords": ["utgivaransvar", "ensampersonansvar"],
-      "relatedRules": ["YGL 4:1"],
-      "metadata": { "validFrom": "2018-12-31", "legalWeight": "central", "riskTrigger": true }
+      "kapitel": "5",
+      "rubrik": "4 § första stycket 1.",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_5kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "4. En domstol finner i fråga om brott enligt",
+          "stycken": [
+            "4. En domstol finner i fråga om brott enligt"
+          ],
+          "nyckelord": [
+            "domstol",
+            "finner",
+            "fråga",
+            "brott",
+            "enligt"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Överklagande"
+        }
+      ]
     },
     {
-      "id": "ygl_9_1",
-      "chapter": 9,
-      "section": 1,
-      "principleType": "Skadestånd",
-      "text": "Skadestånd för missbruk av yttrandefriheten genom innehållet i ett program eller en teknisk upptagning får grundas endast på att det program eller den tekniska upptagning som kravet avser innefattar yttrandefrihetsbrott[cite: 367]. I fråga om skadestånd på grund av brott som avses i 5 kap. 3-5 §§ gäller vad som är föreskrivet i lag[cite: 368]. Bestämmelsen i 6 kap. 9 § gäller också i fråga om skadestånd på grund av yttrandefrihetsbrott[cite: 370].",
-      "keywords": ["skadestånd", "missbruk", "exklusivitet"],
-      "relatedRules": ["YGL 5:3", "YGL 6:9"],
-      "metadata": { "validFrom": "2018-12-31", "legalWeight": "exklusiv", "riskTrigger": true }
+      "kapitel": "5",
+      "rubrik": "3 § eller 4 § första stycket 2 eller 3 att det är nödvändigt att uppgifter lämnas om huruvida det är den som är tilltalad eller skäligen misstänkt för den brottsliga gärningen som har lämnat meddelandet eller medverkat till framställningen. Uppgifterna ska i så fall lämnas vid en förhandling.",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_5kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "3 § eller",
+          "stycken": [
+            "3 § eller"
+          ],
+          "nyckelord": [],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_5kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "5. En domstol finner i något annat fall att det av hänsyn till ett allmänt eller enskilt intresse är av synnerlig vikt att en uppgift om identiteten lämnas vid vittnesförhör eller förhör med en part under sanningsförsäkran.\n\nVid förhör som avses i första stycket 4 eller 5 ska rätten noga vaka över att det inte ställs frågor som kan inkräkta på tystnadsplikten utöver vad som har medgetts i varje särskilt fall. Lag (2018:1802).\n\nEfterforskningsförbud",
+          "stycken": [
+            "5. En domstol finner i något annat fall att det av hänsyn till ett allmänt eller enskilt intresse är av synnerlig vikt att en uppgift om identiteten lämnas vid vittnesförhör eller förhör med en part under sanningsförsäkran.",
+            "Vid förhör som avses i första stycket 4 eller 5 ska rätten noga vaka över att det inte ställs frågor som kan inkräkta på tystnadsplikten utöver vad som har medgetts i varje särskilt fall. Lag (2018:1802).",
+            "Efterforskningsförbud"
+          ],
+          "nyckelord": [
+            "fall",
+            "förhör",
+            "domstol",
+            "finner",
+            "något",
+            "annat"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner"
+        },
+        {
+          "id": "lag_1991_1469_5kap_5p",
+          "paragraf": "5 §",
+          "rubrik": "",
+          "text": "1. upphovsmannen till en framställning som har offentliggjorts eller varit avsedd att offentliggöras i ett program eller en teknisk upptagning eller den som har framträtt i en sådan framställning,\n   2. den som har tillhandahållit eller avsett att tillhandahålla en framställning för offentliggörande i ett program eller en teknisk upptagning, eller\n   3. den som har meddelat uppgifter enligt",
+          "stycken": [
+            "1. upphovsmannen till en framställning som har offentliggjorts eller varit avsedd att offentliggöras i ett program eller en teknisk upptagning eller den som har framträtt i en sådan framställning,\n   2. den som har tillhandahållit eller avsett att tillhandahålla en framställning för offentliggörande i ett program eller en teknisk upptagning, eller\n   3. den som har meddelat uppgifter enligt"
+          ],
+          "nyckelord": [
+            "framställning",
+            "program",
+            "teknisk",
+            "upptagning",
+            "upphovsmannen",
+            "offentliggjorts"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "1",
+      "rubrik": "10 §.",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_1kap_0p",
+          "paragraf": "0 §",
+          "rubrik": "",
+          "text": "Förbudet i första stycket hindrar inte efterforskning när det behövs för åtal eller något annat ingripande mot den som avses där om ingripandet inte står i strid med denna grundlag. I sådana fall ska den tystnadsplikt som anges i",
+          "stycken": [
+            "Förbudet i första stycket hindrar inte efterforskning när det behövs för åtal eller något annat ingripande mot den som avses där om ingripandet inte står i strid med denna grundlag. I sådana fall ska den tystnadsplikt som anges i"
+          ],
+          "nyckelord": [
+            "förbudet",
+            "första",
+            "stycket",
+            "hindrar",
+            "efterforskning",
+            "behövs"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner"
+        },
+        {
+          "id": "lag_1991_1469_1kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "Repressalieförbud",
+          "stycken": [
+            "Repressalieförbud"
+          ],
+          "nyckelord": [
+            "repressalieförbud"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_1kap_6p",
+          "paragraf": "6 §",
+          "rubrik": "",
+          "text": "Straff",
+          "stycken": [
+            "Straff"
+          ],
+          "nyckelord": [
+            "straff"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Sanktioner"
+        },
+        {
+          "id": "lag_1991_1469_1kap_7p",
+          "paragraf": "7 §",
+          "rubrik": "",
+          "text": "1. uppsåtligen eller av oaktsamhet bryter mot sin tystnadsplikt enligt",
+          "stycken": [
+            "1. uppsåtligen eller av oaktsamhet bryter mot sin tystnadsplikt enligt"
+          ],
+          "nyckelord": [
+            "uppsåtligen",
+            "oaktsamhet",
+            "bryter",
+            "tystnadsplikt",
+            "enligt"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_1kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "2. uppsåtligen eller av oaktsamhet i ett program eller en teknisk upptagning lämnar felaktiga uppgifter om vem som är framställningens upphovsman eller har tillhandahållit den för offentliggörande, vem som framträder i den eller vem som har lämnat uppgifter i den,\n   3. uppsåtligen efterforskar i strid med",
+          "stycken": [
+            "2. uppsåtligen eller av oaktsamhet i ett program eller en teknisk upptagning lämnar felaktiga uppgifter om vem som är framställningens upphovsman eller har tillhandahållit den för offentliggörande, vem som framträder i den eller vem som har lämnat uppgifter i den,\n   3. uppsåtligen efterforskar i strid med"
+          ],
+          "nyckelord": [
+            "uppsåtligen",
+            "uppgifter",
+            "oaktsamhet",
+            "program",
+            "teknisk",
+            "upptagning"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_1kap_5p",
+          "paragraf": "5 §",
+          "rubrik": "",
+          "text": "4. uppsåtligen ingriper i strid med",
+          "stycken": [
+            "4. uppsåtligen ingriper i strid med"
+          ],
+          "nyckelord": [
+            "uppsåtligen",
+            "ingriper",
+            "strid"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_1kap_6p",
+          "paragraf": "6 §",
+          "rubrik": "",
+          "text": "Allmänt åtal för brott som avses i första stycket 1 och 2 får väckas endast om målsäganden har anmält brottet till åtal. Lag (2018:1802).",
+          "stycken": [
+            "Allmänt åtal för brott som avses i första stycket 1 och 2 får väckas endast om målsäganden har anmält brottet till åtal. Lag (2018:1802)."
+          ],
+          "nyckelord": [
+            "åtal",
+            "allmänt",
+            "brott",
+            "avses",
+            "första",
+            "stycket"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner"
+        }
+      ]
+    },
+    {
+      "kapitel": "3",
+      "rubrik": "Rätten att sända, framställa och sprida",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_3kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "1 §   Varje fysisk och juridisk person har rätt att sända program genom tråd. Lag (2018:1802).",
+          "stycken": [
+            "1 §   Varje fysisk och juridisk person har rätt att sända program genom tråd. Lag (2018:1802)."
+          ],
+          "nyckelord": [
+            "varje",
+            "fysisk",
+            "juridisk",
+            "person",
+            "rätt",
+            "sända"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_3kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "",
+          "text": "2 §   Den frihet som följer av",
+          "stycken": [
+            "2 §   Den frihet som följer av"
+          ],
+          "nyckelord": [
+            "frihet",
+            "följer"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_3kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "1. skyldighet för nätinnehavare att i den utsträckning det behövs med hänsyn till allmänhetens intresse av tillgång till allsidig upplysning ge utrymme för vissa program och för tillhörande tjänster som utgörs av eller underlättar tillgången till textning, tolkning, uppläst text eller liknande teknik som syftar till att göra programmen tillgängliga för personer med funktionsnedsättning,\n   2. skyldighet för nätinnehavare att ge utrymme för överföringar i den utsträckning det behövs med hänsyn till intresset av konkurrens beträffande sådana överföringar i nätet eller allmänhetens intresse av tillgång till sådana överföringar,\n   3. skyldighet för nätinnehavare att vidta åtgärder för att tillförsäkra mottagarkretsen inflytande över programvalet,\n   4. skyldighet för den som sänder program i tv eller tillhandahåller sådana program genom överföring ur en databas enligt",
+          "stycken": [
+            "1. skyldighet för nätinnehavare att i den utsträckning det behövs med hänsyn till allmänhetens intresse av tillgång till allsidig upplysning ge utrymme för vissa program och för tillhörande tjänster som utgörs av eller underlättar tillgången till textning, tolkning, uppläst text eller liknande teknik som syftar till att göra programmen tillgängliga för personer med funktionsnedsättning,\n   2. skyldighet för nätinnehavare att ge utrymme för överföringar i den utsträckning det behövs med hänsyn till intresset av konkurrens beträffande sådana överföringar i nätet eller allmänhetens intresse av tillgång till sådana överföringar,\n   3. skyldighet för nätinnehavare att vidta åtgärder för att tillförsäkra mottagarkretsen inflytande över programvalet,\n   4. skyldighet för den som sänder program i tv eller tillhandahåller sådana program genom överföring ur en databas enligt"
+          ],
+          "nyckelord": [
+            "skyldighet",
+            "nätinnehavare",
+            "program",
+            "överföringar",
+            "utsträckning",
+            "behövs"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        }
+      ]
+    },
+    {
+      "kapitel": "1",
+      "rubrik": "4 § första stycket 2 a att göra programmen tillgängliga för personer med funktionsnedsättning genom textning, tolkning, uppläst text eller liknande teknik,",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_1kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "5. skyldighet för den som sänder program i tv eller tillhandahåller sådana program genom överföring ur en databas enligt",
+          "stycken": [
+            "5. skyldighet för den som sänder program i tv eller tillhandahåller sådana program genom överföring ur en databas enligt"
+          ],
+          "nyckelord": [
+            "program",
+            "skyldighet",
+            "sänder",
+            "tillhandahåller",
+            "genom",
+            "överföring"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        }
+      ]
+    },
+    {
+      "kapitel": "1",
+      "rubrik": "4 § första stycket 2 a att främja framställning av och tillgång till program med europeiskt ursprung,",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_1kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "6. ingripanden mot fortsatt sändning av ett utbud som inriktas på vålds-framställningar, pornografiska bilder eller hets mot folkgrupp, eller\n   7. villkor för att sända program för verksamhet som bedrivs med ett uppdrag att sända ljudradio eller tv i allmänhetens tjänst, under förutsättning att uppdraget finansieras med allmänna medel. Lag (2022:1525).\n\nSändning på annat sätt än genom tråd",
+          "stycken": [
+            "6. ingripanden mot fortsatt sändning av ett utbud som inriktas på vålds-framställningar, pornografiska bilder eller hets mot folkgrupp, eller\n   7. villkor för att sända program för verksamhet som bedrivs med ett uppdrag att sända ljudradio eller tv i allmänhetens tjänst, under förutsättning att uppdraget finansieras med allmänna medel. Lag (2022:1525).",
+            "Sändning på annat sätt än genom tråd"
+          ],
+          "nyckelord": [
+            "sändning",
+            "sända",
+            "ingripanden",
+            "fortsatt",
+            "utbud",
+            "inriktas"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_1kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "Det allmänna ska eftersträva att radiofrekvenserna tas i anspråk på ett sätt som leder till vidaste möjliga yttrandefrihet och informationsfrihet. Lag (2018:1802).",
+          "stycken": [
+            "Det allmänna ska eftersträva att radiofrekvenserna tas i anspråk på ett sätt som leder till vidaste möjliga yttrandefrihet och informationsfrihet. Lag (2018:1802)."
+          ],
+          "nyckelord": [
+            "allmänna",
+            "eftersträva",
+            "radiofrekvenserna",
+            "anspråk",
+            "sätt",
+            "leder"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_1kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "Vissa förutsättningar för begränsningar i rätten att sända",
+          "stycken": [
+            "Vissa förutsättningar för begränsningar i rätten att sända"
+          ],
+          "nyckelord": [
+            "vissa",
+            "förutsättningar",
+            "begränsningar",
+            "rätten",
+            "sända"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_1kap_5p",
+          "paragraf": "5 §",
+          "rubrik": "",
+          "text": "5 §   I fråga om sådana begränsningar i rätten att sända program som avses i 2-",
+          "stycken": [
+            "5 §   I fråga om sådana begränsningar i rätten att sända program som avses i 2-"
+          ],
+          "nyckelord": [
+            "fråga",
+            "begränsningar",
+            "rätten",
+            "sända",
+            "program",
+            "avses"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner"
+        },
+        {
+          "id": "lag_1991_1469_1kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "4 §§ gäller vad som föreskrivs om begränsningar av grundläggande fri- och rättigheter i",
+          "stycken": [
+            "4 §§ gäller vad som föreskrivs om begränsningar av grundläggande fri- och rättigheter i"
+          ],
+          "nyckelord": [
+            "gäller",
+            "föreskrivs",
+            "begränsningar",
+            "grundläggande",
+            "rättigheter"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner och tillämpning"
+        }
+      ]
+    },
+    {
+      "kapitel": "2",
+      "rubrik": "21-23 §§ regeringsformen. Lag (2018:1802).",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_2kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "Redaktionell självständighet",
+          "stycken": [
+            "Redaktionell självständighet"
+          ],
+          "nyckelord": [
+            "redaktionell",
+            "självständighet"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_2kap_6p",
+          "paragraf": "6 §",
+          "rubrik": "",
+          "text": "Domstolsprövning",
+          "stycken": [
+            "Domstolsprövning"
+          ],
+          "nyckelord": [
+            "domstolsprövning"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Ansökan och beslut"
+        },
+        {
+          "id": "lag_1991_1469_2kap_7p",
+          "paragraf": "7 §",
+          "rubrik": "",
+          "text": "Om saken gäller ett ingripande på grund av missbruk av yttrandefriheten, ska frågan prövas av domstol under medverkan av jury enligt de närmare föreskrifter som meddelas i lag. Detta gäller dock inte om saken rör överträdelse av sådana föreskrifter eller villkor i fråga om kommersiell reklam, annan annonsering eller sändning av program som avses i",
+          "stycken": [
+            "Om saken gäller ett ingripande på grund av missbruk av yttrandefriheten, ska frågan prövas av domstol under medverkan av jury enligt de närmare föreskrifter som meddelas i lag. Detta gäller dock inte om saken rör överträdelse av sådana föreskrifter eller villkor i fråga om kommersiell reklam, annan annonsering eller sändning av program som avses i"
+          ],
+          "nyckelord": [
+            "saken",
+            "gäller",
+            "föreskrifter",
+            "ingripande",
+            "grund",
+            "missbruk"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner"
+        }
+      ]
+    },
+    {
+      "kapitel": "1",
+      "rubrik": "19 §. Lag (2018:1802).",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_1kap_9p",
+          "paragraf": "9 §",
+          "rubrik": "",
+          "text": "Bevarandeskyldighet och pliktleverans",
+          "stycken": [
+            "Bevarandeskyldighet och pliktleverans"
+          ],
+          "nyckelord": [
+            "bevarandeskyldighet",
+            "pliktleverans"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_1kap_8p",
+          "paragraf": "8 §",
+          "rubrik": "",
+          "text": "Undantag för kartor, ritningar eller bilder som återger Sverige",
+          "stycken": [
+            "Undantag för kartor, ritningar eller bilder som återger Sverige"
+          ],
+          "nyckelord": [
+            "undantag",
+            "kartor",
+            "ritningar",
+            "bilder",
+            "återger",
+            "sverige"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Undantag"
+        },
+        {
+          "id": "lag_1991_1469_1kap_9p",
+          "paragraf": "9 §",
+          "rubrik": "",
+          "text": "Framställning och spridning av tekniska upptagningar\n\nRätten till framställning och spridning",
+          "stycken": [
+            "Framställning och spridning av tekniska upptagningar",
+            "Rätten till framställning och spridning"
+          ],
+          "nyckelord": [
+            "framställning",
+            "spridning",
+            "tekniska",
+            "upptagningar",
+            "rätten"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_1kap_0p",
+          "paragraf": "0 §",
+          "rubrik": "",
+          "text": "0 §   Varje fysisk och juridisk person har rätt att framställa och sprida tekniska upptagningar. För rätten att offentligt visa film, videogram eller någon annan teknisk upptagning med rörliga bilder kan det dock krävas granskning och godkännande i enlighet med",
+          "stycken": [
+            "0 §   Varje fysisk och juridisk person har rätt att framställa och sprida tekniska upptagningar. För rätten att offentligt visa film, videogram eller någon annan teknisk upptagning med rörliga bilder kan det dock krävas granskning och godkännande i enlighet med"
+          ],
+          "nyckelord": [
+            "varje",
+            "fysisk",
+            "juridisk",
+            "person",
+            "rätt",
+            "framställa"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        }
+      ]
+    },
+    {
+      "kapitel": "1",
+      "rubrik": "12 §. Lag (2018:1802).",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_1kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "",
+          "text": "Undantag från spridningsrätten",
+          "stycken": [
+            "Undantag från spridningsrätten"
+          ],
+          "nyckelord": [
+            "undantag",
+            "spridningsrätten"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Undantag"
+        },
+        {
+          "id": "lag_1991_1469_1kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "1 §   Utan hinder av denna grundlag gäller det som föreskrivs i lag, när någon i förvärvssyfte till den som är under femton år lämnar ut filmer, videogram eller andra tekniska upptagningar med rörliga bilder med ingående skildringar av verklighetstrogen karaktär som återger våld eller hot om våld mot människor eller djur. Lag (2018:1802).",
+          "stycken": [
+            "1 §   Utan hinder av denna grundlag gäller det som föreskrivs i lag, när någon i förvärvssyfte till den som är under femton år lämnar ut filmer, videogram eller andra tekniska upptagningar med rörliga bilder med ingående skildringar av verklighetstrogen karaktär som återger våld eller hot om våld mot människor eller djur. Lag (2018:1802)."
+          ],
+          "nyckelord": [
+            "våld",
+            "utan",
+            "hinder",
+            "grundlag",
+            "gäller",
+            "föreskrivs"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_1kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "",
+          "text": "1. visar pornografiska bilder på eller vid allmän plats genom skyltning eller något liknande förfarande på ett sätt som kan väcka allmän anstöt,\n   2. utan föregående beställning med post eller på annat sätt tillställer någon pornografiska bilder, eller\n   3. bland barn och ungdomar sprider tekniska upptagningar som genom sitt innehåll kan verka förråande eller medföra annan allvarlig fara för de unga.\n\nDetsamma gäller i fråga om straff och särskild rättsverkan för den som bryter mot föreskrifter om granskning och godkännande av filmer, videogram eller andra tekniska upptagningar med rörliga bilder som ska visas offentligt samt av rörliga bilder i en sådan offentlig uppspelning ur en databas som avses i",
+          "stycken": [
+            "1. visar pornografiska bilder på eller vid allmän plats genom skyltning eller något liknande förfarande på ett sätt som kan väcka allmän anstöt,\n   2. utan föregående beställning med post eller på annat sätt tillställer någon pornografiska bilder, eller\n   3. bland barn och ungdomar sprider tekniska upptagningar som genom sitt innehåll kan verka förråande eller medföra annan allvarlig fara för de unga.",
+            "Detsamma gäller i fråga om straff och särskild rättsverkan för den som bryter mot föreskrifter om granskning och godkännande av filmer, videogram eller andra tekniska upptagningar med rörliga bilder som ska visas offentligt samt av rörliga bilder i en sådan offentlig uppspelning ur en databas som avses i"
+          ],
+          "nyckelord": [
+            "bilder",
+            "pornografiska",
+            "allmän",
+            "genom",
+            "sätt",
+            "tekniska"
+          ],
+          "relaterade_lagrum": [
+            "6 kap. 1 § FB",
+            "5 kap. 1 § SoL",
+            "1 § LVU"
+          ],
+          "kategori": "Definitioner"
+        }
+      ]
+    },
+    {
+      "kapitel": "1",
+      "rubrik": "4 § första stycket 2 d. Lag (2018:1802).",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_1kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "4 § första stycket 2 d. Lag (2018:1802).",
+          "stycken": [
+            "4 § första stycket 2 d. Lag (2018:1802)."
+          ],
+          "nyckelord": [
+            "första",
+            "stycket"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_1kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "Bevarandeskyldighet och pliktleverans",
+          "stycken": [
+            "Bevarandeskyldighet och pliktleverans"
+          ],
+          "nyckelord": [
+            "bevarandeskyldighet",
+            "pliktleverans"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_1kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "Skyldighet att befordra tekniska upptagningar",
+          "stycken": [
+            "Skyldighet att befordra tekniska upptagningar"
+          ],
+          "nyckelord": [
+            "skyldighet",
+            "befordra",
+            "tekniska",
+            "upptagningar"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_1kap_5p",
+          "paragraf": "5 §",
+          "rubrik": "",
+          "text": "5 §   Den som enligt vad som följer av lag eller annan författning har en skyldighet att befordra tekniska upptagningar får inte på grund av innehållet vägra eller ställa särskilda villkor för att utföra denna skyldighet. Detta gäller dock inte om befordran skulle innebära en sådan överträdelse som avses i",
+          "stycken": [
+            "5 §   Den som enligt vad som följer av lag eller annan författning har en skyldighet att befordra tekniska upptagningar får inte på grund av innehållet vägra eller ställa särskilda villkor för att utföra denna skyldighet. Detta gäller dock inte om befordran skulle innebära en sådan överträdelse som avses i"
+          ],
+          "nyckelord": [
+            "skyldighet",
+            "enligt",
+            "följer",
+            "annan",
+            "författning",
+            "befordra"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner"
+        },
+        {
+          "id": "lag_1991_1469_1kap_8p",
+          "paragraf": "8 §",
+          "rubrik": "",
+          "text": "8 § andra stycket eller",
+          "stycken": [
+            "8 § andra stycket eller"
+          ],
+          "nyckelord": [
+            "andra",
+            "stycket"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_1kap_9p",
+          "paragraf": "9 §",
+          "rubrik": "",
+          "text": "Den som har en skyldighet enligt första stycket och som har tagit emot en teknisk upptagning för befordran ska inte anses som upptagningens spridare. Lag (2018:1802).\n\nUrsprungsuppgifter",
+          "stycken": [
+            "Den som har en skyldighet enligt första stycket och som har tagit emot en teknisk upptagning för befordran ska inte anses som upptagningens spridare. Lag (2018:1802).",
+            "Ursprungsuppgifter"
+          ],
+          "nyckelord": [
+            "skyldighet",
+            "enligt",
+            "första",
+            "stycket",
+            "tagit",
+            "emot"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_1kap_6p",
+          "paragraf": "6 §",
+          "rubrik": "",
+          "text": "Registrering av försäljnings- eller uthyrningsverksamhet",
+          "stycken": [
+            "Registrering av försäljnings- eller uthyrningsverksamhet"
+          ],
+          "nyckelord": [
+            "registrering",
+            "försäljnings",
+            "uthyrningsverksamhet"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_1kap_7p",
+          "paragraf": "7 §",
+          "rubrik": "",
+          "text": "Straff",
+          "stycken": [
+            "Straff"
+          ],
+          "nyckelord": [
+            "straff"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Sanktioner"
+        },
+        {
+          "id": "lag_1991_1469_1kap_8p",
+          "paragraf": "8 §",
+          "rubrik": "",
+          "text": "8 §   Till böter eller fängelse i högst ett år döms den som framställer en teknisk upptagning och då uppsåtligen eller av oaktsamhet bryter mot",
+          "stycken": [
+            "8 §   Till böter eller fängelse i högst ett år döms den som framställer en teknisk upptagning och då uppsåtligen eller av oaktsamhet bryter mot"
+          ],
+          "nyckelord": [
+            "böter",
+            "fängelse",
+            "högst",
+            "döms",
+            "framställer",
+            "teknisk"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Sanktioner"
+        },
+        {
+          "id": "lag_1991_1469_1kap_6p",
+          "paragraf": "6 §",
+          "rubrik": "",
+          "text": "Till penningböter döms den som sprider en teknisk upptagning som saknar någon uppgift som är föreskriven i",
+          "stycken": [
+            "Till penningböter döms den som sprider en teknisk upptagning som saknar någon uppgift som är föreskriven i"
+          ],
+          "nyckelord": [
+            "penningböter",
+            "döms",
+            "sprider",
+            "teknisk",
+            "upptagning",
+            "saknar"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Sanktioner"
+        },
+        {
+          "id": "lag_1991_1469_1kap_6p",
+          "paragraf": "6 §",
+          "rubrik": "",
+          "text": "6 §, om det sker uppsåtligen eller av oaktsamhet. Detsamma gäller om en sådan uppgift är oriktig och spridaren känner till detta. Lag (2018:1802).",
+          "stycken": [
+            "6 §, om det sker uppsåtligen eller av oaktsamhet. Detsamma gäller om en sådan uppgift är oriktig och spridaren känner till detta. Lag (2018:1802)."
+          ],
+          "nyckelord": [
+            "sker",
+            "uppsåtligen",
+            "oaktsamhet",
+            "detsamma",
+            "gäller",
+            "uppgift"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner och tillämpning"
+        },
+        {
+          "id": "lag_1991_1469_1kap_9p",
+          "paragraf": "9 §",
+          "rubrik": "",
+          "text": "Upptagningar, skrifter och bilder beställda ur en databas",
+          "stycken": [
+            "Upptagningar, skrifter och bilder beställda ur en databas"
+          ],
+          "nyckelord": [
+            "upptagningar",
+            "skrifter",
+            "bilder",
+            "beställda",
+            "databas"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_1kap_0p",
+          "paragraf": "0 §",
+          "rubrik": "",
+          "text": "0 §   Av en sådan teknisk upptagning, skrift eller bild som avses i",
+          "stycken": [
+            "0 §   Av en sådan teknisk upptagning, skrift eller bild som avses i"
+          ],
+          "nyckelord": [
+            "teknisk",
+            "upptagning",
+            "skrift",
+            "bild",
+            "avses"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner"
+        }
+      ]
+    },
+    {
+      "kapitel": "1",
+      "rubrik": "4 § första stycket 2 c ska databasens namn framgå, liksom när, var och hur upptagningen, skriften eller bilden har framställts. Den som driver verksamheten ska se till att upptagningen, skriften eller bilden har sådana uppgifter. Närmare föreskrifter om detta får meddelas i lag. Lag (2018:1802).",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_1kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "4 § första stycket 2 c ska databasens namn framgå, liksom när, var och hur upptagningen, skriften eller bilden har framställts. Den som driver verksamheten ska se till att upptagningen, skriften eller bilden har sådana uppgifter. Närmare föreskrifter om detta får meddelas i lag. Lag (2018:1802).",
+          "stycken": [
+            "4 § första stycket 2 c ska databasens namn framgå, liksom när, var och hur upptagningen, skriften eller bilden har framställts. Den som driver verksamheten ska se till att upptagningen, skriften eller bilden har sådana uppgifter. Närmare föreskrifter om detta får meddelas i lag. Lag (2018:1802)."
+          ],
+          "nyckelord": [
+            "upptagningen",
+            "skriften",
+            "bilden",
+            "första",
+            "stycket",
+            "databasens"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_1kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "1 §   Till böter eller fängelse i högst ett år döms den som uppsåtligen eller av oaktsamhet bryter mot",
+          "stycken": [
+            "1 §   Till böter eller fängelse i högst ett år döms den som uppsåtligen eller av oaktsamhet bryter mot"
+          ],
+          "nyckelord": [
+            "böter",
+            "fängelse",
+            "högst",
+            "döms",
+            "uppsåtligen",
+            "oaktsamhet"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Sanktioner"
+        },
+        {
+          "id": "lag_1991_1469_1kap_0p",
+          "paragraf": "0 §",
+          "rubrik": "",
+          "text": "Till penningböter döms den som lämnar ut en sådan teknisk upptagning, skrift eller bild som avses i",
+          "stycken": [
+            "Till penningböter döms den som lämnar ut en sådan teknisk upptagning, skrift eller bild som avses i"
+          ],
+          "nyckelord": [
+            "penningböter",
+            "döms",
+            "lämnar",
+            "teknisk",
+            "upptagning",
+            "skrift"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner"
+        }
+      ]
+    },
+    {
+      "kapitel": "1",
+      "rubrik": "4 § första stycket 2 c och som saknar någon uppgift som är föreskriven i 20 §, om det sker uppsåtligen eller av oaktsamhet. Detsamma gäller om en sådan uppgift är oriktig och den som lämnar ut upptagningen, skriften eller bilden känner till detta. Lag (2018:1802).",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_1kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "4 § första stycket 2 c och som saknar någon uppgift som är föreskriven i",
+          "stycken": [
+            "4 § första stycket 2 c och som saknar någon uppgift som är föreskriven i"
+          ],
+          "nyckelord": [
+            "första",
+            "stycket",
+            "saknar",
+            "någon",
+            "uppgift",
+            "föreskriven"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_1kap_0p",
+          "paragraf": "0 §",
+          "rubrik": "",
+          "text": "0 §, om det sker uppsåtligen eller av oaktsamhet. Detsamma gäller om en sådan uppgift är oriktig och den som lämnar ut upptagningen, skriften eller bilden känner till detta. Lag (2018:1802).",
+          "stycken": [
+            "0 §, om det sker uppsåtligen eller av oaktsamhet. Detsamma gäller om en sådan uppgift är oriktig och den som lämnar ut upptagningen, skriften eller bilden känner till detta. Lag (2018:1802)."
+          ],
+          "nyckelord": [
+            "sker",
+            "uppsåtligen",
+            "oaktsamhet",
+            "detsamma",
+            "gäller",
+            "uppgift"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner och tillämpning"
+        }
+      ]
+    },
+    {
+      "kapitel": "4",
+      "rubrik": "Utgivare",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_4kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "Utgivaren utses av den som bedriver sändningsverksamheten eller låter framställa den tekniska upptagningen. Lag (2018:1802).",
+          "stycken": [
+            "Utgivaren utses av den som bedriver sändningsverksamheten eller låter framställa den tekniska upptagningen. Lag (2018:1802)."
+          ],
+          "nyckelord": [
+            "utgivaren",
+            "utses",
+            "bedriver",
+            "sändningsverksamheten",
+            "låter",
+            "framställa"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_4kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "",
+          "text": "2 §   En utgivare ska vara en fysisk person med hemvist i Sverige. Den som är underårig eller i konkurs eller som har förvaltare enligt särskilda bestämmelser i lag får inte vara utgivare. Lag (2018:1802).",
+          "stycken": [
+            "2 §   En utgivare ska vara en fysisk person med hemvist i Sverige. Den som är underårig eller i konkurs eller som har förvaltare enligt särskilda bestämmelser i lag får inte vara utgivare. Lag (2018:1802)."
+          ],
+          "nyckelord": [
+            "utgivare",
+            "vara",
+            "fysisk",
+            "person",
+            "hemvist",
+            "sverige"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_4kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "Uppgift om utgivare",
+          "stycken": [
+            "Uppgift om utgivare"
+          ],
+          "nyckelord": [
+            "uppgift",
+            "utgivare"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_4kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "4 §   Uppgift om vem som är utgivare av program ska hållas tillgänglig för allmänheten. Närmare föreskrifter om detta får meddelas i lag. Lag (2018:1802).",
+          "stycken": [
+            "4 §   Uppgift om vem som är utgivare av program ska hållas tillgänglig för allmänheten. Närmare föreskrifter om detta får meddelas i lag. Lag (2018:1802)."
+          ],
+          "nyckelord": [
+            "uppgift",
+            "utgivare",
+            "program",
+            "hållas",
+            "tillgänglig",
+            "allmänheten"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_4kap_5p",
+          "paragraf": "5 §",
+          "rubrik": "",
+          "text": "Av en sådan teknisk upptagning, skrift eller bild som efter beställning har framställts ur en databas enligt",
+          "stycken": [
+            "Av en sådan teknisk upptagning, skrift eller bild som efter beställning har framställts ur en databas enligt"
+          ],
+          "nyckelord": [
+            "teknisk",
+            "upptagning",
+            "skrift",
+            "bild",
+            "beställning",
+            "framställts"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "1",
+      "rubrik": "4 § första stycket 2 c ska det framgå vem som är utgivare för databasen. Utgivaren ska se till att varje exemplar har en sådan uppgift. Lag (2018:1802).",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_1kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "Ställföreträdare",
+          "stycken": [
+            "Ställföreträdare"
+          ],
+          "nyckelord": [
+            "ställföreträdare"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_1kap_6p",
+          "paragraf": "6 §",
+          "rubrik": "",
+          "text": "6 §   En utgivare för programverksamhet får utse en eller flera ställföreträdare. För ställföreträdare gäller 2-",
+          "stycken": [
+            "6 §   En utgivare för programverksamhet får utse en eller flera ställföreträdare. För ställföreträdare gäller 2-"
+          ],
+          "nyckelord": [
+            "ställföreträdare",
+            "utgivare",
+            "programverksamhet",
+            "utse",
+            "flera",
+            "gäller"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner och tillämpning"
+        },
+        {
+          "id": "lag_1991_1469_1kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "Straff",
+          "stycken": [
+            "Straff"
+          ],
+          "nyckelord": [
+            "straff"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Sanktioner"
+        },
+        {
+          "id": "lag_1991_1469_1kap_7p",
+          "paragraf": "7 §",
+          "rubrik": "",
+          "text": "7 §   Till böter döms den som uppsåtligen eller av oaktsamhet bryter mot",
+          "stycken": [
+            "7 §   Till böter döms den som uppsåtligen eller av oaktsamhet bryter mot"
+          ],
+          "nyckelord": [
+            "böter",
+            "döms",
+            "uppsåtligen",
+            "oaktsamhet",
+            "bryter"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Sanktioner"
+        },
+        {
+          "id": "lag_1991_1469_1kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "Till penningböter döms den som uppsåtligen eller av oaktsamhet bryter mot",
+          "stycken": [
+            "Till penningböter döms den som uppsåtligen eller av oaktsamhet bryter mot"
+          ],
+          "nyckelord": [
+            "penningböter",
+            "döms",
+            "uppsåtligen",
+            "oaktsamhet",
+            "bryter"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Sanktioner"
+        },
+        {
+          "id": "lag_1991_1469_1kap_5p",
+          "paragraf": "5 §",
+          "rubrik": "",
+          "text": "I lag får det föreskrivas straff för den som bryter mot en föreskrift i lag som har meddelats med stöd av 4 eller",
+          "stycken": [
+            "I lag får det föreskrivas straff för den som bryter mot en föreskrift i lag som har meddelats med stöd av 4 eller"
+          ],
+          "nyckelord": [
+            "föreskrivas",
+            "straff",
+            "bryter",
+            "föreskrift",
+            "meddelats",
+            "stöd"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Sanktioner"
+        },
+        {
+          "id": "lag_1991_1469_1kap_6p",
+          "paragraf": "6 §",
+          "rubrik": "",
+          "text": "6 §. Lag (2018:1802).",
+          "stycken": [
+            "6 §. Lag (2018:1802)."
+          ],
+          "nyckelord": [],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "5",
+      "rubrik": "Yttrandefrihetsbrott, meddelarbrott och anskaffarbrott",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_5kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "1 §   De gärningar som anges som tryckfrihetsbrott i",
+          "stycken": [
+            "1 §   De gärningar som anges som tryckfrihetsbrott i"
+          ],
+          "nyckelord": [
+            "gärningar",
+            "anges",
+            "tryckfrihetsbrott"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "7",
+      "rubrik": "2-20 §§ tryckfrihetsförordningen ska anses vara yttrandefrihetsbrott, om de begås i ett program eller en teknisk upptagning och är straffbara enligt lag. Lag (2018:1802).",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_7kap_0p",
+          "paragraf": "0 §",
+          "rubrik": "",
+          "text": "0 §§ tryckfrihetsförordningen ska anses vara yttrandefrihetsbrott, om de begås i ett program eller en teknisk upptagning och är straffbara enligt lag. Lag (2018:1802).",
+          "stycken": [
+            "0 §§ tryckfrihetsförordningen ska anses vara yttrandefrihetsbrott, om de begås i ett program eller en teknisk upptagning och är straffbara enligt lag. Lag (2018:1802)."
+          ],
+          "nyckelord": [
+            "tryckfrihetsförordningen",
+            "anses",
+            "vara",
+            "yttrandefrihetsbrott",
+            "begås",
+            "program"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_7kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "",
+          "text": "2 §   Under de förutsättningar som anges i",
+          "stycken": [
+            "2 §   Under de förutsättningar som anges i"
+          ],
+          "nyckelord": [
+            "förutsättningar",
+            "anges"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_7kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "1 § anses som yttrandefrihetsbrott även sådan olaga våldsskildring som innebär att någon genom rörliga bilder närgånget eller utdraget skildrar grovt våld mot människor eller djur med uppsåt att framställningen sprids. Detta gäller dock inte om gärningen med hänsyn till omständigheterna är försvarlig. Lag (2018:1802).",
+          "stycken": [
+            "1 § anses som yttrandefrihetsbrott även sådan olaga våldsskildring som innebär att någon genom rörliga bilder närgånget eller utdraget skildrar grovt våld mot människor eller djur med uppsåt att framställningen sprids. Detta gäller dock inte om gärningen med hänsyn till omständigheterna är försvarlig. Lag (2018:1802)."
+          ],
+          "nyckelord": [
+            "anses",
+            "yttrandefrihetsbrott",
+            "olaga",
+            "våldsskildring",
+            "innebär",
+            "någon"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner"
+        },
+        {
+          "id": "lag_1991_1469_7kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "Detsamma gäller ett meddelande genom chiffer eller på något annat sätt, som är hemligt för allmänheten. Lag (2018:1802).\n\nMeddelar- och anskaffarbrott",
+          "stycken": [
+            "Detsamma gäller ett meddelande genom chiffer eller på något annat sätt, som är hemligt för allmänheten. Lag (2018:1802).",
+            "Meddelar- och anskaffarbrott"
+          ],
+          "nyckelord": [
+            "detsamma",
+            "gäller",
+            "meddelande",
+            "genom",
+            "chiffer",
+            "något"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_7kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "4 §   Om någon enligt",
+          "stycken": [
+            "4 §   Om någon enligt"
+          ],
+          "nyckelord": [
+            "någon",
+            "enligt"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "1",
+      "rubrik": "10 § meddelar en uppgift i syfte att göra den offentlig i ett program eller en teknisk upptagning och därigenom gör sig skyldig till något av följande brott, gäller vad som föreskrivs i lag om ansvar för det brottet:",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_1kap_0p",
+          "paragraf": "0 §",
+          "rubrik": "",
+          "text": "1. uppror, högförräderi, spioneri, grovt spioneri, utlandsspioneri, grovt utlandsspioneri, grov obehörig befattning med hemlig uppgift, landsförräderi, landssvek eller försök, förberedelse eller stämpling till ett sådant brott,\n   2. oriktigt utlämnande av en allmän handling som inte är tillgänglig för var och en eller tillhandahållande av en sådan handling i strid med en myndighets förbehåll vid dess utlämnande, när gärningen är uppsåtlig, och\n   3. uppsåtligt åsidosättande av tystnadsplikt i de fall som anges i en särskild lag.\n\nFörsta stycket gäller också om brottet begås av någon som, utan att vara ansvarig enligt",
+          "stycken": [
+            "1. uppror, högförräderi, spioneri, grovt spioneri, utlandsspioneri, grovt utlandsspioneri, grov obehörig befattning med hemlig uppgift, landsförräderi, landssvek eller försök, förberedelse eller stämpling till ett sådant brott,\n   2. oriktigt utlämnande av en allmän handling som inte är tillgänglig för var och en eller tillhandahållande av en sådan handling i strid med en myndighets förbehåll vid dess utlämnande, när gärningen är uppsåtlig, och\n   3. uppsåtligt åsidosättande av tystnadsplikt i de fall som anges i en särskild lag.",
+            "Första stycket gäller också om brottet begås av någon som, utan att vara ansvarig enligt"
+          ],
+          "nyckelord": [
+            "spioneri",
+            "grovt",
+            "utlandsspioneri",
+            "utlämnande",
+            "handling",
+            "uppror"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        }
+      ]
+    },
+    {
+      "kapitel": "2",
+      "rubrik": "22 § första stycket regeringsformen. Lag (2022:1518).",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_2kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "",
+          "text": "2 § första stycket regeringsformen. Lag (2022:1518).",
+          "stycken": [
+            "2 § första stycket regeringsformen. Lag (2022:1518)."
+          ],
+          "nyckelord": [
+            "första",
+            "stycket",
+            "regeringsformen"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_2kap_5p",
+          "paragraf": "5 §",
+          "rubrik": "",
+          "text": "5 §   Om någon enligt",
+          "stycken": [
+            "5 §   Om någon enligt"
+          ],
+          "nyckelord": [
+            "någon",
+            "enligt"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "1",
+      "rubrik": "10 § anskaffar en uppgift i syfte att göra den offentlig i ett program eller en teknisk upptagning eller för att lämna ett meddelande och därigenom gör sig skyldig till ett brott som anges i 4 § första stycket 1, gäller vad som föreskrivs i lag om det brottet. Lag (2018:1802).",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_1kap_0p",
+          "paragraf": "0 §",
+          "rubrik": "",
+          "text": "0 § anskaffar en uppgift i syfte att göra den offentlig i ett program eller en teknisk upptagning eller för att lämna ett meddelande och därigenom gör sig skyldig till ett brott som anges i",
+          "stycken": [
+            "0 § anskaffar en uppgift i syfte att göra den offentlig i ett program eller en teknisk upptagning eller för att lämna ett meddelande och därigenom gör sig skyldig till ett brott som anges i"
+          ],
+          "nyckelord": [
+            "anskaffar",
+            "uppgift",
+            "syfte",
+            "göra",
+            "offentlig",
+            "program"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_1kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "Ytterligare bestämmelser om yttrandefrihetsbrott\n\nPåföljd",
+          "stycken": [
+            "Ytterligare bestämmelser om yttrandefrihetsbrott",
+            "Påföljd"
+          ],
+          "nyckelord": [
+            "ytterligare",
+            "bestämmelser",
+            "yttrandefrihetsbrott",
+            "påföljd"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Sanktioner"
+        },
+        {
+          "id": "lag_1991_1469_1kap_6p",
+          "paragraf": "6 §",
+          "rubrik": "",
+          "text": "6 §   Vad som föreskrivs i lag om påföljd för brott som anges i 1 och",
+          "stycken": [
+            "6 §   Vad som föreskrivs i lag om påföljd för brott som anges i 1 och"
+          ],
+          "nyckelord": [
+            "föreskrivs",
+            "påföljd",
+            "brott",
+            "anges"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Sanktioner"
+        },
+        {
+          "id": "lag_1991_1469_1kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "",
+          "text": "Vid bestämmande av påföljd ska det särskilt beaktas om en publicerad uppgift har rättats och rättelsen därefter offentliggjorts på ett lämpligt sätt. Lag (2018:1802).\n\nPublicering av domen",
+          "stycken": [
+            "Vid bestämmande av påföljd ska det särskilt beaktas om en publicerad uppgift har rättats och rättelsen därefter offentliggjorts på ett lämpligt sätt. Lag (2018:1802).",
+            "Publicering av domen"
+          ],
+          "nyckelord": [
+            "bestämmande",
+            "påföljd",
+            "särskilt",
+            "beaktas",
+            "publicerad",
+            "uppgift"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_1kap_7p",
+          "paragraf": "7 §",
+          "rubrik": "",
+          "text": "7 §   Om den tilltalade döms för förtal eller förolämpning i ett program enligt",
+          "stycken": [
+            "7 §   Om den tilltalade döms för förtal eller förolämpning i ett program enligt"
+          ],
+          "nyckelord": [
+            "tilltalade",
+            "döms",
+            "förtal",
+            "förolämpning",
+            "program",
+            "enligt"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_1kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "Skyldigheten att återge domen får avse ett sammandrag av domen som domstolen har gjort. Lag (2018:1802).\n\nKonfiskering",
+          "stycken": [
+            "Skyldigheten att återge domen får avse ett sammandrag av domen som domstolen har gjort. Lag (2018:1802).",
+            "Konfiskering"
+          ],
+          "nyckelord": [
+            "domen",
+            "skyldigheten",
+            "återge",
+            "avse",
+            "sammandrag",
+            "domstolen"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_1kap_8p",
+          "paragraf": "8 §",
+          "rubrik": "",
+          "text": "Är brottet olaga våldsskildring gäller också vad som föreskrivs i lag om särskild rättsverkan av brott.\n\nKonfiskering innebär att alla exemplar av upptagningen som är avsedda att spridas ska förstöras. Konfiskering innebär även att åtgärder ska vidtas så att föremål som kan användas särskilt för att mångfaldiga den tekniska upptagningen inte ska kunna användas för att framställa ytterligare exemplar.\n\nVid bedömning av frågan om konfiskering ska det särskilt beaktas om en publicerad uppgift har rättats och rättelsen därefter offentliggjorts på ett lämpligt sätt. Lag (2018:1802).",
+          "stycken": [
+            "Är brottet olaga våldsskildring gäller också vad som föreskrivs i lag om särskild rättsverkan av brott.",
+            "Konfiskering innebär att alla exemplar av upptagningen som är avsedda att spridas ska förstöras. Konfiskering innebär även att åtgärder ska vidtas så att föremål som kan användas särskilt för att mångfaldiga den tekniska upptagningen inte ska kunna användas för att framställa ytterligare exemplar.",
+            "Vid bedömning av frågan om konfiskering ska det särskilt beaktas om en publicerad uppgift har rättats och rättelsen därefter offentliggjorts på ett lämpligt sätt. Lag (2018:1802)."
+          ],
+          "nyckelord": [
+            "konfiskering",
+            "innebär",
+            "exemplar",
+            "upptagningen",
+            "användas",
+            "särskilt"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner"
+        }
+      ]
+    },
+    {
+      "kapitel": "6",
+      "rubrik": "Ansvar för yttrandefrihetsbrott",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_6kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "Om en ställföreträdare har inträtt som utgivare, är han eller hon ansvarig. Lag (2018:1802).",
+          "stycken": [
+            "Om en ställföreträdare har inträtt som utgivare, är han eller hon ansvarig. Lag (2018:1802)."
+          ],
+          "nyckelord": [
+            "ställföreträdare",
+            "inträtt",
+            "utgivare",
+            "ansvarig"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_6kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "",
+          "text": "1. ställföreträdaren inte längre var behörig när brottet begicks eller uppdraget annars upphört,\n   2. ställföreträdaren var utsedd för skens skull eller uppenbarligen inte hade de befogenheter som anges i",
+          "stycken": [
+            "1. ställföreträdaren inte längre var behörig när brottet begicks eller uppdraget annars upphört,\n   2. ställföreträdaren var utsedd för skens skull eller uppenbarligen inte hade de befogenheter som anges i"
+          ],
+          "nyckelord": [
+            "ställföreträdaren",
+            "längre",
+            "behörig",
+            "brottet",
+            "begicks",
+            "uppdraget"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "4",
+      "rubrik": "3 §, eller",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_4kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "3. uppgift om ställföreträdaren inte har hållits tillgänglig för allmänheten på föreskrivet sätt. Lag (2018:1802).\n\nDen som bedriver sändningsverksamhet eller låter framställa en teknisk upptagning",
+          "stycken": [
+            "3. uppgift om ställföreträdaren inte har hållits tillgänglig för allmänheten på föreskrivet sätt. Lag (2018:1802).",
+            "Den som bedriver sändningsverksamhet eller låter framställa en teknisk upptagning"
+          ],
+          "nyckelord": [
+            "uppgift",
+            "ställföreträdaren",
+            "hållits",
+            "tillgänglig",
+            "allmänheten",
+            "föreskrivet"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_4kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "1. det inte fanns någon behörig utgivare när brottet begicks,\n   2. utgivaren var utsedd för skens skull eller uppenbarligen inte hade de befogenheter som anges i",
+          "stycken": [
+            "1. det inte fanns någon behörig utgivare när brottet begicks,\n   2. utgivaren var utsedd för skens skull eller uppenbarligen inte hade de befogenheter som anges i"
+          ],
+          "nyckelord": [
+            "fanns",
+            "någon",
+            "behörig",
+            "utgivare",
+            "brottet",
+            "begicks"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "4",
+      "rubrik": "3 §, eller",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_4kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "3. uppgift om utgivaren inte har hållits tillgänglig för allmänheten på föreskrivet sätt. Lag (2018:1802).\n\nSpridare",
+          "stycken": [
+            "3. uppgift om utgivaren inte har hållits tillgänglig för allmänheten på föreskrivet sätt. Lag (2018:1802).",
+            "Spridare"
+          ],
+          "nyckelord": [
+            "uppgift",
+            "utgivaren",
+            "hållits",
+            "tillgänglig",
+            "allmänheten",
+            "föreskrivet"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_4kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "4 §   Den som sprider en teknisk upptagning är ansvarig för yttrandefrihetsbrott i stället för den som anges i",
+          "stycken": [
+            "4 §   Den som sprider en teknisk upptagning är ansvarig för yttrandefrihetsbrott i stället för den som anges i"
+          ],
+          "nyckelord": [
+            "sprider",
+            "teknisk",
+            "upptagning",
+            "ansvarig",
+            "yttrandefrihetsbrott",
+            "stället"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_4kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "3 §, om uppgift enligt",
+          "stycken": [
+            "3 §, om uppgift enligt"
+          ],
+          "nyckelord": [
+            "uppgift",
+            "enligt"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "3",
+      "rubrik": "16 § om vem som har låtit framställa upptagningen",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_3kap_6p",
+          "paragraf": "6 §",
+          "rubrik": "",
+          "text": "1. saknas och det inte kan klarläggas vem han eller hon är,\n   2. avser en person som saknar känd hemvist i Sverige och som inte heller kan påträffas här under rättegången,\n   3. avser en person som har hemvist utomlands, eller\n   4. är oriktig och den som sprider upptagningen känner till detta. Lag (2018:1802).\n\nAnsvar vid vissa direktsändningar",
+          "stycken": [
+            "1. saknas och det inte kan klarläggas vem han eller hon är,\n   2. avser en person som saknar känd hemvist i Sverige och som inte heller kan påträffas här under rättegången,\n   3. avser en person som har hemvist utomlands, eller\n   4. är oriktig och den som sprider upptagningen känner till detta. Lag (2018:1802).",
+            "Ansvar vid vissa direktsändningar"
+          ],
+          "nyckelord": [
+            "avser",
+            "person",
+            "hemvist",
+            "saknas",
+            "klarläggas",
+            "saknar"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Undantag"
+        },
+        {
+          "id": "lag_1991_1469_3kap_5p",
+          "paragraf": "5 §",
+          "rubrik": "",
+          "text": "5 §   I fråga om andra direktsända program än sådana som avses i",
+          "stycken": [
+            "5 §   I fråga om andra direktsända program än sådana som avses i"
+          ],
+          "nyckelord": [
+            "fråga",
+            "andra",
+            "direktsända",
+            "program",
+            "avses"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner"
+        }
+      ]
+    },
+    {
+      "kapitel": "1",
+      "rubrik": "16 § får det i lag föreskrivas att den som framträder i programmet ska ansvara för sina yttranden själv. Lag (2018:1802).",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_1kap_6p",
+          "paragraf": "6 §",
+          "rubrik": "",
+          "text": "Särskilda regler om utgivares ansvar för information i en databas",
+          "stycken": [
+            "Särskilda regler om utgivares ansvar för information i en databas"
+          ],
+          "nyckelord": [
+            "särskilda",
+            "regler",
+            "utgivares",
+            "ansvar",
+            "information",
+            "databas"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_1kap_6p",
+          "paragraf": "6 §",
+          "rubrik": "",
+          "text": "6 §   Om en utgivare av en databas enligt",
+          "stycken": [
+            "6 §   Om en utgivare av en databas enligt"
+          ],
+          "nyckelord": [
+            "utgivare",
+            "databas",
+            "enligt"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "1",
+      "rubrik": "4 § första stycket 2 a-c har underrättats av Justitiekanslern eller målsäganden om att databasen innehåller viss information som kan utgöra yttrandefrihetsbrott, och utgivaren inom två veckor efter det att underrättelsen togs emot tar bort informationen ur databasen, kan han eller hon inte hållas ansvarig för informationen. Detta gäller endast om det kan antas att informationen började tillhandahållas ur databasen tidigare än ett år innan underrättelsen.",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_1kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "Närmare föreskrifter om underrättelser enligt första stycket får meddelas i lag. Lag (2018:1802).",
+          "stycken": [
+            "Närmare föreskrifter om underrättelser enligt första stycket får meddelas i lag. Lag (2018:1802)."
+          ],
+          "nyckelord": [
+            "närmare",
+            "föreskrifter",
+            "underrättelser",
+            "enligt",
+            "första",
+            "stycket"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_1kap_7p",
+          "paragraf": "7 §",
+          "rubrik": "",
+          "text": "7 §   Om en utgivare av en databas enligt",
+          "stycken": [
+            "7 §   Om en utgivare av en databas enligt"
+          ],
+          "nyckelord": [
+            "utgivare",
+            "databas",
+            "enligt"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "1",
+      "rubrik": "4 § första stycket 2 a-c, utan en föregående underrättelse enligt 6 §, har delgetts en stämningsansökan med yrkande om ansvar eller skadestånd för yttrandefrihetsbrott avseende viss information i databasen, och utgivaren inom två veckor efter delgivningen tar bort informationen ur databasen, kan han eller hon inte hållas ansvarig för informationen.",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_1kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "4 § första stycket 2 a-c, utan en föregående underrättelse enligt",
+          "stycken": [
+            "4 § första stycket 2 a-c, utan en föregående underrättelse enligt"
+          ],
+          "nyckelord": [
+            "första",
+            "stycket",
+            "utan",
+            "föregående",
+            "underrättelse",
+            "enligt"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_1kap_6p",
+          "paragraf": "6 §",
+          "rubrik": "",
+          "text": "Trots första stycket kan utgivaren hållas ansvarig om det görs antagligt att informationen började tillhandahållas ur databasen ett år innan utgivaren delgavs stämningsansökningen eller senare. Lag (2018:1802).\n\nInvändning mot ansvar",
+          "stycken": [
+            "Trots första stycket kan utgivaren hållas ansvarig om det görs antagligt att informationen började tillhandahållas ur databasen ett år innan utgivaren delgavs stämningsansökningen eller senare. Lag (2018:1802).",
+            "Invändning mot ansvar"
+          ],
+          "nyckelord": [
+            "utgivaren",
+            "trots",
+            "första",
+            "stycket",
+            "hållas",
+            "ansvarig"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Ansökan och beslut"
+        },
+        {
+          "id": "lag_1991_1469_1kap_8p",
+          "paragraf": "8 §",
+          "rubrik": "",
+          "text": "Ansvarets innebörd",
+          "stycken": [
+            "Ansvarets innebörd"
+          ],
+          "nyckelord": [
+            "ansvarets",
+            "innebörd"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_1kap_9p",
+          "paragraf": "9 §",
+          "rubrik": "",
+          "text": "9 §   Den som är ansvarig för yttrandefrihetsbrott enligt detta kapitel ska anses ha haft kännedom om innehållet i programmet eller den tekniska upptagningen och medgett sändning eller utgivning. Lag (2018:1802).",
+          "stycken": [
+            "9 §   Den som är ansvarig för yttrandefrihetsbrott enligt detta kapitel ska anses ha haft kännedom om innehållet i programmet eller den tekniska upptagningen och medgett sändning eller utgivning. Lag (2018:1802)."
+          ],
+          "nyckelord": [
+            "ansvarig",
+            "yttrandefrihetsbrott",
+            "enligt",
+            "kapitel",
+            "anses",
+            "haft"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        }
+      ]
+    },
+    {
+      "kapitel": "7",
+      "rubrik": "Tillsyn och åtal",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_7kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "1 §   Bestämmelserna i",
+          "stycken": [
+            "1 §   Bestämmelserna i"
+          ],
+          "nyckelord": [
+            "bestämmelserna"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "9",
+      "rubrik": "1-7 §§ tryckfrihetsförordningen om tillsyn och åtal gäller också i fråga om program, tekniska upptagningar och yttrandefrihetsmål, om inte annat följer av bestämmelserna i detta kapitel. Lag (2018:1802).",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_9kap_7p",
+          "paragraf": "7 §",
+          "rubrik": "",
+          "text": "Justitiekanslerns överlämnande av åklagaruppdrag",
+          "stycken": [
+            "Justitiekanslerns överlämnande av åklagaruppdrag"
+          ],
+          "nyckelord": [
+            "justitiekanslerns",
+            "överlämnande",
+            "åklagaruppdrag"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_9kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "",
+          "text": "Preskription vid allmänt åtal",
+          "stycken": [
+            "Preskription vid allmänt åtal"
+          ],
+          "nyckelord": [
+            "preskription",
+            "allmänt",
+            "åtal"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_9kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "1. program sex månader från det att programmet sändes,\n   2. tillhandahållande som avses i",
+          "stycken": [
+            "1. program sex månader från det att programmet sändes,\n   2. tillhandahållande som avses i"
+          ],
+          "nyckelord": [
+            "program",
+            "månader",
+            "programmet",
+            "sändes",
+            "tillhandahållande",
+            "avses"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner"
+        }
+      ]
+    },
+    {
+      "kapitel": "1",
+      "rubrik": "4 § första stycket 2 a-c sex månader från när informationen inte längre tillhandahölls,",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_1kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "3. offentlig uppspelning ur en databas som avses i",
+          "stycken": [
+            "3. offentlig uppspelning ur en databas som avses i"
+          ],
+          "nyckelord": [
+            "offentlig",
+            "uppspelning",
+            "databas",
+            "avses"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner"
+        }
+      ]
+    },
+    {
+      "kapitel": "1",
+      "rubrik": "4 § första stycket 2 d sex månader från uppspelningen, och",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_1kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "4. tekniska upptagningar ett år från det att upptagningen gavs ut.\n\nBeträffande sådana tekniska upptagningar som saknar någon av de i",
+          "stycken": [
+            "4. tekniska upptagningar ett år från det att upptagningen gavs ut.",
+            "Beträffande sådana tekniska upptagningar som saknar någon av de i"
+          ],
+          "nyckelord": [
+            "tekniska",
+            "upptagningar",
+            "upptagningen",
+            "gavs",
+            "beträffande",
+            "saknar"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        }
+      ]
+    },
+    {
+      "kapitel": "3",
+      "rubrik": "16 § föreskrivna uppgifterna gäller dock vad som är föreskrivet i lag om tid för väckande av talan med den begränsningen att allmänt åtal inte får väckas senare än två år från det att Justitiekanslern fick kännedom om upptagningen. Lag (2018:1802).",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_3kap_6p",
+          "paragraf": "6 §",
+          "rubrik": "",
+          "text": "Konfiskering utan åtal",
+          "stycken": [
+            "Konfiskering utan åtal"
+          ],
+          "nyckelord": [
+            "konfiskering",
+            "utan",
+            "åtal"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_3kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "4 §   Finns det ingen ansvarig för ett yttrandefrihetsbrott enligt",
+          "stycken": [
+            "4 §   Finns det ingen ansvarig för ett yttrandefrihetsbrott enligt"
+          ],
+          "nyckelord": [
+            "finns",
+            "ingen",
+            "ansvarig",
+            "yttrandefrihetsbrott",
+            "enligt"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "6",
+      "rubrik": "när det gäller en teknisk upptagning, får åklagaren eller målsäganden i stället för att väcka åtal ansöka om att upptagningen ska konfiskeras. Detsamma gäller när den som är ansvarig för brott inte kan delges stämning i Sverige. Lag (2018:1802).",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_6kap_5p",
+          "paragraf": "5 §",
+          "rubrik": "",
+          "text": "En sådan nämnd får endast uttala sin mening och förelägga den sändande att följa föreskrifterna eller villkoren. I lagen får det föreskrivas att ett föreläggande av nämnden får förenas med vite. Frågor om ansvar för yttrandefrihetsbrott och om utdömande av vite prövas alltid av domstol enligt",
+          "stycken": [
+            "En sådan nämnd får endast uttala sin mening och förelägga den sändande att följa föreskrifterna eller villkoren. I lagen får det föreskrivas att ett föreläggande av nämnden får förenas med vite. Frågor om ansvar för yttrandefrihetsbrott och om utdömande av vite prövas alltid av domstol enligt"
+          ],
+          "nyckelord": [
+            "vite",
+            "nämnd",
+            "endast",
+            "uttala",
+            "mening",
+            "förelägga"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Ansökan och beslut"
+        }
+      ]
+    },
+    {
+      "kapitel": "3",
+      "rubrik": "7 §. Lag (2022:1525).",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_3kap_7p",
+          "paragraf": "7 §",
+          "rubrik": "",
+          "text": "7 §. Lag (2022:1525).",
+          "stycken": [
+            "7 §. Lag (2022:1525)."
+          ],
+          "nyckelord": [],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_3kap_6p",
+          "paragraf": "6 §",
+          "rubrik": "",
+          "text": "Det får i lag meddelas föreskrifter om befogenhet för en myndighet att vid tillsyn enligt första stycket tillfälligt ta hand om ett exemplar av en film, ett videogram eller en teknisk upptagning med rörliga bilder som kan antas innehålla en framställning som innefattar olaga våldsskildring. Lag (2018:1802).",
+          "stycken": [
+            "Det får i lag meddelas föreskrifter om befogenhet för en myndighet att vid tillsyn enligt första stycket tillfälligt ta hand om ett exemplar av en film, ett videogram eller en teknisk upptagning med rörliga bilder som kan antas innehålla en framställning som innefattar olaga våldsskildring. Lag (2018:1802)."
+          ],
+          "nyckelord": [
+            "meddelas",
+            "föreskrifter",
+            "befogenhet",
+            "myndighet",
+            "tillsyn",
+            "enligt"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_3kap_7p",
+          "paragraf": "7 §",
+          "rubrik": "",
+          "text": "7 §   I fråga om sådana föreskrifter som avses i 5 och",
+          "stycken": [
+            "7 §   I fråga om sådana föreskrifter som avses i 5 och"
+          ],
+          "nyckelord": [
+            "fråga",
+            "föreskrifter",
+            "avses"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner"
+        },
+        {
+          "id": "lag_1991_1469_3kap_6p",
+          "paragraf": "6 §",
+          "rubrik": "",
+          "text": "6 §§ gäller vad som föreskrivs om begränsningar av grundläggande fri- och rättigheter i",
+          "stycken": [
+            "6 §§ gäller vad som föreskrivs om begränsningar av grundläggande fri- och rättigheter i"
+          ],
+          "nyckelord": [
+            "gäller",
+            "föreskrivs",
+            "begränsningar",
+            "grundläggande",
+            "rättigheter"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner och tillämpning"
+        }
+      ]
+    },
+    {
+      "kapitel": "2",
+      "rubrik": "21-23 §§ regeringsformen. Lag (2018:1802).",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_2kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "3 §§ regeringsformen. Lag (2018:1802).",
+          "stycken": [
+            "3 §§ regeringsformen. Lag (2018:1802)."
+          ],
+          "nyckelord": [
+            "regeringsformen"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "8",
+      "rubrik": "Särskilda tvångsmedel",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_8kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "1 §   Bestämmelserna i",
+          "stycken": [
+            "1 §   Bestämmelserna i"
+          ],
+          "nyckelord": [
+            "bestämmelserna"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "0",
+      "rubrik": "tryckfrihetsförordningen om beslag av tryckta skrifter gäller också i fråga om beslag av tekniska upptagningar, om inte annat följer av bestämmelserna i detta kapitel. Lag (2018:1802).",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_0kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "",
+          "text": "2 §   När Justitiekanslern har beslutat om konfiskeringsbeslag eller fastställt ett sådant beslag, får rätten på Justitiekanslerns begäran medge att den tidsfrist som anges i",
+          "stycken": [
+            "2 §   När Justitiekanslern har beslutat om konfiskeringsbeslag eller fastställt ett sådant beslag, får rätten på Justitiekanslerns begäran medge att den tidsfrist som anges i"
+          ],
+          "nyckelord": [
+            "justitiekanslern",
+            "beslutat",
+            "konfiskeringsbeslag",
+            "fastställt",
+            "beslag",
+            "rätten"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Ansökan och beslut"
+        }
+      ]
+    },
+    {
+      "kapitel": "0",
+      "rubrik": "4 § tryckfrihetsförordningen förlängs, om tiden är otillräcklig med hänsyn till beslagets omfattning eller någon annan omständighet. Förlängningen får inte avse längre tid än som är oundgängligen nödvändig och får omfatta sammanlagt högst två veckor. Lag (2018:1802).",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_0kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "4 § tryckfrihetsförordningen förlängs, om tiden är otillräcklig med hänsyn till beslagets omfattning eller någon annan omständighet. Förlängningen får inte avse längre tid än som är oundgängligen nödvändig och får omfatta sammanlagt högst två veckor. Lag (2018:1802).",
+          "stycken": [
+            "4 § tryckfrihetsförordningen förlängs, om tiden är otillräcklig med hänsyn till beslagets omfattning eller någon annan omständighet. Förlängningen får inte avse längre tid än som är oundgängligen nödvändig och får omfatta sammanlagt högst två veckor. Lag (2018:1802)."
+          ],
+          "nyckelord": [
+            "tryckfrihetsförordningen",
+            "förlängs",
+            "tiden",
+            "otillräcklig",
+            "hänsyn",
+            "beslagets"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner och tillämpning"
+        },
+        {
+          "id": "lag_1991_1469_0kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "3 §   Om Justitiekanslern enligt",
+          "stycken": [
+            "3 §   Om Justitiekanslern enligt"
+          ],
+          "nyckelord": [
+            "justitiekanslern",
+            "enligt"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "7",
+      "rubrik": "2 § har överlämnat åt allmän åklagare att vara åklagare i yttrandefrihetsmål gäller vad som anges i detta kapitel och i",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_7kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "",
+          "text": "2 § har överlämnat åt allmän åklagare att vara åklagare i yttrandefrihetsmål gäller vad som anges i detta kapitel och i",
+          "stycken": [
+            "2 § har överlämnat åt allmän åklagare att vara åklagare i yttrandefrihetsmål gäller vad som anges i detta kapitel och i"
+          ],
+          "nyckelord": [
+            "åklagare",
+            "överlämnat",
+            "allmän",
+            "vara",
+            "yttrandefrihetsmål",
+            "gäller"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner och tillämpning"
+        }
+      ]
+    },
+    {
+      "kapitel": "0",
+      "rubrik": "2, 4 och 12 §§ tryckfrihetsförordningen om Justitiekanslerns uppgifter även den allmänna åklagaren. Vad som anges i",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_0kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "",
+          "text": "2 §§ tryckfrihetsförordningen om Justitiekanslerns uppgifter även den allmänna åklagaren. Vad som anges i",
+          "stycken": [
+            "2 §§ tryckfrihetsförordningen om Justitiekanslerns uppgifter även den allmänna åklagaren. Vad som anges i"
+          ],
+          "nyckelord": [
+            "tryckfrihetsförordningen",
+            "justitiekanslerns",
+            "uppgifter",
+            "allmänna",
+            "åklagaren",
+            "anges"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "0",
+      "rubrik": "3 § andra stycket tryckfrihetsförordningen om anmälan av beslag gäller dock inte allmän åklagare. Lag (2018:1802).",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_0kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "3 § andra stycket tryckfrihetsförordningen om anmälan av beslag gäller dock inte allmän åklagare. Lag (2018:1802).",
+          "stycken": [
+            "3 § andra stycket tryckfrihetsförordningen om anmälan av beslag gäller dock inte allmän åklagare. Lag (2018:1802)."
+          ],
+          "nyckelord": [
+            "andra",
+            "stycket",
+            "tryckfrihetsförordningen",
+            "anmälan",
+            "beslag",
+            "gäller"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Undantag"
+        },
+        {
+          "id": "lag_1991_1469_0kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "Om det vid ett sådant utredningsbeslag som avses i",
+          "stycken": [
+            "Om det vid ett sådant utredningsbeslag som avses i"
+          ],
+          "nyckelord": [
+            "utredningsbeslag",
+            "avses"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner"
+        }
+      ]
+    },
+    {
+      "kapitel": "0",
+      "rubrik": "12 § tryck-frihetsförordningen inte är möjligt att i beslutet närmare ange varje avsnitt som har gett anledning till beslaget, ska det i efterhand i ett särskilt beslut anges vilka avsnitt som åberopas som brottsliga. Ett sådant beslut ska meddelas så snart det är möjligt.",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_0kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "",
+          "text": "Beslaget gäller endast de särskilda skivor, rullar eller andra sådana delar av upptagningen där dessa avsnitt förekommer. Lag (2018:1802).",
+          "stycken": [
+            "Beslaget gäller endast de särskilda skivor, rullar eller andra sådana delar av upptagningen där dessa avsnitt förekommer. Lag (2018:1802)."
+          ],
+          "nyckelord": [
+            "beslaget",
+            "gäller",
+            "endast",
+            "särskilda",
+            "skivor",
+            "rullar"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner och tillämpning"
+        },
+        {
+          "id": "lag_1991_1469_0kap_5p",
+          "paragraf": "5 §",
+          "rubrik": "",
+          "text": "Beslag av upptagningar, skrifter eller bilder beställda ur en databas",
+          "stycken": [
+            "Beslag av upptagningar, skrifter eller bilder beställda ur en databas"
+          ],
+          "nyckelord": [
+            "beslag",
+            "upptagningar",
+            "skrifter",
+            "bilder",
+            "beställda",
+            "databas"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_0kap_6p",
+          "paragraf": "6 §",
+          "rubrik": "",
+          "text": "6 §   För en upptagning, skrift eller bild som har beställts ur en databas enligt",
+          "stycken": [
+            "6 §   För en upptagning, skrift eller bild som har beställts ur en databas enligt"
+          ],
+          "nyckelord": [
+            "upptagning",
+            "skrift",
+            "bild",
+            "beställts",
+            "databas",
+            "enligt"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "1",
+      "rubrik": "4 § första stycket 2 c gäller vid yttrandefrihetsbrott vad som anges om utredningsbeslag i",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_1kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "4 § första stycket 2 c gäller vid yttrandefrihetsbrott vad som anges om utredningsbeslag i",
+          "stycken": [
+            "4 § första stycket 2 c gäller vid yttrandefrihetsbrott vad som anges om utredningsbeslag i"
+          ],
+          "nyckelord": [
+            "första",
+            "stycket",
+            "gäller",
+            "yttrandefrihetsbrott",
+            "anges",
+            "utredningsbeslag"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner och tillämpning"
+        }
+      ]
+    },
+    {
+      "kapitel": "0",
+      "rubrik": "12 § tryckfrihetsförordningen. I stället för",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_0kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "",
+          "text": "2 § tryckfrihetsförordningen. I stället för",
+          "stycken": [
+            "2 § tryckfrihetsförordningen. I stället för"
+          ],
+          "nyckelord": [
+            "tryckfrihetsförordningen",
+            "stället"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "0",
+      "rubrik": "7 och 10 §§ gäller dock beträffande tekniska upptagningar vad som föreskrivs i 4 och 5 §§. Lag (2018:1802).",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_0kap_0p",
+          "paragraf": "0 §",
+          "rubrik": "",
+          "text": "0 §§ gäller dock beträffande tekniska upptagningar vad som föreskrivs i 4 och",
+          "stycken": [
+            "0 §§ gäller dock beträffande tekniska upptagningar vad som föreskrivs i 4 och"
+          ],
+          "nyckelord": [
+            "gäller",
+            "beträffande",
+            "tekniska",
+            "upptagningar",
+            "föreskrivs"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_0kap_5p",
+          "paragraf": "5 §",
+          "rubrik": "",
+          "text": "5 §§. Lag (2018:1802).",
+          "stycken": [
+            "5 §§. Lag (2018:1802)."
+          ],
+          "nyckelord": [],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "9",
+      "rubrik": "Skadestånd",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_9kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "I fråga om skadestånd på grund av brott som avses i",
+          "stycken": [
+            "I fråga om skadestånd på grund av brott som avses i"
+          ],
+          "nyckelord": [
+            "fråga",
+            "skadestånd",
+            "grund",
+            "brott",
+            "avses"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner"
+        }
+      ]
+    },
+    {
+      "kapitel": "5",
+      "rubrik": "3-5 §§ gäller vad som är föreskrivet i lag.",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_5kap_5p",
+          "paragraf": "5 §",
+          "rubrik": "",
+          "text": "Vad som sägs om skadestånd enligt detta kapitel gäller i tillämpliga delar även krav enligt",
+          "stycken": [
+            "Vad som sägs om skadestånd enligt detta kapitel gäller i tillämpliga delar även krav enligt"
+          ],
+          "nyckelord": [
+            "enligt",
+            "sägs",
+            "skadestånd",
+            "kapitel",
+            "gäller",
+            "tillämpliga"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        }
+      ]
+    },
+    {
+      "kapitel": "5",
+      "rubrik": "7 § på att en dom om förtal eller förolämpning ska återges i ett program.",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_5kap_7p",
+          "paragraf": "7 §",
+          "rubrik": "",
+          "text": "Bestämmelsen i",
+          "stycken": [
+            "Bestämmelsen i"
+          ],
+          "nyckelord": [
+            "bestämmelsen"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "6",
+      "rubrik": "9 § gäller också i fråga om skadestånd på grund av yttrandefrihetsbrott i ett program eller en teknisk upptagning. Lag (2018:1802).",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_6kap_9p",
+          "paragraf": "9 §",
+          "rubrik": "",
+          "text": "Vem som är ansvarig",
+          "stycken": [
+            "Vem som är ansvarig"
+          ],
+          "nyckelord": [
+            "ansvarig"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_6kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "",
+          "text": "2 §   Den som är ansvarig för yttrandefrihetsbrott enligt",
+          "stycken": [
+            "2 §   Den som är ansvarig för yttrandefrihetsbrott enligt"
+          ],
+          "nyckelord": [
+            "ansvarig",
+            "yttrandefrihetsbrott",
+            "enligt"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "6",
+      "rubrik": "6 och 7 §§ är han eller hon inte heller ansvarig för skadestånd. Lag (2018:1802).",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_6kap_7p",
+          "paragraf": "7 §",
+          "rubrik": "",
+          "text": "7 §§ är han eller hon inte heller ansvarig för skadestånd. Lag (2018:1802).",
+          "stycken": [
+            "7 §§ är han eller hon inte heller ansvarig för skadestånd. Lag (2018:1802)."
+          ],
+          "nyckelord": [
+            "heller",
+            "ansvarig",
+            "skadestånd"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_6kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "3 §   Vid direktsändningar som avses i",
+          "stycken": [
+            "3 §   Vid direktsändningar som avses i"
+          ],
+          "nyckelord": [
+            "direktsändningar",
+            "avses"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner"
+        }
+      ]
+    },
+    {
+      "kapitel": "1",
+      "rubrik": "16 § är gärningsmannen ansvarig för skadestånd på grund av brott som han eller hon begår i sändningen.",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_1kap_6p",
+          "paragraf": "6 §",
+          "rubrik": "",
+          "text": "Krav på skadestånd kan även riktas mot den som bedriver programverksamheten. Lag (2018:1802).",
+          "stycken": [
+            "Krav på skadestånd kan även riktas mot den som bedriver programverksamheten. Lag (2018:1802)."
+          ],
+          "nyckelord": [
+            "krav",
+            "skadestånd",
+            "riktas",
+            "bedriver",
+            "programverksamheten"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_1kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "4 §   Om den som skulle ha varit ansvarig för yttrandefrihetsbrott i en teknisk upptagning inte har någon känd hemvist i landet när brottet begås och inte heller kan påträffas här under rättegången och ansvaret därför övergår på den som sprider upptagningen enligt",
+          "stycken": [
+            "4 §   Om den som skulle ha varit ansvarig för yttrandefrihetsbrott i en teknisk upptagning inte har någon känd hemvist i landet när brottet begås och inte heller kan påträffas här under rättegången och ansvaret därför övergår på den som sprider upptagningen enligt"
+          ],
+          "nyckelord": [
+            "skulle",
+            "varit",
+            "ansvarig",
+            "yttrandefrihetsbrott",
+            "teknisk",
+            "upptagning"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "6",
+      "rubrik": "4 § 1 och 2, får krav på skadestånd ändå riktas även mot den som skulle ha varit ansvarig. Det gäller i den utsträckning skadestånd kan dömas ut enligt lag. Lag (2018:1802).",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_6kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "4 § 1 och 2, får krav på skadestånd ändå riktas även mot den som skulle ha varit ansvarig. Det gäller i den utsträckning skadestånd kan dömas ut enligt lag. Lag (2018:1802).",
+          "stycken": [
+            "4 § 1 och 2, får krav på skadestånd ändå riktas även mot den som skulle ha varit ansvarig. Det gäller i den utsträckning skadestånd kan dömas ut enligt lag. Lag (2018:1802)."
+          ],
+          "nyckelord": [
+            "skadestånd",
+            "krav",
+            "ändå",
+            "riktas",
+            "skulle",
+            "varit"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_6kap_5p",
+          "paragraf": "5 §",
+          "rubrik": "",
+          "text": "Om en förmyndare, god man eller förvaltare i den egenskapen är ansvarig för skadestånd på grund av yttrandefrihetsbrott, får krav på skadestånd även riktas mot den för vilken förmyndaren, den gode mannen eller förvaltaren har utsetts.\n\nKrav på skadestånd enligt denna paragraf får framställas om och i den omfattning anspråket kan göras gällande enligt lag. Lag (2018:1802).",
+          "stycken": [
+            "Om en förmyndare, god man eller förvaltare i den egenskapen är ansvarig för skadestånd på grund av yttrandefrihetsbrott, får krav på skadestånd även riktas mot den för vilken förmyndaren, den gode mannen eller förvaltaren har utsetts.",
+            "Krav på skadestånd enligt denna paragraf får framställas om och i den omfattning anspråket kan göras gällande enligt lag. Lag (2018:1802)."
+          ],
+          "nyckelord": [
+            "skadestånd",
+            "krav",
+            "enligt",
+            "förmyndare",
+            "förvaltare",
+            "egenskapen"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_6kap_6p",
+          "paragraf": "6 §",
+          "rubrik": "",
+          "text": "Skadestånd när straff för brottet inte kan dömas ut",
+          "stycken": [
+            "Skadestånd när straff för brottet inte kan dömas ut"
+          ],
+          "nyckelord": [
+            "skadestånd",
+            "straff",
+            "brottet",
+            "dömas"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_6kap_7p",
+          "paragraf": "7 §",
+          "rubrik": "",
+          "text": "7 §   Krav på skadestånd med anledning av ett yttrandefrihetsbrott kan framställas trots att straff för brottet inte kan dömas ut på grund av preskription eller av något annat skäl. Lag (2018:1802).",
+          "stycken": [
+            "7 §   Krav på skadestånd med anledning av ett yttrandefrihetsbrott kan framställas trots att straff för brottet inte kan dömas ut på grund av preskription eller av något annat skäl. Lag (2018:1802)."
+          ],
+          "nyckelord": [
+            "krav",
+            "skadestånd",
+            "anledning",
+            "yttrandefrihetsbrott",
+            "framställas",
+            "trots"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        }
+      ]
+    },
+    {
+      "kapitel": "0",
+      "rubrik": "Rättegången i yttrandefrihetsmål",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_0kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "1 §   Vad som sägs i",
+          "stycken": [
+            "1 §   Vad som sägs i"
+          ],
+          "nyckelord": [
+            "sägs"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "2",
+      "rubrik": "3 § tryckfrihetsförordningen till",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_2kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "3 § tryckfrihetsförordningen till",
+          "stycken": [
+            "3 § tryckfrihetsförordningen till"
+          ],
+          "nyckelord": [
+            "tryckfrihetsförordningen"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "1",
+      "rubrik": "Program och tekniska upptagningar från utlandet",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_1kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "1 §   För samtidig och oförändrad vidaresändning här i landet av program som avses i",
+          "stycken": [
+            "1 §   För samtidig och oförändrad vidaresändning här i landet av program som avses i"
+          ],
+          "nyckelord": [
+            "samtidig",
+            "oförändrad",
+            "vidaresändning",
+            "landet",
+            "program",
+            "avses"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner"
+        }
+      ]
+    },
+    {
+      "kapitel": "1",
+      "rubrik": "3 § och som kommer från utlandet eller förmedlas hit genom satellitsändning men inte utgår från Sverige, gäller denna grundlag enbart i fråga om",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_1kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "- censurförbud och förbud mot andra hindrande åtgärder enligt",
+          "text": "- censurförbud och förbud mot andra hindrande åtgärder enligt",
+          "stycken": [
+            "- censurförbud och förbud mot andra hindrande åtgärder enligt"
+          ],
+          "nyckelord": [
+            "censurförbud",
+            "förbud",
+            "andra",
+            "hindrande",
+            "åtgärder",
+            "enligt"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "1",
+      "rubrik": "11 §, - innehav av tekniska hjälpmedel och anläggande av trådnät enligt",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_1kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "1 §, - innehav av tekniska hjälpmedel och anläggande av trådnät enligt",
+          "stycken": [
+            "1 §, - innehav av tekniska hjälpmedel och anläggande av trådnät enligt"
+          ],
+          "nyckelord": [
+            "innehav",
+            "tekniska",
+            "hjälpmedel",
+            "anläggande",
+            "trådnät",
+            "enligt"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        }
+      ]
+    },
+    {
+      "kapitel": "1",
+      "rubrik": "13 §, - förbud mot ingripanden enligt",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_1kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "3 §, - förbud mot ingripanden enligt",
+          "stycken": [
+            "3 §, - förbud mot ingripanden enligt"
+          ],
+          "nyckelord": [
+            "förbud",
+            "ingripanden",
+            "enligt"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "1",
+      "rubrik": "14 §, - det förhållningssätt som enligt",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_1kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "4 §, - det förhållningssätt som enligt",
+          "stycken": [
+            "4 §, - det förhållningssätt som enligt"
+          ],
+          "nyckelord": [
+            "förhållningssätt",
+            "enligt"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "1",
+      "rubrik": "15 § ska iakttas vid tillämpningen av denna grundlag, - rätt att sända program i tråd enligt",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_1kap_5p",
+          "paragraf": "5 §",
+          "rubrik": "",
+          "text": "5 § ska iakttas vid tillämpningen av denna grundlag, - rätt att sända program i tråd enligt",
+          "stycken": [
+            "5 § ska iakttas vid tillämpningen av denna grundlag, - rätt att sända program i tråd enligt"
+          ],
+          "nyckelord": [
+            "iakttas",
+            "tillämpningen",
+            "grundlag",
+            "rätt",
+            "sända",
+            "program"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        }
+      ]
+    },
+    {
+      "kapitel": "3",
+      "rubrik": "1 §, och",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_3kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "- särskilda regler för lagstiftning och rättslig prövning enligt",
+          "text": "- särskilda regler för lagstiftning och rättslig prövning enligt",
+          "stycken": [
+            "- särskilda regler för lagstiftning och rättslig prövning enligt"
+          ],
+          "nyckelord": [
+            "särskilda",
+            "regler",
+            "lagstiftning",
+            "rättslig",
+            "prövning",
+            "enligt"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Ansökan och beslut"
+        }
+      ]
+    },
+    {
+      "kapitel": "3",
+      "rubrik": "5 och 7 §§.",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_3kap_7p",
+          "paragraf": "7 §",
+          "rubrik": "",
+          "text": "Dessutom ska bestämmelserna om meddelar- och anskaffarfrihet i 4 och",
+          "stycken": [
+            "Dessutom ska bestämmelserna om meddelar- och anskaffarfrihet i 4 och"
+          ],
+          "nyckelord": [
+            "dessutom",
+            "bestämmelserna",
+            "meddelar",
+            "anskaffarfrihet"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_3kap_7p",
+          "paragraf": "7 §",
+          "rubrik": "",
+          "text": "Om riksdagen har godkänt en internationell överenskommelse om program, får sådana föreskrifter om reklam och annonsering som avses i",
+          "stycken": [
+            "Om riksdagen har godkänt en internationell överenskommelse om program, får sådana föreskrifter om reklam och annonsering som avses i"
+          ],
+          "nyckelord": [
+            "riksdagen",
+            "godkänt",
+            "internationell",
+            "överenskommelse",
+            "program",
+            "föreskrifter"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner"
+        }
+      ]
+    },
+    {
+      "kapitel": "1",
+      "rubrik": "19 § inte hindra vidaresändning av program om det skulle strida mot överenskommelsen. Lag (2018:1802).",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_1kap_9p",
+          "paragraf": "9 §",
+          "rubrik": "",
+          "text": "Tekniska upptagningar från utlandet",
+          "stycken": [
+            "Tekniska upptagningar från utlandet"
+          ],
+          "nyckelord": [
+            "tekniska",
+            "upptagningar",
+            "utlandet"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_1kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "",
+          "text": "2 §   Bestämmelserna i 1-10 och",
+          "stycken": [
+            "2 §   Bestämmelserna i 1-10 och"
+          ],
+          "nyckelord": [
+            "bestämmelserna"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "2",
+      "rubrik": "är tillämpliga på sådana tekniska upptagningar som har framställts utomlands och som lämnas ut för spridning i Sverige. Vad som sägs i denna grundlag om den som har låtit framställa upptagningen ska då i stället gälla den som lämnar ut upptagningen för spridning här i landet. Lag (2018:1802).",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_2kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "3 §   Det som sägs om meddelar- och anskaffarfrihet i",
+          "stycken": [
+            "3 §   Det som sägs om meddelar- och anskaffarfrihet i"
+          ],
+          "nyckelord": [
+            "sägs",
+            "meddelar",
+            "anskaffarfrihet"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        }
+      ]
+    },
+    {
+      "kapitel": "1",
+      "rubrik": "10 § gäller även i fråga om sådana tekniska upptagningar som har framställts utomlands och som lämnas ut för spridning här men som inte huvudsakligen är avsedda att spridas i Sverige.",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_1kap_0p",
+          "paragraf": "0 §",
+          "rubrik": "",
+          "text": "Första stycket gäller dock inte om\n   1. meddelandet eller anskaffandet innefattar brott mot Sveriges säkerhet,\n   2. meddelandet innefattar ett sådant utlämnande eller tillhandahållande som avses i",
+          "stycken": [
+            "Första stycket gäller dock inte om\n   1. meddelandet eller anskaffandet innefattar brott mot Sveriges säkerhet,\n   2. meddelandet innefattar ett sådant utlämnande eller tillhandahållande som avses i"
+          ],
+          "nyckelord": [
+            "meddelandet",
+            "innefattar",
+            "första",
+            "stycket",
+            "gäller",
+            "anskaffandet"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner"
+        }
+      ]
+    },
+    {
+      "kapitel": "5",
+      "rubrik": "4 § första stycket 2, eller",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_5kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "3. meddelandet utgör ett uppsåtligt åsidosättande av tystnadsplikt. Lag (2018:1802).",
+          "stycken": [
+            "3. meddelandet utgör ett uppsåtligt åsidosättande av tystnadsplikt. Lag (2018:1802)."
+          ],
+          "nyckelord": [
+            "meddelandet",
+            "utgör",
+            "uppsåtligt",
+            "åsidosättande",
+            "tystnadsplikt"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_5kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "4 §   Det som sägs om meddelar- och anskaffarfrihet i",
+          "stycken": [
+            "4 §   Det som sägs om meddelar- och anskaffarfrihet i"
+          ],
+          "nyckelord": [
+            "sägs",
+            "meddelar",
+            "anskaffarfrihet"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_5kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "3 § tillämpas för en teknisk upptagning som inte har lämnats ut för spridning i Sverige, om uppgiften meddelats eller anskaffats här. Lag (2018:1802).",
+          "stycken": [
+            "3 § tillämpas för en teknisk upptagning som inte har lämnats ut för spridning i Sverige, om uppgiften meddelats eller anskaffats här. Lag (2018:1802)."
+          ],
+          "nyckelord": [
+            "tillämpas",
+            "teknisk",
+            "upptagning",
+            "lämnats",
+            "spridning",
+            "sverige"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_5kap_5p",
+          "paragraf": "5 §",
+          "rubrik": "",
+          "text": "5 §   Meddelaren har i fall som avses i 3 och",
+          "stycken": [
+            "5 §   Meddelaren har i fall som avses i 3 och"
+          ],
+          "nyckelord": [
+            "meddelaren",
+            "fall",
+            "avses"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner"
+        },
+        {
+          "id": "lag_1991_1469_5kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "4 §§ rätt till anonymitet enligt",
+          "stycken": [
+            "4 §§ rätt till anonymitet enligt"
+          ],
+          "nyckelord": [
+            "rätt",
+            "anonymitet",
+            "enligt"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Rätt till ersättning"
+        }
+      ]
+    },
+    {
+      "kapitel": "2",
+      "rubrik": "4 § 3 ska omfatta även andra brott mot Sveriges säkerhet än de som anges där. Lag (2018:1802).",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_2kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "4 § 3 ska omfatta även andra brott mot Sveriges säkerhet än de som anges där. Lag (2018:1802).",
+          "stycken": [
+            "4 § 3 ska omfatta även andra brott mot Sveriges säkerhet än de som anges där. Lag (2018:1802)."
+          ],
+          "nyckelord": [
+            "omfatta",
+            "andra",
+            "brott",
+            "sveriges",
+            "säkerhet",
+            "anges"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_2kap_6p",
+          "paragraf": "6 §",
+          "rubrik": "",
+          "text": "6 §   Om ett meddelande eller anskaffande är straffbart enligt 3 eller",
+          "stycken": [
+            "6 §   Om ett meddelande eller anskaffande är straffbart enligt 3 eller"
+          ],
+          "nyckelord": [
+            "meddelande",
+            "anskaffande",
+            "straffbart",
+            "enligt"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_2kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "Mål om ansvar eller skadestånd på grund av ett sådant brott handläggs enligt bestämmelserna om yttrandefrihetsmål, om inte annat följer av",
+          "stycken": [
+            "Mål om ansvar eller skadestånd på grund av ett sådant brott handläggs enligt bestämmelserna om yttrandefrihetsmål, om inte annat följer av"
+          ],
+          "nyckelord": [
+            "ansvar",
+            "skadestånd",
+            "grund",
+            "brott",
+            "handläggs",
+            "enligt"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Ansökan och beslut"
+        }
+      ]
+    },
+    {
+      "kapitel": "0",
+      "rubrik": "1 § denna grundlag och",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_0kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "1 § denna grundlag och",
+          "stycken": [
+            "1 § denna grundlag och"
+          ],
+          "nyckelord": [
+            "grundlag"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "2",
+      "rubrik": "1 § andra stycket tryckfrihetsförordningen. Lag (2018:1802).",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_2kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "1 § andra stycket tryckfrihetsförordningen. Lag (2018:1802).",
+          "stycken": [
+            "1 § andra stycket tryckfrihetsförordningen. Lag (2018:1802)."
+          ],
+          "nyckelord": [
+            "andra",
+            "stycket",
+            "tryckfrihetsförordningen"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_2kap_7p",
+          "paragraf": "7 §",
+          "rubrik": "",
+          "text": "7 §   Om ett program sänds från en sändare utanför Sverige, gäller 3-",
+          "stycken": [
+            "7 §   Om ett program sänds från en sändare utanför Sverige, gäller 3-"
+          ],
+          "nyckelord": [
+            "program",
+            "sänds",
+            "sändare",
+            "utanför",
+            "sverige",
+            "gäller"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner och tillämpning"
+        },
+        {
+          "id": "lag_1991_1469_2kap_6p",
+          "paragraf": "6 §",
+          "rubrik": "",
+          "text": "I fråga om program som sänds från öppna havet eller luftrummet däröver får det dock i lag föreskrivas undantag från rätten att meddela och anskaffa uppgifter. Lag (2018:1802).",
+          "stycken": [
+            "I fråga om program som sänds från öppna havet eller luftrummet däröver får det dock i lag föreskrivas undantag från rätten att meddela och anskaffa uppgifter. Lag (2018:1802)."
+          ],
+          "nyckelord": [
+            "fråga",
+            "program",
+            "sänds",
+            "öppna",
+            "havet",
+            "luftrummet"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        }
+      ]
+    },
+    {
+      "kapitel": "2",
+      "rubrik": "Allmänna bestämmelser",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_2kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "1 §   Vad som föreskrivs i",
+          "stycken": [
+            "1 §   Vad som föreskrivs i"
+          ],
+          "nyckelord": [
+            "föreskrivs"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "4",
+      "rubrik": "1-3 §§ tryckfrihetsförordningen om resning, tillsättande av en ny jury och skyndsam handläggning av mål gäller också i fråga om motsvarande mål enligt denna grundlag. Lag (2018:1802).",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_4kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "Internationellt rättsligt bistånd",
+          "stycken": [
+            "Internationellt rättsligt bistånd"
+          ],
+          "nyckelord": [
+            "internationellt",
+            "rättsligt",
+            "bistånd"
+          ],
+          "relaterade_lagrum": [
+            "4 kap. 1 § SoL",
+            "7 § LSS"
+          ],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "lag_1991_1469_4kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "",
+          "text": "Andra än svenska medborgare och svenska juridiska personer",
+          "stycken": [
+            "Andra än svenska medborgare och svenska juridiska personer"
+          ],
+          "nyckelord": [
+            "svenska",
+            "andra",
+            "medborgare",
+            "juridiska",
+            "personer"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "lag_1991_1469_4kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "Frågor som inte regleras i grundlagen",
+          "stycken": [
+            "Frågor som inte regleras i grundlagen"
+          ],
+          "nyckelord": [
+            "frågor",
+            "regleras",
+            "grundlagen"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "3",
+      "rubrik": "13 § första-tredje styckena,",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_3kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "3 § första-tredje styckena,",
+          "stycken": [
+            "3 § första-tredje styckena,"
+          ],
+          "nyckelord": [
+            "första",
+            "tredje",
+            "styckena"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "6",
+      "rubrik": "1-5 §§ och",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_6kap_5p",
+          "paragraf": "5 §",
+          "rubrik": "",
+          "text": "5 §§ och",
+          "stycken": [
+            "5 §§ och"
+          ],
+          "nyckelord": [],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "0",
+      "rubrik": "1 § första stycket andra meningen skall inte tillämpas.",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_0kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "c) Den som sprider en film är ansvarig för yttrandefrihetsbrott i filmen, om spridningen skulle ha varit straffbar även enligt äldre bestämmelser.\n      d) Ansvaret för yttrandefrihetsbrott i en ljudupptagning ligger på upphovsmannen och den som framträder i upptagningen, om de är att anse som gärningsmän, samt på den som har låtit framställa upptagningen och på den som sprider den, allt under förutsättning att deras handlande skulle ha varit straffbart även enligt äldre bestämmelser.\n      e) I stället för vad som föreskrivs i",
+          "stycken": [
+            "c) Den som sprider en film är ansvarig för yttrandefrihetsbrott i filmen, om spridningen skulle ha varit straffbar även enligt äldre bestämmelser.\n      d) Ansvaret för yttrandefrihetsbrott i en ljudupptagning ligger på upphovsmannen och den som framträder i upptagningen, om de är att anse som gärningsmän, samt på den som har låtit framställa upptagningen och på den som sprider den, allt under förutsättning att deras handlande skulle ha varit straffbart även enligt äldre bestämmelser.\n      e) I stället för vad som föreskrivs i"
+          ],
+          "nyckelord": [
+            "sprider",
+            "yttrandefrihetsbrott",
+            "skulle",
+            "varit",
+            "enligt",
+            "äldre"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Sanktioner"
+        }
+      ]
+    },
+    {
+      "kapitel": "8",
+      "rubrik": "2 § första stycket gäller att skadestånd kan krävas ut av den som enligt c) och d) bär det straffrättsliga ansvaret för innehållet i en film eller en ljudupptagning.",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_8kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "",
+          "text": "f) De nya föreskrifterna gäller inte i fråga om spridning som före ikraftträdandet har skett av filmer med skildringar av sexuellt våld eller tvång eller närgångna eller utdragna skildringar av grovt våld mot människor eller djur.\n      g) De nya föreskrifterna tillämpas inte vid prövning av talan som har väckts före ikraftträdandet. Skulle en tillämpning av de nya föreskrifterna ha lett till frihet från påföljd, får någon sådan dock inte ådömas.\n\n1994:1477\n\nDenna lag träder i kraft den 1 januari 1995. Har beslut om beslag meddelats före ikraftträdandet skall äldre bestämmelser tillämpas för beslaget.\n\n1998:1439\n   1. Denna lag träder i kraft den 1 januari 1999.\n   2. I fråga om tekniska upptagningar som inte omfattas av tidigare lydelse och som har lämnats ut för spridning före ikraftträdandet skall de nya föreskrifterna tillämpas med följande undantag.\n      a) En teknisk upptagning skall anses ha lämnats ut för spridning den dag denna grundlag trätt i kraft.\n      b) Föreskrifterna i",
+          "stycken": [
+            "f) De nya föreskrifterna gäller inte i fråga om spridning som före ikraftträdandet har skett av filmer med skildringar av sexuellt våld eller tvång eller närgångna eller utdragna skildringar av grovt våld mot människor eller djur.\n      g) De nya föreskrifterna tillämpas inte vid prövning av talan som har väckts före ikraftträdandet. Skulle en tillämpning av de nya föreskrifterna ha lett till frihet från påföljd, får någon sådan dock inte ådömas.",
+            "1994:1477",
+            "Denna lag träder i kraft den 1 januari 1995. Har beslut om beslag meddelats före ikraftträdandet skall äldre bestämmelser tillämpas för beslaget.",
+            "1998:1439\n   1. Denna lag träder i kraft den 1 januari 1999.\n   2. I fråga om tekniska upptagningar som inte omfattas av tidigare lydelse och som har lämnats ut för spridning före ikraftträdandet skall de nya föreskrifterna tillämpas med följande undantag.\n      a) En teknisk upptagning skall anses ha lämnats ut för spridning den dag denna grundlag trätt i kraft.\n      b) Föreskrifterna i"
+          ],
+          "nyckelord": [
+            "föreskrifterna",
+            "före",
+            "ikraftträdandet",
+            "spridning",
+            "tillämpas",
+            "kraft"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Ansökan och beslut"
+        }
+      ]
+    },
+    {
+      "kapitel": "3",
+      "rubrik": "13 § första-tredje styckena,",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_3kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "3 § första-tredje styckena,",
+          "stycken": [
+            "3 § första-tredje styckena,"
+          ],
+          "nyckelord": [
+            "första",
+            "tredje",
+            "styckena"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "6",
+      "rubrik": "1 och 2 §§ och",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_6kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "",
+          "text": "2 §§ och",
+          "stycken": [
+            "2 §§ och"
+          ],
+          "nyckelord": [],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "0",
+      "rubrik": "1 § första stycket andra meningen skall inte tillämpas.",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_0kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "c) Den som sprider en teknisk upptagning är ansvarig för yttrandefrihetsbrott i upptagningen, om gärningen skulle ha varit straffbar även enligt äldre bestämmelser.\n      d) I stället för vad som föreskrivs i",
+          "stycken": [
+            "c) Den som sprider en teknisk upptagning är ansvarig för yttrandefrihetsbrott i upptagningen, om gärningen skulle ha varit straffbar även enligt äldre bestämmelser.\n      d) I stället för vad som föreskrivs i"
+          ],
+          "nyckelord": [
+            "sprider",
+            "teknisk",
+            "upptagning",
+            "ansvarig",
+            "yttrandefrihetsbrott",
+            "upptagningen"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Sanktioner"
+        }
+      ]
+    },
+    {
+      "kapitel": "8",
+      "rubrik": "2 § första stycket gäller att skadestånd kan krävas ut av den som enligt c bär det straffrättsliga ansvaret för innehållet i en teknisk upptagning, om skadeståndsskyldighet förelegat enligt bestämmelser i vanlig lag.",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_8kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "",
+          "text": "e) De nya föreskrifterna gäller inte i fråga om spridning som före ikraftträdandet har skett av tekniska upptagningar med bilder som innefattar skildringar av sexuellt våld eller tvång.\n      f) De nya föreskrifterna tillämpas inte vid prövning av talan som har väckts före ikraftträdandet. Skulle en tillämpning av de nya föreskrifterna ha lett till frihet från påföljd, får någon sådan dock inte dömas ut.\n   3. De äldre föreskrifterna skall tillämpas på ljudupptagningar som har lämnats ut för spridning före ikraftträdandet.\n   4. I mål som rör skildring av barn i pornografisk bild tillämpas äldre föreskrifter, om talan väckts före ikraftträdandet.\n\n2002:909\n   1. Denna lag träder i kraft den 1 januari 2003.\n   2. Äldre föreskrifter tillämpas på sådant tillhandahållande som avses i",
+          "stycken": [
+            "e) De nya föreskrifterna gäller inte i fråga om spridning som före ikraftträdandet har skett av tekniska upptagningar med bilder som innefattar skildringar av sexuellt våld eller tvång.\n      f) De nya föreskrifterna tillämpas inte vid prövning av talan som har väckts före ikraftträdandet. Skulle en tillämpning av de nya föreskrifterna ha lett till frihet från påföljd, får någon sådan dock inte dömas ut.\n   3. De äldre föreskrifterna skall tillämpas på ljudupptagningar som har lämnats ut för spridning före ikraftträdandet.\n   4. I mål som rör skildring av barn i pornografisk bild tillämpas äldre föreskrifter, om talan väckts före ikraftträdandet.",
+            "2002:909\n   1. Denna lag träder i kraft den 1 januari 2003.\n   2. Äldre föreskrifter tillämpas på sådant tillhandahållande som avses i"
+          ],
+          "nyckelord": [
+            "föreskrifterna",
+            "före",
+            "ikraftträdandet",
+            "tillämpas",
+            "äldre",
+            "spridning"
+          ],
+          "relaterade_lagrum": [
+            "6 kap. 1 § FB",
+            "5 kap. 1 § SoL",
+            "1 § LVU"
+          ],
+          "kategori": "Definitioner"
+        }
+      ]
+    },
+    {
+      "kapitel": "1",
+      "rubrik": "9 § och som skett före ikraftträdandet.",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_1kap_9p",
+          "paragraf": "9 §",
+          "rubrik": "",
+          "text": "3. Den nya föreskriften i",
+          "stycken": [
+            "3. Den nya föreskriften i"
+          ],
+          "nyckelord": [
+            "föreskriften"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "7",
+      "rubrik": "1 § andra stycket första meningen om preskriptionstid för yttrandefrihetsbrott vid tillhandahållande som avses i",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_7kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "1 § andra stycket första meningen om preskriptionstid för yttrandefrihetsbrott vid tillhandahållande som avses i",
+          "stycken": [
+            "1 § andra stycket första meningen om preskriptionstid för yttrandefrihetsbrott vid tillhandahållande som avses i"
+          ],
+          "nyckelord": [
+            "andra",
+            "stycket",
+            "första",
+            "meningen",
+            "preskriptionstid",
+            "yttrandefrihetsbrott"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner"
+        }
+      ]
+    },
+    {
+      "kapitel": "1",
+      "rubrik": "9 § tillämpas endast på information som fortfarande finns i databasen vid ikraftträdandet.",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_1kap_9p",
+          "paragraf": "9 §",
+          "rubrik": "",
+          "text": "4. Den nya föreskriften i",
+          "stycken": [
+            "4. Den nya föreskriften i"
+          ],
+          "nyckelord": [
+            "föreskriften"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "7",
+      "rubrik": "1 § andra stycket tredje meningen tillämpas endast på tekniska upptagningar som ges ut efter ikraftträdandet.",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_7kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "",
+          "text": "2018:1802\n   1. Denna lag träder i kraft den 1 januari 2019.\n   2. Bestämmelserna i",
+          "stycken": [
+            "2018:1802\n   1. Denna lag träder i kraft den 1 januari 2019.\n   2. Bestämmelserna i"
+          ],
+          "nyckelord": [
+            "träder",
+            "kraft",
+            "januari",
+            "bestämmelserna"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
+    },
+    {
+      "kapitel": "6",
+      "rubrik": "6 och 7 §§ tillämpas även på information i en databas som började tillhandahållas före ikraftträdandet.",
+      "paragrafer": [
+        {
+          "id": "lag_1991_1469_6kap_7p",
+          "paragraf": "7 §",
+          "rubrik": "",
+          "text": "7 §§ tillämpas även på information i en databas som började tillhandahållas före ikraftträdandet.",
+          "stycken": [
+            "7 §§ tillämpas även på information i en databas som började tillhandahållas före ikraftträdandet."
+          ],
+          "nyckelord": [
+            "tillämpas",
+            "information",
+            "databas",
+            "började",
+            "tillhandahållas",
+            "före"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner och tillämpning"
+        }
+      ]
     }
   ],
-  "authorities_and_supervision": {
-    "justitiekanslern": "Justitiekanslern utövar tillsyn och är ensam åklagare i yttrandefrihetsmål om inte annat föreskrivs [cite: 328-330]. JK får överlämna vissa mål rörande tekniska upptagningar till allmän åklagare[cite: 331].",
-    "jury": "I yttrandefrihetsmål ska frågan om brott föreligger prövas av en jury[cite: 391]. De som utsetts till juryledamöter för tryckfrihetsmål är också juryledamöter i yttrandefrihetsmål[cite: 391]."
-  },
   "overgangsbestammelser": [
     {
-      "id": "trans_1991",
-      "text": "Grundlagen trädde i kraft den 1 januari 1992[cite: 422]. Den tillämpas inte på radioprogram sända före detta datum[cite: 422]. För filmer och ljudupptagningar utgivna före ikraftträdandet gäller särskilda undantagsregler [cite: 423-429]."
-    },
-    {
-      "id": "trans_2018",
-      "text": "Ändringar enligt SFS 2018:1802 trädde i kraft den 1 januari 2019[cite: 450]. Bestämmelserna i 6 kap. 6 och 7 §§ tillämpas även på information som började tillhandahållas före ikraftträdandet[cite: 451]."
+      "sfs": "2018:1802",
+      "ikraftträdande": "",
+      "text": "4 §   I frågor som inte har reglerats särskilt i denna grundlag eller i en särskild lag som har meddelats med stöd av grundlagen, gäller vad som annars är föreskrivet i lag eller annan författning. Lag (2018:1802).\n\n\nÖvergångsbestämmelser\n1991:1469\n   1. Denna grundlag träder i kraft den 1 januari 1992.\n   2. De nya föreskrifterna skall inte tillämpas på radioprogram som har sänts före ikraftträdandet.\n   3. I fråga om filmer och ljudupptagningar som har lämnats ut för spridning före ikraftträdandet skall de nya föreskrifterna tillämpas med följande undantag:\n      a) En film eller en ljudupptagning skall anses ha lämnats ut för spridning den dag denna grundlag trätt i kraft.\n      b) Föreskrifterna i"
     }
   ]
 }

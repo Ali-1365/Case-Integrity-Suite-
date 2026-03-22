@@ -39,5 +39,11 @@ export const CASE_TYPE_REGISTRY: CaseTypeDefinition[] = [
     label: 'Asyl- och Integrationsfrågor',
     primaryLaws: ['UTLL', 'SoL', 'DL', 'BK'],
     keywords: ['uppehållstillstånd', 'LMA', 'anvisning', 'ensamkommande', 'etnisk tillhörighet']
+  },
+  {
+    type: 'SKADESTÅND',
+    label: 'Skadestånd och Statligt Ansvar',
+    primaryLaws: ['SkL', 'HSS', 'DL', 'FL', 'RF'],
+    keywords: ['skadestånd', 'regress', 'ersättning', 'kränkning', 'personskada', 'sakskada', 'förmögenhetsskada', 'statligt ansvar', 'JK', 'skadeståndsanspråk']
   }
 ];

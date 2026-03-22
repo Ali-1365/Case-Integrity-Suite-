@@ -1,15 +1,414 @@
-
 {
-  "sourceCode": "SjukL",
-  "sfsNumber": "1991:1047",
-  "title": "Lag (1991:1047) om sjuklön",
-  "versionChain": ["1991:1047"],
-  "paragraphs": [
+  "metadata": {
+    "id": "sjuklon_1991_1047",
+    "titel": "Lag (1991:1047) om sjuklön",
+    "sfs": "1991:1047",
+    "departement": "Socialdepartementet",
+    "ikraftträdande": "1992-01-01",
+    "senast_ändrad": "2025:938",
+    "rättsområde": "Arbetsrätt och Socialförsäkring",
+    "kategori": "Socialförsäkring",
+    "beskrivning": "Lag som reglerar arbetstagares rätt till sjuklön från arbetsgivaren vid sjukdom och nedsatt arbetsförmåga."
+  },
+  "paragrafer": [
     {
-      "id": "sjukl_1",
-      "section": 1,
-      "text": "En arbetstagare har enligt denna lag rätt till sjuklön från arbetsgivaren. Rätten till sjuklön gäller vid sjukdom som sätter ned arbetsförmågan.",
-      "metadata": { "validFrom": "1992-01-01", "provenanceHash": "sha256-sjukl_1_h" }
+      "id": "sjuklon_1",
+      "paragraf": "1 §",
+      "rubrik": "Inledande bestämmelser",
+      "text": "En arbetstagare har enligt vad som följer av denna lag rätt att vid sjukdom behålla lön och andra anställningsförmåner (sjuklön). Lagen inskränker inte den rätt till sjuklön som kan finnas enligt någon annan lag. [cite: 1, 2]",
+      "stycken": [
+        "En arbetstagare har enligt vad som följer av denna lag rätt att vid sjukdom behålla lön och andra anställningsförmåner (sjuklön). [cite: 1]",
+        "Lagen inskränker inte den rätt till sjuklön som kan finnas enligt någon annan lag. [cite: 2]"
+      ],
+      "nyckelord": ["sjuklön", "anställningsförmåner", "arbetstagare"],
+      "relaterade_lagrum": ["24-28 kap. SFB"],
+      "kategori": "Allmänna bestämmelser"
+    },
+    {
+      "id": "sjuklon_2",
+      "paragraf": "2 §",
+      "rubrik": "Avtalsfrihet och kollektivavtal",
+      "text": "Ett avtal som innebär att arbetstagarens rättigheter enligt denna lag upphävs eller inskränks är ogiltigt i den delen. Utan hinder av första stycket får avvikelser göras från 8 § andra stycket, 9 § och 10 a § första och andra styckena genom kollektivavtal som på arbetstagarsidan har slutits eller godkänts av en sådan central arbetstagarorganisation som avses i lagen (1976:580) om medbestämmande i arbetslivet. Den närmare beräkningen av sjuklönens storlek enligt 6 § första stycket och avdrag enligt andra stycket samma paragraf får också bestämmas på det sättet. En arbetsgivare som är bunden av ett sådant kollektivavtal får tillämpa avtalet även på arbetstagare som inte tillhör den avtalsslutande arbetstagarorganisationen, under förutsättning att de sysselsätts i arbete som avses med avtalet och inte omfattas av något annat tillämpligt kollektivavtal. [cite: 3, 4, 5, 6, 7]",
+      "stycken": [
+        "Ett avtal som innebär att arbetstagarens rättigheter enligt denna lag upphävs eller inskränks är ogiltigt i den delen. [cite: 3]",
+        "Utan hinder av första stycket får avvikelser göras från 8 § andra stycket, 9 § och 10 a § första och andra styckena genom kollektivavtal som på arbetstagarsidan har slutits eller godkänts av en sådan central arbetstagarorganisation som avses i lagen (1976:580) om medbestämmande i arbetslivet. [cite: 4]",
+        "Den närmare beräkningen av sjuklönens storlek enligt 6 § första stycket och avdrag enligt andra stycket samma paragraf får också bestämmas på det sättet. [cite: 5]",
+        "En arbetsgivare som är bunden av ett sådant kollektivavtal får tillämpa avtalet även på arbetstagare som inte tillhör den avtalsslutande arbetstagarorganisationen, under förutsättning att de sysselsätts i arbete som avses med avtalet och inte omfattas av något annat tillämpligt kollektivavtal. [cite: 6]"
+      ],
+      "nyckelord": ["kollektivavtal", "MBL", "avtalsfrihet"],
+      "relaterade_lagrum": ["MBL (1976:580)", "LAS 2 §"],
+      "kategori": "Avtalsrätt"
+    },
+    {
+      "id": "sjuklon_3",
+      "paragraf": "3 §",
+      "rubrik": "Förutsättningar för rätt till sjuklön",
+      "text": "Arbetstagarens rätt till sjuklön gäller från och med den första dagen av anställningstiden. Är den avtalade anställningstiden kortare än en månad inträder dock rätten till sjuklön endast om arbetstagaren tillträtt anställningen och därefter varit anställd fjorton kalenderdagar i följd. Dag då arbetstagaren varit frånvarande utan giltigt skäl medräknas inte. Vid beräkning av kvalifikationstiden enligt första stycket skall tidigare anställningar hos samma arbetsgivare medräknas, om tiden mellan anställningarna inte överstiger fjorton kalenderdagar. [cite: 8, 9, 10, 11]",
+      "stycken": [
+        "Arbetstagarens rätt till sjuklön gäller från och med den första dagen av anställningstiden. [cite: 8]",
+        "Är den avtalade anställningstiden kortare än en månad inträder dock rätten till sjuklön endast om arbetstagaren tillträtt anställningen och därefter varit anställd fjorton kalenderdagar i följd. Dag då arbetstagaren varit frånvarande utan giltigt skäl medräknas inte. [cite: 9, 10]",
+        "Vid beräkning av kvalifikationstiden enligt första stycket skall tidigare anställningar hos samma arbetsgivare medräknas, om tiden mellan anställningarna inte överstiger fjorton kalenderdagar. [cite: 11]"
+      ],
+      "nyckelord": ["anställningstid", "kvalifikationstid", "tidsbegränsad anställning"],
+      "relaterade_lagrum": ["LAS 4 §"],
+      "kategori": "Behörighet"
+    },
+    {
+      "id": "sjuklon_4",
+      "paragraf": "4 §",
+      "rubrik": "Arbetsförmåga",
+      "text": "Sjuklön betalas ut vid sjukdom som sätter ned arbetsförmågan. Med sjukdom jämställs ett tillstånd av nedsatt arbetsförmåga som orsakats av sjukdom för vilken betalats ut sjuklön enligt denna lag, lön enligt 34 § sjömanslagen (1973:282) eller sjukpenning enligt socialförsäkringsbalken eller motsvarande äldre lagstiftning och som fortfarande kvarstår efter det att sjukdomen upphört. Vid bedömande av om och i vilken utsträckning arbetsförmågan är nedsatt ska det särskilt beaktas om arbetstagaren på grund av sjukdomen är helt eller delvis förhindrad att utföra sitt vanliga eller därmed jämförligt arbete. Vid denna bedömning ska det bortses från sådan nedsättning av arbetsförmågan som ligger till grund för ersättning till arbetstagaren i form av sjukersättning eller aktivitetsersättning enligt socialförsäkringsbalken, eller livränta vid arbetsskada eller annan skada som avses i 41–44 kap. samma balk. [cite: 11, 12, 13, 14, 15]",
+      "stycken": [
+        "Sjuklön betalas ut vid sjukdom som sätter ned arbetsförmågan. [cite: 11]",
+        "Med sjukdom jämställs ett tillstånd av nedsatt arbetsförmåga som orsakats av sjukdom för vilken betalats ut sjuklön enligt denna lag, lön enligt 34 § sjömanslagen (1973:282) eller sjukpenning enligt socialförsäkringsbalken eller motsvarande äldre lagstiftning och som fortfarande kvarstår efter det att sjukdomen upphört. [cite: 12]",
+        "Vid bedömande av om och i vilken utsträckning arbetsförmågan är nedsatt ska det särskilt beaktas om arbetstagaren på grund av sjukdomen är helt eller delvis förhindrad att utföra sitt vanliga eller därmed jämförligt arbete. [cite: 13]",
+        "Vid denna bedömning ska det bortses från sådan nedsättning av arbetsförmågan som ligger till grund för ersättning till arbetstagaren i form av sjukersättning eller aktivitetsersättning enligt socialförsäkringsbalken, eller livränta vid arbetsskada eller annan skada som avses i 41–44 kap. samma balk. [cite: 14, 15]"
+      ],
+      "nyckelord": ["arbetsförmåga", "sjukdom", "sjukpenning"],
+      "relaterade_lagrum": ["24-28 kap. SFB", "34 § sjömanslagen (1973:282)", "41-44 kap. SFB"],
+      "kategori": "Medicinsk bedömning"
+    },
+    {
+      "id": "sjuklon_4a",
+      "paragraf": "4 a §",
+      "rubrik": "Undantag från sjuklön",
+      "text": "En arbetsgivare är inte skyldig att betala ut sjuklön vid sjukdom 1. för sådan tid som arbetstagaren omfattas av bestämmelserna i 37 kap. 3 § socialförsäkringsbalken, eller 2. om arbetstagaren inte helt har återgått i arbete och utfört arbete under minst en dag hos arbetsgivaren efter det att sjuklön för en hel sjuklöneperiod har betalats ut av arbetsgivaren. [cite: 16, 17]",
+      "stycken": [
+        "En arbetsgivare är inte skyldig att betala ut sjuklön vid sjukdom för sådan tid som arbetstagaren omfattas av bestämmelserna i 37 kap. 3 § socialförsäkringsbalken. [cite: 16]",
+        "Arbetsgivaren är inte skyldig att betala sjuklön om arbetstagaren inte helt har återgått i arbete och utfört arbete under minst en dag hos arbetsgivaren efter det att sjuklön för en hel sjuklöneperiod har betalats ut. [cite: 17]"
+      ],
+      "nyckelord": ["återgång i arbete", "sjuklöneperiod", "socialförsäkringsbalken"],
+      "relaterade_lagrum": ["37 kap. 3 § SFB"],
+      "kategori": "Undantagsregler"
+    },
+    {
+      "id": "sjuklon_5",
+      "paragraf": "5 §",
+      "rubrik": "Hinder för rätt till sjuklön",
+      "text": "En arbetsgivare är inte skyldig att utge sjuklön om arbetstagaren 1. ådragit sig sjukdomen vid uppsåtligt brott som han har dömts för genom dom som har vunnit laga kraft, eller 2. medvetet eller av grov vårdslöshet lämnar oriktig eller vilseledande uppgift angående något förhållande som är av betydelse för rätten till sjuklön. [cite: 18]",
+      "stycken": [
+        "En arbetsgivare är inte skyldig att utge sjuklön om arbetstagaren ådragit sig sjukdomen vid uppsåtligt brott som han har dömts för genom dom som har vunnit laga kraft. [cite: 18]",
+        "Arbetsgivaren är inte skyldig om arbetstagaren medvetet eller av grov vårdslöshet lämnar oriktig eller vilseledande uppgift angående något förhållande som är av betydelse för rätten till sjuklön. [cite: 18]"
+      ],
+      "nyckelord": ["uppsåtligt brott", "oriktig uppgift", "grov vårdslöshet"],
+      "relaterade_lagrum": ["Brottsbalken"],
+      "kategori": "Hinder"
+    },
+    {
+      "id": "sjuklon_6",
+      "paragraf": "6 §",
+      "rubrik": "Sjuklönens storlek",
+      "text": "För dagar i en sjuklöneperiod enligt 7 § som arbetstagaren gått miste om lön och andra anställningsförmåner till följd av nedsättningen i arbetsförmågan utgör sjuklönen 80 procent av anställningsförmånerna före avdrag enligt andra stycket. Från sjuklönen ska ett karensavdrag göras. Avdraget ska motsvara 20 procent av den sjuklön som belöper på summan av de anställningsförmåner som arbetstagaren genomsnittligen beräknas få under en vecka. Om arbetstagaren under de senaste tolv månaderna till följd av bestämmelserna i andra stycket fått avdrag från sjuklönen vid tio tillfällen, ska avdrag för ytterligare sjuklöneperioder inte göras. Om avvikelse från vad som följer av andra stycket föreskrivs i 15 §. [cite: 19, 20, 21, 22]",
+      "stycken": [
+        "För dagar i en sjuklöneperiod utgör sjuklönen 80 procent av anställningsförmånerna. [cite: 19]",
+        "Från sjuklönen ska ett karensavdrag göras motsvarande 20 procent av den genomsnittliga veckoersättningen. [cite: 20]",
+        "Om arbetstagaren under de senaste tolv månaderna fått avdrag vid tio tillfällen, ska inget ytterligare avdrag göras. [cite: 21]",
+        "Om avvikelse föreskrivs i 15 §. [cite: 22]"
+      ],
+      "nyckelord": ["karensavdrag", "sjuklönenivå", "anställningsförmåner"],
+      "relaterade_lagrum": ["24-28 kap. SFB"],
+      "kategori": "Beräkning"
+    },
+    {
+      "id": "sjuklon_7",
+      "paragraf": "7 §",
+      "rubrik": "Sjuklöneperioden",
+      "text": "Sjuklöneperioden omfattar den första dag arbetstagarens arbetsförmåga är nedsatt på grund av sjukdom och de därpå följande tretton kalenderdagarna i sjukperioden. En sjuklöneperiod börjar inte om arbetstagaren inte avhåller sig från arbete åt arbetsgivaren. En sjuklöneperiod börjar dock senast dag för vilken arbetstagaren erhåller sådan reseersättning som avses i andra stycket. En sjuklöneperiod som börjat löpa bryts om anställningen upphör. Som sjukperiod anses sådan tid under vilken arbetstagaren i oavbruten följd lider av sjukdom som avses i 4 §. Sjukperioden omfattar också tid då arbetstagaren för att underlätta återgång i arbetet i stället för sjuklön erhåller ersättning för resor till och från arbetet. Om en sjukperiod börjar inom fem dagar från det en tidigare sjukperiod avslutats ska sjuklöneperioden omfatta endast så många dagar att den tillsammans med en sjuklöneperiod hos samma arbetsgivare under den tidigare sjukperioden utgör fjorton kalenderdagar. Inget ytterligare karensavdrag enligt 6 § ska då heller göras. [cite: 23, 24, 25, 26, 27, 28]",
+      "stycken": [
+        "Sjuklöneperioden omfattar den första dagen och de följande tretton kalenderdagarna. [cite: 23]",
+        "En sjuklöneperiod börjar inte om arbetstagaren inte avhåller sig från arbete, men börjar senast vid reseersättning. [cite: 24, 25]",
+        "Som sjukperiod anses oavbruten sjukdomstid, inklusive tid för resor för att underlätta återgång. [cite: 26, 27]",
+        "Vid återinsjuknande inom fem dagar räknas perioderna samman upp till fjorton dagar och inget nytt karensavdrag göras. [cite: 28]"
+      ],
+      "nyckelord": ["sjuklöneperiod", "återinsjuknande", "reseersättning"],
+      "relaterade_lagrum": ["24-28 kap. SFB"],
+      "kategori": "Tidsramar"
+    },
+    {
+      "id": "sjuklon_8",
+      "paragraf": "8 §",
+      "rubrik": "Sjukanmälan och läkarintyg",
+      "text": "Sjuklön ska inte avse mistade förmåner under tid innan arbetsgivaren fått anmälan om sjukdomsfallet. Sjuklönen ska dock avse sådana förmåner från och med den dag då sjukdomsfallet inträffade, om arbetstagaren varit förhindrad att göra anmälan och sådan gjorts omedelbart efter det att hindret upphört. Arbetsgivaren är skyldig att utge sjuklön för mistade förmåner under tid från och med den sjunde kalenderdagen efter dagen för sjukanmälan endast om arbetstagaren styrker nedsättningen av arbetsförmågan under denna tid genom intyg av läkare eller tandläkare. Intyget behöver inte innehålla närmare uppgift om vilken sjukdom arbetstagaren lider av. Om sjuklön utges för mistade förmåner under tid före anmälan ska den första ersättningsdagen anses som sjukanmälningsdag. Finns det ett beslut enligt 10 § är arbetsgivaren inte skyldig att utge sjuklön om arbetstagaren inte iakttar vad som har ålagts honom i beslutet. [cite: 30, 31, 32, 33, 34, 35]",
+      "stycken": [
+        "Sjuklön utgår som huvudregel inte för tid före sjukanmälan. [cite: 30]",
+        "Undantag gäller om hinder för anmälan förelåg. [cite: 31]",
+        "Från sjunde dagen krävs läkarintyg eller tandläkarintyg. [cite: 32]",
+        "Intyget behöver inte innehålla diagnosuppgift. [cite: 33]",
+        "Förpliktelser enligt 10 § måste iakttas för rätt till sjuklön. [cite: 35]"
+      ],
+      "nyckelord": ["sjukanmälan", "läkarintyg", "tandläkarintyg"],
+      "relaterade_lagrum": ["SFB"],
+      "kategori": "Administration"
+    },
+    {
+      "id": "sjuklon_9",
+      "paragraf": "9 §",
+      "rubrik": "Skriftlig försäkran",
+      "text": "Arbetstagaren ska lämna arbetsgivaren en skriftlig försäkran om att han eller hon har varit sjuk och i vilken omfattning som arbetsförmågan har varit nedsatt på grund av sjukdomen samt om han eller hon då omfattades av bestämmelserna i 37 kap. 3 § socialförsäkringsbalken. Försäkran behöver inte innehålla närmare uppgift om sjukdomen. Arbetsgivaren är inte skyldig att betala ut sjuklönen innan arbetstagaren har lämnat försäkran. [cite: 36, 37, 38]",
+      "stycken": [
+        "Arbetstagaren ska lämna en skriftlig försäkran om sjukdomen och nedsättningen. [cite: 36]",
+        "Försäkran behöver inte innehålla diagnos. [cite: 37]",
+        "Sjuklön kan hållas inne tills försäkran lämnats. [cite: 38]"
+      ],
+      "nyckelord": ["skriftlig försäkran", "arbetsförmåga", "utbetalning"],
+      "relaterade_lagrum": ["37 kap. 3 § SFB"],
+      "kategori": "Administration"
+    },
+    {
+      "id": "sjuklon_10",
+      "paragraf": "10 §",
+      "rubrik": "Försäkringskassans intygskrav",
+      "text": "Försäkringskassan ska, under förutsättning att det finns särskilda skäl som talar för det, självmant eller på framställning av arbetsgivaren ålägga arbetstagaren att genom intyg av läkare eller tandläkare styrka nedsättningen av arbetsförmågan 1. från och med en tidigare dag än sjunde kalenderdagen efter sjukanmälningsdagen i en pågående sjukperiod, eller 2. från och med den första dagen av varje kommande sjukperiod. Ett beslut enligt första stycket 2 får inte avse längre tid än ett år. Ett beslut enligt denna paragraf gäller omedelbart, om inte något annat anges i beslutet eller bestäms av en domstol som prövar beslutet. [cite: 39, 40, 41]",
+      "stycken": [
+        "Försäkringskassan kan ålägga arbetstagaren att lämna intyg från tidigare dag eller från första dagen vid framtida sjukfall. [cite: 39]",
+        "Beslut om kommande perioder får gälla i högst ett år. [cite: 40]",
+        "Beslut gäller omedelbart. [cite: 41]"
+      ],
+      "nyckelord": ["Försäkringskassan", "förstadagsintyg", "särskilda skäl"],
+      "relaterade_lagrum": ["SFB"],
+      "kategori": "Kontroll"
+    },
+    {
+      "id": "sjuklon_10a",
+      "paragraf": "10 a §",
+      "rubrik": "Arbetsgivarens begäran om intyg",
+      "text": "En arbetsgivare får, om det finns särskilda skäl för det, begära att arbetstagaren genom intyg av läkare eller tandläkare styrker nedsättningen av arbetsförmågan från och med en tidigare dag i sjukperioden enligt 10 § första stycket 1 eller från och med den första dagen av varje kommande sjukperiod enligt 10 § första stycket 2. En begäran som gäller kommande sjukperioder får inte avse längre tid än ett år. Intyget behöver inte innehålla närmare uppgift om vilken sjukdom arbetstagaren lider av. Arbetsgivarens begäran ska vara skriftlig. Har arbetstagaren utan godtagbart skäl underlåtit att lämna ett intyg i enlighet med begäran enligt första stycket, är arbetsgivaren inte skyldig att utge sjuklön för den del av den aktuella sjuklöneperioden för vilken det saknas sådant intyg. Om en fråga som avses i första stycket regleras i ett kollektivavtal som avses i 2 § andra stycket, tillämpas inte bestämmelserna i första och andra styckena. [cite: 42, 43, 44, 45]",
+      "stycken": [
+        "Arbetsgivaren får begära förstadagsintyg vid särskilda skäl. [cite: 42]",
+        "Begäran ska vara skriftlig och får avse kommande år. [cite: 43]",
+        "Sjuklön kan nekas om intyg inte lämnas utan godtagbart skäl. [cite: 44]",
+        "Kollektivavtal kan ersätta dessa regler. [cite: 45]"
+      ],
+      "nyckelord": ["förstadagsintyg", "skriftlig begäran", "läkarintyg"],
+      "relaterade_lagrum": ["2 § SjukL", "SFB"],
+      "kategori": "Kontroll"
+    },
+    {
+      "id": "sjuklon_11",
+      "paragraf": "11 §",
+      "rubrik": "Sjukkontroll",
+      "text": "Försäkringskassan får företa sjukkontroll under sjuklöneperioden genom att 1. göra förfrågan hos arbetstagaren, hans arbetsgivare, läkare eller någon annan som kan antas kunna lämna behövliga uppgifter, och 2. besöka arbetstagaren. Försäkringskassan får utan hinder av sekretess lämna ut uppgift till arbetsgivaren om vad som framkommit vid sjukkontroll enligt första stycket, under förutsättning att uppgiften behövs för ställningstagande till arbetstagarens rätt till sjuklön under sjuklöneperioden. Uppgiften får avse huruvida arbetstagarens arbetsförmåga är nedsatt på grund av sjukdom eller nedsättningens omfattning. [cite: 46, 47, 48]",
+      "stycken": [
+        "Försäkringskassan kan genomföra sjukkontroll via förfrågningar eller besök. [cite: 46]",
+        "Uppgifter kan lämnas till arbetsgivaren trots sekretess om det behövs för sjuklönerätten. [cite: 47]",
+        "Informationen får gälla arbetsförmågans nedsättning och omfattning. [cite: 48]"
+      ],
+      "nyckelord": ["sjukkontroll", "sekretess", "arbetsförmåga"],
+      "relaterade_lagrum": ["OSL (2009:400)", "SFB"],
+      "kategori": "Kontroll"
+    },
+    {
+      "id": "sjuklon_12",
+      "paragraf": "12 §",
+      "rubrik": "Anmälningsskyldighet",
+      "text": "Arbetsgivaren ska till Försäkringskassan anmäla sjukdomsfall som har gett arbetstagare hos honom rätt till sjuklön, om sjukperioden och anställningen fortsätter efter sjuklöneperiodens utgång. Anmälan ska göras inom sju kalenderdagar från denna tidpunkt. I anmälan ska uppgift lämnas om 1. arbetsgivarens organisationsnummer, personnummer eller samordningsnummer, 2. arbetstagarens personnummer eller samordningsnummer, och 3. det datum när sjuklöneperioden började. Om anmälningsskyldighet vid inträffad arbetsskada finns föreskrifter i 42 kap. 10 § socialförsäkringsbalken. [cite: 49, 50, 51]",
+      "stycken": [
+        "Arbetsgivaren måste anmäla sjukfall som fortsätter efter 14 dagar. [cite: 49]",
+        "Anmälan ska innehålla person- eller organisationsuppgifter och göras inom sju dagar. [cite: 50]",
+        "Hänvisning finns gällande arbetsskada i 42 kap. 10 § SFB. [cite: 51]"
+      ],
+      "nyckelord": ["anmälningsskyldighet", "organisationsnummer", "arbetsskada"],
+      "relaterade_lagrum": ["42 kap. 10 § SFB"],
+      "kategori": "Administration"
+    },
+    {
+      "id": "sjuklon_13",
+      "paragraf": "13 §",
+      "rubrik": "Särskilt högriskskydd",
+      "text": "Försäkringskassan får, efter skriftlig ansökan, besluta om särskilt högriskskydd för en arbetstagare som är försäkrad för sjukpenning enligt 24–28 kap. socialförsäkringsbalken. Ett sådant beslut får meddelas om den sökande har en sjukdom som under en tolvmånadersperiod 1. kan antas medföra ett större antal sjukperioder, eller 2. medför risk för en eller flera längre sjukperioder. Ett beslut får även meddelas för givare av biologiskt material enligt lagen (1995:831) om transplantation m.m. Detsamma gäller när den sökande uppburit aktivitetsersättning under någon av de senaste tolv kalendermånaderna. Beslutet ska avse samtliga anställningar och gäller från ansökningsmånaden eller senare angivet datum. [cite: 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64]",
+      "stycken": [
+        "Högriskskydd kan beviljas vid sjukdom som ger många eller långa sjukfall. [cite: 52, 53]",
+        "Omfattar även organ- och vävnadsgivare samt personer med nyligen avslutad aktivitetsersättning. [cite: 54, 55, 56]",
+        "Beslutet omfattar alla anställningar och gäller normalt från ansökningsmånaden. [cite: 59, 60]",
+        "Beslut kan upphävas om villkoren inte längre är uppfyllda. [cite: 62]"
+      ],
+      "nyckelord": ["högriskskydd", "transplantation", "aktivitetsersättning"],
+      "relaterade_lagrum": ["24-28 kap. SFB", "Lagen (1995:831) om transplantation m.m."],
+      "kategori": "Socialt skydd"
+    },
+    {
+      "id": "sjuklon_14",
+      "paragraf": "14 §",
+      "rubrik": "Undersökning vid högriskskydd",
+      "text": "En arbetstagare som har gjort ansökan enligt 13 § första stycket är skyldig att genomgå undersökning av läkare eller tandläkare och att ge in utlåtande över undersökningen, om Försäkringskassan finner att det behövs för ärendets bedömning. För arbetstagarens utgifter för undersökningen och för utlåtande över undersökningen lämnas ersättning av Försäkringskassan i enlighet med föreskrifter som meddelas av regeringen eller den myndighet som regeringen bestämmer. [cite: 65, 66]",
+      "stycken": [
+        "Sökande är skyldig att genomgå läkar- eller tandläkarundersökning på begäran av Försäkringskassan. [cite: 65]",
+        "Ersättning för utgifter vid undersökning lämnas av Försäkringskassan. [cite: 66]"
+      ],
+      "nyckelord": ["läkarundersökning", "tandläkarundersökning", "ersättning"],
+      "relaterade_lagrum": ["SFB"],
+      "kategori": "Process"
+    },
+    {
+      "id": "sjuklon_15",
+      "paragraf": "15 §",
+      "rubrik": "Undantag från karensavdrag",
+      "text": "Om ett beslut enligt 13 § första stycket 1 eller andra stycket första meningen gäller för arbetsgivaren betalas sjuklön ut till arbetstagaren utan sådant avdrag som avses i 6 § andra stycket. Till en sjöman på fartyg som inte uteslutande går i inre fart betalas sjuklön ut utan sådant avdrag som avses i 6 § andra stycket. Med inre fart avses detsamma som i 64 kap. 6 § inkomstskattelagen (1999:1229). [cite: 67, 68, 69]",
+      "stycken": [
+        "Sjuklön betalas utan karensavdrag vid beviljat högriskskydd. [cite: 67]",
+        "Sjömän i internationell fart omfattas inte av karensavdrag. [cite: 68]",
+        "Definition av inre fart hämtas från inkomstskattelagen. [cite: 69]"
+      ],
+      "nyckelord": ["karensavdrag", "sjöman", "inre fart"],
+      "relaterade_lagrum": ["64 kap. 6 § Inkomstskattelagen (1999:1229)"],
+      "kategori": "Ersättning"
+    },
+    {
+      "id": "sjuklon_16",
+      "paragraf": "16 §",
+      "rubrik": "Ersättning till arbetsgivare",
+      "text": "En arbetsgivare hos vilken ett beslut enligt 13 § gäller har rätt till ersättning av Försäkringskassan för de kostnader för sjuklön som han har haft för arbetstagaren enligt denna lag. Utbetalning görs av Försäkringskassan efter skriftlig ansökan av arbetsgivaren. Ersättning får inte lämnas för längre tid tillbaka än tolv månader före ansökningsmånaden. [cite: 70, 71]",
+      "stycken": [
+        "Arbetsgivaren får ersättning för sjuklönekostnader vid högriskskydd. [cite: 70]",
+        "Ansökan ska ske skriftligen och får göras för upp till tolv månader bakåt i tiden. [cite: 71]"
+      ],
+      "nyckelord": ["sjuklönekostnader", "ersättning", "ansökan"],
+      "relaterade_lagrum": ["SFB"],
+      "kategori": "Ekonomiskt stöd"
+    },
+    {
+      "id": "sjuklon_18",
+      "paragraf": "18 §",
+      "rubrik": "Tystnadsplikt",
+      "text": "Den som i en arbetsgivares personaladministrativa verksamhet genom intyg av läkare eller tandläkare, vilket har lämnats arbetsgivaren på grund av denna lag, eller genom försäkran som avses i 9 § fått kännedom om en enskilds hälsotillstånd eller personliga förhållanden i övrigt får inte obehörigen röja vad han eller hon sålunda fått veta. Föreskriften i första stycket medför inte någon inskränkning i den skyldighet att lämna uppgifter som följer av lag eller förordning. I det allmännas verksamhet tillämpas i stället föreskrifterna i offentlighets- och sekretesslagen (2009:400). [cite: 75, 76, 77]",
+      "stycken": [
+        "Tystnadsplikt gäller för personal som hanterar hälsoinformation i personaladministrationen. [cite: 75]",
+        "Andra lagstadgade uppgiftsskyldigheter gäller trots tystnadsplikten. [cite: 76]",
+        "Offentlig verksamhet styrs av offentlighets- och sekretesslagen. [cite: 77]"
+      ],
+      "nyckelord": ["tystnadsplikt", "sekretess", "hälsotillstånd"],
+      "relaterade_lagrum": ["OSL (2009:400)", "Brottsbalken"],
+      "kategori": "Sekretess"
+    },
+    {
+      "id": "sjuklon_19",
+      "paragraf": "19 §",
+      "rubrik": "Ansvar",
+      "text": "En arbetsgivare som inte fullgör sin skyldighet enligt 12 § döms till böter. Om ansvar för den som bryter mot 18 § första stycket finns föreskrifter i brottsbalken. [cite: 78, 79]",
+      "stycken": [
+        "Böter kan utdömas om arbetsgivaren missköter anmälningsskyldigheten. [cite: 78]",
+        "Brott mot tystnadsplikten regleras i brottsbalken. [cite: 79]"
+      ],
+      "nyckelord": ["böter", "straffansvar", "brottsbalken"],
+      "relaterade_lagrum": ["Brottsbalken"],
+      "kategori": "Straffbestämmelser"
+    },
+    {
+      "id": "sjuklon_20",
+      "paragraf": "20 §",
+      "rubrik": "Ersättning från Försäkringskassan vid tvist",
+      "text": "Om tvist har uppkommit om arbetstagarens rätt till sjuklön och tvisten gäller huruvida arbetsförmågan är nedsatt på grund av sjukdom eller nedsättningens omfattning eller huruvida arbetstagarförhållande föreligger, kan Försäkringskassan, efter skriftlig ansökan av en arbetstagare som är försäkrad för sjukpenning enligt socialförsäkringsbalken, besluta att ersättning för tid som den omtvistade sjuklönen avser ska utges av Försäkringskassan. [cite: 80]",
+      "stycken": [
+        "Försäkringskassan kan betala ut ersättning vid tvist om sjukdom, nedsättning eller anställningsförhållande. [cite: 80]"
+      ],
+      "nyckelord": ["tvist", "ersättning", "arbetstagarförhållande"],
+      "relaterade_lagrum": ["SFB"],
+      "kategori": "Tvist"
+    },
+    {
+      "id": "sjuklon_21",
+      "paragraf": "21 §",
+      "rubrik": "Förutsättningar för ersättning vid tvist",
+      "text": "Ersättning enligt 20 § lämnas, om det finns sannolika skäl för att arbetstagaren har rätt till den begärda sjuklönen eller del därav och fordran är obetald och förfallen till betalning. Ersättning lämnas inte för sjuklön som har förfallit till betalning tidigare än tre månader före ansökningsmånaden. [cite: 81, 82]",
+      "stycken": [
+        "Kräver sannolika skäl och att fordran är förfallen. [cite: 81]",
+        "Tre månaders preskriptionstid vid ansökan. [cite: 82]"
+      ],
+      "nyckelord": ["sannolika skäl", "förfallen fordran", "preskription"],
+      "relaterade_lagrum": ["SFB"],
+      "kategori": "Tvist"
+    },
+    {
+      "id": "sjuklon_22",
+      "paragraf": "22 §",
+      "rubrik": "Undantag vid lönegaranti",
+      "text": "Ersättning enligt 20 § lämnas inte om staten svarar för arbetstagarens fordran hos arbetsgivaren enligt lönegarantilagen (1992:497). [cite: 83]",
+      "stycken": [
+        "Ingen ersättning från Försäkringskassan om lönegarantin täcker fordran. [cite: 83]"
+      ],
+      "nyckelord": ["lönegaranti", "statlig fordran", "konkurs"],
+      "relaterade_lagrum": ["Lönegarantilagen (1992:497)"],
+      "kategori": "Tvist"
+    },
+    {
+      "id": "sjuklon_23",
+      "paragraf": "23 §",
+      "rubrik": "Ersättningsbelopp vid tvist",
+      "text": "Ersättning enligt 20 § lämnas med skäligt belopp, dock med högst ett belopp som för dag utgör en trehundrasextiofemtedel av 80 procent av en sjukpenninggrundande inkomst som uppgår till 10,0 prisbasbelopp enligt 2 kap. 6 och 7 §§ socialförsäkringsbalken. [cite: 84]",
+      "stycken": [
+        "Ersättningen takas vid 10 prisbasbelopp och beräknas på 80 % av SGI. [cite: 84]"
+      ],
+      "nyckelord": ["prisbasbelopp", "SGI", "ersättningstak"],
+      "relaterade_lagrum": ["2 kap. 6-7 §§ SFB"],
+      "kategori": "Tvist"
+    },
+    {
+      "id": "sjuklon_24",
+      "paragraf": "24 §",
+      "rubrik": "Regressrätt",
+      "text": "I den utsträckning som ersättning enligt 20 § har utbetalats inträder Försäkringskassan i arbetstagarens rätt enligt denna lag mot arbetsgivaren. Om arbetstagaren har mottagit ersättning enligt 20 § och därefter har erhållit den omtvistade sjuklönen eller del därav, skall ersättningen i motsvarande utsträckning återbetalas. [cite: 85, 86]",
+      "stycken": [
+        "Försäkringskassan tar över arbetstagarens krav mot arbetsgivaren vid utbetald ersättning. [cite: 85]",
+        "Återbetalningsskyldighet om arbetstagaren får dubbel ersättning. [cite: 86]"
+      ],
+      "nyckelord": ["regressrätt", "återbetalningsskyldighet", "utbetalning"],
+      "relaterade_lagrum": ["SFB"],
+      "kategori": "Tvist"
+    },
+    {
+      "id": "sjuklon_26",
+      "paragraf": "26 §",
+      "rubrik": "Handläggning hos Försäkringskassan",
+      "text": "I fråga om Försäkringskassans handläggning av ärenden enligt 10, 11, 13, 14, 16 och 20 §§ samt 24 § andra stycket och 27 § andra stycket tillämpas föreskrifter i socialförsäkringsbalken rörande utmätning, preskription, återbetalning, ränta, uppgiftsskyldighet, sekretess och interimistiska beslut. [cite: 88, 89, 90, 91, 92, 93, 94, 95]",
+      "stycken": [
+        "Hänvisar till omfattande bestämmelser i socialförsäkringsbalken för den praktiska hanteringen. [cite: 88-95]"
+      ],
+      "nyckelord": ["handläggning", "utmätning", "preskription"],
+      "relaterade_lagrum": ["107-112 kap. SFB"],
+      "kategori": "Förvaltning"
+    },
+    {
+      "id": "sjuklon_27",
+      "paragraf": "27 §",
+      "rubrik": "Rättegång och yttrande",
+      "text": "Mål mellan arbetstagare och arbetsgivare om tillämpning av denna lag handläggs enligt lagen (1974:371) om rättegången i arbetstvister. I tvist om rätt till sjuklön skall Försäkringskassan på begäran av arbetsgivare, arbetstagare, arbetstagarorganisation eller domstol yttra sig huruvida arbetstagarens arbetsförmåga är nedsatt på grund av sjukdom eller om nedsättningens omfattning. [cite: 97, 98]",
+      "stycken": [
+        "Arbetstvister hanteras enligt specialprocessrätt. [cite: 97]",
+        "Försäkringskassan har en roll som yttrandeinstans i tvistemål om arbetsförmåga. [cite: 98]"
+      ],
+      "nyckelord": ["arbetstvist", "domstol", "expertutlåtande"],
+      "relaterade_lagrum": ["Lagen (1974:371) om rättegången i arbetstvister"],
+      "kategori": "Rättsprocess"
+    },
+    {
+      "id": "sjuklon_28",
+      "paragraf": "28 §",
+      "rubrik": "Omprövning och överklagande",
+      "text": "De föreskrifter om omprövning och ändring av Försäkringskassans beslut som finns i 113 kap. 3-9 §§ socialförsäkringsbalken ska tillämpas på motsvarande sätt i fråga om beslut enligt 10 eller 13 §, 14 § andra meningen, 16 eller 20 § eller 24 § andra stycket. Vidare ska föreskrifter om överklagande tillämpas på motsvarande sätt för specifika beslutstyper. I övrigt får Försäkringskassans beslut enligt denna lag inte överklagas. [cite: 99, 100, 101, 102]",
+      "stycken": [
+        "Reglerar rätten att få beslut prövade på nytt. [cite: 99, 100]",
+        "Vissa beslut är slutgiltiga och kan inte överklagas. [cite: 102]"
+      ],
+      "nyckelord": ["omprövning", "överklagande", "Förvaltningsrätt"],
+      "relaterade_lagrum": ["113 kap. SFB"],
+      "kategori": "Rättsmedel"
+    }
+  ],
+  "overgangsbestammelser": [
+    {
+      "sfs": "1991:1047",
+      "ikraftträdande": "1992-01-01",
+      "text": "Denna lag träder i kraft den 1 januari 1992 och tillämpas i fråga om sjukdomsfall som inträffar efter ikraftträdandet. [cite: 103]"
+    },
+    {
+      "sfs": "2018:648",
+      "ikraftträdande": "2019-01-01",
+      "text": "Äldre föreskrifter gäller fortfarande för en sjuklöneperiod som har påbörjats före ikraftträdandet. Karensdag likställs med karensavdrag vid återinsjuknande och högriskskydd. [cite: 130, 131, 132]"
+    },
+    {
+      "sfs": "2024:400",
+      "ikraftträdande": "2024-07-01",
+      "text": "Äldre bestämmelser gäller för sjuklönekostnader redovisade t.o.m. juni 2024. Särskilda beräkningsregler för ersättning till arbetsgivare gäller för perioden januari-juni 2024. [cite: 134, 135, 136]"
     }
   ]
 }

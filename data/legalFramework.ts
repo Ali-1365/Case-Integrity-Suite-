@@ -101,6 +101,15 @@ export const legalFrameworkIndex: LegalFrameworkIndexEntry[] = [
     "auditTrail": { "status": "VERIFIED" }
   },
   {
+    "id": "fhs_1995",
+    "label": "Förordning (1995:1301) om handläggning av skadeståndsanspråk mot staten",
+    "type": "lag",
+    "sfsNumber": "1995:1301",
+    "shortName": "fhs",
+    "corpusFile": "fhs_1995_1301.json",
+    "auditTrail": { "status": "VERIFIED" }
+  },
+  {
     "id": "pl_2014",
     "label": "Patientlag (2014:821)",
     "type": "lag",
@@ -161,6 +170,33 @@ export const legalFrameworkIndex: LegalFrameworkIndexEntry[] = [
     "sfsNumber": "1977:268",
     "shortName": "YSL",
     "corpusFile": "ysl_1977_268.json",
+    "auditTrail": { "status": "VERIFIED" }
+  },
+  {
+    "id": "ysl_statlig_1977",
+    "label": "Lag (1977:269) om uppräkning av statliga yrkesskadelivräntor m.m.",
+    "type": "lag",
+    "sfsNumber": "1977:269",
+    "shortName": "YSL-S",
+    "corpusFile": "ysl_statlig_1977_269.json",
+    "auditTrail": { "status": "VERIFIED" }
+  },
+  {
+    "id": "ysl_varde_1967",
+    "label": "Lag (1967:919) om värdesäkring av yrkesskadelivräntor m.m.",
+    "type": "lag",
+    "sfsNumber": "1967:919",
+    "shortName": "YSL-V",
+    "corpusFile": "ysl_varde_1967_919.json",
+    "auditTrail": { "status": "VERIFIED" }
+  },
+  {
+    "id": "yfo_statlig_1967",
+    "label": "Förordning (1967:920) om värdesäkring av yrkesskadelivräntor, som utgår av statsmedel, m.m.",
+    "type": "lag",
+    "sfsNumber": "1967:920",
+    "shortName": "YFO-S",
+    "corpusFile": "yfo_statlig_1967_920.json",
     "auditTrail": { "status": "VERIFIED" }
   },
   {

@@ -125,6 +125,18 @@ export const LEGAL_SOURCES: LegalFrameworkItem[] = [
         auditTrail: goldAudit
     },
     {
+        id: "fhs_1995",
+        label: "Förordning om handläggning av skadeståndsanspråk mot staten",
+        type: "lagrum",
+        reference: "FHS",
+        sfsNumber: "1995:1301",
+        description: "Reglerar vilken statlig myndighet som handlägger skadeståndsanspråk mot staten.",
+        validFrom: "1996-01-01",
+        sourceUrl: "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/forordning-19951301-om-handlaggning-av_sfs-1995-1301/",
+        version: "1995:1301",
+        auditTrail: goldAudit
+    },
+    {
         id: "pl_2014",
         label: "Patientlagen",
         type: "lagrum",

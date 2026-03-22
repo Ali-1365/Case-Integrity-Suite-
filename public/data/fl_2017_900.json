@@ -1,603 +1,1235 @@
 {
-  "sourceCode": "FL",
-  "sfsNumber": "2017:900",
-  "title": "Förvaltningslag (2017:900)",
-  "versionChain": ["1986:223", "2017:900"],
-  "ikraft": "2018-07-01",
-  "description": "Fullständig, verifierad och utökad nyckelparagrafstruktur baserad på SFS 2017:900 (exakt lagtext från dina utdrag §§ 1–22 + undantag). Täcker §§ 5–22, 26–27, 31–34 med fokus på legalitet, saklighet, proportionalitet, serviceskyldighet, tillgänglighet, samverkan, handläggning, försening, tolk, ombud, framställningar, briståtgärder, bekräftelse, ankomstdag, partsinsyn, jäv, utredning, hörande, motivering, överklagande och inhibition. Alla texter verifierade rad för rad. Praxisnoteringar från JO, IVO, HFD, JK och HD (2020–2026).",
-  "paragraphs": [
+  "metadata": {
+    "id": "fl_2017_900",
+    "titel": "Förvaltningslag (2017:900)",
+    "sfs": "2017:900",
+    "kortnamn": "fl",
+    "departement": "Justitiedepartementet",
+    "ikraftträdande": "",
+    "senast_ändrad": "",
+    "rättsområde": "förvaltningsrätt",
+    "kategori": "förvaltningsrätt",
+    "beskrivning": "Konverterad 2026-03-22",
+    "antal_paragrafer": 51,
+    "antal_kapitel": 0,
+    "har_kapitelindelning": false
+  },
+  "paragrafer": [
     {
-      "id": "fl_2017_5",
-      "section": 5,
-      "principleType": "grundprincip",
-      "text": "En myndighet får endast vidta åtgärder som har stöd i rättsordningen. I sin verksamhet ska myndigheten vara saklig och opartisk. Myndigheten får ingripa i ett enskilt intresse endast om åtgärden kan antas leda till det avsedda resultatet. Åtgärden får aldrig vara mer långtgående än vad som behövs och får vidtas endast om det avsedda resultatet står i rimligt förhållande till de olägenheter som kan antas uppstå för den som åtgärden riktas mot.",
-      "keywords": ["legalitet", "saklighet", "opartiskhet", "proportionalitet"],
-      "relatedRules": ["MYND-01", "SD-08", "HF-09"],
-      "metadata": {
-        "validFrom": "2018-07-01",
-        "legalWeight": "överordnad",
-        "riskTrigger": true,
-        "evidentiaryThreshold": "uppenbart fel / systematisk brist",
-        "typicalApplication": "Oproportionerliga krav (t.ex. bilförsäljning i akut barnnöd), medvetet oriktiga journalanteckningar, ansvarsomkastning, avstängning av el/telefon utan proportionalitetsprövning.",
-        "praxisNotes": [
-          "JO 2023/24 dnr 5678-2023: Kommun krävde bilförsäljning trots kreditspärr och dokumenterad barnrisk → oproportionerligt ingrepp + saklighetsbrott → JO-kritik + hänvisning till SkL 3:2.",
-          "JO 2025 dnr 2345-2025: Medvetet införande av oriktiga uppgifter i SoL-journal för att motivera avslag → grovt saklighetsbrott → tjänstefel + Lex Sarah-utlösande.",
-          "HFD 2024 ref. 56: Upprepad felaktig tillämpning av samma rättsregel mot samma sökande → opartiskhetskravet åsidosatt → beslut upphävt.",
-          "JK 2026-02-10: Underlåten proportionalitetsbedömning vid avstängning av el/telefon i barnfamilj → grovt fel → JO-remiss + SkL 3:2-hänvisning.",
-          "IVO 2025-11-20: Systematisk oproportionerlig hantering av biståndsansökningar → Lex Sarah-anmälan + SkL 3:2-ansvar.",
-          "JO 2026 dnr 8765-2026: Medveten ansvarsomkastning (barn lastas för kommunens underlåtenhet) → saklighets- och proportionalitetsbrott → JO-kritik + Lex Sarah.",
-          "HFD 2025 ref. 89: Opartiskhetsbrott vid upprepad felaktig tillämpning av SoL-regler → beslut upphävt + SkL-hänvisning.",
-          "JO 2026 dnr 9876-2026: Underlåten saklighetsprövning vid avslag på akut bistånd → grovt fel."
-        ]
-      }
+      "id": "fl_2017_900_1p",
+      "paragraf": "1 §",
+      "rubrik": "förvaltningsmyndigheterna och handläggning av",
+      "text": "förvaltningsärenden hos domstolarna.\n\nBestämmelserna i 5–8 §§ om grunderna för god förvaltning \ngäller även i annan förvaltningsverksamhet hos \nförvaltningsmyndigheter och domstolar.\n\nUndantag för kommunala ärenden där besluten kan \nlaglighetsprövas",
+      "stycken": [
+        "förvaltningsärenden hos domstolarna.",
+        "Bestämmelserna i 5–8 §§ om grunderna för god förvaltning \ngäller även i annan förvaltningsverksamhet hos \nförvaltningsmyndigheter och domstolar.",
+        "Undantag för kommunala ärenden där besluten kan \nlaglighetsprövas"
+      ],
+      "nyckelord": [
+        "förvaltningsärenden",
+        "domstolarna",
+        "bestämmelserna",
+        "grunderna",
+        "förvaltning",
+        "gäller"
+      ],
+      "relaterade_lagrum": [
+        "1 kap. FL",
+        "2 kap. FL"
+      ],
+      "kategori": "Ansökan och beslut"
     },
     {
-      "id": "fl_2017_6",
-      "section": 6,
-      "principleType": "serviceskyldighet",
-      "text": "En myndighet ska se till att kontakterna med enskilda blir smidiga och enkla. Myndigheten ska lämna den enskilde sådan hjälp att han eller hon kan ta till vara sina intressen. Hjälpen ska ges i den utsträckning som är lämplig med hänsyn till frågans art, den enskildes behov av hjälp och myndighetens verksamhet. Den ska ges utan onödigt dröjsmål.",
-      "keywords": ["serviceskyldighet", "hjälp", "dröjsmål", "smidig kontakt"],
-      "relatedRules": ["PROC-02", "MYND-01"],
-      "metadata": {
-        "validFrom": "2018-07-01",
-        "legalWeight": "hög",
-        "riskTrigger": true,
-        "evidentiaryThreshold": "underlåten hjälp / dröjsmål",
-        "typicalApplication": "Vägran att träffa klagande i akut nödsituation, motstridiga muntliga besked utan dokumentation, underlåten vägledning trots dokumenterad barnrisk.",
-        "praxisNotes": [
-          "JO 2024 dnr 8765-2024: Handläggare vägrade ta emot besökare i akut nödsituation (barn utan mat/el) → grovt serviceskyldighetsbrott → JO-kritik + SkL 3:2-hänvisning.",
-          "JO 2025 dnr 4321-2025: Motstridiga muntliga besked om bistånd utan skriftlig uppföljning → serviceskyldighet åsidosatt → beslut upphävt.",
-          "IVO 2026-01-15: Underlåten hjälp vid akut SoL-ansökan trots dokumenterad barnrisk → Lex Sarah-utlösande + JO-remiss.",
-          "JK 2025-08-20: Handläggare avvisade telefonkontakt med hänvisning till 'corona' trots akut suicidrisk → tjänstefel + SkL 3:2-ansvar.",
-          "JO 2023 dnr 9876-2023: 14 månaders dröjsmål i akut biståndsansökan → serviceskyldighet grovt åsidosatt → JO-kritik.",
-          "HFD 2025 ref. 89: Bristande hjälp vid komplex SoL-ansökan → rättsosäkerhet → upphävande + SkL-hänvisning.",
-          "JO 2026 dnr 3456-2026: Vägran att ge vägledning i akut barnärende → grovt fel + Lex Sarah.",
-          "JK 2026-03-01: Underlåten hjälp vid upprepade kontaktförsök → processuellt fel + JO-kritik."
-        ]
-      }
+      "id": "fl_2017_900_2p",
+      "paragraf": "2 §",
+      "rubrik": "kommuner och regioner där besluten kan laglighetsprövas genom",
+      "text": "att överklagas enligt 13 kap. kommunallagen (2017:725) \ntillämpas inte 9 § andra stycket, 10-12, 16-20 och 23-49 §§.\nLag (2019:981).\n\nUndantag för brottsbekämpande verksamhet",
+      "stycken": [
+        "att överklagas enligt 13 kap. kommunallagen (2017:725) \ntillämpas inte 9 § andra stycket, 10-12, 16-20 och 23-49 §§.\nLag (2019:981).",
+        "Undantag för brottsbekämpande verksamhet"
+      ],
+      "nyckelord": [
+        "överklagas",
+        "enligt",
+        "kommunallagen",
+        "tillämpas",
+        "andra",
+        "stycket"
+      ],
+      "relaterade_lagrum": [
+        "1 kap. BrB",
+        "29 kap. BrB"
+      ],
+      "kategori": "Ansökan och beslut"
     },
     {
-      "id": "fl_2017_7",
-      "section": 7,
-      "principleType": "tillgänglighet",
-      "text": "En myndighet ska vara tillgänglig för kontakter med enskilda och informera allmänheten om hur och när sådana kan tas. Myndigheten ska vidta de åtgärder i fråga om tillgänglighet som behövs för att den ska kunna uppfylla sina skyldigheter gentemot allmänheten enligt 2 kap. tryckfrihetsförordningen om rätten att ta del av allmänna handlingar.",
-      "keywords": ["tillgänglighet", "kontaktmöjligheter", "offentlighetsprincipen"],
-      "relatedRules": ["PROC-02", "MYND-01"],
-      "metadata": {
-        "validFrom": "2018-07-01",
-        "legalWeight": "hög",
-        "riskTrigger": true,
-        "evidentiaryThreshold": "systematisk otillgänglighet",
-        "typicalApplication": "Myndighet vägrar ta emot besök/telefonkontakt trots akut behov, bristande information om handläggningstider.",
-        "praxisNotes": [
-          "JO 2024 dnr 6543-2024: Kommunal socialtjänst stängde telefonlinje under akut nödsituation → otillgänglighet → JO-kritik + SkL-hänvisning.",
-          "JO 2025 dnr 7890-2025: Underlåten information om handläggningstider trots upprepad begäran → tillgänglighetsbrott.",
-          "JK 2026-01-15: Systematisk otillgänglighet för funktionsnedsatta sökande → diskrimineringsbrott + JO-remiss.",
-          "IVO 2025-10-22: Bristande tillgänglighet vid akut SoL-ansökan → Lex Sarah-utlösande.",
-          "JO 2026 dnr 4321-2026: Vägran att ta emot fysiska besök trots dokumenterad barnrisk → grovt tillgänglighetsfel.",
-          "JO 2025 dnr 3210-2025: Otillgänglighet för hörselskadade sökande → rättsförlust + JO-kritik.",
-          "HFD 2024 ref. 123: Bristande tillgänglighet vid upprepade kontaktförsök → rättsosäkerhet → upphävande.",
-          "JO 2026 dnr 9876-2026: Underlåten tillgänglighet vid akut barnärende → grovt fel."
-        ]
-      }
+      "id": "fl_2017_900_3p",
+      "paragraf": "3 §",
+      "rubrik": "Polismyndigheten, Skatteverket, Säkerhetspolisen, Tullverket",
+      "text": "eller en åklagarmyndighet tillämpas inte 9 § andra stycket \noch 10–49 §§.\n\nAvvikande bestämmelser i andra lagar eller i förordningar",
+      "stycken": [
+        "eller en åklagarmyndighet tillämpas inte 9 § andra stycket \noch 10–49 §§.",
+        "Avvikande bestämmelser i andra lagar eller i förordningar"
+      ],
+      "nyckelord": [
+        "andra",
+        "åklagarmyndighet",
+        "tillämpas",
+        "stycket",
+        "avvikande",
+        "bestämmelser"
+      ],
+      "relaterade_lagrum": [
+        "1 kap. FL",
+        "2 kap. FL"
+      ],
+      "kategori": "Allmänna bestämmelser"
     },
     {
-      "id": "fl_2017_8",
-      "section": 8,
-      "principleType": "samverkan",
-      "text": "En myndighet ska inom sitt verksamhetsområde samverka med andra myndigheter. En myndighet ska i rimlig utsträckning hjälpa den enskilde genom att själv inhämta upplysningar eller yttranden från andra myndigheter.",
-      "keywords": ["samverkan", "inhämtning", "hjälp från andra myndigheter"],
-      "relatedRules": ["LI-02", "MED-04"],
-      "metadata": {
-        "validFrom": "2018-07-01",
-        "legalWeight": "hög",
-        "riskTrigger": true,
-        "evidentiaryThreshold": "underlåten samverkan",
-        "typicalApplication": "Utebliven samverkan med regionen vid SIP eller medicinska behov i SoL-ärende.",
-        "praxisNotes": [
-          "JO 2025 dnr 3210-2025: Underlåten samverkan med regionen vid barn med funktionsnedsättning → rättsförlust → JO-kritik.",
-          "IVO 2026-02-28: Bristande inhämtning av läkarintyg i SoL-ärende → Lex Sarah + SkL-hänvisning.",
-          "HFD 2024 ref. 123: Underlåten samverkan mellan kommun och Försäkringskassan → rättsosäkerhet → upphävande.",
-          "JO 2024 dnr 9876-2024: Kommun vägrade inhämta uppgifter från socialjour → grovt samverkansfel.",
-          "JK 2025-12-10: Bristande samverkan vid akut barnutredning → tjänstefel + JO-remiss.",
-          "JO 2026 dnr 7890-2026: Underlåten samverkan med hälso- och sjukvården vid CRPS → rättsförlust + SkL-hänvisning.",
-          "HFD 2025 ref. 34: Bristande samverkan vid funktionsnedsättning → rättsosäkerhet → upphävande."
-        ]
-      }
+      "id": "fl_2017_900_4p",
+      "paragraf": "4 §",
+      "rubrik": "bestämmelse som avviker från denna lag, tillämpas den",
+      "text": "bestämmelsen.\n\nGrunderna för god förvaltning\n\nLegalitet, objektivitet och proportionalitet",
+      "stycken": [
+        "bestämmelsen.",
+        "Grunderna för god förvaltning",
+        "Legalitet, objektivitet och proportionalitet"
+      ],
+      "nyckelord": [
+        "bestämmelsen",
+        "grunderna",
+        "förvaltning",
+        "legalitet",
+        "objektivitet",
+        "proportionalitet"
+      ],
+      "relaterade_lagrum": [],
+      "kategori": "Allmänna bestämmelser"
     },
     {
-      "id": "fl_2017_9",
-      "section": 9,
-      "principleType": "handläggningsprincip",
-      "text": "Ett ärende ska handläggas så enkelt, snabbt och kostnadseffektivt som möjligt utan att rättssäkerheten eftersätts.",
-      "keywords": ["snabb handläggning", "rättssäkerhet", "kostnadseffektivitet"],
-      "relatedRules": ["PROC-02", "HF-09"],
-      "metadata": {
-        "validFrom": "2018-07-01",
-        "legalWeight": "hög",
-        "riskTrigger": true,
-        "evidentiaryThreshold": "onödigt dröjsmål / rättsosäkerhet",
-        "typicalApplication": "Långsam handläggning av akut biståndsansökan trots dokumenterad barnrisk eller suicidrisk.",
-        "praxisNotes": [
-          "JO 2023 dnr 9876-2023: 8 månaders handläggning av akut SoL-ansökan trots barn i fara → rättssäkerhet eftersatt → JO-kritik + SkL-hänvisning.",
-          "HFD 2025 ref. 34: Onödigt dröjsmål + bristande motivering → upphävande + SkL 3:2-ansvar.",
-          "JO 2024 dnr 6543-2024: 11 månaders väntan på beslut om ekonomiskt bistånd → rättssäkerhet grovt eftersatt.",
-          "IVO 2025-09-10: Fördröjd handläggning av barnutredning → Lex Sarah + JO-remiss.",
-          "JK 2026-01-22: Systematiskt dröjsmål i akuta ärenden → tjänstefel + SkL-hänvisning.",
-          "JO 2026 dnr 1234-2026: 6 månaders dröjsmål trots akut suicidrisk → rättssäkerhet eftersatt.",
-          "HFD 2024 ref. 89: Bristande snabbhet vid akut barnärende → rättsförlust → upphävande."
-        ]
-      }
+      "id": "fl_2017_900_5p",
+      "paragraf": "5 §",
+      "rubrik": "",
+      "text": "rättsordningen.\n\nI sin verksamhet ska myndigheten vara saklig och opartisk.\n\nMyndigheten får ingripa i ett enskilt intresse endast om \nåtgärden kan antas leda till det avsedda resultatet. Åtgärden \nfår aldrig vara mer långtgående än vad som behövs och får \nvidtas endast om det avsedda resultatet står i rimligt \nförhållande till de olägenheter som kan antas uppstå för den \nsom åtgärden riktas mot.\n\nService",
+      "stycken": [
+        "rättsordningen.",
+        "I sin verksamhet ska myndigheten vara saklig och opartisk.",
+        "Myndigheten får ingripa i ett enskilt intresse endast om \nåtgärden kan antas leda till det avsedda resultatet. Åtgärden \nfår aldrig vara mer långtgående än vad som behövs och får \nvidtas endast om det avsedda resultatet står i rimligt \nförhållande till de olägenheter som kan antas uppstå för den \nsom åtgärden riktas mot.",
+        "Service"
+      ],
+      "nyckelord": [
+        "åtgärden",
+        "myndigheten",
+        "vara",
+        "endast",
+        "antas",
+        "avsedda"
+      ],
+      "relaterade_lagrum": [
+        "1 kap. FL",
+        "2 kap. FL"
+      ],
+      "kategori": "Allmänna bestämmelser"
     },
     {
-      "id": "fl_2017_10",
-      "section": 10,
-      "principleType": "partsinsyn",
-      "text": "Den som är part i ett ärende har rätt att ta del av allt material som har tillförts ärendet. Rätten att ta del av uppgifter gäller med de begränsningar som följer av 10 kap. 3 § offentlighets- och sekretesslagen (2009:400).",
-      "keywords": ["partsinsyn", "aktinsyn", "offentlighetsprincipen"],
-      "relatedRules": ["PROC-02"],
-      "metadata": {
-        "validFrom": "2018-07-01",
-        "legalWeight": "hög",
-        "riskTrigger": true,
-        "evidentiaryThreshold": "underlåten partsinsyn",
-        "typicalApplication": "Vägran att lämna ut handlingar trots begäran i SoL-ärende.",
-        "praxisNotes": [
-          "JO 2025 dnr 7890-2025: Underlåten partsinsyn i SoL-ärende → rättsförlust → JO-kritik + SkL-hänvisning.",
-          "HFD 2024 ref. 89: Bristande aktinsyn vid avslag på bistånd → rättsosäkerhet → upphävande.",
-          "JO 2026 dnr 3456-2026: Vägran att lämna ut journalanteckningar → grovt fel + Lex Sarah.",
-          "JK 2025-10-05: Systematisk underlåtenhet att lämna ut handlingar → tjänstefel + JO-remiss.",
-          "IVO 2025-12-12: Underlåten partsinsyn vid barnutredning → Lex Sarah + JO-remiss.",
-          "JO 2026 dnr 9876-2026: Bristande aktinsyn trots uppenbart behov → rättsosäkerhet."
-        ]
-      }
+      "id": "fl_2017_900_6p",
+      "paragraf": "6 §",
+      "rubrik": "",
+      "text": "blir smidiga och enkla.\n\nMyndigheten ska lämna den enskilde sådan hjälp att han eller \nhon kan ta till vara sina intressen. Hjälpen ska ges i den \nutsträckning som är lämplig med hänsyn till frågans art, den \nenskildes behov av hjälp och myndighetens verksamhet. Den ska \nges utan onödigt dröjsmål.\n\nTillgänglighet",
+      "stycken": [
+        "blir smidiga och enkla.",
+        "Myndigheten ska lämna den enskilde sådan hjälp att han eller \nhon kan ta till vara sina intressen. Hjälpen ska ges i den \nutsträckning som är lämplig med hänsyn till frågans art, den \nenskildes behov av hjälp och myndighetens verksamhet. Den ska \nges utan onödigt dröjsmål.",
+        "Tillgänglighet"
+      ],
+      "nyckelord": [
+        "hjälp",
+        "blir",
+        "smidiga",
+        "enkla",
+        "myndigheten",
+        "lämna"
+      ],
+      "relaterade_lagrum": [
+        "1 kap. FL",
+        "2 kap. FL"
+      ],
+      "kategori": "Allmänna bestämmelser"
     },
     {
-      "id": "fl_2017_11",
-      "section": 11,
-      "principleType": "åtgärder vid försening",
-      "text": "Om en myndighet bedömer att avgörandet i ett ärende som har inletts av en enskild part kommer att bli väsentligt försenat, ska myndigheten underrätta parten om detta. I en sådan underrättelse ska myndigheten redovisa anledningen till förseningen.",
-      "keywords": ["förseningsunderrättelse", "väsentlig försening"],
-      "relatedRules": ["PROC-02", "HF-09"],
-      "metadata": {
-        "validFrom": "2018-07-01",
-        "legalWeight": "hög",
-        "riskTrigger": true,
-        "evidentiaryThreshold": "underlåten underrättelse",
-        "typicalApplication": "Långvarig handläggning av akut biståndsansökan utan underrättelse om försening.",
-        "praxisNotes": [
-          "JO 2024 dnr 8765-2024: Underlåten underrättelse om 7 månaders försening i akut SoL-ärende → rättsförlust → JO-kritik.",
-          "JO 2025 dnr 4321-2025: Ingen underrättelse trots uppenbar försening i barnutredning → processuellt fel + Lex Sarah.",
-          "HFD 2025 ref. 34: Underlåten underrättelse → rättsosäkerhet → beslut upphävt.",
-          "JK 2026-01-15: Systematisk underlåtenhet att underrätta om förseningar → tjänstefel + JO-remiss.",
-          "JO 2026 dnr 3456-2026: Underlåten underrättelse trots akut suicidrisk → grovt fel.",
-          "IVO 2025-12-12: Bristande underrättelse vid fördröjd barnutredning → Lex Sarah-utlösande."
-        ]
-      }
+      "id": "fl_2017_900_7p",
+      "paragraf": "7 §",
+      "rubrik": "enskilda och informera allmänheten om hur och när sådana kan",
+      "text": "tas.\n\nMyndigheten ska vidta de åtgärder i fråga om tillgänglighet \nsom behövs för att den ska kunna uppfylla sina skyldigheter \ngentemot allmänheten enligt 2 kap. tryckfrihetsförordningen \nom rätten att ta del av allmänna handlingar.\n\nSamverkan",
+      "stycken": [
+        "tas.",
+        "Myndigheten ska vidta de åtgärder i fråga om tillgänglighet \nsom behövs för att den ska kunna uppfylla sina skyldigheter \ngentemot allmänheten enligt 2 kap. tryckfrihetsförordningen \nom rätten att ta del av allmänna handlingar.",
+        "Samverkan"
+      ],
+      "nyckelord": [
+        "myndigheten",
+        "vidta",
+        "åtgärder",
+        "fråga",
+        "tillgänglighet",
+        "behövs"
+      ],
+      "relaterade_lagrum": [
+        "1 kap. FL",
+        "2 kap. FL"
+      ],
+      "kategori": "Skyldigheter"
     },
     {
-      "id": "fl_2017_12",
-      "section": 12,
-      "principleType": "begäran om avgörande",
-      "text": "Om ett ärende som har inletts av en enskild part inte har avgjorts i första instans senast inom sex månader, får parten skriftligen begära att myndigheten ska avgöra ärendet. Myndigheten ska inom fyra veckor från den dag då en sådan begäran kom in antingen avgöra ärendet eller i ett särskilt beslut avslå begäran.",
-      "keywords": ["begäran om avgörande", "sex månader", "fyra veckor"],
-      "relatedRules": ["PROC-02", "HF-09"],
-      "metadata": {
-        "validFrom": "2018-07-01",
-        "legalWeight": "hög",
-        "riskTrigger": true,
-        "evidentiaryThreshold": "underlåten avgörande",
-        "typicalApplication": "Långvarig handläggning av akut SoL-ärende utan svar på begäran om avgörande.",
-        "praxisNotes": [
-          "JO 2025 dnr 7890-2025: Underlåten avgörande trots begäran inom sex månader → rättsförlust → JO-kritik.",
-          "HFD 2024 ref. 89: Myndighet avslår begäran utan motivering → rättsosäkerhet → upphävande.",
-          "JO 2026 dnr 3456-2026: Systematisk underlåtenhet att svara på begäran → tjänstefel + SkL-hänvisning."
-        ]
-      }
+      "id": "fl_2017_900_8p",
+      "paragraf": "8 §",
+      "rubrik": "",
+      "text": "andra myndigheter.\n\nEn myndighet ska i rimlig utsträckning hjälpa den enskilde \ngenom att själv inhämta upplysningar eller yttranden från \nandra myndigheter.\n\nAllmänna krav på handläggningen av ärenden\n\nUtgångspunkter för handläggningen",
+      "stycken": [
+        "andra myndigheter.",
+        "En myndighet ska i rimlig utsträckning hjälpa den enskilde \ngenom att själv inhämta upplysningar eller yttranden från \nandra myndigheter.",
+        "Allmänna krav på handläggningen av ärenden",
+        "Utgångspunkter för handläggningen"
+      ],
+      "nyckelord": [
+        "andra",
+        "myndigheter",
+        "handläggningen",
+        "myndighet",
+        "rimlig",
+        "utsträckning"
+      ],
+      "relaterade_lagrum": [
+        "1 kap. FL",
+        "2 kap. FL"
+      ],
+      "kategori": "Ansökan och beslut"
     },
     {
-      "id": "fl_2017_13",
-      "section": 13,
-      "principleType": "tolkning och översättning",
-      "text": "En myndighet ska använda tolk och se till att översätta handlingar om det behövs för att den enskilde ska kunna ta till vara sin rätt när myndigheten har kontakt med någon som inte behärskar svenska. En myndighet ska under samma förutsättningar använda tolk och göra innehållet i handlingar tillgängligt när den har kontakt med någon som har en funktionsnedsättning som allvarligt begränsar förmågan att se, höra eller tala.",
-      "keywords": ["tolk", "översättning", "funktionsnedsättning"],
-      "relatedRules": ["PROC-02", "MYND-01"],
-      "metadata": {
-        "validFrom": "2018-07-01",
-        "legalWeight": "hög",
-        "riskTrigger": true,
-        "evidentiaryThreshold": "underlåten tolk/översättning",
-        "typicalApplication": "Underlåten tolk vid samtal med icke svensktalande sökande i akut SoL-ärende.",
-        "praxisNotes": [
-          "JO 2025 dnr 3210-2025: Underlåten tolk vid akut biståndsansökan → rättsförlust → JO-kritik.",
-          "IVO 2026-02-28: Bristande översättning av beslut för funktionsnedsatt sökande → Lex Sarah + SkL-hänvisning.",
-          "HFD 2024 ref. 123: Underlåten tolk vid komplex utredning → rättsosäkerhet → upphävande.",
-          "JO 2024 dnr 9876-2024: Vägran att använda tolk trots uppenbart behov → grovt fel.",
-          "JK 2025-10-05: Underlåten översättning vid funktionsnedsättning → tjänstefel + JO-remiss."
-        ]
-      }
+      "id": "fl_2017_900_9p",
+      "paragraf": "9 §",
+      "rubrik": "kostnadseffektivt som möjligt utan att rättssäkerheten",
+      "text": "eftersätts.\n\nHandläggningen ska vara skriftlig. Myndigheten får dock \nbesluta att handläggningen helt eller delvis ska vara \nmuntlig, om det inte är olämpligt.\n\nPartsinsyn",
+      "stycken": [
+        "eftersätts.",
+        "Handläggningen ska vara skriftlig. Myndigheten får dock \nbesluta att handläggningen helt eller delvis ska vara \nmuntlig, om det inte är olämpligt.",
+        "Partsinsyn"
+      ],
+      "nyckelord": [
+        "handläggningen",
+        "vara",
+        "eftersätts",
+        "skriftlig",
+        "myndigheten",
+        "besluta"
+      ],
+      "relaterade_lagrum": [
+        "1 kap. FL",
+        "2 kap. FL"
+      ],
+      "kategori": "Ansökan och beslut"
     },
     {
-      "id": "fl_2017_14",
-      "section": 14,
-      "principleType": "ombud och biträde",
-      "text": "Den som är part i ett ärende får som ombud eller biträde anlita någon som är lämplig för uppdraget. Den som anlitar ombud ska dock medverka personligen om myndigheten begär det. Om ett ombud eller biträde bedöms vara olämplig för sitt uppdrag får myndigheten besluta att han eller hon inte längre får medverka i ärendet.",
-      "keywords": ["ombud", "biträde", "lämplighet"],
-      "relatedRules": ["PROC-02"],
-      "metadata": {
-        "validFrom": "2018-07-01",
-        "legalWeight": "hög",
-        "riskTrigger": true,
-        "evidentiaryThreshold": "underlåten tillåtelse av ombud",
-        "typicalApplication": "Vägran att acceptera ombud i SoL-ärende trots lämplighet.",
-        "praxisNotes": [
-          "JO 2025 dnr 4321-2025: Vägran att acceptera ombud i barnärende → rättsförlust → JO-kritik.",
-          "HFD 2024 ref. 89: Felaktig bedömning av ombuds lämplighet → rättsosäkerhet → upphävande.",
-          "JO 2026 dnr 7890-2026: Underlåten personlig medverkan trots begäran → processuellt fel.",
-          "JK 2025-12-10: Vägran att acceptera biträde trots lämplighet → tjänstefel + JO-remiss."
-        ]
-      }
+      "id": "fl_2017_900_10p",
+      "paragraf": "10 §",
+      "rubrik": "material som har tillförts ärendet. Rätten att ta del av",
+      "text": "uppgifter gäller med de begränsningar som följer av 10 kap.",
+      "stycken": [
+        "uppgifter gäller med de begränsningar som följer av 10 kap."
+      ],
+      "nyckelord": [
+        "uppgifter",
+        "gäller",
+        "begränsningar",
+        "följer"
+      ],
+      "relaterade_lagrum": [],
+      "kategori": "Processregler"
     },
     {
-      "id": "fl_2017_15",
-      "section": 15,
-      "principleType": "fullmakt",
-      "text": "En myndighet får begära att ett ombud ska styrka sin behörighet genom en skriftlig eller muntlig fullmakt. En sådan fullmakt ska innehålla uppgift om ombudets namn och uppdragets omfattning. Om ombudet får sätta någon annan i sitt ställe, ska även detta framgå av fullmakten.",
-      "keywords": ["fullmakt", "ombud", "behörighet"],
-      "relatedRules": ["PROC-02"],
-      "metadata": {
-        "validFrom": "2018-07-01",
-        "legalWeight": "medel",
-        "riskTrigger": true,
-        "evidentiaryThreshold": "felaktig hantering av fullmakt",
-        "typicalApplication": "Myndighet vägrar acceptera muntlig fullmakt trots lämplighet.",
-        "praxisNotes": [
-          "JO 2025 dnr 4321-2025: Felaktig vägran att acceptera muntlig fullmakt → processuellt fel → JO-kritik.",
-          "HFD 2024 ref. 123: Bristande hantering av fullmakt → rättsosäkerhet → upphävande."
-        ]
-      }
+      "id": "fl_2017_900_3p",
+      "paragraf": "3 §",
+      "rubrik": "",
+      "text": "Åtgärder om handläggningen försenas",
+      "stycken": [
+        "Åtgärder om handläggningen försenas"
+      ],
+      "nyckelord": [
+        "åtgärder",
+        "handläggningen",
+        "försenas"
+      ],
+      "relaterade_lagrum": [],
+      "kategori": "Ansökan och beslut"
     },
     {
-      "id": "fl_2017_16",
-      "section": 16,
-      "principleType": "jäv",
-      "text": "Den som för en myndighets räkning tar del i handläggningen på ett sätt som kan påverka myndighetens beslut i ärendet är jävig om han eller hon eller någon närstående är part i ärendet eller annars kan antas bli påverkad av beslutet i en inte oväsentlig utsträckning, eller om det finns någon annan särskild omständighet som gör att hans eller hennes opartiskhet i ärendet kan ifrågasättas.",
-      "keywords": ["jäv", "opartiskhet", "närstående"],
-      "relatedRules": ["MYND-01"],
-      "metadata": {
-        "validFrom": "2018-07-01",
-        "legalWeight": "hög",
-        "riskTrigger": true,
-        "evidentiaryThreshold": "jävsförhållande",
-        "typicalApplication": "Handläggare har personlig relation till part i SoL-ärende.",
-        "praxisNotes": [
-          "JO 2025 dnr 7890-2025: Jävsförhållande p.g.a. närstående → beslut upphävt + JO-kritik.",
-          "HFD 2024 ref. 89: Underlåten jävsprövning → rättsosäkerhet → upphävande."
-        ]
-      }
+      "id": "fl_2017_900_11p",
+      "paragraf": "11 §",
+      "rubrik": "har inletts av en enskild part kommer att bli väsentligt",
+      "text": "försenat, ska myndigheten underrätta parten om detta. I en \nsådan underrättelse ska myndigheten redovisa anledningen till \nförseningen.",
+      "stycken": [
+        "försenat, ska myndigheten underrätta parten om detta. I en \nsådan underrättelse ska myndigheten redovisa anledningen till \nförseningen."
+      ],
+      "nyckelord": [
+        "myndigheten",
+        "försenat",
+        "underrätta",
+        "parten",
+        "underrättelse",
+        "redovisa"
+      ],
+      "relaterade_lagrum": [
+        "1 kap. FL",
+        "2 kap. FL"
+      ],
+      "kategori": "Allmänna bestämmelser"
     },
     {
-      "id": "fl_2017_17",
-      "section": 17,
-      "principleType": "jäv – bortseende",
-      "text": "Om det är uppenbart att frågan om opartiskhet saknar betydelse, ska myndigheten bortse från jäv.",
-      "keywords": ["jäv", "bortseende", "uppenbart"],
-      "relatedRules": ["MYND-01"],
-      "metadata": {
-        "validFrom": "2018-07-01",
-        "legalWeight": "medel",
-        "riskTrigger": true,
-        "evidentiaryThreshold": "felaktigt bortseende från jäv",
-        "typicalApplication": "Myndighet bortser från jävsförhållande trots betydelse.",
-        "praxisNotes": [
-          "JO 2026 dnr 3456-2026: Felaktigt bortseende från jäv → processuellt fel + JO-kritik.",
-          "HFD 2025 ref. 12: Opartiskhet saknade betydelse → beslut står fast."
-        ]
-      }
+      "id": "fl_2017_900_12p",
+      "paragraf": "12 §",
+      "rubrik": "har avgjorts i första instans senast inom sex månader, får",
+      "text": "parten skriftligen begära att myndigheten ska avgöra ärendet. \nMyndigheten ska inom fyra veckor från den dag då en sådan \nbegäran kom in antingen avgöra ärendet eller i ett särskilt \nbeslut avslå begäran.\n\nEtt beslut enligt första stycket att avslå en begäran om att \närendet ska avgöras får överklagas till den domstol eller \nförvaltningsmyndighet som är behörig att pröva ett \növerklagande av avgörandet i ärendet.\n\nMyndighetens prövning enligt första stycket får begäras av \nparten vid ett tillfälle under ärendets handläggning.\n\nTolkning och översättning",
+      "stycken": [
+        "parten skriftligen begära att myndigheten ska avgöra ärendet. \nMyndigheten ska inom fyra veckor från den dag då en sådan \nbegäran kom in antingen avgöra ärendet eller i ett särskilt \nbeslut avslå begäran.",
+        "Ett beslut enligt första stycket att avslå en begäran om att \närendet ska avgöras får överklagas till den domstol eller \nförvaltningsmyndighet som är behörig att pröva ett \növerklagande av avgörandet i ärendet.",
+        "Myndighetens prövning enligt första stycket får begäras av \nparten vid ett tillfälle under ärendets handläggning.",
+        "Tolkning och översättning"
+      ],
+      "nyckelord": [
+        "ärendet",
+        "begäran",
+        "parten",
+        "myndigheten",
+        "avgöra",
+        "beslut"
+      ],
+      "relaterade_lagrum": [
+        "1 kap. FL",
+        "2 kap. FL"
+      ],
+      "kategori": "Rätt till ersättning"
     },
     {
-      "id": "fl_2017_18",
-      "section": 18,
-      "principleType": "jävsanmälan",
-      "text": "Den som känner till en omständighet som kan antas göra honom eller henne jävig ska omedelbart anmäla detta till myndigheten.",
-      "keywords": ["jävsanmälan", "omedelbar anmälan"],
-      "relatedRules": ["MYND-01"],
-      "metadata": {
-        "validFrom": "2018-07-01",
-        "legalWeight": "hög",
-        "riskTrigger": true,
-        "evidentiaryThreshold": "underlåten jävsanmälan",
-        "typicalApplication": "Handläggare underlåter att anmäla jäv.",
-        "praxisNotes": [
-          "JO 2025 dnr 4321-2025: Underlåten jävsanmälan → tjänstefel + JO-kritik.",
-          "HFD 2024 ref. 123: Bristande anmälan → rättsosäkerhet → upphävande."
-        ]
-      }
+      "id": "fl_2017_900_13p",
+      "paragraf": "13 §",
+      "rubrik": "handlingar om det behövs för att den enskilde ska kunna ta",
+      "text": "till vara sin rätt när myndigheten har kontakt med någon som \ninte behärskar svenska.\n\nEn myndighet ska under samma förutsättningar använda tolk och \ngöra innehållet i handlingar tillgängligt när den har kontakt \nmed någon som har en funktionsnedsättning som allvarligt \nbegränsar förmågan att se, höra eller tala.\n\nOmbud och biträde",
+      "stycken": [
+        "till vara sin rätt när myndigheten har kontakt med någon som \ninte behärskar svenska.",
+        "En myndighet ska under samma förutsättningar använda tolk och \ngöra innehållet i handlingar tillgängligt när den har kontakt \nmed någon som har en funktionsnedsättning som allvarligt \nbegränsar förmågan att se, höra eller tala.",
+        "Ombud och biträde"
+      ],
+      "nyckelord": [
+        "kontakt",
+        "någon",
+        "vara",
+        "rätt",
+        "myndigheten",
+        "behärskar"
+      ],
+      "relaterade_lagrum": [
+        "1 kap. FL",
+        "2 kap. FL"
+      ],
+      "kategori": "Allmänna bestämmelser"
     },
     {
-      "id": "fl_2017_19",
-      "section": 19,
-      "principleType": "framställningar från enskilda",
-      "text": "En enskild kan inleda ett ärende hos en myndighet genom en ansökan, anmälan eller annan framställning. Framställningen ska innehålla uppgifter om den enskildes identitet och den information som behövs för att myndigheten ska kunna komma i kontakt med honom eller henne.",
-      "keywords": ["framställning", "ansökan", "anmälan"],
-      "relatedRules": ["PROC-02", "MYND-01"],
-      "metadata": {
-        "validFrom": "2018-07-01",
-        "legalWeight": "hög",
-        "riskTrigger": true,
-        "evidentiaryThreshold": "underlåten behandling av framställning",
-        "typicalApplication": "Underlåten behandling av akut biståndsansökan utan identitetskontroll.",
-        "praxisNotes": [
-          "JO 2024 dnr 3456-2024: Underlåten behandling av akut ansökan → rättsförlust → JO-kritik.",
-          "JO 2025 dnr 7890-2025: Avvisning av framställning utan identitetskontroll → processuellt fel.",
-          "HFD 2024 ref. 89: Underlåten behandling av anmälan om barnrisk → rättsosäkerhet → upphävande.",
-          "IVO 2025-12-12: Underlåten behandling av akut SoL-framställning → Lex Sarah-utlösande."
-        ]
-      }
+      "id": "fl_2017_900_14p",
+      "paragraf": "14 §",
+      "rubrik": "anlita någon som är lämplig för uppdraget. Den som anlitar",
+      "text": "ombud ska dock medverka personligen om myndigheten begär \ndet.\n\nOm ett ombud eller biträde bedöms vara olämplig för sitt \nuppdrag får myndigheten besluta att han eller hon inte längre \nfår medverka i ärendet.",
+      "stycken": [
+        "ombud ska dock medverka personligen om myndigheten begär \ndet.",
+        "Om ett ombud eller biträde bedöms vara olämplig för sitt \nuppdrag får myndigheten besluta att han eller hon inte längre \nfår medverka i ärendet."
+      ],
+      "nyckelord": [
+        "ombud",
+        "medverka",
+        "myndigheten",
+        "personligen",
+        "begär",
+        "biträde"
+      ],
+      "relaterade_lagrum": [
+        "1 kap. FL",
+        "2 kap. FL"
+      ],
+      "kategori": "Ansökan och beslut"
     },
     {
-      "id": "fl_2017_20",
-      "section": 20,
-      "principleType": "åtgärder vid bristande framställning",
-      "text": "Om en framställning är ofullständig eller oklar ska en myndighet i första hand hjälpa den enskilde till rätta inom ramen för sin allmänna serviceskyldighet enligt 6 § andra stycket. En myndighet får besluta att förelägga den enskilde att avhjälpa en brist som finns kvar, om bristen medför att framställningen inte kan läggas till grund för en prövning i sak.",
-      "keywords": ["bristande framställning", "föreläggande", "hjälp till rätta"],
-      "relatedRules": ["PROC-02", "MYND-01"],
-      "metadata": {
-        "validFrom": "2018-07-01",
-        "legalWeight": "hög",
-        "riskTrigger": true,
-        "evidentiaryThreshold": "underlåten hjälp / felaktigt föreläggande",
-        "typicalApplication": "Avvisning av akut biståndsansökan utan föreläggande eller hjälp till rätta.",
-        "praxisNotes": [
-          "JO 2024 dnr 3456-2024: Kommun avvisade akut ansökan utan föreläggande eller hjälp → serviceskyldighet åsidosatt → JO-kritik.",
-          "JO 2025 dnr 7890-2025: Felaktigt föreläggande utan tidsfrist → processuellt fel + beslut upphävt.",
-          "HFD 2024 ref. 89: Underlåten hjälp till rätta vid ofullständig ansökan → rättsförlust → upphävande.",
-          "IVO 2025-12-12: Bristande hjälp vid barnansökan → Lex Sarah + JO-remiss.",
-          "JO 2026 dnr 4321-2026: Avvisning utan föreläggande trots akut barnrisk → grovt fel.",
-          "JK 2025-10-05: Underlåten hjälp till rätta vid komplex SoL-ansökan → tjänstefel + JO-kritik."
-        ]
-      }
+      "id": "fl_2017_900_15p",
+      "paragraf": "15 §",
+      "rubrik": "behörighet genom en skriftlig eller muntlig fullmakt. En",
+      "text": "sådan fullmakt ska innehålla uppgift om ombudets namn och \nuppdragets omfattning. Om ombudet får sätta någon annan i \nsitt ställe, ska även detta framgå av fullmakten.\n\nOm ett ombud inte följer en begäran om att styrka sin \nbehörighet genom en fullmakt, får myndigheten besluta ett \nföreläggande om samma sak. Ett sådant föreläggande får riktas \ntill ombudet eller parten.\n\nOm en handling som inleder ett ärende har skrivits under av \nett ombud, ska det i föreläggandet anges att följden av att \ndet inte följs kan bli att framställningen inte tas upp till \nprövning.\n\nJäv",
+      "stycken": [
+        "sådan fullmakt ska innehålla uppgift om ombudets namn och \nuppdragets omfattning. Om ombudet får sätta någon annan i \nsitt ställe, ska även detta framgå av fullmakten.",
+        "Om ett ombud inte följer en begäran om att styrka sin \nbehörighet genom en fullmakt, får myndigheten besluta ett \nföreläggande om samma sak. Ett sådant föreläggande får riktas \ntill ombudet eller parten.",
+        "Om en handling som inleder ett ärende har skrivits under av \nett ombud, ska det i föreläggandet anges att följden av att \ndet inte följs kan bli att framställningen inte tas upp till \nprövning.",
+        "Jäv"
+      ],
+      "nyckelord": [
+        "fullmakt",
+        "ombudet",
+        "ombud",
+        "föreläggande",
+        "innehålla",
+        "uppgift"
+      ],
+      "relaterade_lagrum": [
+        "1 kap. FL",
+        "2 kap. FL"
+      ],
+      "kategori": "Ansökan och beslut"
     },
     {
-      "id": "fl_2017_21",
-      "section": 21,
-      "principleType": "bekräftelse av handlingar",
-      "text": "En handling ska bekräftas av avsändaren om myndigheten anser att det behövs.",
-      "keywords": ["bekräftelse", "handling"],
-      "relatedRules": ["PROC-02"],
-      "metadata": {
-        "validFrom": "2018-07-01",
-        "legalWeight": "medel",
-        "riskTrigger": false,
-        "evidentiaryThreshold": "ej tillämplig",
-        "typicalApplication": "Ej central i akuta SoL-ärenden, men viktigt för formella krav.",
-        "praxisNotes": [
-          "JO 2025 dnr 4321-2025: Underlåten bekräftelse av ansökan → processuellt fel.",
-          "HFD 2024 ref. 123: Bristande bekräftelse av handling → rättsosäkerhet → upphävande."
-        ]
-      }
+      "id": "fl_2017_900_16p",
+      "paragraf": "16 §",
+      "rubrik": "handläggningen på ett sätt som kan påverka myndighetens",
+      "text": "beslut i ärendet är jävig om\n\n1. han eller hon eller någon närstående är part i ärendet \neller annars kan antas bli påverkad av beslutet i en inte \noväsentlig utsträckning,\n\n2. han eller hon eller någon närstående är eller har varit \nställföreträdare eller ombud för en part i ärendet eller för \nnågon annan som kan antas bli påverkad av beslutet i en inte \noväsentlig utsträckning,\n\n3. han eller hon har medverkat i den slutliga handläggningen \nav ett ärende hos en annan myndighet och till följd av detta \nredan har tagit ställning till frågor som myndigheten ska \npröva i egenskap av överordnad instans, eller\n\n4. det finns någon annan särskild omständighet som gör att \nhans eller hennes opartiskhet i ärendet kan ifrågasättas.\n\nOm det är uppenbart att frågan om opartiskhet saknar \nbetydelse, ska myndigheten bortse från jäv.",
+      "stycken": [
+        "beslut i ärendet är jävig om",
+        "1. han eller hon eller någon närstående är part i ärendet \neller annars kan antas bli påverkad av beslutet i en inte \noväsentlig utsträckning,",
+        "2. han eller hon eller någon närstående är eller har varit \nställföreträdare eller ombud för en part i ärendet eller för \nnågon annan som kan antas bli påverkad av beslutet i en inte \noväsentlig utsträckning,",
+        "3. han eller hon har medverkat i den slutliga handläggningen \nav ett ärende hos en annan myndighet och till följd av detta \nredan har tagit ställning till frågor som myndigheten ska \npröva i egenskap av överordnad instans, eller",
+        "4. det finns någon annan särskild omständighet som gör att \nhans eller hennes opartiskhet i ärendet kan ifrågasättas.",
+        "Om det är uppenbart att frågan om opartiskhet saknar \nbetydelse, ska myndigheten bortse från jäv."
+      ],
+      "nyckelord": [
+        "ärendet",
+        "någon",
+        "annan",
+        "närstående",
+        "part",
+        "antas"
+      ],
+      "relaterade_lagrum": [
+        "1 kap. FL",
+        "2 kap. FL"
+      ],
+      "kategori": "Ansökan och beslut"
     },
     {
-      "id": "fl_2017_22",
-      "section": 22,
-      "principleType": "ankomstdag",
-      "text": "En handling har kommit in till en myndighet den dag som handlingen når myndigheten eller en behörig befattningshavare.",
-      "keywords": ["ankomstdag", "handling"],
-      "relatedRules": ["PROC-02"],
-      "metadata": {
-        "validFrom": "2018-07-01",
-        "legalWeight": "medel",
-        "riskTrigger": false,
-        "evidentiaryThreshold": "ej tillämplig",
-        "typicalApplication": "Ej central i akuta SoL-ärenden, men viktigt för tidsfrister.",
-        "praxisNotes": [
-          "JO 2025 dnr 3210-2025: Felaktig beräkning av ankomstdag → rättsförlust → JO-kritik.",
-          "HFD 2024 ref. 89: Bristande bekräftelse av ankomstdag → processuellt fel."
-        ]
-      }
+      "id": "fl_2017_900_17p",
+      "paragraf": "17 §",
+      "rubrik": "ärendet och inte heller närvara när ärendet avgörs. Han eller",
+      "text": "hon får dock utföra sådana uppgifter som inte någon annan kan \nutföra utan att handläggningen försenas avsevärt.",
+      "stycken": [
+        "hon får dock utföra sådana uppgifter som inte någon annan kan \nutföra utan att handläggningen försenas avsevärt."
+      ],
+      "nyckelord": [
+        "utföra",
+        "uppgifter",
+        "någon",
+        "annan",
+        "handläggningen",
+        "försenas"
+      ],
+      "relaterade_lagrum": [],
+      "kategori": "Ansökan och beslut"
     },
     {
-      "id": "fl_2017_23",
-      "section": 23,
-      "principleType": "utredningsskyldighet",
-      "text": "Myndigheten ska se till att ärendet blir tillräckligt utrett innan beslut fattas.",
-      "keywords": ["utredningsskyldighet", "tillräcklig utredning"],
-      "relatedRules": ["LI-02", "PROC-02"],
-      "metadata": {
-        "validFrom": "2018-07-01",
-        "legalWeight": "central",
-        "riskTrigger": true,
-        "evidentiaryThreshold": "bristande utredning",
-        "typicalApplication": "Avslag utan att utreda sökandens nödsituation, medicinska behov eller barnrisk.",
-        "praxisNotes": [
-          "JO 2024 dnr 3456-2024: Avslag på akut bistånd utan utredning av barnets mat- och trygghetssituation → beslut upphävt + JO-kritik.",
-          "HFD 2023 ref. 67: Utredningsskyldigheten gäller fullt ut även i akuta ärenden – 'skyndsamhet' får inte innebära rättsförlust.",
-          "IVO 2025-06-22: Bristande utredning av medicinska behov i SoL-ärende → Lex Sarah + SkL-hänvisning.",
-          "JO 2026 dnr 1234-2026: Underlåten utredning av ekonomisk situation trots Kronofogde-inblandning → grovt fel.",
-          "JK 2025-10-05: Systematisk underlåtenhet att utreda barnrisk → tjänstefel + SkL 3:2.",
-          "HFD 2024 ref. 89: Bristande utredning av funktionsnedsättning → rättsosäkerhet → upphävande.",
-          "JO 2025 dnr 7890-2025: Utebliven utredning av suicidrisk → rättsförlust + JO-kritik.",
-          "IVO 2026-03-15: Underlåten utredning av CRPS-behov → Lex Sarah + SkL-hänvisning."
-        ]
-      }
+      "id": "fl_2017_900_18p",
+      "paragraf": "18 §",
+      "rubrik": "honom eller henne jävig ska omedelbart anmäla detta till",
+      "text": "myndigheten.\n\nEn myndighet ska pröva en jävsfråga så snart som möjligt.\n\nDen som jävet gäller får ta del i prövningen av jävsfrågan \nendast om det krävs för att myndigheten ska vara beslutsför \noch någon ersättare inte kan kallas in utan att prövningen \nförsenas avsevärt.\n\nHur ärenden inleds och åtgärder när handlingar ges in\n\nFramställningar från enskilda",
+      "stycken": [
+        "myndigheten.",
+        "En myndighet ska pröva en jävsfråga så snart som möjligt.",
+        "Den som jävet gäller får ta del i prövningen av jävsfrågan \nendast om det krävs för att myndigheten ska vara beslutsför \noch någon ersättare inte kan kallas in utan att prövningen \nförsenas avsevärt.",
+        "Hur ärenden inleds och åtgärder när handlingar ges in",
+        "Framställningar från enskilda"
+      ],
+      "nyckelord": [
+        "myndigheten",
+        "prövningen",
+        "myndighet",
+        "pröva",
+        "jävsfråga",
+        "snart"
+      ],
+      "relaterade_lagrum": [
+        "1 kap. FL",
+        "2 kap. FL"
+      ],
+      "kategori": "Ansökan och beslut"
     },
     {
-      "id": "fl_2017_24",
-      "section": 24,
-      "principleType": "hörande",
-      "text": "Myndigheten ska ge den enskilde tillfälle att yttra sig innan beslut fattas, om det inte är uppenbart obehövligt.",
-      "keywords": ["hörande", "yttranderätt", "kommunikation"],
-      "relatedRules": ["PROC-02"],
-      "metadata": {
-        "validFrom": "2018-07-01",
-        "legalWeight": "hög",
-        "riskTrigger": true,
-        "evidentiaryThreshold": "uteblivet hörande",
-        "typicalApplication": "Avslag utan att ge klagande möjlighet att bemöta uppgifter.",
-        "praxisNotes": [
-          "JO 2025 dnr 7890-2025: Uteblivet hörande i SoL-ärende trots begäran → beslut upphävt + JO-kritik.",
-          "JK 2026-03-01: Underlåten kommunikation av motstridiga besked → processuellt fel + SkL-hänvisning.",
-          "HFD 2024 ref. 89: Bristande hörande vid avslag på bistånd → rättsosäkerhet → upphävande.",
-          "JO 2023 dnr 4567-2023: Vägran att låta sökande bemöta journalanteckningar → grovt kommunikationsfel.",
-          "IVO 2025-12-12: Uteblivet hörande i barnutredning → Lex Sarah + JO-remiss."
-        ]
-      }
+      "id": "fl_2017_900_19p",
+      "paragraf": "19 §",
+      "rubrik": "",
+      "text": "en ansökan, anmälan eller annan framställning. \nFramställningen ska innehålla uppgifter om den enskildes \nidentitet och den information som behövs för att myndigheten \nska kunna komma i kontakt med honom eller henne.\n\nDet ska framgå av framställningen vad ärendet gäller och vad \nden enskilde vill att myndigheten ska göra. Det ska också \nframgå vilka omständigheter som ligger till grund för den \nenskildes begäran, om det inte är uppenbart obehövligt.\n\nÅtgärder för att rätta till brister i en framställning",
+      "stycken": [
+        "en ansökan, anmälan eller annan framställning. \nFramställningen ska innehålla uppgifter om den enskildes \nidentitet och den information som behövs för att myndigheten \nska kunna komma i kontakt med honom eller henne.",
+        "Det ska framgå av framställningen vad ärendet gäller och vad \nden enskilde vill att myndigheten ska göra. Det ska också \nframgå vilka omständigheter som ligger till grund för den \nenskildes begäran, om det inte är uppenbart obehövligt.",
+        "Åtgärder för att rätta till brister i en framställning"
+      ],
+      "nyckelord": [
+        "framställning",
+        "framställningen",
+        "enskildes",
+        "myndigheten",
+        "framgå",
+        "ansökan"
+      ],
+      "relaterade_lagrum": [
+        "1 kap. FL",
+        "2 kap. FL"
+      ],
+      "kategori": "Ansökan och beslut"
     },
     {
-      "id": "fl_2017_25",
-      "section": 25,
-      "principleType": "kommunikation",
-      "text": "Myndigheten ska ge den enskilde tillfälle att yttra sig innan beslut fattas, om det inte är uppenbart obehövligt.",
-      "keywords": ["hörande", "kommunicering", "yttranderätt"],
-      "relatedRules": ["PROC-02"],
-      "metadata": {
-        "validFrom": "2018-07-01",
-        "legalWeight": "hög",
-        "riskTrigger": true,
-        "evidentiaryThreshold": "uteblivet hörande",
-        "typicalApplication": "Avslag utan att ge klagande möjlighet att bemöta uppgifter eller motstridiga besked.",
-        "praxisNotes": [
-          "JO 2025 dnr 7890-2025: Uteblivet hörande i SoL-ärende trots begäran → beslut upphävt + JO-kritik.",
-          "JK 2026-03-01: Underlåten kommunikation av motstridiga besked → processuellt fel + SkL-hänvisning.",
-          "HFD 2024 ref. 89: Bristande hörande vid avslag på bistånd → rättsosäkerhet → upphävande.",
-          "JO 2023 dnr 4567-2023: Vägran att låta sökande bemöta journalanteckningar → grovt kommunikationsfel.",
-          "IVO 2025-12-12: Uteblivet hörande i barnutredning → Lex Sarah + JO-remiss.",
-          "JO 2026 dnr 3456-2026: Underlåten hörande trots uppenbart behov → rättssäkerhet eftersatt.",
-          "HFD 2025 ref. 12: Bristande hörande vid avslag på akut bistånd → rättsosäkerhet → upphävande.",
-          "JO 2025 dnr 3210-2025: Underlåten hörande vid upprepad begäran om utredning → grovt fel."
-        ]
-      }
+      "id": "fl_2017_900_20p",
+      "paragraf": "20 §",
+      "rubrik": "myndighet i första hand hjälpa den enskilde till rätta inom",
+      "text": "ramen för sin allmänna serviceskyldighet enligt 6 § andra \nstycket.\n\nEn myndighet får besluta att förelägga den enskilde att \navhjälpa en brist som finns kvar, om bristen medför att \nframställningen inte kan läggas till grund för en prövning i \nsak. I föreläggandet ska det anges att följden av att det \ninte följs kan bli att framställningen inte tas upp till \nprövning.\n\nBekräftelse av handlingar",
+      "stycken": [
+        "ramen för sin allmänna serviceskyldighet enligt 6 § andra \nstycket.",
+        "En myndighet får besluta att förelägga den enskilde att \navhjälpa en brist som finns kvar, om bristen medför att \nframställningen inte kan läggas till grund för en prövning i \nsak. I föreläggandet ska det anges att följden av att det \ninte följs kan bli att framställningen inte tas upp till \nprövning.",
+        "Bekräftelse av handlingar"
+      ],
+      "nyckelord": [
+        "framställningen",
+        "prövning",
+        "ramen",
+        "allmänna",
+        "serviceskyldighet",
+        "enligt"
+      ],
+      "relaterade_lagrum": [
+        "1 kap. FL",
+        "2 kap. FL"
+      ],
+      "kategori": "Ansökan och beslut"
     },
     {
-      "id": "fl_2017_26",
-      "section": 26,
-      "principleType": "partsinsyn",
-      "text": "Den som är part i ett ärende har rätt att ta del av allt material som har tillförts ärendet. Rätten att ta del av uppgifter gäller med de begränsningar som följer av 10 kap. 3 § offentlighets- och sekretesslagen (2009:400).",
-      "keywords": ["partsinsyn", "aktinsyn", "offentlighetsprincipen"],
-      "relatedRules": ["PROC-02"],
-      "metadata": {
-        "validFrom": "2018-07-01",
-        "legalWeight": "hög",
-        "riskTrigger": true,
-        "evidentiaryThreshold": "underlåten partsinsyn",
-        "typicalApplication": "Vägran att lämna ut handlingar trots begäran i SoL-ärende.",
-        "praxisNotes": [
-          "JO 2025 dnr 7890-2025: Underlåten partsinsyn i SoL-ärende → rättsförlust → JO-kritik + SkL-hänvisning.",
-          "HFD 2024 ref. 89: Bristande aktinsyn vid avslag på bistånd → rättsosäkerhet → upphävande.",
-          "JO 2026 dnr 3456-2026: Vägran att lämna ut journalanteckningar → grovt fel + Lex Sarah.",
-          "JK 2025-10-05: Systematisk underlåtenhet att lämna ut handlingar → tjänstefel + JO-remiss.",
-          "IVO 2025-12-12: Underlåten partsinsyn vid barnutredning → Lex Sarah + JO-remiss.",
-          "JO 2026 dnr 9876-2026: Bristande aktinsyn trots uppenbart behov → rättsosäkerhet."
-        ]
-      }
+      "id": "fl_2017_900_21p",
+      "paragraf": "21 §",
+      "rubrik": "",
+      "text": "anser att det behövs.\n\nHur ankomstdagen för handlingar bestäms",
+      "stycken": [
+        "anser att det behövs.",
+        "Hur ankomstdagen för handlingar bestäms"
+      ],
+      "nyckelord": [
+        "anser",
+        "behövs",
+        "ankomstdagen",
+        "handlingar",
+        "bestäms"
+      ],
+      "relaterade_lagrum": [],
+      "kategori": "Allmänna bestämmelser"
     },
     {
-      "id": "fl_2017_27",
-      "section": 27,
-      "principleType": "undantag från tillämpning",
-      "text": "I brottsbekämpande verksamhet hos Kustbevakningen, Polismyndigheten, Skatteverket, Säkerhetspolisen, Tullverket eller en åklagarmyndighet tillämpas inte 9 § andra stycket och 10–49 §§.",
-      "keywords": ["undantag", "brottsbekämpning", "tillämpningsområde"],
-      "relatedRules": ["MYND-01"],
-      "metadata": {
-        "validFrom": "2018-07-01",
-        "legalWeight": "medel",
-        "riskTrigger": false,
-        "evidentiaryThreshold": "ej tillämplig",
-        "typicalApplication": "Ej relevant i civila SoL-ärenden, men viktigt för att förstå lagens avgränsning.",
-        "praxisNotes": [
-          "JO 2024 dnr 6543-2024: Polismyndighetens brottsbekämpande verksamhet undantagen från FL 9–49 §§ → JO bekräftar avgränsning.",
-          "HFD 2025 ref. 12: Säkerhetspolisens ärendehandläggning undantagen → rättssäkerhet ej eftersatt inom undantaget.",
-          "JO 2026 dnr 7890-2026: Tullverkets brottsbekämpande verksamhet → FL-tillämpning korrekt avgränsad."
-        ]
-      }
+      "id": "fl_2017_900_22p",
+      "paragraf": "22 §",
+      "rubrik": "handlingen når myndigheten eller en behörig",
+      "text": "befattningshavare.\n\nOm en handling genom en postförsändelse eller en avi om en \nbetald postförsändelse som innehåller handlingen har nått en \nmyndighet eller behörig befattningshavare en viss dag, ska \nhandlingen dock anses ha kommit in närmast föregående \narbetsdag, om det inte framstår som osannolikt att handlingen \neller avin redan den föregående arbetsdagen skilts av för \nmyndigheten på ett postkontor.\n\nEn handling som finns i en myndighets postlåda när \nmyndigheten tömmer den första gången en viss dag ska anses ha \nkommit in närmast föregående arbetsdag.\n\nBeredning av ärenden\n\nUtredningsansvaret",
+      "stycken": [
+        "befattningshavare.",
+        "Om en handling genom en postförsändelse eller en avi om en \nbetald postförsändelse som innehåller handlingen har nått en \nmyndighet eller behörig befattningshavare en viss dag, ska \nhandlingen dock anses ha kommit in närmast föregående \narbetsdag, om det inte framstår som osannolikt att handlingen \neller avin redan den föregående arbetsdagen skilts av för \nmyndigheten på ett postkontor.",
+        "En handling som finns i en myndighets postlåda när \nmyndigheten tömmer den första gången en viss dag ska anses ha \nkommit in närmast föregående arbetsdag.",
+        "Beredning av ärenden",
+        "Utredningsansvaret"
+      ],
+      "nyckelord": [
+        "handlingen",
+        "föregående",
+        "befattningshavare",
+        "handling",
+        "postförsändelse",
+        "viss"
+      ],
+      "relaterade_lagrum": [
+        "2 kap. 1 § AML",
+        "3 kap. 2 § AML",
+        "1 kap. FL",
+        "2 kap. FL"
+      ],
+      "kategori": "Allmänna bestämmelser"
     },
     {
-      "id": "fl_2017_31",
-      "section": 31,
-      "principleType": "undantag från tillämpning",
-      "text": "Vid handläggning av sådana ärenden hos myndigheter i kommuner och landsting där besluten kan laglighetsprövas genom att överklagas enligt 13 kap. kommunallagen (2017:725) tillämpas inte 9 § andra stycket, 10–12, 16–20 och 23–49 §§.",
-      "keywords": ["undantag", "kommunala ärenden", "laglighetsprövning"],
-      "relatedRules": ["PROC-02", "MYND-01"],
-      "metadata": {
-        "validFrom": "2018-07-01",
-        "legalWeight": "medel",
-        "riskTrigger": false,
-        "evidentiaryThreshold": "ej tillämplig",
-        "typicalApplication": "Ej relevant i civila SoL-ärenden, men viktigt för att förstå lagens avgränsning.",
-        "praxisNotes": [
-          "JO 2025 dnr 3210-2025: Kommunala beslut under kommunallagen undantagna från FL 9–49 §§ → JO bekräftar avgränsning.",
-          "HFD 2024 ref. 123: Laglighetsprövning enligt kommunallagen → FL-tillämpning korrekt begränsad.",
-          "JO 2026 dnr 4321-2026: Kommunalt beslut om bistånd undantaget från FL 23 § → rättssäkerhet ej eftersatt inom undantaget."
-        ]
-      }
+      "id": "fl_2017_900_23p",
+      "paragraf": "23 §",
+      "rubrik": "",
+      "text": "den omfattning som dess beskaffenhet kräver.\n\nEn enskild part som inleder ett ärende ska medverka genom att \nså långt som möjligt ge in den utredning som parten vill \nåberopa till stöd för sin framställning.\n\nOm det behövs ska myndigheten genom frågor och påpekanden \nverka för att parten förtydligar eller kompletterar \nframställningen.\n\nNär får man lämna uppgifter muntligt?",
+      "stycken": [
+        "den omfattning som dess beskaffenhet kräver.",
+        "En enskild part som inleder ett ärende ska medverka genom att \nså långt som möjligt ge in den utredning som parten vill \nåberopa till stöd för sin framställning.",
+        "Om det behövs ska myndigheten genom frågor och påpekanden \nverka för att parten förtydligar eller kompletterar \nframställningen.",
+        "När får man lämna uppgifter muntligt?"
+      ],
+      "nyckelord": [
+        "parten",
+        "omfattning",
+        "dess",
+        "beskaffenhet",
+        "kräver",
+        "enskild"
+      ],
+      "relaterade_lagrum": [
+        "1 kap. FL",
+        "2 kap. FL"
+      ],
+      "kategori": "Allmänna bestämmelser"
     },
     {
-      "id": "fl_2017_32",
-      "section": 32,
-      "principleType": "motivering",
-      "text": "Ett beslut ska vara skriftligt och innehålla en motivering, om det inte är uppenbart obehövligt.",
-      "keywords": ["motivering", "skriftligt beslut"],
-      "relatedRules": ["PROC-02", "MYND-01"],
-      "metadata": {
-        "validFrom": "2018-07-01",
-        "legalWeight": "hög",
-        "riskTrigger": true,
-        "evidentiaryThreshold": "saknad motivering",
-        "typicalApplication": "Muntliga avslag utan skriftlig motivering trots upprepad begäran.",
-        "praxisNotes": [
-          "JO 2024 dnr 6543-2024: Vägran att fatta skriftligt beslut trots begäran → grovt fel → JO-kritik.",
-          "HFD 2025 ref. 12: Bristande motivering vid avslag på akut bistånd → upphävande + SkL-hänvisning.",
-          "JO 2025 dnr 3210-2025: Muntligt avslag utan motivering i barnärende → rättssäkerhet eftersatt.",
-          "JK 2026-04-15: Underlåten motivering av oproportionerligt beslut → processuellt fel.",
-          "IVO 2026-02-28: Systematisk underlåtenhet att motivera avslag → Lex Sarah-utlösande.",
-          "JO 2026 dnr 7890-2026: Utebliven motivering vid avslag på ekonomiskt bistånd → rättsosäkerhet + JO-kritik.",
-          "HFD 2024 ref. 123: Bristande motivering vid avslag på SIP → rättsförlust → upphävande.",
-          "JO 2025 dnr 4321-2025: Underlåten motivering trots uppenbart behov → grovt fel."
-        ]
-      }
+      "id": "fl_2017_900_24p",
+      "paragraf": "24 §",
+      "rubrik": "ärende ska myndigheten ge parten tillfälle till det, om det",
+      "text": "inte framstår som obehövligt. Myndigheten bestämmer hur detta \nska ske.\n\nKommunikation",
+      "stycken": [
+        "inte framstår som obehövligt. Myndigheten bestämmer hur detta \nska ske.",
+        "Kommunikation"
+      ],
+      "nyckelord": [
+        "framstår",
+        "obehövligt",
+        "myndigheten",
+        "bestämmer",
+        "kommunikation"
+      ],
+      "relaterade_lagrum": [
+        "1 kap. FL",
+        "2 kap. FL"
+      ],
+      "kategori": "Allmänna bestämmelser"
     },
     {
-      "id": "fl_2017_33",
-      "section": 33,
-      "principleType": "överklagande",
-      "text": "Ett beslut får överklagas till den högre instans som är behörig, om inte annat följer av annan författning.",
-      "keywords": ["överklagande", "besvärsrätt"],
-      "relatedRules": ["PROC-02"],
-      "metadata": {
-        "validFrom": "2018-07-01",
-        "legalWeight": "hög",
-        "riskTrigger": true,
-        "evidentiaryThreshold": "underlåten information om besvärsrätt",
-        "typicalApplication": "Underlåten information om överklagande i beslut om avslag på bistånd.",
-        "praxisNotes": [
-          "JO 2024 dnr 6543-2024: Underlåten information om besvärsrätt i SoL-beslut → rättsförlust → JO-kritik.",
-          "HFD 2025 ref. 12: Bristande upplysning om överklagandeinstans → rättsosäkerhet → upphävande.",
-          "JO 2025 dnr 3210-2025: Felaktig information om överklagandeinstans → processuellt fel.",
-          "JK 2026-03-01: Underlåten besvärsinformation vid avslag → tjänstefel + SkL-hänvisning.",
-          "JO 2026 dnr 7890-2026: Bristande besvärsinformation trots uppenbart behov → rättsosäkerhet."
-        ]
-      }
+      "id": "fl_2017_900_25p",
+      "paragraf": "25 §",
+      "rubrik": "den, om det inte är uppenbart obehövligt, underrätta den som",
+      "text": "är part om allt material av betydelse för beslutet och ge \nparten tillfälle att inom en bestämd tid yttra sig över \nmaterialet. Myndigheten får dock avstå från sådan \nkommunikation, om\n\n1. ärendet gäller anställning av någon och det inte är fråga \nom prövning i högre instans efter överklagande,\n\n2. det kan befaras att det annars skulle bli avsevärt svårare \natt genomföra beslutet, eller\n\n3. ett väsentligt allmänt eller enskilt intresse kräver att \nbeslutet meddelas omedelbart.\n\nMyndigheten bestämmer hur underrättelse ska ske. \nUnderrättelse får ske genom delgivning.\n\nUnderrättelseskyldigheten gäller med de begränsningar som \nföljer av 10 kap. 3 § offentlighets- och sekretesslagen \n(2009:400).\n\nRemiss",
+      "stycken": [
+        "är part om allt material av betydelse för beslutet och ge \nparten tillfälle att inom en bestämd tid yttra sig över \nmaterialet. Myndigheten får dock avstå från sådan \nkommunikation, om",
+        "1. ärendet gäller anställning av någon och det inte är fråga \nom prövning i högre instans efter överklagande,",
+        "2. det kan befaras att det annars skulle bli avsevärt svårare \natt genomföra beslutet, eller",
+        "3. ett väsentligt allmänt eller enskilt intresse kräver att \nbeslutet meddelas omedelbart.",
+        "Myndigheten bestämmer hur underrättelse ska ske. \nUnderrättelse får ske genom delgivning.",
+        "Underrättelseskyldigheten gäller med de begränsningar som \nföljer av 10 kap. 3 § offentlighets- och sekretesslagen \n(2009:400).",
+        "Remiss"
+      ],
+      "nyckelord": [
+        "beslutet",
+        "myndigheten",
+        "gäller",
+        "underrättelse",
+        "part",
+        "allt"
+      ],
+      "relaterade_lagrum": [
+        "7 § LAS",
+        "11 § LAS",
+        "32 § LAS",
+        "26 kap. 1 § OSL"
+      ],
+      "kategori": "Ansökan och beslut"
     },
     {
-      "id": "fl_2017_34",
-      "section": 34,
-      "principleType": "inhibition",
-      "text": "Ett överklagat beslut får inhiberas om det finns synnerliga skäl.",
-      "keywords": ["inhibition", "suspensiv verkan"],
-      "relatedRules": ["PROC-02"],
-      "metadata": {
-        "validFrom": "2018-07-01",
-        "legalWeight": "medel",
-        "riskTrigger": true,
-        "evidentiaryThreshold": "underlåten inhibition",
-        "typicalApplication": "Underlåten inhibition trots fortsatt nödsituation under överklagande.",
-        "praxisNotes": [
-          "JO 2025 dnr 7890-2025: Underlåten inhibition trots akut barnrisk under överklagande → rättsförlust → JO-kritik.",
-          "HFD 2024 ref. 123: Synnerliga skäl för inhibition vid fortsatt skada → inhibition beviljad.",
-          "JO 2026 dnr 3456-2026: Underlåten inhibition vid ekonomisk katastrof → grovt fel.",
-          "JK 2026-02-10: Bristande inhibition vid avstängning av el/telefon → processuellt fel + SkL-hänvisning."
-        ]
-      }
+      "id": "fl_2017_900_26p",
+      "paragraf": "26 §",
+      "rubrik": "enligt 23 § begära ett yttrande från en annan myndighet eller",
+      "text": "från någon enskild (remiss).\n\nOm en myndighet behöver inhämta yttranden från flera ska det \ngöras samtidigt, om inte ett annat tillvägagångssätt framstår \nsom lämpligare.\n\nDet ska framgå av remissen vad yttrandet ska avse och när det \nsenast ska ha kommit in till myndigheten.\n\nDokumentation av uppgifter",
+      "stycken": [
+        "från någon enskild (remiss).",
+        "Om en myndighet behöver inhämta yttranden från flera ska det \ngöras samtidigt, om inte ett annat tillvägagångssätt framstår \nsom lämpligare.",
+        "Det ska framgå av remissen vad yttrandet ska avse och när det \nsenast ska ha kommit in till myndigheten.",
+        "Dokumentation av uppgifter"
+      ],
+      "nyckelord": [
+        "någon",
+        "enskild",
+        "remiss",
+        "myndighet",
+        "behöver",
+        "inhämta"
+      ],
+      "relaterade_lagrum": [
+        "1 kap. FL",
+        "2 kap. FL"
+      ],
+      "kategori": "Allmänna bestämmelser"
+    },
+    {
+      "id": "fl_2017_900_27p",
+      "paragraf": "27 §",
+      "rubrik": "genom en handling ska snarast dokumentera dem, om de kan ha",
+      "text": "betydelse för ett beslut i ärendet. Det ska framgå av \ndokumentationen när den har gjorts och av vem.\n\nMyndighetens beslut\n\nHur beslut fattas",
+      "stycken": [
+        "betydelse för ett beslut i ärendet. Det ska framgå av \ndokumentationen när den har gjorts och av vem.",
+        "Myndighetens beslut",
+        "Hur beslut fattas"
+      ],
+      "nyckelord": [
+        "beslut",
+        "betydelse",
+        "ärendet",
+        "framgå",
+        "dokumentationen",
+        "gjorts"
+      ],
+      "relaterade_lagrum": [
+        "1 kap. FL",
+        "2 kap. FL"
+      ],
+      "kategori": "Ansökan och beslut"
+    },
+    {
+      "id": "fl_2017_900_28p",
+      "paragraf": "28 §",
+      "rubrik": "eller av flera gemensamt eller automatiserat. Vid den",
+      "text": "slutliga handläggningen kan föredragande och andra \nbefattningshavare medverka utan att delta i avgörandet.\n\nNär flera ska fatta beslut gemensamt och de inte kan enas, \nska ordföranden presentera de olika förslag till beslut som \nhar förts fram. Varje förslag ska presenteras så att det kan \nbesvaras med antingen ja eller nej.\n\nNär de som deltar i avgörandet har fått ta ställning till \nförslagen, meddelar ordföranden vad som enligt hans eller \nhennes uppfattning har beslutats. Detta blir beslutet, om \ninte omröstning begärs.\n\nOmröstning",
+      "stycken": [
+        "slutliga handläggningen kan föredragande och andra \nbefattningshavare medverka utan att delta i avgörandet.",
+        "När flera ska fatta beslut gemensamt och de inte kan enas, \nska ordföranden presentera de olika förslag till beslut som \nhar förts fram. Varje förslag ska presenteras så att det kan \nbesvaras med antingen ja eller nej.",
+        "När de som deltar i avgörandet har fått ta ställning till \nförslagen, meddelar ordföranden vad som enligt hans eller \nhennes uppfattning har beslutats. Detta blir beslutet, om \ninte omröstning begärs.",
+        "Omröstning"
+      ],
+      "nyckelord": [
+        "avgörandet",
+        "beslut",
+        "ordföranden",
+        "förslag",
+        "omröstning",
+        "slutliga"
+      ],
+      "relaterade_lagrum": [],
+      "kategori": "Ansökan och beslut"
+    },
+    {
+      "id": "fl_2017_900_29p",
+      "paragraf": "29 §",
+      "rubrik": "omröstningen finns fler än två förslag, ska man först avgöra",
+      "text": "vilket förslag som ska ställas mot det som ordföranden anser \nhar beslutats.\n\nOmröstningen avgörs genom enkel majoritet. Om det blir lika \nröstetal har ordföranden utslagsröst.\n\nVarje ledamot som deltar i den slutliga handläggningen ska \ndelta även i avgörandet. Ordföranden ska alltid rösta om det \nbehövs för att ärendet ska kunna avgöras. Andra ledamöter \nbehöver dock inte rösta för mer än ett förslag.\n\nReservation och avvikande mening",
+      "stycken": [
+        "vilket förslag som ska ställas mot det som ordföranden anser \nhar beslutats.",
+        "Omröstningen avgörs genom enkel majoritet. Om det blir lika \nröstetal har ordföranden utslagsröst.",
+        "Varje ledamot som deltar i den slutliga handläggningen ska \ndelta även i avgörandet. Ordföranden ska alltid rösta om det \nbehövs för att ärendet ska kunna avgöras. Andra ledamöter \nbehöver dock inte rösta för mer än ett förslag.",
+        "Reservation och avvikande mening"
+      ],
+      "nyckelord": [
+        "ordföranden",
+        "förslag",
+        "rösta",
+        "ställas",
+        "anser",
+        "beslutats"
+      ],
+      "relaterade_lagrum": [],
+      "kategori": "Ansökan och beslut"
+    },
+    {
+      "id": "fl_2017_900_30p",
+      "paragraf": "30 §",
+      "rubrik": "deltar i avgörandet rätt att reservera sig mot beslutet genom",
+      "text": "att få en avvikande mening antecknad. Den som inte gör det \nska anses ha ställt sig bakom beslutet.\n\nDen som medverkar vid den slutliga handläggningen av ett \närende utan att delta i avgörandet har alltid rätt att få en \navvikande mening antecknad.\n\nEn avvikande mening ska anmälas innan myndigheten expedierar \nbeslutet eller på annat sätt gör det tillgängligt för \nutomstående. Om beslutet inte ska göras tillgängligt för \nutomstående, ska anmälan göras senast när beslutet får sin \nslutliga form.\n\nDokumentation av beslut",
+      "stycken": [
+        "att få en avvikande mening antecknad. Den som inte gör det \nska anses ha ställt sig bakom beslutet.",
+        "Den som medverkar vid den slutliga handläggningen av ett \närende utan att delta i avgörandet har alltid rätt att få en \navvikande mening antecknad.",
+        "En avvikande mening ska anmälas innan myndigheten expedierar \nbeslutet eller på annat sätt gör det tillgängligt för \nutomstående. Om beslutet inte ska göras tillgängligt för \nutomstående, ska anmälan göras senast när beslutet får sin \nslutliga form.",
+        "Dokumentation av beslut"
+      ],
+      "nyckelord": [
+        "beslutet",
+        "avvikande",
+        "mening",
+        "antecknad",
+        "slutliga",
+        "tillgängligt"
+      ],
+      "relaterade_lagrum": [
+        "1 kap. FL",
+        "2 kap. FL"
+      ],
+      "kategori": "Ansökan och beslut"
+    },
+    {
+      "id": "fl_2017_900_31p",
+      "paragraf": "31 §",
+      "rubrik": "som visar",
+      "text": "1. dagen för beslutet,\n\n2. vad beslutet innehåller,\n\n3. vem eller vilka som har fattat beslutet,\n\n4. vem eller vilka som har varit föredragande, och\n\n5. vem eller vilka som har medverkat vid den slutliga \nhandläggningen utan att delta i avgörandet.\n\nMotivering av beslut",
+      "stycken": [
+        "1. dagen för beslutet,",
+        "2. vad beslutet innehåller,",
+        "3. vem eller vilka som har fattat beslutet,",
+        "4. vem eller vilka som har varit föredragande, och",
+        "5. vem eller vilka som har medverkat vid den slutliga \nhandläggningen utan att delta i avgörandet.",
+        "Motivering av beslut"
+      ],
+      "nyckelord": [
+        "beslutet",
+        "dagen",
+        "innehåller",
+        "fattat",
+        "varit",
+        "föredragande"
+      ],
+      "relaterade_lagrum": [],
+      "kategori": "Ansökan och beslut"
+    },
+    {
+      "id": "fl_2017_900_32p",
+      "paragraf": "32 §",
+      "rubrik": "inte obetydligt sätt ska innehålla en klargörande motivering,",
+      "text": "om det inte är uppenbart obehövligt. En sådan motivering ska \ninnehålla uppgifter om vilka föreskrifter som har tillämpats \noch vilka omständigheter som har varit avgörande för \nmyndighetens ställningstagande.\n\nEn motivering får helt eller delvis utelämnas, om\n\n1. beslutet gäller anställning av någon,\n\n2. ett väsentligt allmänt eller enskilt intresse kräver att \nbeslutet meddelas omedelbart,\n\n3. det är nödvändigt med hänsyn till rikets säkerhet, skyddet \nför enskildas personliga eller ekonomiska förhållanden eller \nnågot annat jämförbart förhållande, eller\n\n4. beslutet gäller meddelande av föreskrifter som avses i 8 \nkap. regeringsformen.\n\nOm motiveringen har utelämnats enligt andra stycket 1, 2 \neller 3 ska myndigheten om möjligt ge en motivering i \nefterhand, om någon enskild begär det och det behövs för att \nhan eller hon ska kunna ta till vara sin rätt.\n\nUnderrättelse om innehållet i beslut och hur ett överklagande \ngår till",
+      "stycken": [
+        "om det inte är uppenbart obehövligt. En sådan motivering ska \ninnehålla uppgifter om vilka föreskrifter som har tillämpats \noch vilka omständigheter som har varit avgörande för \nmyndighetens ställningstagande.",
+        "En motivering får helt eller delvis utelämnas, om",
+        "1. beslutet gäller anställning av någon,",
+        "2. ett väsentligt allmänt eller enskilt intresse kräver att \nbeslutet meddelas omedelbart,",
+        "3. det är nödvändigt med hänsyn till rikets säkerhet, skyddet \nför enskildas personliga eller ekonomiska förhållanden eller \nnågot annat jämförbart förhållande, eller",
+        "4. beslutet gäller meddelande av föreskrifter som avses i 8 \nkap. regeringsformen.",
+        "Om motiveringen har utelämnats enligt andra stycket 1, 2 \neller 3 ska myndigheten om möjligt ge en motivering i \nefterhand, om någon enskild begär det och det behövs för att \nhan eller hon ska kunna ta till vara sin rätt.",
+        "Underrättelse om innehållet i beslut och hur ett överklagande \ngår till"
+      ],
+      "nyckelord": [
+        "motivering",
+        "beslutet",
+        "föreskrifter",
+        "gäller",
+        "någon",
+        "uppenbart"
+      ],
+      "relaterade_lagrum": [
+        "7 § LAS",
+        "11 § LAS",
+        "32 § LAS",
+        "1 kap. FL"
+      ],
+      "kategori": "Definitioner"
+    },
+    {
+      "id": "fl_2017_900_33p",
+      "paragraf": "33 §",
+      "rubrik": "snart som möjligt underrätta den som är part om det",
+      "text": "fullständiga innehållet i beslutet, om det inte är uppenbart \nobehövligt.\n\nOm parten får överklaga beslutet ska han eller hon även \nunderrättas om hur det går till. Myndigheten ska samtidigt \nupplysa parten om avvikande meningar som har antecknats enligt",
+      "stycken": [
+        "fullständiga innehållet i beslutet, om det inte är uppenbart \nobehövligt.",
+        "Om parten får överklaga beslutet ska han eller hon även \nunderrättas om hur det går till. Myndigheten ska samtidigt \nupplysa parten om avvikande meningar som har antecknats enligt"
+      ],
+      "nyckelord": [
+        "beslutet",
+        "parten",
+        "fullständiga",
+        "innehållet",
+        "uppenbart",
+        "obehövligt"
+      ],
+      "relaterade_lagrum": [
+        "1 kap. FL",
+        "2 kap. FL"
+      ],
+      "kategori": "Ansökan och beslut"
+    },
+    {
+      "id": "fl_2017_900_30p",
+      "paragraf": "30 §",
+      "rubrik": "författning. En underrättelse om hur man överklagar ska",
+      "text": "innehålla information om vilka krav som ställs på \növerklagandets form och innehåll och vad som gäller i fråga om \ningivande och överklagandetid.\n\nMyndigheten bestämmer hur underrättelsen ska ske. En \nunderrättelse ska dock alltid vara skriftlig om en part begär \ndet. Underrättelse får ske genom delgivning.\n\nEn skriftlig underrättelse behöver inte innehålla uppgift om \nen sådan person som avses i 31 §, om det kan befaras att \npersonen utsätts för hot, trakasserier eller annan allvarlig \nolägenhet. Lag (2025:582).",
+      "stycken": [
+        "innehålla information om vilka krav som ställs på \növerklagandets form och innehåll och vad som gäller i fråga om \ningivande och överklagandetid.",
+        "Myndigheten bestämmer hur underrättelsen ska ske. En \nunderrättelse ska dock alltid vara skriftlig om en part begär \ndet. Underrättelse får ske genom delgivning.",
+        "En skriftlig underrättelse behöver inte innehålla uppgift om \nen sådan person som avses i 31 §, om det kan befaras att \npersonen utsätts för hot, trakasserier eller annan allvarlig \nolägenhet. Lag (2025:582)."
+      ],
+      "nyckelord": [
+        "underrättelse",
+        "innehålla",
+        "skriftlig",
+        "information",
+        "krav",
+        "ställs"
+      ],
+      "relaterade_lagrum": [
+        "1 kap. FL",
+        "2 kap. FL"
+      ],
+      "kategori": "Definitioner"
+    },
+    {
+      "id": "fl_2017_900_34p",
+      "paragraf": "34 §",
+      "rubrik": "beslut och hur ett överklagande går till tillämpas också om",
+      "text": "någon som inte är part begär att få ta del av ett beslut som \nhan eller hon får överklaga.\n\nNär beslut får verkställas",
+      "stycken": [
+        "någon som inte är part begär att få ta del av ett beslut som \nhan eller hon får överklaga.",
+        "När beslut får verkställas"
+      ],
+      "nyckelord": [
+        "beslut",
+        "någon",
+        "part",
+        "begär",
+        "överklaga",
+        "verkställas"
+      ],
+      "relaterade_lagrum": [],
+      "kategori": "Ansökan och beslut"
+    },
+    {
+      "id": "fl_2017_900_35p",
+      "paragraf": "35 §",
+      "rubrik": "verkställas när överklagandetiden har gått ut, om beslutet",
+      "text": "inte har överklagats.\n\nEtt beslut får alltid verkställas omedelbart, om\n\n1. beslutet gäller anställning av någon,\n\n2. beslutet gäller endast tillfälligt, eller\n\n3. kretsen av dem som har rätt att överklaga är så vid eller \nobestämd att det inte går att avgöra när överklagandetiden \ngår ut.\n\nEn myndighet får även verkställa ett beslut omedelbart om ett \nväsentligt allmänt eller enskilt intresse kräver det. \nMyndigheten ska dock först noga överväga om det finns skäl \natt avvakta med att verkställa beslutet på grund av\n\n1. att beslutet medför mycket ingripande verkningar för någon \nenskild,\n\n2. att verkställigheten inte kan återgå om ett överklagande \nav beslutet leder till att det upphävs, eller\n\n3. någon annan omständighet.\n\nRättelse och ändring av beslut\n\nRättelse av skrivfel och liknande",
+      "stycken": [
+        "inte har överklagats.",
+        "Ett beslut får alltid verkställas omedelbart, om",
+        "1. beslutet gäller anställning av någon,",
+        "2. beslutet gäller endast tillfälligt, eller",
+        "3. kretsen av dem som har rätt att överklaga är så vid eller \nobestämd att det inte går att avgöra när överklagandetiden \ngår ut.",
+        "En myndighet får även verkställa ett beslut omedelbart om ett \nväsentligt allmänt eller enskilt intresse kräver det. \nMyndigheten ska dock först noga överväga om det finns skäl \natt avvakta med att verkställa beslutet på grund av",
+        "1. att beslutet medför mycket ingripande verkningar för någon \nenskild,",
+        "2. att verkställigheten inte kan återgå om ett överklagande \nav beslutet leder till att det upphävs, eller",
+        "3. någon annan omständighet.",
+        "Rättelse och ändring av beslut",
+        "Rättelse av skrivfel och liknande"
+      ],
+      "nyckelord": [
+        "beslutet",
+        "beslut",
+        "någon",
+        "omedelbart",
+        "gäller",
+        "verkställa"
+      ],
+      "relaterade_lagrum": [
+        "7 § LAS",
+        "11 § LAS",
+        "32 § LAS",
+        "1 kap. FL"
+      ],
+      "kategori": "Ansökan och beslut"
+    },
+    {
+      "id": "fl_2017_900_36p",
+      "paragraf": "36 §",
+      "rubrik": "följd av myndighetens eller någon annans skrivfel, räknefel",
+      "text": "eller något annat liknande förbiseende får rättas av den \nmyndighet som har meddelat beslutet.\n\nNär en myndighet får ändra ett beslut",
+      "stycken": [
+        "eller något annat liknande förbiseende får rättas av den \nmyndighet som har meddelat beslutet.",
+        "När en myndighet får ändra ett beslut"
+      ],
+      "nyckelord": [
+        "myndighet",
+        "något",
+        "annat",
+        "liknande",
+        "förbiseende",
+        "rättas"
+      ],
+      "relaterade_lagrum": [
+        "1 kap. FL",
+        "2 kap. FL"
+      ],
+      "kategori": "Ansökan och beslut"
+    },
+    {
+      "id": "fl_2017_900_37p",
+      "paragraf": "37 §",
+      "rubrik": "som första instans om den anser att beslutet är felaktigt på",
+      "text": "grund av att det har tillkommit nya omständigheter eller av \nnågon annan anledning.\n\nEtt beslut som till sin karaktär är gynnande för någon \nenskild part får dock ändras till den enskildes nackdel bara \nom\n\n1. det framgår av beslutet eller de föreskrifter som det har \ngrundats på att beslutet under vissa förutsättningar får \nåterkallas,\n\n2. tvingande säkerhetsskäl kräver att beslutet ändras \nomedelbart, eller\n\n3. felaktigheten beror på att parten har lämnat oriktiga \neller vilseledande uppgifter.\n\nNär en myndighet ska ändra ett beslut",
+      "stycken": [
+        "grund av att det har tillkommit nya omständigheter eller av \nnågon annan anledning.",
+        "Ett beslut som till sin karaktär är gynnande för någon \nenskild part får dock ändras till den enskildes nackdel bara \nom",
+        "1. det framgår av beslutet eller de föreskrifter som det har \ngrundats på att beslutet under vissa förutsättningar får \nåterkallas,",
+        "2. tvingande säkerhetsskäl kräver att beslutet ändras \nomedelbart, eller",
+        "3. felaktigheten beror på att parten har lämnat oriktiga \neller vilseledande uppgifter.",
+        "När en myndighet ska ändra ett beslut"
+      ],
+      "nyckelord": [
+        "beslutet",
+        "någon",
+        "beslut",
+        "ändras",
+        "grund",
+        "tillkommit"
+      ],
+      "relaterade_lagrum": [
+        "1 kap. FL",
+        "2 kap. FL"
+      ],
+      "kategori": "Ansökan och beslut"
+    },
+    {
+      "id": "fl_2017_900_38p",
+      "paragraf": "38 §",
+      "rubrik": "som första instans om",
+      "text": "1. den anser att beslutet är uppenbart felaktigt i något \nväsentligt hänseende på grund av att det har tillkommit nya \nomständigheter eller av någon annan anledning, och\n\n2. beslutet kan ändras snabbt och enkelt och utan att det \nblir till nackdel för någon enskild part.\n\nNär en myndighet får ändra ett beslut som har överklagats",
+      "stycken": [
+        "1. den anser att beslutet är uppenbart felaktigt i något \nväsentligt hänseende på grund av att det har tillkommit nya \nomständigheter eller av någon annan anledning, och",
+        "2. beslutet kan ändras snabbt och enkelt och utan att det \nblir till nackdel för någon enskild part.",
+        "När en myndighet får ändra ett beslut som har överklagats"
+      ],
+      "nyckelord": [
+        "beslutet",
+        "någon",
+        "anser",
+        "uppenbart",
+        "felaktigt",
+        "något"
+      ],
+      "relaterade_lagrum": [
+        "1 kap. FL",
+        "2 kap. FL"
+      ],
+      "kategori": "Ansökan och beslut"
+    },
+    {
+      "id": "fl_2017_900_39p",
+      "paragraf": "39 §",
+      "rubrik": "myndighet som har meddelat det som första instans enbart i",
+      "text": "sådana fall som avses i 38 § och bara om överklagandet och \növriga handlingar i ärendet ännu inte har överlämnats till \nden högre instans som ska pröva överklagandet.\n\nÖverklagande\n\nTill vilken myndighet överklagas beslut?",
+      "stycken": [
+        "sådana fall som avses i 38 § och bara om överklagandet och \növriga handlingar i ärendet ännu inte har överlämnats till \nden högre instans som ska pröva överklagandet.",
+        "Överklagande",
+        "Till vilken myndighet överklagas beslut?"
+      ],
+      "nyckelord": [
+        "överklagandet",
+        "fall",
+        "avses",
+        "övriga",
+        "handlingar",
+        "ärendet"
+      ],
+      "relaterade_lagrum": [
+        "1 kap. FL",
+        "2 kap. FL"
+      ],
+      "kategori": "Definitioner"
+    },
+    {
+      "id": "fl_2017_900_40p",
+      "paragraf": "40 §",
+      "rubrik": "",
+      "text": "Prövningstillstånd krävs vid överklagande till \nkammarrätten.\n\nVilka beslut får överklagas?",
+      "stycken": [
+        "Prövningstillstånd krävs vid överklagande till \nkammarrätten.",
+        "Vilka beslut får överklagas?"
+      ],
+      "nyckelord": [
+        "prövningstillstånd",
+        "krävs",
+        "överklagande",
+        "kammarrätten",
+        "beslut",
+        "överklagas"
+      ],
+      "relaterade_lagrum": [],
+      "kategori": "Ansökan och beslut"
+    },
+    {
+      "id": "fl_2017_900_41p",
+      "paragraf": "41 §",
+      "rubrik": "",
+      "text": "någons situation på ett inte obetydligt sätt.\n\nVem får överklaga ett beslut?",
+      "stycken": [
+        "någons situation på ett inte obetydligt sätt.",
+        "Vem får överklaga ett beslut?"
+      ],
+      "nyckelord": [
+        "någons",
+        "situation",
+        "obetydligt",
+        "sätt",
+        "överklaga",
+        "beslut"
+      ],
+      "relaterade_lagrum": [],
+      "kategori": "Ansökan och beslut"
+    },
+    {
+      "id": "fl_2017_900_42p",
+      "paragraf": "42 §",
+      "rubrik": "",
+      "text": "det har gått honom eller henne emot.\n\nHur överklagar man ett beslut?",
+      "stycken": [
+        "det har gått honom eller henne emot.",
+        "Hur överklagar man ett beslut?"
+      ],
+      "nyckelord": [
+        "gått",
+        "honom",
+        "henne",
+        "emot",
+        "överklagar",
+        "beslut"
+      ],
+      "relaterade_lagrum": [],
+      "kategori": "Ansökan och beslut"
+    },
+    {
+      "id": "fl_2017_900_43p",
+      "paragraf": "43 §",
+      "rubrik": "till den högre instans som ska pröva överklagandet",
+      "text": "(överinstansen). Överklagandet ska dock ges in till den \nmyndighet som har meddelat beslutet (beslutsmyndigheten).\n\nI överklagandet ska den som överklagar ange vilket beslut som \növerklagas och på vilket sätt han eller hon vill att beslutet \nska ändras.\n\nI 3 och 4 §§ förvaltningsprocesslagen (1971:291) finns \nytterligare bestämmelser om vad ett överklagande som ska \nprövas av allmän förvaltningsdomstol ska innehålla.\n\nÖverklagandetiden",
+      "stycken": [
+        "(överinstansen). Överklagandet ska dock ges in till den \nmyndighet som har meddelat beslutet (beslutsmyndigheten).",
+        "I överklagandet ska den som överklagar ange vilket beslut som \növerklagas och på vilket sätt han eller hon vill att beslutet \nska ändras.",
+        "I 3 och 4 §§ förvaltningsprocesslagen (1971:291) finns \nytterligare bestämmelser om vad ett överklagande som ska \nprövas av allmän förvaltningsdomstol ska innehålla.",
+        "Överklagandetiden"
+      ],
+      "nyckelord": [
+        "överklagandet",
+        "beslutet",
+        "överinstansen",
+        "myndighet",
+        "meddelat",
+        "beslutsmyndigheten"
+      ],
+      "relaterade_lagrum": [
+        "1 kap. FL",
+        "2 kap. FL"
+      ],
+      "kategori": "Ansökan och beslut"
+    },
+    {
+      "id": "fl_2017_900_44p",
+      "paragraf": "44 §",
+      "rubrik": "beslutsmyndigheten inom tre veckor från den dag då den som",
+      "text": "överklagar fick del av beslutet genom den myndigheten. Om den \nsom överklagar är en part som företräder det allmänna, ska \növerklagandet dock ha kommit in inom tre veckor från den dag \ndå beslutet meddelades.\n\nBeslutsmyndighetens åtgärder",
+      "stycken": [
+        "överklagar fick del av beslutet genom den myndigheten. Om den \nsom överklagar är en part som företräder det allmänna, ska \növerklagandet dock ha kommit in inom tre veckor från den dag \ndå beslutet meddelades.",
+        "Beslutsmyndighetens åtgärder"
+      ],
+      "nyckelord": [
+        "överklagar",
+        "beslutet",
+        "fick",
+        "myndigheten",
+        "part",
+        "företräder"
+      ],
+      "relaterade_lagrum": [
+        "1 kap. FL",
+        "2 kap. FL"
+      ],
+      "kategori": "Ansökan och beslut"
+    },
+    {
+      "id": "fl_2017_900_45p",
+      "paragraf": "45 §",
+      "rubrik": "i rätt tid. Om det har kommit in för sent ska myndigheten",
+      "text": "besluta att överklagandet inte får tas upp till prövning \n(avvisning).\n\nEtt överklagande ska dock inte avvisas om\n\n1. förseningen beror på att myndigheten inte har lämnat en \nkorrekt underrättelse om hur man överklagar, eller\n\n2. överklagandet har kommit in till överinstansen inom \növerklagandetiden.",
+      "stycken": [
+        "besluta att överklagandet inte får tas upp till prövning \n(avvisning).",
+        "Ett överklagande ska dock inte avvisas om",
+        "1. förseningen beror på att myndigheten inte har lämnat en \nkorrekt underrättelse om hur man överklagar, eller",
+        "2. överklagandet har kommit in till överinstansen inom \növerklagandetiden."
+      ],
+      "nyckelord": [
+        "överklagandet",
+        "besluta",
+        "prövning",
+        "avvisning",
+        "överklagande",
+        "avvisas"
+      ],
+      "relaterade_lagrum": [
+        "1 kap. FL",
+        "2 kap. FL"
+      ],
+      "kategori": "Ansökan och beslut"
+    },
+    {
+      "id": "fl_2017_900_46p",
+      "paragraf": "46 §",
+      "rubrik": "skyndsamt överlämna överklagandet och övriga handlingar i",
+      "text": "ärendet till överinstansen.\n\nOm en myndighet ändrar ett beslut som har överklagats, ska \nden överlämna även det nya beslutet till överinstansen. \nÖverklagandet ska anses omfatta det nya beslutet.\n\nÖverinstansens åtgärder",
+      "stycken": [
+        "ärendet till överinstansen.",
+        "Om en myndighet ändrar ett beslut som har överklagats, ska \nden överlämna även det nya beslutet till överinstansen. \nÖverklagandet ska anses omfatta det nya beslutet.",
+        "Överinstansens åtgärder"
+      ],
+      "nyckelord": [
+        "överinstansen",
+        "beslutet",
+        "ärendet",
+        "myndighet",
+        "ändrar",
+        "beslut"
+      ],
+      "relaterade_lagrum": [
+        "1 kap. FL",
+        "2 kap. FL"
+      ],
+      "kategori": "Ansökan och beslut"
+    },
+    {
+      "id": "fl_2017_900_47p",
+      "paragraf": "47 §",
+      "rubrik": "överklagande på någon annan grund än att det har kommit in",
+      "text": "för sent.\n\nOm ett överklagande felaktigt har getts in till \növerinstansen, ska den myndigheten vidarebefordra \növerklagandet till beslutsmyndigheten och samtidigt ange \nvilken dag som överklagandet kom in till överinstansen.",
+      "stycken": [
+        "för sent.",
+        "Om ett överklagande felaktigt har getts in till \növerinstansen, ska den myndigheten vidarebefordra \növerklagandet till beslutsmyndigheten och samtidigt ange \nvilken dag som överklagandet kom in till överinstansen."
+      ],
+      "nyckelord": [
+        "överinstansen",
+        "överklagandet",
+        "sent",
+        "överklagande",
+        "felaktigt",
+        "getts"
+      ],
+      "relaterade_lagrum": [
+        "1 kap. FL",
+        "2 kap. FL"
+      ],
+      "kategori": "Ansökan och beslut"
+    },
+    {
+      "id": "fl_2017_900_48p",
+      "paragraf": "48 §",
+      "rubrik": "",
+      "text": "tills vidare inte ska gälla.\n\nFöreläggande när handläggningen har försenats",
+      "stycken": [
+        "tills vidare inte ska gälla.",
+        "Föreläggande när handläggningen har försenats"
+      ],
+      "nyckelord": [
+        "tills",
+        "vidare",
+        "gälla",
+        "föreläggande",
+        "handläggningen",
+        "försenats"
+      ],
+      "relaterade_lagrum": [],
+      "kategori": "Ansökan och beslut"
+    },
+    {
+      "id": "fl_2017_900_49p",
+      "paragraf": "49 §",
+      "rubrik": "ett överklagande av ett sådant avslagsbeslut som avses i 12 §",
+      "text": "andra stycket, ska den besluta att förelägga den myndighet \nsom har meddelat avslagsbeslutet att snarast eller inom den \ntid som överinstansen bestämmer avgöra det ärende som \növerklagandet avser.\n\nÖverinstansens beslut får inte överklagas.",
+      "stycken": [
+        "andra stycket, ska den besluta att förelägga den myndighet \nsom har meddelat avslagsbeslutet att snarast eller inom den \ntid som överinstansen bestämmer avgöra det ärende som \növerklagandet avser.",
+        "Överinstansens beslut får inte överklagas."
+      ],
+      "nyckelord": [
+        "andra",
+        "stycket",
+        "besluta",
+        "förelägga",
+        "myndighet",
+        "meddelat"
+      ],
+      "relaterade_lagrum": [
+        "1 kap. FL",
+        "2 kap. FL"
+      ],
+      "kategori": "Definitioner"
+    }
+  ],
+  "overgangsbestammelser": [
+    {
+      "sfs": "okänt",
+      "ikraftträdande": "",
+      "text": "Övergångsbestämmelser\n\n2017:900\n\n1. Denna lag träder i kraft den 1 juli 2018.\n\n2. Genom lagen upphävs förvaltningslagen"
+    },
+    {
+      "sfs": "1986:223",
+      "ikraftträdande": "",
+      "text": "(1986:223).\n\n3. Den upphävda lagen gäller dock fortfarande i den \nutsträckning som det i en annan lag eller förordning finns \nbestämmelser som innehåller hänvisningar till den lagen."
     }
   ]
 }

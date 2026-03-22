@@ -1,0 +1,282 @@
+{
+  "metadata": {
+    "id": "fhs_1995_1301",
+    "titel": "Förordning (1995:1301) om handläggning av skadeståndsanspråk mot staten",
+    "sfs": "1995:1301",
+    "kortnamn": "fhs",
+    "departement": "Justitiedepartementet",
+    "ikraftträdande": "1996-01-01",
+    "senast_ändrad": "2024-01-01",
+    "senast_andrad_sfs": "2024:1024",
+    "rättsområde": "förvaltningsrätt",
+    "kategori": "skadeståndshandläggning",
+    "beskrivning": "Förordning som reglerar vilken statlig myndighet som handlägger skadeståndsanspråk mot staten och hur handläggningen ska gå till.",
+    "antal_paragrafer": 15,
+    "har_kapitelindelning": false,
+    "bilaga": {
+      "rubrik": "Förvaltningsmyndigheter som avses i 5 §",
+      "myndigheter": [
+        "Arbetsförmedlingen", "Bolagsverket", "Centrala studiestödsnämnden",
+        "Domstolsverket", "Ekobrottsmyndigheten", "Försvarets materielverk",
+        "Försvarsmakten", "Försäkringskassan", "Inspektionen för arbetslöshetsförsäkringen",
+        "Konsumentverket", "Kriminalvården", "Kronofogdemyndigheten", "Kustbevakningen",
+        "Lantmäteriet", "Livsmedelsverket", "Luftfartsverket", "Migrationsverket",
+        "Patent- och registreringsverket", "Pensionsmyndigheten", "Polismyndigheten",
+        "Sjöfartsverket", "Skatteverket", "Statens institutionsstyrelse",
+        "Statens jordbruksverk", "Säkerhetspolisen", "Trafikverket",
+        "Transportstyrelsen", "Tullverket", "Åklagarmyndigheten"
+      ]
+    }
+  },
+  "paragrafer": [
+    {
+      "id": "fhs_1p",
+      "paragraf": "1 §",
+      "rubrik": "Tillämpningsområde",
+      "text": "Denna förordning gäller sådana anspråk på ersättning för skador som riktas mot staten.\n\nFörordningen gäller dock inte anspråk på ersättning som grundas på\n1. påstående om att staten inte har fullgjort sina förpliktelser enligt ett avtal, eller\n2. ett statligt anställningsförhållande.",
+      "stycken": [
+        "Denna förordning gäller sådana anspråk på ersättning för skador som riktas mot staten.",
+        "Förordningen gäller dock inte avtalsbetingade anspråk eller anspråk grundade på statliga anställningsförhållanden."
+      ],
+      "nyckelord": ["staten", "skadeståndsanspråk", "tillämpningsområde", "avtal", "anställning"],
+      "relaterade_lagrum": ["3 kap. 2 § SkL", "3 kap. 4 § SkL", "Förordning (1995:1300)"],
+      "kategori": "Allmänna bestämmelser"
+    },
+    {
+      "id": "fhs_2p",
+      "paragraf": "2 §",
+      "rubrik": "Förhållande till andra författningar",
+      "text": "Denna förordning tillämpas oavsett vad som gäller enligt bestämmelser i instruktioner eller andra författningar som har beslutats av regeringen.",
+      "stycken": [
+        "Denna förordning tillämpas oavsett vad som gäller enligt bestämmelser i instruktioner eller andra författningar som har beslutats av regeringen."
+      ],
+      "nyckelord": ["instruktioner", "författningar", "regeringen", "tillämpning"],
+      "relaterade_lagrum": ["1 § Förordning (1995:1301)", "Förordning (1995:1300)"],
+      "kategori": "Allmänna bestämmelser"
+    },
+    {
+      "id": "fhs_3p",
+      "paragraf": "3 §",
+      "rubrik": "Justitiekanslerns handläggning",
+      "text": "Justitiekanslern handlägger anspråk på ersättning med stöd av\n- 36 kap. 21 § brottsbalken,\n- 2 kap. 1 § eller 3 kap. 1, 2 eller 4 § skadeståndslagen (1972:207), om anspråket grundas på ett påstående om felaktigt beslut eller underlåtenhet att meddela beslut,\n- 23 § datalagen (1973:289),\n- artikel 82 i EU:s allmänna dataskyddsförordning (EU) 2016/679 och 7 kap. 1 § lagen (2018:218) med kompletterande bestämmelser till EU:s dataskyddsförordning,\n- 7 kap. 1 § brottsdatalagen (2018:1177),\n- 8 kap. 1 § lagen (2019:1182) om Säkerhetspolisens behandling av personuppgifter,\n- 7 kap. 1 § lagen (2021:1171) om behandling av personuppgifter vid Försvarsmakten,\n- lagen (1998:714) om ersättning vid frihetsberövanden och andra tvångsåtgärder, dock inte anspråk som avses i 8 § i den lagen,\n- 5 kap. 3 § lagen (2017:496) om internationellt polisiärt samarbete, om anspråket grundas på påstående om felaktigt beslut,\n- 26 § lagen (2011:111) om förstörande av vissa hälsofarliga missbrukssubstanser,\n- 46 kap. 20 § skatteförfarandelagen (2011:1244),\n- 28 § kamerabevakningslagen (2018:1200),\n- artikel 84 i förordning (EU) 2019/1896 om den europeiska gräns- och kustbevakningen, och\n- 19 kap. 4 § patentlagen (2024:945).\n\nJustitiekanslern handlägger också andra anspråk på ersättning som grundas på ett påstående om överträdelse av unionsrätten.\n\nAv 4 § följer att vissa anspråk handläggs av Kammarkollegiet. Förordning (2024:1024).",
+      "stycken": [
+        "Justitiekanslern handlägger anspråk grundade på felaktiga myndighetsbeslut, dataskyddsöverträdelser, frihetsberövanden och unionsrättsliga överträdelser.",
+        "Justitiekanslern handlägger också anspråk om överträdelse av unionsrätten.",
+        "Vissa anspråk handläggs av Kammarkollegiet enligt 4 §. Förordning (2024:1024)."
+      ],
+      "nyckelord": ["Justitiekanslern", "handläggning", "felaktigt beslut", "dataskydd", "frihetsberövande", "unionsrätt"],
+      "relaterade_lagrum": ["3 kap. 2 § SkL", "3 kap. 4 § SkL", "4 § Förordning (1995:1301)", "Lag (1998:714)"],
+      "kategori": "Ansökan och beslut"
+    },
+    {
+      "id": "fhs_4p",
+      "paragraf": "4 §",
+      "rubrik": "Kammarkollegiets handläggning",
+      "text": "Kammarkollegiet handlägger\n1. anspråk på ersättning med stöd av jordabalken (18 kap. 4 eller 4 a § eller 19 kap. 37 eller 38 §), lagen om inskrivning av rätt till luftfartyg (51 eller 52 §), fastighetsbildningslagen (19 kap. 5 §), sjölagen (22 kap. 4 eller 5 §), lagen om företagshypotek (5 kap. 1 eller 2 §), lagen om elcertifikat (7 kap. 5 eller 6 §), lagen om vissa utsläpp av växthusgaser (23 §), lagen om energideklaration för byggnader (21 §), lagen om ursprungsgarantier för el (18 §), eller skadeståndslagen 3 kap. 1, 2 eller 4 § vid inskrivningsärenden eller utfärdande av pantbrev,\n2. ärenden som har överlämnats till Kammarkollegiet enligt 9 §, och\n3. ärenden som ska handläggas av Kammarkollegiet på grund av en överenskommelse enligt 4 § förordningen (1995:1300) om statliga myndigheters riskhantering. Förordning (2020:1182).",
+      "stycken": [
+        "Kammarkollegiet handlägger anspråk rörande fastighetsregistrering, inskrivningsärenden och pantbrev.",
+        "Kammarkollegiet handlägger också ärenden som överlämnats av förvaltningsmyndigheter och ärenden enligt riskhanteringsöverenskommelser. Förordning (2020:1182)."
+      ],
+      "nyckelord": ["Kammarkollegiet", "fastighetsregistrering", "inskrivning", "pantbrev", "handläggning"],
+      "relaterade_lagrum": ["3 § Förordning (1995:1301)", "9 § Förordning (1995:1301)", "3 kap. 2 § SkL"],
+      "kategori": "Ansökan och beslut"
+    },
+    {
+      "id": "fhs_5p",
+      "paragraf": "5 §",
+      "rubrik": "Förvaltningsmyndigheternas handläggning",
+      "text": "De förvaltningsmyndigheter som anges i bilagan till denna förordning handlägger andra anspråk än de som anges i 3 och 4 §§, om anspråket avser en skada som har inträffat inom myndighetens verksamhetsområde. I andra fall handläggs sådana anspråk av Justitiekanslern. Förordning (2014:1319).",
+      "stycken": [
+        "Förvaltningsmyndigheter i bilagan handlägger anspråk inom sitt verksamhetsområde.",
+        "Övriga anspråk handläggs av Justitiekanslern. Förordning (2014:1319)."
+      ],
+      "nyckelord": ["förvaltningsmyndighet", "verksamhetsområde", "Justitiekanslern", "handläggning", "bilaga"],
+      "relaterade_lagrum": ["3 § Förordning (1995:1301)", "4 § Förordning (1995:1301)", "6 § Förordning (1995:1301)"],
+      "kategori": "Ansökan och beslut"
+    },
+    {
+      "id": "fhs_6p",
+      "paragraf": "6 §",
+      "rubrik": "Behörighet att förhandla och föra talan",
+      "text": "En myndighet hos vilken ett anspråk på ersättning handläggs förhandlar för statens räkning med den som kräver ersättning. Myndigheten för också statens talan inför domstol.\n\nOm inte annat följer av 8 eller 9 §, får myndigheten på statens vägnar besluta i fråga om skadestånd.",
+      "stycken": [
+        "Den handläggande myndigheten förhandlar och för statens talan.",
+        "Myndigheten får besluta om skadestånd på statens vägnar, om inte 8 eller 9 § gäller."
+      ],
+      "nyckelord": ["förhandling", "statens talan", "domstol", "beslut", "skadestånd", "myndighet"],
+      "relaterade_lagrum": ["7 § Förordning (1995:1301)", "9 § Förordning (1995:1301)", "3 kap. 2 § SkL"],
+      "kategori": "Ansökan och beslut"
+    },
+    {
+      "id": "fhs_7p",
+      "paragraf": "7 §",
+      "rubrik": "Samrådsskyldighet med Justitiekanslern",
+      "text": "En förvaltningsmyndighet som handlägger anspråk på ersättning som framställs med stöd av skadeståndslagen (1972:207), lagen (1998:714) om ersättning vid frihetsberövanden och andra tvångsåtgärder eller 19 § lagen (2007:1150) om tillsyn över hundar och katter ska samråda med Justitiekanslern, om ärendet är av principiell natur eller av stor ekonomisk betydelse.\n\nNär det gäller åtaganden för staten att betala högre ersättning än 250 000 kronor ska myndigheten alltid samråda med Justitiekanslern.\n\nSkyldigheten att samråda gäller inte för Kammarkollegiet. Förordning (2014:1319).",
+      "stycken": [
+        "Förvaltningsmyndigheter ska samråda med Justitiekanslern om principiellt viktiga ärenden eller ärenden av stor ekonomisk betydelse.",
+        "Vid åtaganden över 250 000 kronor är samråd alltid obligatoriskt.",
+        "Skyldigheten gäller inte för Kammarkollegiet. Förordning (2014:1319)."
+      ],
+      "nyckelord": ["samråd", "Justitiekanslern", "principiell", "ekonomisk betydelse", "250 000 kronor"],
+      "relaterade_lagrum": ["6 § Förordning (1995:1301)", "3 § Förordning (1995:1301)", "SkL (1972:207)"],
+      "kategori": "Ansökan och beslut"
+    },
+    {
+      "id": "fhs_9p",
+      "paragraf": "9 §",
+      "rubrik": "Överlämnande av personskadeärenden till Kammarkollegiet",
+      "text": "En förvaltningsmyndighet ska, om inte annat följer av lag eller annan författning, överlämna ärenden om anspråk på ersättning för personskador till Kammarkollegiet. Om ett ärende avser även anspråk på ersättning för någon annan skada, ska hela ärendet överlämnas till kollegiet.\n\nEtt ärende ska inte överlämnas till Kammarkollegiet enligt första stycket, om det avser anspråk på ersättning som framställs med stöd av\n– 3 kap. 2 eller 4 § skadeståndslagen (1972:207),\n– 8 § lagen (1998:714) om ersättning vid frihetsberövanden och andra tvångsåtgärder, eller\n– 19 § lagen (2007:1150) om tillsyn över hundar och katter. Förordning (2018:25).",
+      "stycken": [
+        "Förvaltningsmyndigheter ska överlämna personskadeärenden till Kammarkollegiet.",
+        "Undantag gäller för anspråk grundade på 3 kap. 2 eller 4 § SkL, frihetsberövanden och hundhållning. Förordning (2018:25)."
+      ],
+      "nyckelord": ["personskada", "Kammarkollegiet", "överlämnande", "förvaltningsmyndighet", "undantag"],
+      "relaterade_lagrum": ["4 § Förordning (1995:1301)", "3 kap. 2 § SkL", "Lag (1998:714)"],
+      "kategori": "Ansökan och beslut"
+    },
+    {
+      "id": "fhs_10p",
+      "paragraf": "10 §",
+      "rubrik": "Justitiekanslerns delegation",
+      "text": "Justitiekanslern får uppdra åt en annan myndighet att fullgöra de uppgifter som Justitiekanslern har enligt denna förordning. Justitiekanslern får även ta över handläggningen av ärenden som avses i förordningen. Förordning (2004:986).",
+      "stycken": [
+        "Justitiekanslern kan delegera sina uppgifter till annan myndighet och även ta över ärenden. Förordning (2004:986)."
+      ],
+      "nyckelord": ["Justitiekanslern", "delegation", "uppdrag", "ta över", "handläggning"],
+      "relaterade_lagrum": ["3 § Förordning (1995:1301)", "14 § Förordning (1995:1301)"],
+      "kategori": "Ansökan och beslut"
+    },
+    {
+      "id": "fhs_10ap",
+      "paragraf": "10 a §",
+      "rubrik": "Underrättelse till Kronofogdemyndigheten",
+      "text": "Justitiekanslern ska skyndsamt underrätta Kronofogdemyndigheten om ett beslut att bevilja ersättning enligt 2-4 §§ lagen (1998:714) om ersättning vid frihetsberövanden och andra tvångsåtgärder. Förordning (2022:758).",
+      "stycken": [
+        "Justitiekanslern ska skyndsamt underrätta Kronofogdemyndigheten om beslut om ersättning vid frihetsberövanden. Förordning (2022:758)."
+      ],
+      "nyckelord": ["Kronofogdemyndigheten", "underrättelse", "frihetsberövande", "ersättning", "Justitiekanslern"],
+      "relaterade_lagrum": ["Lag (1998:714)", "3 § Förordning (1995:1301)"],
+      "kategori": "Ansökan och beslut"
+    },
+    {
+      "id": "fhs_11p",
+      "paragraf": "11 §",
+      "rubrik": "Yttrande från Statens skaderegleringsnämnd",
+      "text": "I ett ärende om reglering av personskada ska den handläggande myndigheten begära yttrande från Statens skaderegleringsnämnd när det är fråga om\n\n1. ersättning för inkomstförlust under invaliditetstid, om den medicinska invaliditeten uppgår till minst tio procent eller den årliga förlusten beräknas uppgå till minst ett prisbasbelopp,\n2. ersättning under invaliditetstid för kostnader eller för ideell skada i fall med sådan medicinsk invaliditetsgrad som avses under 1,\n3. ersättning för förlust av underhåll, eller\n4. omprövning av livränta eller engångsbelopp enligt 5 kap. 5 § första stycket skadeståndslagen (1972:207).\n\nMyndigheten ska även begära ett sådant yttrande om ärendet är av principiell natur. Förordning (2019:569).",
+      "stycken": [
+        "Yttrande från Statens skaderegleringsnämnd krävs vid invaliditet över 10 %, förlust av underhåll och omprövning av livränta.",
+        "Yttrande krävs också vid principiellt viktiga ärenden. Förordning (2019:569)."
+      ],
+      "nyckelord": ["Statens skaderegleringsnämnd", "yttrande", "invaliditet", "personskada", "inkomstförlust", "livränta"],
+      "relaterade_lagrum": ["5 kap. 5 § SkL", "12 § Förordning (1995:1301)", "2 kap. 6 § SFB"],
+      "kategori": "Ansökan och beslut"
+    },
+    {
+      "id": "fhs_12p",
+      "paragraf": "12 §",
+      "rubrik": "Yttrande på begäran av skadelidande",
+      "text": "Nämnden skall höras även i andra ärenden om reglering av personskador, om den skadelidande begär det och den handläggande myndigheten inte finner det uppenbart obehövligt.",
+      "stycken": [
+        "Statens skaderegleringsnämnd ska höras om den skadelidande begär det och det inte är uppenbart obehövligt."
+      ],
+      "nyckelord": ["skadelidande", "begäran", "Statens skaderegleringsnämnd", "personskada", "yttrande"],
+      "relaterade_lagrum": ["11 § Förordning (1995:1301)", "13 § Förordning (1995:1301)"],
+      "kategori": "Ansökan och beslut"
+    },
+    {
+      "id": "fhs_13p",
+      "paragraf": "13 §",
+      "rubrik": "Förskott utan nämndens yttrande",
+      "text": "Oavsett bestämmelserna i 11 och 12 §§ får Kammarkollegiet besluta om förskott, om det är uppenbart att staten är ersättningsskyldig med minst förskottsbeloppet. Detsamma gäller en annan handläggande myndighet i fråga om förskott som understiger fem prisbasbelopp enligt 2 kap. 6 och 7 §§ socialförsäkringsbalken.\n\nI ett ärende om regressanspråk från försäkringsföretag behöver nämndens yttrande inte begäras, om företaget begärt yttrande från den nämnd som avses i 6 § trafikförsäkringsförordningen (1976:359). Förordning (2019:569).",
+      "stycken": [
+        "Förskott kan beviljas utan nämndens yttrande om det är uppenbart att staten är skyldig att ersätta.",
+        "Vid regressanspråk från försäkringsföretag kan nämndens yttrande ersättas av annat yttrande. Förordning (2019:569)."
+      ],
+      "nyckelord": ["förskott", "Kammarkollegiet", "prisbasbelopp", "regressanspråk", "försäkringsföretag"],
+      "relaterade_lagrum": ["11 § Förordning (1995:1301)", "4 § Förordning (1995:1301)", "2 kap. 6 § SFB"],
+      "kategori": "Rätt till ersättning"
+    },
+    {
+      "id": "fhs_14p",
+      "paragraf": "14 §",
+      "rubrik": "Ersättning för biträde och utredning",
+      "text": "Justitiekanslern får besluta om ersättning av allmänna medel för biträde och för utredning i ett ärende i den utsträckning kostnaderna inte skall betalas av staten enligt rättshjälpslagen (1996:1619).\n\nOm Justitiekanslern med stöd av 10 § har uppdragit åt en myndighet att i ett visst ärende fullgöra Justitiekanslerns uppgifter, får myndigheten besluta om ersättning enligt första stycket. Förordning (2004:986).",
+      "stycken": [
+        "Justitiekanslern kan bevilja ersättning av allmänna medel för biträde och utredning.",
+        "Delegerad myndighet kan fatta samma beslut. Förordning (2004:986)."
+      ],
+      "nyckelord": ["biträde", "utredning", "allmänna medel", "rättshjälpslagen", "ersättning"],
+      "relaterade_lagrum": ["10 § Förordning (1995:1301)", "rättshjälpslagen (1996:1619)"],
+      "kategori": "Rätt till ersättning"
+    },
+    {
+      "id": "fhs_15p",
+      "paragraf": "15 §",
+      "rubrik": "Överklagandeförbud",
+      "text": "Ett beslut i ett ärende som handläggs enligt denna förordning får inte överklagas.",
+      "stycken": [
+        "Ett beslut i ett ärende som handläggs enligt denna förordning får inte överklagas."
+      ],
+      "nyckelord": ["överklagande", "förbud", "beslut", "handläggning"],
+      "relaterade_lagrum": ["22 kap. FL", "6 § Förordning (1995:1301)"],
+      "kategori": "Överklagande"
+    }
+  ],
+  "overgangsbestammelser": [
+    {
+      "sfs": "1995:1301",
+      "ikraftträdande": "1996-01-01",
+      "text": "1. Denna förordning träder i kraft den 1 januari 1996. 2. Genom förordningen upphävs kungörelsen (1972:416) om statsmyndigheternas skadereglering i vissa fall. 3. I ärenden där framställning om ersättning gjorts före ikraftträdandet tillämpas äldre bestämmelser."
+    },
+    {
+      "sfs": "2000:324",
+      "ikraftträdande": "2000-07-01",
+      "text": "1. Denna förordning träder i kraft den 1 juli 2000. 2. I ärenden där framställan om anspråk har gjorts före ikraftträdandet tillämpas äldre bestämmelser."
+    },
+    {
+      "sfs": "2003:611",
+      "ikraftträdande": "2003-12-01",
+      "text": "1. Denna förordning träder i kraft den 1 december 2003. 2. Äldre föreskrifter gäller fortfarande för ansökningar om ersättning som kommit in till Rikspolisstyrelsen eller Riksåklagaren före ikraftträdandet."
+    },
+    {
+      "sfs": "2004:986",
+      "ikraftträdande": "2005-01-01",
+      "text": "1. Denna förordning träder i kraft den 1 januari 2005. 2. I ärenden där framställning om ersättning har gjorts före ikraftträdandet tillämpas äldre bestämmelser."
+    },
+    {
+      "sfs": "2011:1452",
+      "ikraftträdande": "2012-01-01",
+      "text": "1. Denna förordning träder i kraft den 1 januari 2012. 2. Äldre bestämmelser gäller fortfarande för anspråk på ersättning med stöd av 21 § lagen (1978:880) om betalningssäkring för skatter, tullar och avgifter."
+    },
+    {
+      "sfs": "2014:1319",
+      "ikraftträdande": "2015-01-01",
+      "text": "1. Denna förordning träder i kraft den 1 januari 2015. 2. I ärenden där ersättningsanspråk har framställts före ikraftträdandet gäller 5 § i den äldre lydelsen. 3. Ersättningsärenden som handläggs av Rikspolisstyrelsen ska efter utgången av år 2014 handläggas av Säkerhetspolisen eller Polismyndigheten."
+    },
+    {
+      "sfs": "2017:508",
+      "ikraftträdande": "2017-07-02",
+      "text": "1. Denna förordning träder i kraft den 2 juli 2017. 2. Äldre bestämmelser gäller fortfarande för anspråk på ersättning med stöd av 13 § lagen (2000:343) om internationellt polisiärt samarbete."
+    },
+    {
+      "sfs": "2017:1075",
+      "ikraftträdande": "2018-01-01",
+      "text": "1. Denna förordning träder i kraft den 1 januari 2018. 2. Ärenden som har inletts hos Justitiekanslern före ikraftträdandet men ännu inte har avgjorts handläggs enligt äldre föreskrifter."
+    },
+    {
+      "sfs": "2018:303",
+      "ikraftträdande": "2018-05-25",
+      "text": "1. Denna förordning träder i kraft den 25 maj 2018. 2. Äldre bestämmelser gäller fortfarande för anspråk på ersättning med stöd av 48 § i den upphävda personuppgiftslagen (1998:204)."
+    },
+    {
+      "sfs": "2018:1203",
+      "ikraftträdande": "2018-08-01",
+      "text": "1. Denna förordning träder i kraft den 1 augusti 2018. 2. Äldre bestämmelser gäller fortfarande för anspråk på ersättning med stöd av 44 § i den upphävda kameraövervakningslagen (2013:460)."
+    },
+    {
+      "sfs": "2021:1209",
+      "ikraftträdande": "2022-01-01",
+      "text": "1. Denna förordning träder i kraft den 1 januari 2022. 2. Äldre bestämmelser gäller fortfarande för anspråk på ersättning med stöd av 2 kap. 6 § i den upphävda lagen (2007:258) om behandling av personuppgifter i Försvarsmaktens försvarsunderrättelseverksamhet och 2 kap. 5 § i den upphävda lagen (2007:259) om behandling av personuppgifter i Försvarets radioanstalts försvarsunderrättelse- och utvecklingsverksamhet."
+    }
+  ]
+}

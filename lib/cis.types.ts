@@ -53,7 +53,8 @@ export type CaseType =
   | 'SEKRETESS_OSL' 
   | 'VÅLD_NÄRA_RELATIONER' 
   | 'FAMILJERÄTT' 
-  | 'ASYL_INTEGRATION';
+  | 'ASYL_INTEGRATION'
+  | 'SKADESTÅND';
 
 export interface Atom {
   id: string;

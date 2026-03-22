@@ -1,51 +1,2277 @@
 {
-  "sourceCode": "DL",
-  "sfsNumber": "2008:567",
-  "title": "Diskrimineringslag (2008:567) [cite: 700]",
-  "shortName": "DL",
-  "versionChain": ["2008:567", "2024:123"],
-  "ikraft": "2009-01-01",
-  "description": "Lagen syftar till att motverka diskriminering och främja lika rättigheter och möjligheter oavsett kön, etnicitet, religion, funktionsnedsättning, sexuell läggning eller ålder [cite: 701].",
-  "paragraphs": [
+  "metadata": {
+    "id": "dl_2008_567",
+    "titel": "# **Sektion: Diskrimineringslag (2008:567) **",
+    "sfs": "2008:567",
+    "kortnamn": "dl",
+    "departement": "Arbetsmarknadsdepartementet",
+    "ikraftträdande": "",
+    "senast_ändrad": "",
+    "rättsområde": "arbetsrätt",
+    "kategori": "arbetsrätt",
+    "beskrivning": "Konverterad 2026-03-22",
+    "antal_paragrafer": 93,
+    "antal_kapitel": 7,
+    "har_kapitelindelning": true
+  },
+  "kapitel": [
     {
-      "id": "dl_1_1",
-      "chapter": 1,
-      "section": 1,
-      "principleType": "lagens ändamål",
-      "text": "Denna lag har till ändamål att motverka diskriminering och på andra sätt främja lika rättigheter och möjligheter oavsett kön, könsöverskridande identitet eller uttryck, etnisk tillhörighet, religion eller annan trosuppfattning, funktionsnedsättning, sexuell läggning eller ålder. [cite: 702]",
-      "keywords": ["diskriminering", "lika rättigheter", "mänskliga rättigheter"],
-      "relatedRules": ["RF 2:12", "EKMR"],
-      "metadata": { "validFrom": "2009-01-01", "legalWeight": "lag", "riskTrigger": false }
+      "kapitel": "1",
+      "rubrik": "Inledande bestämmelser",
+      "paragrafer": [
+        {
+          "id": "dl_2008_567_1kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "och på andra sätt främja lika rättigheter och möjligheter",
+          "text": "oavsett kön, könsöverskridande identitet eller uttryck,\netnisk tillhörighet, religion eller annan trosuppfattning,\nfunktionsnedsättning, sexuell läggning eller ålder.\nLag (2014:958).\n\nLagens innehåll",
+          "stycken": [
+            "oavsett kön, könsöverskridande identitet eller uttryck,\netnisk tillhörighet, religion eller annan trosuppfattning,\nfunktionsnedsättning, sexuell läggning eller ålder.\nLag (2014:958).",
+            "Lagens innehåll"
+          ],
+          "nyckelord": [
+            "oavsett",
+            "könsöverskridande",
+            "identitet",
+            "uttryck",
+            "etnisk",
+            "tillhörighet"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "dl_2008_567_1kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "inledande bestämmelser. I andra kapitlet finns bestämmelser om",
+          "text": "förbud mot diskriminering och repressalier. I tredje kapitlet\nfinns bestämmelser om aktiva åtgärder. I fjärde kapitlet finns\nbestämmelser om tillsyn. I femte kapitlet finns bestämmelser om\nersättning och ogiltighet. I sjätte kapitlet finns bestämmelser\nom rättegången.\n\nLagen är tvingande",
+          "stycken": [
+            "förbud mot diskriminering och repressalier. I tredje kapitlet\nfinns bestämmelser om aktiva åtgärder. I fjärde kapitlet finns\nbestämmelser om tillsyn. I femte kapitlet finns bestämmelser om\nersättning och ogiltighet. I sjätte kapitlet finns bestämmelser\nom rättegången.",
+            "Lagen är tvingande"
+          ],
+          "nyckelord": [
+            "kapitlet",
+            "finns",
+            "bestämmelser",
+            "förbud",
+            "diskriminering",
+            "repressalier"
+          ],
+          "relaterade_lagrum": [
+            "1 kap. 4 § DL",
+            "2 kap. 1 § DL",
+            "42 kap. RB",
+            "43 kap. RB"
+          ],
+          "kategori": "Rätt till ersättning"
+        },
+        {
+          "id": "dl_2008_567_1kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "skyldigheter enligt denna lag är utan verkan i den delen.\n\nDiskriminering",
+          "stycken": [
+            "skyldigheter enligt denna lag är utan verkan i den delen.",
+            "Diskriminering"
+          ],
+          "nyckelord": [
+            "skyldigheter",
+            "enligt",
+            "verkan",
+            "delen",
+            "diskriminering"
+          ],
+          "relaterade_lagrum": [
+            "1 kap. 4 § DL",
+            "2 kap. 1 § DL"
+          ],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "dl_2008_567_1kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "1. direkt diskriminering: att någon missgynnas genom att\nbehandlas sämre än någon annan behandlas, har behandlats\neller skulle ha behandlats i en jämförbar situation, om\nmissgynnandet har samband med kön, könsöverskridande\nidentitet eller uttryck, etnisk tillhörighet, religion eller\nannan trosuppfattning, funktionsnedsättning, sexuell läggning\neller ålder,\n\n2. indirekt diskriminering: att någon missgynnas genom\ntillämpning av en bestämmelse, ett kriterium eller ett\nförfaringssätt som framstår som neutralt men som kan komma\natt särskilt missgynna personer med visst kön, viss\nkönsöverskridande identitet eller uttryck, viss etnisk\ntillhörighet, viss religion eller annan trosuppfattning, viss\nfunktionsnedsättning, viss sexuell läggning eller viss ålder,\nsåvida inte bestämmelsen, kriteriet eller förfaringssättet\nhar ett berättigat syfte och de medel som används är lämpliga\noch nödvändiga för att uppnå syftet,\n\n3. bristande tillgänglighet: att en person med en\nfunktionsnedsättning missgynnas genom att sådana åtgärder för\ntillgänglighet inte har vidtagits för att den personen ska\nkomma i en jämförbar situation med personer utan denna\nfunktionsnedsättning som är skäliga utifrån krav på\ntillgänglighet i lag och annan författning, och med hänsyn\ntill\n\n– de ekonomiska och praktiska förutsättningarna,\n\n– varaktigheten och omfattningen av förhållandet eller\nkontakten mellan verksamhetsutövaren och den enskilde, samt\n\n– andra omständigheter av betydelse,\n\n4. trakasserier: ett uppträdande som kränker någons värdighet\noch som har samband med någon av diskrimineringsgrunderna\nkön, könsöverskridande identitet eller uttryck, etnisk\ntillhörighet, religion eller annan trosuppfattning,\nfunktionsnedsättning, sexuell läggning eller ålder,\n\n5. sexuella trakasserier: ett uppträdande av sexuell natur\nsom kränker någons värdighet,\n\n6. instruktioner att diskriminera: order eller instruktioner\natt diskriminera någon på ett sätt som avses i 1–5 och som\nlämnas åt någon som står i lydnads- eller beroendeförhållande\ntill den som lämnar ordern eller instruktionen eller som\ngentemot denna åtagit sig att fullgöra ett uppdrag.\nLag (2014:958).\n\nKön, könsöverskridande identitet eller uttryck, etnisk\ntillhörighet, funktionsnedsättning, sexuell läggning och\nålder",
+          "stycken": [
+            "1. direkt diskriminering: att någon missgynnas genom att\nbehandlas sämre än någon annan behandlas, har behandlats\neller skulle ha behandlats i en jämförbar situation, om\nmissgynnandet har samband med kön, könsöverskridande\nidentitet eller uttryck, etnisk tillhörighet, religion eller\nannan trosuppfattning, funktionsnedsättning, sexuell läggning\neller ålder,",
+            "2. indirekt diskriminering: att någon missgynnas genom\ntillämpning av en bestämmelse, ett kriterium eller ett\nförfaringssätt som framstår som neutralt men som kan komma\natt särskilt missgynna personer med visst kön, viss\nkönsöverskridande identitet eller uttryck, viss etnisk\ntillhörighet, viss religion eller annan trosuppfattning, viss\nfunktionsnedsättning, viss sexuell läggning eller viss ålder,\nsåvida inte bestämmelsen, kriteriet eller förfaringssättet\nhar ett berättigat syfte och de medel som används är lämpliga\noch nödvändiga för att uppnå syftet,",
+            "3. bristande tillgänglighet: att en person med en\nfunktionsnedsättning missgynnas genom att sådana åtgärder för\ntillgänglighet inte har vidtagits för att den personen ska\nkomma i en jämförbar situation med personer utan denna\nfunktionsnedsättning som är skäliga utifrån krav på\ntillgänglighet i lag och annan författning, och med hänsyn\ntill",
+            "– de ekonomiska och praktiska förutsättningarna,",
+            "– varaktigheten och omfattningen av förhållandet eller\nkontakten mellan verksamhetsutövaren och den enskilde, samt",
+            "– andra omständigheter av betydelse,",
+            "4. trakasserier: ett uppträdande som kränker någons värdighet\noch som har samband med någon av diskrimineringsgrunderna\nkön, könsöverskridande identitet eller uttryck, etnisk\ntillhörighet, religion eller annan trosuppfattning,\nfunktionsnedsättning, sexuell läggning eller ålder,",
+            "5. sexuella trakasserier: ett uppträdande av sexuell natur\nsom kränker någons värdighet,",
+            "6. instruktioner att diskriminera: order eller instruktioner\natt diskriminera någon på ett sätt som avses i 1–5 och som\nlämnas åt någon som står i lydnads- eller beroendeförhållande\ntill den som lämnar ordern eller instruktionen eller som\ngentemot denna åtagit sig att fullgöra ett uppdrag.\nLag (2014:958).",
+            "Kön, könsöverskridande identitet eller uttryck, etnisk\ntillhörighet, funktionsnedsättning, sexuell läggning och\nålder"
+          ],
+          "nyckelord": [
+            "någon",
+            "funktionsnedsättning",
+            "viss",
+            "annan",
+            "sexuell",
+            "könsöverskridande"
+          ],
+          "relaterade_lagrum": [
+            "1 kap. 4 § DL",
+            "2 kap. 1 § DL"
+          ],
+          "kategori": "Definitioner"
+        },
+        {
+          "id": "dl_2008_567_1kap_5p",
+          "paragraf": "5 §",
+          "rubrik": "",
+          "text": "1. kön: att någon är kvinna eller man,\n\n2. könsöverskridande identitet eller uttryck: att någon inte\nidentifierar sig som kvinna eller man eller genom sin klädsel\neller på annat sätt ger uttryck för att tillhöra ett annat\nkön,\n\n3. etnisk tillhörighet: nationellt eller etniskt ursprung,\nhudfärg eller annat liknande förhållande,\n\n4. funktionsnedsättning: varaktiga fysiska, psykiska eller\nbegåvningsmässiga begränsningar av en persons funktionsförmåga\nsom till följd av en skada eller en sjukdom fanns vid\nfödelsen, har uppstått därefter eller kan förväntas uppstå,\n\n5. sexuell läggning: homosexuell, bisexuell eller\nheterosexuell läggning, och\n\n6. ålder: uppnådd levnadslängd.\n\nDiskrimineringsgrunden kön omfattar även den som\n\n1. avser att få fastställt eller har fått fastställt ett annat\nkön än det som framgår av folkbokföringen, eller\n\n2. avser att ändra eller har ändrat kroppen genom sådana\nkirurgiska ingrepp som omfattas av lagen (2024:237) om vissa\nkirurgiska ingrepp i könsorganen. Lag (2024:242).",
+          "stycken": [
+            "1. kön: att någon är kvinna eller man,",
+            "2. könsöverskridande identitet eller uttryck: att någon inte\nidentifierar sig som kvinna eller man eller genom sin klädsel\neller på annat sätt ger uttryck för att tillhöra ett annat\nkön,",
+            "3. etnisk tillhörighet: nationellt eller etniskt ursprung,\nhudfärg eller annat liknande förhållande,",
+            "4. funktionsnedsättning: varaktiga fysiska, psykiska eller\nbegåvningsmässiga begränsningar av en persons funktionsförmåga\nsom till följd av en skada eller en sjukdom fanns vid\nfödelsen, har uppstått därefter eller kan förväntas uppstå,",
+            "5. sexuell läggning: homosexuell, bisexuell eller\nheterosexuell läggning, och",
+            "6. ålder: uppnådd levnadslängd.",
+            "Diskrimineringsgrunden kön omfattar även den som",
+            "1. avser att få fastställt eller har fått fastställt ett annat\nkön än det som framgår av folkbokföringen, eller",
+            "2. avser att ändra eller har ändrat kroppen genom sådana\nkirurgiska ingrepp som omfattas av lagen (2024:237) om vissa\nkirurgiska ingrepp i könsorganen. Lag (2024:242)."
+          ],
+          "nyckelord": [
+            "annat",
+            "någon",
+            "kvinna",
+            "uttryck",
+            "läggning",
+            "avser"
+          ],
+          "relaterade_lagrum": [
+            "22 kap. SFB",
+            "2 § Sjukl.",
+            "3 kap. HSL",
+            "1 kap. 4 § DL"
+          ],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
     },
     {
-      "id": "dl_1_4",
-      "chapter": 1,
-      "section": 4,
-      "principleType": "diskrimineringsformer",
-      "text": "I denna lag avses med diskriminering 1. direkt diskriminering... 2. indirekt diskriminering... 3. bristande tillgänglighet: att en person med en funktionsnedsättning missgynnas genom att sådana åtgärder för tillgänglighet inte har vidtagits... 4. trakasserier... 5. sexuella trakasserier... 6. instruktioner att diskriminera: order eller instruktioner att diskriminera någon på ett sätt som avses i 1–5 och som lämnas åt någon som står i lydnads- eller beroendeförhållande... [cite: 705]",
-      "keywords": ["direkt diskriminering", "indirekt diskriminering", "bristande tillgänglighet"],
-      "relatedRules": [],
-      "metadata": { "validFrom": "2015-01-01", "legalWeight": "lag", "riskTrigger": true }
+      "kapitel": "2",
+      "rubrik": "Förbud mot diskriminering och repressalier",
+      "paragrafer": [
+        {
+          "id": "dl_2008_567_2kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "arbetsgivaren",
+          "text": "1. är arbetstagare,\n\n2. gör en förfrågan om eller söker arbete,\n\n3. söker eller fullgör praktik, eller\n\n4. står till förfogande för att utföra eller utför arbete som\ninhyrd eller inlånad arbetskraft.\n\nFörbudet mot diskriminering i form av bristande\ntillgänglighet gäller inte i fråga om den som gör en\nförfrågan om arbete.\n\nDen som i arbetsgivarens ställe har rätt att besluta i frågor\nsom rör någon som avses i första stycket ska likställas med\narbetsgivaren. Lag (2014:958).",
+          "stycken": [
+            "1. är arbetstagare,",
+            "2. gör en förfrågan om eller söker arbete,",
+            "3. söker eller fullgör praktik, eller",
+            "4. står till förfogande för att utföra eller utför arbete som\ninhyrd eller inlånad arbetskraft.",
+            "Förbudet mot diskriminering i form av bristande\ntillgänglighet gäller inte i fråga om den som gör en\nförfrågan om arbete.",
+            "Den som i arbetsgivarens ställe har rätt att besluta i frågor\nsom rör någon som avses i första stycket ska likställas med\narbetsgivaren. Lag (2014:958)."
+          ],
+          "nyckelord": [
+            "arbete",
+            "förfrågan",
+            "söker",
+            "arbetstagare",
+            "fullgör",
+            "praktik"
+          ],
+          "relaterade_lagrum": [
+            "1 kap. 4 § DL",
+            "2 kap. 1 § DL",
+            "2 kap. 1 § AML",
+            "3 kap. 2 § AML"
+          ],
+          "kategori": "Definitioner"
+        },
+        {
+          "id": "dl_2008_567_2kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "",
+          "text": "1. särbehandling som föranleds av en egenskap som har samband\nmed någon av diskrimineringsgrunderna om, vid beslut om\nanställning, befordran eller utbildning för befordran,\negenskapen på grund av arbetets natur eller det sammanhang där\narbetet utförs utgör ett verkligt och avgörande yrkeskrav som\nhar ett berättigat syfte och kravet är lämpligt och nödvändigt\nför att uppnå syftet,\n\n2. åtgärder som är ett led i strävanden att främja jämställdhet\nmellan kvinnor och män och som avser annat än löne- eller andra\nanställningsvillkor,\n\n3. tillämpning av åldersgränser för rätt till pensions-,\nefterlevande- eller invaliditetsförmåner i individuella avtal\neller kollektivavtal, eller\n\n4. särbehandling på grund av ålder, om den har ett berättigat\nsyfte och de medel som används är lämpliga och nödvändiga för\natt uppnå syftet.\n\nSkyldighet att utreda och vidta åtgärder mot trakasserier",
+          "stycken": [
+            "1. särbehandling som föranleds av en egenskap som har samband\nmed någon av diskrimineringsgrunderna om, vid beslut om\nanställning, befordran eller utbildning för befordran,\negenskapen på grund av arbetets natur eller det sammanhang där\narbetet utförs utgör ett verkligt och avgörande yrkeskrav som\nhar ett berättigat syfte och kravet är lämpligt och nödvändigt\nför att uppnå syftet,",
+            "2. åtgärder som är ett led i strävanden att främja jämställdhet\nmellan kvinnor och män och som avser annat än löne- eller andra\nanställningsvillkor,",
+            "3. tillämpning av åldersgränser för rätt till pensions-,\nefterlevande- eller invaliditetsförmåner i individuella avtal\neller kollektivavtal, eller",
+            "4. särbehandling på grund av ålder, om den har ett berättigat\nsyfte och de medel som används är lämpliga och nödvändiga för\natt uppnå syftet.",
+            "Skyldighet att utreda och vidta åtgärder mot trakasserier"
+          ],
+          "nyckelord": [
+            "särbehandling",
+            "befordran",
+            "grund",
+            "berättigat",
+            "syfte",
+            "uppnå"
+          ],
+          "relaterade_lagrum": [
+            "7 § LAS",
+            "11 § LAS",
+            "32 § LAS",
+            "58 kap. SFB"
+          ],
+          "kategori": "Rätt till ersättning"
+        },
+        {
+          "id": "dl_2008_567_2kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "anser sig i samband med arbetet ha blivit utsatt för",
+          "text": "trakasserier eller sexuella trakasserier av någon som utför\narbete eller fullgör praktik hos arbetsgivaren, är\narbetsgivaren skyldig att utreda omständigheterna kring de\nuppgivna trakasserierna och i förekommande fall vidta de\nåtgärder som skäligen kan krävas för att förhindra trakasserier\ni framtiden.\n\nSkyldigheten gäller också i förhållande till den som fullgör\npraktik eller utför arbete som inhyrd eller inlånad\narbetskraft.\n\nUppgift om meriter",
+          "stycken": [
+            "trakasserier eller sexuella trakasserier av någon som utför\narbete eller fullgör praktik hos arbetsgivaren, är\narbetsgivaren skyldig att utreda omständigheterna kring de\nuppgivna trakasserierna och i förekommande fall vidta de\nåtgärder som skäligen kan krävas för att förhindra trakasserier\ni framtiden.",
+            "Skyldigheten gäller också i förhållande till den som fullgör\npraktik eller utför arbete som inhyrd eller inlånad\narbetskraft.",
+            "Uppgift om meriter"
+          ],
+          "nyckelord": [
+            "trakasserier",
+            "utför",
+            "arbete",
+            "fullgör",
+            "praktik",
+            "arbetsgivaren"
+          ],
+          "relaterade_lagrum": [
+            "2 kap. 1 § AML",
+            "3 kap. 2 § AML"
+          ],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "dl_2008_567_2kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "anställningsintervju, eller om en arbetstagare inte har",
+          "text": "befordrats eller tagits ut till utbildning för befordran, ska\nsökanden på begäran få en skriftlig uppgift av arbetsgivaren om\nvilken utbildning, yrkeserfarenhet och andra meriter den hade\nsom togs ut till anställningsintervjun eller som fick arbetet\neller utbildningsplatsen.\n\nUtbildning\n\n\nDiskrimineringsförbud",
+          "stycken": [
+            "befordrats eller tagits ut till utbildning för befordran, ska\nsökanden på begäran få en skriftlig uppgift av arbetsgivaren om\nvilken utbildning, yrkeserfarenhet och andra meriter den hade\nsom togs ut till anställningsintervjun eller som fick arbetet\neller utbildningsplatsen.",
+            "Utbildning",
+            "Diskrimineringsförbud"
+          ],
+          "nyckelord": [
+            "utbildning",
+            "befordrats",
+            "tagits",
+            "befordran",
+            "sökanden",
+            "begäran"
+          ],
+          "relaterade_lagrum": [
+            "7 § LAS",
+            "11 § LAS",
+            "32 § LAS",
+            "1 kap. 4 § DL"
+          ],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "dl_2008_567_2kap_5p",
+          "paragraf": "5 §",
+          "rubrik": "(2010:800) eller annan utbildningsverksamhet",
+          "text": "(utbildningsanordnare) får inte diskriminera något barn eller\nnågon elev, student eller studerande som deltar i eller söker\ntill verksamheten. Anställda och uppdragstagare i\nverksamheten ska likställas med utbildningsanordnaren när de\nhandlar inom ramen för anställningen eller uppdraget.\nLag (2014:958).",
+          "stycken": [
+            "(utbildningsanordnare) får inte diskriminera något barn eller\nnågon elev, student eller studerande som deltar i eller söker\ntill verksamheten. Anställda och uppdragstagare i\nverksamheten ska likställas med utbildningsanordnaren när de\nhandlar inom ramen för anställningen eller uppdraget.\nLag (2014:958)."
+          ],
+          "nyckelord": [
+            "verksamheten",
+            "utbildningsanordnare",
+            "diskriminera",
+            "något",
+            "barn",
+            "någon"
+          ],
+          "relaterade_lagrum": [
+            "7 § LAS",
+            "11 § LAS",
+            "32 § LAS",
+            "6 kap. 1 § FB"
+          ],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "dl_2008_567_2kap_6p",
+          "paragraf": "6 §",
+          "rubrik": "",
+          "text": "Förbudet i 5 § hindrar inte\n\n1. åtgärder som är ett led i strävanden att främja\njämställdhet mellan kvinnor och män vid tillträde till annan\nutbildning än sådan som avses i skollagen (2010:800),\n\n2. tillämpning av bestämmelser som tar hänsyn till ålder i\nfråga om utbildning i förskolan, förskoleklassen, grundskolan,\nanpassade grundskolan, sameskolan, specialskolan eller\nfritidshemmet, eller sådan pedagogisk verksamhet som avses i",
+          "stycken": [
+            "Förbudet i 5 § hindrar inte",
+            "1. åtgärder som är ett led i strävanden att främja\njämställdhet mellan kvinnor och män vid tillträde till annan\nutbildning än sådan som avses i skollagen (2010:800),",
+            "2. tillämpning av bestämmelser som tar hänsyn till ålder i\nfråga om utbildning i förskolan, förskoleklassen, grundskolan,\nanpassade grundskolan, sameskolan, specialskolan eller\nfritidshemmet, eller sådan pedagogisk verksamhet som avses i"
+          ],
+          "nyckelord": [
+            "utbildning",
+            "avses",
+            "grundskolan",
+            "förbudet",
+            "hindrar",
+            "åtgärder"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner"
+        }
+      ]
     },
     {
-      "id": "dl_2_13",
-      "chapter": 2,
-      "section": 13,
-      "principleType": "förbud i offentlig verksamhet",
-      "text": "Diskriminering är förbjuden i fråga om 1. hälso- och sjukvård och annan medicinsk verksamhet, 2. verksamhet inom socialtjänsten, och 3. stöd i form av färdtjänst och riksfärdtjänst och bostadsanpassningsbidrag. [cite: 710]",
-      "keywords": ["socialtjänst", "hälso- och sjukvård", "offentlig verksamhet"],
-      "relatedRules": ["SoL", "HSL"],
-      "metadata": { "validFrom": "2012-12-21", "legalWeight": "lag", "riskTrigger": true }
+      "kapitel": "25",
+      "rubrik": "skollagen, eller",
+      "paragrafer": [
+        {
+          "id": "dl_2008_567_25kap_6p",
+          "paragraf": "6 §",
+          "rubrik": "",
+          "text": "Förbudet i 5 § hindrar inte\n\n1. åtgärder som är ett led i strävanden att främja\njämställdhet mellan kvinnor och män vid tillträde till annan\nutbildning än sådan som avses i skollagen (2010:800),\n\n2. tillämpning av bestämmelser som tar hänsyn till ålder i\nfråga om utbildning i förskolan, grundskolan, anpassade\ngrundskolan, specialskolan, sameskolan eller fritidshemmet,\neller sådan pedagogisk verksamhet som avses i 25 kap.\nskollagen, eller\n\n3. särbehandling på grund av ålder, om den har ett berättigat\nsyfte och de medel som används är lämpliga och nödvändiga för\natt uppnå syftet.\n\nFörbudet hindrar inte heller att en folkhögskola eller ett\nstudieförbund vidtar åtgärder som är ett led i strävanden att\nfrämja lika rättigheter och möjligheter oavsett etnisk\ntillhörighet, religion eller annan trosuppfattning.\nLag (2025:736).\n\nSkyldighet att utreda och vidta åtgärder mot trakasserier",
+          "stycken": [
+            "Förbudet i 5 § hindrar inte",
+            "1. åtgärder som är ett led i strävanden att främja\njämställdhet mellan kvinnor och män vid tillträde till annan\nutbildning än sådan som avses i skollagen (2010:800),",
+            "2. tillämpning av bestämmelser som tar hänsyn till ålder i\nfråga om utbildning i förskolan, grundskolan, anpassade\ngrundskolan, specialskolan, sameskolan eller fritidshemmet,\neller sådan pedagogisk verksamhet som avses i 25 kap.\nskollagen, eller",
+            "3. särbehandling på grund av ålder, om den har ett berättigat\nsyfte och de medel som används är lämpliga och nödvändiga för\natt uppnå syftet.",
+            "Förbudet hindrar inte heller att en folkhögskola eller ett\nstudieförbund vidtar åtgärder som är ett led i strävanden att\nfrämja lika rättigheter och möjligheter oavsett etnisk\ntillhörighet, religion eller annan trosuppfattning.\nLag (2025:736).",
+            "Skyldighet att utreda och vidta åtgärder mot trakasserier"
+          ],
+          "nyckelord": [
+            "åtgärder",
+            "förbudet",
+            "hindrar",
+            "strävanden",
+            "främja",
+            "annan"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner"
+        },
+        {
+          "id": "dl_2008_567_25kap_7p",
+          "paragraf": "7 §",
+          "rubrik": "eller en elev, student eller studerande som deltar i eller",
+          "text": "söker till utbildningsanordnarens verksamhet anser sig i\nsamband med verksamheten ha blivit utsatt för trakasserier\neller sexuella trakasserier, är utbildningsanordnaren skyldig\natt utreda omständigheterna kring de uppgivna trakasserierna\noch i förekommande fall vidta de åtgärder som skäligen kan\nkrävas för att förhindra trakasserier i framtiden.\n\nUppgift om meriter",
+          "stycken": [
+            "söker till utbildningsanordnarens verksamhet anser sig i\nsamband med verksamheten ha blivit utsatt för trakasserier\neller sexuella trakasserier, är utbildningsanordnaren skyldig\natt utreda omständigheterna kring de uppgivna trakasserierna\noch i förekommande fall vidta de åtgärder som skäligen kan\nkrävas för att förhindra trakasserier i framtiden.",
+            "Uppgift om meriter"
+          ],
+          "nyckelord": [
+            "trakasserier",
+            "söker",
+            "utbildningsanordnarens",
+            "verksamhet",
+            "anser",
+            "samband"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "dl_2008_567_25kap_8p",
+          "paragraf": "8 §",
+          "rubrik": "eller inte tagits ut till prov eller intervju om sådant",
+          "text": "förfarande tillämpas vid antagningen, ska sökanden på begäran\nfå en skriftlig uppgift av utbildningsanordnaren om vilken\nutbildning eller andra meriter den hade som blev antagen till\nutbildningen eller togs ut till provet eller intervjun.\n\nArbetsmarknadspolitisk verksamhet och arbetsförmedling utan\noffentligt uppdrag",
+          "stycken": [
+            "förfarande tillämpas vid antagningen, ska sökanden på begäran\nfå en skriftlig uppgift av utbildningsanordnaren om vilken\nutbildning eller andra meriter den hade som blev antagen till\nutbildningen eller togs ut till provet eller intervjun.",
+            "Arbetsmarknadspolitisk verksamhet och arbetsförmedling utan\noffentligt uppdrag"
+          ],
+          "nyckelord": [
+            "förfarande",
+            "tillämpas",
+            "antagningen",
+            "sökanden",
+            "begäran",
+            "skriftlig"
+          ],
+          "relaterade_lagrum": [
+            "2 kap. 1 § AML",
+            "3 kap. 2 § AML",
+            "2 kap. TF",
+            "1 kap. OSL"
+          ],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "dl_2008_567_25kap_9p",
+          "paragraf": "9 §",
+          "rubrik": "förbjuden i fråga om arbetsmarknadspolitisk verksamhet och",
+          "text": "arbetsförmedling utan offentligt uppdrag.\n\nFörbudet hindrar dock inte\n\n1. åtgärder som är ett led i strävanden att främja jämställdhet\nmellan kvinnor och män eller lika rättigheter och möjligheter\noavsett etnisk tillhörighet, eller\n\n2. särbehandling på grund av ålder, om den har ett berättigat\nsyfte och de medel som används är lämpliga och nödvändiga för\natt uppnå syftet.\n\nStart eller bedrivande av näringsverksamhet samt\nyrkesbehörighet",
+          "stycken": [
+            "arbetsförmedling utan offentligt uppdrag.",
+            "Förbudet hindrar dock inte",
+            "1. åtgärder som är ett led i strävanden att främja jämställdhet\nmellan kvinnor och män eller lika rättigheter och möjligheter\noavsett etnisk tillhörighet, eller",
+            "2. särbehandling på grund av ålder, om den har ett berättigat\nsyfte och de medel som används är lämpliga och nödvändiga för\natt uppnå syftet.",
+            "Start eller bedrivande av näringsverksamhet samt\nyrkesbehörighet"
+          ],
+          "nyckelord": [
+            "arbetsförmedling",
+            "offentligt",
+            "uppdrag",
+            "förbudet",
+            "hindrar",
+            "åtgärder"
+          ],
+          "relaterade_lagrum": [
+            "2 kap. 1 § AML",
+            "3 kap. 2 § AML",
+            "2 kap. TF",
+            "1 kap. OSL"
+          ],
+          "kategori": "Undantag"
+        },
+        {
+          "id": "dl_2008_567_25kap_10p",
+          "paragraf": "10 §",
+          "rubrik": "",
+          "text": "1. ekonomiskt stöd, tillstånd, registrering eller liknande som\nbehövs eller kan ha betydelse för att någon ska kunna starta\neller bedriva näringsverksamhet, och\n\n2. behörighet, legitimation, auktorisation, registrering,\ngodkännande eller liknande som behövs eller kan ha betydelse\nför att någon ska kunna utöva ett visst yrke.\n\nFörbuden hindrar inte särbehandling på grund av ålder, om den\nhar ett berättigat syfte och de medel som används är lämpliga\noch nödvändiga för att uppnå syftet.\n\nFörbudet i första stycket 1 hindrar inte heller åtgärder i\nfråga om stöd som är ett led i strävanden att främja\njämställdhet mellan kvinnor och män eller lika rättigheter och\nmöjligheter oavsett etnisk tillhörighet.\n\nMedlemskap i vissa organisationer",
+          "stycken": [
+            "1. ekonomiskt stöd, tillstånd, registrering eller liknande som\nbehövs eller kan ha betydelse för att någon ska kunna starta\neller bedriva näringsverksamhet, och",
+            "2. behörighet, legitimation, auktorisation, registrering,\ngodkännande eller liknande som behövs eller kan ha betydelse\nför att någon ska kunna utöva ett visst yrke.",
+            "Förbuden hindrar inte särbehandling på grund av ålder, om den\nhar ett berättigat syfte och de medel som används är lämpliga\noch nödvändiga för att uppnå syftet.",
+            "Förbudet i första stycket 1 hindrar inte heller åtgärder i\nfråga om stöd som är ett led i strävanden att främja\njämställdhet mellan kvinnor och män eller lika rättigheter och\nmöjligheter oavsett etnisk tillhörighet.",
+            "Medlemskap i vissa organisationer"
+          ],
+          "nyckelord": [
+            "stöd",
+            "registrering",
+            "liknande",
+            "behövs",
+            "betydelse",
+            "någon"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "dl_2008_567_25kap_11p",
+          "paragraf": "11 §",
+          "rubrik": "",
+          "text": "1. medlemskap eller medverkan i en arbetstagarorganisation,\narbetsgivarorganisation eller yrkesorganisation, och\n\n2. förmåner som en sådan organisation tillhandahåller sina\nmedlemmar.\n\nFörbudet hindrar inte att en organisation tillhandahåller\nmedlemmar av ena könet förmåner som är ett led i strävanden att\nfrämja jämställdhet mellan kvinnor och män.\n\nVaror, tjänster och bostäder m.m.",
+          "stycken": [
+            "1. medlemskap eller medverkan i en arbetstagarorganisation,\narbetsgivarorganisation eller yrkesorganisation, och",
+            "2. förmåner som en sådan organisation tillhandahåller sina\nmedlemmar.",
+            "Förbudet hindrar inte att en organisation tillhandahåller\nmedlemmar av ena könet förmåner som är ett led i strävanden att\nfrämja jämställdhet mellan kvinnor och män.",
+            "Varor, tjänster och bostäder m.m."
+          ],
+          "nyckelord": [
+            "förmåner",
+            "organisation",
+            "tillhandahåller",
+            "medlemmar",
+            "medlemskap",
+            "medverkan"
+          ],
+          "relaterade_lagrum": [
+            "2 kap. 1 § AML",
+            "3 kap. 2 § AML"
+          ],
+          "kategori": "Rätt till ersättning"
+        },
+        {
+          "id": "dl_2008_567_25kap_12p",
+          "paragraf": "12 §",
+          "rubrik": "",
+          "text": "1. utanför privat- och familjelivet tillhandahåller varor,\ntjänster eller bostäder till allmänheten, eller\n\n2. anordnar en allmän sammankomst eller en offentlig\ntillställning.\n\nDen som i förhållande till allmänheten företräder den som avses\ni första stycket ska likställas med denne. Lag (2012:483).",
+          "stycken": [
+            "1. utanför privat- och familjelivet tillhandahåller varor,\ntjänster eller bostäder till allmänheten, eller",
+            "2. anordnar en allmän sammankomst eller en offentlig\ntillställning.",
+            "Den som i förhållande till allmänheten företräder den som avses\ni första stycket ska likställas med denne. Lag (2012:483)."
+          ],
+          "nyckelord": [
+            "allmänheten",
+            "utanför",
+            "privat",
+            "familjelivet",
+            "tillhandahåller",
+            "varor"
+          ],
+          "relaterade_lagrum": [
+            "2 kap. TF",
+            "1 kap. OSL"
+          ],
+          "kategori": "Definitioner"
+        },
+        {
+          "id": "dl_2008_567_25kap_12p",
+          "paragraf": "12 a §",
+          "rubrik": "kön hindrar inte att kvinnor och män behandlas olika i fråga",
+          "text": "om tjänster eller bostäder, om det har ett berättigat syfte\noch de medel som används är lämpliga och nödvändiga för att\nuppnå syftet.\n\nFör försäkringstjänster gäller dock att enskilda personers\nförsäkringspremier eller försäkringsersättningar inte får\nskilja sig åt mellan kvinnor och män utifrån beräkningar\nbaserade på kön. Trots detta får, om villkoren i första\nstycket är uppfyllda, en persons könstillhörighet påverka\nbedömningen av andra faktorer som beräkningar av\nförsäkringspremier baseras på. Lag (2012:673).",
+          "stycken": [
+            "om tjänster eller bostäder, om det har ett berättigat syfte\noch de medel som används är lämpliga och nödvändiga för att\nuppnå syftet.",
+            "För försäkringstjänster gäller dock att enskilda personers\nförsäkringspremier eller försäkringsersättningar inte får\nskilja sig åt mellan kvinnor och män utifrån beräkningar\nbaserade på kön. Trots detta får, om villkoren i första\nstycket är uppfyllda, en persons könstillhörighet påverka\nbedömningen av andra faktorer som beräkningar av\nförsäkringspremier baseras på. Lag (2012:673)."
+          ],
+          "nyckelord": [
+            "försäkringspremier",
+            "beräkningar",
+            "tjänster",
+            "bostäder",
+            "berättigat",
+            "syfte"
+          ],
+          "relaterade_lagrum": [
+            "5 kap. SFB",
+            "6 kap. SFB"
+          ],
+          "kategori": "Rätt till ersättning"
+        },
+        {
+          "id": "dl_2008_567_25kap_12p",
+          "paragraf": "12 b §",
+          "rubrik": "ålder",
+          "text": "1. hindrar inte tillämpning av bestämmelser i lag som\nföreskriver viss ålder,\n\n2. gäller inte tillhandahållande av försäkringstjänster,\n\n3. hindrar inte tillämpning av nedre åldersgränser för\ntillträde till serveringsställen för yrkesmässigt bedriven\nservering av spritdrycker, vin, starköl och andra jästa\nalkoholdrycker för vilka näringsidkaren har\nserveringstillstånd, och\n\n4. hindrar inte heller annan särbehandling på grund av ålder\nom särbehandlingen har ett berättigat syfte och de medel som\nanvänds är lämpliga och nödvändiga för att uppnå syftet.\nLag (2012:673).",
+          "stycken": [
+            "1. hindrar inte tillämpning av bestämmelser i lag som\nföreskriver viss ålder,",
+            "2. gäller inte tillhandahållande av försäkringstjänster,",
+            "3. hindrar inte tillämpning av nedre åldersgränser för\ntillträde till serveringsställen för yrkesmässigt bedriven\nservering av spritdrycker, vin, starköl och andra jästa\nalkoholdrycker för vilka näringsidkaren har\nserveringstillstånd, och",
+            "4. hindrar inte heller annan särbehandling på grund av ålder\nom särbehandlingen har ett berättigat syfte och de medel som\nanvänds är lämpliga och nödvändiga för att uppnå syftet.\nLag (2012:673)."
+          ],
+          "nyckelord": [
+            "hindrar",
+            "tillämpning",
+            "ålder",
+            "bestämmelser",
+            "föreskriver",
+            "viss"
+          ],
+          "relaterade_lagrum": [
+            "5 kap. SFB",
+            "6 kap. SFB"
+          ],
+          "kategori": "Undantag"
+        },
+        {
+          "id": "dl_2008_567_25kap_12p",
+          "paragraf": "12 c §",
+          "rubrik": "tillgänglighet i 12 § första stycket 1 gäller inte",
+          "text": "1. i fråga om bostäder,\n\n2. för privatpersoner, och\n\n3. om det i fråga om tillhandahållande av varor och tjänster\nkrävs åtgärder i fråga om fastigheter och byggnadsverk som\ngår utöver de krav på tillgänglighet och användbarhet som har\nställts i bygglov eller startbesked för den aktuella\nfastigheten eller byggnadsverket enligt plan- och bygglagen\n(2010:900) eller äldre motsvarande bestämmelser och enligt\nföreskrifter som har meddelats med stöd av dessa\nbestämmelser. Lag (2017:1081).\n\nHälso- och sjukvården samt socialtjänsten m.m.",
+          "stycken": [
+            "1. i fråga om bostäder,",
+            "2. för privatpersoner, och",
+            "3. om det i fråga om tillhandahållande av varor och tjänster\nkrävs åtgärder i fråga om fastigheter och byggnadsverk som\ngår utöver de krav på tillgänglighet och användbarhet som har\nställts i bygglov eller startbesked för den aktuella\nfastigheten eller byggnadsverket enligt plan- och bygglagen\n(2010:900) eller äldre motsvarande bestämmelser och enligt\nföreskrifter som har meddelats med stöd av dessa\nbestämmelser. Lag (2017:1081).",
+            "Hälso- och sjukvården samt socialtjänsten m.m."
+          ],
+          "nyckelord": [
+            "fråga",
+            "enligt",
+            "bestämmelser",
+            "bostäder",
+            "privatpersoner",
+            "tillhandahållande"
+          ],
+          "relaterade_lagrum": [
+            "22 kap. SFB",
+            "2 § Sjukl.",
+            "3 kap. HSL"
+          ],
+          "kategori": "Undantag"
+        },
+        {
+          "id": "dl_2008_567_25kap_13p",
+          "paragraf": "13 §",
+          "rubrik": "",
+          "text": "1. hälso- och sjukvård och annan medicinsk verksamhet,\n\n2. verksamhet inom socialtjänsten, och\n\n3. stöd i form av färdtjänst och riksfärdtjänst och\nbostadsanpassningsbidrag. Lag (2012:673).",
+          "stycken": [
+            "1. hälso- och sjukvård och annan medicinsk verksamhet,",
+            "2. verksamhet inom socialtjänsten, och",
+            "3. stöd i form av färdtjänst och riksfärdtjänst och\nbostadsanpassningsbidrag. Lag (2012:673)."
+          ],
+          "nyckelord": [
+            "verksamhet",
+            "hälso",
+            "sjukvård",
+            "annan",
+            "medicinsk",
+            "inom"
+          ],
+          "relaterade_lagrum": [
+            "22 kap. SFB",
+            "2 § Sjukl.",
+            "3 kap. HSL"
+          ],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "dl_2008_567_25kap_13p",
+          "paragraf": "13 a §",
+          "rubrik": "samband med kön hindrar inte att kvinnor och män behandlas",
+          "text": "olika, om det har ett berättigat syfte och de medel som\nanvänds är lämpliga och nödvändiga för att uppnå syftet.\nLag (2012:673).",
+          "stycken": [
+            "olika, om det har ett berättigat syfte och de medel som\nanvänds är lämpliga och nödvändiga för att uppnå syftet.\nLag (2012:673)."
+          ],
+          "nyckelord": [
+            "olika",
+            "berättigat",
+            "syfte",
+            "medel",
+            "används",
+            "lämpliga"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "dl_2008_567_25kap_13p",
+          "paragraf": "13 b §",
+          "rubrik": "ålder hindrar inte",
+          "text": "1. tillämpning av bestämmelser i lag som föreskriver viss\nålder, eller\n\n2. annan särbehandling på grund av ålder om särbehandlingen\nhar ett berättigat syfte och de medel som används är lämpliga\noch nödvändiga för att uppnå syftet. Lag (2012:673).\n\nSocialförsäkringssystemet, arbetslöshetsförsäkringen och\nstudiestöd",
+          "stycken": [
+            "1. tillämpning av bestämmelser i lag som föreskriver viss\nålder, eller",
+            "2. annan särbehandling på grund av ålder om särbehandlingen\nhar ett berättigat syfte och de medel som används är lämpliga\noch nödvändiga för att uppnå syftet. Lag (2012:673).",
+            "Socialförsäkringssystemet, arbetslöshetsförsäkringen och\nstudiestöd"
+          ],
+          "nyckelord": [
+            "ålder",
+            "tillämpning",
+            "bestämmelser",
+            "föreskriver",
+            "viss",
+            "annan"
+          ],
+          "relaterade_lagrum": [
+            "5 kap. SFB",
+            "6 kap. SFB",
+            "2 kap. 1 § AML",
+            "3 kap. 2 § AML"
+          ],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "dl_2008_567_25kap_14p",
+          "paragraf": "14 §",
+          "rubrik": "",
+          "text": "1. socialförsäkringen och anslutande bidragssystem,\n\n2. arbetslöshetsförsäkringen, och\n\n3. statligt studiestöd.\nLag (2012:673).",
+          "stycken": [
+            "1. socialförsäkringen och anslutande bidragssystem,",
+            "2. arbetslöshetsförsäkringen, och",
+            "3. statligt studiestöd.\nLag (2012:673)."
+          ],
+          "nyckelord": [
+            "socialförsäkringen",
+            "anslutande",
+            "bidragssystem",
+            "arbetslöshetsförsäkringen",
+            "statligt",
+            "studiestöd"
+          ],
+          "relaterade_lagrum": [
+            "5 kap. SFB",
+            "6 kap. SFB",
+            "2 kap. 1 § AML",
+            "3 kap. 2 § AML"
+          ],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "dl_2008_567_25kap_14p",
+          "paragraf": "14 a §",
+          "rubrik": "med kön hindrar inte tillämpning av bestämmelser i lag om",
+          "text": "änkepension eller utbetalning av barnbidrag.\nLag (2017:1128).",
+          "stycken": [
+            "änkepension eller utbetalning av barnbidrag.\nLag (2017:1128)."
+          ],
+          "nyckelord": [
+            "änkepension",
+            "utbetalning",
+            "barnbidrag"
+          ],
+          "relaterade_lagrum": [
+            "6 kap. 1 § FB",
+            "5 kap. 1 § SoL",
+            "1 § LVU",
+            "58 kap. SFB"
+          ],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "dl_2008_567_25kap_14p",
+          "paragraf": "14 b §",
+          "rubrik": "ålder hindrar inte",
+          "text": "1. tillämpning av bestämmelser i lag som föreskriver viss\nålder, eller\n\n2. annan särbehandling på grund av ålder om särbehandlingen\nhar ett berättigat syfte och de medel som används är lämpliga\noch nödvändiga för att uppnå syftet. Lag (2012:673).\n\nVärnplikt och civilplikt\n\n\nVärnplikt och civilplikt samt annan motsvarande militär\nutbildning inom Försvarsmakten",
+          "stycken": [
+            "1. tillämpning av bestämmelser i lag som föreskriver viss\nålder, eller",
+            "2. annan särbehandling på grund av ålder om särbehandlingen\nhar ett berättigat syfte och de medel som används är lämpliga\noch nödvändiga för att uppnå syftet. Lag (2012:673).",
+            "Värnplikt och civilplikt",
+            "Värnplikt och civilplikt samt annan motsvarande militär\nutbildning inom Försvarsmakten"
+          ],
+          "nyckelord": [
+            "ålder",
+            "annan",
+            "värnplikt",
+            "civilplikt",
+            "tillämpning",
+            "bestämmelser"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "dl_2008_567_25kap_15p",
+          "paragraf": "15 §",
+          "rubrik": "",
+          "text": "1. vid mönstring eller annan utredning om personliga\nförhållanden enligt lagen (1994:1809) om totalförsvarsplikt\nsamt vid inskrivning för och under fullgörande av värnplikt\neller civilplikt, samt\n\n2. vid antagningsprövning till samt under fullgörande av\nannan motsvarande militär utbildning inom Försvarsmakten.\n\nFörbudet gäller dock inte diskriminering som har samband med\nålder.\n\nFörbudet hindrar inte heller tillämpning av bestämmelser om\natt en totalförsvarspliktig inte ska kallas till mönstring\neller inkallas till värnplikt eller civilplikt om han eller\nhon hänvisar till sin anslutning till visst religiöst\nsamfund. Lag (2010:464).\n\nSkyldighet att utreda och vidta åtgärder mot trakasserier",
+          "stycken": [
+            "1. vid mönstring eller annan utredning om personliga\nförhållanden enligt lagen (1994:1809) om totalförsvarsplikt\nsamt vid inskrivning för och under fullgörande av värnplikt\neller civilplikt, samt",
+            "2. vid antagningsprövning till samt under fullgörande av\nannan motsvarande militär utbildning inom Försvarsmakten.",
+            "Förbudet gäller dock inte diskriminering som har samband med\nålder.",
+            "Förbudet hindrar inte heller tillämpning av bestämmelser om\natt en totalförsvarspliktig inte ska kallas till mönstring\neller inkallas till värnplikt eller civilplikt om han eller\nhon hänvisar till sin anslutning till visst religiöst\nsamfund. Lag (2010:464).",
+            "Skyldighet att utreda och vidta åtgärder mot trakasserier"
+          ],
+          "nyckelord": [
+            "mönstring",
+            "annan",
+            "fullgörande",
+            "värnplikt",
+            "civilplikt",
+            "förbudet"
+          ],
+          "relaterade_lagrum": [
+            "1 kap. 4 § DL",
+            "2 kap. 1 § DL"
+          ],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "dl_2008_567_25kap_16p",
+          "paragraf": "16 §",
+          "rubrik": "förbudet i 15 § får kännedom om att en person som söker till",
+          "text": "eller deltar i utbildning eller annan verksamhet som anges i\nbestämmelsen anser sig i samband därmed ha blivit utsatt för\ntrakasserier eller sexuella trakasserier, är myndigheten\neller organisationen skyldig att utreda omständigheterna\nkring de uppgivna trakasserierna och i förekommande fall\nvidta de åtgärder som skäligen kan krävas för att förhindra\ntrakasserier i framtiden.\n\nFörsta stycket gäller dock inte trakasserier som har samband\nmed ålder. Lag (2010:464).\n\nOffentlig anställning",
+          "stycken": [
+            "eller deltar i utbildning eller annan verksamhet som anges i\nbestämmelsen anser sig i samband därmed ha blivit utsatt för\ntrakasserier eller sexuella trakasserier, är myndigheten\neller organisationen skyldig att utreda omständigheterna\nkring de uppgivna trakasserierna och i förekommande fall\nvidta de åtgärder som skäligen kan krävas för att förhindra\ntrakasserier i framtiden.",
+            "Första stycket gäller dock inte trakasserier som har samband\nmed ålder. Lag (2010:464).",
+            "Offentlig anställning"
+          ],
+          "nyckelord": [
+            "trakasserier",
+            "samband",
+            "deltar",
+            "utbildning",
+            "annan",
+            "verksamhet"
+          ],
+          "relaterade_lagrum": [
+            "7 § LAS",
+            "11 § LAS",
+            "32 § LAS",
+            "2 kap. TF"
+          ],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "dl_2008_567_25kap_17p",
+          "paragraf": "17 §",
+          "rubrik": "avses i 5 eller 9–15 §§ när den som helt eller delvis omfattas",
+          "text": "av lagen (1994:260) om offentlig anställning\n\n1. bistår allmänheten med upplysningar, vägledning, råd eller\nannan sådan hjälp, eller\n\n2. på annat sätt i anställningen har kontakter med\nallmänheten. Lag (2012:673).\n\nFörbud mot repressalier",
+          "stycken": [
+            "av lagen (1994:260) om offentlig anställning",
+            "1. bistår allmänheten med upplysningar, vägledning, råd eller\nannan sådan hjälp, eller",
+            "2. på annat sätt i anställningen har kontakter med\nallmänheten. Lag (2012:673).",
+            "Förbud mot repressalier"
+          ],
+          "nyckelord": [
+            "allmänheten",
+            "lagen",
+            "offentlig",
+            "anställning",
+            "bistår",
+            "upplysningar"
+          ],
+          "relaterade_lagrum": [
+            "7 § LAS",
+            "11 § LAS",
+            "32 § LAS",
+            "2 kap. TF"
+          ],
+          "kategori": "Definitioner"
+        },
+        {
+          "id": "dl_2008_567_25kap_18p",
+          "paragraf": "18 §",
+          "rubrik": "repressalier på grund av att arbetstagaren",
+          "text": "1. anmält eller påtalat att arbetsgivaren handlat i strid med\nlagen,\n\n2. medverkat i en utredning enligt lagen, eller\n\n3. avvisat eller fogat sig i arbetsgivarens trakasserier eller\nsexuella trakasserier.\n\nFörbudet gäller också i förhållande till den som hos\narbetsgivaren\n\n1. gör en förfrågan om eller söker arbete,\n\n2. söker eller fullgör praktik, eller\n\n3. står till förfogande för att utföra eller utför arbete som\ninhyrd eller inlånad arbetskraft.\n\nDen som i arbetsgivarens ställe har rätt att besluta i frågor\nsom rör någon som avses i första eller andra stycket ska\nlikställas med arbetsgivaren.",
+          "stycken": [
+            "1. anmält eller påtalat att arbetsgivaren handlat i strid med\nlagen,",
+            "2. medverkat i en utredning enligt lagen, eller",
+            "3. avvisat eller fogat sig i arbetsgivarens trakasserier eller\nsexuella trakasserier.",
+            "Förbudet gäller också i förhållande till den som hos\narbetsgivaren",
+            "1. gör en förfrågan om eller söker arbete,",
+            "2. söker eller fullgör praktik, eller",
+            "3. står till förfogande för att utföra eller utför arbete som\ninhyrd eller inlånad arbetskraft.",
+            "Den som i arbetsgivarens ställe har rätt att besluta i frågor\nsom rör någon som avses i första eller andra stycket ska\nlikställas med arbetsgivaren."
+          ],
+          "nyckelord": [
+            "arbetsgivaren",
+            "lagen",
+            "arbetsgivarens",
+            "trakasserier",
+            "söker",
+            "arbete"
+          ],
+          "relaterade_lagrum": [
+            "2 kap. 1 § AML",
+            "3 kap. 2 § AML"
+          ],
+          "kategori": "Definitioner"
+        },
+        {
+          "id": "dl_2008_567_25kap_19p",
+          "paragraf": "19 §",
+          "rubrik": "kap. 5, 7, 9, 10, 11, 12, 12 a, 13, 14, 15, 16 eller 17 §",
+          "text": "eller 3 kap. 16, 17, 18 eller 20 § får inte utsätta en\nenskild person för repressalier på grund av att han eller\nhon\n\n1. anmält eller påtalat ett sådant handlande,\n\n2. medverkat i en utredning enligt lagen, eller\n\n3. avvisat eller fogat sig i trakasserier eller sexuella\ntrakasserier från den som påstås ha diskriminerat.\nLag (2016:828).",
+          "stycken": [
+            "eller 3 kap. 16, 17, 18 eller 20 § får inte utsätta en\nenskild person för repressalier på grund av att han eller\nhon",
+            "1. anmält eller påtalat ett sådant handlande,",
+            "2. medverkat i en utredning enligt lagen, eller",
+            "3. avvisat eller fogat sig i trakasserier eller sexuella\ntrakasserier från den som påstås ha diskriminerat.\nLag (2016:828)."
+          ],
+          "nyckelord": [
+            "trakasserier",
+            "utsätta",
+            "enskild",
+            "person",
+            "repressalier",
+            "grund"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        }
+      ]
     },
     {
-      "id": "dl_6_3",
-      "chapter": 1,
-      "section": 3,
-      "principleType": "bevisbörda",
-      "text": "Om den som anser sig ha blivit diskriminerad eller utsatt för repressalier visar omständigheter som ger anledning att anta att han eller hon har blivit diskriminerad eller utsatt för repressalier, är det svaranden som ska visa att diskriminering eller repressalier inte har förekommit. [cite: 715]",
-      "keywords": ["bevisbörda", "repressalier"],
-      "relatedRules": [],
-      "metadata": { "validFrom": "2009-01-01", "legalWeight": "lag", "riskTrigger": false }
+      "kapitel": "3",
+      "rubrik": "Aktiva åtgärder",
+      "paragrafer": [
+        {
+          "id": "dl_2008_567_3kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "för att inom en verksamhet motverka diskriminering och på",
+          "text": "annat sätt verka för lika rättigheter och möjligheter oavsett\nkön, könsöverskridande identitet eller uttryck, etnisk\ntillhörighet, religion eller annan trosuppfattning,\nfunktionsnedsättning, sexuell läggning eller ålder.\nLag (2016:828).\n\nArbetet med aktiva åtgärder",
+          "stycken": [
+            "annat sätt verka för lika rättigheter och möjligheter oavsett\nkön, könsöverskridande identitet eller uttryck, etnisk\ntillhörighet, religion eller annan trosuppfattning,\nfunktionsnedsättning, sexuell läggning eller ålder.\nLag (2016:828).",
+            "Arbetet med aktiva åtgärder"
+          ],
+          "nyckelord": [
+            "annat",
+            "sätt",
+            "verka",
+            "lika",
+            "rättigheter",
+            "möjligheter"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "dl_2008_567_3kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "förebyggande och främjande arbete genom att",
+          "text": "1. undersöka om det finns risker för diskriminering eller\nrepressalier eller om det finns andra hinder för enskildas\nlika rättigheter och möjligheter i verksamheten,\n\n2. analysera orsaker till upptäckta risker och hinder,\n\n3. vidta de förebyggande och främjande åtgärder som skäligen\nkan krävas, och\n\n4. följa upp och utvärdera arbetet enligt 1–3. Lag (2016:828).",
+          "stycken": [
+            "1. undersöka om det finns risker för diskriminering eller\nrepressalier eller om det finns andra hinder för enskildas\nlika rättigheter och möjligheter i verksamheten,",
+            "2. analysera orsaker till upptäckta risker och hinder,",
+            "3. vidta de förebyggande och främjande åtgärder som skäligen\nkan krävas, och",
+            "4. följa upp och utvärdera arbetet enligt 1–3. Lag (2016:828)."
+          ],
+          "nyckelord": [
+            "finns",
+            "risker",
+            "hinder",
+            "undersöka",
+            "diskriminering",
+            "repressalier"
+          ],
+          "relaterade_lagrum": [
+            "1 kap. 4 § DL",
+            "2 kap. 1 § DL"
+          ],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "dl_2008_567_3kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "Åtgärder ska tidsplaneras och genomföras så snart som\nmöjligt. Lag (2016:828).\n\nArbetslivet\n\n\nArbetsgivarens arbete med aktiva åtgärder",
+          "stycken": [
+            "Åtgärder ska tidsplaneras och genomföras så snart som\nmöjligt. Lag (2016:828).",
+            "Arbetslivet",
+            "Arbetsgivarens arbete med aktiva åtgärder"
+          ],
+          "nyckelord": [
+            "åtgärder",
+            "tidsplaneras",
+            "genomföras",
+            "snart",
+            "möjligt",
+            "arbetslivet"
+          ],
+          "relaterade_lagrum": [
+            "2 kap. 1 § AML",
+            "3 kap. 2 § AML"
+          ],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "dl_2008_567_3kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "ett arbete med aktiva åtgärder på det sätt som anges i 2 och",
+          "text": "ett arbete med aktiva åtgärder på det sätt som anges i 2 och",
+          "stycken": [
+            "ett arbete med aktiva åtgärder på det sätt som anges i 2 och"
+          ],
+          "nyckelord": [
+            "arbete",
+            "aktiva",
+            "åtgärder",
+            "sätt",
+            "anges"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "dl_2008_567_3kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "",
+          "text": "",
+          "stycken": [
+            ""
+          ],
+          "nyckelord": [],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "dl_2008_567_3kap_5p",
+          "paragraf": "5 §",
+          "rubrik": "",
+          "text": "1. arbetsförhållanden,\n\n2. bestämmelser och praxis om löner och andra\nanställningsvillkor,\n\n3. rekrytering och befordran,\n\n4. utbildning och övrig kompetensutveckling, och\n\n5. möjligheter att förena förvärvsarbete med föräldraskap.\nLag (2016:828).",
+          "stycken": [
+            "1. arbetsförhållanden,",
+            "2. bestämmelser och praxis om löner och andra\nanställningsvillkor,",
+            "3. rekrytering och befordran,",
+            "4. utbildning och övrig kompetensutveckling, och",
+            "5. möjligheter att förena förvärvsarbete med föräldraskap.\nLag (2016:828)."
+          ],
+          "nyckelord": [
+            "arbetsförhållanden",
+            "bestämmelser",
+            "praxis",
+            "löner",
+            "andra",
+            "anställningsvillkor"
+          ],
+          "relaterade_lagrum": [
+            "7 § LAS",
+            "11 § LAS",
+            "32 § LAS",
+            "2 kap. 1 § AML"
+          ],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "dl_2008_567_3kap_6p",
+          "paragraf": "6 §",
+          "rubrik": "verksamheten i syfte att förhindra trakasserier, sexuella",
+          "text": "trakasserier och sådana repressalier som avses i 2 kap.",
+          "stycken": [
+            "trakasserier och sådana repressalier som avses i 2 kap."
+          ],
+          "nyckelord": [
+            "trakasserier",
+            "repressalier",
+            "avses"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner"
+        },
+        {
+          "id": "dl_2008_567_3kap_18p",
+          "paragraf": "18 §",
+          "rubrik": "",
+          "text": "Arbetsgivaren ska följa upp och utvärdera de riktlinjer och\nrutiner som finns enligt första stycket. Lag (2016:828).",
+          "stycken": [
+            "Arbetsgivaren ska följa upp och utvärdera de riktlinjer och\nrutiner som finns enligt första stycket. Lag (2016:828)."
+          ],
+          "nyckelord": [
+            "arbetsgivaren",
+            "följa",
+            "utvärdera",
+            "riktlinjer",
+            "rutiner",
+            "finns"
+          ],
+          "relaterade_lagrum": [
+            "2 kap. 1 § AML",
+            "3 kap. 2 § AML"
+          ],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "dl_2008_567_3kap_7p",
+          "paragraf": "7 §",
+          "rubrik": "kompetensutveckling och andra lämpliga åtgärder främja en",
+          "text": "jämn könsfördelning i skilda typer av arbeten, inom olika\nkategorier av arbetstagare och på ledande positioner.\n\nArbetsgivaren ska följa upp och utvärdera de åtgärder som\nvidtas enligt första stycket. Lag (2016:828).\n\nArbetsgivarens arbete med lönekartläggning",
+          "stycken": [
+            "jämn könsfördelning i skilda typer av arbeten, inom olika\nkategorier av arbetstagare och på ledande positioner.",
+            "Arbetsgivaren ska följa upp och utvärdera de åtgärder som\nvidtas enligt första stycket. Lag (2016:828).",
+            "Arbetsgivarens arbete med lönekartläggning"
+          ],
+          "nyckelord": [
+            "jämn",
+            "könsfördelning",
+            "skilda",
+            "typer",
+            "arbeten",
+            "inom"
+          ],
+          "relaterade_lagrum": [
+            "2 kap. 1 § AML",
+            "3 kap. 2 § AML"
+          ],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "dl_2008_567_3kap_8p",
+          "paragraf": "8 §",
+          "rubrik": "skillnader i lön och andra anställningsvillkor mellan kvinnor",
+          "text": "och män ska arbetsgivaren varje år kartlägga och analysera\n\n1. bestämmelser och praxis om löner och andra\nanställningsvillkor som tillämpas hos arbetsgivaren, och\n\n2. löneskillnader mellan kvinnor och män som utför arbete som\när att betrakta som lika eller likvärdigt. Lag (2016:828).",
+          "stycken": [
+            "och män ska arbetsgivaren varje år kartlägga och analysera",
+            "1. bestämmelser och praxis om löner och andra\nanställningsvillkor som tillämpas hos arbetsgivaren, och",
+            "2. löneskillnader mellan kvinnor och män som utför arbete som\när att betrakta som lika eller likvärdigt. Lag (2016:828)."
+          ],
+          "nyckelord": [
+            "arbetsgivaren",
+            "varje",
+            "kartlägga",
+            "analysera",
+            "bestämmelser",
+            "praxis"
+          ],
+          "relaterade_lagrum": [
+            "7 § LAS",
+            "11 § LAS",
+            "32 § LAS",
+            "2 kap. 1 § AML"
+          ],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "dl_2008_567_3kap_9p",
+          "paragraf": "9 §",
+          "rubrik": "",
+          "text": "löneskillnader har direkt eller indirekt samband med kön.\nAnalysen ska särskilt avse skillnader mellan\n\n1. kvinnor och män som utför arbete som är att betrakta som\nlika,\n\n2. en grupp med arbetstagare som utför arbete som är eller\nbrukar anses vara kvinnodominerat och en grupp med\narbetstagare som utför arbete som är att betrakta som\nlikvärdigt med sådant arbete men inte är eller brukar anses\nvara kvinnodominerat, och\n\n3. en grupp med arbetstagare som utför arbete som är eller\nbrukar anses vara kvinnodominerat och en grupp med\narbetstagare som utför arbete som inte är eller brukar anses\nvara kvinnodominerat men ger högre lön trots att kraven i\narbetet bedömts vara lägre. Lag (2016:828).",
+          "stycken": [
+            "löneskillnader har direkt eller indirekt samband med kön.\nAnalysen ska särskilt avse skillnader mellan",
+            "1. kvinnor och män som utför arbete som är att betrakta som\nlika,",
+            "2. en grupp med arbetstagare som utför arbete som är eller\nbrukar anses vara kvinnodominerat och en grupp med\narbetstagare som utför arbete som är att betrakta som\nlikvärdigt med sådant arbete men inte är eller brukar anses\nvara kvinnodominerat, och",
+            "3. en grupp med arbetstagare som utför arbete som är eller\nbrukar anses vara kvinnodominerat och en grupp med\narbetstagare som utför arbete som inte är eller brukar anses\nvara kvinnodominerat men ger högre lön trots att kraven i\narbetet bedömts vara lägre. Lag (2016:828)."
+          ],
+          "nyckelord": [
+            "arbete",
+            "utför",
+            "vara",
+            "grupp",
+            "arbetstagare",
+            "brukar"
+          ],
+          "relaterade_lagrum": [
+            "2 kap. 1 § AML",
+            "3 kap. 2 § AML"
+          ],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "dl_2008_567_3kap_10p",
+          "paragraf": "10 §",
+          "rubrik": "arbete om det utifrån en sammantagen bedömning av de krav",
+          "text": "arbetet ställer och dess natur kan anses ha lika värde som\ndet andra arbetet. Bedömningen av de krav arbetet ställer ska\ngöras med beaktande av kriterier som kunskap och färdigheter\nsamt ansvar och ansträngning. Vid bedömningen av arbetets\nnatur ska särskilt arbetsförhållandena beaktas.\nLag (2016:828).\n\nSamverkan",
+          "stycken": [
+            "arbetet ställer och dess natur kan anses ha lika värde som\ndet andra arbetet. Bedömningen av de krav arbetet ställer ska\ngöras med beaktande av kriterier som kunskap och färdigheter\nsamt ansvar och ansträngning. Vid bedömningen av arbetets\nnatur ska särskilt arbetsförhållandena beaktas.\nLag (2016:828).",
+            "Samverkan"
+          ],
+          "nyckelord": [
+            "arbetet",
+            "ställer",
+            "natur",
+            "bedömningen",
+            "dess",
+            "anses"
+          ],
+          "relaterade_lagrum": [
+            "2 kap. 1 § AML",
+            "3 kap. 2 § AML"
+          ],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "dl_2008_567_3kap_11p",
+          "paragraf": "11 §",
+          "rubrik": "",
+          "text": "arbetstagare samverka. Lag (2016:828).\n\nInformation som behövs för samverkan",
+          "stycken": [
+            "arbetstagare samverka. Lag (2016:828).",
+            "Information som behövs för samverkan"
+          ],
+          "nyckelord": [
+            "arbetstagare",
+            "samverka",
+            "information",
+            "behövs",
+            "samverkan"
+          ],
+          "relaterade_lagrum": [
+            "2 kap. 1 § AML",
+            "3 kap. 2 § AML"
+          ],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "dl_2008_567_3kap_12p",
+          "paragraf": "12 §",
+          "rubrik": "arbetsgivaren är bunden till av kollektivavtal med den",
+          "text": "information som behövs för att organisationen ska kunna\nsamverka i arbetet med aktiva åtgärder.\n\nOm informationen avser uppgifter om lön eller andra\nförhållanden som berör en enskild arbetstagare, gäller\nreglerna om tystnadsplikt och skadestånd i 21, 22 och 56 §§\nlagen (1976:580) om medbestämmande i arbetslivet. I det\nallmännas verksamhet gäller i stället 10 kap. 11–14 §§ och 12\nkap. 2 § offentlighets- och sekretesslagen (2009:400).\nLag (2016:828).\n\nDokumentation",
+          "stycken": [
+            "information som behövs för att organisationen ska kunna\nsamverka i arbetet med aktiva åtgärder.",
+            "Om informationen avser uppgifter om lön eller andra\nförhållanden som berör en enskild arbetstagare, gäller\nreglerna om tystnadsplikt och skadestånd i 21, 22 och 56 §§\nlagen (1976:580) om medbestämmande i arbetslivet. I det\nallmännas verksamhet gäller i stället 10 kap. 11–14 §§ och 12\nkap. 2 § offentlighets- och sekretesslagen (2009:400).\nLag (2016:828).",
+            "Dokumentation"
+          ],
+          "nyckelord": [
+            "gäller",
+            "information",
+            "behövs",
+            "organisationen",
+            "kunna",
+            "samverka"
+          ],
+          "relaterade_lagrum": [
+            "26 kap. 1 § OSL",
+            "25 kap. 1 § OSL",
+            "2 kap. 1 § AML",
+            "3 kap. 2 § AML"
+          ],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "dl_2008_567_3kap_13p",
+          "paragraf": "13 §",
+          "rubrik": "sysselsatte 25 eller fler arbetstagare ska under året",
+          "text": "skriftligen dokumentera arbetet med aktiva åtgärder enligt\n4–10 §§.\n\nDokumentationen ska innehålla\n\n1. en redogörelse för alla delar av arbetet som det beskrivs\ni 2 och 3 §§ och som avser de områden som anges i 5 §,\n\n2. en redogörelse för de åtgärder som vidtas och planeras\nenligt 6 och 7 §§,\n\n3. en redovisning av resultatet av kartläggningen och\nanalysen enligt 8–10 §§,\n\n4. en redovisning av vilka lönejusteringar och andra åtgärder\nsom behöver vidtas för att åtgärda förekommande\nlöneskillnader som har direkt eller indirekt samband med kön,\n\n5. en kostnadsberäkning och en tidsplanering utifrån\nmålsättningen att de lönejusteringar som behöver vidtas ska\ngenomföras så snart som möjligt och senast inom tre år,\n\n6. en redovisning och utvärdering av hur föregående års\nplanerade åtgärder har genomförts, och\n\n7. en redogörelse för hur samverkansskyldigheten enligt 11 §\nfullgörs. Lag (2016:828).",
+          "stycken": [
+            "skriftligen dokumentera arbetet med aktiva åtgärder enligt\n4–10 §§.",
+            "Dokumentationen ska innehålla",
+            "1. en redogörelse för alla delar av arbetet som det beskrivs\ni 2 och 3 §§ och som avser de områden som anges i 5 §,",
+            "2. en redogörelse för de åtgärder som vidtas och planeras\nenligt 6 och 7 §§,",
+            "3. en redovisning av resultatet av kartläggningen och\nanalysen enligt 8–10 §§,",
+            "4. en redovisning av vilka lönejusteringar och andra åtgärder\nsom behöver vidtas för att åtgärda förekommande\nlöneskillnader som har direkt eller indirekt samband med kön,",
+            "5. en kostnadsberäkning och en tidsplanering utifrån\nmålsättningen att de lönejusteringar som behöver vidtas ska\ngenomföras så snart som möjligt och senast inom tre år,",
+            "6. en redovisning och utvärdering av hur föregående års\nplanerade åtgärder har genomförts, och",
+            "7. en redogörelse för hur samverkansskyldigheten enligt 11 §\nfullgörs. Lag (2016:828)."
+          ],
+          "nyckelord": [
+            "åtgärder",
+            "enligt",
+            "redogörelse",
+            "vidtas",
+            "redovisning",
+            "arbetet"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "dl_2008_567_3kap_14p",
+          "paragraf": "14 §",
+          "rubrik": "sysselsatte mellan 10 och 24 arbetstagare ska under året",
+          "text": "skriftligen dokumentera arbetet med lönekartläggningen enligt\n8–10 §§.\n\nDokumentationen ska innehålla de uppgifter som framgår av 13 §\n3–6 och en redogörelse för hur samverkansskyldigheten\nenligt 11 § fullgörs i fråga om arbetet med lönekartläggningen.\nLag (2016:828).\n\nUtbildning\n\n\nUtbildningsanordnare",
+          "stycken": [
+            "skriftligen dokumentera arbetet med lönekartläggningen enligt\n8–10 §§.",
+            "Dokumentationen ska innehålla de uppgifter som framgår av 13 §\n3–6 och en redogörelse för hur samverkansskyldigheten\nenligt 11 § fullgörs i fråga om arbetet med lönekartläggningen.\nLag (2016:828).",
+            "Utbildning",
+            "Utbildningsanordnare"
+          ],
+          "nyckelord": [
+            "arbetet",
+            "lönekartläggningen",
+            "enligt",
+            "skriftligen",
+            "dokumentera",
+            "dokumentationen"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "dl_2008_567_3kap_15p",
+          "paragraf": "15 §",
+          "rubrik": "bedriver",
+          "text": "1. utbildning eller annan verksamhet enligt skollagen\n(2010:800),\n\n2. utbildning enligt högskolelagen (1992:1434), eller\n\n3. utbildning som kan leda fram till en examen enligt lagen\n(1993:792) om tillstånd att utfärda vissa examina.\nLag (2016:828).\n\nUtbildningsanordnarens arbete med aktiva åtgärder",
+          "stycken": [
+            "1. utbildning eller annan verksamhet enligt skollagen\n(2010:800),",
+            "2. utbildning enligt högskolelagen (1992:1434), eller",
+            "3. utbildning som kan leda fram till en examen enligt lagen\n(1993:792) om tillstånd att utfärda vissa examina.\nLag (2016:828).",
+            "Utbildningsanordnarens arbete med aktiva åtgärder"
+          ],
+          "nyckelord": [
+            "utbildning",
+            "enligt",
+            "annan",
+            "verksamhet",
+            "skollagen",
+            "högskolelagen"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "dl_2008_567_3kap_16p",
+          "paragraf": "16 §",
+          "rubrik": "bedriva ett arbete med aktiva åtgärder på det sätt som anges",
+          "text": "i 2 och 3 §§. Lag (2016:828).",
+          "stycken": [
+            "i 2 och 3 §§. Lag (2016:828)."
+          ],
+          "nyckelord": [],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "dl_2008_567_3kap_17p",
+          "paragraf": "17 §",
+          "rubrik": "som avses i 15 § 2 och 3 ska omfatta",
+          "text": "1. antagnings- och rekryteringsförfarande,\n\n2. undervisningsformer och organisering av utbildningen,\n\n3. examinationer och bedömningar av studenternas\nprestationer,\n\n4. studiemiljö, och\n\n5. möjligheter att förena studier med föräldraskap.\nLag (2016:828).",
+          "stycken": [
+            "1. antagnings- och rekryteringsförfarande,",
+            "2. undervisningsformer och organisering av utbildningen,",
+            "3. examinationer och bedömningar av studenternas\nprestationer,",
+            "4. studiemiljö, och",
+            "5. möjligheter att förena studier med föräldraskap.\nLag (2016:828)."
+          ],
+          "nyckelord": [
+            "antagnings",
+            "rekryteringsförfarande",
+            "undervisningsformer",
+            "organisering",
+            "utbildningen",
+            "examinationer"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner"
+        },
+        {
+          "id": "dl_2008_567_3kap_18p",
+          "paragraf": "18 §",
+          "rubrik": "verksamheten i syfte att förhindra trakasserier och sexuella",
+          "text": "trakasserier.\n\nUtbildningsanordnaren ska följa upp och utvärdera de\nriktlinjer och rutiner som finns enligt första stycket.\nLag (2016:828).\n\nSamverkan",
+          "stycken": [
+            "trakasserier.",
+            "Utbildningsanordnaren ska följa upp och utvärdera de\nriktlinjer och rutiner som finns enligt första stycket.\nLag (2016:828).",
+            "Samverkan"
+          ],
+          "nyckelord": [
+            "trakasserier",
+            "utbildningsanordnaren",
+            "följa",
+            "utvärdera",
+            "riktlinjer",
+            "rutiner"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "dl_2008_567_3kap_19p",
+          "paragraf": "19 §",
+          "rubrik": "samverka med dem som deltar i sådan utbildning som avses i",
+          "text": "samverka med dem som deltar i sådan utbildning som avses i",
+          "stycken": [
+            "samverka med dem som deltar i sådan utbildning som avses i"
+          ],
+          "nyckelord": [
+            "samverka",
+            "deltar",
+            "utbildning",
+            "avses"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner"
+        },
+        {
+          "id": "dl_2008_567_3kap_15p",
+          "paragraf": "15 §",
+          "rubrik": "",
+          "text": "Dokumentation",
+          "stycken": [
+            "Dokumentation"
+          ],
+          "nyckelord": [
+            "dokumentation"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "dl_2008_567_3kap_20p",
+          "paragraf": "20 §",
+          "rubrik": "",
+          "text": "dokumentera arbetet med aktiva åtgärder enligt 16 och 18 §§.\nFör en sådan utbildningsanordnare som avses i 15 § 2 och 3\navser dokumentationsskyldigheten de områden som anges i",
+          "stycken": [
+            "dokumentera arbetet med aktiva åtgärder enligt 16 och 18 §§.\nFör en sådan utbildningsanordnare som avses i 15 § 2 och 3\navser dokumentationsskyldigheten de områden som anges i"
+          ],
+          "nyckelord": [
+            "dokumentera",
+            "arbetet",
+            "aktiva",
+            "åtgärder",
+            "enligt",
+            "utbildningsanordnare"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Definitioner"
+        },
+        {
+          "id": "dl_2008_567_3kap_17p",
+          "paragraf": "17 §",
+          "rubrik": "",
+          "text": "Dokumentationen ska innehålla\n\n1. en redogörelse för alla delar av arbetet som det beskrivs\ni 2 och 3 §§,\n\n2. en redogörelse för de åtgärder som vidtas och planeras\nenligt 18 §, och\n\n3. en redogörelse för hur samverkansskyldigheten enligt 19 §\nfullgörs. Lag (2016:828).",
+          "stycken": [
+            "Dokumentationen ska innehålla",
+            "1. en redogörelse för alla delar av arbetet som det beskrivs\ni 2 och 3 §§,",
+            "2. en redogörelse för de åtgärder som vidtas och planeras\nenligt 18 §, och",
+            "3. en redogörelse för hur samverkansskyldigheten enligt 19 §\nfullgörs. Lag (2016:828)."
+          ],
+          "nyckelord": [
+            "redogörelse",
+            "enligt",
+            "dokumentationen",
+            "innehålla",
+            "alla",
+            "delar"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        }
+      ]
+    },
+    {
+      "kapitel": "4",
+      "rubrik": "Tillsyn",
+      "paragrafer": [
+        {
+          "id": "dl_2008_567_4kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "denna lag följs. Ombudsmannen ska i första hand försöka få dem",
+          "text": "som omfattas av lagen att frivilligt följa den.\n\nBestämmelser om ombudsmannens uppgifter finns också i lagen\n(2008:568) om Diskrimineringsombudsmannen.",
+          "stycken": [
+            "som omfattas av lagen att frivilligt följa den.",
+            "Bestämmelser om ombudsmannens uppgifter finns också i lagen\n(2008:568) om Diskrimineringsombudsmannen."
+          ],
+          "nyckelord": [
+            "lagen",
+            "omfattas",
+            "frivilligt",
+            "följa",
+            "bestämmelser",
+            "ombudsmannens"
+          ],
+          "relaterade_lagrum": [
+            "1 kap. 4 § DL",
+            "2 kap. 1 § DL"
+          ],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "dl_2008_567_4kap_1p",
+          "paragraf": "1 a §",
+          "rubrik": "granskning som har till syfte att kontrollera om den",
+          "text": "verksamhet som granskas uppfyller de krav som följer av denna\nlag. Lag (2016:828).",
+          "stycken": [
+            "verksamhet som granskas uppfyller de krav som följer av denna\nlag. Lag (2016:828)."
+          ],
+          "nyckelord": [
+            "verksamhet",
+            "granskas",
+            "uppfyller",
+            "krav",
+            "följer"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "dl_2008_567_4kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "",
+          "text": "föra talan i domstol för en enskild som medger det.\n\nUppgiftsskyldighet",
+          "stycken": [
+            "föra talan i domstol för en enskild som medger det.",
+            "Uppgiftsskyldighet"
+          ],
+          "nyckelord": [
+            "föra",
+            "talan",
+            "domstol",
+            "enskild",
+            "medger",
+            "uppgiftsskyldighet"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "dl_2008_567_4kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "repressalier, av skyldigheten att utreda och vidta åtgärder mot",
+          "text": "trakasserier eller av bestämmelserna om aktiva åtgärder i denna\nlag är skyldig att på begäran av Diskrimineringsombudsmannen\n\n1. lämna de uppgifter om förhållandena i verksamheten som kan\nha betydelse för tillsynen,\n\n2. lämna uppgifter om meriter när ombudsmannen biträder en\nbegäran av en enskild enligt 2 kap. 4 eller 8 §,\n\n3. ge ombudsmannen tillträde till arbetsplatser eller andra\nlokaler där verksamheten bedrivs för undersökningar som kan ha\nbetydelse för tillsynen, och\n\n4. komma till överläggningar med ombudsmannen.\n\nSkyldigheten enligt 1-3 gäller inte om det i ett enskilt fall\nfinns särskilda skäl som talar däremot.\n\nVite",
+          "stycken": [
+            "trakasserier eller av bestämmelserna om aktiva åtgärder i denna\nlag är skyldig att på begäran av Diskrimineringsombudsmannen",
+            "1. lämna de uppgifter om förhållandena i verksamheten som kan\nha betydelse för tillsynen,",
+            "2. lämna uppgifter om meriter när ombudsmannen biträder en\nbegäran av en enskild enligt 2 kap. 4 eller 8 §,",
+            "3. ge ombudsmannen tillträde till arbetsplatser eller andra\nlokaler där verksamheten bedrivs för undersökningar som kan ha\nbetydelse för tillsynen, och",
+            "4. komma till överläggningar med ombudsmannen.",
+            "Skyldigheten enligt 1-3 gäller inte om det i ett enskilt fall\nfinns särskilda skäl som talar däremot.",
+            "Vite"
+          ],
+          "nyckelord": [
+            "ombudsmannen",
+            "begäran",
+            "lämna",
+            "uppgifter",
+            "verksamheten",
+            "betydelse"
+          ],
+          "relaterade_lagrum": [
+            "1 kap. 4 § DL",
+            "2 kap. 1 § DL",
+            "2 kap. 1 § AML",
+            "3 kap. 2 § AML"
+          ],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "dl_2008_567_4kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "",
+          "text": "Diskrimineringsombudsmannen föreläggas att vid vite fullgöra sin\nskyldighet. Ett beslut om vitesföreläggande får överklagas hos\nNämnden mot diskriminering.\n\nEtt vitesföreläggande enligt första stycket ska delges.\nLag (2010:1979).",
+          "stycken": [
+            "Diskrimineringsombudsmannen föreläggas att vid vite fullgöra sin\nskyldighet. Ett beslut om vitesföreläggande får överklagas hos\nNämnden mot diskriminering.",
+            "Ett vitesföreläggande enligt första stycket ska delges.\nLag (2010:1979)."
+          ],
+          "nyckelord": [
+            "vitesföreläggande",
+            "diskrimineringsombudsmannen",
+            "föreläggas",
+            "vite",
+            "fullgöra",
+            "skyldighet"
+          ],
+          "relaterade_lagrum": [
+            "1 kap. 4 § DL",
+            "2 kap. 1 § DL"
+          ],
+          "kategori": "Ansökan och beslut"
+        },
+        {
+          "id": "dl_2008_567_4kap_5p",
+          "paragraf": "5 §",
+          "rubrik": "arbete med aktiva åtgärder enligt 3 kap. 4, 5, 6, 7, 8, 9,",
+          "text": "16, 17 eller 18 §, lämna information enligt 3 kap. 12 § eller\ndokumentera enligt 3 kap. 13, 14 eller 20 § får föreläggas\natt fullgöra dem. Ett sådant föreläggande ska förenas med\nvite och meddelas av Nämnden mot diskriminering efter\nframställning av Diskrimineringsombudsmannen. Föreläggandet\nfår riktas även mot staten som arbetsgivare eller som\nhuvudman för utbildningsverksamhet.\n\nOm ombudsmannen förklarat sig inte vilja göra en\nframställning till nämnden om vitesföreläggande, får en\ncentral arbetstagarorganisation som arbetsgivaren är bunden\ntill av kollektivavtal göra en framställning i fråga om\naktiva åtgärder i arbetslivet enligt 3 kap. 4–9 och 12–14 §§.\n\nI framställningen ska det anges vilka åtgärder som bör\nåläggas den som framställningen riktas mot, vilka skäl som\nåberopas till stöd för framställningen och vilken utredning\nsom har gjorts. Lag (2016:828).\n\nÖverklagandeförbud",
+          "stycken": [
+            "16, 17 eller 18 §, lämna information enligt 3 kap. 12 § eller\ndokumentera enligt 3 kap. 13, 14 eller 20 § får föreläggas\natt fullgöra dem. Ett sådant föreläggande ska förenas med\nvite och meddelas av Nämnden mot diskriminering efter\nframställning av Diskrimineringsombudsmannen. Föreläggandet\nfår riktas även mot staten som arbetsgivare eller som\nhuvudman för utbildningsverksamhet.",
+            "Om ombudsmannen förklarat sig inte vilja göra en\nframställning till nämnden om vitesföreläggande, får en\ncentral arbetstagarorganisation som arbetsgivaren är bunden\ntill av kollektivavtal göra en framställning i fråga om\naktiva åtgärder i arbetslivet enligt 3 kap. 4–9 och 12–14 §§.",
+            "I framställningen ska det anges vilka åtgärder som bör\nåläggas den som framställningen riktas mot, vilka skäl som\nåberopas till stöd för framställningen och vilken utredning\nsom har gjorts. Lag (2016:828).",
+            "Överklagandeförbud"
+          ],
+          "nyckelord": [
+            "enligt",
+            "framställning",
+            "framställningen",
+            "nämnden",
+            "riktas",
+            "göra"
+          ],
+          "relaterade_lagrum": [
+            "1 kap. 4 § DL",
+            "2 kap. 1 § DL",
+            "2 kap. 1 § AML",
+            "3 kap. 2 § AML"
+          ],
+          "kategori": "Överklagande"
+        },
+        {
+          "id": "dl_2008_567_4kap_6p",
+          "paragraf": "6 §",
+          "rubrik": "lag än beslut om vitesförelägganden enligt 4 § får inte",
+          "text": "överklagas.\n\nNämnden mot diskriminering\n\n\nNämndens uppgifter",
+          "stycken": [
+            "överklagas.",
+            "Nämnden mot diskriminering",
+            "Nämndens uppgifter"
+          ],
+          "nyckelord": [
+            "överklagas",
+            "nämnden",
+            "diskriminering",
+            "nämndens",
+            "uppgifter"
+          ],
+          "relaterade_lagrum": [
+            "1 kap. 4 § DL",
+            "2 kap. 1 § DL"
+          ],
+          "kategori": "Ansökan och beslut"
+        },
+        {
+          "id": "dl_2008_567_4kap_7p",
+          "paragraf": "7 §",
+          "rubrik": "vitesförelägganden enligt 5 § och överklaganden av beslut om",
+          "text": "vitesförelägganden enligt 4 §. Vid handläggningen av ärenden\ntillämpas 8-15 a §. Lag (2010:1979).\n\nHandläggningen av en framställning om vitesföreläggande",
+          "stycken": [
+            "vitesförelägganden enligt 4 §. Vid handläggningen av ärenden\ntillämpas 8-15 a §. Lag (2010:1979).",
+            "Handläggningen av en framställning om vitesföreläggande"
+          ],
+          "nyckelord": [
+            "handläggningen",
+            "vitesförelägganden",
+            "enligt",
+            "ärenden",
+            "tillämpas",
+            "framställning"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Ansökan och beslut"
+        },
+        {
+          "id": "dl_2008_567_4kap_8p",
+          "paragraf": "8 §",
+          "rubrik": "ska föreläggas att inom en viss tid yttra sig över",
+          "text": "framställningen och lämna de uppgifter om förhållandena i sin\nverksamhet som Nämnden mot diskriminering behöver för sin\nprövning.\n\nNär en arbetstagarorganisation gjort framställningen ska\nDiskrimineringsombudsmannen ges tillfälle att yttra sig.",
+          "stycken": [
+            "framställningen och lämna de uppgifter om förhållandena i sin\nverksamhet som Nämnden mot diskriminering behöver för sin\nprövning.",
+            "När en arbetstagarorganisation gjort framställningen ska\nDiskrimineringsombudsmannen ges tillfälle att yttra sig."
+          ],
+          "nyckelord": [
+            "framställningen",
+            "lämna",
+            "uppgifter",
+            "förhållandena",
+            "verksamhet",
+            "nämnden"
+          ],
+          "relaterade_lagrum": [
+            "1 kap. 4 § DL",
+            "2 kap. 1 § DL",
+            "2 kap. 1 § AML",
+            "3 kap. 2 § AML"
+          ],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "dl_2008_567_4kap_9p",
+          "paragraf": "9 §",
+          "rubrik": "tillräckligt utredda. När det behövs ska nämnden låta",
+          "text": "komplettera utredningen. Överflödig utredning får avvisas.",
+          "stycken": [
+            "komplettera utredningen. Överflödig utredning får avvisas."
+          ],
+          "nyckelord": [
+            "komplettera",
+            "utredningen",
+            "överflödig",
+            "utredning",
+            "avvisas"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "dl_2008_567_4kap_10p",
+          "paragraf": "10 §",
+          "rubrik": "muntlig förhandling, utom när nämnden anser att någon sådan",
+          "text": "förhandling inte behövs.",
+          "stycken": [
+            "förhandling inte behövs."
+          ],
+          "nyckelord": [
+            "förhandling",
+            "behövs"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "dl_2008_567_4kap_11p",
+          "paragraf": "11 §",
+          "rubrik": "den som gjort framställningen hos nämnden och den som",
+          "text": "framställningen riktas mot. Om det behövs för utredningen, får\nnämnden också kalla andra till förhandlingen.\n\nNämnden får vid vite förelägga den som framställningen riktas\nmot eller dennes ställföreträdare att inställa sig personligen.",
+          "stycken": [
+            "framställningen riktas mot. Om det behövs för utredningen, får\nnämnden också kalla andra till förhandlingen.",
+            "Nämnden får vid vite förelägga den som framställningen riktas\nmot eller dennes ställföreträdare att inställa sig personligen."
+          ],
+          "nyckelord": [
+            "framställningen",
+            "riktas",
+            "nämnden",
+            "behövs",
+            "utredningen",
+            "också"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "dl_2008_567_4kap_12p",
+          "paragraf": "12 §",
+          "rubrik": "som framställningen riktas mot inte yttrar sig i ärendet, inte",
+          "text": "medverkar till utredningen eller uteblir från en muntlig\nförhandling.\n\nOm Diskrimineringsombudsmannen eller den\narbetstagarorganisation som gjort framställningen om\nvitesföreläggande uteblir från en förhandling, förfaller\nframställningen om vitesföreläggande.",
+          "stycken": [
+            "medverkar till utredningen eller uteblir från en muntlig\nförhandling.",
+            "Om Diskrimineringsombudsmannen eller den\narbetstagarorganisation som gjort framställningen om\nvitesföreläggande uteblir från en förhandling, förfaller\nframställningen om vitesföreläggande."
+          ],
+          "nyckelord": [
+            "uteblir",
+            "förhandling",
+            "framställningen",
+            "vitesföreläggande",
+            "medverkar",
+            "utredningen"
+          ],
+          "relaterade_lagrum": [
+            "1 kap. 4 § DL",
+            "2 kap. 1 § DL",
+            "2 kap. 1 § AML",
+            "3 kap. 2 § AML"
+          ],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "dl_2008_567_4kap_13p",
+          "paragraf": "13 §",
+          "rubrik": "ärende om vitesföreläggande ålägga den som framställningen",
+          "text": "riktas mot att vidta andra åtgärder än sådana som begärts i\nframställningen, om de andra åtgärderna inte är uppenbart mera\nbetungande för denne.\n\nI beslutet ska nämnden ange hur och inom vilken tid åtgärderna\nska påbörjas eller genomföras.\n\nNämndens beslut ska vara skriftligt och delges den som\nframställningen riktas mot.\n\nHandläggningen av ett överklagat beslut om vitesföreläggande",
+          "stycken": [
+            "riktas mot att vidta andra åtgärder än sådana som begärts i\nframställningen, om de andra åtgärderna inte är uppenbart mera\nbetungande för denne.",
+            "I beslutet ska nämnden ange hur och inom vilken tid åtgärderna\nska påbörjas eller genomföras.",
+            "Nämndens beslut ska vara skriftligt och delges den som\nframställningen riktas mot.",
+            "Handläggningen av ett överklagat beslut om vitesföreläggande"
+          ],
+          "nyckelord": [
+            "riktas",
+            "andra",
+            "framställningen",
+            "åtgärderna",
+            "beslut",
+            "vidta"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Ansökan och beslut"
+        },
+        {
+          "id": "dl_2008_567_4kap_14p",
+          "paragraf": "14 §",
+          "rubrik": "",
+          "text": "vitesföreläggande tillämpas 9 och 10 §§.",
+          "stycken": [
+            "vitesföreläggande tillämpas 9 och 10 §§."
+          ],
+          "nyckelord": [
+            "vitesföreläggande",
+            "tillämpas"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "dl_2008_567_4kap_15p",
+          "paragraf": "15 §",
+          "rubrik": "den som har överklagat beslutet om vitesföreläggande och",
+          "text": "Diskrimineringsombudsmannen. Om det behövs för utredningen, får\nnämnden också kalla andra till förhandlingen.\n\nNämnden får vid vite förelägga den som har överklagat beslutet\neller dennes ställföreträdare att inställa sig personligen.\n\nDelgivning av handlingar",
+          "stycken": [
+            "Diskrimineringsombudsmannen. Om det behövs för utredningen, får\nnämnden också kalla andra till förhandlingen.",
+            "Nämnden får vid vite förelägga den som har överklagat beslutet\neller dennes ställföreträdare att inställa sig personligen.",
+            "Delgivning av handlingar"
+          ],
+          "nyckelord": [
+            "nämnden",
+            "diskrimineringsombudsmannen",
+            "behövs",
+            "utredningen",
+            "också",
+            "kalla"
+          ],
+          "relaterade_lagrum": [
+            "1 kap. 4 § DL",
+            "2 kap. 1 § DL"
+          ],
+          "kategori": "Ansökan och beslut"
+        },
+        {
+          "id": "dl_2008_567_4kap_15p",
+          "paragraf": "15 a §",
+          "rubrik": "",
+          "text": "11 eller 15 § och andra handlingar som en arbetsgivare eller\nnågon annan ska tillhandahållas ska delges. Lag (2010:1979).\n\nÖverklagandeförbud",
+          "stycken": [
+            "11 eller 15 § och andra handlingar som en arbetsgivare eller\nnågon annan ska tillhandahållas ska delges. Lag (2010:1979).",
+            "Överklagandeförbud"
+          ],
+          "nyckelord": [
+            "andra",
+            "handlingar",
+            "arbetsgivare",
+            "någon",
+            "annan",
+            "tillhandahållas"
+          ],
+          "relaterade_lagrum": [
+            "2 kap. 1 § AML",
+            "3 kap. 2 § AML"
+          ],
+          "kategori": "Överklagande"
+        },
+        {
+          "id": "dl_2008_567_4kap_16p",
+          "paragraf": "16 §",
+          "rubrik": "",
+          "text": "inte överklagas.\n\nUtdömande av vite",
+          "stycken": [
+            "inte överklagas.",
+            "Utdömande av vite"
+          ],
+          "nyckelord": [
+            "överklagas",
+            "utdömande",
+            "vite"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Överklagande"
+        },
+        {
+          "id": "dl_2008_567_4kap_17p",
+          "paragraf": "17 §",
+          "rubrik": "",
+          "text": "lag förs vid tingsrätt av Diskrimineringsombudsmannen.\n\nI mål om utdömande av vite får tingsrätten bedöma även vitets\nlämplighet.\n\nÖverklagandenämnden för högskolan",
+          "stycken": [
+            "lag förs vid tingsrätt av Diskrimineringsombudsmannen.",
+            "I mål om utdömande av vite får tingsrätten bedöma även vitets\nlämplighet.",
+            "Överklagandenämnden för högskolan"
+          ],
+          "nyckelord": [
+            "förs",
+            "tingsrätt",
+            "diskrimineringsombudsmannen",
+            "utdömande",
+            "vite",
+            "tingsrätten"
+          ],
+          "relaterade_lagrum": [
+            "1 kap. 4 § DL",
+            "2 kap. 1 § DL"
+          ],
+          "kategori": "Överklagande"
+        },
+        {
+          "id": "dl_2008_567_4kap_18p",
+          "paragraf": "18 §",
+          "rubrik": "staten som huvudman får, i fråga om utbildning enligt",
+          "text": "högskolelagen (1992:1434), överklagas till\nÖverklagandenämnden för högskolan på den grunden att beslutet\nstrider mot\n\n1. diskrimineringsförbudet i 2 kap. 5 §, om beslutet avser\n\na. tillträde till utbildning,\n\nb. tillgodoräknande av utbildning,\n\nc. anstånd med studier eller fortsättning av studier efter\nstudieuppehåll,\n\nd. byte av handledare,\n\ne. indragning av handledare och andra resurser vid utbildning\npå forskarnivå, eller\n\nf. en ingripande åtgärd mot en student,\n\n2. diskrimineringsförbudet i 1 kap. 4 § 3, eller\n\n3. förbudet mot repressalier i 2 kap. 19 §.\n\nOm överklagandenämnden finner att det överklagade beslutet\nstrider mot något av förbuden och att detta kan antas ha\ninverkat på utgången, ska beslutet undanröjas och ärendet, om\ndet behövs, visas åter till universitetet eller högskolan för\nny prövning.\n\nOm ett beslut kan överklagas enligt någon annan författning,\nska överklagande ske i den ordning som föreskrivs där i\nstället för enligt första stycket. Lag (2017:282).",
+          "stycken": [
+            "högskolelagen (1992:1434), överklagas till\nÖverklagandenämnden för högskolan på den grunden att beslutet\nstrider mot",
+            "1. diskrimineringsförbudet i 2 kap. 5 §, om beslutet avser",
+            "a. tillträde till utbildning,",
+            "b. tillgodoräknande av utbildning,",
+            "c. anstånd med studier eller fortsättning av studier efter\nstudieuppehåll,",
+            "d. byte av handledare,",
+            "e. indragning av handledare och andra resurser vid utbildning\npå forskarnivå, eller",
+            "f. en ingripande åtgärd mot en student,",
+            "2. diskrimineringsförbudet i 1 kap. 4 § 3, eller",
+            "3. förbudet mot repressalier i 2 kap. 19 §.",
+            "Om överklagandenämnden finner att det överklagade beslutet\nstrider mot något av förbuden och att detta kan antas ha\ninverkat på utgången, ska beslutet undanröjas och ärendet, om\ndet behövs, visas åter till universitetet eller högskolan för\nny prövning.",
+            "Om ett beslut kan överklagas enligt någon annan författning,\nska överklagande ske i den ordning som föreskrivs där i\nstället för enligt första stycket. Lag (2017:282)."
+          ],
+          "nyckelord": [
+            "beslutet",
+            "utbildning",
+            "överklagas",
+            "överklagandenämnden",
+            "högskolan",
+            "strider"
+          ],
+          "relaterade_lagrum": [
+            "1 kap. 4 § DL",
+            "2 kap. 1 § DL"
+          ],
+          "kategori": "Ansökan och beslut"
+        },
+        {
+          "id": "dl_2008_567_4kap_19p",
+          "paragraf": "19 §",
+          "rubrik": "",
+          "text": "högskolan får inte överklagas.",
+          "stycken": [
+            "högskolan får inte överklagas."
+          ],
+          "nyckelord": [
+            "högskolan",
+            "överklagas"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Överklagande"
+        }
+      ]
+    },
+    {
+      "kapitel": "5",
+      "rubrik": "Ersättning och ogiltighet",
+      "paragrafer": [
+        {
+          "id": "dl_2008_567_5kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "repressalier eller som inte uppfyller sina skyldigheter att",
+          "text": "utreda och vidta åtgärder mot trakasserier eller sexuella\ntrakasserier enligt denna lag ska betala\ndiskrimineringsersättning för den kränkning som överträdelsen\ninnebär. När ersättningen bestäms ska särskilt syftet att\nmotverka sådana överträdelser av lagen beaktas. Ersättningen\nska betalas till den som kränkts av överträdelsen.\n\nEn arbetsgivare som bryter mot 2 kap. 1 § första stycket\neller 18 § ska också betala ersättning för den förlust som\nuppkommer. Detta gäller dock inte förlust som uppkommer vid\nbeslut som rör anställning eller befordran. Det gäller inte\nheller förlust som uppkommer med anledning av diskriminering\ni form av bristande tillgänglighet.\n\nOm det finns särskilda skäl kan ersättningen sättas ned helt\neller delvis. Lag (2014:958).",
+          "stycken": [
+            "utreda och vidta åtgärder mot trakasserier eller sexuella\ntrakasserier enligt denna lag ska betala\ndiskrimineringsersättning för den kränkning som överträdelsen\ninnebär. När ersättningen bestäms ska särskilt syftet att\nmotverka sådana överträdelser av lagen beaktas. Ersättningen\nska betalas till den som kränkts av överträdelsen.",
+            "En arbetsgivare som bryter mot 2 kap. 1 § första stycket\neller 18 § ska också betala ersättning för den förlust som\nuppkommer. Detta gäller dock inte förlust som uppkommer vid\nbeslut som rör anställning eller befordran. Det gäller inte\nheller förlust som uppkommer med anledning av diskriminering\ni form av bristande tillgänglighet.",
+            "Om det finns särskilda skäl kan ersättningen sättas ned helt\neller delvis. Lag (2014:958)."
+          ],
+          "nyckelord": [
+            "ersättningen",
+            "förlust",
+            "uppkommer",
+            "trakasserier",
+            "betala",
+            "överträdelsen"
+          ],
+          "relaterade_lagrum": [
+            "7 § LAS",
+            "11 § LAS",
+            "32 § LAS",
+            "1 kap. 4 § DL"
+          ],
+          "kategori": "Rätt till ersättning"
+        },
+        {
+          "id": "dl_2008_567_5kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "",
+          "text": "11, 13, 14, 15 eller 17 § diskriminerar någon eller utsätter\nnågon för repressalier ska diskrimineringsersättningen betalas\nav arbetsgivaren. Den som för annans räkning utför arbete under\nomständigheter liknande dem i ett anställningsförhållande ska\nlikställas med arbetstagare.\n\nOm en utbildningsanordnare bryter mot 2 kap. 5, 7 eller 19 §\nska ersättningen betalas av huvudmannen för verksamheten.\n\nOgiltighet",
+          "stycken": [
+            "11, 13, 14, 15 eller 17 § diskriminerar någon eller utsätter\nnågon för repressalier ska diskrimineringsersättningen betalas\nav arbetsgivaren. Den som för annans räkning utför arbete under\nomständigheter liknande dem i ett anställningsförhållande ska\nlikställas med arbetstagare.",
+            "Om en utbildningsanordnare bryter mot 2 kap. 5, 7 eller 19 §\nska ersättningen betalas av huvudmannen för verksamheten.",
+            "Ogiltighet"
+          ],
+          "nyckelord": [
+            "någon",
+            "betalas",
+            "diskriminerar",
+            "utsätter",
+            "repressalier",
+            "diskrimineringsersättningen"
+          ],
+          "relaterade_lagrum": [
+            "7 § LAS",
+            "11 § LAS",
+            "32 § LAS",
+            "1 kap. 4 § DL"
+          ],
+          "kategori": "Rätt till ersättning"
+        },
+        {
+          "id": "dl_2008_567_5kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "individuellt avtal eller i ett kollektivavtal på ett sätt som",
+          "text": "är förbjudet enligt denna lag, ska bestämmelsen jämkas eller\nförklaras ogiltig om den som diskriminerats begär det. Har\nbestämmelsen sådan betydelse för avtalet att det inte skäligen\nkan krävas att detta i övrigt ska gälla med oförändrat\ninnehåll, får avtalet jämkas även i annat hänseende eller i sin\nhelhet förklaras ogiltigt.\n\nOm någon diskrimineras genom uppsägning av ett avtal eller\ngenom en annan sådan rättshandling, ska rättshandlingen\nförklaras ogiltig om den som diskriminerats begär det.\n\nOm någon diskrimineras genom en ordningsregel eller liknande\nintern bestämmelse på arbetsplatsen ska bestämmelsen jämkas\neller förklaras sakna verkan om den som diskriminerats begär\ndet.\n\nVägran att rätta sig efter en dom",
+          "stycken": [
+            "är förbjudet enligt denna lag, ska bestämmelsen jämkas eller\nförklaras ogiltig om den som diskriminerats begär det. Har\nbestämmelsen sådan betydelse för avtalet att det inte skäligen\nkan krävas att detta i övrigt ska gälla med oförändrat\ninnehåll, får avtalet jämkas även i annat hänseende eller i sin\nhelhet förklaras ogiltigt.",
+            "Om någon diskrimineras genom uppsägning av ett avtal eller\ngenom en annan sådan rättshandling, ska rättshandlingen\nförklaras ogiltig om den som diskriminerats begär det.",
+            "Om någon diskrimineras genom en ordningsregel eller liknande\nintern bestämmelse på arbetsplatsen ska bestämmelsen jämkas\neller förklaras sakna verkan om den som diskriminerats begär\ndet.",
+            "Vägran att rätta sig efter en dom"
+          ],
+          "nyckelord": [
+            "förklaras",
+            "bestämmelsen",
+            "jämkas",
+            "diskriminerats",
+            "begär",
+            "ogiltig"
+          ],
+          "relaterade_lagrum": [
+            "2 kap. 1 § AML",
+            "3 kap. 2 § AML"
+          ],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "dl_2008_567_5kap_3p",
+          "paragraf": "3 a §",
+          "rubrik": "innebär att en domstol har ogiltigförklarat en uppsägning",
+          "text": "eller ett avskedande enligt denna lag, ska\nanställningsförhållandet anses som upplöst.\n\nArbetsgivaren ska för sin vägran betala ersättning till\narbetstagaren med ett belopp som är skäligt med beaktande av\narbetstagarens lön och sammanlagda anställningstid hos\narbetsgivaren när anställningsförhållandet upplöses.\nErsättningen ska inte bestämmas till ett lägre belopp än vad\nsom följer av 39 § andra och tredje styckena lagen (1982:80)\nom anställningsskydd. Lag (2011:742).",
+          "stycken": [
+            "eller ett avskedande enligt denna lag, ska\nanställningsförhållandet anses som upplöst.",
+            "Arbetsgivaren ska för sin vägran betala ersättning till\narbetstagaren med ett belopp som är skäligt med beaktande av\narbetstagarens lön och sammanlagda anställningstid hos\narbetsgivaren när anställningsförhållandet upplöses.\nErsättningen ska inte bestämmas till ett lägre belopp än vad\nsom följer av 39 § andra och tredje styckena lagen (1982:80)\nom anställningsskydd. Lag (2011:742)."
+          ],
+          "nyckelord": [
+            "anställningsförhållandet",
+            "arbetsgivaren",
+            "belopp",
+            "avskedande",
+            "enligt",
+            "anses"
+          ],
+          "relaterade_lagrum": [
+            "7 § LAS",
+            "11 § LAS",
+            "32 § LAS",
+            "2 kap. 1 § AML"
+          ],
+          "kategori": "Rätt till ersättning"
+        }
+      ]
+    },
+    {
+      "kapitel": "6",
+      "rubrik": "Rättegången",
+      "paragrafer": [
+        {
+          "id": "dl_2008_567_6kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "handläggas enligt lagen (1974:371) om rättegången i",
+          "text": "arbetstvister. I sådana mål ska som arbetstagare anses också\nden som gör en förfrågan om eller söker arbete och den som\nsöker eller fullgör praktik eller står till förfogande för\natt utföra eller utför arbete som inhyrd eller inlånad\narbetskraft. Den hos vilken praktiken eller arbetet utförs\neller skulle ha utförts ska anses som arbetsgivare. Detta\ngäller också när reglerna om tvisteförhandling i lagen\n(1976:580) om medbestämmande i arbetslivet tillämpas.\n\nMål om tillämpningen av 2 kap. 5, 6, 7, 9, 10, 11, 12, 12 a,\n12 b, 12 c, 13, 13 a, 13 b, 14, 14 a, 14 b, 15, 16, 17 eller",
+          "stycken": [
+            "arbetstvister. I sådana mål ska som arbetstagare anses också\nden som gör en förfrågan om eller söker arbete och den som\nsöker eller fullgör praktik eller står till förfogande för\natt utföra eller utför arbete som inhyrd eller inlånad\narbetskraft. Den hos vilken praktiken eller arbetet utförs\neller skulle ha utförts ska anses som arbetsgivare. Detta\ngäller också när reglerna om tvisteförhandling i lagen\n(1976:580) om medbestämmande i arbetslivet tillämpas.",
+            "Mål om tillämpningen av 2 kap. 5, 6, 7, 9, 10, 11, 12, 12 a,\n12 b, 12 c, 13, 13 a, 13 b, 14, 14 a, 14 b, 15, 16, 17 eller"
+          ],
+          "nyckelord": [
+            "anses",
+            "också",
+            "söker",
+            "arbete",
+            "arbetstvister",
+            "arbetstagare"
+          ],
+          "relaterade_lagrum": [
+            "2 kap. 1 § AML",
+            "3 kap. 2 § AML"
+          ],
+          "kategori": "Ansökan och beslut"
+        },
+        {
+          "id": "dl_2008_567_6kap_19p",
+          "paragraf": "19 §",
+          "rubrik": "bestämmelserna i rättegångsbalken om rättegången i tvistemål",
+          "text": "när förlikning om saken är tillåten. Lag (2014:958).\n\nRätt att föra talan",
+          "stycken": [
+            "när förlikning om saken är tillåten. Lag (2014:958).",
+            "Rätt att föra talan"
+          ],
+          "nyckelord": [
+            "förlikning",
+            "saken",
+            "tillåten",
+            "rätt",
+            "föra",
+            "talan"
+          ],
+          "relaterade_lagrum": [],
+          "kategori": "Processregler"
+        },
+        {
+          "id": "dl_2008_567_6kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "enligt sina stadgar har att ta till vara sina medlemmars",
+          "text": "intressen och som inte är en sådan arbetstagarorganisation som\navses i tredje stycket, får som part föra talan för en enskild\nsom medger det. När ombudsmannen eller föreningen för sådan\ntalan får ombudsmannen eller föreningen i samma rättegång också\nföra annan talan för den enskilde om han eller hon medger det.\nI mål enligt 1 § första stycket förs ombudsmannens talan i\nArbetsdomstolen. För barn under 18 år som inte har ingått\näktenskap krävs vårdnadshavarens eller vårdnadshavarnas\nmedgivande.\n\nFör att få föra talan ska föreningen med hänsyn till sin\nverksamhet och sitt intresse i saken, sina ekonomiska\nförutsättningar att föra talan och förhållandena i övrigt vara\nlämpad att företräda den enskilde i målet.\n\nNär en arbetstagarorganisation har rätt att föra talan för den\nenskilde enligt 4 kap. 5 § lagen (1974:371) om rättegången i\narbetstvister, får ombudsmannen eller föreningen föra talan\nbara om arbetstagarorganisationen inte gör det.\n\nBevisbörda",
+          "stycken": [
+            "intressen och som inte är en sådan arbetstagarorganisation som\navses i tredje stycket, får som part föra talan för en enskild\nsom medger det. När ombudsmannen eller föreningen för sådan\ntalan får ombudsmannen eller föreningen i samma rättegång också\nföra annan talan för den enskilde om han eller hon medger det.\nI mål enligt 1 § första stycket förs ombudsmannens talan i\nArbetsdomstolen. För barn under 18 år som inte har ingått\näktenskap krävs vårdnadshavarens eller vårdnadshavarnas\nmedgivande.",
+            "För att få föra talan ska föreningen med hänsyn till sin\nverksamhet och sitt intresse i saken, sina ekonomiska\nförutsättningar att föra talan och förhållandena i övrigt vara\nlämpad att företräda den enskilde i målet.",
+            "När en arbetstagarorganisation har rätt att föra talan för den\nenskilde enligt 4 kap. 5 § lagen (1974:371) om rättegången i\narbetstvister, får ombudsmannen eller föreningen föra talan\nbara om arbetstagarorganisationen inte gör det.",
+            "Bevisbörda"
+          ],
+          "nyckelord": [
+            "talan",
+            "föra",
+            "föreningen",
+            "ombudsmannen",
+            "enskilde",
+            "arbetstagarorganisation"
+          ],
+          "relaterade_lagrum": [
+            "6 kap. 1 § FB",
+            "5 kap. 1 § SoL",
+            "1 § LVU",
+            "6 kap. 2 § FB"
+          ],
+          "kategori": "Definitioner"
+        },
+        {
+          "id": "dl_2008_567_6kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "för repressalier visar omständigheter som ger anledning att",
+          "text": "anta att han eller hon har blivit diskriminerad eller utsatt\nför repressalier, är det svaranden som ska visa att\ndiskriminering eller repressalier inte har förekommit.\n\nPreskription\n\n\nArbetslivet",
+          "stycken": [
+            "anta att han eller hon har blivit diskriminerad eller utsatt\nför repressalier, är det svaranden som ska visa att\ndiskriminering eller repressalier inte har förekommit.",
+            "Preskription",
+            "Arbetslivet"
+          ],
+          "nyckelord": [
+            "repressalier",
+            "anta",
+            "blivit",
+            "diskriminerad",
+            "utsatt",
+            "svaranden"
+          ],
+          "relaterade_lagrum": [
+            "1 kap. 4 § DL",
+            "2 kap. 1 § DL",
+            "2 kap. 1 § AML",
+            "3 kap. 2 § AML"
+          ],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "dl_2008_567_6kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "avskedande ska följande bestämmelser i lagen (1982:80) om",
+          "text": "anställningsskydd tillämpas:\n\n- 40 § om tidsfrist för talan om ogiltigförklaring,\n\n- 41 § om tidsfrist för talan om skadestånd eller andra\nfordringsanspråk, och\n\n- 42 § om förlorad talerätt på grund av preskription.\n\nOm någon för annan talan mot en arbetsgivare än sådan som avses\ni första stycket ska följande bestämmelser i lagen (1976:580)\nom medbestämmande i arbetslivet tillämpas:\n\n- 64 § om tidsfrist för påkallande av förhandling,\n\n- 65 § om tidsfrist för väckande av talan,\n\n- 66 § om förlängd tidsfrist för den som inte företräds av en\narbetstagarorganisation, med den skillnaden att den tidsfrist\nsom anges i 66 § första stycket första meningen ska vara två\nmånader, och\n\n- 68 § om förlorad talerätt på grund av preskription.\n\nOm talan rör ersättning med anledning av ett anställningsbeslut\nsom har meddelats av en arbetsgivare med offentlig ställning,\nräknas tidsfristerna enligt andra stycket från den dag då\nanställningsbeslutet vann laga kraft.",
+          "stycken": [
+            "anställningsskydd tillämpas:",
+            "- 40 § om tidsfrist för talan om ogiltigförklaring,",
+            "- 41 § om tidsfrist för talan om skadestånd eller andra\nfordringsanspråk, och",
+            "- 42 § om förlorad talerätt på grund av preskription.",
+            "Om någon för annan talan mot en arbetsgivare än sådan som avses\ni första stycket ska följande bestämmelser i lagen (1976:580)\nom medbestämmande i arbetslivet tillämpas:",
+            "- 64 § om tidsfrist för påkallande av förhandling,",
+            "- 65 § om tidsfrist för väckande av talan,",
+            "- 66 § om förlängd tidsfrist för den som inte företräds av en\narbetstagarorganisation, med den skillnaden att den tidsfrist\nsom anges i 66 § första stycket första meningen ska vara två\nmånader, och",
+            "- 68 § om förlorad talerätt på grund av preskription.",
+            "Om talan rör ersättning med anledning av ett anställningsbeslut\nsom har meddelats av en arbetsgivare med offentlig ställning,\nräknas tidsfristerna enligt andra stycket från den dag då\nanställningsbeslutet vann laga kraft."
+          ],
+          "nyckelord": [
+            "tidsfrist",
+            "talan",
+            "första",
+            "stycket",
+            "tillämpas",
+            "andra"
+          ],
+          "relaterade_lagrum": [
+            "7 § LAS",
+            "11 § LAS",
+            "32 § LAS",
+            "2 kap. 1 § AML"
+          ],
+          "kategori": "Definitioner"
+        },
+        {
+          "id": "dl_2008_567_6kap_5p",
+          "paragraf": "5 §",
+          "rubrik": "",
+          "text": "Diskrimineringsombudsmannen avbryta preskription, utom i fall\nsom avser ogiltigförklaring av uppsägning eller avskedande,\ngenom att skriftligen meddela arbetsgivaren att ombudsmannen\nutnyttjar sin rätt till preskriptionsavbrott. Om preskription\navbrutits genom ett sådant meddelande löper ny preskriptionstid\nenligt 4 § från dagen för avbrottet.\n\nPreskription kan inte avbrytas mer än en gång.\n\nAndra samhällsområden",
+          "stycken": [
+            "Diskrimineringsombudsmannen avbryta preskription, utom i fall\nsom avser ogiltigförklaring av uppsägning eller avskedande,\ngenom att skriftligen meddela arbetsgivaren att ombudsmannen\nutnyttjar sin rätt till preskriptionsavbrott. Om preskription\navbrutits genom ett sådant meddelande löper ny preskriptionstid\nenligt 4 § från dagen för avbrottet.",
+            "Preskription kan inte avbrytas mer än en gång.",
+            "Andra samhällsområden"
+          ],
+          "nyckelord": [
+            "preskription",
+            "diskrimineringsombudsmannen",
+            "avbryta",
+            "utom",
+            "fall",
+            "avser"
+          ],
+          "relaterade_lagrum": [
+            "1 kap. 4 § DL",
+            "2 kap. 1 § DL",
+            "2 kap. 1 § AML",
+            "3 kap. 2 § AML"
+          ],
+          "kategori": "Rätt till ersättning"
+        },
+        {
+          "id": "dl_2008_567_6kap_6p",
+          "paragraf": "6 §",
+          "rubrik": "det att den påtalade handlingen företogs eller en skyldighet",
+          "text": "senast skulle ha fullgjorts. I annat fall är rätten till talan\nförlorad.\n\nOm talan rör en person som var under 18 år när handlingen\nföretogs eller skyldigheten senast skulle ha fullgjorts räknas\ntidsfristen enligt första stycket från den dag då personen\nfyllde 18 år.\n\nRättegångskostnader",
+          "stycken": [
+            "senast skulle ha fullgjorts. I annat fall är rätten till talan\nförlorad.",
+            "Om talan rör en person som var under 18 år när handlingen\nföretogs eller skyldigheten senast skulle ha fullgjorts räknas\ntidsfristen enligt första stycket från den dag då personen\nfyllde 18 år.",
+            "Rättegångskostnader"
+          ],
+          "nyckelord": [
+            "senast",
+            "skulle",
+            "fullgjorts",
+            "talan",
+            "annat",
+            "fall"
+          ],
+          "relaterade_lagrum": [
+            "42 kap. RB",
+            "43 kap. RB"
+          ],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "dl_2008_567_6kap_7p",
+          "paragraf": "7 §",
+          "rubrik": "vardera parten ska bära sin rättegångskostnad, om den part som",
+          "text": "har förlorat målet hade skälig anledning att få tvisten prövad.\nDetta gäller dock inte när Diskrimineringsombudsmannen för\ntalan för en enskild enligt 2 §.\n\nI mål enligt 1 § första stycket gäller i stället 5 kap. 2 §\nlagen (1974:371) om rättegången i arbetstvister.\n\nÖvriga bestämmelser",
+          "stycken": [
+            "har förlorat målet hade skälig anledning att få tvisten prövad.\nDetta gäller dock inte när Diskrimineringsombudsmannen för\ntalan för en enskild enligt 2 §.",
+            "I mål enligt 1 § första stycket gäller i stället 5 kap. 2 §\nlagen (1974:371) om rättegången i arbetstvister.",
+            "Övriga bestämmelser"
+          ],
+          "nyckelord": [
+            "gäller",
+            "enligt",
+            "förlorat",
+            "målet",
+            "hade",
+            "skälig"
+          ],
+          "relaterade_lagrum": [
+            "1 kap. 4 § DL",
+            "2 kap. 1 § DL",
+            "2 kap. 1 § AML",
+            "3 kap. 2 § AML"
+          ],
+          "kategori": "Processregler"
+        },
+        {
+          "id": "dl_2008_567_6kap_8p",
+          "paragraf": "8 §",
+          "rubrik": "avskedande ska följande bestämmelser i lagen (1982:80) om",
+          "text": "anställningsskydd tillämpas:\n\n- 34 § om en uppsägnings giltighet m.m.,\n\n- 35 § om ett avskedandes giltighet m.m.,\n\n- 37 § om avstängning när en uppsägning eller ett avskedande\nogiltigförklarats, och\n\n- 43 § första stycket andra meningen om skyndsam handläggning.\nLag (2022:848).",
+          "stycken": [
+            "anställningsskydd tillämpas:",
+            "- 34 § om en uppsägnings giltighet m.m.,",
+            "- 35 § om ett avskedandes giltighet m.m.,",
+            "- 37 § om avstängning när en uppsägning eller ett avskedande\nogiltigförklarats, och",
+            "- 43 § första stycket andra meningen om skyndsam handläggning.\nLag (2022:848)."
+          ],
+          "nyckelord": [
+            "giltighet",
+            "anställningsskydd",
+            "tillämpas",
+            "uppsägnings",
+            "avskedandes",
+            "avstängning"
+          ],
+          "relaterade_lagrum": [
+            "7 § LAS",
+            "11 § LAS",
+            "32 § LAS"
+          ],
+          "kategori": "Ansökan och beslut"
+        },
+        {
+          "id": "dl_2008_567_6kap_9p",
+          "paragraf": "9 §",
+          "rubrik": "anställning som har meddelats av en arbetsgivare med offentlig",
+          "text": "ställning får inte prövas innan anställningsbeslutet har vunnit\nlaga kraft.",
+          "stycken": [
+            "ställning får inte prövas innan anställningsbeslutet har vunnit\nlaga kraft."
+          ],
+          "nyckelord": [
+            "ställning",
+            "prövas",
+            "anställningsbeslutet",
+            "vunnit",
+            "laga",
+            "kraft"
+          ],
+          "relaterade_lagrum": [
+            "7 § LAS",
+            "11 § LAS",
+            "32 § LAS"
+          ],
+          "kategori": "Ansökan och beslut"
+        },
+        {
+          "id": "dl_2008_567_6kap_10p",
+          "paragraf": "10 §",
+          "rubrik": "den för vilken Diskrimineringsombudsmannen eller en förening",
+          "text": "för talan enligt denna lag såvitt gäller jävsförhållande,\npågående rättegång, personlig inställelse samt förhör under\nsanningsförsäkran och andra frågor som rör bevisningen.\n\nNär en enskild för talan enligt denna lag får\nDiskrimineringsombudsmannen eller en förening inte väcka talan\nför den enskilde om samma sak.",
+          "stycken": [
+            "för talan enligt denna lag såvitt gäller jävsförhållande,\npågående rättegång, personlig inställelse samt förhör under\nsanningsförsäkran och andra frågor som rör bevisningen.",
+            "När en enskild för talan enligt denna lag får\nDiskrimineringsombudsmannen eller en förening inte väcka talan\nför den enskilde om samma sak."
+          ],
+          "nyckelord": [
+            "talan",
+            "enligt",
+            "såvitt",
+            "gäller",
+            "jävsförhållande",
+            "pågående"
+          ],
+          "relaterade_lagrum": [
+            "1 kap. 4 § DL",
+            "2 kap. 1 § DL",
+            "42 kap. RB",
+            "43 kap. RB"
+          ],
+          "kategori": "Processregler"
+        },
+        {
+          "id": "dl_2008_567_6kap_11p",
+          "paragraf": "11 §",
+          "rubrik": "",
+          "text": "Diskrimineringsombudsmannen eller en förening för talan för en\nenskild får överklagas av den enskilde, om det får överklagas\nav ombudsmannen eller föreningen.\n\nNär rättens avgörande i ett mål som avses i första stycket har\nvunnit laga kraft får saken inte prövas på nytt på talan av\nvare sig den enskilde eller Diskrimineringsombudsmannen eller\nföreningen.",
+          "stycken": [
+            "Diskrimineringsombudsmannen eller en förening för talan för en\nenskild får överklagas av den enskilde, om det får överklagas\nav ombudsmannen eller föreningen.",
+            "När rättens avgörande i ett mål som avses i första stycket har\nvunnit laga kraft får saken inte prövas på nytt på talan av\nvare sig den enskilde eller Diskrimineringsombudsmannen eller\nföreningen."
+          ],
+          "nyckelord": [
+            "diskrimineringsombudsmannen",
+            "talan",
+            "överklagas",
+            "enskilde",
+            "föreningen",
+            "förening"
+          ],
+          "relaterade_lagrum": [
+            "1 kap. 4 § DL",
+            "2 kap. 1 § DL"
+          ],
+          "kategori": "Definitioner"
+        }
+      ]
+    }
+  ],
+  "overgangsbestammelser": [
+    {
+      "sfs": "okänt",
+      "ikraftträdande": "",
+      "text": "Övergångsbestämmelser\n\n2008:567\n\n1. Denna lag träder i kraft den 1 januari 2009.\n\n2. Genom lagen upphävs\n\n- jämställdhetslagen"
+    },
+    {
+      "sfs": "1991:433",
+      "ikraftträdande": "",
+      "text": "(1991:433),\n\n- lagen"
+    },
+    {
+      "sfs": "1999:130",
+      "ikraftträdande": "",
+      "text": "(1999:130) om åtgärder mot diskriminering i arbetslivet\npå grund av etnisk tillhörighet, religion eller annan\ntrosuppfattning,\n\n- lagen"
+    },
+    {
+      "sfs": "1999:132",
+      "ikraftträdande": "",
+      "text": "(1999:132) om förbud mot diskriminering i arbetslivet\npå grund av funktionshinder,\n\n- lagen"
+    },
+    {
+      "sfs": "1999:133",
+      "ikraftträdande": "",
+      "text": "(1999:133) om förbud mot diskriminering i arbetslivet\npå grund av sexuell läggning,\n\n- lagen"
+    },
+    {
+      "sfs": "2001:1286",
+      "ikraftträdande": "",
+      "text": "(2001:1286) om likabehandling av studenter i högskolan,\n\n- lagen"
+    },
+    {
+      "sfs": "2003:307",
+      "ikraftträdande": "",
+      "text": "(2003:307) om förbud mot diskriminering, och\n\n- lagen"
+    },
+    {
+      "sfs": "2006:67",
+      "ikraftträdande": "",
+      "text": "(2006:67) om förbud mot diskriminering och annan\nkränkande behandling av barn och elever.\n\n3. De upphävda lagarna gäller fortfarande i fråga om\ndiskriminering och repressalier som ägt rum före\nikraftträdandet. De uppgifter som enligt de upphävda lagarna\nvilar på en ombudsman ska efter ikraftträdandet fullgöras av\nDiskrimineringsombudsmannen. De uppgifter som enligt de\nupphävda lagarna vilar på Jämställdhetsnämnden eller Nämnden\nmot diskriminering ska efter ikraftträdandet fullgöras av\nNämnden mot diskriminering.\n\n4. Arbetsgivarens skyldighet enligt 3 kap. 10 § ska fullgöras\nförsta gången 2009 eller det år då bestämmelsen första gången\nblir tillämplig.\n\n5. Arbetsgivarens skyldigheter enligt 3 kap. 11 och 13 §§ ska\nfullgöras första gången året närmast efter det\nkalenderårsskifte då arbetsgivaren sysselsatte minst 25\narbetstagare eller året därefter, om skyldigheten enligt 3 kap.\n10 § ska fullgöras det året.\n\n2010:861\n\n1. Denna lag träder i kraft den 1 juli 2011.\n\n2. Äldre bestämmelser gäller fortfarande för kommunal\nvuxenutbildning, vuxenutbildning för utvecklingsstörda och\nsvenskundervisning för invandrare till utgången av juni 2012.\n\n2010:1979\n\n1. Denna lag träder i kraft den 1 april 2011.\n\n2. Äldre bestämmelser gäller om ett beslut om delgivning enligt\n15–17 §§ delgivningslagen"
+    },
+    {
+      "sfs": "1970:428",
+      "ikraftträdande": "",
+      "text": "(1970:428) har fattats före den 1\napril 2011 eller om en handling har skickats eller lämnats före\ndenna tidpunkt.\n\n2011:742\n\n1. Denna lag träder i kraft den 1 augusti 2011.\n\n2. De nya bestämmelserna ska tillämpas endast vid bestämmande\nav ersättning med anledning av en dom som har meddelats efter\nden 31 juli 2011.\n\n2012:483\n\n1. Denna lag träder i kraft den 21 december 2012.\n\n2. För försäkringsavtal som har ingåtts före ikraftträdandet\ngäller äldre bestämmelser. Om ett försäkringsavtal som ingåtts\nföre ikraftträdandet till följd av avtalet förlängs efter\nikraftträdandet, gäller äldre bestämmelser.\n\n2014:958\n\n1. Denna lag träder i kraft den 1 januari 2015.\n\n2. Äldre föreskrifter gäller fortfarande i fråga om\ndiskriminering som ägt rum före ikraftträdandet.\n\n2016:828\n\n1. Denna lag träder i kraft den 1 januari 2017.\n\n2. Äldre föreskrifter gäller fortfarande i fråga om aktiva\nåtgärder som har eller skulle ha vidtagits före\nikraftträdandet.\n\n2017:282\n\n1. Denna lag träder i kraft den 1 juli 2017.\n\n2. Äldre föreskrifter gäller fortfarande för\nutbildningsbidrag för doktorander som lämnas senast den 30\njuni 2022.\n\n2022:848\n\n1. Denna lag träder i kraft den 30 juni 2022.\n\n2. Lagen tillämpas första gången den 1 oktober 2022.\n\n3. Äldre föreskrifter gäller fram till den 1 oktober 2022."
     }
   ]
 }

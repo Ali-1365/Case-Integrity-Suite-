@@ -1,388 +1,534 @@
 {
-  "sourceCode": "SkL",
-  "sfsNumber": "1972:207",
-  "title": "Skadeståndslag (1972:207) [cite: 1]",
-  "shortName": "SkL",
-  "versionChain": ["1972:207", "2022:1368"],
-  "ikraft": "1972-07-01",
-  "description": "Lagen innehåller bestämmelser om skadeståndsansvar och ersättning för person-, sak- och förmögenhetsskador .",
-  "paragraphs": [
+  "metadata": {
+    "id": "skl_1972_207",
+    "titel": "Skadeståndslag (1972:207)",
+    "sfs": "1972:207",
+    "kortnamn": "skl",
+    "departement": "Justitiedepartementet",
+    "ikraftträdande": "1972-01-01",
+    "senast_ändrad": "2023-01-01",
+    "senast_andrad_sfs": "2022:1368",
+    "rättsområde": "skadeståndsrätt",
+    "kategori": "civilrätt",
+    "beskrivning": "Allmän lag om skadestånd som reglerar rätten till ersättning vid personskada, sakskada, ren förmögenhetsskada och kränkning.",
+    "antal_paragrafer": 26,
+    "har_kapitelindelning": true
+  },
+  "kapitel": [
     {
-      "id": "skl_1972_1_1",
-      "chapter": 1,
-      "section": 1,
-      "principleType": "tillämpningsområde",
-      "text": "I denna lag meddelade bestämmelser om skadestånd tillämpas, om ej annat är särskilt föreskrivet eller föranledes av avtal eller i övrigt följer av regler om skadestånd i avtalsförhållanden[cite: 2].",
-      "keywords": ["tillämpning", "avtal"],
-      "relatedRules": [],
-      "metadata": { "validFrom": "1972-07-01", "legalWeight": "grundläggande", "riskTrigger": false }
+      "kapitel": "1",
+      "rubrik": "Inledande bestämmelser",
+      "paragrafer": [
+        {
+          "id": "skl_1kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "Lagens tillämpningsområde",
+          "text": "I denna lag meddelade bestämmelser om skadestånd tillämpas, om ej annat är särskilt föreskrivet eller föranledes av avtal eller i övrigt följer av regler om skadestånd i avtalsförhållanden.",
+          "stycken": [
+            "I denna lag meddelade bestämmelser om skadestånd tillämpas, om ej annat är särskilt föreskrivet eller föranledes av avtal eller i övrigt följer av regler om skadestånd i avtalsförhållanden."
+          ],
+          "nyckelord": ["skadestånd", "tillämpningsområde", "avtal", "avtalsförhållanden"],
+          "relaterade_lagrum": ["2 kap. 1 § SkL", "3 kap. 1 § SkL", "5 kap. 1 § SkL"],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "skl_1kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "Definition av ren förmögenhetsskada",
+          "text": "Med ren förmögenhetsskada förstås i denna lag sådan ekonomisk skada som uppkommer utan samband med att någon lider person- eller sakskada.",
+          "stycken": [
+            "Med ren förmögenhetsskada förstås i denna lag sådan ekonomisk skada som uppkommer utan samband med att någon lider person- eller sakskada."
+          ],
+          "nyckelord": ["ren förmögenhetsskada", "ekonomisk skada", "personskada", "sakskada", "definition"],
+          "relaterade_lagrum": ["2 kap. 2 § SkL", "3 kap. 2 § SkL", "3 kap. 3 § SkL"],
+          "kategori": "Definitioner"
+        }
+      ]
     },
     {
-      "id": "skl_1972_1_2",
-      "chapter": 1,
-      "section": 2,
-      "principleType": "definition",
-      "text": "Med ren förmögenhetsskada förstås i denna lag sådan ekonomisk skada som uppkommer utan samband med att någon lider person- eller sakskada[cite: 3].",
-      "keywords": ["ren förmögenhetsskada"],
-      "relatedRules": [],
-      "metadata": { "validFrom": "1972-07-01", "legalWeight": "definitiv", "riskTrigger": false }
+      "kapitel": "2",
+      "rubrik": "Skadeståndsansvar på grund av eget vållande",
+      "paragrafer": [
+        {
+          "id": "skl_2kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "Ansvar för personskada och sakskada",
+          "text": "Den som uppsåtligen eller av vårdslöshet vållar personskada eller sakskada skall ersätta skadan. Lag (2001:732).",
+          "stycken": [
+            "Den som uppsåtligen eller av vårdslöshet vållar personskada eller sakskada skall ersätta skadan.",
+            "Lag (2001:732)."
+          ],
+          "nyckelord": ["uppsåt", "vårdslöshet", "personskada", "sakskada", "ersättning", "vållande"],
+          "relaterade_lagrum": ["3 kap. 1 § SkL", "4 kap. 1 § SkL", "6 kap. 1 § SkL"],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "skl_2kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "Ansvar för ren förmögenhetsskada genom brott",
+          "text": "Den som vållar ren förmögenhetsskada genom brott skall ersätta skadan. Lag (2001:732).",
+          "stycken": [
+            "Den som vållar ren förmögenhetsskada genom brott skall ersätta skadan.",
+            "Lag (2001:732)."
+          ],
+          "nyckelord": ["ren förmögenhetsskada", "brott", "ersättning", "vållande"],
+          "relaterade_lagrum": ["1 kap. 2 § SkL", "3 kap. 2 § SkL", "1 kap. BrB"],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "skl_2kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "Kränkningsersättning",
+          "text": "Den som allvarligt kränker någon annan genom brott som innefattar ett angrepp mot dennes person, frihet, frid eller ära ska ersätta den skada som kränkningen innebär.\n\nOm den som utsätts för brott i tjänsten får anses ha en särskild beredskap för angreppet, ska det vid bedömningen av om kränkningen är allvarlig särskilt beaktas om angreppet riktar sig mot den angripnes privata sfär eller är fysiskt. Lag (2022:754).",
+          "stycken": [
+            "Den som allvarligt kränker någon annan genom brott som innefattar ett angrepp mot dennes person, frihet, frid eller ära ska ersätta den skada som kränkningen innebär.",
+            "Om den som utsätts för brott i tjänsten får anses ha en särskild beredskap för angreppet, ska det vid bedömningen av om kränkningen är allvarlig särskilt beaktas om angreppet riktar sig mot den angripnes privata sfär eller är fysiskt. Lag (2022:754)."
+          ],
+          "nyckelord": ["kränkning", "brott", "person", "frihet", "frid", "ära", "ersättning"],
+          "relaterade_lagrum": ["5 kap. 6 § SkL", "3 kap. 2 § SkL", "29 kap. BrB"],
+          "kategori": "Rätt till ersättning"
+        },
+        {
+          "id": "skl_2kap_3ap",
+          "paragraf": "3 a §",
+          "rubrik": "Särskild anhörigersättning",
+          "text": "Den som uppsåtligen eller av grov oaktsamhet genom brott orsakar någon annans död ska betala särskild anhörigersättning till den som stod den avlidne särskilt nära. Detta gäller dock inte om det är uppenbart oskäligt. Lag (2022:754).",
+          "stycken": [
+            "Den som uppsåtligen eller av grov oaktsamhet genom brott orsakar någon annans död ska betala särskild anhörigersättning till den som stod den avlidne särskilt nära.",
+            "Detta gäller dock inte om det är uppenbart oskäligt. Lag (2022:754)."
+          ],
+          "nyckelord": ["anhörigersättning", "dödsfall", "uppsåt", "grov oaktsamhet", "brott", "närstående"],
+          "relaterade_lagrum": ["5 kap. 2 § SkL", "5 kap. 6 a § SkL", "3 kap. 1 § SkL"],
+          "kategori": "Rätt till ersättning"
+        },
+        {
+          "id": "skl_2kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "Underårigs skadeståndsansvar",
+          "text": "Den som i fall som avses i 1-3 a §§ vållar skada innan han eller hon har fyllt arton år ska ersätta skadan i den utsträckning det är skäligt med hänsyn till hans eller hennes ålder och utveckling, handlingens beskaffenhet, föreliggande ansvarsförsäkring och andra ekonomiska förhållanden samt övriga omständigheter. Lag (2022:754).",
+          "stycken": [
+            "Den som i fall som avses i 1-3 a §§ vållar skada innan han eller hon har fyllt arton år ska ersätta skadan i den utsträckning det är skäligt med hänsyn till hans eller hennes ålder och utveckling, handlingens beskaffenhet, föreliggande ansvarsförsäkring och andra ekonomiska förhållanden samt övriga omständigheter.",
+            "Lag (2022:754)."
+          ],
+          "nyckelord": ["underårig", "arton år", "skäligt", "ålder", "utveckling", "ansvarsförsäkring"],
+          "relaterade_lagrum": ["3 kap. 5 § SkL", "6 kap. 1 § SkL", "6 kap. 2 § FB"],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "skl_2kap_5p",
+          "paragraf": "5 §",
+          "rubrik": "Psykisk störning och skadeståndsansvar",
+          "text": "Den som i fall som avses i 1-3 a §§ vållar skada under påverkan av en allvarlig psykisk störning eller av någon annan psykisk störning som inte är självförvållad och tillfällig ska ersätta skadan i den utsträckning det är skäligt med hänsyn till hans eller hennes sinnestillstånd, handlingens beskaffenhet, föreliggande ansvarsförsäkring och andra ekonomiska förhållanden samt övriga omständigheter. Lag (2022:754).",
+          "stycken": [
+            "Den som i fall som avses i 1-3 a §§ vållar skada under påverkan av en allvarlig psykisk störning eller av någon annan psykisk störning som inte är självförvållad och tillfällig ska ersätta skadan i den utsträckning det är skäligt med hänsyn till hans eller hennes sinnestillstånd, handlingens beskaffenhet, föreliggande ansvarsförsäkring och andra ekonomiska förhållanden samt övriga omständigheter.",
+            "Lag (2022:754)."
+          ],
+          "nyckelord": ["psykisk störning", "sinnestillstånd", "skäligt", "ansvarsförsäkring", "skadestånd"],
+          "relaterade_lagrum": ["2 kap. 4 § SkL", "6 kap. 2 § SkL", "30 kap. 6 § BrB"],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "skl_2kap_6p",
+          "paragraf": "6 §",
+          "rubrik": "Underlåtenhet att avslöja brott",
+          "text": "För skada som vållats genom underlåtenhet att avslöja brott skall ersättning enligt denna lag inte betalas enbart på den grund att straff för underlåtenheten kan följa enligt 23 kap. 6 § första stycket brottsbalken. Lag (2001:732).",
+          "stycken": [
+            "För skada som vållats genom underlåtenhet att avslöja brott skall ersättning enligt denna lag inte betalas enbart på den grund att straff för underlåtenheten kan följa enligt 23 kap. 6 § första stycket brottsbalken.",
+            "Lag (2001:732)."
+          ],
+          "nyckelord": ["underlåtenhet", "avslöja brott", "straff", "brottsbalken", "undantag"],
+          "relaterade_lagrum": ["23 kap. 6 § BrB", "2 kap. 1 § SkL"],
+          "kategori": "Undantag"
+        }
+      ]
     },
     {
-      "id": "skl_1972_1_3",
-      "chapter": 1,
-      "section": 3,
-      "principleType": "upphävd",
-      "text": "Har upphävts genom lag (2001:732)[cite: 4].",
-      "keywords": [],
-      "relatedRules": [],
-      "metadata": { "validFrom": "2001-07-01", "legalWeight": "ingen", "riskTrigger": false }
+      "kapitel": "3",
+      "rubrik": "Skadeståndsansvar för annans vållande och för det allmänna",
+      "paragrafer": [
+        {
+          "id": "skl_3kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "Arbetsgivares ansvar",
+          "text": "Den som har arbetstagare i sin tjänst ska ersätta\n\n1. personskada eller sakskada som arbetstagaren vållar genom fel eller försummelse i tjänsten,\n2. ren förmögenhetsskada som arbetstagaren i tjänsten vållar genom brott,\n3. skada på grund av att arbetstagaren kränker någon annan på sätt som anges i 2 kap. 3 § genom fel eller försummelse i tjänsten, och\n4. skada som ersätts enligt 2 kap. 3 a § och som arbetstagaren orsakar genom fel eller försummelse i tjänsten.\n\nI fråga om skadeståndsansvar för staten eller en kommun gäller även det som sägs nedan i detta kapitel. Det som där sägs om en kommun gäller också en region och ett kommunalförbund. Lag (2022:754).",
+          "stycken": [
+            "Den som har arbetstagare i sin tjänst ska ersätta personskada, sakskada, ren förmögenhetsskada genom brott, kränkning och anhörigersättning som arbetstagaren orsakar genom fel eller försummelse i tjänsten.",
+            "I fråga om skadeståndsansvar för staten eller en kommun gäller även det som sägs nedan i detta kapitel. Lag (2022:754)."
+          ],
+          "nyckelord": ["arbetsgivare", "arbetstagare", "tjänsten", "fel", "försummelse", "ansvar"],
+          "relaterade_lagrum": ["3 kap. 2 § SkL", "4 kap. 1 § SkL", "6 kap. 4 § SkL"],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "skl_3kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "Staten och kommunens ansvar vid myndighetsutövning",
+          "text": "Staten eller en kommun ska ersätta\n\n1. personskada, sakskada eller ren förmögenhetsskada, som vållas genom fel eller försummelse vid myndighetsutövning i verksamhet för vars fullgörande staten eller kommunen svarar,\n2. skada på grund av att någon annan kränks på sätt som anges i 2 kap. 3 § genom fel eller försummelse vid sådan myndighetsutövning, och\n3. skada som ersätts enligt 2 kap. 3 a § och som orsakas genom fel eller försummelse vid sådan myndighetsutövning. Lag (2022:754).",
+          "stycken": [
+            "Staten eller en kommun ska ersätta personskada, sakskada eller ren förmögenhetsskada, som vållas genom fel eller försummelse vid myndighetsutövning.",
+            "Detsamma gäller kränkning och skada som ersätts enligt 2 kap. 3 a § som orsakas vid myndighetsutövning. Lag (2022:754)."
+          ],
+          "nyckelord": ["staten", "kommun", "myndighetsutövning", "fel", "försummelse", "skadestånd"],
+          "relaterade_lagrum": ["3 kap. 3 § SkL", "3 kap. 4 § SkL", "3 kap. 7 § SkL", "Förordning (1995:1301)"],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "skl_3kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "Ansvar för felaktiga upplysningar",
+          "text": "Staten eller en kommun skall ersätta ren förmögenhetsskada som vållas av att en myndighet genom fel eller försummelse lämnar felaktiga upplysningar eller råd, om det med hänsyn till omständigheterna finns särskilda skäl. Därvid skall särskilt beaktas upplysningarnas eller rådens art, deras samband med myndighetens verksamhetsområde och omständigheterna när de lämnades. Lag (1998:715).",
+          "stycken": [
+            "Staten eller en kommun skall ersätta ren förmögenhetsskada som vållas av att en myndighet genom fel eller försummelse lämnar felaktiga upplysningar eller råd, om det med hänsyn till omständigheterna finns särskilda skäl.",
+            "Därvid skall särskilt beaktas upplysningarnas eller rådens art, deras samband med myndighetens verksamhetsområde och omständigheterna när de lämnades. Lag (1998:715)."
+          ],
+          "nyckelord": ["felaktiga upplysningar", "råd", "myndighet", "ren förmögenhetsskada", "särskilda skäl"],
+          "relaterade_lagrum": ["3 kap. 2 § SkL", "1 kap. 2 § SkL", "Förordning (1995:1301)"],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "skl_3kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "Ansvar vid överträdelse av grundläggande fri- och rättigheter",
+          "text": "Staten eller en kommun ska ersätta\n\n1. personskada, sakskada, ren förmögenhetsskada, skada på grund av att någon kränks på sätt som anges i 2 kap. 3 § och skada som ersätts enligt 2 kap. 3 a §, om skadan uppkommit till följd av att den skadelidandes grundläggande fri- och rättigheter enligt 2 kap. regeringsformen eller enligt den europeiska konventionen angående skydd för de mänskliga rättigheterna och de grundläggande friheterna har överträtts från statens eller kommunens sida, och\n2. annan ideell skada som uppkommit till följd av en sådan överträdelse.\n\nSkadestånd enligt första stycket ska betalas endast i den utsträckning det är nödvändigt för att gottgöra överträdelsen. Lag (2022:1368).",
+          "stycken": [
+            "Staten eller en kommun ska ersätta skador som uppkommit till följd av att den skadelidandes grundläggande fri- och rättigheter enligt 2 kap. regeringsformen eller Europakonventionen har överträtts.",
+            "Skadestånd ska betalas endast i den utsträckning det är nödvändigt för att gottgöra överträdelsen. Lag (2022:1368)."
+          ],
+          "nyckelord": ["fri- och rättigheter", "regeringsformen", "Europakonventionen", "ideell skada", "gottgörelse", "staten"],
+          "relaterade_lagrum": ["2 kap. RF", "Europakonventionen", "3 kap. 2 § SkL", "5 kap. 8 § SkL"],
+          "kategori": "Rätt till ersättning"
+        },
+        {
+          "id": "skl_3kap_5p",
+          "paragraf": "5 §",
+          "rubrik": "Föräldrars ansvar för barns brott",
+          "text": "En förälder som har vårdnaden om ett barn ska ersätta\n\n1. personskada eller sakskada som barnet vållar genom brott,\n2. skada på grund av att barnet kränker någon annan på sätt som anges i 2 kap. 3 §, och\n3. skada som barnet orsakar och som ersätts enligt 2 kap. 3 a §.\n\nFörälderns ansvar enligt första stycket är för varje skadehändelse begränsat till en femtedel av det prisbasbelopp enligt 2 kap. 6 och 7 §§ socialförsäkringsbalken som gäller för det år då skadehändelsen inträffade. Om barnet står under vårdnad av två föräldrar, gäller begränsningen för dem gemensamt.\n\nOm beloppet som anges i andra stycket inte räcker till full ersättning åt flera som lidit skada till följd av skadehändelsen, ska ersättningen sättas ned med samma kvotdel för var och en av de skadelidande. Lag (2022:754).",
+          "stycken": [
+            "En förälder som har vårdnaden om ett barn ska ersätta personskada, sakskada, kränkning och anhörigersättning som barnet orsakar genom brott.",
+            "Förälderns ansvar är för varje skadehändelse begränsat till en femtedel av prisbasbeloppet.",
+            "Om beloppet inte räcker till full ersättning åt flera skadelidande, sätts ersättningen ned proportionellt. Lag (2022:754)."
+          ],
+          "nyckelord": ["förälder", "vårdnad", "barn", "brott", "prisbasbelopp", "begränsning", "ansvar"],
+          "relaterade_lagrum": ["6 kap. 2 § FB", "2 kap. 4 § SkL", "2 kap. 6 § SFB", "3 kap. 6 § SkL"],
+          "kategori": "Skyldigheter"
+        },
+        {
+          "id": "skl_3kap_6p",
+          "paragraf": "6 §",
+          "rubrik": "Jämkning vid försäkring",
+          "text": "Ersättning enligt 1 eller 2 § för sakskada kan jämkas, om det är skäligt med hänsyn till föreliggande försäkringar eller försäkringsmöjligheter.\n\nErsättning enligt 5 § kan jämkas, om det är uppenbart oskäligt att föräldern ska betala skadeståndet med hänsyn till förälderns förhållande till barnet eller de särskilda åtgärder föräldern har vidtagit för att förhindra att barnet begår brott. Lag (2010:703).",
+          "stycken": [
+            "Ersättning för sakskada kan jämkas om det är skäligt med hänsyn till föreliggande försäkringar eller försäkringsmöjligheter.",
+            "Föräldrars ersättning kan jämkas om det är uppenbart oskäligt att betala. Lag (2010:703)."
+          ],
+          "nyckelord": ["jämkning", "sakskada", "försäkring", "förälder", "skäligt", "oskäligt"],
+          "relaterade_lagrum": ["6 kap. 1 § SkL", "6 kap. 2 § SkL", "3 kap. 5 § SkL"],
+          "kategori": "Undantag"
+        },
+        {
+          "id": "skl_3kap_7p",
+          "paragraf": "7 §",
+          "rubrik": "Begränsning av talan mot riksdag och regering",
+          "text": "Talan om ersättning enligt 2 § får inte föras med anledning av beslut av riksdagen eller regeringen eller av Högsta domstolen eller Högsta förvaltningsdomstolen, om inte beslutet upphävts eller ändrats. Sådan talan får inte heller föras med anledning av beslut av lägre myndighet, vilket efter överklagande prövats av regeringen, Högsta domstolen eller Högsta förvaltningsdomstolen, utan att beslutet upphävts eller ändrats. Lag (2010:1458).",
+          "stycken": [
+            "Talan om ersättning enligt 2 § får inte föras med anledning av beslut av riksdagen, regeringen, Högsta domstolen eller Högsta förvaltningsdomstolen, om inte beslutet upphävts eller ändrats.",
+            "Detsamma gäller lägre myndighetsbeslut som prövats av nämnda instanser utan att ändras. Lag (2010:1458)."
+          ],
+          "nyckelord": ["riksdagen", "regeringen", "Högsta domstolen", "talan", "beslut", "upphävt", "begränsning"],
+          "relaterade_lagrum": ["3 kap. 2 § SkL", "42 kap. RB", "2 kap. RF"],
+          "kategori": "Undantag"
+        },
+        {
+          "id": "skl_3kap_8p",
+          "paragraf": "8 §",
+          "rubrik": "Undantag för trafikskada",
+          "text": "Bestämmelserna i detta kapitel gäller ej i fråga om sådan skada i följd av trafik med motordrivet fordon som vållats av fordonets förare, i den mån trafikskadeersättning kan utgå för skadan enligt trafikskadelagen (1975:1410). Lag (1975:1411).",
+          "stycken": [
+            "Bestämmelserna i detta kapitel gäller ej för trafikskada i den mån trafikskadeersättning kan utgå enligt trafikskadelagen. Lag (1975:1411)."
+          ],
+          "nyckelord": ["trafikskada", "motordrivet fordon", "trafikskadelagen", "undantag"],
+          "relaterade_lagrum": ["trafikskadelagen (1975:1410)", "3 kap. 1 § SkL"],
+          "kategori": "Undantag"
+        },
+        {
+          "id": "skl_3kap_9p",
+          "paragraf": "9 §",
+          "rubrik": "Undantag för lotsning",
+          "text": "Skadeståndsansvar enligt detta kapitel åvilar ej staten eller kommun med anledning av fel eller försummelse vid lotsning.",
+          "stycken": [
+            "Skadeståndsansvar enligt detta kapitel åvilar ej staten eller kommun med anledning av fel eller försummelse vid lotsning."
+          ],
+          "nyckelord": ["lotsning", "undantag", "staten", "kommun", "ansvar"],
+          "relaterade_lagrum": ["3 kap. 1 § SkL", "3 kap. 2 § SkL"],
+          "kategori": "Undantag"
+        },
+        {
+          "id": "skl_3kap_11p",
+          "paragraf": "11 §",
+          "rubrik": "Åklagarens skyldighet att föra målsägandens talan",
+          "text": "Åklagaren är under de förutsättningar som anges i 22 kap. 2 § första stycket rättegångsbalken skyldig att i samband med åtalet förbereda och utföra målsägandens talan om sådant skadestånd som avses i 5 §. Lag (2010:703).",
+          "stycken": [
+            "Åklagaren är skyldig att i samband med åtalet förbereda och utföra målsägandens talan om skadestånd som avses i 5 §. Lag (2010:703)."
+          ],
+          "nyckelord": ["åklagare", "målsägande", "talan", "rättegång", "skadestånd", "åtal"],
+          "relaterade_lagrum": ["22 kap. 2 § RB", "3 kap. 5 § SkL", "42 kap. RB"],
+          "kategori": "Processregler"
+        }
+      ]
     },
     {
-      "id": "skl_1972_2_1",
-      "chapter": 2,
-      "section": 1,
-      "principleType": "culpaansvar",
-      "text": "Den som uppsåtligen eller av vårdslöshet vållar personskada eller sakskada skall ersätta skadan[cite: 5].",
-      "keywords": ["uppsåt", "vårdslöshet", "personskada", "sakskada"],
-      "relatedRules": ["5:1", "5:7"],
-      "metadata": { "validFrom": "2001-07-01", "legalWeight": "central", "riskTrigger": true }
+      "kapitel": "4",
+      "rubrik": "Arbetstagares skadeståndsansvar",
+      "paragrafer": [
+        {
+          "id": "skl_4kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "Begränsat ansvar för arbetstagare",
+          "text": "För skada, som arbetstagare vållar genom fel eller försummelse i tjänsten, är han ansvarig endast i den mån synnerliga skäl föreligger med hänsyn till handlingens beskaffenhet, arbetstagarens ställning, den skadelidandes intresse och övriga omständigheter.",
+          "stycken": [
+            "För skada, som arbetstagare vållar genom fel eller försummelse i tjänsten, är han ansvarig endast i den mån synnerliga skäl föreligger med hänsyn till handlingens beskaffenhet, arbetstagarens ställning, den skadelidandes intresse och övriga omständigheter."
+          ],
+          "nyckelord": ["arbetstagare", "synnerliga skäl", "fel", "försummelse", "tjänsten", "begränsat ansvar"],
+          "relaterade_lagrum": ["3 kap. 1 § SkL", "6 kap. 4 § SkL", "7 § LAS"],
+          "kategori": "Skyldigheter"
+        }
+      ]
     },
     {
-      "id": "skl_1972_2_2",
-      "chapter": 2,
-      "section": 2,
-      "principleType": "förmögenhetsskada genom brott",
-      "text": "Den som vållar ren förmögenhetsskada genom brott skall ersätta skadan[cite: 5].",
-      "keywords": ["brott", "ren förmögenhetsskada"],
-      "relatedRules": ["1:2"],
-      "metadata": { "validFrom": "2001-07-01", "legalWeight": "central", "riskTrigger": true }
+      "kapitel": "5",
+      "rubrik": "Skadeståndets bestämmande",
+      "paragrafer": [
+        {
+          "id": "skl_5kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "Ersättning vid personskada",
+          "text": "Skadestånd till den som har tillfogats personskada omfattar ersättning för\n\n1. sjukvårdskostnad och andra kostnader för den skadelidande, inbegripet skälig kompensation till den som står den skadelidande särskilt nära,\n2. inkomstförlust,\n3. fysiskt och psykiskt lidande av övergående natur (sveda och värk) eller av bestående art (lyte eller annat stadigvarande men) samt särskilda olägenheter till följd av skadan.\n\nErsättning för inkomstförlust motsvarar skillnaden mellan den inkomst som den skadelidande skulle ha kunnat uppbära, om han icke hade skadats, och den inkomst som han trots skadan har eller borde ha uppnått.\n\nMed inkomstförlust likställs intrång i näringsverksamhet. Med inkomst likställs värdet av hushållsarbete i hemmet. Lag (2001:732).",
+          "stycken": [
+            "Skadestånd vid personskada omfattar sjukvårdskostnad, inkomstförlust samt fysiskt och psykiskt lidande.",
+            "Ersättning för inkomstförlust är skillnaden mellan inkomst utan skadan och faktisk inkomst.",
+            "Med inkomstförlust likställs intrång i näringsverksamhet och hushållsarbete. Lag (2001:732)."
+          ],
+          "nyckelord": ["personskada", "sjukvårdskostnad", "inkomstförlust", "sveda och värk", "lyte", "men"],
+          "relaterade_lagrum": ["5 kap. 2 § SkL", "5 kap. 3 § SkL", "5 kap. 4 § SkL", "22 kap. SFB"],
+          "kategori": "Rätt till ersättning"
+        },
+        {
+          "id": "skl_5kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "Ersättning vid dödsfall",
+          "text": "Har personskada lett till döden, skall ersättning betalas för\n\n1. begravningskostnad och, i skälig omfattning, annan kostnad till följd av dödsfallet,\n2. förlust av underhåll,\n3. personskada som till följd av dödsfallet åsamkats någon som stod den avlidne särskilt nära.\n\nErsättning för förlust av underhåll tillkommer efterlevande som enligt lag hade rätt till underhåll av den avlidne eller som på annat sätt var beroende av honom för sin försörjning. Lag (2001:732).",
+          "stycken": [
+            "Vid dödsfall ersätts begravningskostnad, förlust av underhåll och personskada hos närstående.",
+            "Ersättning för förlust av underhåll tillkommer efterlevande med rätt till underhåll. Lag (2001:732)."
+          ],
+          "nyckelord": ["dödsfall", "begravningskostnad", "underhåll", "efterlevande", "närstående", "ersättning"],
+          "relaterade_lagrum": ["5 kap. 1 § SkL", "5 kap. 3 § SkL", "2 kap. 3 a § SkL", "7 kap. FB"],
+          "kategori": "Rätt till ersättning"
+        },
+        {
+          "id": "skl_5kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "Avräkning av förmåner",
+          "text": "Vid bestämmande av ersättning för inkomstförlust eller förlust av underhåll avräknas förmån som den skadelidande med anledning av förlusten har rätt till i form av\n\n1. ersättning enligt socialförsäkringsbalken eller någon annan likartad förmån,\n2. pension eller annan periodisk ersättning eller sjuklön, om förmånen betalas av en arbetsgivare eller på grund av en försäkring som är en anställningsförmån. Lag (2010:1213).",
+          "stycken": [
+            "Vid ersättning för inkomstförlust avräknas förmåner från socialförsäkringen och arbetsgivarens försäkringar. Lag (2010:1213)."
+          ],
+          "nyckelord": ["avräkning", "förmån", "inkomstförlust", "socialförsäkringsbalken", "sjuklön", "pension"],
+          "relaterade_lagrum": ["5 kap. 1 § SkL", "22 kap. SFB", "2 § Sjukl.", "6 kap. 1 § SkL"],
+          "kategori": "Rätt till ersättning"
+        },
+        {
+          "id": "skl_5kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "Livränta eller engångsbelopp",
+          "text": "Ersättning för framtida inkomstförlust eller förlust av underhåll fastställes i form av livränta eller engångsbelopp eller som livränta jämte engångsbelopp. Är ersättningen av väsentlig betydelse för den skadelidandes försörjning, skall den utgå som livränta, om icke särskilda skäl talar däremot.\n\nFastställd livränta kan, om skäl föreligger, helt eller delvis utbytas mot engångsbelopp. Lag (1975:404).",
+          "stycken": [
+            "Ersättning för framtida inkomstförlust fastställs som livränta eller engångsbelopp.",
+            "Är ersättningen väsentlig för försörjningen ska den utgå som livränta. Lag (1975:404)."
+          ],
+          "nyckelord": ["livränta", "engångsbelopp", "inkomstförlust", "framtida", "försörjning"],
+          "relaterade_lagrum": ["5 kap. 5 § SkL", "5 kap. 1 § SkL", "Lag (1977:268)"],
+          "kategori": "Rätt till ersättning"
+        },
+        {
+          "id": "skl_5kap_5p",
+          "paragraf": "5 §",
+          "rubrik": "Omprövning av ersättning",
+          "text": "Sedan frågan om ersättning enligt 1 eller 2 § har avgjorts slutligt genom avtal eller dom, kan ersättningsfrågan omprövas, om förhållanden som enligt detta kapitel låg till grund för ersättningen har ändrats väsentligt. Ersättning som har fastställts i form av engångsbelopp kan dock inte sänkas.\n\nOm ändring i skadeståndslivränta med anledning av förändringar i penningvärdet finns särskilda bestämmelser. Lag (2001:732).",
+          "stycken": [
+            "Ersättning kan omprövas om de underliggande förhållandena ändrats väsentligt.",
+            "Engångsbelopp kan inte sänkas. Lag (2001:732)."
+          ],
+          "nyckelord": ["omprövning", "ersättning", "väsentlig ändring", "livränta", "engångsbelopp"],
+          "relaterade_lagrum": ["5 kap. 4 § SkL", "11 § Förordning (1995:1301)", "Lag (1977:268)"],
+          "kategori": "Ansökan och beslut"
+        },
+        {
+          "id": "skl_5kap_6p",
+          "paragraf": "6 §",
+          "rubrik": "Bestämmande av kränkningsersättning",
+          "text": "Skadestånd med anledning av kränkning bestäms efter vad som är skäligt med hänsyn till handlingens art och varaktighet och på ett sätt som även innebär att den kränkte får upprättelse för angreppet.\n\nVid bedömningen ska särskilt beaktas om handlingen\n1. haft förnedrande eller skändliga inslag,\n2. varit ägnad att framkalla allvarlig rädsla för liv eller hälsa,\n3. riktat sig mot någon med särskilda svårigheter att värja sin personliga integritet,\n4. inneburit missbruk av ett beroende- eller förtroendeförhållande,\n5. varit ägnad att väcka allmän uppmärksamhet,\n6. utförts av flera personer tillsammans mot den skadelidande, eller\n7. innefattat hot som förstärkts genom anspelning på ett våldskapital.\n\nDen skadeståndsskyldige kan förpliktas bekosta att domen förs in i tidningar. Lag (2022:754).",
+          "stycken": [
+            "Kränkningsersättning bestäms skäligt med hänsyn till handlingens art och varaktighet.",
+            "Särskilda omständigheter som förnedrande inslag, rädsla, beroendeförhållande m.m. beaktas.",
+            "Den skadeståndsskyldige kan förpliktas bekosta publicering av dom. Lag (2022:754)."
+          ],
+          "nyckelord": ["kränkning", "upprättelse", "förnedrande", "rädsla", "beroende", "hot", "skäligt"],
+          "relaterade_lagrum": ["2 kap. 3 § SkL", "5 kap. 6 a § SkL", "3 kap. 2 § SkL"],
+          "kategori": "Rätt till ersättning"
+        },
+        {
+          "id": "skl_5kap_6ap",
+          "paragraf": "6 a §",
+          "rubrik": "Bestämmande av särskild anhörigersättning",
+          "text": "Särskild anhörigersättning bestäms oberoende av omständigheterna i det enskilda fallet till ett skäligt belopp som är lika stort för var och en av de ersättningsberättigade. Lag (2022:754).",
+          "stycken": [
+            "Särskild anhörigersättning bestäms till ett skäligt schablonbelopp, lika för alla ersättningsberättigade. Lag (2022:754)."
+          ],
+          "nyckelord": ["anhörigersättning", "schablonbelopp", "skäligt", "ersättningsberättigade"],
+          "relaterade_lagrum": ["2 kap. 3 a § SkL", "5 kap. 6 § SkL"],
+          "kategori": "Rätt till ersättning"
+        },
+        {
+          "id": "skl_5kap_7p",
+          "paragraf": "7 §",
+          "rubrik": "Ersättning vid sakskada",
+          "text": "Skadestånd med anledning av sakskada omfattar ersättning för\n\n1. sakens värde eller reparationskostnad och värdeminskning,\n2. annan kostnad till följd av skadan,\n3. inkomstförlust eller intrång i näringsverksamhet. Lag (1975:404).",
+          "stycken": [
+            "Skadestånd vid sakskada omfattar värde eller reparationskostnad, följdkostnader och inkomstförlust. Lag (1975:404)."
+          ],
+          "nyckelord": ["sakskada", "reparationskostnad", "värdeminskning", "inkomstförlust", "ersättning"],
+          "relaterade_lagrum": ["5 kap. 1 § SkL", "6 kap. 1 § SkL", "2 kap. 1 § SkL"],
+          "kategori": "Rätt till ersättning"
+        },
+        {
+          "id": "skl_5kap_8p",
+          "paragraf": "8 §",
+          "rubrik": "Ideell skada vid rättighetsöverträdelse",
+          "text": "Skadestånd för annan ideell skada enligt 3 kap. 4 § första stycket 2 ska bestämmas efter vad som är skäligt med hänsyn till överträdelsens art och omständigheterna i övrigt. Lag (2018:23).",
+          "stycken": [
+            "Skadestånd för ideell skada vid rättighetsöverträdelse bestäms skäligt med hänsyn till överträdelsens art. Lag (2018:23)."
+          ],
+          "nyckelord": ["ideell skada", "rättighetsöverträdelse", "skäligt", "Europakonventionen"],
+          "relaterade_lagrum": ["3 kap. 4 § SkL", "5 kap. 6 § SkL"],
+          "kategori": "Rätt till ersättning"
+        }
+      ]
     },
     {
-      "id": "skl_1972_2_3",
-      "chapter": 2,
-      "section": 3,
-      "principleType": "kränkning",
-      "text": "Den som allvarligt kränker någon annan genom brott som innefattar ett angrepp mot dennes person, frihet, frid eller ära ska ersätta den skada som kränkningen innebär[cite: 6]. Om den som utsätts för brott i tjänsten får anses ha en särskild beredskap för angreppet, ska det vid bedömningen av om kränkningen är allvarlig särskilt beaktas om angreppet riktar sig mot den angripnes privata sfär eller är fysiskt[cite: 7].",
-      "keywords": ["kränkning", "brott", "personlig integritet"],
-      "relatedRules": ["5:6"],
-      "metadata": { "validFrom": "2022-07-01", "legalWeight": "central", "riskTrigger": true }
-    },
-    {
-      "id": "skl_1972_2_3a",
-      "chapter": 2,
-      "section": 3,
-      "subSection": "a",
-      "principleType": "anhörigersättning",
-      "text": "Den som uppsåtligen eller av grov oaktsamhet genom brott orsakar någon annans död ska betala särskild anhörigersättning till den som stod den avlidne särskilt nära[cite: 9]. Detta gäller dock inte om det är uppenbart oskäligt[cite: 9].",
-      "keywords": ["dödsfall", "närstående", "anhörigersättning"],
-      "relatedRules": ["5:6 a"],
-      "metadata": { "validFrom": "2022-07-01", "legalWeight": "central", "riskTrigger": true }
-    },
-    {
-      "id": "skl_1972_2_4",
-      "chapter": 2,
-      "section": 4,
-      "principleType": "underåriga",
-      "text": "Den som i fall som avses i 1-3 a §§ vållar skada innan han eller hon har fyllt arton år ska ersätta skadan i den utsträckning det är skäligt med hänsyn till hans eller hennes ålder och utveckling, handlingens beskaffenhet, föreliggande ansvarsförsäkring och andra ekonomiska förhållanden samt övriga omständigheter[cite: 10].",
-      "keywords": ["underårig", "skälighet", "försäkring"],
-      "relatedRules": ["3:5"],
-      "metadata": { "validFrom": "2022-07-01", "legalWeight": "begränsande", "riskTrigger": false }
-    },
-    {
-      "id": "skl_1972_2_5",
-      "chapter": 2,
-      "section": 5,
-      "principleType": "psykisk störning",
-      "text": "Den som i fall som avses i 1-3 a §§ vållar skada under påverkan av en allvarlig psykisk störning eller av någon annan psykisk störning som inte är självförvållad och tillfällig ska ersätta skadan i den utsträckning det är skäligt med hänsyn till hans eller hennes sinnestillstånd, handlingens beskaffenhet, föreliggande ansvarsförsäkring och andra ekonomiska förhållanden samt övriga omständigheter[cite: 12].",
-      "keywords": ["psykisk störning", "skälighet"],
-      "relatedRules": [],
-      "metadata": { "validFrom": "2022-07-01", "legalWeight": "begränsande", "riskTrigger": false }
-    },
-    {
-      "id": "skl_1972_2_6",
-      "chapter": 2,
-      "section": 6,
-      "principleType": "underlåtenhet",
-      "text": "För skada som vållats genom underlåtenhet att avslöja brott skall ersättning enligt denna lag inte betalas enbart på den grund att straff för underlåtenheten kan följa enligt 23 kap. 6 § första stycket brottsbalken[cite: 13].",
-      "keywords": ["underlåtenhet", "brottsbalken"],
-      "relatedRules": [],
-      "metadata": { "validFrom": "2001-07-01", "legalWeight": "begränsande", "riskTrigger": false }
-    },
-    {
-      "id": "skl_1972_3_1",
-      "chapter": 3,
-      "section": 1,
-      "principleType": "principalansvar",
-      "text": "Den som har arbetstagare i sin tjänst ska ersätta 1. personskada eller sakskada som arbetstagaren vållar genom fel eller försummelse i tjänsten, 2. ren förmögenhetsskada som arbetstagaren i tjänsten vållar genom brott, 3. skada på grund av att arbetstagaren kränker någon annan på sätt som anges i 2 kap. 3 § genom fel eller försummelse i tjänsten, och 4. skada som ersätts enligt 2 kap. 3 a § och som arbetstagaren orsakar genom fel eller försummelse i tjänsten[cite: 14, 15]. I fråga om skadeståndsansvar för staten eller en kommun gäller även det som sägs nedan i detta kapitel[cite: 16]. Det som där sägs om en kommun gäller också en region och ett kommunalförbund[cite: 17].",
-      "keywords": ["arbetsgivare", "arbetstagare", "fel eller försummelse"],
-      "relatedRules": ["4:1"],
-      "metadata": { "validFrom": "2022-07-01", "legalWeight": "ansvarshöjande", "riskTrigger": true }
-    },
-    {
-      "id": "skl_1972_3_2",
-      "chapter": 3,
-      "section": 2,
-      "principleType": "myndighetsutövning",
-      "text": "Staten eller en kommun ska ersätta 1. personskada, sakskada eller ren förmögenhetsskada, som vållas genom fel eller försummelse vid myndighetsutövning i verksamhet för vars fullgörande staten eller kommunen svarar, 2. skada på grund av att någon annan kränks på sätt som anges i 2 kap. 3 § genom fel eller försummelse vid sådan myndighetsutövning, och 3. skada som ersätts enligt 2 kap. 3 a § och som orsakas genom fel eller försummelse vid sådan myndighetsutövning[cite: 18, 19, 20].",
-      "keywords": ["myndighetsutövning", "staten", "kommun"],
-      "relatedRules": ["3:4", "3:7"],
-      "metadata": { "validFrom": "2022-07-01", "legalWeight": "offentligrättslig", "riskTrigger": true }
-    },
-    {
-      "id": "skl_1972_3_3",
-      "chapter": 3,
-      "section": 3,
-      "principleType": "felaktiga upplysningar",
-      "text": "Staten eller en kommun skall ersätta ren förmögenhetsskada som vållas av att en myndighet genom fel eller försummelse lämnar felaktiga upplysningar eller råd, om det med hänsyn till omständigheterna finns särskilda skäl[cite: 21]. Därvid skall särskilt beaktas upplysningarnas eller rådens art, deras samband med myndighetens verksamhetsområde och omständigheterna när de lämnades[cite: 22].",
-      "keywords": ["råd", "upplysningar", "särskilda skäl"],
-      "relatedRules": [],
-      "metadata": { "validFrom": "1998-07-01", "legalWeight": "offentligrättslig", "riskTrigger": true }
-    },
-    {
-      "id": "skl_1972_3_4",
-      "chapter": 3,
-      "section": 4,
-      "principleType": "rättighetsöverträdelse",
-      "text": "Staten eller en kommun ska ersätta 1. personskada, sakskada, ren förmögenhetsskada, skada på grund av att någon kränks på sätt som anges i 2 kap. 3 § och skada som ersätts enligt 2 kap. 3 a §, om skadan uppkommit till följd av att den skadelidandes grundläggande fri- och rättigheter enligt 2 kap. regeringsformen eller enligt den europeiska konventionen angående skydd för de mänskliga rättigheterna och de grundläggande friheterna har överträtts från statens eller kommunens sida, och 2. annan ideell skada som uppkommit till följd av en sådan överträdelse[cite: 23, 24, 25]. Skadestånd enligt första stycket ska betalas endast i den utsträckning det är nödvändigt för att gottgöra överträdelsen[cite: 26].",
-      "keywords": ["regeringsformen", "Europakonventionen", "ideell skada"],
-      "relatedRules": ["5:8"],
-      "metadata": { "validFrom": "2022-12-31", "legalWeight": "grundlagsskyddad", "riskTrigger": true }
-    },
-    {
-      "id": "skl_1972_3_5",
-      "chapter": 3,
-      "section": 5,
-      "principleType": "föräldraansvar",
-      "text": "En förälder som har vårdnaden om ett barn ska ersätta 1. personskada eller sakskada som barnet vållar genom brott, 2. skada på grund av att barnet kränker någon annan på sätt som anges i 2 kap. 3 §, och 3. skada som barnet orsakar och som ersätts enligt 2 kap. 3 a §[cite: 27, 28]. Förälderns ansvar enligt första stycket är för varje skadehändelse begränsat till en femtedel av det prisbasbelopp enligt 2 kap. 6 och 7 §§ socialförsäkringsbalken som gäller för det år då skadehändelsen inträffade[cite: 29, 30].",
-      "keywords": ["vårdnadshavare", "barn", "prisbasbelopp"],
-      "relatedRules": ["3:6"],
-      "metadata": { "validFrom": "2022-07-01", "legalWeight": "strikt men begränsat", "riskTrigger": true }
-    },
-    {
-      "id": "skl_1972_3_6",
-      "chapter": 3,
-      "section": 6,
-      "principleType": "jämkning",
-      "text": "Ersättning enligt 1 eller 2 § for sakskada kan jämkas, om det är skäligt med hänsyn till föreliggande försäkringar eller försäkringsmöjligheter[cite: 33]. Ersättning enligt 5 § kan jämkas, om det är uppenbart oskäligt att föräldern ska betala skadeståndet med hänsyn till förälderns förhållande till barnet eller de särskilda åtgärder föräldern har vidtagit för att förhindra att barnet begår brott[cite: 34].",
-      "keywords": ["jämkning", "försäkring"],
-      "relatedRules": ["3:1", "3:2", "3:5"],
-      "metadata": { "validFrom": "2010-07-01", "legalWeight": "korrigerande", "riskTrigger": false }
-    },
-    {
-      "id": "skl_1972_3_7",
-      "chapter": 3,
-      "section": 7,
-      "principleType": "talan mot högsta instans",
-      "text": "Talan om ersättning enligt 2 § får inte föras med anledning av beslut av riksdagen eller regeringen eller av Högsta domstolen eller Högsta förvaltningsdomstolen, om inte beslutet upphävts eller ändrats[cite: 35]. Sådan talan får inte heller föras med anledning av beslut av lägre myndighet, vilket efter överklagande prövats av regeringen, Högsta domstolen eller Högsta förvaltningsdomstolen, utan att beslutet upphävts eller ändrats[cite: 36].",
-      "keywords": ["riksdagen", "regeringen", "Högsta domstolen"],
-      "relatedRules": [],
-      "metadata": { "validFrom": "2010-01-01", "legalWeight": "processuell", "riskTrigger": false }
-    },
-    {
-      "id": "skl_1972_3_8",
-      "chapter": 3,
-      "section": 8,
-      "principleType": "trafikskador",
-      "text": "Bestämmelserna i detta kapitel gäller ej i fråga om sådan skada i följd av trafik med motordrivet fordon som vållats av fordonets förare, i den mån trafikskadeersättning kan utgå för skadan enligt trafikskadelagen (1975:1410)[cite: 38].",
-      "keywords": ["trafikskadelagen"],
-      "relatedRules": [],
-      "metadata": { "validFrom": "1975-01-01", "legalWeight": "undantag", "riskTrigger": false }
-    },
-    {
-      "id": "skl_1972_3_9",
-      "chapter": 3,
-      "section": 9,
-      "principleType": "lotsning",
-      "text": "Skadeståndsansvar enligt detta kapitel åvilar ej staten eller kommun med anledning av fel eller försummelse vid lotsning[cite: 39].",
-      "keywords": ["lotsning"],
-      "relatedRules": [],
-      "metadata": { "validFrom": "1972-07-01", "legalWeight": "undantag", "riskTrigger": false }
-    },
-    {
-      "id": "skl_1972_3_11",
-      "chapter": 3,
-      "section": 11,
-      "principleType": "åklagarens talan",
-      "text": "Åklagaren är under de förutsättningar som anges i 22 kap. 2 § första stycket rättegångsbalken skyldig att i samband med åtalet förbereda och utföra målsägandens talan om sådant skadestånd som avses i 5 §[cite: 40].",
-      "keywords": ["åklagare", "målsägande", "rättegångsbalken"],
-      "relatedRules": ["3:5"],
-      "metadata": { "validFrom": "2010-07-01", "legalWeight": "processuell", "riskTrigger": false }
-    },
-    {
-      "id": "skl_1972_4_1",
-      "chapter": 4,
-      "section": 1,
-      "principleType": "arbetstagarens ansvar",
-      "text": "För skada, som arbetstagare vållar genom fel eller försummelse i tjänsten, är han ansvarig endast i den mån synnerliga skäl föreligger med hänsyn till handlingens beskaffenhet, arbetstagarens ställning, den skadelidandes intresse och övriga omständigheter[cite: 42].",
-      "keywords": ["arbetstagare", "synnerliga skäl"],
-      "relatedRules": ["3:1"],
-      "metadata": { "validFrom": "1972-07-01", "legalWeight": "ansvarsbegränsande", "riskTrigger": false }
-    },
-    {
-      "id": "skl_1972_5_1",
-      "chapter": 5,
-      "section": 1,
-      "principleType": "ersättning vid personskada",
-      "text": "Skadestånd till den som har tillfogats personskada omfattar ersättning för 1. sjukvårdskostnad och andra kostnader för den skadelidande, inbegripet skälig kompensation till den som står den skadelidande särskilt nära, 2. inkomstförlust, 3. fysiskt och psykiskt lidande av övergående natur (sveda och värk) eller av bestående art (lyte eller annat stadigvarande men) samt särskilda olägenheter till följd av skadan[cite: 43]. Ersättning för inkomstförlust motsvarar skillnaden mellan den inkomst som den skadelidande skulle ha kunnat uppbära, om han icke hade skadats, och den inkomst som han trots skadan har eller borde ha uppnått eller som han kan beräknas komma att uppnå[cite: 44].",
-      "keywords": ["sveda och värk", "lyte och men", "inkomstförlust"],
-      "relatedRules": ["5:3", "5:4", "5:5"],
-      "metadata": { "validFrom": "2001-07-01", "legalWeight": "beräkningsgrund", "riskTrigger": false }
-    },
-    {
-      "id": "skl_1972_5_2",
-      "chapter": 5,
-      "section": 2,
-      "principleType": "ersättning vid dödsfall",
-      "text": "Har personskada lett till döden, skall ersättning betalas för 1. begravningskostnad och, i skälig omfattning, annan kostnad till följd av dödsfallet, 2. förlust av underhåll, 3. personskada som till följd av dödsfallet åsamkats någon som stod den avlidne särskilt nära[cite: 46]. Ersättning för förlust av underhåll tillkommer efterlevande som enligt lag hade rätt till underhåll eller som på annat sätt var beroende av honom för sin försörjning[cite: 47].",
-      "keywords": ["begravning", "underhåll", "närstående"],
-      "relatedRules": [],
-      "metadata": { "validFrom": "2001-07-01", "legalWeight": "beräkningsgrund", "riskTrigger": false }
-    },
-    {
-      "id": "skl_1972_5_3",
-      "chapter": 5,
-      "section": 3,
-      "principleType": "avräkning",
-      "text": "Vid bestämmande av ersättning för inkomstförlust eller förlust av underhåll avräknas förmån som den skadelidande med anledning av förlusten har rätt till i form av 1. ersättning enligt socialförsäkringsbalken eller någon annan likartad förmån, 2. pension eller annan periodisk ersättning eller sjuklön, om förmånen betalas av en arbetsgivare eller på grund av en försäkring som är en anställningsförmån[cite: 50].",
-      "keywords": ["socialförsäkringsbalken", "pension", "sjuklön"],
-      "relatedRules": ["5:1", "5:2"],
-      "metadata": { "validFrom": "2010-12-13", "legalWeight": "beräkningsgrund", "riskTrigger": false }
-    },
-    {
-      "id": "skl_1972_5_4",
-      "chapter": 5,
-      "section": 4,
-      "principleType": "ersättningsform",
-      "text": "Ersättning för framtida inkomstförlust eller förlust av underhåll fastställes i form av livränta eller engångsbelopp eller som livränta jämte engångsbelopp[cite: 51]. Är ersättningen av väsentlig betydelse för den skadelidandes försörjning, skall den utgå som livränta, om icke särskilda skäl talar däremot[cite: 52].",
-      "keywords": ["livränta", "engångsbelopp"],
-      "relatedRules": [],
-      "metadata": { "validFrom": "1975-01-01", "legalWeight": "processuell", "riskTrigger": false }
-    },
-    {
-      "id": "skl_1972_5_5",
-      "chapter": 5,
-      "section": 5,
-      "principleType": "omprövning",
-      "text": "Sedan frågan om ersättning enligt 1 eller 2 § har avgjorts slutligt genom avtal eller dom, kan ersättningsfrågan omprövas, om förhållanden som enligt detta kapitel låg till grund för ersättningen har ändrats väsentligt[cite: 54]. Ersättning som har fastställts i form av engångsbelopp kan dock inte sänkas[cite: 55].",
-      "keywords": ["omprövning", "väsentlig ändring"],
-      "relatedRules": ["5:1", "5:2"],
-      "metadata": { "validFrom": "2001-07-01", "legalWeight": "processuell", "riskTrigger": false }
-    },
-    {
-      "id": "skl_1972_5_6",
-      "chapter": 5,
-      "section": 6,
-      "principleType": "kränkningsersättning belopp",
-      "text": "Skadestånd med anledning av kränkning bestäms efter vad som är skäligt med hänsyn till handlingens art och varaktighet och på ett sätt som även innebär att den kränkte får upprättelse för angreppet[cite: 57]. Vid bedömningen ska det särskilt beaktas om handlingen haft förnedrande inslag, framkallat rädsla, riktat sig mot svaga eller utförts av flera personer[cite: 58].",
-      "keywords": ["upprättelse", "förnedring", "skälighet"],
-      "relatedRules": ["2:3"],
-      "metadata": { "validFrom": "2022-07-01", "legalWeight": "beräkningsgrund", "riskTrigger": false }
-    },
-    {
-      "id": "skl_1972_5_6a",
-      "chapter": 5,
-      "section": 6,
-      "subSection": "a",
-      "principleType": "anhörigersättning belopp",
-      "text": "Särskild anhörigersättning bestäms oberoende av omständigheterna i det enskilda fallet till ett skäligt belopp som är lika stort för var och en av de ersättningsberättigade[cite: 60].",
-      "keywords": ["anhörig", "skäligt belopp"],
-      "relatedRules": ["2:3 a"],
-      "metadata": { "validFrom": "2022-07-01", "legalWeight": "beräkningsgrund", "riskTrigger": false }
-    },
-    {
-      "id": "skl_1972_5_7",
-      "chapter": 5,
-      "section": 7,
-      "principleType": "sakskada ersättning",
-      "text": "Skadestånd med anledning av sakskada omfattar ersättning för 1. sakens värde eller reparationskostnad och värdeminskning, 2. annan kostnad till följd av skadan, 3. inkomstförlust eller intrång i näringsverksamhet[cite: 61].",
-      "keywords": ["reparationskostnad", "värdeminskning"],
-      "relatedRules": ["2:1"],
-      "metadata": { "validFrom": "1975-01-01", "legalWeight": "beräkningsgrund", "riskTrigger": false }
-    },
-    {
-      "id": "skl_1972_5_8",
-      "chapter": 5,
-      "section": 8,
-      "principleType": "ideell skada",
-      "text": "Skadestånd för annan ideell skada enligt 3 kap. 4 § första stycket 2 ska bestämmas efter vad som är skäligt med hänsyn till överträdelsens art och omständigheterna i övrigt[cite: 62].",
-      "keywords": ["ideell skada", "skälighet"],
-      "relatedRules": ["3:4"],
-      "metadata": { "validFrom": "2018-01-01", "legalWeight": "beräkningsgrund", "riskTrigger": false }
-    },
-    {
-      "id": "skl_1972_6_1",
-      "chapter": 6,
-      "section": 1,
-      "principleType": "jämkning medverkan",
-      "text": "Skadestånd med anledning av personskada kan jämkas, om den skadelidande själv uppsåtligen eller genom grov vårdslöshet har medverkat till skadan[cite: 64]. Skadestånd till förare som gjort sig skyldig till rattfylleri kan även jämkas vid vårdslöshet[cite: 65]. Skadestånd med anledning av sakskada eller ren förmögenhetsskada kan jämkas, om vållande på den skadelidandes sida har medverkat till skadan[cite: 68].",
-      "keywords": ["jämkning", "medverkan", "grov vårdslöshet", "rattfylleri"],
-      "relatedRules": [],
-      "metadata": { "validFrom": "2001-07-01", "legalWeight": "korrigerande", "riskTrigger": true }
-    },
-    {
-      "id": "skl_1972_6_2",
-      "chapter": 6,
-      "section": 2,
-      "principleType": "ekonomisk jämkning",
-      "text": "Är skyldighet att utge skadestånd oskäligt betungande med hänsyn till den skadeståndsskyldiges ekonomiska förhållanden, kan skadeståndet jämkas efter vad som är skäligt, varvid även den skadelidandes behov skall beaktas[cite: 70].",
-      "keywords": ["oskäligt betungande", "ekonomi"],
-      "relatedRules": [],
-      "metadata": { "validFrom": "1975-01-01", "legalWeight": "korrigerande", "riskTrigger": false }
-    },
-    {
-      "id": "skl_1972_6_3",
-      "chapter": 6,
-      "section": 3,
-      "principleType": "bortfall vid dödsfall",
-      "text": "Rätten till ersättning för fysiskt och psykiskt lidande och för särskilda olägenheter faller bort, om den skadelidande avlider innan ett krav på sådan ersättning har framställts[cite: 71]. Detsamma gäller rätten till ersättning för kränkning, särskild anhörigersättning och ersättning för annan ideell skada[cite: 72].",
-      "keywords": ["dödsfall", "krav", "ideell ersättning"],
-      "relatedRules": ["5:1", "5:6"],
-      "metadata": { "validFrom": "2022-07-01", "legalWeight": "begränsande", "riskTrigger": false }
-    },
-    {
-      "id": "skl_1972_6_4",
-      "chapter": 6,
-      "section": 4,
-      "principleType": "solidariskt ansvar",
-      "text": "Skall två eller flera ersätta samma skada, svarar de solidariskt för skadeståndet, i den mån ej annat följer av att begränsning gäller i den skadeståndsskyldighet som åvilar någon av dem[cite: 73].",
-      "keywords": ["solidariskt ansvar"],
-      "relatedRules": [],
-      "metadata": { "validFrom": "1975-01-01", "legalWeight": "ansvarshöjande", "riskTrigger": true }
-    },
-    {
-      "id": "skl_1972_6_5",
-      "chapter": 6,
-      "section": 5,
-      "principleType": "likställda med arbetstagare",
-      "text": "Vid tillämpning av denna lag likställes med arbetstagare: 1. den som tjänstgör enligt lagen om totalförsvarsplikt, 2. den som under utbildning vid skola eller vård i anstalt utför arbete liknande arbetstagares, 3. den som eljest utför arbete under liknande omständigheter som i anställningsförhållande[cite: 74].",
-      "keywords": ["totalförsvarsplikt", "utbildning", "likställda"],
-      "relatedRules": ["3:1", "4:1"],
-      "metadata": { "validFrom": "1994-07-01", "legalWeight": "utvidgande", "riskTrigger": false }
-    },
-    {
-      "id": "skl_1972_6_6",
-      "chapter": 6,
-      "section": 6,
-      "principleType": "rättegångskostnader",
-      "text": "En skadelidande som har tillerkänts skadestånd för kränkning eller särskild anhörigersättning ska inte förpliktas att ersätta den skadeståndsskyldiges rättegångskostnader i ett mål där skadestånd på grund av brottet prövas[cite: 75]. Undantag får göras om den skadelidande orsakat kostnader genom vårdslöst uppträdande i rättegången[cite: 77].",
-      "keywords": ["rättegångskostnader", "kränkning"],
-      "relatedRules": ["2:3"],
-      "metadata": { "validFrom": "2022-07-01", "legalWeight": "processuell", "riskTrigger": false }
-    },
-    {
-      "id": "skl_1972_6_7",
-      "chapter": 6,
-      "section": 7,
-      "principleType": "rättegångskostnader rättigheter",
-      "text": "I ett mål om ersättning enligt 3 kap. 4 § får rätten besluta att vardera parten ska bära sin rättegångskostnad, om en enskild som har förlorat målet hade skälig anledning att få saken prövad[cite: 79, 80].",
-      "keywords": ["rättegångskostnader", "skälig anledning"],
-      "relatedRules": ["3:4"],
-      "metadata": { "validFrom": "2018-01-01", "legalWeight": "processuell", "riskTrigger": false }
+      "kapitel": "6",
+      "rubrik": "Gemensamma bestämmelser",
+      "paragrafer": [
+        {
+          "id": "skl_6kap_1p",
+          "paragraf": "1 §",
+          "rubrik": "Jämkning vid medvållande",
+          "text": "Skadestånd med anledning av personskada kan jämkas, om den skadelidande själv uppsåtligen eller genom grov vårdslöshet har medverkat till skadan. Skadestånd till förare av motordrivet fordon som har gjort sig skyldig till rattfylleri eller grovt rattfylleri kan även jämkas, om föraren därvid genom vårdslöshet har medverkat till skadan. Har personskada lett till döden, kan skadestånd som avses i 5 kap. 2 § också jämkas, om den avlidne uppsåtligen har medverkat till dödsfallet.\n\nSkadestånd med anledning av sakskada eller ren förmögenhetsskada kan jämkas, om vållande på den skadelidandes sida har medverkat till skadan.\n\nJämkning sker efter vad som är skäligt med hänsyn till graden av vållande på ömse sidor och omständigheterna i övrigt. Lag (2001:732).",
+          "stycken": [
+            "Skadestånd kan jämkas om den skadelidande medverkat till personskadan uppsåtligen eller av grov vårdslöshet.",
+            "Vid sakskada eller ren förmögenhetsskada räcker det att den skadelidande bidragit med vållande.",
+            "Jämkning sker efter skälighet med hänsyn till vållandegraden. Lag (2001:732)."
+          ],
+          "nyckelord": ["jämkning", "medvållande", "uppsåt", "grov vårdslöshet", "rattfylleri", "skäligt"],
+          "relaterade_lagrum": ["6 kap. 2 § SkL", "3 kap. 6 § SkL", "5 kap. 1 § SkL"],
+          "kategori": "Undantag"
+        },
+        {
+          "id": "skl_6kap_2p",
+          "paragraf": "2 §",
+          "rubrik": "Jämkning vid oskälig börda",
+          "text": "Är skyldighet att utge skadestånd oskäligt betungande med hänsyn till den skadeståndsskyldiges ekonomiska förhållanden, kan skadeståndet jämkas efter vad som är skäligt, varvid även den skadelidandes behov av skadeståndet och övriga omständigheter skall beaktas. Lag (1975:404).",
+          "stycken": [
+            "Skadestånd kan jämkas om skyldigheten är oskäligt betungande med hänsyn till den skadeståndsskyldiges ekonomi. Lag (1975:404)."
+          ],
+          "nyckelord": ["jämkning", "ekonomiska förhållanden", "oskäligt", "betungande", "skäligt"],
+          "relaterade_lagrum": ["6 kap. 1 § SkL", "2 kap. 4 § SkL", "2 kap. 5 § SkL"],
+          "kategori": "Undantag"
+        },
+        {
+          "id": "skl_6kap_3p",
+          "paragraf": "3 §",
+          "rubrik": "Rätten till ideell ersättning faller bort vid dödsfall",
+          "text": "Rätten till ersättning för fysiskt och psykiskt lidande och för särskilda olägenheter faller bort, om den skadelidande avlider innan ett krav på sådan ersättning har framställts. Detsamma gäller rätten till ersättning för kränkning, särskild anhörigersättning och ersättning för annan ideell skada enligt 3 kap. 4 § första stycket 2. Lag (2022:754).",
+          "stycken": [
+            "Rätten till ideell ersättning faller bort om den skadelidande dör innan krav framställts. Lag (2022:754)."
+          ],
+          "nyckelord": ["ideell ersättning", "dödsfall", "kränkning", "anhörigersättning", "bortfall"],
+          "relaterade_lagrum": ["5 kap. 1 § SkL", "5 kap. 6 § SkL", "2 kap. 3 a § SkL"],
+          "kategori": "Undantag"
+        },
+        {
+          "id": "skl_6kap_4p",
+          "paragraf": "4 §",
+          "rubrik": "Solidariskt ansvar",
+          "text": "Skall två eller flera ersätta samma skada, svarar de solidariskt för skadeståndet, i den mån ej annat följer av att begränsning gäller i den skadeståndsskyldighet som åvilar någon av dem. Lag (1975:404).",
+          "stycken": [
+            "När flera är skadeståndsansvariga för samma skada svarar de solidariskt. Lag (1975:404)."
+          ],
+          "nyckelord": ["solidariskt ansvar", "gemensamt ansvar", "flera skadevållare"],
+          "relaterade_lagrum": ["3 kap. 1 § SkL", "4 kap. 1 § SkL"],
+          "kategori": "Allmänna bestämmelser"
+        },
+        {
+          "id": "skl_6kap_5p",
+          "paragraf": "5 §",
+          "rubrik": "Likställande med arbetstagare",
+          "text": "Vid tillämpning av denna lag likställes med arbetstagare\n\n1. den som tjänstgör enligt lagen (1994:1809) om totalförsvarsplikt och annan som fullgör i lag föreskriven tjänstgöring,\n2. den som under utbildning vid skola eller vård i anstalt utför arbete som till sin art liknar sådant som vanligen utföres av arbetstagare,\n3. den som för annans räkning eljest utför arbete under omständigheter liknande dem som förekommer i anställningsförhållande. Lag (1994:2065).",
+          "stycken": [
+            "Med arbetstagare likställs totalförsvarspliktiga, elever i utbildning och de som utför arbete under anställningsliknande förhållanden. Lag (1994:2065)."
+          ],
+          "nyckelord": ["arbetstagare", "likställande", "totalförsvar", "utbildning", "anställningsförhållande"],
+          "relaterade_lagrum": ["3 kap. 1 § SkL", "4 kap. 1 § SkL", "lagen (1994:1809)"],
+          "kategori": "Definitioner"
+        },
+        {
+          "id": "skl_6kap_6p",
+          "paragraf": "6 §",
+          "rubrik": "Rättegångskostnader vid kränkning",
+          "text": "En skadelidande som har tillerkänts skadestånd för kränkning eller särskild anhörigersättning ska inte förpliktas att ersätta den skadeståndsskyldiges rättegångskostnader i ett mål där skadestånd på grund av brottet prövas. Detta gäller dock inte om särskilda skäl föranleder annat.\n\nOm det finns särskilda skäl, gäller första stycket första meningen också en skadelidande som tillerkänts ersättning för fysiskt och psykiskt lidande. Lag (2022:754).",
+          "stycken": [
+            "Den skadelidande behöver normalt inte ersätta motpartens rättegångskostnader vid kränkningsmål.",
+            "Undantag gäller vid särskilda skäl. Lag (2022:754)."
+          ],
+          "nyckelord": ["rättegångskostnader", "kränkning", "skadelidande", "undantag", "särskilda skäl"],
+          "relaterade_lagrum": ["18 kap. RB", "5 kap. 6 § SkL", "6 kap. 7 § SkL"],
+          "kategori": "Processregler"
+        },
+        {
+          "id": "skl_6kap_7p",
+          "paragraf": "7 §",
+          "rubrik": "Rättegångskostnader vid rättighetsöverträdelse",
+          "text": "I ett mål om ersättning enligt 3 kap. 4 § får rätten besluta att vardera parten ska bära sin rättegångskostnad, om en enskild som har förlorat målet hade skälig anledning att få saken prövad. Lag (2018:23).",
+          "stycken": [
+            "Vid mål om rättighetsöverträdelse kan rätten besluta att vardera parten bär sina rättegångskostnader. Lag (2018:23)."
+          ],
+          "nyckelord": ["rättegångskostnader", "rättighetsöverträdelse", "skälig anledning", "prövning"],
+          "relaterade_lagrum": ["3 kap. 4 § SkL", "18 kap. RB", "6 kap. 6 § SkL"],
+          "kategori": "Processregler"
+        }
+      ]
     }
   ],
-  "transitionRules": [
-    { "year": "1994", "text": "Denna lag träder i kraft den 1 juli 1995[cite: 81]." },
-    { "year": "2000", "text": "Skall endast tillämpas i de fall yrkandet om skadestånd har framställts efter ikraftträdandet[cite: 83]." },
-    { "year": "2010", "text": "Äldre bestämmelser gäller för förmåner som avser tid före ikraftträdandet[cite: 84]." }
+  "overgangsbestammelser": [
+    {
+      "sfs": "1994:2065",
+      "ikraftträdande": "1995-07-01",
+      "text": "Denna lag träder i kraft den 1 juli 1995. Äldre bestämmelser tillämpas beträffande den som före ikraftträdandet antagits till grundutbildning enligt lagen (1980:1021) om militär grundutbildning för kvinnor."
+    },
+    {
+      "sfs": "1995:24",
+      "ikraftträdande": "1995-07-01",
+      "text": "Denna lag träder i kraft den 1 juli 1995. I fråga om beslut som har meddelats av Försäkringsöverdomstolen före ikraftträdandet gäller 3 kap. 7 § i sin äldre lydelse."
+    },
+    {
+      "sfs": "2000:126",
+      "ikraftträdande": "2000-05-01",
+      "text": "Denna lag träder i kraft den 1 maj 2000. Den nya bestämmelsen skall dock endast tillämpas i de fall yrkandet om skadestånd har framställts efter ikraftträdandet."
+    },
+    {
+      "sfs": "2010:1213",
+      "ikraftträdande": "2011-01-01",
+      "text": "1. Denna lag träder i kraft den 1 januari 2011. 2. Äldre bestämmelser gäller för förmåner som avser tid före ikraftträdandet."
+    }
   ]
 }
