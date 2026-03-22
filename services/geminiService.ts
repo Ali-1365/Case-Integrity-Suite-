@@ -2,62 +2,7 @@ import { GoogleGenAI, GenerateContentParameters, ThinkingLevel } from '@google/g
 import { loggingService, LogMode } from './loggingService';
 import { getSyntheticResponse } from '../lib/syntheticLLMResponses';
 import { ApiError } from '../lib/errors';
-
-// ─────────────────────────────────────────────
-//  OFFLINE SERVICE (inbyggd — ingen extern fil behövs)
-// ─────────────────────────────────────────────
-type OfflineReason = 'API_KEY_MISSING' | 'QUOTA_EXCEEDED' | 'NETWORK_ERROR' | 'MANUAL' | null;
-
-class OfflineService {
-  private _isOffline: boolean = false;
-  private _reason: OfflineReason = null;
-  private _subscribers: ((offline: boolean, reason: OfflineReason) => void)[] = [];
-
-  constructor() {
-    const apiKey =
-      (typeof process !== 'undefined'
-        ? process.env?.GEMINI_API_KEY || process.env?.API_KEY
-        : null) || '';
-
-    if (!apiKey) {
-      this._isOffline = true;
-      this._reason = 'API_KEY_MISSING';
-      if (typeof window !== 'undefined') {
-        (window as any).OFFLINE_MODE = true;
-        (window as any).OFFLINE_REASON = 'API_KEY_MISSING';
-      }
-    }
-  }
-
-  getIsOffline(): boolean {
-    return this._isOffline ||
-      (typeof window !== 'undefined' && (window as any).OFFLINE_MODE === true);
-  }
-
-  getReason(): OfflineReason { return this._reason; }
-
-  setOffline(offline: boolean, reason: OfflineReason = null): void {
-    this._isOffline = offline;
-    this._reason = reason;
-    if (typeof window !== 'undefined') {
-      (window as any).OFFLINE_MODE = offline;
-      (window as any).OFFLINE_REASON = reason;
-    }
-    this._subscribers.forEach(fn => fn(offline, reason));
-    if (offline) {
-      console.warn(`[OfflineService] Offline aktiverat. Anledning: ${reason}`);
-    } else {
-      console.log('[OfflineService] System återkopplat till online-läge.');
-    }
-  }
-
-  subscribe(fn: (offline: boolean, reason: OfflineReason) => void): () => void {
-    this._subscribers.push(fn);
-    return () => { this._subscribers = this._subscribers.filter(s => s !== fn); };
-  }
-}
-
-export const offlineService = new OfflineService();
+import { offlineService } from './offlineService';
 
 // ─────────────────────────────────────────────
 //  QUOTA STATE

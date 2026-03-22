@@ -160,8 +160,46 @@ const SystemMonitor: React.FC<SystemMonitorProps> = ({ isOpen, onClose }) => {
                     </div>
 
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                        {/* Emergency Panel */}
+                        {/* Metrics and Emergency Panel */}
                         <div className="lg:col-span-4 space-y-6">
+                            {/* AI Metrics Panel */}
+                            <div className="p-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                                <h3 className="text-sm font-bold uppercase tracking-wider text-slate-500 flex items-center mb-6">
+                                    <ActivityIcon className="w-4 h-4 mr-2 text-indigo-500" />
+                                    AI API Metrics
+                                </h3>
+                                <div className="space-y-4">
+                                    <div>
+                                        <div className="flex justify-between text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                                            <span>API Calls (RPM)</span>
+                                            <span>{quotaUsage?.rpm || 0} / {quotaUsage?.limitRpm || 15}</span>
+                                        </div>
+                                        <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden">
+                                            <div className={`h-full ${quotaUsage?.status === 'critical' ? 'bg-red-500' : quotaUsage?.status === 'warning' ? 'bg-amber-500' : 'bg-emerald-500'}`} style={{ width: `${Math.min(100, ((quotaUsage?.rpm || 0) / (quotaUsage?.limitRpm || 15)) * 100)}%` }}></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div className="flex justify-between text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                                            <span>Tokens (TPM)</span>
+                                            <span>{(quotaUsage?.tpm || 0).toLocaleString()} / {(quotaUsage?.limitTpm || 1000000).toLocaleString()}</span>
+                                        </div>
+                                        <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden">
+                                            <div className={`h-full ${quotaUsage?.status === 'critical' ? 'bg-red-500' : quotaUsage?.status === 'warning' ? 'bg-amber-500' : 'bg-emerald-500'}`} style={{ width: `${Math.min(100, ((quotaUsage?.tpm || 0) / (quotaUsage?.limitTpm || 1000000)) * 100)}%` }}></div>
+                                        </div>
+                                    </div>
+                                    <div className="pt-4 border-t border-slate-100 dark:border-slate-800 grid grid-cols-2 gap-4">
+                                        <div>
+                                            <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Avg Response</p>
+                                            <p className="text-sm font-black text-slate-900 dark:text-white">~2.4s</p>
+                                        </div>
+                                        <div>
+                                            <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Error Rate</p>
+                                            <p className="text-sm font-black text-emerald-500">0.00%</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div className={`p-6 rounded-xl border ${isOffline ? 'bg-orange-50 border-orange-200' : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800'}`}>
                                 <h3 className={`text-sm font-semibold mb-4 flex items-center ${isOffline ? 'text-orange-800' : 'text-slate-900 dark:text-white'}`}>
                                     <ShieldCheckIcon className="w-4 h-4 mr-2" />

@@ -155,6 +155,24 @@ export const SystemHub: React.FC<SystemHubProps> = ({ onNavigate }) => {
             category: 'Analys'
         },
         {
+            id: 'analysis_dash',
+            title: 'Analys Dashboard',
+            description: 'Översikt och aggregering av flera juridiska analyser.',
+            icon: <ChartBarIcon />,
+            status: 'active' as const,
+            color: 'text-blue-500',
+            category: 'Analys'
+        },
+        {
+            id: 'case_viewer',
+            title: 'Ärendevy (CaseViewer)',
+            description: 'Detaljerad insyn i specifika ärenden och journaler.',
+            icon: <DocumentTextIcon />,
+            status: 'active' as const,
+            color: 'text-indigo-500',
+            category: 'Analys'
+        },
+        {
             id: 'agent',
             title: 'Analys & Utredning',
             description: 'Djupgående analys av bevisatomer och rättsliga förhållanden.',
@@ -207,6 +225,15 @@ export const SystemHub: React.FC<SystemHubProps> = ({ onNavigate }) => {
             status: 'active' as const,
             color: 'text-emerald-500',
             category: 'Integritet'
+        },
+        {
+            id: 'upload',
+            title: 'Ladda Upp Dokument',
+            description: 'Importera och analysera nya juridiska dokument.',
+            icon: <DocumentTextIcon />,
+            status: 'active' as const,
+            color: 'text-blue-500',
+            category: 'System'
         },
         {
             id: 'archive',

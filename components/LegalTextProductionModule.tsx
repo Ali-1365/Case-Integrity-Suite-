@@ -52,7 +52,7 @@ const LegalTextProductionModule: React.FC = () => {
         );
     };
 
-    const handleProduce = async () => {
+    const handleProduce = async (docType?: string) => {
         setIsProducing(true);
         setError(null);
         setResult(null);
@@ -72,14 +72,19 @@ const LegalTextProductionModule: React.FC = () => {
                     name: d.name
                 }));
 
+            const contextWithDocType = {
+                ...context,
+                taskDescription: docType || context.taskDescription
+            };
+
             const request: ProductionRequest = {
                 caseId: 'PROD-' + Date.now(),
                 drafts: selectedDrafts,
                 order: selectedDraftIds, // Use selection order
-                context
+                context: contextWithDocType
             };
 
-            setLogs(prev => [...prev, 'Genererar domstolsklar processkrift...']);
+            setLogs(prev => [...prev, `Genererar domstolsklar ${docType ? docType.toLowerCase() : 'processkrift'}...`]);
             const output = await legalTextProductionEngine.produce(request);
             setLogs(prev => [...prev, 'Produktion slutförd.', 'Slutlig granskning klar.']);
             setResult(output);
@@ -94,7 +99,7 @@ const LegalTextProductionModule: React.FC = () => {
     return (
         <div className="flex flex-col space-y-8 animate-in fade-in duration-500">
             {/* Header */}
-            <div className="flex items-center justify-between bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
+            <div className="flex flex-col md:flex-row items-center justify-between bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm gap-4">
                 <div className="flex items-center space-x-4">
                     <div className="p-3 bg-indigo-500/10 rounded-2xl border border-indigo-500/20">
                         <BoltIcon className="w-8 h-8 text-indigo-500" />
@@ -104,14 +109,19 @@ const LegalTextProductionModule: React.FC = () => {
                         <p className="text-sm text-slate-500 dark:text-slate-400">Exekverande verktyg för domstolsklara processkrifter</p>
                     </div>
                 </div>
-                <button 
-                    onClick={() => handleProduce().catch(err => console.error("Manual produce failed:", err))}
-                    disabled={isProducing}
-                    className="flex items-center space-x-2 bg-indigo-600 hover:bg-indigo-500 disabled:bg-slate-400 text-white px-6 py-3 rounded-2xl font-medium transition-all shadow-lg shadow-indigo-200 dark:shadow-none"
-                >
-                    {isProducing ? <Spinner className="w-5 h-5" /> : <ArrowPathIcon className="w-5 h-5" />}
-                    <span>{isProducing ? 'Producerar...' : 'Exekvera Produktion'}</span>
-                </button>
+                <div className="flex flex-wrap items-center gap-3">
+                    {['Stämningsansökan', 'Svaromål', 'Överklagande', 'Yttrande'].map(dok => (
+                        <button
+                            key={dok}
+                            onClick={() => handleProduce(dok).catch(err => console.error(`Manual produce failed for ${dok}:`, err))}
+                            disabled={isProducing}
+                            className="flex items-center space-x-2 bg-indigo-600 hover:bg-indigo-500 disabled:bg-slate-400 text-white px-4 py-2 rounded-xl text-sm font-medium transition-all shadow-lg shadow-indigo-200 dark:shadow-none"
+                        >
+                            {isProducing ? <Spinner className="w-4 h-4" /> : <ArrowPathIcon className="w-4 h-4" />}
+                            <span>Generera {dok}</span>
+                        </button>
+                    ))}
+                </div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -230,16 +240,35 @@ const LegalTextProductionModule: React.FC = () => {
                         <div className="px-8 py-6 border-b border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/50 flex justify-between items-center">
                             <h3 className="text-lg font-serif font-medium text-slate-900 dark:text-white">Domstolsklar Processkrift</h3>
                             {result && (
-                                <button 
-                                    onClick={() => {
-                                        navigator.clipboard.writeText(result)
-                                            .then(() => console.log('Kopierat till urklipp'))
-                                            .catch(err => console.error("Copy failed:", err));
-                                    }}
-                                    className="text-xs font-bold uppercase tracking-widest text-indigo-600 hover:text-indigo-500 transition-colors"
-                                >
-                                    Kopiera Text
-                                </button>
+                                <div className="flex items-center gap-4">
+                                    <button
+                                        onClick={() => {
+                                            navigator.clipboard.writeText(result)
+                                                .then(() => alert('Kopierat till urklipp!'))
+                                                .catch(err => console.error("Copy failed:", err));
+                                        }}
+                                        className="text-xs font-bold uppercase tracking-widest text-indigo-600 hover:text-indigo-500 transition-colors"
+                                    >
+                                        Kopiera Text
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            const blob = new Blob([result], { type: 'text/plain' });
+                                            const url = window.URL.createObjectURL(blob);
+                                            const a = document.createElement('a');
+                                            a.href = url;
+                                            a.download = `Document_${Date.now()}.txt`;
+                                            document.body.appendChild(a);
+                                            a.click();
+                                            document.body.removeChild(a);
+                                            window.URL.revokeObjectURL(url);
+                                            alert("Simulerar Export as PDF. Fil sparad som .txt");
+                                        }}
+                                        className="text-xs font-bold uppercase tracking-widest bg-indigo-100 text-indigo-700 hover:bg-indigo-200 px-3 py-1.5 rounded-lg transition-colors"
+                                    >
+                                        Export as PDF
+                                    </button>
+                                </div>
                             )}
                         </div>
                         

@@ -1,4 +1,5 @@
 {
+  "_instructions": "Run npm run generate:embeddings to populate real embeddings before production use.",
   "version": "8.0.0",
   "createdAt": "2026-03-22T00:00:00.000Z",
   "description": "FMJAM_GOLD_INDEX v8. OBS: Embeddings nedan är platshållare. Kör RAG-ingest för riktiga vektorer.",
