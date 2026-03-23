@@ -14,7 +14,7 @@ export class AppError extends Error {
 }
 
 export const handleError = (error: unknown, context: string) => {
-  const message = error instanceof Error ? error.message : String(error);
+  const message = error instanceof Error ? (error as Error).message : String(error);
   loggingService.error(`[ERROR_HANDLER] Context: ${context}`, {
     message,
     error,

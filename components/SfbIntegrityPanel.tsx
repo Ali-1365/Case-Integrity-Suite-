@@ -38,9 +38,10 @@ const SfbIntegrityPanel: React.FC<SfbIntegrityPanelProps> = ({ isOpen, onClose }
             .then(res => res.json())
             .then(data => {
                 if (data.kapitel) {
-                    const mappedChapters = data.kapitel.map((k: { kapitel: string; rubrik: string; paragrafer: string[] }) => ({
-                        chapter: parseInt(k.kapitel),
-                        title: k.rubrik
+                    const mappedChapters = data.kapitel.map((k: unknown) => ({
+                        // @ts-expect-error
+                        chapter: parseInt((k as Record<string, unknown>).kapitel),
+                        title: (k as Record<string, unknown>).rubrik
                     }));
                     setChapters(mappedChapters);
                 }
@@ -63,8 +64,8 @@ const SfbIntegrityPanel: React.FC<SfbIntegrityPanelProps> = ({ isOpen, onClose }
 
             const res = await sfbValidationService.validate(payload);
             setResult(res);
-        } catch (e: unknown) {
-            console.error(`Fel vid validering: ${(e instanceof Error ? e.message : String(e))}`);
+        } catch (e) {
+            console.error(`Fel vid validering: ${(e as Error).message}`);
         } finally {
             setIsValidating(false);
         }

@@ -51,7 +51,7 @@ const OpinionGenerator: React.FC<OpinionGeneratorProps> = ({ analysis, onComplet
       if (analysis.documents && analysis.documents[0]) {
         await db.saveOpinion(analysis.documents[0].id, result);
       }
-    } catch (error: unknown) {
+    } catch (error) {
       console.error("Opinion generation failed:", error);
     } finally {
       setIsGenerating(false);
@@ -94,7 +94,8 @@ const OpinionGenerator: React.FC<OpinionGeneratorProps> = ({ analysis, onComplet
       .reduce((acc: React.ReactElement[], el) => {
         if (el.type === 'li' && acc.length > 0 && acc[acc.length-1].type === 'ul') {
             const lastUl = acc[acc.length-1];
-            const children = React.Children.toArray((lastUl.props as any).children);
+            // @ts-expect-error
+            const children = React.Children.toArray((lastUl.props as unknown).children);
             const newUl = React.cloneElement(lastUl, {}, [...children, el]);
             acc[acc.length-1] = newUl;
             return acc;

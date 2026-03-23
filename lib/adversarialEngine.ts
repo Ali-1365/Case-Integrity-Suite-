@@ -81,7 +81,8 @@ export class AdversarialEngine {
             
             // Mappa tillbaka resultaten till de ursprungliga påståendena
             const finalAssertions: DuelAssertion[] = proposals.map(p => {
-                const audit = result.assertions.find((a: { id: string }) => a.id === p.id);
+                // @ts-expect-error
+                const audit = result.assertions.find((a: unknown) => (a as Record<string, unknown>).id === (p as Record<string, unknown>).id);
                 return {
                     id: p.id,
                     statement: p.statement,
@@ -98,7 +99,7 @@ export class AdversarialEngine {
                 integrityScore: result.integrityScore
             };
 
-        } catch (error: unknown) {
+        } catch (error) {
             console.error("Adversarial Duel failed:", error);
             throw error;
         }

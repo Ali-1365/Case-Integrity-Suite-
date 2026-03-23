@@ -38,9 +38,9 @@ export class AgentWorkflow {
         }
         try {
             return JSON.parse(cleaned) as T;
-        } catch (e: unknown) {
+        } catch (e) {
             console.error(`[${moduleName}] JSON parse error:`, e, "Raw string:", response);
-            throw new Error(`[${moduleName}] Ogiltigt JSON-format i AI-svaret från ${moduleName}. Fel: ${(e instanceof Error ? e.message : String(e))}`);
+            throw new Error(`[${moduleName}] Ogiltigt JSON-format i AI-svaret från ${moduleName}. Fel: ${(e as Error).message}`);
         }
     }
 
@@ -80,7 +80,7 @@ export class AgentWorkflow {
         try {
             const parsed = this.parseJsonResponse<{ fakta: string[] }>(response, "Utredare");
             return parsed.fakta || [];
-        } catch (e: unknown) {
+        } catch (e) {
             // Fallback om JSON misslyckas men vi har text (för bakåtkompatibilitet eller oväntade svar)
             if (response && !response.trim().startsWith('{') && !response.includes('SYSTEMFEL')) {
                 return response.split('\n').filter(line => line.trim().length > 0);

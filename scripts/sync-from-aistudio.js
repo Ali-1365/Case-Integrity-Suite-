@@ -34,7 +34,7 @@ async function postWithRetry(url, body, maxRetries = 5) {
       
       throw new Error(`HTTP ${res.status}: ${text}`);
     } catch (err) {
-      console.error(`Fel vid försök ${i + 1}:`, (err instanceof Error ? err.message : String(err)));
+      console.error(`Fel vid försök ${i + 1}:`, err.message);
       if (i === maxRetries - 1) throw err;
     }
   }
@@ -49,7 +49,7 @@ async function main() {
     });
     console.log('SUCCESS:', JSON.stringify(result, null, 2));
   } catch (err) {
-    console.error('SYNC FATAL ERROR:', (err instanceof Error ? err.message : String(err)));
+    console.error('SYNC FATAL ERROR:', err.message);
     process.exit(1);
   }
 }
