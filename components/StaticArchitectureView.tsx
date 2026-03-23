@@ -17,7 +17,7 @@ import SystemDocumentation from './SystemDocumentation';
 import OracleCoreViewer from './OracleCoreViewer';
 import ArchiveCoreViewer from './ArchiveCoreViewer';
 
-declare const mermaid: any;
+declare const mermaid: { initialize: (opts: Record<string, unknown>) => void; run: (opts?: Record<string, unknown>) => void; };
 
 interface StaticArchitectureViewProps {
   isOpen: boolean;

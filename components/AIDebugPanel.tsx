@@ -82,7 +82,7 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
       setResponse(res);
       refreshLogs();
     } catch (err) {
-      setResponse(`### KRITISKT SYSTEMFEL\n\n${err instanceof Error ? err.message : 'Kommunikationsavbrott.'}`);
+      setResponse(`### KRITISKT SYSTEMFEL\n\n${err instanceof Error ? (err instanceof Error ? err.message : String(err)) : 'Kommunikationsavbrott.'}`);
     } finally {
       setIsLoading(false);
     }
@@ -127,7 +127,7 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
   };
 
   const handleExportIndex = () => {
-    const index = (window as any)._lastBakedIndex;
+    const index = window._lastBakedIndex;
     if (index) {
       ragIndexService.exportIndex(index);
     } else {

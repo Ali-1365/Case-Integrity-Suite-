@@ -14,7 +14,7 @@ export const NewPaymentForm: React.FC<FormProps<Payment>> = ({ onSave, onCancel 
     amount: 0,
     currency: 'SEK',
     description: '',
-    category: 'SERVICE' as any
+    category: 'SERVICE' as 'SERVICE' | 'GOODS' | 'LEGAL_FEE' | 'DAMAGES_PAYMENT' | 'TAX'
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -208,7 +208,7 @@ export const NewClaimForm: React.FC<FormProps<DamagesClaim>> = ({ onSave, onCanc
   const [formData, setFormData] = useState({
     claimant: '',
     defendant: '',
-    type: 'STATE' as any,
+    type: 'STATE' as 'PRIVATE' | 'STATE' | 'CIVIL',
     estimatedAmount: 0,
     description: '',
     legalBasis: [] as string[]
