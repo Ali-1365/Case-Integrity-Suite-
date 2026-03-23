@@ -33,6 +33,8 @@ const LegalTextProductionModule: React.FC = () => {
     const [result, setResult] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [isContextExpanded, setIsContextExpanded] = useState(true);
+    const [copied, setCopied] = useState(false);
+    const [exported, setExported] = useState(false);
 
     useEffect(() => {
         const loadDocs = async () => {
@@ -242,16 +244,22 @@ const LegalTextProductionModule: React.FC = () => {
                             {result && (
                                 <div className="flex items-center gap-4">
                                     <button
+                                        aria-label="Kopiera texten"
                                         onClick={() => {
                                             navigator.clipboard.writeText(result)
-                                                .then(() => alert('Kopierat till urklipp!'))
+                                                .then(() => {
+                                                    setCopied(true);
+                                                    setTimeout(() => setCopied(false), 2000);
+                                                })
                                                 .catch(err => console.error("Copy failed:", err));
                                         }}
-                                        className="text-xs font-bold uppercase tracking-widest text-indigo-600 hover:text-indigo-500 transition-colors"
+                                        className={`text-xs font-bold uppercase tracking-widest flex items-center gap-1 transition-colors ${copied ? 'text-emerald-600' : 'text-indigo-600 hover:text-indigo-500'}`}
                                     >
-                                        Kopiera Text
+                                        {copied ? <CheckCircleIcon className="w-4 h-4" /> : null}
+                                        {copied ? 'Kopierat!' : 'Kopiera Text'}
                                     </button>
                                     <button
+                                        aria-label="Exportera som PDF"
                                         onClick={() => {
                                             const blob = new Blob([result], { type: 'text/plain' });
                                             const url = window.URL.createObjectURL(blob);
@@ -262,11 +270,14 @@ const LegalTextProductionModule: React.FC = () => {
                                             a.click();
                                             document.body.removeChild(a);
                                             window.URL.revokeObjectURL(url);
-                                            alert("Simulerar Export as PDF. Fil sparad som .txt");
+
+                                            setExported(true);
+                                            setTimeout(() => setExported(false), 2000);
                                         }}
-                                        className="text-xs font-bold uppercase tracking-widest bg-indigo-100 text-indigo-700 hover:bg-indigo-200 px-3 py-1.5 rounded-lg transition-colors"
+                                        className={`text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors ${exported ? 'bg-emerald-100 text-emerald-700' : 'bg-indigo-100 text-indigo-700 hover:bg-indigo-200'}`}
                                     >
-                                        Export as PDF
+                                        {exported ? <CheckCircleIcon className="w-4 h-4" /> : null}
+                                        {exported ? 'Sparad!' : 'Export as PDF'}
                                     </button>
                                 </div>
                             )}

@@ -136,7 +136,18 @@ const ArchiveView: React.FC<ArchiveViewProps> = ({ onSelect }) => {
                                     <ArchiveBoxIcon className="w-8 h-8" />
                                 </div>
                                 <div>
-                                    <h4 className="text-lg font-bold text-slate-900 dark:text-white mb-1 group-hover:text-cyan-400 transition-colors">{doc.name}</h4>
+                                    <div className="flex items-center gap-3 mb-1">
+                                        <h4 className="text-lg font-bold text-slate-900 dark:text-white group-hover:text-cyan-400 transition-colors">{doc.name}</h4>
+                                        <span className={`text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full ${
+                                            (doc.analysis?.riskProfile?.normalizedScore > 75 || doc.analysis?.contradictions?.length > 2)
+                                            ? 'bg-rose-100 text-rose-600 dark:bg-rose-500/10 dark:text-rose-500'
+                                            : (doc.analysis?.riskProfile?.normalizedScore > 40 || doc.analysis?.contradictions?.length > 0)
+                                            ? 'bg-amber-100 text-amber-600 dark:bg-amber-500/10 dark:text-amber-500'
+                                            : 'bg-emerald-100 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-500'
+                                        }`}>
+                                            {(doc.analysis?.riskProfile?.normalizedScore > 75 || doc.analysis?.contradictions?.length > 2) ? 'Hög Risk' : (doc.analysis?.riskProfile?.normalizedScore > 40 || doc.analysis?.contradictions?.length > 0) ? 'Medel Risk' : 'Låg Risk'}
+                                        </span>
+                                    </div>
                                     <div className="flex items-center gap-4 text-xs text-slate-500 dark:text-gray-500">
                                         <div className="flex items-center gap-1.5">
                                             <CalendarIcon className="w-3.5 h-3.5" />
@@ -146,8 +157,9 @@ const ArchiveView: React.FC<ArchiveViewProps> = ({ onSelect }) => {
                                             <DocumentTextIcon className="w-3.5 h-3.5" />
                                             <span>{doc.textContent.length.toLocaleString()} tecken</span>
                                         </div>
-                                        <div className="font-mono text-[10px] bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded">
-                                            ID: {doc.id.substring(0, 8)}...
+                                        <div className="font-mono text-[10px] bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded flex items-center gap-1">
+                                            <span>SHA-256:</span>
+                                            <span className="text-slate-400">{doc.id.substring(0, 16)}...</span>
                                         </div>
                                     </div>
                                 </div>
