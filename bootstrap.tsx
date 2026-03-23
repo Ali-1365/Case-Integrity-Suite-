@@ -2,14 +2,13 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App";
 import { loggingService } from "./services/loggingService";
+import { getConfiguredGeminiApiKey } from "./services/offlineService";
 
-// Sätt offline-läge som default — aktiveras om API saknas
+// Starta online som default och exponera om en nyckel är konfigurerad.
 if (typeof window !== 'undefined') {
-  const hasKey = !!(
-    (typeof process !== 'undefined' && process.env.GEMINI_API_KEY) || 
-    import.meta.env.VITE_GEMINI_API_KEY
-  );
-  (window as any).OFFLINE_MODE = !hasKey;
+  (window as any).OFFLINE_MODE = false;
+  (window as any).OFFLINE_REASON = null;
+  (window as any).GEMINI_API_KEY_PRESENT = !!getConfiguredGeminiApiKey();
 
   // Ignorera WebSocket-fel helt — påverkar inte appen
   window.addEventListener('unhandledrejection', (event) => {
@@ -40,6 +39,7 @@ if (typeof window !== 'undefined') {
 export function startApp() {
   const timestamp = new Date().toISOString();
   const offlineMode = (window as any).OFFLINE_MODE;
+  const apiKeyPresent = (window as any).GEMINI_API_KEY_PRESENT === true;
 
   console.log(
     `%c Case Integrity Suite v1.0 %c ${offlineMode ? '⚠ OFFLINE-LÄGE' : 'Integrity Verified'} at ${timestamp}`,
@@ -49,8 +49,8 @@ export function startApp() {
       : "color: #10b981; font-weight: bold;"
   );
 
-  if (offlineMode) {
-    console.warn("SYSTEM: Ingen API-nyckel hittad. Startar i lokalt läge — AI-funktioner inaktiverade.");
+  if (!apiKeyPresent) {
+    console.warn('SYSTEM: Ingen Gemini API-nyckel hittad i VITE_GEMINI_API_KEY, GEMINI_API_KEY eller window.GEMINI_API_KEY. Appen startar ändå och använder lokal fallback för AI-funktioner tills en nyckel finns.');
   }
 
   const container = document.getElementById("root");
