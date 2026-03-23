@@ -120,7 +120,7 @@ const AgentWorkspace: React.FC<AgentWorkspaceProps> = ({ isOpen, onClose }) => {
     setActiveTab('analys');
 
     const lowerQuery = query.toLowerCase();
-    let result: any;
+    let result: import("../types").FactV2[] | import("../services/LegalAIAgent").EnrichedLegalParagraph[] | import("../types").ContradictionV2[] | { error: string } | null = null;
     if (lowerQuery.startsWith('fakta om')) {
         const keyword = lowerQuery.replace('fakta om', '').trim();
         result = legalAIAgent.queryFacts(activeCaseId, keyword);

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { FactV2, ContradictionV2 } from './types';
 
 // ─────────────────────────────────────────────
 //  OFFLINE BANNER
@@ -159,7 +160,7 @@ const DocumentDetailView: React.FC<{
   documentId: string;
   onBack: () => void;
 }> = ({ documentId, onBack }) => {
-  const [doc, setDoc] = useState<any>(null);
+  const [doc, setDoc] = useState<import("./types").StoredDocument | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -173,7 +174,7 @@ const DocumentDetailView: React.FC<{
         if (found) setDoc(found);
         else setError('Ärendet hittades inte i databasen.');
       } catch (e: unknown) {
-        setError(`Kunde inte ladda ärendet: ${e instanceof Error ? e.message : String(e)}`);
+        setError(`Kunde inte ladda ärendet: ${(e instanceof Error ? e.message : String(e))}`);
       } finally {
         setLoading(false);
       }
@@ -207,7 +208,7 @@ const DocumentDetailView: React.FC<{
     );
   }
 
-  const analysis = doc.analysis || {};
+  const analysis = doc.analysis || { facts: [], contradictions: [], legalReferences: [] } as Partial<import("./lib/cis.types").AnalysisResult>;
   const facts = analysis.facts || [];
   const contradictions = analysis.contradictions || [];
   const legalRefs = analysis.legalReferences || [];
@@ -253,7 +254,7 @@ const DocumentDetailView: React.FC<{
             Faktaatomer ({facts.length})
           </h3>
           <div className="space-y-2 max-h-64 overflow-y-auto">
-            {facts.map((f: import("./types").FactV2, i: number) => (
+            {facts.map((f: FactV2, i: number) => (
               <div key={f.id || i} className="p-3 bg-slate-50 rounded-lg border border-slate-100">
                 <div className="flex items-center gap-2 mb-1">
                   <span className="text-[10px] font-mono text-slate-400">{f.id || `FACT-${i}`}</span>
@@ -279,7 +280,7 @@ const DocumentDetailView: React.FC<{
             Motsägelser ({contradictions.length})
           </h3>
           <div className="space-y-2">
-            {contradictions.map((c: import("./types").ContradictionV2, i: number) => (
+            {contradictions.map((c: ContradictionV2, i: number) => (
               <div key={c.id || i} className="p-3 bg-red-50 rounded-lg border border-red-100">
                 <div className="flex items-center gap-2 mb-1">
                   <span className={`text-[9px] font-semibold px-1.5 py-0.5 rounded-full ${
@@ -487,7 +488,7 @@ const EkonomiView: React.FC = () => {
   const [showNyFaktura, setShowNyFaktura] = useState(false);
   const [showNyBetalning, setShowNyBetalning] = useState(false);
   const [showNyttKrav, setShowNyttKrav] = useState(false);
-  const [fakturor, setFakturor] = useState<any[]>([]);
+  const [fakturor, setFakturor] = useState<{ id?: string, belopp: number | string, datum?: string, mottagare?: string, kundnamn?: string, forfallodatum?: string }[]>([]);
   const [betalningar, setBetalningar] = useState([
     { id: 1, mottagare: 'Advokatbyrå X', datum: '2026-03-10', belopp: 5000 },
     { id: 2, mottagare: 'Domstolsverket', datum: '2026-03-25', belopp: 1200 },
@@ -501,7 +502,7 @@ const EkonomiView: React.FC = () => {
   const [nyttKrav, setNyttKrav] = useState({ karande: '', svarande: '', typ: 'Statligt Skadestånd', belopp: '', beskrivning: '' });
 
   const totalBetalningar = betalningar.reduce((s, b) => s + b.belopp, 0);
-  const totalFakturor = fakturor.reduce((s, f) => s + parseFloat(f.belopp || '0'), 0);
+  const totalFakturor = fakturor.reduce((s, f) => s + parseFloat(String(f.belopp || '0')), 0);
   const totalKrav = krav.reduce((s, k) => s + k.belopp, 0);
 
   const tabs = [
@@ -599,7 +600,7 @@ const EkonomiView: React.FC = () => {
           ) : fakturor.map((f, i) => (
             <div key={i} className="flex justify-between items-center py-3 border-b border-slate-100 last:border-0">
               <div><div className="text-sm font-medium text-slate-900">{f.kundnamn}</div><div className="text-xs text-slate-400">Förfaller: {f.forfallodatum}</div></div>
-              <div className="text-sm font-semibold text-slate-900">{parseFloat(f.belopp).toLocaleString('sv-SE')} kr</div>
+              <div className="text-sm font-semibold text-slate-900">{parseFloat(String(f.belopp || '0')).toLocaleString('sv-SE')} kr</div>
             </div>
           ))}
         </div>

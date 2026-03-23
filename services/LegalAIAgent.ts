@@ -8,7 +8,7 @@ import { loggingService } from './loggingService';
 import { ragService } from '../lib/ragService';
 
 // Ny typ för mer granulär lagdata
-interface EnrichedLegalParagraph {
+export interface EnrichedLegalParagraph {
   id: string;
   lawTitle: string;
   lawSourceCode: string;

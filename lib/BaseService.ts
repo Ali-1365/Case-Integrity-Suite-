@@ -6,7 +6,7 @@ export abstract class BaseService {
 
   protected async executeWithLogging<T>(
     operationName: string,
-    params: unknown,
+    params: any,
     operation: () => Promise<T>
   ): Promise<T> {
     const startTime = Date.now();
@@ -25,14 +25,14 @@ export abstract class BaseService {
       loggingService.error(`[${this.serviceName}] Failed ${operationName}`, {
         duration,
         error: (error instanceof Error ? error.message : String(error)),
-        stack: (error instanceof Error ? error.stack : undefined),
+        stack: error instanceof Error ? error.stack : undefined,
         params
       });
       throw error;
     }
   }
 
-  private sanitizeResult(result: unknown): unknown {
+  private sanitizeResult(result: any): any {
     if (result === null || result === undefined) return result;
     // Avoid logging huge objects
     if (Array.isArray(result)) return { count: result.length };

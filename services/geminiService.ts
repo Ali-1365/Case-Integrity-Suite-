@@ -99,7 +99,7 @@ export class GeminiService {
       return;
     }
     try {
-      this.ai = new GoogleGenAI({ apiKey } as any);
+      this.ai = new GoogleGenAI({ apiKey } as {apiKey: string});
       console.log('[GeminiService] Klient initierad.');
     } catch (e: unknown) {
       loggingService.error(`[GeminiService] Initiering misslyckades: ${(e instanceof Error ? e.message : String(e))}`);
@@ -129,9 +129,9 @@ export class GeminiService {
         const msg = ((error instanceof Error ? error.message : String(error)) || '').toLowerCase();
         const isQuota = msg.includes('quota') || msg.includes('429') ||
           msg.includes('resource_exhausted') || msg.includes('overloaded') ||
-          ((error as { status?: number }).status) === 429 || ((error as { status?: number }).status) === 503;
+          (error as {status?: number}).status === 429 || (error as {status?: number}).status === 503;
         const isAuth = msg.includes('401') || msg.includes('api_key') ||
-          msg.includes('unauthorized') || ((error as { status?: number }).status) === 401;
+          msg.includes('unauthorized') || (error as {status?: number}).status === 401;
 
         if (isAuth) {
           offlineService.setOffline(true, 'API_KEY_MISSING');
@@ -176,12 +176,12 @@ export class GeminiService {
       const config = { ...(params.config || {}) };
 
       if (mode === 'think' && modelName === this.proModel) {
-        (config as any).thinkingConfig = {
-          thinkingBudget: (config as any).thinkingConfig?.thinkingBudget ?? 8000
+        (config as {thinkingConfig?: unknown}).thinkingConfig = {
+          thinkingBudget: (config as {thinkingConfig?: {thinkingBudget?: number}}).thinkingConfig?.thinkingBudget ?? 8000
         };
       } else {
-        delete (config as any).thinkingConfig;
-        if (!(config as any).maxOutputTokens) (config as any).maxOutputTokens = 8192;
+        delete (config as {thinkingConfig?: unknown}).thinkingConfig;
+        if (!(config as {maxOutputTokens?: number}).maxOutputTokens) (config as {maxOutputTokens?: number}).maxOutputTokens = 8192;
       }
 
       const response = await this.executeWithRetry(async () =>
@@ -189,12 +189,12 @@ export class GeminiService {
           model: modelName,
           contents: typeof params.contents === 'string'
             ? [{ role: 'user', parts: [{ text: params.contents as string }] }]
-            : (params.contents as any),
+            : (params.contents as unknown[]),
           config,
         })
       );
 
-      const text = (response as any).text || '';
+      const text = (response as {text?: string}).text || '';
       const duration = Date.now() - startTime;
 
       loggingService.addLog({
@@ -255,7 +255,7 @@ export class GeminiService {
     for (const modelName of ['text-embedding-004', 'gemini-embedding-001']) {
       try {
         const response = await this.executeWithRetry(async () =>
-          (client as any).models.embedContent({
+          (client as {models: {embedContent: Function}}).models.embedContent({
             model: modelName,
             contents: { parts: [{ text }] },
           })
@@ -283,15 +283,30 @@ export class GeminiService {
   }
 
   // ─── API-STATUSKONTROLL ──────────────────────
-  async checkApiStatus(): Promise<{ online: boolean; latencyMs?: number; message: string }> {
+  async checkApiStatus(forceOnlineCheck: boolean = false): Promise<{ online: boolean; latencyMs?: number; message: string }> {
     const start = Date.now();
     try {
-      await this.generate({ contents: 'Svara med OK.' }, 'fast');
+      if (!forceOnlineCheck && offlineService.getIsOffline()) {
+         return { online: false, message: `API offline (${offlineService.getReason()})` };
+      }
+
+      const client = this.getClient();
+      // Bypass offline checks specifically for this status ping
+      const response = await client.models.generateContent({
+         model: this.flashModel,
+         contents: [{ role: 'user', parts: [{ text: 'Svara med OK.' }] }]
+      });
+
+      if (!response || !response.text) {
+         throw new Error('Tomt svar från API');
+      }
+
       const latencyMs = Date.now() - start;
       offlineService.setOffline(false);
       return { online: true, latencyMs, message: 'API ansluten och operativ.' };
     } catch (e: unknown) {
-      return { online: false, message: `API ej tillgänglig: ${(e instanceof Error ? e.message : String(e))}` };
+      const msg = e instanceof Error ? e.message : String(e);
+      return { online: false, message: `API ej tillgänglig: ${msg}` };
     }
   }
 

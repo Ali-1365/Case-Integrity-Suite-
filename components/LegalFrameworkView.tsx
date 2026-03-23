@@ -1,6 +1,7 @@
 
 import React, { useState, useMemo, useEffect } from 'react';
-import { legalFrameworkIndex } from '../data/legalFramework';
+import { legalFrameworkIndex, LegalFrameworkIndexEntry } from '../data/legalFramework';
+import { LegalParagraph } from '../lib/CorpusService';
 import { corpusService } from '../lib/CorpusService';
 import { LegalCorpus, LegalSourceCode } from '../types';
 import { 
@@ -110,7 +111,7 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
     }
   };
 
-  const isOutdated = (law: { sfsNumber?: string }) => {
+  const isOutdated = (law: LegalFrameworkIndexEntry) => {
     // Mock logic: if SFS year is before 2000, flag it as potentially outdated
     const year = parseInt(law.sfsNumber?.split(':')[0] || '2026');
     return year < 2000;

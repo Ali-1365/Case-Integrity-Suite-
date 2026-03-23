@@ -1,7 +1,7 @@
 
 import { AppError, ErrorCode } from '../lib/errors';
 
-export type LogMode = 'fast' | 'think' | 'system' | 'pro' | 'flash';
+export type LogMode = 'fast' | 'think' | 'system';
 export type LogLevel = 'INFO' | 'WARN' | 'ERROR' | 'DEBUG';
 
 export interface LogEntry {
@@ -67,7 +67,7 @@ class LoggingService {
     if (typeof error === 'string') {
       errorMessage = error;
     } else if (error && typeof error === 'object') {
-      errorMessage = error instanceof Error ? error.message : (error as { reason?: { message: string } })?.reason?.message || (typeof error === "string" ? error : JSON.stringify(error));
+      errorMessage = error.message || error.reason?.message || JSON.stringify(error);
     }
     
     const message = context ? `${context}: ${errorMessage}` : errorMessage;

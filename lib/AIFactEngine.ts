@@ -34,6 +34,6 @@ export class AIFactEngine {
       config: { responseMimeType: "application/json", responseSchema: AIFactEngine.schema }
     }, 'fast');
     
-    return JSON.parse(res).map((f: import("../types").FactV2) => ({ ...f, source: { ...f.source, documentId: docId } }));
+    return JSON.parse(res).map((f: any) => ({ ...f, source: { ...f.source, documentId: docId } }));
   }
 }

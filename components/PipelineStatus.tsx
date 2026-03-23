@@ -18,7 +18,7 @@ export interface PipelineStatusState {
     resultat: StageStatus;
     säkerhet: StageStatus;
   };
-  log: { stage: string; message: string, status: StageStatus, metadata?: Record<string, unknown> }[];
+  log: { stage: string; message: string, status: StageStatus, metadata?: any }[];
 }
 
 export const initialPipelineStatus: PipelineStatusState = {

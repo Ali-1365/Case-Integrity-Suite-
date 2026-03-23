@@ -9,8 +9,9 @@ async function startServer() {
   const PORT = 3000;
 
   // API routes
-  app.get("/api/praxis/:lawRef", (req, res) => {
-    const { lawRef } = req.params;
+  app.get("/api/praxis", (req, res) => {
+    const refsRaw = req.query.refs;
+    const refs = typeof refsRaw === 'string' ? refsRaw.split(',') : [];
     const praxisPath = path.join(process.cwd(), "public", "data", "praxis.json");
     
     if (!fs.existsSync(praxisPath)) {
@@ -21,10 +22,17 @@ async function startServer() {
       const rawData = fs.readFileSync(praxisPath, "utf-8");
       const data = JSON.parse(rawData);
       
-      const results = data.paragraphs.filter((p: import("./types").LegalParagraph) => {
+      if (!refs || refs.length === 0) {
+        return res.json(data.paragraphs || []);
+      }
+
+      const results = (data.paragraphs || []).filter((p: any) => {
         const linkedLaw = p.metadata?.revisionNote || "";
-        return linkedLaw.toLowerCase().includes(lawRef.toLowerCase()) || 
-               p.text.toLowerCase().includes(lawRef.toLowerCase());
+        const text = p.text || "";
+        return refs.some((ref: string) =>
+          linkedLaw.toLowerCase().includes(ref.toLowerCase()) ||
+          text.toLowerCase().includes(ref.toLowerCase())
+        );
       });
 
       res.json(results);

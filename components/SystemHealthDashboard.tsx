@@ -281,8 +281,8 @@ const SystemHealthDashboard: React.FC<SystemHealthDashboardProps> = ({ isOpen, o
                         if (!res.ok) throw new Error(`HTTP ${res.status}`);
                         await res.json();
                         results.push({ file, status: 'ok' as const });
-                      } catch (e) {
-                        results.push({ file, status: 'error' as const, message: e instanceof Error ? (e instanceof Error ? e.message : String(e)) : String(e) });
+                      } catch (e: unknown) {
+                        results.push({ file, status: 'error' as const, message: e instanceof Error ? e.message : String(e) });
                       }
                     }
                     setIntegrityResults(results);

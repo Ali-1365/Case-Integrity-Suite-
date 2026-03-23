@@ -81,8 +81,8 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
       }, 'think');
       setResponse(res);
       refreshLogs();
-    } catch (err) {
-      setResponse(`### KRITISKT SYSTEMFEL\n\n${err instanceof Error ? (err instanceof Error ? err.message : String(err)) : 'Kommunikationsavbrott.'}`);
+    } catch (err: unknown) {
+      setResponse(`### KRITISKT SYSTEMFEL\n\n${err instanceof Error ? err.message : 'Kommunikationsavbrott.'}`);
     } finally {
       setIsLoading(false);
     }
@@ -117,10 +117,9 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
       setResponse(prev => prev + `\n\n### BAKNING SLUTFÖRD\n- Totalt antal chunks: ${updatedIndex.chunks.length}\n- Chunks med embeddings: ${bakedCount}\n\nKlicka på 'Exportera Index' för att ladda ner den nya filen.`);
       
       // Store in state so we can export it
-      (window as any)._lastBakedIndex = updatedIndex;
+      window._lastBakedIndex = updatedIndex;
     } catch (err: unknown) {
-      const errorMessage = err instanceof Error ? err.message : String(err);
-      setResponse(prev => prev + `\n\n### FEL VID BAKNING\n${errorMessage}`);
+      setResponse(prev => prev + `\n\n### FEL VID BAKNING\n${(err instanceof Error ? err.message : String(err))}`);
     } finally {
       setIsLoading(false);
     }
@@ -155,8 +154,7 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
         setResponse(prev => prev + "\n\n⚠️ TEST VARNING: Vissa lagrum saknas i resultatet.");
       }
     } catch (err: unknown) {
-      const errorMessage = err instanceof Error ? err.message : String(err);
-      setResponse(prev => prev + `\n\n### TEST FEL\n${errorMessage}`);
+      setResponse(prev => prev + `\n\n### TEST FEL\n${(err instanceof Error ? err.message : String(err))}`);
     } finally {
       setIsLoading(false);
     }
@@ -187,8 +185,7 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
       
       setResponse(prev => prev + `\n\n### PIPELINE SLUTFÖRD\n- Status: ${pipelineState.isExportBlocked ? 'BLOCKERAD' : 'GODKÄND'}\n- Identifierade lagrum: ${uniqueLaws.join(', ')}\n\nFINAL V3 PREVIEW:\n${pipelineState.finalV3?.substring(0, 300)}...`);
     } catch (err: unknown) {
-      const errorMessage = err instanceof Error ? err.message : String(err);
-      setResponse(prev => prev + `\n\n### PIPELINE FEL\n${errorMessage}`);
+      setResponse(prev => prev + `\n\n### PIPELINE FEL\n${(err instanceof Error ? err.message : String(err))}`);
     } finally {
       setIsLoading(false);
     }
@@ -220,8 +217,7 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
 
       setResponse(prev => prev + "\n\n### REGRESSIONSTEST SLUTFÖRD\n✅ Alla kritiska flöden verifierade.");
     } catch (err: unknown) {
-      const errorMessage = err instanceof Error ? err.message : String(err);
-      setResponse(prev => prev + `\n\n### TEST FEL\n${errorMessage}`);
+      setResponse(prev => prev + `\n\n### TEST FEL\n${(err instanceof Error ? err.message : String(err))}`);
     } finally {
       setIsLoading(false);
     }

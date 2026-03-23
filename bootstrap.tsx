@@ -5,7 +5,7 @@ import { loggingService } from "./services/loggingService";
 
 // Sätt offline-läge som default — aktiveras om API saknas
 if (typeof window !== 'undefined') {
-  window.OFFLINE_MODE = !import.meta.env.VITE_GEMINI_API_KEY &&
+  (window as any).OFFLINE_MODE = !import.meta.env.VITE_GEMINI_API_KEY &&
                                  !import.meta.env.GEMINI_API_KEY;
 
   // Ignorera WebSocket-fel helt — påverkar inte appen
@@ -36,7 +36,7 @@ if (typeof window !== 'undefined') {
 
 export function startApp() {
   const timestamp = new Date().toISOString();
-  const offlineMode = window.OFFLINE_MODE;
+  const offlineMode = (window as any).OFFLINE_MODE;
 
   console.log(
     `%c Case Integrity Suite v1.0 %c ${offlineMode ? '⚠ OFFLINE-LÄGE' : 'Integrity Verified'} at ${timestamp}`,

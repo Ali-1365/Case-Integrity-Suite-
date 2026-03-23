@@ -70,7 +70,13 @@ export class ArchiveService {
   /**
    * Söker efter liknande risker i arkivet.
    */
-  public static searchByRisk(riskLabel: string): ArchiveSearchResult[] {
-    return this.search(riskLabel, 3);
+  public static searchByRisk(riskLabel: string, options?: { minScore?: number }): ArchiveSearchResult[] {
+    let results = this.search(riskLabel, 3);
+    if (options?.minScore) {
+       // Filter by score (mock dataset structure handling)
+       // Here we just filter the relevance score as a proxy, or if doc has riskScore
+       results = results.filter(r => (r.document as any).finalRiskScore === undefined || (r.document as any).finalRiskScore >= options.minScore!);
+    }
+    return results;
   }
 }

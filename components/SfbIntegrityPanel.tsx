@@ -38,7 +38,7 @@ const SfbIntegrityPanel: React.FC<SfbIntegrityPanelProps> = ({ isOpen, onClose }
             .then(res => res.json())
             .then(data => {
                 if (data.kapitel) {
-                    const mappedChapters = data.kapitel.map((k: { kapitel: string; rubrik: string; paragrafer: string[] }) => ({
+                    const mappedChapters = data.kapitel.map((k: { id: string; rubrik: string; kapitel: string; paragraf: string; status: string }) => ({
                         chapter: parseInt(k.kapitel),
                         title: k.rubrik
                     }));

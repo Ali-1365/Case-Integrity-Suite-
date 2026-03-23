@@ -140,7 +140,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
     const selectedDoc = documents.find(d => d.id === selectedDocId);
     const currentAnalysis = selectedDoc?.analysis || null;
 
-    const [activeCase, setActiveCase] = useState<any>(null);
+    const [activeCase, setActiveCase] = useState<import("../lib/cis.types").CISCase | null>(null);
 
     useEffect(() => {
         if (currentAnalysis?.caseId) {
@@ -150,7 +150,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
         }
     }, [currentAnalysis?.caseId]);
 
-    const handleAnalyze = async (doc: any) => {
+    const handleAnalyze = async (doc: Partial<import('../types').StoredDocument> & import('../types').ParsedDocument) => {
         setIsAnalyzing(true);
         setPipelineStatus({
             ...initialPipelineStatus,
@@ -171,9 +171,9 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
             
             // 2. Kör full analys via AIOrchestrator
             const analysisResult = await orchestrator.runFullAnalysis(
-                doc.content || doc.textContent || '', 
+                doc.textContent || doc.textContent || '',
                 doc.id || `DOC-${Date.now()}`, 
-                legalFrameworkIndex as any, 
+                legalFrameworkIndex as unknown as any,
                 undefined, 
                 caseId
             );
@@ -189,10 +189,10 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
             const updatedDoc: StoredDocument = {
                 id: doc.id || `DOC-${Date.now()}`,
                 name: doc.name,
-                textContent: doc.content || doc.textContent || '',
+                textContent: doc.textContent || doc.textContent || '',
                 mimeType: doc.mimeType || 'text/plain',
                 createdAt: doc.createdAt || new Date().toISOString(),
-                analysis: analysisResult as any
+                analysis: analysisResult as unknown as import("../lib/cis.types").AnalysisResult
             };
 
             await db.addDocument(updatedDoc);
@@ -250,9 +250,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                 textContent: `Korsanalys av: ${selectedDocs.map(d => d.name).join(', ')}`,
                 mimeType: 'application/aggregate',
                 createdAt: new Date().toISOString(),
-                analysis: {
-                    correlations
-                } as any
+                analysis: { id: "agg-analysis", caseId: "batch", createdAt: new Date().toISOString(), atoms: [], facts: [], contradictions: [], uncertainties: [], documents: [], legalFrameworkLinks: [], riskProfile: { id: "rp-1", caseId: "batch", totalScore: 0, maxScore: 100, normalizedScore: 0, items: [], dominantRisks: [] }, contextState: { caseId: "batch", flags: {}, detectedCaseTypes: [] }, themes: [], legalReferences: [], qaSummary: [], priorityFlags: { hasChildAspect: false, isPreventive: false } } as unknown as import("../lib/cis.types").AnalysisResult
             };
 
             await db.addDocument(aggregateDoc);
