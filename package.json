@@ -8,7 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "tsx --test services/**/*.test.ts"
   },
   "dependencies": {
     "@google/genai": "^1.35.0",
