@@ -16,19 +16,21 @@ class OfflineService {
 
   constructor() {
     console.log('[OfflineService] Constructor called.');
-    
-    // Använd direkt åtkomst som Vite definierar
-    const apiKey = process.env.GEMINI_API_KEY || process.env.API_KEY || '';
+    // Check initial API status from the backend
+    this.checkInitialStatus();
+  }
 
-    console.log('[OfflineService] API Key present:', !!apiKey);
-
-    if (!apiKey) {
-      this._isOffline = true;
-      this._reason = 'API_KEY_MISSING';
-      if (typeof window !== 'undefined') {
-        (window as any).OFFLINE_MODE = true;
-        (window as any).OFFLINE_REASON = 'API_KEY_MISSING';
+  private async checkInitialStatus() {
+    try {
+      const response = await fetch('/api/ai/status');
+      if (response.ok) {
+        const data = await response.json();
+        if (!data.hasKey) {
+          this.setOffline(true, 'API_KEY_MISSING');
+        }
       }
+    } catch (e) {
+      this.setOffline(true, 'NETWORK_ERROR');
     }
   }
 
@@ -134,28 +136,13 @@ export class GeminiService {
   constructor() { this.initializeClient(); }
 
   private initializeClient(): void {
-    const apiKey = process.env.GEMINI_API_KEY || process.env.API_KEY || '';
-
-    if (!apiKey) {
-      loggingService.error('[GeminiService] GEMINI_API_KEY saknas. AI-tjänster otillgängliga.');
-      offlineService.setOffline(true, 'API_KEY_MISSING');
-      return;
-    }
-    try {
-      this.ai = new GoogleGenAI({ apiKey } as any);
-      console.log('[GeminiService] Klient initierad.');
-    } catch (e: any) {
-      loggingService.error(`[GeminiService] Initiering misslyckades: ${e.message}`);
-      offlineService.setOffline(true, 'NETWORK_ERROR');
-    }
+    // Client initialization is now handled securely on the backend.
+    console.log('[GeminiService] Använder backend proxy för AI-anrop.');
   }
 
-  private getClient(): GoogleGenAI {
-    if (!this.ai) {
-      this.initializeClient();
-      if (!this.ai) throw new Error('Gemini-klienten kunde inte initialiseras. API-nyckel saknas.');
-    }
-    return this.ai;
+  private getClient() {
+    // No longer returning GoogleGenAI instance on the frontend.
+    return null;
   }
 
   private async executeWithRetry<T>(
@@ -215,7 +202,6 @@ export class GeminiService {
     let modelName = params.model || (mode === 'think' ? this.proModel : this.flashModel);
 
     try {
-      const client = this.getClient();
       const config = { ...(params.config || {}) };
 
       if (mode === 'think' && modelName === this.proModel) {
@@ -227,17 +213,31 @@ export class GeminiService {
         if (!(config as any).maxOutputTokens) (config as any).maxOutputTokens = 8192;
       }
 
-      const response = await this.executeWithRetry(async () =>
-        client.models.generateContent({
-          model: modelName,
-          contents: typeof params.contents === 'string'
-            ? [{ role: 'user', parts: [{ text: params.contents as string }] }]
-            : (params.contents as any),
-          config,
-        })
-      );
+      const response = await this.executeWithRetry(async () => {
+        const res = await fetch('/api/ai/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            model: modelName,
+            contents: typeof params.contents === 'string'
+              ? [{ role: 'user', parts: [{ text: params.contents as string }] }]
+              : params.contents,
+            config,
+          }),
+        });
 
-      const text = (response as any).text || '';
+        if (!res.ok) {
+          const errorData = await res.json().catch(() => ({}));
+          const errorMsg = errorData.error || res.statusText || 'Okänt serverfel';
+          const err: any = new Error(errorMsg);
+          err.status = res.status;
+          throw err;
+        }
+
+        return res.json();
+      });
+
+      const text = response?.text || '';
       const duration = Date.now() - startTime;
 
       loggingService.addLog({
@@ -294,16 +294,28 @@ export class GeminiService {
       console.warn('[GeminiService] Offline → pseudo-embedding.');
       return this.pseudoEmbed(text);
     }
-    const client = this.getClient();
     for (const modelName of ['text-embedding-004', 'gemini-embedding-001']) {
       try {
-        const response = await this.executeWithRetry(async () =>
-          (client as any).models.embedContent({
-            model: modelName,
-            contents: { parts: [{ text }] },
-          })
-        );
-        const values = response?.embeddings?.[0]?.values || (response as any)?.embedding?.values;
+        const response = await this.executeWithRetry(async () => {
+          const res = await fetch('/api/ai/embed', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              model: modelName,
+              contents: { parts: [{ text }] },
+            }),
+          });
+
+          if (!res.ok) {
+             const errorData = await res.json().catch(() => ({}));
+             const err: any = new Error(errorData.error || res.statusText);
+             err.status = res.status;
+             throw err;
+          }
+          return res.json();
+        });
+
+        const values = response?.embeddings?.[0]?.values || response?.embedding?.values;
         if (values?.length > 0) return values;
       } catch (e: any) {
         console.warn(`[GeminiService] Embed misslyckades (${modelName}): ${e.message}`);
@@ -335,6 +347,22 @@ export class GeminiService {
       return { online: true, latencyMs, message: 'API ansluten och operativ.' };
     } catch (e: any) {
       return { online: false, message: `API ej tillgänglig: ${e.message}` };
+    }
+  }
+
+  public async checkInitialServerStatus(): Promise<void> {
+    try {
+      const response = await fetch('/api/ai/status');
+      if (response.ok) {
+        const data = await response.json();
+        if (data.hasKey) {
+          offlineService.setOffline(false);
+        } else {
+          offlineService.setOffline(true, 'API_KEY_MISSING');
+        }
+      }
+    } catch (e) {
+      // Don't override offline reason if it's already set to something else unless it's a network error connecting to proxy
     }
   }
 
