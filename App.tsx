@@ -20,10 +20,16 @@ const OfflineBanner: React.FC = () => {
       position: 'fixed', top: 0, left: 0, right: 0, zIndex: 9999,
       background: '#f59e0b', color: '#000', padding: '6px 16px',
       fontSize: '13px', fontWeight: 500, textAlign: 'center',
-      display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px'
+      display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px'
     }}>
       <span>⚠</span>
-      <span>OFFLINE-LÄGE — API-kvot slut eller nyckel saknas. AI-funktioner inaktiverade. Lokala funktioner fungerar normalt.</span>
+      <span>OFFLINE-LÄGE — API-kvot slut eller nyckel saknas.</span>
+      <button 
+        onClick={() => window.location.reload()}
+        className="bg-black text-white px-3 py-1 rounded text-xs hover:bg-slate-800"
+      >
+        Ladda om appen
+      </button>
     </div>
   );
 };
