@@ -177,8 +177,8 @@ const DocumentDetailView: React.FC<{
         const found = await db.getDocument(documentId);
         if (found) setDoc(found);
         else setError('Ärendet hittades inte i databasen.');
-      } catch (e: unknown) {
-        setError(`Kunde inte ladda ärendet: ${(e as Error).message}`);
+      } catch (e) {
+        setError(`Kunde inte ladda ärendet: ${(e instanceof Error ? e.message : String(e))}`);
       } finally {
         setLoading(false);
       }
@@ -348,7 +348,7 @@ const ArkivWrapper: React.FC<{ onDocumentSelect: (id: string) => void }> = ({ on
       .then(mod => setComp(() => mod.default))
       .catch(err => {
         console.error('Kunde inte ladda ArchiveView:', err);
-        setLoadError(err.message);
+        setLoadError((err instanceof Error ? err.message : String(err)));
       });
   }, []);
 
