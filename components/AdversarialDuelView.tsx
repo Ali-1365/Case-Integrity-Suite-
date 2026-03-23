@@ -1,6 +1,5 @@
 
 import React, { useState } from 'react';
-import { getErrorMessage } from '../lib/errors';
 import { agentWorkflow } from '../lib/AgentWorkflow';
 import { Spinner, ShieldCheckIcon, BoltIcon, DocumentTextIcon, UserIcon, ExclamationTriangleIcon } from './icons';
 import MarkdownRenderer from './shared/MarkdownRenderer';
@@ -47,8 +46,8 @@ export const AdversarialDuelView: React.FC<AdversarialDuelViewProps> = ({ caseDa
 
       setLogs(prev => [...prev, "[DUEL] Rättegångssimulering avslutad."]);
 
-    } catch (err: unknown) {
-      setError(getErrorMessage(err) || "Ett fel inträffade under duellen.");
+    } catch (err: any) {
+      setError(err.message || "Ett fel inträffade under duellen.");
     } finally {
       console.log = originalLog;
       setIsSimulating(false);

@@ -1,6 +1,5 @@
 
 import React, { useState, useEffect } from 'react';
-import { getErrorMessage } from '../lib/errors';
 import { db } from '../lib/db';
 import { StoredDocument } from '../types';
 import { legalTextProductionEngine, ProductionRequest } from '../lib/LegalTextProductionEngine';
@@ -85,8 +84,8 @@ const LegalTextProductionModule: React.FC = () => {
             setLogs(prev => [...prev, 'Produktion slutförd.', 'Slutlig granskning klar.']);
             setResult(output);
             setIsContextExpanded(false);
-        } catch (err: unknown) {
-            setError(getErrorMessage(err) || 'Ett fel inträffade vid produktion.');
+        } catch (err: any) {
+            setError(err.message || 'Ett fel inträffade vid produktion.');
         } finally {
             setIsProducing(false);
         }

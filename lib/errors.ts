@@ -64,10 +64,3 @@ export class NetworkError extends AppError {
 export const isAppError = (error: any): error is AppError => {
   return error instanceof AppError;
 };
-
-export const getErrorMessage = (error: unknown): string => {
-  if (error instanceof Error) return error.message;
-  if (error && typeof error === 'object' && 'message' in error) return String((error as Record<string, unknown>).message);
-  if (typeof error === 'string') return error;
-  return String(error);
-};

@@ -1,6 +1,5 @@
 
 import React, { useState } from 'react';
-import { getErrorMessage } from '../lib/errors';
 import { agentWorkflow, FaktamasterState } from '../lib/AgentWorkflow';
 import { Spinner, ShieldCheckIcon, BoltIcon, DocumentTextIcon, UserIcon } from './icons';
 import MarkdownRenderer from './shared/MarkdownRenderer';
@@ -35,8 +34,8 @@ export const AgentView: React.FC<AgentViewProps> = ({ caseData, caseId }) => {
     try {
       const report = await agentWorkflow.runAutonomousWorkflow(caseId || 'AUTO-GEN', caseData);
       setFinalReport(report);
-    } catch (err: unknown) {
-      setError(getErrorMessage(err) || "Ett okänt fel inträffade under agentkörningen.");
+    } catch (err: any) {
+      setError(err.message || "Ett okänt fel inträffade under agentkörningen.");
     } finally {
       console.log = originalLog; // Restore console.log
       setIsRunning(false);
