@@ -45,7 +45,8 @@ import {
     UserGroupIcon,
     BanknotesIcon,
     ChevronDownIcon,
-    DocumentTextIcon
+    DocumentTextIcon,
+    DocumentDuplicateIcon
 } from './icons';
 
 import Chatbot from './Chatbot';
@@ -88,8 +89,18 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
     const { parseFile, isParsing, parsingError } = useFileParser();
 
     const [activeModal, setActiveModal] = useState<string | null>(null);
+    const [currentView, setCurrentView] = useState<'overview' | 'analysis' | 'hub'>('overview');
     const [showMoreMenu, setShowMoreMenu] = useState(false);
     const [isDarkMode, setIsDarkMode] = useState(false);
+
+    const navigateTo = (view: string) => {
+        if (['overview', 'analysis', 'hub'].includes(view)) {
+            setCurrentView(view as any);
+            setActiveModal(null);
+        } else {
+            setActiveModal(view);
+        }
+    };
     const orchestrator = React.useMemo(() => new AIOrchestrator(), []);
     const [quotaUsage, setQuotaUsage] = useState<QuotaUsage>(() => {
         try {
@@ -471,7 +482,8 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
 
             <main className="flex-grow p-6 lg:p-10 max-w-[1600px] mx-auto w-full">
                 <Breadcrumbs />
-                {selectedDocId ? (
+                
+                {currentView === 'analysis' && selectedDocId ? (
                     <>
                         <PageHeader 
                             title="Ärendeanalys" 
@@ -480,20 +492,27 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                         />
                         <AnalysisView 
                             documentId={selectedDocId} 
-                            onBack={() => setSelectedDocId(null)} 
+                            onBack={() => setCurrentView('overview')} 
                             onDocumentUpdate={loadData} 
                             onLegalReferenceSelect={() => setActiveModal('control')} 
                         />
                     </>
+                ) : currentView === 'hub' ? (
+                    <>
+                        <PageHeader 
+                            title="System Hub" 
+                            subtitle="Centraliserad orkestrering av forensiska moduler och AI-experter."
+                            icon={<Squares2X2Icon className="w-6 h-6" />}
+                        />
+                        <SystemHub onNavigate={navigateTo} />
+                    </>
                 ) : (
                     <>
-                        {!activeModal && (
-                            <PageHeader 
-                                title="Systemöversikt" 
-                                subtitle="Välkommen till Case Integrity Suite. Här kan du hantera ärenden, utföra analyser och övervaka systemets integritet."
-                                icon={<Squares2X2Icon className="w-6 h-6" />}
-                            />
-                        )}
+                        <PageHeader 
+                            title="Systemöversikt" 
+                            subtitle="Välkommen till Case Integrity Suite. Här kan du hantera ärenden, utföra analyser och övervaka systemets integritet."
+                            icon={<DocumentDuplicateIcon className="w-6 h-6" />}
+                        />
                         <SystemOverview 
                             legalCorpus={legalCorpora}
                             pipelineStatus={pipelineStatus} 
@@ -515,7 +534,10 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                                     console.error('Text submission processing failed:', err);
                                 }
                             }}
-                            onSelectDocument={setSelectedDocId}
+                            onSelectDocument={(id) => {
+                                setSelectedDocId(id);
+                                setCurrentView('analysis');
+                            }}
                             onAggregateSelected={handleAggregateSelected}
                             onAction={setActiveModal}
                             isProcessing={isAnalyzing || isParsing}
