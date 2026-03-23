@@ -12,6 +12,7 @@ class OfflineService {
   private _isOffline: boolean = false;
   private _reason: OfflineReason = null;
   private _subscribers: ((offline: boolean, reason: OfflineReason) => void)[] = [];
+  private _recoveryTimer: any = null;
 
   constructor() {
     const apiKey =
@@ -23,31 +24,74 @@ class OfflineService {
       this._isOffline = true;
       this._reason = 'API_KEY_MISSING';
       if (typeof window !== 'undefined') {
-        window.OFFLINE_MODE = true;
-        window.OFFLINE_REASON = 'API_KEY_MISSING';
+        (window as any).OFFLINE_MODE = true;
+        (window as any).OFFLINE_REASON = 'API_KEY_MISSING';
       }
     }
   }
 
   getIsOffline(): boolean {
     return this._isOffline ||
-      (typeof window !== 'undefined' && window.OFFLINE_MODE === true);
+      (typeof window !== 'undefined' && (window as any).OFFLINE_MODE === true);
   }
 
   getReason(): OfflineReason { return this._reason; }
 
   setOffline(offline: boolean, reason: OfflineReason = null): void {
+    const wasOffline = this._isOffline;
     this._isOffline = offline;
     this._reason = reason;
+
     if (typeof window !== 'undefined') {
-      window.OFFLINE_MODE = offline;
-      window.OFFLINE_REASON = reason;
+      (window as any).OFFLINE_MODE = offline;
+      (window as any).OFFLINE_REASON = reason;
     }
+
     this._subscribers.forEach(fn => fn(offline, reason));
+
     if (offline) {
       console.warn(`[OfflineService] Offline aktiverat. Anledning: ${reason}`);
+      // Starta automatisk återställningskontroll om det är kvot- eller nätverksfel
+      if (reason === 'QUOTA_EXCEEDED' || reason === 'NETWORK_ERROR') {
+        this.startRecoveryPolling();
+      }
     } else {
-      console.log('[OfflineService] System återkopplat till online-läge.');
+      if (wasOffline) {
+        console.log('[OfflineService] System återkopplat till online-läge automatiskt.');
+        this.stopRecoveryPolling();
+      }
+    }
+  }
+
+  private startRecoveryPolling() {
+    if (this._recoveryTimer) return;
+    console.log('[OfflineService] Startar automatisk återställningskontroll (var 60:e sek)...');
+    
+    this._recoveryTimer = setInterval(async () => {
+      if (!this._isOffline) {
+        this.stopRecoveryPolling();
+        return;
+      }
+
+      console.log('[OfflineService] Testar API-anslutning för återställning...');
+      try {
+        // Vi använder den globala geminiService-instansen för att testa
+        const status = await geminiService.checkApiStatus();
+        if (status.online) {
+          console.log('[OfflineService] API åter tillgängligt! Växlar till online.');
+          this.setOffline(false);
+        }
+      } catch (e) {
+        // Fortsätt polla
+      }
+    }, 60000); // Kolla varje minut
+  }
+
+  private stopRecoveryPolling() {
+    if (this._recoveryTimer) {
+      clearInterval(this._recoveryTimer);
+      this._recoveryTimer = null;
+      console.log('[OfflineService] Återställningskontroll stoppad.');
     }
   }
 
@@ -101,8 +145,8 @@ export class GeminiService {
     try {
       this.ai = new GoogleGenAI({ apiKey } as any);
       console.log('[GeminiService] Klient initierad.');
-    } catch (e: unknown) {
-      loggingService.error(`[GeminiService] Initiering misslyckades: ${(e instanceof Error ? e.message : String(e))}`);
+    } catch (e: any) {
+      loggingService.error(`[GeminiService] Initiering misslyckades: ${e.message}`);
       offlineService.setOffline(true, 'NETWORK_ERROR');
     }
   }
@@ -125,28 +169,28 @@ export class GeminiService {
       try {
         this.quotaState = { isThrottled: false, retryAfterMs: 0, lastError: null };
         return await operation();
-      } catch (error: unknown) {
-        const msg = ((error instanceof Error ? error.message : String(error)) || '').toLowerCase();
+      } catch (error: any) {
+        const msg = (error.message || '').toLowerCase();
         const isQuota = msg.includes('quota') || msg.includes('429') ||
           msg.includes('resource_exhausted') || msg.includes('overloaded') ||
-          ((error as { status?: number }).status) === 429 || ((error as { status?: number }).status) === 503;
+          error.status === 429 || error.status === 503;
         const isAuth = msg.includes('401') || msg.includes('api_key') ||
-          msg.includes('unauthorized') || ((error as { status?: number }).status) === 401;
+          msg.includes('unauthorized') || error.status === 401;
 
         if (isAuth) {
           offlineService.setOffline(true, 'API_KEY_MISSING');
-          throw new ApiError(`Auth-fel: ${(error instanceof Error ? error.message : String(error))}`, { originalError: error });
+          throw new ApiError(`Auth-fel: ${error.message}`, { originalError: error });
         }
         if (isQuota && i < retries - 1) {
           console.warn(`[GeminiService] Kvotfel. Försök ${i + 1}/${retries}. Väntar ${delay / 1000}s...`);
-          this.quotaState = { isThrottled: true, retryAfterMs: delay, lastError: (error instanceof Error ? error.message : String(error)) };
+          this.quotaState = { isThrottled: true, retryAfterMs: delay, lastError: error.message };
           await new Promise(r => setTimeout(r, delay));
           delay *= 2;
         } else if (i === retries - 1) {
-          this.quotaState.lastError = (error instanceof Error ? error.message : String(error));
+          this.quotaState.lastError = error.message;
           if (isQuota) offlineService.setOffline(true, 'QUOTA_EXCEEDED');
           else offlineService.setOffline(true, 'NETWORK_ERROR');
-          throw new ApiError(`API-fel efter ${i + 1} försök: ${(error instanceof Error ? error.message : String(error))}`, { originalError: error });
+          throw new ApiError(`API-fel efter ${i + 1} försök: ${error.message}`, { originalError: error });
         } else {
           throw error;
         }
@@ -207,13 +251,13 @@ export class GeminiService {
       });
 
       return text;
-    } catch (error: unknown) {
+    } catch (error: any) {
       const duration = Date.now() - startTime;
       loggingService.addLog({
         mode,
         prompt: JSON.stringify(params.contents).substring(0, 500),
         response: null,
-        error: (error instanceof Error ? error.message : String(error)),
+        error: error.message,
         duration,
       });
 
@@ -241,7 +285,7 @@ export class GeminiService {
         }
         return synthetic;
       }
-      return `SYSTEMFEL: Kunde inte generera svar. ${(error instanceof Error ? error.message : String(error))}`;
+      return `SYSTEMFEL: Kunde inte generera svar. ${error.message}`;
     }
   }
 
@@ -262,8 +306,8 @@ export class GeminiService {
         );
         const values = response?.embeddings?.[0]?.values || (response as any)?.embedding?.values;
         if (values?.length > 0) return values;
-      } catch (e: unknown) {
-        console.warn(`[GeminiService] Embed misslyckades (${modelName}): ${(e instanceof Error ? e.message : String(e))}`);
+      } catch (e: any) {
+        console.warn(`[GeminiService] Embed misslyckades (${modelName}): ${e.message}`);
       }
     }
     console.warn('[GeminiService] Embed API helt nere → pseudo-embedding.');
@@ -290,20 +334,20 @@ export class GeminiService {
       const latencyMs = Date.now() - start;
       offlineService.setOffline(false);
       return { online: true, latencyMs, message: 'API ansluten och operativ.' };
-    } catch (e: unknown) {
-      return { online: false, message: `API ej tillgänglig: ${(e instanceof Error ? e.message : String(e))}` };
+    } catch (e: any) {
+      return { online: false, message: `API ej tillgänglig: ${e.message}` };
     }
   }
 
   public async hasCustomKey(): Promise<boolean> {
-    if (typeof window !== 'undefined' && window.aistudio?.hasSelectedApiKey)
-      return window.aistudio.hasSelectedApiKey();
+    if (typeof window !== 'undefined' && (window as any).aistudio?.hasSelectedApiKey)
+      return (window as any).aistudio.hasSelectedApiKey();
     return false;
   }
 
   public async openKeySelection(): Promise<void> {
-    if (typeof window !== 'undefined' && window.aistudio?.openSelectKey) {
-      await window.aistudio.openSelectKey();
+    if (typeof window !== 'undefined' && (window as any).aistudio?.openSelectKey) {
+      await (window as any).aistudio.openSelectKey();
       this.initializeClient();
     }
   }

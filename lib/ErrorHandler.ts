@@ -5,7 +5,7 @@ export class AppError extends Error {
   constructor(
     public message: string,
     public code: string,
-    public details?: unknown,
+    public details?: any,
     public isOperational: boolean = true
   ) {
     super(message);
@@ -13,7 +13,7 @@ export class AppError extends Error {
   }
 }
 
-export const handleError = (error: unknown, context: string) => {
+export const handleError = (error: any, context: string) => {
   const message = error instanceof Error ? error.message : String(error);
   loggingService.error(`[ERROR_HANDLER] Context: ${context}`, {
     message,

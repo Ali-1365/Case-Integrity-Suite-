@@ -64,8 +64,8 @@ export class IngestService {
         results.set(conf.id, corpus);
         processedLaws.push(`${conf.sourceCode} ${conf.sfsNumber}`);
         corpus.paragraphs.forEach(p => allHashes.push(p.metadata.provenanceHash));
-      } catch (e: unknown) {
-        console.warn(`[INGEST] Skipping ${conf.id}: ${(e instanceof Error ? e.message : String(e))}`);
+      } catch (e) {
+        console.warn(`[INGEST] Skipping ${conf.id}: ${e}`);
       }
     }
 

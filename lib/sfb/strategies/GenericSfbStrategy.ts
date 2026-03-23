@@ -20,7 +20,7 @@ export class GenericSfbStrategy implements IBenefitStrategy {
             reasoning.push(`Validering utförd mot Socialförsäkringsbalken Kapitel ${chapter}.`);
             
             // Generic validation logic: check for common required fields if they exist in clientData
-            if (clientData.income !== undefined && (clientData.income as number) < 0) {
+            if (clientData.income !== undefined && clientData.income < 0) {
                 isValid = false;
                 outcome = 'REJECTED';
                 reasoning.push('Inkomst kan inte vara negativ enligt allmänna bestämmelser.');

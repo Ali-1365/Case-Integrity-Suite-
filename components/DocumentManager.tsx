@@ -94,7 +94,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
     const [quotaUsage, setQuotaUsage] = useState<QuotaUsage>(() => {
         try {
             return usageMonitorService.getUsage();
-        } catch (e: unknown) {
+        } catch (e) {
             return { rpm: 0, tpm: 0, limitRpm: 15, limitTpm: 1000000, status: 'stable' };
         }
     });
@@ -103,7 +103,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
         const interval = setInterval(() => {
             try {
                 setQuotaUsage(usageMonitorService.getUsage());
-            } catch (e: unknown) {
+            } catch (e) {
                 console.warn("Usage monitor not available yet");
             }
         }, 5000);
@@ -128,7 +128,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
             setDocuments(docs);
             setLegalCorpora(corpora);
             await ragService.initialize();
-        } catch (e: unknown) {
+        } catch (e) {
             console.error("[BOOT] Data load failure:", e);
         } finally {
             setIsLoading(false);
@@ -210,7 +210,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                 currentStep: 'Analys slutförd',
                 progress: 100
             });
-        } catch (error: unknown) {
+        } catch (error) {
             console.error("Analysis failed:", error);
             setPipelineStatus({
                 ...initialPipelineStatus,
@@ -265,7 +265,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                 currentStep: 'Batch-analys slutförd',
                 progress: 100
             });
-        } catch (error: unknown) {
+        } catch (error) {
             console.error("Batch analysis failed:", error);
             setPipelineStatus({
                 ...initialPipelineStatus,
@@ -504,14 +504,14 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                                         const p = await parseFile(f); 
                                         if(p) await handleAnalyze(p); 
                                     } 
-                                } catch (err: unknown) {
+                                } catch (err) {
                                     console.error('File selection processing failed:', err);
                                 }
                             }}
                             onTextSubmit={async (t) => {
                                 try {
                                     await handleAnalyze({ name: 'Manuell inmatning', textContent: t, mimeType: 'text/plain' });
-                                } catch (err: unknown) {
+                                } catch (err) {
                                     console.error('Text submission processing failed:', err);
                                 }
                             }}

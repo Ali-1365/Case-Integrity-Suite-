@@ -12,7 +12,7 @@ import {
 } from './icons';
 
 interface FmjamControllerProps {
-  analysis: import("../lib/cis.types").AnalysisResult;
+  analysis: any;
 }
 
 export const FmjamController: React.FC<FmjamControllerProps> = ({ analysis }) => {
@@ -136,7 +136,7 @@ export const FmjamController: React.FC<FmjamControllerProps> = ({ analysis }) =>
                 <div 
                   key={i} 
                   className="flex-grow bg-amber-500/20 rounded-t-sm transition-all duration-500 hover:bg-amber-500/50"
-                  style={{ height: `${(crypto.getRandomValues(new Uint32Array(1))[0] % 10000) / 100}%`, animationDelay: `${i * 0.1}s` }}
+                  style={{ height: `${Math.random() * 100}%`, animationDelay: `${i * 0.1}s` }}
                 ></div>
               ))}
             </div>

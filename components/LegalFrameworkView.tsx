@@ -83,13 +83,13 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
     window.print();
   };
 
-  const handleParagraphClick = async (p: import("../types").LegalParagraph) => {
+  const handleParagraphClick = async (p: any) => {
     setHighlightedParagraphId(p.id);
     const lawRef = `${activeCorpus?.shortName} ${p.section}`;
     try {
       const praxis = await praxisService.getRelevantPraxis([lawRef]);
       setRelevantPraxis(praxis);
-    } catch (err: unknown) {
+    } catch (err) {
       console.error('Failed to fetch praxis:', err);
       setRelevantPraxis([]);
     }
@@ -103,14 +103,14 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
         const data = await response.json();
         setIntegrityStatus(data);
       }
-    } catch (error: unknown) {
+    } catch (error) {
       console.error('Integrity verification failed:', error);
     } finally {
       setIsVerifying(false);
     }
   };
 
-  const isOutdated = (law: { sfsNumber?: string }) => {
+  const isOutdated = (law: any) => {
     // Mock logic: if SFS year is before 2000, flag it as potentially outdated
     const year = parseInt(law.sfsNumber?.split(':')[0] || '2026');
     return year < 2000;

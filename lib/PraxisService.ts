@@ -26,7 +26,7 @@ export class PraxisService {
         const response = await fetch('/data/praxis.json');
         if (!response.ok) throw new Error('Kunde inte hämta praxisdata');
         const data = await response.json();
-        return data.paragraphs.map((p: import("../types").LegalParagraph) => ({
+        return data.paragraphs.map((p: any) => ({
           id: p.id,
           reference: p.reference,
           linkedLaw: p.metadata.revisionNote || "",
@@ -40,7 +40,7 @@ export class PraxisService {
         const response = await fetch(`/api/praxis/${encodeURIComponent(ref)}`);
         if (response.ok) {
           const data = await response.json();
-          const mapped = data.map((p: import("../types").LegalParagraph) => ({
+          const mapped = data.map((p: any) => ({
             id: p.id,
             reference: p.reference,
             linkedLaw: p.metadata.revisionNote || "",
@@ -53,7 +53,7 @@ export class PraxisService {
       
       // Ta bort dubbletter
       return Array.from(new Map(results.map(item => [item.id, item])).values());
-    } catch (error: unknown) {
+    } catch (error) {
       console.error('PraxisService Error:', error);
       return [];
     }

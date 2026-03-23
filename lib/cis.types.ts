@@ -15,7 +15,7 @@ export interface AuditLogEntry {
   provenanceHashes: string[];
   resultSummary: string;
   status: 'OK' | 'WARN' | 'ERROR';
-  metadata?: Record<string, unknown>;
+  metadata?: any;
 }
 
 export interface CaseVersion {
@@ -176,29 +176,13 @@ export interface RiskReport {
   assessment: string;
 }
 
-export interface ConsolidationItem {
-  id?: string;
-  sourceCode?: string;
-  sfsNumber?: string;
-  chapter?: number;
-  section?: string | number;
-  text?: string;
-  provenanceHash?: string;
-  corpusFile?: string;
-  auditStatus?: string;
-  reference?: string;
-  summary?: string;
-  rawText?: string;
-  contextSnippet?: string;
-}
-
 export interface ConsolidationResult {
   consolidationId: string;
   hierarchy: {
-    constitution: ConsolidationItem[];
-    law: ConsolidationItem[];
-    regulation: ConsolidationItem[];
-    praxis: ConsolidationItem[];
+    constitution: any[];
+    law: any[];
+    regulation: any[];
+    praxis: any[];
   };
   interplayAnalysis: string;
   affectedNorms: string[];

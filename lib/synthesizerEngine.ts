@@ -113,7 +113,7 @@ När du skapar Sakframställan, ska du inleda med Bevistemana (hämtade från Fa
       }, 'think');
 
       return { synthesis, duelResult, correlations };
-    } catch (error: unknown) {
+    } catch (error) {
       console.error("Batch synthesis failure:", error);
       throw new Error("Systemet kunde inte slutföra batch-syntesen.");
     }
@@ -123,7 +123,7 @@ När du skapar Sakframställan, ska du inleda med Bevistemana (hämtade från Fa
     // Vi skickar en avskalad version av AnalysisResult för att spara tokens
     const strippedData = {
         caseId: data.caseId,
-        facts: data.facts.map((f: import("../types").FactV2) => ({
+        facts: data.facts.map((f: any) => ({ 
             id: f.id, 
             date: f.timestamp, 
             category: f.category, 
@@ -149,7 +149,7 @@ När du skapar Sakframställan, ska du inleda med Bevistemana (hämtade från Fa
         contents: `CONTEXT_LOCKED (Använd denna data för att generera rapporten):\n\n${JSON.stringify(strippedData, null, 2)}`,
         config: { systemInstruction, temperature: 0.0 }
       }, 'think');
-    } catch (error: unknown) {
+    } catch (error) {
        return "KRITISKT FEL: Den deterministiska syntesmotorn svarar inte.";
     }
   }

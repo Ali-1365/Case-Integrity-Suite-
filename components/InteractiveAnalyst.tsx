@@ -116,7 +116,7 @@ export const InteractiveAnalyst: React.FC<InteractiveAnalystProps> = ({ analysis
             setMessages(prev => [...prev, assistantMessage]);
             setAnalysisStatus('SLUTFÖRT');
             setStatusMessage(isOffline ? 'Lokal analys slutförd.' : 'Analys slutförd.');
-        } catch (error: unknown) {
+        } catch (error) {
             console.error("Opinion generation failed:", error);
             setAnalysisStatus('ERROR');
             setStatusMessage('Ett fel uppstod vid generering.');
@@ -185,7 +185,7 @@ export const InteractiveAnalyst: React.FC<InteractiveAnalystProps> = ({ analysis
             };
 
             setMessages(prev => [...prev, assistantMessage]);
-        } catch (error: unknown) {
+        } catch (error) {
             setMessages(prev => [...prev, {
                 role: 'assistant',
                 content: "Ett fel inträffade vid kommunikation med analyskärnan.",

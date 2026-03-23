@@ -21,14 +21,14 @@ async function startServer() {
       const rawData = fs.readFileSync(praxisPath, "utf-8");
       const data = JSON.parse(rawData);
       
-      const results = data.paragraphs.filter((p: import("./types").LegalParagraph) => {
+      const results = data.paragraphs.filter((p: any) => {
         const linkedLaw = p.metadata?.revisionNote || "";
         return linkedLaw.toLowerCase().includes(lawRef.toLowerCase()) || 
                p.text.toLowerCase().includes(lawRef.toLowerCase());
       });
 
       res.json(results);
-    } catch (error: unknown) {
+    } catch (error) {
       res.status(500).json({ error: "Failed to parse praxis data" });
     }
   });

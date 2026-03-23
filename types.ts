@@ -1,4 +1,3 @@
-import { RagIndex } from './lib/RagIndexService';
 
 import { RiskScoreResult } from './lib/riskEngineV6.types';
 import { AnalysisResult } from './lib/cis.types';
@@ -123,16 +122,4 @@ export interface StoredDocument {
     textContent: string;
     analysis: AnalysisResult;
     opinion?: OpinionResult;
-}
-
-declare global {
-  interface Window {
-    _lastBakedIndex?: RagIndex;
-    OFFLINE_MODE?: boolean;
-    OFFLINE_REASON?: string;
-    aistudio?: {
-      hasSelectedApiKey: () => boolean;
-      openSelectKey: () => Promise<void>;
-    };
-  }
 }
