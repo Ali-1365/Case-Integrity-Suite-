@@ -3,7 +3,7 @@ import { LegalCorpus } from '../types';
 import { legalFrameworkIndex } from '../data/legalFramework';
 import { corpusService } from './CorpusService';
 import { verifyAndLinkAnalysis } from './verification';
-import { offlineService } from '../services/geminiService';
+import { offlineService } from '../services/offlineService';
 
 /**
  * FMJAM Execution Flow v.2.0-GOLD
@@ -147,7 +147,7 @@ export function canExecuteFlow(): { canRun: boolean; reason: string } {
   if (offlineService.getIsOffline()) {
     return {
       canRun: false,
-      reason: `Offline-läge aktivt (${offlineService.getReason()}). Konfigurera VITE_GEMINI_API_KEY, GEMINI_API_KEY eller window.GEMINI_API_KEY.`,
+      reason: `Offline-läge aktivt (${offlineService.getReason()}). Lägg till GEMINI_API_KEY.`,
     };
   }
   if (legalFrameworkIndex.length === 0) {

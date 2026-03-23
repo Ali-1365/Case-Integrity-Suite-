@@ -54,6 +54,7 @@ export interface DamagesClaim {
   components: DamageComponent[];
   description?: string;
   aiAnalysis?: string;
+  linkedCaseId?: string;
 }
 
 export interface DamageComponent {

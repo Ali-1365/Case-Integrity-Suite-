@@ -1,4 +1,5 @@
-import { geminiService, offlineService } from '../services/geminiService';
+import { geminiService } from '../services/geminiService';
+import { offlineService } from '../services/offlineService';
 import { ContradictionV2, UncertaintyV2 } from '../types';
 
 /**
@@ -32,7 +33,7 @@ export class AIAnalysisEngine {
         {
           description: "AI-analys ej tillgänglig — systemet körs i offline-läge.",
           missingAction:
-            "Lägg till en giltig Gemini API-nyckel via VITE_GEMINI_API_KEY, GEMINI_API_KEY eller window.GEMINI_API_KEY och starta om applikationen vid behov.",
+            "Lägg till en giltig Gemini API-nyckel i miljövariabeln GEMINI_API_KEY och starta om applikationen.",
         },
       ],
       holisticFlags: [

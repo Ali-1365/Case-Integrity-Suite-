@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
+/*
 import { 
   LineChart, 
   Line, 
@@ -13,6 +14,20 @@ import {
   BarChart,
   Bar
 } from 'recharts';
+*/
+
+// Mock components to replace recharts
+const ResponsiveContainer: React.FC<{ children: React.ReactNode, width?: string | number, height?: string | number }> = ({ children }) => <div className="w-full h-full">{children}</div>;
+const AreaChart: React.FC<{ data: any[], children: React.ReactNode }> = ({ children }) => <div className="w-full h-full flex items-end gap-1">{children}</div>;
+const LineChart: React.FC<{ data: any[], children: React.ReactNode }> = ({ children }) => <div className="w-full h-full flex items-center">{children}</div>;
+const Area: React.FC<any> = () => <div className="flex-grow bg-indigo-500/20 h-1/2" />;
+const Line: React.FC<any> = () => <div className="flex-grow border-t-2 border-amber-500" />;
+const XAxis: React.FC<any> = () => null;
+const YAxis: React.FC<any> = () => null;
+const CartesianGrid: React.FC<any> = () => null;
+const Tooltip: React.FC<any> = () => null;
+const BarChart: React.FC<any> = () => null;
+const Bar: React.FC<any> = () => null;
 import { 
   ActivityIcon, 
   ServerIcon, 

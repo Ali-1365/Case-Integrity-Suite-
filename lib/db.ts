@@ -5,11 +5,12 @@ import { AuditLogEntry, CISCase } from './cis.types';
 export type { AuditLogEntry, CISCase };
 
 const DB_NAME = 'LegalAnalysisDB';
-const DB_VERSION = 4; // Upgraded version
+const DB_VERSION = 5; // Upgraded version
 const DOC_STORE_NAME = 'documents';
 const SETTINGS_STORE_NAME = 'settings';
 const AUDIT_STORE_NAME = 'audit_logs';
 const CASE_STORE_NAME = 'cases';
+const ECONOMIC_STORE_NAME = 'economic_data';
 
 interface Settings {
     key: string;
@@ -33,6 +34,10 @@ interface LegalDB extends DBSchema {
     key: string;
     value: CISCase;
   };
+  [ECONOMIC_STORE_NAME]: {
+    key: string;
+    value: { id: string; type: string; data: any };
+  };
 }
 
 let dbPromise: Promise<IDBPDatabase<LegalDB>> | null = null;
@@ -53,6 +58,9 @@ const getDb = (): Promise<IDBPDatabase<LegalDB>> => {
                 if (oldVersion < 4 && !db.objectStoreNames.contains(CASE_STORE_NAME)) {
                     db.createObjectStore(CASE_STORE_NAME, { keyPath: 'caseId' });
                 }
+                if (!db.objectStoreNames.contains(ECONOMIC_STORE_NAME)) {
+                    db.createObjectStore(ECONOMIC_STORE_NAME, { keyPath: 'id' });
+                }
             },
         });
     }
@@ -60,6 +68,27 @@ const getDb = (): Promise<IDBPDatabase<LegalDB>> => {
 };
 
 export const db = {
+  async saveEconomicData(id: string, type: string, data: any): Promise<void> {
+    const db = await getDb();
+    await db.put(ECONOMIC_STORE_NAME, { id, type, data });
+  },
+
+  async getEconomicData(id: string): Promise<any | undefined> {
+    const db = await getDb();
+    const entry = await db.get(ECONOMIC_STORE_NAME, id);
+    return entry?.data;
+  },
+
+  async getAllEconomicDataByType(type: string): Promise<any[]> {
+    const db = await getDb();
+    const all = await db.getAll(ECONOMIC_STORE_NAME);
+    return all.filter(item => item.type === type).map(item => item.data);
+  },
+
+  async deleteEconomicData(id: string): Promise<void> {
+    const db = await getDb();
+    await db.delete(ECONOMIC_STORE_NAME, id);
+  },
   async addDocument(doc: StoredDocument): Promise<void> {
     const db = await getDb();
     await db.put(DOC_STORE_NAME, doc);

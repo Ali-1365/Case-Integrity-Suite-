@@ -1,9 +1,11 @@
 
 import { Payment, Invoice, DamagesClaim, BudgetForecast, EconomicState, DamageComponent } from '../lib/economic.types';
 import { geminiService } from './geminiService';
+import { db } from '../lib/db';
+import { generateId } from '../lib/utils';
 
 /**
- * EconomicService v.1.1-GOLD
+ * EconomicService v.1.2-GOLD
  * Hanterar modulära ekonomiska funktioner, skadeståndsberäkningar och budgetprognoser.
  * Integrerar principer från komplexitetshantering och antifragila system.
  */
@@ -16,8 +18,33 @@ export class EconomicService {
   };
 
   constructor() {
-    // Initialisera med exempeldata om det behövs
-    this.initializeMockData();
+    this.loadFromDb();
+  }
+
+  private async loadFromDb() {
+    try {
+      const payments = await db.getAllEconomicDataByType('PAYMENT');
+      const invoices = await db.getAllEconomicDataByType('INVOICE');
+      const claims = await db.getAllEconomicDataByType('CLAIM');
+      const forecasts = await db.getAllEconomicDataByType('FORECAST');
+
+      if (payments.length === 0 && invoices.length === 0 && claims.length === 0) {
+        this.initializeMockData();
+        await this.syncToDb();
+      } else {
+        this.state = { payments, invoices, claims, forecasts };
+      }
+    } catch (error) {
+      console.error("Failed to load economic data from DB:", error);
+      this.initializeMockData();
+    }
+  }
+
+  private async syncToDb() {
+    for (const p of this.state.payments) await db.saveEconomicData(p.id, 'PAYMENT', p);
+    for (const i of this.state.invoices) await db.saveEconomicData(i.id, 'INVOICE', i);
+    for (const c of this.state.claims) await db.saveEconomicData(c.id, 'CLAIM', c);
+    for (const f of this.state.forecasts) await db.saveEconomicData(f.id, 'FORECAST', f);
   }
 
   private initializeMockData() {
@@ -55,19 +82,6 @@ export class EconomicService {
           { id: 'comp-1', label: 'Personskada', amount: 50000, description: 'Sveda och värk till följd av felaktigt frihetsberövande', legalReference: 'SkL 5 kap. 1 §' },
           { id: 'comp-2', label: 'Inkomstförlust', amount: 25000, description: 'Utebliven lön under häktningstid', legalReference: 'SkL 5 kap. 1 §' }
         ]
-      },
-      {
-        id: 'claim-2',
-        claimant: 'Företag B',
-        defendant: 'Privatperson Y',
-        type: 'PRIVATE',
-        legalBasis: ['Skadeståndslagen 2 kap. 1 §'],
-        estimatedAmount: 120000,
-        probability: 0.80,
-        status: 'NEGOTIATION',
-        components: [
-          { id: 'comp-3', label: 'Sakskada', amount: 120000, description: 'Skadegörelse på maskinutrustning', legalReference: 'SkL 2 kap. 1 §' }
-        ]
       }
     ];
 
@@ -81,8 +95,9 @@ export class EconomicService {
     return this.state.payments;
   }
 
-  addPayment(payment: Payment) {
+  async addPayment(payment: Payment) {
     this.state.payments = [payment, ...this.state.payments];
+    await db.saveEconomicData(payment.id, 'PAYMENT', payment);
   }
 
   // --- Fakturahantering ---
@@ -90,14 +105,16 @@ export class EconomicService {
     return this.state.invoices;
   }
 
-  addInvoice(invoice: Invoice) {
+  async addInvoice(invoice: Invoice) {
     this.state.invoices = [invoice, ...this.state.invoices];
+    await db.saveEconomicData(invoice.id, 'INVOICE', invoice);
   }
 
-  updateInvoiceStatus(id: string, status: Invoice['status']) {
+  async updateInvoiceStatus(id: string, status: Invoice['status']) {
     const invoice = this.state.invoices.find(i => i.id === id);
     if (invoice) {
       invoice.status = status;
+      await db.saveEconomicData(id, 'INVOICE', invoice);
     }
   }
 
@@ -106,22 +123,24 @@ export class EconomicService {
     return this.state.claims;
   }
 
-  addClaim(claim: DamagesClaim) {
+  async addClaim(claim: DamagesClaim) {
     this.state.claims = [claim, ...this.state.claims];
+    await db.saveEconomicData(claim.id, 'CLAIM', claim);
   }
 
-  updateClaim(id: string, updates: Partial<DamagesClaim>) {
+  async updateClaim(id: string, updates: Partial<DamagesClaim>) {
     const claimIndex = this.state.claims.findIndex(c => c.id === id);
     if (claimIndex !== -1) {
       this.state.claims[claimIndex] = { ...this.state.claims[claimIndex], ...updates };
+      await db.saveEconomicData(id, 'CLAIM', this.state.claims[claimIndex]);
     }
   }
 
-  /**
-   * Beräknar skadestånd baserat på Skadeståndslagen (SkL).
-   * Inkluderar sveda och värk, lyte och men, samt inkomstförlust.
-   * AI-assisterad precision för juridiska parametrar.
-   */
+  async deleteClaim(id: string) {
+    this.state.claims = this.state.claims.filter(c => c.id !== id);
+    await db.deleteEconomicData(id);
+  }
+
   calculateDamages(components: DamageComponent[]): number {
     return components.reduce((acc, comp) => acc + comp.amount, 0);
   }
@@ -151,19 +170,15 @@ export class EconomicService {
     return this.state.forecasts;
   }
 
-  addForecast(forecast: BudgetForecast) {
+  async addForecast(forecast: BudgetForecast) {
     this.state.forecasts = [forecast, ...this.state.forecasts];
+    await db.saveEconomicData(forecast.id, 'FORECAST', forecast);
   }
 
-  /**
-   * Genererar en antifragil budgetprognos.
-   * Tar hänsyn till osäkerhet och "svarta svanar" genom att simulera olika scenarier.
-   */
   generateAntifragileForecast(baseData: any): BudgetForecast {
-    // Simulering av komplexitet och osäkerhet
-    const variance = (Math.random() * 0.2) - 0.1; // +/- 10% osäkerhet
+    const variance = (Math.random() * 0.2) - 0.1;
     return {
-      id: crypto.randomUUID(),
+      id: generateId('FC'),
       period: '2026-Q2',
       actualIncome: 0,
       actualExpenses: 0,

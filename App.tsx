@@ -1,5 +1,12 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { offlineService } from './services/geminiService';
+import React, { useState, useEffect, useCallback, Suspense, lazy } from 'react';
+import { Zap, Scale, ShieldCheck, FileSearch } from 'lucide-react';
+import { offlineService } from './services/offlineService';
+
+// Dynamisk import för huvudvyer
+const EkonomiView = lazy(() => import('./components/EkonomiView'));
+const AnalysView = lazy(() => import('./components/AnalysView'));
+const BeslutView = lazy(() => import('./components/BeslutView'));
+const ProduktionView = lazy(() => import('./components/ProduktionView'));
 
 // ─────────────────────────────────────────────
 //  OFFLINE BANNER
@@ -36,8 +43,8 @@ const OfflineBanner: React.FC = () => {
       display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px',
       boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
     }}>
-      <span>⚠</span>
-      <span>OFFLINE-LÄGE — API-kvot slut, nätverksfel eller ogiltig nyckel.</span>
+      <span>{reason === 'QUOTA_EXCEEDED' ? 'ℹ' : '⚠'}</span>
+      <span>{getMessage()}</span>
       <button 
         onClick={() => window.location.reload()}
         className="bg-white text-black px-3 py-1 rounded text-xs font-bold hover:bg-slate-100 transition-colors"
@@ -515,417 +522,53 @@ const HubbView: React.FC<{ onModuleOpen: (mod: string) => void }> = ({ onModuleO
           );
         })}
       </div>
-    </div>
-  );
-};
 
-// ─────────────────────────────────────────────
-//  EKONOMI-VY  (oförändrad)
-// ─────────────────────────────────────────────
-const EkonomiView: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'oversikt' | 'betalningar' | 'fakturor' | 'skadestand' | 'budget'>('oversikt');
-  const [showNyFaktura, setShowNyFaktura] = useState(false);
-  const [showNyBetalning, setShowNyBetalning] = useState(false);
-  const [showNyttKrav, setShowNyttKrav] = useState(false);
-  const [fakturor, setFakturor] = useState<any[]>([]);
-  const [betalningar, setBetalningar] = useState([
-    { id: 1, mottagare: 'Advokatbyrå X', datum: '2026-03-10', belopp: 5000 },
-    { id: 2, mottagare: 'Domstolsverket', datum: '2026-03-25', belopp: 1200 },
-  ]);
-  const [krav, setKrav] = useState([
-    { id: 1, karande: 'Privatperson X', svarande: 'Staten', typ: 'Statligt Skadestånd', belopp: 75000, sannolikhet: 65, status: 'INLÄMNAD', komponenter: [{ typ: 'Personskada', belopp: 50000, grund: 'Skl. 5 kap. 1 §' }, { typ: 'Inkomstförlust', belopp: 25000, grund: 'Skl. 5 kap. 1 §' }] },
-    { id: 2, karande: 'Företag B', svarande: 'Privatperson Y', typ: 'Privat', belopp: 120000, sannolikhet: 80, status: 'FÖRHANDLING', komponenter: [{ typ: 'Sakskada', belopp: 120000, grund: 'Skl. 2 kap. 1 §' }] },
-  ]);
-  const [nyFaktura, setNyFaktura] = useState({ kundnamn: '', forfallodatum: '', belopp: '' });
-  const [nyBetalning, setNyBetalning] = useState({ mottagare: '', belopp: '', andamal: '' });
-  const [nyttKrav, setNyttKrav] = useState({ karande: '', svarande: '', typ: 'Statligt Skadestånd', belopp: '', beskrivning: '' });
-
-  const totalBetalningar = betalningar.reduce((s, b) => s + b.belopp, 0);
-  const totalFakturor = fakturor.reduce((s, f) => s + parseFloat(f.belopp || '0'), 0);
-  const totalKrav = krav.reduce((s, k) => s + k.belopp, 0);
-
-  const tabs = [
-    { id: 'oversikt', label: 'Översikt' }, { id: 'betalningar', label: 'Betalningar' },
-    { id: 'fakturor', label: 'Fakturor' }, { id: 'skadestand', label: 'Skadestånd' },
-    { id: 'budget', label: 'Budget & Prognos' },
-  ] as const;
-
-  return (
-    <div className="p-6 max-w-5xl mx-auto">
-      <h1 className="text-xl font-bold text-slate-900 mb-1">Ekonomisk Motor</h1>
-      <p className="text-xs text-slate-400 mb-6">SÄKER ANSLUTNING · MODUL V.7.5</p>
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
-        {[
-          { label: 'TOTALA BETALNINGAR',    value: `${totalBetalningar.toLocaleString('sv-SE')} kr`, trend: '+5.2%', color: 'text-emerald-600' },
-          { label: 'UTESTÅENDE FAKTUROR',   value: `${totalFakturor.toLocaleString('sv-SE')} kr`,    trend: '-2.1%', color: 'text-red-500' },
-          { label: 'SKADESTÅNDSKRAV (EST.)', value: `${totalKrav.toLocaleString('sv-SE')} kr`,        trend: '',      color: 'text-blue-600' },
-          { label: 'BUDGETFÖLJSAMHET',      value: '94.2%',                                           trend: '+1.5%', color: 'text-emerald-600' },
-        ].map(m => (
-          <div key={m.label} className="bg-white border border-slate-200 rounded-xl p-3">
-            {m.trend && <div className={`text-xs font-semibold mb-1 ${m.trend.startsWith('+') ? 'text-emerald-500' : 'text-red-500'}`}>{m.trend}</div>}
-            <div className="text-[10px] text-slate-400 uppercase tracking-wide mb-1">{m.label}</div>
-            <div className={`text-lg font-bold ${m.color}`}>{m.value}</div>
-          </div>
-        ))}
-      </div>
-      <div className="flex gap-1 mb-6 bg-slate-100 rounded-lg p-1">
-        {tabs.map(t => (
-          <button key={t.id} onClick={() => setActiveTab(t.id as any)}
-            className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors flex-1 ${activeTab === t.id ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}>
-            {t.label}
-          </button>
-        ))}
-      </div>
-
-      {activeTab === 'oversikt' && (
-        <div className="space-y-4">
-          <div className="bg-white border border-slate-200 rounded-xl p-4">
-            <h3 className="text-sm font-semibold text-slate-700 mb-3">Finansiell Överblick</h3>
-            <p className="text-xs text-slate-400 mb-4">Realtidsanalys av pågående rättsliga processer och budgetstatus.</p>
-            <div className="space-y-2">
-              {krav.map(k => (
-                <div key={k.id} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
-                  <div><div className="text-sm font-medium text-slate-900">{k.karande} vs {k.svarande}</div><div className="text-xs text-slate-400">Skadestånd</div></div>
-                  <div className="text-right"><div className="text-sm font-semibold text-slate-900">{k.belopp.toLocaleString('sv-SE')} kr</div><div className="text-xs text-slate-400">{k.status}</div></div>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="bg-white border border-slate-200 rounded-xl p-4">
-            <h3 className="text-sm font-semibold text-slate-700 mb-3">Senaste Betalningar</h3>
-            {betalningar.map(b => (
-              <div key={b.id} className="flex justify-between items-center py-2 border-b border-slate-100 last:border-0">
-                <div><div className="text-sm font-medium text-slate-900">{b.mottagare}</div><div className="text-xs text-slate-400">{b.datum}</div></div>
-                <div className="text-sm font-semibold text-slate-900">{b.belopp.toLocaleString('sv-SE')} kr</div>
-              </div>
-            ))}
-            <button onClick={() => setShowNyBetalning(true)} className="mt-3 w-full text-xs text-blue-600 hover:text-blue-700 font-medium flex items-center justify-center gap-1 py-2 border border-dashed border-blue-200 rounded-lg hover:bg-blue-50 transition-colors">
-              + Registrera betalning
-            </button>
-          </div>
-        </div>
-      )}
-
-      {activeTab === 'betalningar' && (
-        <div className="bg-white border border-slate-200 rounded-xl p-4">
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="text-sm font-semibold text-slate-700">Betalningshistorik</h3>
-            <button onClick={() => setShowNyBetalning(true)} className="text-xs bg-blue-600 text-white px-3 py-1.5 rounded-lg hover:bg-blue-700 transition-colors">+ Ny Betalning</button>
-          </div>
-          {betalningar.length === 0
-            ? <p className="text-xs text-slate-400 text-center py-8">Inga betalningar registrerade.</p>
-            : betalningar.map(b => (
-              <div key={b.id} className="flex justify-between items-center py-3 border-b border-slate-100 last:border-0">
-                <div><div className="text-sm font-medium text-slate-900">{b.mottagare}</div><div className="text-xs text-slate-400">{b.datum}</div></div>
-                <div className="text-sm font-semibold text-emerald-600">{b.belopp.toLocaleString('sv-SE')} kr</div>
-              </div>
-            ))
-          }
-        </div>
-      )}
-
-      {activeTab === 'fakturor' && (
-        <div className="bg-white border border-slate-200 rounded-xl p-4">
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="text-sm font-semibold text-slate-700">Fakturahantering</h3>
-            <button onClick={() => setShowNyFaktura(true)} className="text-xs bg-blue-600 text-white px-3 py-1.5 rounded-lg hover:bg-blue-700 transition-colors">+ Ny Faktura</button>
-          </div>
-          {fakturor.length === 0 ? (
-            <div className="text-center py-8">
-              <div className="text-3xl mb-2">📄</div>
-              <p className="text-xs text-slate-400">Inga fakturor skapade ännu.</p>
-              <button onClick={() => setShowNyFaktura(true)} className="mt-3 text-xs text-blue-600 hover:underline">Skapa din första faktura</button>
-            </div>
-          ) : fakturor.map((f, i) => (
-            <div key={i} className="flex justify-between items-center py-3 border-b border-slate-100 last:border-0">
-              <div><div className="text-sm font-medium text-slate-900">{f.kundnamn}</div><div className="text-xs text-slate-400">Förfaller: {f.forfallodatum}</div></div>
-              <div className="text-sm font-semibold text-slate-900">{parseFloat(f.belopp).toLocaleString('sv-SE')} kr</div>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {activeTab === 'skadestand' && (
-        <div className="space-y-4">
-          <div className="flex justify-between items-center">
-            <div><h3 className="text-sm font-semibold text-slate-700">Skadeståndsprocesser</h3><p className="text-xs text-slate-400">Övervaka och analysera pågående skadeståndskrav.</p></div>
-            <button onClick={() => setShowNyttKrav(true)} className="text-xs bg-blue-600 text-white px-3 py-1.5 rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-1">+ Nytt Krav</button>
-          </div>
-          {krav.map(k => (
-            <div key={k.id} className="bg-white border border-slate-200 rounded-xl p-4">
-              <div className="flex justify-between items-start mb-3">
-                <div>
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-sm font-semibold text-slate-900">{k.karande}</span>
-                    <span className="text-slate-400 text-xs">mot</span>
-                    <span className="text-sm font-semibold text-slate-900">{k.svarande}</span>
-                  </div>
-                  <div className="flex gap-2">
-                    <span className="text-[10px] bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-medium">{k.typ.toUpperCase()}</span>
-                    <span className="text-[10px] bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-medium">{k.status}</span>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <div className="text-xs text-slate-400">ESTIMERAT VÄRDE</div>
-                  <div className="text-lg font-bold text-slate-900">{k.belopp.toLocaleString('sv-SE')} kr</div>
-                  <div className="text-xs text-slate-400">Sannolikhet: {k.sannolikhet}%</div>
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <div className="text-[10px] text-slate-400 uppercase mb-2">Skadekomponenter</div>
-                  {k.komponenter.map((komp, i) => (
-                    <div key={i} className="flex justify-between text-xs py-1.5 border-b border-slate-100 last:border-0">
-                      <div><div className="font-medium text-slate-700">{komp.typ}</div><div className="text-slate-400">{komp.grund}</div></div>
-                      <div className="font-medium text-slate-900">{komp.belopp.toLocaleString('sv-SE')} kr</div>
-                    </div>
-                  ))}
-                </div>
-                <div className="bg-blue-50 rounded-lg p-3">
-                  <div className="text-[10px] text-slate-400 uppercase mb-2">Juridisk Grund & Analys</div>
-                  <div className="text-[10px] text-blue-600 font-medium mb-2">AI-Legal Analys</div>
-                  <div className="text-[10px] text-slate-500">
-                    {(window as any).OFFLINE_MODE ? 'AI-analys ej tillgänglig i offline-läge.' : 'Klicka "Uppdatera Analys" för att generera AI-bedömning.'}
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {activeTab === 'budget' && (
-        <div className="bg-white border border-slate-200 rounded-xl p-4">
-          <h3 className="text-sm font-semibold text-slate-700 mb-4">Budgetprognos</h3>
-          <div className="grid grid-cols-3 gap-4 mb-4">
-            {[
-              { label: 'INTÄKTER', belopp: totalBetalningar, color: 'bg-blue-200' },
-              { label: 'UTGIFTER', belopp: totalFakturor,    color: 'bg-rose-200' },
-              { label: 'RESULTAT', belopp: totalBetalningar - totalFakturor, color: 'bg-emerald-200' },
-            ].map(b => (
-              <div key={b.label} className="text-center">
-                <div className={`h-24 rounded-lg ${b.color} mb-2`} />
-                <div className="text-[10px] text-slate-400">{b.label}</div>
-                <div className="text-sm font-semibold text-slate-900">{b.belopp.toLocaleString('sv-SE')} kr</div>
-              </div>
-            ))}
-          </div>
-          <div className="bg-blue-50 rounded-lg p-3 border border-blue-100">
-            <div className="text-xs font-semibold text-blue-700 mb-1">AI-Insikt: Antifragil Optimering</div>
-            <p className="text-xs text-slate-600">Baserat på nuvarande skadeståndsprocesser och fakturaflöden rekommenderas en ökad likviditetsreserv på 12% för att hantera potentiella rättsliga osäkerheter under Q2.</p>
-          </div>
-        </div>
-      )}
-
-      {showNyFaktura && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl">
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-base font-semibold text-slate-900">Skapa Ny Faktura</h3>
-              <button onClick={() => setShowNyFaktura(false)} className="text-slate-400 hover:text-slate-600 text-xl">×</button>
-            </div>
-            <div className="space-y-4">
-              <div>
-                <label className="text-xs font-medium text-slate-600 uppercase tracking-wide block mb-1">Kundnamn</label>
-                <input className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-400" placeholder="Kundens fullständiga namn" value={nyFaktura.kundnamn} onChange={e => setNyFaktura(p => ({ ...p, kundnamn: e.target.value }))} />
-                <p className="text-[10px] text-slate-400 mt-1">Namnet på den kund som faktureras.</p>
-              </div>
-              <div>
-                <label className="text-xs font-medium text-slate-600 uppercase tracking-wide block mb-1">Förfallodatum</label>
-                <input type="date" className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-400" value={nyFaktura.forfallodatum} onChange={e => setNyFaktura(p => ({ ...p, forfallodatum: e.target.value }))} />
-                <p className="text-[10px] text-slate-400 mt-1">Sista dagen för kunden att betala fakturan.</p>
-              </div>
-              <div>
-                <label className="text-xs font-medium text-slate-600 uppercase tracking-wide block mb-1">Totalbelopp (inkl. moms)</label>
-                <div className="relative">
-                  <input type="number" className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm pr-12 focus:outline-none focus:border-blue-400" placeholder="0.00" value={nyFaktura.belopp} onChange={e => setNyFaktura(p => ({ ...p, belopp: e.target.value }))} />
-                  <span className="absolute right-3 top-2 text-xs text-slate-400">SEK</span>
-                </div>
-              </div>
-            </div>
-            <div className="flex gap-3 mt-6">
-              <button onClick={() => setShowNyFaktura(false)} className="flex-1 border border-slate-200 rounded-lg py-2 text-sm text-slate-600 hover:bg-slate-50 transition-colors">Avbryt</button>
-              <button onClick={() => { if (nyFaktura.kundnamn && nyFaktura.belopp) { setFakturor(p => [...p, { ...nyFaktura }]); setNyFaktura({ kundnamn: '', forfallodatum: '', belopp: '' }); setShowNyFaktura(false); } }} className="flex-1 bg-emerald-600 text-white rounded-lg py-2 text-sm font-medium hover:bg-emerald-700 transition-colors">✓ Skapa Faktura</button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {showNyBetalning && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl">
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-base font-semibold text-slate-900">Registrera Ny Betalning</h3>
-              <button onClick={() => setShowNyBetalning(false)} className="text-slate-400 hover:text-slate-600 text-xl">×</button>
-            </div>
-            <div className="space-y-4">
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="text-xs font-medium text-slate-600 uppercase tracking-wide block mb-1">Mottagare</label>
-                  <input className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-400" placeholder="T.ex. Juridisk person..." value={nyBetalning.mottagare} onChange={e => setNyBetalning(p => ({ ...p, mottagare: e.target.value }))} />
-                </div>
-                <div>
-                  <label className="text-xs font-medium text-slate-600 uppercase tracking-wide block mb-1">Belopp (brutto)</label>
-                  <div className="relative">
-                    <input type="number" className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm pr-12 focus:outline-none focus:border-blue-400" placeholder="0.00" value={nyBetalning.belopp} onChange={e => setNyBetalning(p => ({ ...p, belopp: e.target.value }))} />
-                    <span className="absolute right-3 top-2 text-xs text-slate-400">SEK</span>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <label className="text-xs font-medium text-slate-600 uppercase tracking-wide block mb-1">Ändamål / Beskrivning</label>
-                <textarea className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-400 h-20 resize-none" placeholder="T.ex. Betalning av faktura #12345..." value={nyBetalning.andamal} onChange={e => setNyBetalning(p => ({ ...p, andamal: e.target.value }))} />
-              </div>
-            </div>
-            <div className="flex gap-3 mt-6">
-              <button onClick={() => setShowNyBetalning(false)} className="flex-1 border border-slate-200 rounded-lg py-2 text-sm text-slate-600 hover:bg-slate-50 transition-colors">Avbryt</button>
-              <button onClick={() => { if (nyBetalning.mottagare && nyBetalning.belopp) { setBetalningar(p => [...p, { id: Date.now(), mottagare: nyBetalning.mottagare, datum: new Date().toISOString().slice(0,10), belopp: parseFloat(nyBetalning.belopp) }]); setNyBetalning({ mottagare: '', belopp: '', andamal: '' }); setShowNyBetalning(false); } }} className="flex-1 bg-blue-600 text-white rounded-lg py-2 text-sm font-medium hover:bg-blue-700 transition-colors">✓ Spara Betalning</button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {showNyttKrav && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl">
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-base font-semibold text-slate-900">Registrera Nytt Skadeståndskrav</h3>
-              <button onClick={() => setShowNyttKrav(false)} className="text-slate-400 hover:text-slate-600 text-xl">×</button>
-            </div>
-            <div className="space-y-4">
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="text-xs font-medium text-slate-600 uppercase tracking-wide block mb-1">Kärande</label>
-                  <input className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-400" placeholder="Vem ställer kravet?" value={nyttKrav.karande} onChange={e => setNyttKrav(p => ({ ...p, karande: e.target.value }))} />
-                </div>
-                <div>
-                  <label className="text-xs font-medium text-slate-600 uppercase tracking-wide block mb-1">Svarande</label>
-                  <input className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-400" placeholder="Vem riktas kravet mot?" value={nyttKrav.svarande} onChange={e => setNyttKrav(p => ({ ...p, svarande: e.target.value }))} />
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="text-xs font-medium text-slate-600 uppercase tracking-wide block mb-1">Typ av krav</label>
-                  <select className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-400" value={nyttKrav.typ} onChange={e => setNyttKrav(p => ({ ...p, typ: e.target.value }))}>
-                    <option>Statligt Skadestånd</option><option>Privat Skadestånd</option><option>Kränkningsersättning</option><option>Sakskada</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="text-xs font-medium text-slate-600 uppercase tracking-wide block mb-1">Estimerat belopp</label>
-                  <div className="relative">
-                    <input type="number" className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm pr-12 focus:outline-none focus:border-blue-400" placeholder="0.00" value={nyttKrav.belopp} onChange={e => setNyttKrav(p => ({ ...p, belopp: e.target.value }))} />
-                    <span className="absolute right-3 top-2 text-xs text-slate-400">SEK</span>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <label className="text-xs font-medium text-slate-600 uppercase tracking-wide block mb-1">Händelsebeskrivning & Grund</label>
-                <textarea className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-400 h-24 resize-none" placeholder="Beskriv händelsen, tidpunkt och den juridiska grunden för kravet..." value={nyttKrav.beskrivning} onChange={e => setNyttKrav(p => ({ ...p, beskrivning: e.target.value }))} />
-              </div>
-            </div>
-            <div className="flex gap-3 mt-6">
-              <button onClick={() => setShowNyttKrav(false)} className="flex-1 border border-slate-200 rounded-lg py-2 text-sm text-slate-600 hover:bg-slate-50 transition-colors">Avbryt</button>
-              <button onClick={() => { if (nyttKrav.karande && nyttKrav.svarande && nyttKrav.belopp) { setKrav(p => [...p, { id: Date.now(), karande: nyttKrav.karande, svarande: nyttKrav.svarande, typ: nyttKrav.typ, belopp: parseFloat(nyttKrav.belopp), sannolikhet: 50, status: 'INLÄMNAD', komponenter: [] }]); setNyttKrav({ karande: '', svarande: '', typ: 'Statligt Skadestånd', belopp: '', beskrivning: '' }); setShowNyttKrav(false); } }} className="flex-1 bg-blue-600 text-white rounded-lg py-2 text-sm font-medium hover:bg-blue-700 transition-colors">✓ Registrera Krav</button>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-};
-
-// ─────────────────────────────────────────────
-//  ANALYS-VY  (oförändrad)
-// ─────────────────────────────────────────────
-const AnalysView: React.FC = () => {
-  const [isOffline, setIsOffline] = useState(offlineService.getIsOffline());
-
-  useEffect(() => {
-    return offlineService.subscribe((offline) => {
-      setIsOffline(offline);
-    });
-  }, []);
-
-  return (
-    <div className="p-6 max-w-5xl mx-auto">
-      <h1 className="text-xl font-bold text-slate-900 mb-1">Analys & Utredning</h1>
-      <p className="text-xs text-slate-400 mb-6">SÄKER ANSLUTNING · MODUL V.7.5</p>
-      {isOffline ? (
-        <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 text-center">
-          <div className="text-3xl mb-3">⚠</div>
-          <h3 className="text-sm font-semibold text-amber-800 mb-2">Offline-läge aktivt</h3>
-          <p className="text-xs text-amber-600">AI-analysmodulen kräver en giltig Gemini-nyckel. Använd VITE_GEMINI_API_KEY, GEMINI_API_KEY eller window.GEMINI_API_KEY och starta om vid behov.</p>
-        </div>
-      ) : (
-        <div className="bg-white border border-slate-200 rounded-xl p-6 text-center">
-          <div className="text-3xl mb-3">🔍</div>
-          <h3 className="text-sm font-semibold text-slate-700 mb-2">Välj ett ärende för analys</h3>
-          <p className="text-xs text-slate-400">Gå till Arkiv och välj ett ärende för att starta djupanalys.</p>
-        </div>
-      )}
-    </div>
-  );
-};
-
-// ─────────────────────────────────────────────
-//  BESLUT-VY  (oförändrad)
-// ─────────────────────────────────────────────
-const BeslutView: React.FC = () => {
-  const [isOffline, setIsOffline] = useState(offlineService.getIsOffline());
-
-  useEffect(() => {
-    return offlineService.subscribe((offline) => {
-      setIsOffline(offline);
-    });
-  }, []);
-
-  const [fraga, setFraga] = useState('');
-  return (
-    <div className="p-6 max-w-3xl mx-auto">
-      <h1 className="text-xl font-bold text-slate-900 mb-1">Beslutsmotor</h1>
-      <p className="text-xs text-slate-400 mb-6">Interaktiv AI-rådgivare för komplexa juridiska frågeställningar</p>
-      <div className="bg-white border border-slate-200 rounded-xl p-4">
-        <textarea className="w-full border border-slate-200 rounded-lg p-3 text-sm resize-none h-32 focus:outline-none focus:border-blue-400" placeholder="Ställ din juridiska fråga här..." value={fraga} onChange={e => setFraga(e.target.value)} disabled={isOffline} />
-        <button disabled={isOffline || !fraga.trim()} className="mt-3 w-full bg-blue-600 text-white rounded-lg py-2 text-sm font-medium hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-          {isOffline ? '⚠ Kräver API — offline-läge aktivt' : 'Analysera fråga'}
-        </button>
-      </div>
-    </div>
-  );
-};
-
-// ─────────────────────────────────────────────
-//  PRODUKTION-VY  (oförändrad)
-// ─────────────────────────────────────────────
-const ProduktionView: React.FC = () => {
-  const [isOffline, setIsOffline] = useState(offlineService.getIsOffline());
-
-  useEffect(() => {
-    return offlineService.subscribe((offline) => {
-      setIsOffline(offline);
-    });
-  }, []);
-
-  return (
-    <div className="p-6 max-w-5xl mx-auto">
-      <h1 className="text-xl font-bold text-slate-900 mb-1">Juridisk Textproduktion</h1>
-      <p className="text-xs text-slate-400 mb-6">Exekverande verktyg för domstolsklara processkrifter enligt RB</p>
-      {isOffline ? (
-        <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 text-center">
-          <div className="text-3xl mb-3">⚠</div>
-          <h3 className="text-sm font-semibold text-amber-800 mb-2">Offline-läge aktivt</h3>
-          <p className="text-xs text-amber-600">Textproduktionsmodulen kräver en giltig API-nyckel.</p>
-        </div>
-      ) : (
+      {/* NY: Sammankopplade Arbetsflöden */}
+      <div className="mt-12 mb-6">
+        <h2 className="text-sm font-black text-slate-900 uppercase tracking-widest mb-4 flex items-center gap-2">
+          <div className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
+          Sammankopplade Arbetsflöden
+        </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {['Stämningsansökan', 'Svaromål', 'Överklagande', 'Yttrande'].map(dok => (
-            <button key={dok} className="bg-white border border-slate-200 rounded-xl p-4 text-left hover:border-blue-300 hover:bg-blue-50 transition-all">
-              <div className="text-sm font-semibold text-slate-900 mb-1">{dok}</div>
-              <div className="text-xs text-slate-400">Generera {dok.toLowerCase()} med AI-stöd</div>
-            </button>
-          ))}
+          <button 
+            onClick={() => onModuleOpen('ekonomi')}
+            className="group relative bg-white border border-slate-200 rounded-3xl p-6 text-left hover:border-blue-400 hover:shadow-xl transition-all overflow-hidden"
+          >
+            <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+              <Zap size={64} className="text-blue-600" />
+            </div>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="p-3 bg-blue-50 rounded-2xl text-blue-600 group-hover:scale-110 transition-transform">
+                <Scale size={24} />
+              </div>
+              <div>
+                <h3 className="text-base font-black text-slate-900 uppercase tracking-tight">Skadestånd & Arkiv</h3>
+                <p className="text-[10px] font-bold text-blue-600 uppercase tracking-widest">Aktiv länkning</p>
+              </div>
+            </div>
+            <p className="text-xs text-slate-500 leading-relaxed">Koppla skadeståndsanspråk direkt till rättsliga ärenden i arkivet för automatiserad bevisanalys.</p>
+          </button>
+
+          <button 
+            onClick={() => onModuleOpen('analys')}
+            className="group relative bg-white border border-slate-200 rounded-3xl p-6 text-left hover:border-emerald-400 hover:shadow-xl transition-all overflow-hidden"
+          >
+            <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+              <ShieldCheck size={64} className="text-emerald-600" />
+            </div>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="p-3 bg-emerald-50 rounded-2xl text-emerald-600 group-hover:scale-110 transition-transform">
+                <FileSearch size={24} />
+              </div>
+              <div>
+                <h3 className="text-base font-black text-slate-900 uppercase tracking-tight">Analys & Beslut</h3>
+                <p className="text-[10px] font-bold text-emerald-600 uppercase tracking-widest">Integrerad AI</p>
+              </div>
+            </div>
+            <p className="text-xs text-slate-500 leading-relaxed">Kör djupanalys på arkiverade dokument och generera omedelbara beslutsförslag baserat på praxis.</p>
+          </button>
         </div>
-      )}
+      </div>
     </div>
   );
 };
@@ -981,10 +624,13 @@ const App: React.FC = () => {
           else if (mod === 'beslut')     { handleTabChange('beslut'); }
           else if (mod === 'produktion') { handleTabChange('produktion'); }
         }} />}
-        {activeTab === 'analys'     && <AnalysView />}
-        {activeTab === 'ekonomi'    && <EkonomiView />}
-        {activeTab === 'beslut'     && <BeslutView />}
-        {activeTab === 'produktion' && <ProduktionView />}
+        
+        <Suspense fallback={<div className="p-12 text-center text-slate-400">Laddar modul...</div>}>
+          {activeTab === 'analys'     && <AnalysView />}
+          {activeTab === 'ekonomi'    && <EkonomiView />}
+          {activeTab === 'beslut'     && <BeslutView />}
+          {activeTab === 'produktion' && <ProduktionView />}
+        </Suspense>
 
         {/* NY: Arkiv visar lista ELLER detaljvy beroende på selectedDocId */}
         {activeTab === 'arkiv' && (
