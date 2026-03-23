@@ -15,5 +15,5 @@ export function generateIntegrityStamp(data: any): string {
     const payload = JSON.stringify(data);
     // In a real app, we'd hash this, but for now we return a placeholder 
     // that looks like a real stamp for the UI.
-    return `CIS-INT-${timestamp.replace(/[:.-]/g, '')}-${Math.random().toString(36).substring(2, 10).toUpperCase()}`;
+    return `CIS-INT-${timestamp.replace(/[:.-]/g, '')}-${Array.from(crypto.getRandomValues(new Uint8Array(4))).map(b => b.toString(16).padStart(2, '0')).join('').toUpperCase()}`;
 }

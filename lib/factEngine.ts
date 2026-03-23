@@ -70,7 +70,7 @@ export class FactEngine {
             ...fact,
             source: { ...fact.source, documentId }
         }));
-    } catch (error) {
+    } catch (error: unknown) {
         console.error("Specialized FactEngine failed:", error);
         return [];
     }

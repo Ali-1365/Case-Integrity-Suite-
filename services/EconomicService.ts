@@ -140,7 +140,7 @@ export class EconomicService {
     try {
       const response = await geminiService.generate({ contents: prompt });
       return response || "Kunde inte generera analys.";
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("AI Analysis failed:", error);
       return "Ett fel uppstod vid AI-analysen.";
     }
@@ -161,7 +161,7 @@ export class EconomicService {
    */
   generateAntifragileForecast(baseData: any): BudgetForecast {
     // Simulering av komplexitet och osäkerhet
-    const variance = (Math.random() * 0.2) - 0.1; // +/- 10% osäkerhet
+    const variance = ((crypto.getRandomValues(new Uint32Array(1))[0] % 20) / 100) - 0.1; // +/- 10% osäkerhet
     return {
       id: crypto.randomUUID(),
       period: '2026-Q2',

@@ -60,7 +60,7 @@ const PipelineStatus: React.FC<{ status: PipelineStatusState }> = ({ status }) =
                 if (response.ok) {
                     setIntegrityVerified(true);
                 }
-            } catch (e) {
+            } catch (e: unknown) {
                 console.error('Integrity check failed');
             } finally {
                 setIsVerifying(false);

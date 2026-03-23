@@ -55,7 +55,7 @@ export const IntelligenceCore: React.FC<{ analysis: any }> = ({ analysis }) => {
 
     const addLog = (msg: string) => {
         const time = new Date().toLocaleTimeString();
-        setLocalLogs(prev => [{ id: Math.random().toString(36).substr(2, 9), msg, time }, ...prev].slice(0, 10));
+        setLocalLogs(prev => [{ id: Array.from(crypto.getRandomValues(new Uint8Array(4))).map(b => b.toString(16).padStart(2, '0')).join(''), msg, time }, ...prev].slice(0, 10));
     };
 
     const triggerProcess = (id: string, label: string) => {

@@ -64,10 +64,10 @@ const SystemHealthDashboard: React.FC<SystemHealthDashboardProps> = ({ isOpen, o
       for (let i = 20; i >= 0; i--) {
         data.push({
           timestamp: now - i * 60000,
-          cpu: 20 + Math.random() * 30,
-          memory: 40 + Math.random() * 20,
-          apiLatency: 100 + Math.random() * 200,
-          errorRate: Math.random() * 5
+          cpu: 20 + (crypto.getRandomValues(new Uint32Array(1))[0] % 3000) / 100,
+          memory: 40 + (crypto.getRandomValues(new Uint32Array(1))[0] % 2000) / 100,
+          apiLatency: 100 + (crypto.getRandomValues(new Uint32Array(1))[0] % 20000) / 100,
+          errorRate: (crypto.getRandomValues(new Uint32Array(1))[0] % 500) / 100
         });
       }
       return data;
@@ -79,10 +79,10 @@ const SystemHealthDashboard: React.FC<SystemHealthDashboardProps> = ({ isOpen, o
       setMetrics(prev => {
         const newMetric = {
           timestamp: Date.now(),
-          cpu: 20 + Math.random() * 30,
-          memory: 40 + Math.random() * 20,
-          apiLatency: 100 + Math.random() * 200,
-          errorRate: Math.random() * 2
+          cpu: 20 + (crypto.getRandomValues(new Uint32Array(1))[0] % 3000) / 100,
+          memory: 40 + (crypto.getRandomValues(new Uint32Array(1))[0] % 2000) / 100,
+          apiLatency: 100 + (crypto.getRandomValues(new Uint32Array(1))[0] % 20000) / 100,
+          errorRate: (crypto.getRandomValues(new Uint32Array(1))[0] % 200) / 100
         };
         return [...prev.slice(1), newMetric];
       });
@@ -281,7 +281,7 @@ const SystemHealthDashboard: React.FC<SystemHealthDashboardProps> = ({ isOpen, o
                         if (!res.ok) throw new Error(`HTTP ${res.status}`);
                         await res.json();
                         results.push({ file, status: 'ok' as const });
-                      } catch (e) {
+                      } catch (e: unknown) {
                         results.push({ file, status: 'error' as const, message: e instanceof Error ? e.message : String(e) });
                       }
                     }

@@ -142,8 +142,8 @@ export class AIAnalysisEngine {
         holisticFlags:  parsed.holisticFlags   ?? [],
       };
 
-    } catch (e: any) {
-      const message = e?.message ?? String(e);
+    } catch (e: unknown) {
+      const message = (e instanceof Error ? e.message : String(e)) ?? String(e);
 
       // Quota slut eller auth-fel → aktivera offline
       if (
@@ -221,7 +221,7 @@ export class AIAnalysisEngine {
             responseMimeType: "application/json",
           },
         },
-        'pro'
+        'pro' as any
       );
 
       const parsed = JSON.parse(res);
@@ -232,8 +232,8 @@ export class AIAnalysisEngine {
         recommendation: parsed.recommendation ?? '',
       };
 
-    } catch (e: any) {
-      const message = e?.message ?? String(e);
+    } catch (e: unknown) {
+      const message = (e instanceof Error ? e.message : String(e)) ?? String(e);
       if (
         message.includes('429') ||
         message.includes('quota') ||
@@ -299,7 +299,7 @@ export class AIAnalysisEngine {
             responseMimeType: "application/json",
           },
         },
-        'pro'
+        'pro' as any
       );
 
       const parsed = JSON.parse(res);
@@ -310,8 +310,8 @@ export class AIAnalysisEngine {
         nextSteps:   parsed.nextSteps   ?? [],
       };
 
-    } catch (e: any) {
-      const message = e?.message ?? String(e);
+    } catch (e: unknown) {
+      const message = (e instanceof Error ? e.message : String(e)) ?? String(e);
       if (
         message.includes('429') ||
         message.includes('quota') ||
@@ -344,14 +344,14 @@ export class AIAnalysisEngine {
           contents: "Svara med ordet OK.",
           config: { responseMimeType: "text/plain" },
         },
-        'flash'
+        'flash' as any
       );
       const latencyMs = Date.now() - start;
       (window as any).OFFLINE_MODE = false;
       console.log(`AIAnalysisEngine: API online — svarstid ${latencyMs}ms`);
       return { online: true, message: "API ansluten och operativ.", latencyMs };
-    } catch (e: any) {
-      const message = e?.message ?? String(e);
+    } catch (e: unknown) {
+      const message = (e instanceof Error ? e.message : String(e)) ?? String(e);
       this.aktivera_offline(`API-statuskontroll misslyckades: ${message}`);
       return { online: false, message: `API ej tillgänglig: ${message}` };
     }

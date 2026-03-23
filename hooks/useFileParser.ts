@@ -85,7 +85,7 @@ export const useFileParser = () => {
         try {
           const parsed = JSON.parse(rawJson);
           textContent = `--- STRUKTURERAD JSON-DATA ---\n${JSON.stringify(parsed, null, 2)}`;
-        } catch (e) {
+        } catch (e: unknown) {
           textContent = rawJson; // Fallback to raw text if invalid JSON
         }
       }
@@ -96,7 +96,7 @@ export const useFileParser = () => {
         // Försök läsa som text om formatet är okänt men filändelsen antyder text/data
         try {
            textContent = cleanText(await file.text());
-        } catch (e) {
+        } catch (e: unknown) {
            throw new Error(`Filformat som inte stöds: ${mimeType || 'okänd typ'}`);
         }
       }
@@ -110,7 +110,7 @@ export const useFileParser = () => {
         mimeType: mimeType || 'application/octet-stream',
         textContent: textContent,
       };
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('File parsing error:', error);
       const message = error instanceof Error ? error.message : 'Ett okänt fel uppstod vid filbehandling.';
       setParsingError(message);

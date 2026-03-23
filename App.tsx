@@ -172,8 +172,8 @@ const DocumentDetailView: React.FC<{
         const found = await db.getDocument(documentId);
         if (found) setDoc(found);
         else setError('Ärendet hittades inte i databasen.');
-      } catch (e: any) {
-        setError(`Kunde inte ladda ärendet: ${e.message}`);
+      } catch (e: unknown) {
+        setError(`Kunde inte ladda ärendet: ${(e instanceof Error ? e.message : String(e))}`);
       } finally {
         setLoading(false);
       }

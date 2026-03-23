@@ -28,7 +28,7 @@ const QuotaWarning: React.FC = () => {
         try {
             await geminiService.openKeySelection();
             setIsVisible(false);
-        } catch (error) {
+        } catch (error: unknown) {
             console.error("Failed to open key selection:", error);
         }
     };

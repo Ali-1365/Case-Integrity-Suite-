@@ -54,7 +54,7 @@ export class RagIndexService {
             metadata: { title: corpus.title, validFrom: p.metadata.validFrom, auditStatus: "VERIFIED" }
           });
           hashes.push(p.metadata.provenanceHash);
-        } catch (e) { console.error(`[RAG_INDEX] Failed paragraph ${p.id}:`, e); }
+        } catch (e: unknown) { console.error(`[RAG_INDEX] Failed paragraph ${p.id}:`, e); }
       }
     }
 
@@ -91,7 +91,7 @@ export class RagIndexService {
           updatedChunks[i] = { ...chunk, embedding };
           bakedCount++;
           if (bakedCount % 10 === 0) console.log(`[RAG_INDEX] Baked ${bakedCount} embeddings...`);
-        } catch (e) {
+        } catch (e: unknown) {
           console.error(`[RAG_INDEX] Failed to bake embedding for chunk ${chunk.id}:`, e);
         }
       }

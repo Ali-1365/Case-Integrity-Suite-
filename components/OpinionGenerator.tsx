@@ -51,7 +51,7 @@ const OpinionGenerator: React.FC<OpinionGeneratorProps> = ({ analysis, onComplet
       if (analysis.documents && analysis.documents[0]) {
         await db.saveOpinion(analysis.documents[0].id, result);
       }
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("Opinion generation failed:", error);
     } finally {
       setIsGenerating(false);

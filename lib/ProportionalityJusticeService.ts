@@ -97,7 +97,7 @@ export class ProportionalityJusticeService {
       });
 
       return report;
-    } catch (e) {
+    } catch (e: unknown) {
       console.error("Proportionality check collapse:", e);
       throw new Error("Kritiskt fel i proportionalitetsmotorn.");
     }

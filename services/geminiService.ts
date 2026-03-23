@@ -101,8 +101,8 @@ export class GeminiService {
     try {
       this.ai = new GoogleGenAI({ apiKey } as any);
       console.log('[GeminiService] Klient initierad.');
-    } catch (e: any) {
-      loggingService.error(`[GeminiService] Initiering misslyckades: ${e.message}`);
+    } catch (e: unknown) {
+      loggingService.error(`[GeminiService] Initiering misslyckades: ${(e instanceof Error ? e.message : String(e))}`);
       offlineService.setOffline(true, 'NETWORK_ERROR');
     }
   }
@@ -125,28 +125,28 @@ export class GeminiService {
       try {
         this.quotaState = { isThrottled: false, retryAfterMs: 0, lastError: null };
         return await operation();
-      } catch (error: any) {
-        const msg = (error.message || '').toLowerCase();
+      } catch (error: unknown) {
+        const msg = ((error instanceof Error ? error.message : String(error)) || '').toLowerCase();
         const isQuota = msg.includes('quota') || msg.includes('429') ||
           msg.includes('resource_exhausted') || msg.includes('overloaded') ||
-          error.status === 429 || error.status === 503;
+          (error as any).status === 429 || (error as any).status === 503;
         const isAuth = msg.includes('401') || msg.includes('api_key') ||
-          msg.includes('unauthorized') || error.status === 401;
+          msg.includes('unauthorized') || (error as any).status === 401;
 
         if (isAuth) {
           offlineService.setOffline(true, 'API_KEY_MISSING');
-          throw new ApiError(`Auth-fel: ${error.message}`, { originalError: error });
+          throw new ApiError(`Auth-fel: ${(error instanceof Error ? error.message : String(error))}`, { originalError: error });
         }
         if (isQuota && i < retries - 1) {
           console.warn(`[GeminiService] Kvotfel. Försök ${i + 1}/${retries}. Väntar ${delay / 1000}s...`);
-          this.quotaState = { isThrottled: true, retryAfterMs: delay, lastError: error.message };
+          this.quotaState = { isThrottled: true, retryAfterMs: delay, lastError: (error instanceof Error ? error.message : String(error)) };
           await new Promise(r => setTimeout(r, delay));
           delay *= 2;
         } else if (i === retries - 1) {
-          this.quotaState.lastError = error.message;
+          this.quotaState.lastError = (error instanceof Error ? error.message : String(error));
           if (isQuota) offlineService.setOffline(true, 'QUOTA_EXCEEDED');
           else offlineService.setOffline(true, 'NETWORK_ERROR');
-          throw new ApiError(`API-fel efter ${i + 1} försök: ${error.message}`, { originalError: error });
+          throw new ApiError(`API-fel efter ${i + 1} försök: ${(error instanceof Error ? error.message : String(error))}`, { originalError: error });
         } else {
           throw error;
         }
@@ -207,13 +207,13 @@ export class GeminiService {
       });
 
       return text;
-    } catch (error: any) {
+    } catch (error: unknown) {
       const duration = Date.now() - startTime;
       loggingService.addLog({
         mode,
         prompt: JSON.stringify(params.contents).substring(0, 500),
         response: null,
-        error: error.message,
+        error: (error instanceof Error ? error.message : String(error)),
         duration,
       });
 
@@ -241,7 +241,7 @@ export class GeminiService {
         }
         return synthetic;
       }
-      return `SYSTEMFEL: Kunde inte generera svar. ${error.message}`;
+      return `SYSTEMFEL: Kunde inte generera svar. ${(error instanceof Error ? error.message : String(error))}`;
     }
   }
 
@@ -262,8 +262,8 @@ export class GeminiService {
         );
         const values = response?.embeddings?.[0]?.values || (response as any)?.embedding?.values;
         if (values?.length > 0) return values;
-      } catch (e: any) {
-        console.warn(`[GeminiService] Embed misslyckades (${modelName}): ${e.message}`);
+      } catch (e: unknown) {
+        console.warn(`[GeminiService] Embed misslyckades (${modelName}): ${(e instanceof Error ? e.message : String(e))}`);
       }
     }
     console.warn('[GeminiService] Embed API helt nere → pseudo-embedding.');
@@ -290,8 +290,8 @@ export class GeminiService {
       const latencyMs = Date.now() - start;
       offlineService.setOffline(false);
       return { online: true, latencyMs, message: 'API ansluten och operativ.' };
-    } catch (e: any) {
-      return { online: false, message: `API ej tillgänglig: ${e.message}` };
+    } catch (e: unknown) {
+      return { online: false, message: `API ej tillgänglig: ${(e instanceof Error ? e.message : String(e))}` };
     }
   }
 
