@@ -50,7 +50,7 @@ class LoggingService {
   // Helper methods for common logging patterns
   info(message: string, details?: any) { this.log('INFO', 'system', message, details); }
   warn(message: string, details?: any) { this.log('WARN', 'system', message, details); }
-  error(message: string, details?: any) {
+  error(message: string, details?: any) { 
     if (details instanceof Error) {
       this.handleError(details, message);
     } else {

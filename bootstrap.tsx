@@ -5,7 +5,7 @@ import { loggingService } from "./services/loggingService";
 
 // Sätt offline-läge som default — aktiveras om API saknas
 if (typeof window !== 'undefined') {
-  (window as any).OFFLINE_MODE = !import.meta.env.VITE_GEMINI_API_KEY &&
+  (window as any).OFFLINE_MODE = !import.meta.env.VITE_GEMINI_API_KEY && 
                                  !import.meta.env.GEMINI_API_KEY;
 
   // Ignorera WebSocket-fel helt — påverkar inte appen

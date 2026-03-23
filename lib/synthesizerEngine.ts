@@ -123,7 +123,7 @@ När du skapar Sakframställan, ska du inleda med Bevistemana (hämtade från Fa
     // Vi skickar en avskalad version av AnalysisResult för att spara tokens
     const strippedData = {
         caseId: data.caseId,
-        facts: data.facts.map((f: any) => ({
+        facts: data.facts.map((f: any) => ({ 
             id: f.id, 
             date: f.timestamp, 
             category: f.category, 

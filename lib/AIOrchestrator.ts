@@ -198,7 +198,7 @@ export class AIOrchestrator {
             linksCount: parsed.legalLinks?.length || 0
         });
         
-        const facts = (parsed.facts || []).map((f: any, idx: number) => ({
+        const facts = (parsed.facts || []).map((f: any, idx: number) => ({ 
             ...f, 
             id: f.id ? (f.id.includes('_') ? f.id : `${f.id}_${idx}`) : `FACT_${Date.now()}_${idx}`,
             source: { ...f.source, documentId }

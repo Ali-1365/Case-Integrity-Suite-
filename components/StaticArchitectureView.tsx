@@ -52,7 +52,7 @@ const StaticArchitectureView: React.FC<StaticArchitectureViewProps> = ({ isOpen,
         if (isOpen && activeSubView === 'root') {
             const timer = setTimeout(() => {
                 try {
-                    mermaid.initialize({
+                    mermaid.initialize({ 
                         startOnLoad: false, 
                         theme: 'dark', 
                         securityLevel: 'loose',

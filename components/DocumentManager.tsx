@@ -171,9 +171,9 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
             
             // 2. Kör full analys via AIOrchestrator
             const analysisResult = await orchestrator.runFullAnalysis(
-                doc.content || doc.textContent || '',
-                doc.id || `DOC-${Date.now()}`,
-                legalFrameworkIndex as any,
+                doc.content || doc.textContent || '', 
+                doc.id || `DOC-${Date.now()}`, 
+                legalFrameworkIndex as any, 
                 undefined, 
                 caseId
             );
