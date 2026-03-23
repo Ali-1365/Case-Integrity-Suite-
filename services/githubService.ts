@@ -99,7 +99,7 @@ class GithubService {
         const start = Date.now();
         const data = await this.safeFetch(`https://raw.githubusercontent.com/${this.repo}/main/metadata.json`, 3000);
         
-        if (!data) return null;
+        if (!data || !data.version || !data.sync_id) return null;
         
         return {
             isAligned: true, 
