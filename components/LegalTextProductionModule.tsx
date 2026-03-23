@@ -33,8 +33,6 @@ const LegalTextProductionModule: React.FC = () => {
     const [result, setResult] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [isContextExpanded, setIsContextExpanded] = useState(true);
-    const [copied, setCopied] = useState(false);
-    const [exported, setExported] = useState(false);
 
     useEffect(() => {
         const loadDocs = async () => {

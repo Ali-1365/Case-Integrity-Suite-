@@ -1,3 +1,0 @@
-## 2025-03-02 - [Interactive Native Feedback Instead of Browser Alerts]
-**Learning:** Browser `alert()` calls for basic user feedback like "Copied" or "Exported" disrupt the application flow significantly, halting JS execution entirely on many browsers. They degrade the "professional" enterprise feel of complex workflows like legal document generation.
-**Action:** Replace `alert()` calls with inline React state updates (`isCopied` / `isExported`), dynamically switching button text, icon, and colors (e.g. standard indigo -> emerald checkmark) for a short 2-second timeout. Always include proper `aria-label` tags for icon-buttons where text might be missing or confusing to screen readers.
