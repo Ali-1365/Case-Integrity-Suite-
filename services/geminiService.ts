@@ -23,15 +23,15 @@ class OfflineService {
       this._isOffline = true;
       this._reason = 'API_KEY_MISSING';
       if (typeof window !== 'undefined') {
-        (window as any).OFFLINE_MODE = true;
-        (window as any).OFFLINE_REASON = 'API_KEY_MISSING';
+        window.OFFLINE_MODE = true;
+        window.OFFLINE_REASON = 'API_KEY_MISSING';
       }
     }
   }
 
   getIsOffline(): boolean {
     return this._isOffline ||
-      (typeof window !== 'undefined' && (window as any).OFFLINE_MODE === true);
+      (typeof window !== 'undefined' && window.OFFLINE_MODE === true);
   }
 
   getReason(): OfflineReason { return this._reason; }
@@ -40,8 +40,8 @@ class OfflineService {
     this._isOffline = offline;
     this._reason = reason;
     if (typeof window !== 'undefined') {
-      (window as any).OFFLINE_MODE = offline;
-      (window as any).OFFLINE_REASON = reason;
+      window.OFFLINE_MODE = offline;
+      window.OFFLINE_REASON = reason;
     }
     this._subscribers.forEach(fn => fn(offline, reason));
     if (offline) {
@@ -129,9 +129,9 @@ export class GeminiService {
         const msg = ((error instanceof Error ? error.message : String(error)) || '').toLowerCase();
         const isQuota = msg.includes('quota') || msg.includes('429') ||
           msg.includes('resource_exhausted') || msg.includes('overloaded') ||
-          (error as any).status === 429 || (error as any).status === 503;
+          ((error as { status?: number }).status) === 429 || ((error as { status?: number }).status) === 503;
         const isAuth = msg.includes('401') || msg.includes('api_key') ||
-          msg.includes('unauthorized') || (error as any).status === 401;
+          msg.includes('unauthorized') || ((error as { status?: number }).status) === 401;
 
         if (isAuth) {
           offlineService.setOffline(true, 'API_KEY_MISSING');
@@ -296,14 +296,14 @@ export class GeminiService {
   }
 
   public async hasCustomKey(): Promise<boolean> {
-    if (typeof window !== 'undefined' && (window as any).aistudio?.hasSelectedApiKey)
-      return (window as any).aistudio.hasSelectedApiKey();
+    if (typeof window !== 'undefined' && window.aistudio?.hasSelectedApiKey)
+      return window.aistudio.hasSelectedApiKey();
     return false;
   }
 
   public async openKeySelection(): Promise<void> {
-    if (typeof window !== 'undefined' && (window as any).aistudio?.openSelectKey) {
-      await (window as any).aistudio.openSelectKey();
+    if (typeof window !== 'undefined' && window.aistudio?.openSelectKey) {
+      await window.aistudio.openSelectKey();
       this.initializeClient();
     }
   }

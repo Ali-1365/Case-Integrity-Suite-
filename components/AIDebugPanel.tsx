@@ -81,8 +81,8 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
       }, 'think');
       setResponse(res);
       refreshLogs();
-    } catch (err: unknown) {
-      setResponse(`### KRITISKT SYSTEMFEL\n\n${err instanceof Error ? err.message : 'Kommunikationsavbrott.'}`);
+    } catch (err) {
+      setResponse(`### KRITISKT SYSTEMFEL\n\n${err instanceof Error ? (err instanceof Error ? err.message : String(err)) : 'Kommunikationsavbrott.'}`);
     } finally {
       setIsLoading(false);
     }
@@ -119,14 +119,15 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
       // Store in state so we can export it
       (window as any)._lastBakedIndex = updatedIndex;
     } catch (err: unknown) {
-      setResponse(prev => prev + `\n\n### FEL VID BAKNING\n${(err instanceof Error ? err.message : String(err))}`);
+      const errorMessage = err instanceof Error ? err.message : String(err);
+      setResponse(prev => prev + `\n\n### FEL VID BAKNING\n${errorMessage}`);
     } finally {
       setIsLoading(false);
     }
   };
 
   const handleExportIndex = () => {
-    const index = (window as any)._lastBakedIndex;
+    const index = window._lastBakedIndex;
     if (index) {
       ragIndexService.exportIndex(index);
     } else {
@@ -154,7 +155,8 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
         setResponse(prev => prev + "\n\n⚠️ TEST VARNING: Vissa lagrum saknas i resultatet.");
       }
     } catch (err: unknown) {
-      setResponse(prev => prev + `\n\n### TEST FEL\n${(err instanceof Error ? err.message : String(err))}`);
+      const errorMessage = err instanceof Error ? err.message : String(err);
+      setResponse(prev => prev + `\n\n### TEST FEL\n${errorMessage}`);
     } finally {
       setIsLoading(false);
     }
@@ -185,7 +187,8 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
       
       setResponse(prev => prev + `\n\n### PIPELINE SLUTFÖRD\n- Status: ${pipelineState.isExportBlocked ? 'BLOCKERAD' : 'GODKÄND'}\n- Identifierade lagrum: ${uniqueLaws.join(', ')}\n\nFINAL V3 PREVIEW:\n${pipelineState.finalV3?.substring(0, 300)}...`);
     } catch (err: unknown) {
-      setResponse(prev => prev + `\n\n### PIPELINE FEL\n${(err instanceof Error ? err.message : String(err))}`);
+      const errorMessage = err instanceof Error ? err.message : String(err);
+      setResponse(prev => prev + `\n\n### PIPELINE FEL\n${errorMessage}`);
     } finally {
       setIsLoading(false);
     }
@@ -217,7 +220,8 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
 
       setResponse(prev => prev + "\n\n### REGRESSIONSTEST SLUTFÖRD\n✅ Alla kritiska flöden verifierade.");
     } catch (err: unknown) {
-      setResponse(prev => prev + `\n\n### TEST FEL\n${(err instanceof Error ? err.message : String(err))}`);
+      const errorMessage = err instanceof Error ? err.message : String(err);
+      setResponse(prev => prev + `\n\n### TEST FEL\n${errorMessage}`);
     } finally {
       setIsLoading(false);
     }

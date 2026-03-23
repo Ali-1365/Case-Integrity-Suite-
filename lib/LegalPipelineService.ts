@@ -10,7 +10,7 @@ export interface PipelineReport {
     status: 'pending' | 'running' | 'completed' | 'error' | 'blocked';
     output?: string;
     error?: string;
-    metadata?: any;
+    metadata?: Record<string, unknown>;
 }
 
 export interface PipelineState {

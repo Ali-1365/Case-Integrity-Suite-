@@ -3,8 +3,8 @@ import { useState, useCallback } from 'react';
 import { ParsedDocument } from '../types';
 
 // These are expected to be available globally or via importmap
-declare const pdfjsLib: any;
-declare const mammoth: any;
+declare const pdfjsLib: { getDocument: (data: unknown) => { promise: Promise<{ numPages: number; getPage: (num: number) => Promise<{ getTextContent: () => Promise<{ items: { str: string }[] }> }> }> } };
+declare const mammoth: { extractRawText: (options: { arrayBuffer: ArrayBuffer }) => Promise<{ value: string }> };
 
 export const useFileParser = () => {
   const [isParsing, setIsParsing] = useState(false);
@@ -67,7 +67,7 @@ export const useFileParser = () => {
         for (let i = 1; i <= numPages; i++) {
           const page = await pdf.getPage(i);
           const content = await page.getTextContent();
-          const strings = content.items.map((item: any) => item.str);
+          const strings = content.items.map((item: { str: string }) => item.str);
           fullText += strings.join(' ') + '\n';
         }
         textContent = cleanText(fullText);

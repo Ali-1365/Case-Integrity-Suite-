@@ -11,11 +11,11 @@ export class AIAnalysisEngine {
   //  OFFLINE-KONTROLL
   // ─────────────────────────────────────────────
   private isOffline(): boolean {
-    return (window as any).OFFLINE_MODE === true;
+    return window.OFFLINE_MODE === true;
   }
 
   private aktivera_offline(anledning: string): void {
-    (window as any).OFFLINE_MODE = true;
+    window.OFFLINE_MODE = true;
     console.warn(`AIAnalysisEngine: Offline-läge aktiverat — ${anledning}`);
   }
 
@@ -48,7 +48,7 @@ export class AIAnalysisEngine {
   // ─────────────────────────────────────────────
   //  HUVUD-ANALYS (Oracle v.7.6-GOLD)
   // ─────────────────────────────────────────────
-  async analyze(facts: any[]): Promise<{
+  async analyze(facts: import("../types").FactV2[]): Promise<{
     contradictions: ContradictionV2[];
     uncertainties: UncertaintyV2[];
     gapAnalysis: { description: string; missingAction: string }[];
@@ -143,7 +143,7 @@ export class AIAnalysisEngine {
       };
 
     } catch (e: unknown) {
-      const message = (e instanceof Error ? e.message : String(e)) ?? String(e);
+      const message = (e instanceof Error ? (e instanceof Error ? e.message : String(e)) : undefined) ?? String(e);
 
       // Quota slut eller auth-fel → aktivera offline
       if (
@@ -177,7 +177,7 @@ export class AIAnalysisEngine {
   // ─────────────────────────────────────────────
   //  RISKBEDÖMNING
   // ─────────────────────────────────────────────
-  async assessRisk(caseData: any): Promise<{
+  async assessRisk(caseData: Record<string, unknown>): Promise<{
     riskScore: number;
     riskLevel: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
     factors: { factor: string; weight: number; description: string }[];
@@ -233,7 +233,7 @@ export class AIAnalysisEngine {
       };
 
     } catch (e: unknown) {
-      const message = (e instanceof Error ? e.message : String(e)) ?? String(e);
+      const message = (e instanceof Error ? (e instanceof Error ? e.message : String(e)) : undefined) ?? String(e);
       if (
         message.includes('429') ||
         message.includes('quota') ||
@@ -311,7 +311,7 @@ export class AIAnalysisEngine {
       };
 
     } catch (e: unknown) {
-      const message = (e instanceof Error ? e.message : String(e)) ?? String(e);
+      const message = (e instanceof Error ? (e instanceof Error ? e.message : String(e)) : undefined) ?? String(e);
       if (
         message.includes('429') ||
         message.includes('quota') ||
@@ -347,11 +347,11 @@ export class AIAnalysisEngine {
         'flash' as any
       );
       const latencyMs = Date.now() - start;
-      (window as any).OFFLINE_MODE = false;
+      window.OFFLINE_MODE = false;
       console.log(`AIAnalysisEngine: API online — svarstid ${latencyMs}ms`);
       return { online: true, message: "API ansluten och operativ.", latencyMs };
     } catch (e: unknown) {
-      const message = (e instanceof Error ? e.message : String(e)) ?? String(e);
+      const message = (e instanceof Error ? (e instanceof Error ? e.message : String(e)) : undefined) ?? String(e);
       this.aktivera_offline(`API-statuskontroll misslyckades: ${message}`);
       return { online: false, message: `API ej tillgänglig: ${message}` };
     }
