@@ -145,129 +145,137 @@ export const InvoicesView: React.FC<{ invoices: Invoice[], onAdd: () => void, on
   </div>
 );
 
-export const DamagesView: React.FC<{ claims: DamagesClaim[], onAdd: () => void, onAnalyze: (claim: DamagesClaim) => void }> = ({ claims, onAdd, onAnalyze }) => (
-  <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
-    <div className="flex justify-between items-center">
-      <div>
-        <h3 className="text-xl font-bold text-slate-900 dark:text-white">Skadeståndsprocesser</h3>
-        <p className="text-xs text-slate-500 mt-1">Övervaka och analysera pågående skadeståndskrav och juridiska risker.</p>
+const DamagesClaimItem = React.memo<{ claim: DamagesClaim, onAnalyze: (claim: DamagesClaim) => void }>(({ claim, onAnalyze }) => (
+  <div className="bg-white dark:bg-slate-900 p-8 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow">
+    <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+      <div className="flex items-center space-x-4">
+        <div className={`p-4 rounded-2xl ${claim.type === 'STATE' ? 'bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-500' : 'bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-500'}`}>
+          <ScaleIcon className="w-8 h-8" />
+        </div>
+        <div>
+          <h4 className="text-xl font-black text-slate-900 dark:text-white">{claim.claimant} <span className="text-slate-400 font-medium mx-2">mot</span> {claim.defendant}</h4>
+          <div className="flex items-center space-x-2 mt-1">
+            <span className="text-[10px] font-black px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-md uppercase tracking-widest">
+              {claim.type === 'STATE' ? 'Statligt' : claim.type === 'PRIVATE' ? 'Privat' : 'Försäkring'}
+            </span>
+            <span className={`text-[10px] font-black px-2 py-0.5 rounded-md uppercase tracking-widest ${
+              claim.status === 'SETTLED' ? 'bg-emerald-500/10 text-emerald-600' : 'bg-indigo-500/10 text-indigo-600'
+            }`}>
+              {claim.status === 'DRAFT' && 'Utkast'}
+              {claim.status === 'FILED' && 'Inlämnad'}
+              {claim.status === 'NEGOTIATION' && 'Förhandling'}
+              {claim.status === 'SETTLED' && 'Förlikad'}
+              {claim.status === 'LITIGATION' && 'Process'}
+              {claim.status === 'IN_PROGRESS' && 'Pågående'}
+            </span>
+          </div>
+        </div>
       </div>
-      <div className="flex space-x-2">
-        <button className="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-4 py-2 rounded-xl text-xs font-bold transition-all hover:bg-slate-200 dark:hover:bg-slate-700">
-          Filtrera
-        </button>
-        <button 
-          onClick={onAdd}
-          className="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center space-x-2 transition-all shadow-lg shadow-indigo-500/20"
-        >
-          <PlusIcon className="w-4 h-4" />
-          <span>Nytt Krav</span>
-        </button>
+      <div className="text-right">
+        <p className="text-[10px] text-slate-400 uppercase font-black tracking-widest mb-1">Estimerat Värde</p>
+        <p className="text-3xl font-black text-slate-900 dark:text-white">
+          {new Intl.NumberFormat('sv-SE', { style: 'currency', currency: 'SEK' }).format(claim.estimatedAmount)}
+        </p>
+        <p className="text-xs text-emerald-600 font-bold mt-1">Sannolikhet: {(claim.probability * 100).toFixed(0)}%</p>
       </div>
     </div>
-    <div className="space-y-6">
-      {claims.length === 0 ? (
-        <div className="p-12 text-center bg-slate-50 dark:bg-slate-900/50 rounded-[2rem] border border-dashed border-slate-200 dark:border-slate-800">
-          <ScaleIcon className="w-12 h-12 text-slate-300 mx-auto mb-4" />
-          <p className="text-sm text-slate-500 font-medium">Inga skadeståndskrav registrerade.</p>
-        </div>
-      ) : (
-        claims.map(claim => (
-          <div key={claim.id} className="bg-white dark:bg-slate-900 p-8 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow">
-            <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
-              <div className="flex items-center space-x-4">
-                <div className={`p-4 rounded-2xl ${claim.type === 'STATE' ? 'bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-500' : 'bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-500'}`}>
-                  <ScaleIcon className="w-8 h-8" />
-                </div>
-                <div>
-                  <h4 className="text-xl font-black text-slate-900 dark:text-white">{claim.claimant} <span className="text-slate-400 font-medium mx-2">mot</span> {claim.defendant}</h4>
-                  <div className="flex items-center space-x-2 mt-1">
-                    <span className="text-[10px] font-black px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-md uppercase tracking-widest">
-                      {claim.type === 'STATE' ? 'Statligt' : claim.type === 'PRIVATE' ? 'Privat' : 'Försäkring'}
-                    </span>
-                    <span className={`text-[10px] font-black px-2 py-0.5 rounded-md uppercase tracking-widest ${
-                      claim.status === 'SETTLED' ? 'bg-emerald-500/10 text-emerald-600' : 'bg-indigo-500/10 text-indigo-600'
-                    }`}>
-                      {claim.status === 'DRAFT' && 'Utkast'}
-                      {claim.status === 'FILED' && 'Inlämnad'}
-                      {claim.status === 'NEGOTIATION' && 'Förhandling'}
-                      {claim.status === 'SETTLED' && 'Förlikad'}
-                      {claim.status === 'LITIGATION' && 'Process'}
-                      {claim.status === 'IN_PROGRESS' && 'Pågående'}
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div className="text-right">
-                <p className="text-[10px] text-slate-400 uppercase font-black tracking-widest mb-1">Estimerat Värde</p>
-                <p className="text-3xl font-black text-slate-900 dark:text-white">
-                  {new Intl.NumberFormat('sv-SE', { style: 'currency', currency: 'SEK' }).format(claim.estimatedAmount)}
-                </p>
-                <p className="text-xs text-emerald-600 font-bold mt-1">Sannolikhet: {(claim.probability * 100).toFixed(0)}%</p>
-              </div>
-            </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              <div>
-                <h5 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-4">Skadekomponenter</h5>
-                <div className="space-y-3">
-                  {claim.components.map(comp => (
-                    <div key={comp.id} className="p-4 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800">
-                      <div className="flex justify-between items-start mb-2">
-                        <span className="text-sm font-bold text-slate-900 dark:text-white">{comp.label}</span>
-                        <span className="text-sm font-mono font-bold text-indigo-600">
-                          {new Intl.NumberFormat('sv-SE', { style: 'currency', currency: 'SEK' }).format(comp.amount)}
-                        </span>
-                      </div>
-                      <p className="text-xs text-slate-500 mb-2">{comp.description}</p>
-                      <div className="flex items-center space-x-1 text-[10px] font-bold text-slate-400 italic">
-                        <ClipboardDocumentListIcon className="w-3 h-3" />
-                        <span>{comp.legalReference}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div>
+        <h5 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-4">Skadekomponenter</h5>
+        <div className="space-y-3">
+          {claim.components.map(comp => (
+            <div key={comp.id} className="p-4 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800">
+              <div className="flex justify-between items-start mb-2">
+                <span className="text-sm font-bold text-slate-900 dark:text-white">{comp.label}</span>
+                <span className="text-sm font-mono font-bold text-indigo-600">
+                  {new Intl.NumberFormat('sv-SE', { style: 'currency', currency: 'SEK' }).format(comp.amount)}
+                </span>
               </div>
-              <div>
-                <h5 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-4">Juridisk Grund & Analys</h5>
-                <div className="p-6 bg-indigo-50 dark:bg-indigo-950/30 rounded-3xl border border-indigo-100 dark:border-indigo-900/50 h-full flex flex-col">
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center space-x-2">
-                      <SparklesIcon className="w-5 h-5 text-indigo-500" />
-                      <span className="text-sm font-bold text-indigo-900 dark:text-indigo-300">AI-Legal Analys</span>
-                    </div>
-                    <button 
-                      onClick={() => onAnalyze(claim)}
-                      className="text-[10px] font-black uppercase tracking-widest text-indigo-600 hover:text-indigo-500 transition-colors flex items-center space-x-1"
-                    >
-                      <SparklesIcon className="w-3 h-3" />
-                      <span>Uppdatera Analys</span>
-                    </button>
-                  </div>
-                  <div className="space-y-4 flex-1">
-                    <div>
-                      <p className="text-[10px] text-indigo-800/50 dark:text-indigo-400/50 uppercase font-black tracking-widest mb-1">Rättskällor</p>
-                      <div className="flex flex-wrap gap-2">
-                        {claim.legalBasis.map((basis, idx) => (
-                          <span key={idx} className="text-[10px] font-bold px-2 py-1 bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 rounded-lg border border-indigo-100 dark:border-indigo-900/50">
-                            {basis}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                    <p className="text-xs text-indigo-800/70 dark:text-indigo-400/70 leading-relaxed italic">
-                      {claim.aiAnalysis || "Ingen analys tillgänglig. Klicka på 'Uppdatera Analys' för att generera en AI-driven juridisk bedömning."}
-                    </p>
-                  </div>
-                </div>
+              <p className="text-xs text-slate-500 mb-2">{comp.description}</p>
+              <div className="flex items-center space-x-1 text-[10px] font-bold text-slate-400 italic">
+                <ClipboardDocumentListIcon className="w-3 h-3" />
+                <span>{comp.legalReference}</span>
               </div>
             </div>
+          ))}
+        </div>
+      </div>
+      <div>
+        <h5 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-4">Juridisk Grund & Analys</h5>
+        <div className="p-6 bg-indigo-50 dark:bg-indigo-950/30 rounded-3xl border border-indigo-100 dark:border-indigo-900/50 h-full flex flex-col">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center space-x-2">
+              <SparklesIcon className="w-5 h-5 text-indigo-500" />
+              <span className="text-sm font-bold text-indigo-900 dark:text-indigo-300">AI-Legal Analys</span>
+            </div>
+            <button
+              onClick={() => onAnalyze(claim)}
+              className="text-[10px] font-black uppercase tracking-widest text-indigo-600 hover:text-indigo-500 transition-colors flex items-center space-x-1"
+            >
+              <SparklesIcon className="w-3 h-3" />
+              <span>Uppdatera Analys</span>
+            </button>
           </div>
-        ))
-      )}
+          <div className="space-y-4 flex-1">
+            <div>
+              <p className="text-[10px] text-indigo-800/50 dark:text-indigo-400/50 uppercase font-black tracking-widest mb-1">Rättskällor</p>
+              <div className="flex flex-wrap gap-2">
+                {claim.legalBasis.map((basis, idx) => (
+                  <span key={idx} className="text-[10px] font-bold px-2 py-1 bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 rounded-lg border border-indigo-100 dark:border-indigo-900/50">
+                    {basis}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <p className="text-xs text-indigo-800/70 dark:text-indigo-400/70 leading-relaxed italic">
+              {claim.aiAnalysis || "Ingen analys tillgänglig. Klicka på 'Uppdatera Analys' för att generera en AI-driven juridisk bedömning."}
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-);
+));
+
+export const DamagesView: React.FC<{ claims: DamagesClaim[], onAdd: () => void, onAnalyze: (claim: DamagesClaim) => void }> = ({ claims, onAdd, onAnalyze }) => {
+  // Memoize onAnalyze to prevent re-rendering when parent component re-renders
+  // but usually onAnalyze is passed down from the parent so we just pass it along
+  return (
+    <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
+      <div className="flex justify-between items-center">
+        <div>
+          <h3 className="text-xl font-bold text-slate-900 dark:text-white">Skadeståndsprocesser</h3>
+          <p className="text-xs text-slate-500 mt-1">Övervaka och analysera pågående skadeståndskrav och juridiska risker.</p>
+        </div>
+        <div className="flex space-x-2">
+          <button className="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-4 py-2 rounded-xl text-xs font-bold transition-all hover:bg-slate-200 dark:hover:bg-slate-700">
+            Filtrera
+          </button>
+          <button
+            onClick={onAdd}
+            className="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center space-x-2 transition-all shadow-lg shadow-indigo-500/20"
+          >
+            <PlusIcon className="w-4 h-4" />
+            <span>Nytt Krav</span>
+          </button>
+        </div>
+      </div>
+      <div className="space-y-6">
+        {claims.length === 0 ? (
+          <div className="p-12 text-center bg-slate-50 dark:bg-slate-900/50 rounded-[2rem] border border-dashed border-slate-200 dark:border-slate-800">
+            <ScaleIcon className="w-12 h-12 text-slate-300 mx-auto mb-4" />
+            <p className="text-sm text-slate-500 font-medium">Inga skadeståndskrav registrerade.</p>
+          </div>
+        ) : (
+          claims.map(claim => (
+            <DamagesClaimItem key={claim.id} claim={claim} onAnalyze={onAnalyze} />
+          ))
+        )}
+      </div>
+    </div>
+  );
+};
 
 export const BudgetView: React.FC<{ forecasts: BudgetForecast[], onGenerate?: () => void }> = ({ forecasts, onGenerate }) => (
   <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-300">

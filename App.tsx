@@ -1,14 +1,19 @@
+interface CustomWindow extends Window {
+  OFFLINE_MODE?: boolean;
+}
+
 import React, { useState, useEffect, useCallback } from 'react';
+import { StoredDocument, FactV2, ContradictionV2, LegalReference, AnalysisResult } from './types';
 
 // ─────────────────────────────────────────────
 //  OFFLINE BANNER
 // ─────────────────────────────────────────────
 const OfflineBanner: React.FC = () => {
-  const [isOffline, setIsOffline] = useState((window as any).OFFLINE_MODE === true);
+  const [isOffline, setIsOffline] = useState((window as unknown as CustomWindow).OFFLINE_MODE === true);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setIsOffline((window as any).OFFLINE_MODE === true);
+      setIsOffline((window as unknown as CustomWindow).OFFLINE_MODE === true);
     }, 2000);
     return () => clearInterval(interval);
   }, []);
@@ -94,7 +99,7 @@ const TopBar: React.FC<{
   onTabChange: (tab: NavTab) => void;
   onHubOpen: () => void;
 }> = ({ activeTab, onTabChange, onHubOpen }) => {
-  const isOffline = (window as any).OFFLINE_MODE === true;
+  const isOffline = (window as unknown as CustomWindow).OFFLINE_MODE === true;
 
   const navItems: { id: NavTab; label: string }[] = [
     { id: 'hubb',       label: 'Hubb' },
@@ -159,7 +164,7 @@ const DocumentDetailView: React.FC<{
   documentId: string;
   onBack: () => void;
 }> = ({ documentId, onBack }) => {
-  const [doc, setDoc] = useState<any>(null);
+  const [doc, setDoc] = useState<StoredDocument | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -172,8 +177,8 @@ const DocumentDetailView: React.FC<{
         const found = await db.getDocument(documentId);
         if (found) setDoc(found);
         else setError('Ärendet hittades inte i databasen.');
-      } catch (e: any) {
-        setError(`Kunde inte ladda ärendet: ${e.message}`);
+      } catch (e) {
+        setError(`Kunde inte ladda ärendet: ${(e instanceof Error ? e.message : String(e))}`);
       } finally {
         setLoading(false);
       }
@@ -207,7 +212,7 @@ const DocumentDetailView: React.FC<{
     );
   }
 
-  const analysis = doc.analysis || {};
+  const analysis = doc.analysis || {} as Partial<AnalysisResult>;
   const facts = analysis.facts || [];
   const contradictions = analysis.contradictions || [];
   const legalRefs = analysis.legalReferences || [];
@@ -253,7 +258,7 @@ const DocumentDetailView: React.FC<{
             Faktaatomer ({facts.length})
           </h3>
           <div className="space-y-2 max-h-64 overflow-y-auto">
-            {facts.map((f: any, i: number) => (
+            {facts.map((f: FactV2, i: number) => (
               <div key={f.id || i} className="p-3 bg-slate-50 rounded-lg border border-slate-100">
                 <div className="flex items-center gap-2 mb-1">
                   <span className="text-[10px] font-mono text-slate-400">{f.id || `FACT-${i}`}</span>
@@ -279,7 +284,7 @@ const DocumentDetailView: React.FC<{
             Motsägelser ({contradictions.length})
           </h3>
           <div className="space-y-2">
-            {contradictions.map((c: any, i: number) => (
+            {contradictions.map((c: ContradictionV2, i: number) => (
               <div key={c.id || i} className="p-3 bg-red-50 rounded-lg border border-red-100">
                 <div className="flex items-center gap-2 mb-1">
                   <span className={`text-[9px] font-semibold px-1.5 py-0.5 rounded-full ${
@@ -304,7 +309,7 @@ const DocumentDetailView: React.FC<{
             Lagkopplingar ({legalRefs.length})
           </h3>
           <div className="flex flex-wrap gap-2">
-            {legalRefs.map((ref: any, i: number) => (
+            {legalRefs.map((ref: LegalReference, i: number) => (
               <span key={ref.id || i} className="text-xs bg-indigo-50 text-indigo-700 border border-indigo-100 px-2 py-1 rounded-lg font-mono">
                 {ref.rawText || ref.source || ref.id}
               </span>
@@ -335,7 +340,7 @@ const DocumentDetailView: React.FC<{
 //  kopplar onSelect → handleDocumentSelect
 // ─────────────────────────────────────────────
 const ArkivWrapper: React.FC<{ onDocumentSelect: (id: string) => void }> = ({ onDocumentSelect }) => {
-  const [Comp, setComp] = useState<React.ComponentType<any> | null>(null);
+  const [Comp, setComp] = useState<React.ComponentType<{ onSelect: (id: string) => void }> | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -343,7 +348,7 @@ const ArkivWrapper: React.FC<{ onDocumentSelect: (id: string) => void }> = ({ on
       .then(mod => setComp(() => mod.default))
       .catch(err => {
         console.error('Kunde inte ladda ArchiveView:', err);
-        setLoadError(err.message);
+        setLoadError((err instanceof Error ? err.message : String(err)));
       });
   }, []);
 
@@ -383,7 +388,7 @@ const ArkivWrapper: React.FC<{ onDocumentSelect: (id: string) => void }> = ({ on
 //  HUBB-VY  (oförändrad)
 // ─────────────────────────────────────────────
 const HubbView: React.FC<{ onModuleOpen: (mod: string) => void }> = ({ onModuleOpen }) => {
-  const isOffline = (window as any).OFFLINE_MODE === true;
+  const isOffline = (window as unknown as CustomWindow).OFFLINE_MODE === true;
 
   const modules = [
     { id: 'ekonomi',    label: 'Ekonomisk Motor',          desc: 'Hantera betalningar, fakturor och skadeståndskrav med AI-precision.',  color: 'bg-emerald-50 border-emerald-200', tag: 'EXPERTIS',   tagColor: 'bg-emerald-100 text-emerald-700', requiresApi: false },
@@ -487,7 +492,7 @@ const EkonomiView: React.FC = () => {
   const [showNyFaktura, setShowNyFaktura] = useState(false);
   const [showNyBetalning, setShowNyBetalning] = useState(false);
   const [showNyttKrav, setShowNyttKrav] = useState(false);
-  const [fakturor, setFakturor] = useState<any[]>([]);
+  const [fakturor, setFakturor] = useState<{ kundnamn: string; forfallodatum: string; belopp: string }[]>([]);
   const [betalningar, setBetalningar] = useState([
     { id: 1, mottagare: 'Advokatbyrå X', datum: '2026-03-10', belopp: 5000 },
     { id: 2, mottagare: 'Domstolsverket', datum: '2026-03-25', belopp: 1200 },
@@ -530,7 +535,7 @@ const EkonomiView: React.FC = () => {
       </div>
       <div className="flex gap-1 mb-6 bg-slate-100 rounded-lg p-1">
         {tabs.map(t => (
-          <button key={t.id} onClick={() => setActiveTab(t.id as any)}
+          <button key={t.id} onClick={() => setActiveTab(t.id as 'oversikt' | 'betalningar' | 'fakturor' | 'skadestand' | 'budget')}
             className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors flex-1 ${activeTab === t.id ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}>
             {t.label}
           </button>
@@ -645,7 +650,7 @@ const EkonomiView: React.FC = () => {
                   <div className="text-[10px] text-slate-400 uppercase mb-2">Juridisk Grund & Analys</div>
                   <div className="text-[10px] text-blue-600 font-medium mb-2">AI-Legal Analys</div>
                   <div className="text-[10px] text-slate-500">
-                    {(window as any).OFFLINE_MODE ? 'AI-analys ej tillgänglig i offline-läge.' : 'Klicka "Uppdatera Analys" för att generera AI-bedömning.'}
+                    {(window as unknown as CustomWindow).OFFLINE_MODE ? 'AI-analys ej tillgänglig i offline-läge.' : 'Klicka "Uppdatera Analys" för att generera AI-bedömning.'}
                   </div>
                 </div>
               </div>
@@ -798,7 +803,7 @@ const EkonomiView: React.FC = () => {
 //  ANALYS-VY  (oförändrad)
 // ─────────────────────────────────────────────
 const AnalysView: React.FC = () => {
-  const isOffline = (window as any).OFFLINE_MODE === true;
+  const isOffline = (window as unknown as CustomWindow).OFFLINE_MODE === true;
   return (
     <div className="p-6 max-w-5xl mx-auto">
       <h1 className="text-xl font-bold text-slate-900 mb-1">Analys & Utredning</h1>
@@ -824,7 +829,7 @@ const AnalysView: React.FC = () => {
 //  BESLUT-VY  (oförändrad)
 // ─────────────────────────────────────────────
 const BeslutView: React.FC = () => {
-  const isOffline = (window as any).OFFLINE_MODE === true;
+  const isOffline = (window as unknown as CustomWindow).OFFLINE_MODE === true;
   const [fraga, setFraga] = useState('');
   return (
     <div className="p-6 max-w-3xl mx-auto">
@@ -844,7 +849,7 @@ const BeslutView: React.FC = () => {
 //  PRODUKTION-VY  (oförändrad)
 // ─────────────────────────────────────────────
 const ProduktionView: React.FC = () => {
-  const isOffline = (window as any).OFFLINE_MODE === true;
+  const isOffline = (window as unknown as CustomWindow).OFFLINE_MODE === true;
   return (
     <div className="p-6 max-w-5xl mx-auto">
       <h1 className="text-xl font-bold text-slate-900 mb-1">Juridisk Textproduktion</h1>
@@ -881,7 +886,7 @@ const App: React.FC = () => {
   const [selectedDocId, setSelectedDocId] = useState<string | null>(null);
 
   const handleBoot = useCallback(() => setBooted(true), []);
-  const isOffline = (window as any).OFFLINE_MODE === true;
+  const isOffline = (window as unknown as CustomWindow).OFFLINE_MODE === true;
   const topOffset = isOffline ? 'mt-[88px]' : 'mt-14';
 
   // NY: byt flik och rensa valt dokument
