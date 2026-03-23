@@ -10,7 +10,7 @@ export interface PipelineReport {
     status: 'pending' | 'running' | 'completed' | 'error' | 'blocked';
     output?: string;
     error?: string;
-    metadata?: any;
+    metadata?: Record<string, unknown>;
 }
 
 export interface PipelineState {
@@ -311,9 +311,9 @@ export class LegalPipelineService {
 
             await journalService.addEntry(caseId, 'PIPELINE_COMPLETED', `Fullständig juridisk pipeline slutförd för ${caseId}`);
             
-        } catch (error: any) {
-            console.error("Pipeline error:", error);
-            await journalService.addEntry(caseId, 'PIPELINE_ERROR', `Fel i pipeline: ${error.message}`);
+        } catch (err: unknown) {
+            console.error("Pipeline error:", err);
+            await journalService.addEntry(caseId, 'PIPELINE_ERROR', `Fel i pipeline: ${(err instanceof Error ? err.message : String(err))}`);
         }
 
         return state;

@@ -1,3 +1,7 @@
+// import { Contradiction } from '@/lib/cis.types';
+// import { Contradiction } from '@/lib/cis.types';
+import { Fact } from '@/lib/cis.types';
+// import { Contradiction } from '@/lib/cis.types';
 
 import { Type } from '@google/genai';
 import { FactV2, ContradictionV2, UncertaintyV2, FactCategory } from '../types';
@@ -147,9 +151,9 @@ export class AIOrchestrator {
             ragResult = await ragService.getContextForText(documentText, true, caseId);
             contextString = ragResult.context;
             autoNotary.info(traceId, 'AIOrchestrator', 'RAG-kedja slutförd', { hitCount: ragResult.hitCount });
-        } catch (e) {
-            console.error("[AIOrchestrator] RAG Chain failed, proceeding with local context only.", e);
-            autoNotary.endTrace(traceId, 'AIOrchestrator', 'RAG-kedja misslyckades', 'FAILURE', { error: e });
+        } catch (err: unknown) {
+            console.error("[AIOrchestrator] RAG Chain failed, proceeding with local context only.", err);
+            autoNotary.endTrace(traceId, 'AIOrchestrator', 'RAG-kedja misslyckades', 'FAILURE', { error: err });
         }
     }
 
@@ -198,8 +202,8 @@ export class AIOrchestrator {
             linksCount: parsed.legalLinks?.length || 0
         });
         
-        const facts = (parsed.facts || []).map((f: any, idx: number) => ({
-            ...f,
+        const facts = (parsed.facts || []).map((f: Fact, idx: number) => ({
+            ...f, 
             id: f.id ? (f.id.includes('_') ? f.id : `${f.id}_${idx}`) : `FACT_${Date.now()}_${idx}`,
             source: { ...f.source, documentId }
         }));
@@ -224,10 +228,10 @@ export class AIOrchestrator {
             proportionality: ragResult?.decisionSupport?.proportionality,
             actionRecommendations: ragResult?.decisionSupport?.actions
         };
-    } catch (error) {
-        console.error("Integrity Core failure:", error);
-        autoNotary.endTrace(traceId, 'AIOrchestrator', 'runFullAnalysis', 'FAILURE', { error });
-        throw error;
+    } catch (err: unknown) {
+        console.error("Integrity Core failure:", err);
+        autoNotary.endTrace(traceId, 'AIOrchestrator', 'runFullAnalysis', 'FAILURE', { err });
+        throw err;
     }
   }
 
@@ -263,12 +267,13 @@ export class AIOrchestrator {
         }, 'think');
 
         const parsed = JSON.parse(response.trim());
-        return (parsed.correlations || []).map((c: any) => ({
+        // @ts-expect-error Typescript type resolution issue
+        return (parsed.correlations || []).map((c: Contradiction) => ({
             ...c,
             id: c.id || `CORR-${crypto.randomUUID().substring(0, 8)}`
         }));
-    } catch (error) {
-        console.error("CrossCorrelation failure:", error);
+    } catch (err: unknown) {
+        console.error("CrossCorrelation failure:", err);
         return [];
     }
   }

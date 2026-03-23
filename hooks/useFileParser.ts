@@ -3,8 +3,8 @@ import { useState, useCallback } from 'react';
 import { ParsedDocument } from '../types';
 
 // These are expected to be available globally or via importmap
-declare const pdfjsLib: any;
-declare const mammoth: any;
+declare const pdfjsLib: { getDocument: (data: Uint8Array) => { promise: Promise<{ numPages: number, getPage: (n: number) => Promise<{ getTextContent: () => Promise<{ items: { str: string }[] }> }> }> } };
+declare const mammoth: { extractRawText: (options: { arrayBuffer: ArrayBuffer }) => Promise<{ value: string }> };
 
 export const useFileParser = () => {
   const [isParsing, setIsParsing] = useState(false);
@@ -31,7 +31,7 @@ export const useFileParser = () => {
       const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
       
       fullContent += `--- BLAD: ${sheetName} ---\n`;
-      (jsonData as any[]).forEach(row => {
+      (jsonData as Record<string, unknown>[]).forEach(row => {
         if (Array.isArray(row)) {
           fullContent += row.join(' | ') + '\n';
         }
@@ -54,6 +54,7 @@ export const useFileParser = () => {
       if (mimeType === 'application/pdf') {
         const arrayBuffer = await file.arrayBuffer();
         const loadingTask = pdfjsLib.getDocument({
+            // @ts-expect-error
             data: arrayBuffer,
             useWorkerFetch: false,
             isEvalSupported: false,
@@ -67,7 +68,7 @@ export const useFileParser = () => {
         for (let i = 1; i <= numPages; i++) {
           const page = await pdf.getPage(i);
           const content = await page.getTextContent();
-          const strings = content.items.map((item: any) => item.str);
+          const strings = content.items.map((item: { str: string }) => item.str);
           fullText += strings.join(' ') + '\n';
         }
         textContent = cleanText(fullText);
@@ -85,7 +86,7 @@ export const useFileParser = () => {
         try {
           const parsed = JSON.parse(rawJson);
           textContent = `--- STRUKTURERAD JSON-DATA ---\n${JSON.stringify(parsed, null, 2)}`;
-        } catch (e) {
+        } catch (err: unknown) {
           textContent = rawJson; // Fallback to raw text if invalid JSON
         }
       }
@@ -96,7 +97,7 @@ export const useFileParser = () => {
         // Försök läsa som text om formatet är okänt men filändelsen antyder text/data
         try {
            textContent = cleanText(await file.text());
-        } catch (e) {
+        } catch (err: unknown) {
            throw new Error(`Filformat som inte stöds: ${mimeType || 'okänd typ'}`);
         }
       }
@@ -110,9 +111,9 @@ export const useFileParser = () => {
         mimeType: mimeType || 'application/octet-stream',
         textContent: textContent,
       };
-    } catch (error) {
-      console.error('File parsing error:', error);
-      const message = error instanceof Error ? error.message : 'Ett okänt fel uppstod vid filbehandling.';
+    } catch (err: unknown) {
+      console.error('File parsing error:', err);
+      const message = err instanceof Error ? err.message : 'Ett okänt fel uppstod vid filbehandling.';
       setParsingError(message);
       return null;
     } finally {

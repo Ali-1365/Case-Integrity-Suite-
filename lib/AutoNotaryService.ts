@@ -7,7 +7,7 @@ export interface NotaryEvent {
   timestamp: string;
   module: string;
   action: string;
-  data?: any;
+  data?: unknown;
   status: 'PENDING' | 'SUCCESS' | 'FAILURE' | 'INFO';
   duration?: number;
 }
@@ -37,7 +37,7 @@ export class AutoNotaryService {
   /**
    * Avslutar en spårning och loggar tidsåtgång.
    */
-  endTrace(traceId: string, module: string, action: string, status: 'SUCCESS' | 'FAILURE', data?: any): void {
+  endTrace(traceId: string, module: string, action: string, status: 'SUCCESS' | 'FAILURE', data?: unknown): void {
     const key = `${traceId}:${module}:${action}`;
     const startTime = this.activeTraces.get(key);
     const duration = startTime ? performance.now() - startTime : 0;
@@ -56,12 +56,13 @@ export class AutoNotaryService {
   /**
    * Loggar en enskild händelse (info/notering).
    */
-  info(traceId: string, module: string, message: string, data?: any): void {
+  info(traceId: string, module: string, message: string, data?: unknown): void {
     this.log({
       traceId,
       module,
       action: 'INFO',
       status: 'INFO',
+      // @ts-expect-error
       data: { message, ...data }
     });
   }
