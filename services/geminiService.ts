@@ -12,7 +12,6 @@ class OfflineService {
   private _isOffline: boolean = false;
   private _reason: OfflineReason = null;
   private _subscribers: ((offline: boolean, reason: OfflineReason) => void)[] = [];
-  private _recoveryTimer: any = null;
 
   constructor() {
     const apiKey = this.getApiKey();
@@ -34,12 +33,10 @@ class OfflineService {
     const wasOffline = this._isOffline;
     this._isOffline = offline;
     this._reason = reason;
-
     if (typeof window !== 'undefined') {
       (window as any).OFFLINE_MODE = offline;
       (window as any).OFFLINE_REASON = reason;
     }
-
     this._subscribers.forEach(fn => fn(offline, reason));
 
     if (offline && (reason === 'QUOTA_EXCEEDED' || reason === 'NETWORK_ERROR')) this.startRecoveryPolling();
