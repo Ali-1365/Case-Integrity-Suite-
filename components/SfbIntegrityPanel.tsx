@@ -20,6 +20,11 @@ interface SfbIntegrityPanelProps {
     onClose: () => void;
 }
 
+interface SfbChapterData {
+    kapitel: string;
+    rubrik: string;
+}
+
 const SfbIntegrityPanel: React.FC<SfbIntegrityPanelProps> = ({ isOpen, onClose }) => {
     const [benefitType, setBenefitType] = useState<SfbBenefitType>('generic');
     const [selectedChapter, setSelectedChapter] = useState<number>(28);
@@ -38,7 +43,7 @@ const SfbIntegrityPanel: React.FC<SfbIntegrityPanelProps> = ({ isOpen, onClose }
             .then(res => res.json())
             .then(data => {
                 if (data.kapitel) {
-                    const mappedChapters = data.kapitel.map((k: any) => ({
+                    const mappedChapters = data.kapitel.map((k: SfbChapterData) => ({
                         chapter: parseInt(k.kapitel),
                         title: k.rubrik
                     }));
@@ -63,8 +68,12 @@ const SfbIntegrityPanel: React.FC<SfbIntegrityPanelProps> = ({ isOpen, onClose }
 
             const res = await sfbValidationService.validate(payload);
             setResult(res);
-        } catch (e: any) {
-            console.error(`Fel vid validering: ${e.message}`);
+        } catch (e: unknown) {
+            if (e instanceof Error) {
+                console.error(`Fel vid validering: ${e.message}`);
+            } else {
+                console.error('Fel vid validering: Ett okänt fel inträffade');
+            }
         } finally {
             setIsValidating(false);
         }

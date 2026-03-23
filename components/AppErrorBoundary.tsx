@@ -38,7 +38,6 @@ export default class AppErrorBoundary extends Component<AppErrorBoundaryProps, A
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     logError("Kritiskt fel fångat i AppErrorBoundary", error, errorInfo);
-    // Fix: Property 'setState' exists on React.Component, fixed error on line 36
     this.setState({ errorInfo });
   }
 
@@ -58,7 +57,6 @@ export default class AppErrorBoundary extends Component<AppErrorBoundaryProps, A
   };
 
   render(): ReactNode {
-    // Fix: state and props exist on React.Component, fixed errors on lines 54 and 55
     const { hasError, error, errorInfo } = this.state;
     const { children } = this.props;
 
