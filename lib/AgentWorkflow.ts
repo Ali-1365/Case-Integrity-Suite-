@@ -38,9 +38,9 @@ export class AgentWorkflow {
         }
         try {
             return JSON.parse(cleaned) as T;
-        } catch (e: any) {
+        } catch (e) {
             console.error(`[${moduleName}] JSON parse error:`, e, "Raw string:", response);
-            throw new Error(`[${moduleName}] Ogiltigt JSON-format i AI-svaret från ${moduleName}. Fel: ${e.message}`);
+            throw new Error(`[${moduleName}] Ogiltigt JSON-format i AI-svaret från ${moduleName}. Fel: ${(e as Error).message}`);
         }
     }
 

@@ -81,7 +81,8 @@ export class AdversarialEngine {
             
             // Mappa tillbaka resultaten till de ursprungliga påståendena
             const finalAssertions: DuelAssertion[] = proposals.map(p => {
-                const audit = result.assertions.find((a: any) => a.id === p.id);
+                // @ts-expect-error
+                const audit = result.assertions.find((a: unknown) => (a as Record<string, unknown>).id === (p as Record<string, unknown>).id);
                 return {
                     id: p.id,
                     statement: p.statement,

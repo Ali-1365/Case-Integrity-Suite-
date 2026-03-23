@@ -34,8 +34,8 @@ export const AgentView: React.FC<AgentViewProps> = ({ caseData, caseId }) => {
     try {
       const report = await agentWorkflow.runAutonomousWorkflow(caseId || 'AUTO-GEN', caseData);
       setFinalReport(report);
-    } catch (err: any) {
-      setError(err.message || "Ett okänt fel inträffade under agentkörningen.");
+    } catch (err) {
+      setError((err as Error).message || "Ett okänt fel inträffade under agentkörningen.");
     } finally {
       console.log = originalLog; // Restore console.log
       setIsRunning(false);

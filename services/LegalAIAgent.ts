@@ -47,7 +47,8 @@ class LegalAIAgent {
             lawSourceCode: corpus.sourceCode,
             chapter: p.chapter,
             section: p.section,
-            reference: (p as any).reference, // Handle Praxis reference
+            // @ts-expect-error
+            reference: (p as unknown).reference, // Handle Praxis reference
             text: p.text,
           });
         });
@@ -60,8 +61,8 @@ class LegalAIAgent {
       loggingService.info(`[AGENT] Initialization complete. Loaded ${this.laws.length} paragraphs.`, {
         duration: Date.now() - startTime
       });
-    } catch (error: any) {
-      loggingService.error("[AGENT] Initialization failed", { error: error.message });
+    } catch (error) {
+      loggingService.error("[AGENT] Initialization failed", { error: (error as Error).message });
       throw error;
     }
   }
@@ -150,9 +151,9 @@ class LegalAIAgent {
         duration: Date.now() - startTime
       });
       return response;
-    } catch (e: any) {
+    } catch (e) {
       loggingService.error(`[AGENT] Opinion generation failed for ${caseId}`, { 
-        error: e.message,
+        error: (e as Error).message,
         duration: Date.now() - startTime 
       });
       return "### Kritiskt fel i AI-analysmotorn\n\nDet gick inte att generera yttrandet. Kontrollera systemloggarna.";

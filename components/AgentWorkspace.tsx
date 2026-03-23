@@ -38,7 +38,7 @@ const AgentWorkspace: React.FC<AgentWorkspaceProps> = ({ isOpen, onClose }) => {
   const [activeCaseId, setActiveCaseId] = useState<string | null>(null);
   const [opinion, setOpinion] = useState<string>('');
   const [query, setQuery] = useState('');
-  const [queryResult, setQueryResult] = useState<any>(null);
+  const [queryResult, setQueryResult] = useState<unknown>(null);
   const [isQuerying, setIsQuerying] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const [activeTab, setActiveTab] = useState<TabType>('analys');
@@ -120,7 +120,7 @@ const AgentWorkspace: React.FC<AgentWorkspaceProps> = ({ isOpen, onClose }) => {
     setActiveTab('analys');
 
     const lowerQuery = query.toLowerCase();
-    let result: any;
+    let result: unknown;
     if (lowerQuery.startsWith('fakta om')) {
         const keyword = lowerQuery.replace('fakta om', '').trim();
         result = legalAIAgent.queryFacts(activeCaseId, keyword);

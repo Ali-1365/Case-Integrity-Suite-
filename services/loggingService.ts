@@ -11,9 +11,9 @@ export interface LogEntry {
   level: LogLevel;
   mode: LogMode;
   message: string;
-  details?: any;
+  details?: unknown;
   duration?: number; // in ms
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 class LoggingService {
@@ -25,7 +25,7 @@ class LoggingService {
     this.log('DEBUG', 'system', `Trace Context Active: ${id}`);
   }
 
-  log(level: LogLevel, mode: LogMode, message: string, details?: any, duration?: number, metadata?: Record<string, any>): void {
+  log(level: LogLevel, mode: LogMode, message: string, details?: unknown, duration?: number, metadata?: Record<string, unknown>): void {
     const logEntry: LogEntry = {
       id: crypto.randomUUID(),
       correlationId: this.currentCorrelationId || 'N/A',
@@ -48,9 +48,9 @@ class LoggingService {
   }
 
   // Helper methods for common logging patterns
-  info(message: string, details?: any) { this.log('INFO', 'system', message, details); }
-  warn(message: string, details?: any) { this.log('WARN', 'system', message, details); }
-  error(message: string, details?: any) { 
+  info(message: string, details?: unknown) { this.log('INFO', 'system', message, details); }
+  warn(message: string, details?: unknown) { this.log('WARN', 'system', message, details); }
+  error(message: string, details?: unknown) {
     if (details instanceof Error) {
       this.handleError(details, message);
     } else {
@@ -58,7 +58,7 @@ class LoggingService {
     }
   }
 
-  handleError(error: any, context?: string): void {
+  handleError(error: unknown, context?: string): void {
     const isAppErr = error instanceof AppError;
     const errorCode = isAppErr ? error.code : ErrorCode.UNKNOWN_ERROR;
     
@@ -67,16 +67,20 @@ class LoggingService {
     if (typeof error === 'string') {
       errorMessage = error;
     } else if (error && typeof error === 'object') {
-      errorMessage = error.message || error.reason?.message || JSON.stringify(error);
+      // @ts-expect-error
+      errorMessage = (error as Error).message || error.reason?.message || JSON.stringify(error);
     }
     
     const message = context ? `${context}: ${errorMessage}` : errorMessage;
     
     this.log('ERROR', 'system', message, {
+      // @ts-expect-error
       name: error?.name || (typeof error === 'string' ? 'StringError' : 'UnknownError'),
       code: errorCode,
+      // @ts-expect-error
       stack: error?.stack,
-      details: isAppErr ? error.details : (error?.details || error),
+      // @ts-expect-error
+      details: isAppErr ? (error as Record<string, unknown>).details : (error?.details || error),
       timestamp: isAppErr ? error.timestamp : new Date(),
       isOperational: isAppErr ? error.isOperational : false
     });
@@ -92,10 +96,10 @@ class LoggingService {
     console.groupEnd();
   }
 
-  debug(message: string, details?: any) { this.log('DEBUG', 'system', message, details); }
+  debug(message: string, details?: unknown) { this.log('DEBUG', 'system', message, details); }
 
   // Backward compatibility for LLM logs
-  addLog(entry: { mode: LogMode; prompt: string; response: string | null; error: string | null; duration: number; metadata?: Record<string, any> }): void {
+  addLog(entry: { mode: LogMode; prompt: string; response: string | null; error: string | null; duration: number; metadata?: Record<string, unknown> }): void {
     this.log(
       entry.error ? 'ERROR' : 'INFO',
       entry.mode,

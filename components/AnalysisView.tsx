@@ -54,7 +54,7 @@ const AnalysisView: React.FC<AnalysisViewProps> = ({ documentId, onBack, onDocum
 
     } catch (e) {
       console.error("Opinion generation failed:", e);
-      setError(`Generering av yttrande misslyckades. ${e instanceof Error ? e.message : ''}`);
+      setError(`Generering av yttrande misslyckades. ${e instanceof Error ? (e as Error).message : ''}`);
     } finally {
       setIsGenerating(false);
     }

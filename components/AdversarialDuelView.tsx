@@ -46,8 +46,8 @@ export const AdversarialDuelView: React.FC<AdversarialDuelViewProps> = ({ caseDa
 
       setLogs(prev => [...prev, "[DUEL] Rättegångssimulering avslutad."]);
 
-    } catch (err: any) {
-      setError(err.message || "Ett fel inträffade under duellen.");
+    } catch (err) {
+      setError((err as Error).message || "Ett fel inträffade under duellen.");
     } finally {
       console.log = originalLog;
       setIsSimulating(false);
