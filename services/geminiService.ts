@@ -1,10 +1,10 @@
-import { GenerateContentParameters } from '@google/genai';
+import { GoogleGenAI, GenerateContentParameters, ThinkingLevel } from '@google/genai';
 import { loggingService, LogMode } from './loggingService';
 import { getSyntheticResponse } from '../lib/syntheticLLMResponses';
 import { ApiError } from '../lib/errors';
 
 // ─────────────────────────────────────────────
-//  OFFLINE SERVICE
+//  OFFLINE SERVICE (inbyggd — ingen extern fil behövs)
 // ─────────────────────────────────────────────
 type OfflineReason = 'API_KEY_MISSING' | 'QUOTA_EXCEEDED' | 'NETWORK_ERROR' | 'MANUAL' | null;
 
@@ -14,9 +14,19 @@ class OfflineService {
   private _subscribers: ((offline: boolean, reason: OfflineReason) => void)[] = [];
 
   constructor() {
-    // Vi kan inte längre checka för API-nycklar direkt i frontend.
-    // Vi förlitar oss på att backend har nyckeln.
-    // checkApiStatus kommer att sätta detta korrekt vid start.
+    const apiKey =
+      (typeof process !== 'undefined'
+        ? process.env?.GEMINI_API_KEY || process.env?.API_KEY
+        : null) || '';
+
+    if (!apiKey) {
+      this._isOffline = true;
+      this._reason = 'API_KEY_MISSING';
+      if (typeof window !== 'undefined') {
+        (window as any).OFFLINE_MODE = true;
+        (window as any).OFFLINE_REASON = 'API_KEY_MISSING';
+      }
+    }
   }
 
   getIsOffline(): boolean {
@@ -62,6 +72,8 @@ export interface QuotaState {
 //  GEMINI SERVICE
 // ─────────────────────────────────────────────
 export class GeminiService {
+  private ai: GoogleGenAI | null = null;
+
   // ✅ KORREKTA modellnamn (mars 2026)
   private readonly flashModel = 'gemini-2.0-flash';
   private readonly proModel   = 'gemini-2.5-pro-preview-05-06';
@@ -73,9 +85,34 @@ export class GeminiService {
     lastError: null,
   };
 
-  constructor() {
-    // Initialisera genom att kolla status mot backend
-    this.checkApiStatus().catch(console.error);
+  constructor() { this.initializeClient(); }
+
+  private initializeClient(): void {
+    const apiKey =
+      (typeof process !== 'undefined'
+        ? process.env?.GEMINI_API_KEY || process.env?.API_KEY
+        : null) || '';
+
+    if (!apiKey) {
+      loggingService.error('[GeminiService] GEMINI_API_KEY saknas. AI-tjänster otillgängliga.');
+      offlineService.setOffline(true, 'API_KEY_MISSING');
+      return;
+    }
+    try {
+      this.ai = new GoogleGenAI({ apiKey } as any);
+      console.log('[GeminiService] Klient initierad.');
+    } catch (e: any) {
+      loggingService.error(`[GeminiService] Initiering misslyckades: ${e.message}`);
+      offlineService.setOffline(true, 'NETWORK_ERROR');
+    }
+  }
+
+  private getClient(): GoogleGenAI {
+    if (!this.ai) {
+      this.initializeClient();
+      if (!this.ai) throw new Error('Gemini-klienten kunde inte initialiseras. API-nyckel saknas.');
+    }
+    return this.ai;
   }
 
   private async executeWithRetry<T>(
@@ -135,6 +172,7 @@ export class GeminiService {
     let modelName = params.model || (mode === 'think' ? this.proModel : this.flashModel);
 
     try {
+      const client = this.getClient();
       const config = { ...(params.config || {}) };
 
       if (mode === 'think' && modelName === this.proModel) {
@@ -146,26 +184,17 @@ export class GeminiService {
         if (!(config as any).maxOutputTokens) (config as any).maxOutputTokens = 8192;
       }
 
-      const response = await this.executeWithRetry(async () => {
-        const res = await fetch('/api/ai/generate', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            model: modelName,
-            contents: typeof params.contents === 'string'
-              ? [{ role: 'user', parts: [{ text: params.contents as string }] }]
-              : (params.contents as any),
-            config,
-          }),
-        });
-        if (!res.ok) {
-          const errData = await res.json().catch(() => ({}));
-          throw new Error(errData.error || `HTTP ${res.status}`);
-        }
-        return await res.json();
-      });
+      const response = await this.executeWithRetry(async () =>
+        client.models.generateContent({
+          model: modelName,
+          contents: typeof params.contents === 'string'
+            ? [{ role: 'user', parts: [{ text: params.contents as string }] }]
+            : (params.contents as any),
+          config,
+        })
+      );
 
-      const text = response.text || '';
+      const text = (response as any).text || '';
       const duration = Date.now() - startTime;
 
       loggingService.addLog({
@@ -222,25 +251,16 @@ export class GeminiService {
       console.warn('[GeminiService] Offline → pseudo-embedding.');
       return this.pseudoEmbed(text);
     }
-
+    const client = this.getClient();
     for (const modelName of ['text-embedding-004', 'gemini-embedding-001']) {
       try {
-        const response = await this.executeWithRetry(async () => {
-          const res = await fetch('/api/ai/embed', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              model: modelName,
-              content: { parts: [{ text }] },
-            }),
-          });
-          if (!res.ok) {
-            const errData = await res.json().catch(() => ({}));
-            throw new Error(errData.error || `HTTP ${res.status}`);
-          }
-          return await res.json();
-        });
-        const values = response?.embedding?.values;
+        const response = await this.executeWithRetry(async () =>
+          (client as any).models.embedContent({
+            model: modelName,
+            contents: { parts: [{ text }] },
+          })
+        );
+        const values = response?.embeddings?.[0]?.values || (response as any)?.embedding?.values;
         if (values?.length > 0) return values;
       } catch (e: any) {
         console.warn(`[GeminiService] Embed misslyckades (${modelName}): ${e.message}`);
@@ -271,9 +291,6 @@ export class GeminiService {
       offlineService.setOffline(false);
       return { online: true, latencyMs, message: 'API ansluten och operativ.' };
     } catch (e: any) {
-      if (e.message.includes('503')) {
-        offlineService.setOffline(true, 'API_KEY_MISSING');
-      }
       return { online: false, message: `API ej tillgänglig: ${e.message}` };
     }
   }
@@ -287,10 +304,7 @@ export class GeminiService {
   public async openKeySelection(): Promise<void> {
     if (typeof window !== 'undefined' && (window as any).aistudio?.openSelectKey) {
       await (window as any).aistudio.openSelectKey();
-      // Om användaren väljer en egen nyckel i aistudio-miljö,
-      // så kan vi eventuellt behöva specialhantering om vi vill att de ska
-      // fortsätta använda backend-proxyn (vilket de inte kan med egen nyckel).
-      // Men för denna applikation i detta sammanhang, förutsätter vi backend-nyckel.
+      this.initializeClient();
     }
   }
 }
