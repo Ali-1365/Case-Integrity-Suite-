@@ -10,7 +10,7 @@ export async function sha256(message: string): Promise<string> {
     return hashHex;
 }
 
-export function generateIntegrityStamp(data: unknown): string {
+export function generateIntegrityStamp(data: any): string {
     const timestamp = new Date().toISOString();
     const payload = JSON.stringify(data);
 

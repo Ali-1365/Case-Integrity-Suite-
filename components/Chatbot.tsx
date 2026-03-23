@@ -131,7 +131,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ isOpen, onClose, ragService, currentA
         reasoning: ragRes.reasoning,
         decisionSupport: ragRes.decisionSupport
       }]);
-    } catch (err: unknown) {
+    } catch (e) {
       setMessages([...newMessages, { role: 'model', text: `OMEGA_CORE_FAILURE: Fel i beslutsstödsmodulen.` }]);
     } finally {
       setIsLoading(false);

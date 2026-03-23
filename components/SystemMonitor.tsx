@@ -37,7 +37,7 @@ const SystemMonitor: React.FC<SystemMonitorProps> = ({ isOpen, onClose }) => {
     const [isOffline, setIsOffline] = useState(offlineService.getIsOffline());
     const { logs, refreshLogs, clearLogs } = useLogging(50);
     const [isRefreshing, setIsRefreshing] = useState(false);
-    const [localMetadata, setLocalMetadata] = useState<unknown>(null);
+    const [localMetadata, setLocalMetadata] = useState<any>(null);
     const [showNukePanel, setShowNukePanel] = useState(false);
     const [isRepairing, setIsRepairing] = useState(false);
 
@@ -55,8 +55,8 @@ const SystemMonitor: React.FC<SystemMonitorProps> = ({ isOpen, onClose }) => {
             setQuotaUsage(usageMonitorService.getUsage());
             setIsOffline(offlineService.getIsOffline());
             refreshLogs();
-        } catch (err: unknown) {
-            console.error("Failed to refresh system monitor data:", err);
+        } catch (error) {
+            console.error("Failed to refresh system monitor data:", error);
         } finally {
             setIsRefreshing(false);
         }
@@ -69,8 +69,8 @@ const SystemMonitor: React.FC<SystemMonitorProps> = ({ isOpen, onClose }) => {
             githubService.setIntegrityBypass(true);
             await refreshData();
             // Notifiering om lyckad bypass-aktivering
-        } catch (err: unknown) {
-            console.error("Repair failed:", err);
+        } catch (error) {
+            console.error("Repair failed:", error);
         } finally {
             setIsRepairing(false);
         }
@@ -102,7 +102,7 @@ const SystemMonitor: React.FC<SystemMonitorProps> = ({ isOpen, onClose }) => {
 
     if (!isOpen) return null;
 
-    const isSyncOk = syncHealth && localMetadata && syncHealth.remoteSyncId === (localMetadata as Record<string, unknown>).sync_id;
+    const isSyncOk = syncHealth && localMetadata && syncHealth.remoteSyncId === localMetadata.sync_id;
     const isOfflineGateway = repoStatus?.errorContext === 'API_GATEWAY_DOWN' || isOffline;
     const isBypassed = repoStatus?.isBypassed;
 

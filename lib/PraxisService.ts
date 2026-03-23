@@ -26,12 +26,12 @@ export class PraxisService {
         const response = await fetch('/data/praxis.json');
         if (!response.ok) throw new Error('Kunde inte hämta praxisdata');
         const data = await response.json();
-        return data.paragraphs.map((p: Record<string, unknown>) => ({
+        return data.paragraphs.map((p: any) => ({
           id: p.id,
           reference: p.reference,
-          linkedLaw: (p.metadata as Record<string, unknown>).revisionNote || "",
+          linkedLaw: p.metadata.revisionNote || "",
           summary: p.text,
-          provenanceHash: (p.metadata as Record<string, unknown>).provenanceHash
+          provenanceHash: p.metadata.provenanceHash
         }));
       }
 
@@ -40,12 +40,12 @@ export class PraxisService {
         const response = await fetch(`/api/praxis/${encodeURIComponent(ref)}`);
         if (response.ok) {
           const data = await response.json();
-          const mapped = data.map((p: Record<string, unknown>) => ({
+          const mapped = data.map((p: any) => ({
             id: p.id,
             reference: p.reference,
-            linkedLaw: (p.metadata as Record<string, unknown>).revisionNote || "",
+            linkedLaw: p.metadata.revisionNote || "",
             summary: p.text,
-            provenanceHash: (p.metadata as Record<string, unknown>).provenanceHash
+            provenanceHash: p.metadata.provenanceHash
           }));
           results.push(...mapped);
         }
@@ -53,8 +53,8 @@ export class PraxisService {
       
       // Ta bort dubbletter
       return Array.from(new Map(results.map(item => [item.id, item])).values());
-    } catch (err: unknown) {
-      console.error('PraxisService Error:', err);
+    } catch (error) {
+      console.error('PraxisService Error:', error);
       return [];
     }
   }

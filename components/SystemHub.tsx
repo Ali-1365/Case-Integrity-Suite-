@@ -44,9 +44,7 @@ const ModuleCard: React.FC<ModuleCardProps> = ({ title, description, icon, statu
         
         <div className="flex justify-between items-start mb-8 relative z-10">
             <div className={`p-4 rounded-2xl bg-opacity-10 border border-opacity-20 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 ${color.replace('text-', 'bg-').replace('text-', 'border-')}`}>
-                // @ts-expect-error
-                {/* @ts-expect-error React specific type mismatch */}
-                {React.cloneElement(icon as React.ReactElement<unknown>, { className: `w-8 h-8 ${color}` })}
+                {React.cloneElement(icon as React.ReactElement<any>, { className: `w-8 h-8 ${color}` })}
             </div>
             <div className="flex flex-col items-end space-y-2">
                 <div className="flex items-center space-x-2">

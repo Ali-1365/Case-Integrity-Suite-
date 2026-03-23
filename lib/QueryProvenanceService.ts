@@ -38,14 +38,12 @@ export class QueryProvenanceService {
     const chain: ProvenanceChain = {
       queryId: entry.id,
       timestamp: entry.timestamp,
-      // @ts-expect-error
       queryText: entry.metadata?.query || "Okänd fråga",
       sources: [],
       auditLog: entry
     };
 
     // Hämta paragrafer från korpusar baserat på sparade hitIds (t.ex. "sol_2025_1_2")
-    // @ts-expect-error
     const hitIds: string[] = entry.metadata?.hitIds || [];
     
     for (const hitId of hitIds) {

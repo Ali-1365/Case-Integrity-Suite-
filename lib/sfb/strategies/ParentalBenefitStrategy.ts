@@ -19,7 +19,6 @@ export class ParentalBenefitStrategy implements IBenefitStrategy {
             reasoning.push('Barn-ID saknas i ansökan.');
         }
 
-        // @ts-expect-error
         if (clientData.daysClaimed > 480) {
             isValid = false;
             outcome = 'REJECTED';

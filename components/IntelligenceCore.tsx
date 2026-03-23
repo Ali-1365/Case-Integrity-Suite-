@@ -49,7 +49,7 @@ const ManualTrigger: React.FC<ManualTriggerProps> = ({ label, icon, onClick, isL
     );
 };
 
-export const IntelligenceCore: React.FC<{ analysis: unknown }> = ({ analysis }) => {
+export const IntelligenceCore: React.FC<{ analysis: any }> = ({ analysis }) => {
     const [activeProcesses, setActiveProcesses] = useState<Record<string, 'idle' | 'running' | 'completed' | 'error'>>({});
     const [localLogs, setLocalLogs] = useState<{ id: string, msg: string, time: string }[]>([]);
 

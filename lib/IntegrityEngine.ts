@@ -34,7 +34,7 @@ export class IntegrityEngine {
     // Hämta lagrumshänvisningar beroende på resultattyp
     const references = 'legalReferences' in result 
       ? result.legalReferences.map(r => ({ source: r.source, rawText: r.rawText }))
-      : result.machineReadable.legalBasis.map(b => ({ source: b as unknown, rawText: b }));
+      : result.machineReadable.legalBasis.map(b => ({ source: b as any, rawText: b }));
 
     references.forEach(ref => {
       const exists = LEGAL_SOURCES.some(source => 

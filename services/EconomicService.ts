@@ -140,8 +140,8 @@ export class EconomicService {
     try {
       const response = await geminiService.generate({ contents: prompt });
       return response || "Kunde inte generera analys.";
-    } catch (err: unknown) {
-      console.error("AI Analysis failed:", err);
+    } catch (error) {
+      console.error("AI Analysis failed:", error);
       return "Ett fel uppstod vid AI-analysen.";
     }
   }
@@ -159,7 +159,7 @@ export class EconomicService {
    * Genererar en antifragil budgetprognos.
    * Tar hänsyn till osäkerhet och "svarta svanar" genom att simulera olika scenarier.
    */
-  generateAntifragileForecast(baseData: unknown): BudgetForecast {
+  generateAntifragileForecast(baseData: any): BudgetForecast {
     // Simulering av komplexitet och osäkerhet
     const variance = (Math.random() * 0.2) - 0.1; // +/- 10% osäkerhet
     return {

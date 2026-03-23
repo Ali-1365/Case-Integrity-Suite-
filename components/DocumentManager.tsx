@@ -94,7 +94,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
     const [quotaUsage, setQuotaUsage] = useState<QuotaUsage>(() => {
         try {
             return usageMonitorService.getUsage();
-        } catch (err: unknown) {
+        } catch (e) {
             return { rpm: 0, tpm: 0, limitRpm: 15, limitTpm: 1000000, status: 'stable' };
         }
     });
@@ -103,7 +103,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
         const interval = setInterval(() => {
             try {
                 setQuotaUsage(usageMonitorService.getUsage());
-            } catch (err: unknown) {
+            } catch (e) {
                 console.warn("Usage monitor not available yet");
             }
         }, 5000);
@@ -128,8 +128,8 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
             setDocuments(docs);
             setLegalCorpora(corpora);
             await ragService.initialize();
-        } catch (err: unknown) {
-            console.error("[BOOT] Data load failure:", err);
+        } catch (e) {
+            console.error("[BOOT] Data load failure:", e);
         } finally {
             setIsLoading(false);
         }
@@ -140,7 +140,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
     const selectedDoc = documents.find(d => d.id === selectedDocId);
     const currentAnalysis = selectedDoc?.analysis || null;
 
-    const [activeCase, setActiveCase] = useState<unknown>(null);
+    const [activeCase, setActiveCase] = useState<any>(null);
 
     useEffect(() => {
         if (currentAnalysis?.caseId) {
@@ -150,7 +150,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
         }
     }, [currentAnalysis?.caseId]);
 
-    const handleAnalyze = async (doc: unknown) => {
+    const handleAnalyze = async (doc: any) => {
         setIsAnalyzing(true);
         setPipelineStatus({
             ...initialPipelineStatus,
@@ -161,22 +161,19 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
 
         try {
             // 1. Skapa ärende om det inte finns
-            // @ts-expect-error
-            const caseId = `CASE-${(doc as Record<string, unknown>).id?.substring(0, 8) || Date.now()}`;
+            const caseId = `CASE-${doc.id?.substring(0, 8) || Date.now()}`;
             const existingCase = await caseManagementService.getCase(caseId);
             if (!existingCase) {
-                // @ts-expect-error
-                await caseManagementService.createCase((doc as Record<string, unknown>).name, { hasChildAspect: false, isPreventive: false });
+                await caseManagementService.createCase(doc.name, { hasChildAspect: false, isPreventive: false });
             }
 
             setPipelineStatus(prev => ({ ...prev, currentStep: 'Kör AI-orkestrering...', progress: 30 }));
             
             // 2. Kör full analys via AIOrchestrator
             const analysisResult = await orchestrator.runFullAnalysis(
-                // @ts-expect-error
-                (doc as Record<string, unknown>).content || (doc as Record<string, unknown>).textContent || '',
-                (doc as Record<string, unknown>).id || `DOC-${Date.now()}`,
-                legalFrameworkIndex as unknown,
+                doc.content || doc.textContent || '',
+                doc.id || `DOC-${Date.now()}`,
+                legalFrameworkIndex as any,
                 undefined, 
                 caseId
             );
@@ -190,18 +187,12 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
 
             // 4. Uppdatera dokumentet med analysresultat
             const updatedDoc: StoredDocument = {
-                // @ts-expect-error
-                id: (doc as Record<string, unknown>).id || `DOC-${Date.now()}`,
-                // @ts-expect-error
-                name: (doc as Record<string, unknown>).name,
-                // @ts-expect-error
-                textContent: (doc as Record<string, unknown>).content || (doc as Record<string, unknown>).textContent || '',
-                // @ts-expect-error
-                mimeType: (doc as Record<string, unknown>).mimeType || 'text/plain',
-                // @ts-expect-error
-                createdAt: (doc as Record<string, unknown>).createdAt || new Date().toISOString(),
-                // @ts-expect-error General type mismatch
-                analysis: analysisResult as unknown
+                id: doc.id || `DOC-${Date.now()}`,
+                name: doc.name,
+                textContent: doc.content || doc.textContent || '',
+                mimeType: doc.mimeType || 'text/plain',
+                createdAt: doc.createdAt || new Date().toISOString(),
+                analysis: analysisResult as any
             };
 
             await db.addDocument(updatedDoc);
@@ -219,8 +210,8 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                 currentStep: 'Analys slutförd',
                 progress: 100
             });
-        } catch (err: unknown) {
-            console.error("Analysis failed:", err);
+        } catch (error) {
+            console.error("Analysis failed:", error);
             setPipelineStatus({
                 ...initialPipelineStatus,
                 status: 'error',
@@ -259,10 +250,9 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                 textContent: `Korsanalys av: ${selectedDocs.map(d => d.name).join(', ')}`,
                 mimeType: 'application/aggregate',
                 createdAt: new Date().toISOString(),
-                // @ts-expect-error General type mismatch
                 analysis: {
                     correlations
-                } as unknown
+                } as any
             };
 
             await db.addDocument(aggregateDoc);
@@ -275,8 +265,8 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                 currentStep: 'Batch-analys slutförd',
                 progress: 100
             });
-        } catch (err: unknown) {
-            console.error("Batch analysis failed:", err);
+        } catch (error) {
+            console.error("Batch analysis failed:", error);
             setPipelineStatus({
                 ...initialPipelineStatus,
                 status: 'error',
@@ -514,14 +504,14 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                                         const p = await parseFile(f); 
                                         if(p) await handleAnalyze(p); 
                                     } 
-                                } catch (err: unknown) {
+                                } catch (err) {
                                     console.error('File selection processing failed:', err);
                                 }
                             }}
                             onTextSubmit={async (t) => {
                                 try {
                                     await handleAnalyze({ name: 'Manuell inmatning', textContent: t, mimeType: 'text/plain' });
-                                } catch (err: unknown) {
+                                } catch (err) {
                                     console.error('Text submission processing failed:', err);
                                 }
                             }}
@@ -649,7 +639,6 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                             {activeModal === 'sfb' && <SfbIntegrityPanel isOpen={true} onClose={() => setActiveModal(null)} />}
                             {activeModal === 'monitor' && <SystemMonitor isOpen={true} onClose={() => setActiveModal(null)} />}
                             {activeModal === 'inventory' && <SystemInventory isOpen={true} onClose={() => setActiveModal(null)} />}
-                            {/* @ts-expect-error React specific type mismatch */}
                             {activeModal === 'profiler' && activeCase && <CaseProfiler caseData={activeCase} />}
                         </div>
                     </div>

@@ -23,7 +23,7 @@ export class LegalReasoningService extends BaseService {
       ).join('\n\n');
 
       const praxisContext = consolidation.hierarchy.praxis.map(p => 
-        `[PRAXIS: ${(p as Record<string, unknown>).reference} | HASH: ${(p as Record<string, unknown>).provenanceHash}]\nSAMMANFATTNING: ${(p as Record<string, unknown>).summary}`
+        `[PRAXIS: ${p.reference} | HASH: ${p.provenanceHash}]\nSAMMANFATTNING: ${p.summary}`
       ).join('\n\n');
 
       const systemInstruction = `
