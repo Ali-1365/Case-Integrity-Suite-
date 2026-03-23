@@ -1,5 +1,6 @@
 
 import { geminiService } from '../services/geminiService';
+import { getErrorMessage } from './errors';
 import { ThinkingLevel, Type } from '@google/genai';
 import { auditService } from './AuditService';
 import { journalService } from './JournalService';
@@ -311,9 +312,9 @@ export class LegalPipelineService {
 
             await journalService.addEntry(caseId, 'PIPELINE_COMPLETED', `Fullständig juridisk pipeline slutförd för ${caseId}`);
             
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error("Pipeline error:", error);
-            await journalService.addEntry(caseId, 'PIPELINE_ERROR', `Fel i pipeline: ${error.message}`);
+            await journalService.addEntry(caseId, 'PIPELINE_ERROR', `Fel i pipeline: ${getErrorMessage(error)}`);
         }
 
         return state;

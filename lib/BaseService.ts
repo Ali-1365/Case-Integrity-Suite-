@@ -1,5 +1,6 @@
 
 import { loggingService } from '../services/loggingService';
+import { getErrorMessage } from './errors';
 
 export abstract class BaseService {
   protected abstract serviceName: string;
@@ -20,12 +21,12 @@ export abstract class BaseService {
         result: this.sanitizeResult(result)
       });
       return result;
-    } catch (error: any) {
+    } catch (error: unknown) {
       const duration = Date.now() - startTime;
       loggingService.error(`[${this.serviceName}] Failed ${operationName}`, {
         duration,
-        error: error.message,
-        stack: error.stack,
+        error: getErrorMessage(error),
+        stack: error instanceof Error ? error.stack : undefined,
         params
       });
       throw error;
