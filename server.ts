@@ -3,10 +3,17 @@ import path from "path";
 import fs from "fs";
 import crypto from "crypto";
 import { createServer as createViteServer } from "vite";
+import { GoogleGenAI } from "@google/genai";
+import 'dotenv/config';
 
 async function startServer() {
   const app = express();
   const PORT = 3000;
+
+  app.use(express.json());
+
+  const apiKey = process.env.GEMINI_API_KEY || process.env.API_KEY;
+  const genAI = apiKey ? new GoogleGenAI(apiKey) : null;
 
   // API routes
   app.get("/api/praxis/:lawRef", (req, res) => {
@@ -57,6 +64,40 @@ async function startServer() {
     });
 
     res.json(results);
+  });
+
+  app.post("/api/ai/generate", async (req, res) => {
+    if (!genAI) {
+      return res.status(503).json({ error: "AI service not configured on server" });
+    }
+
+    try {
+      const { model, contents, config } = req.body;
+      const genModel = genAI.getGenerativeModel({ model });
+      const result = await genModel.generateContent({ contents, generationConfig: config });
+      const response = await result.response;
+      const text = response.text();
+      res.json({ text });
+    } catch (error: any) {
+      console.error("AI Generation Error:", error);
+      res.status(500).json({ error: error.message || "Failed to generate content" });
+    }
+  });
+
+  app.post("/api/ai/embed", async (req, res) => {
+    if (!genAI) {
+      return res.status(503).json({ error: "AI service not configured on server" });
+    }
+
+    try {
+      const { model, content } = req.body;
+      const genModel = genAI.getGenerativeModel({ model });
+      const result = await genModel.embedContent(content);
+      res.json({ embedding: result.embedding });
+    } catch (error: any) {
+      console.error("AI Embedding Error:", error);
+      res.status(500).json({ error: error.message || "Failed to generate embedding" });
+    }
   });
 
   // Vite middleware for development
