@@ -14,7 +14,7 @@ export interface GeneratedReport {
 
 /**
  * Generates a structured, technical report directly from an AnalysisResult object.
- * This function is deterministic and does not use any AI/LLM. It strictly follows
+ * This function is deterministic and does not use unknown AI/LLM. It strictly follows
  * the FMJAM reporting structure.
  */
 export function generateReportFromAnalysis(analysis: AnalysisResult): GeneratedReport {

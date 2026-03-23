@@ -52,8 +52,8 @@ export class ValidationModule {
                 premiseCount: parsed.premiseCount,
                 feedbackSignal: parsed.isValid ? null : parsed.feedbackSignal || "Otillräckligt antal premisser. Utredare-modulen måste hämta mer bevis."
             };
-        } catch (error) {
-            console.error("ValidationModule failure:", error);
+        } catch (err: unknown) {
+            console.error("ValidationModule failure:", err);
             // Fallback om AI-valideringen misslyckas
             return {
                 isValid: false,

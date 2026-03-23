@@ -19,7 +19,8 @@ export class ParentalBenefitStrategy implements IBenefitStrategy {
             reasoning.push('Barn-ID saknas i ansökan.');
         }
 
-        if ((clientData.daysClaimed as number) > 480) {
+        // @ts-expect-error
+        if (clientData.daysClaimed > 480) {
             isValid = false;
             outcome = 'REJECTED';
             reasoning.push('Maximalt antal dagar för föräldrapenning (480 dagar) har överskridits.');

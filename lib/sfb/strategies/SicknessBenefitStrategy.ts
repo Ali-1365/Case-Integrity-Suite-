@@ -19,7 +19,8 @@ export class SicknessBenefitStrategy implements IBenefitStrategy {
             reasoning.push('Läkarintyg saknas för perioden.');
         }
 
-        if ((clientData.income as number) < 0) {
+        // @ts-expect-error
+        if (clientData.income < 0) {
             isValid = false;
             outcome = 'REJECTED';
             reasoning.push('Sjukpenninggrundande inkomst (SGI) kan inte vara negativ.');
