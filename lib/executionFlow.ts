@@ -78,13 +78,13 @@ export async function loadAllLegalCorpus(): Promise<LegalCorpus[]> {
     }
     console.log(`[EXEC_FLOW] ${corpora.length} lagkorpusar laddade.`);
     return corpora;
-  } catch (err: any) {
+  } catch (err) {
     console.error('[EXEC_FLOW] Kritiskt fel vid laddning av lagkorpus:', err);
     // Aktivera inte offline direkt — kan vara en tillfällig 404
-    if (err.message?.includes('NetworkError') || err.message?.includes('Failed to fetch')) {
+    if ((err instanceof Error ? err.message : String(err))?.includes('NetworkError') || (err instanceof Error ? err.message : String(err))?.includes('Failed to fetch')) {
       offlineService.setOffline(true, 'NETWORK_ERROR');
     }
-    throw new Error(`HARD-FAIL: Kunde inte ladda nödvändiga lagfiler. ${err.message}`);
+    throw new Error(`HARD-FAIL: Kunde inte ladda nödvändiga lagfiler. ${(err instanceof Error ? err.message : String(err))}`);
   }
 }
 
@@ -121,8 +121,8 @@ export async function executeFullFlow(
   try {
     verifiedAnalysis = verifyAndLinkAnalysis(analysis, legalCorpus);
     console.log('[EXEC_FLOW] Analys verifierad och länkad. Alla villkor uppfyllda.');
-  } catch (e: any) {
-    console.error('[EXEC_FLOW] Verifiering misslyckades:', e.message);
+  } catch (e) {
+    console.error('[EXEC_FLOW] Verifiering misslyckades:', (e instanceof Error ? e.message : String(e)));
     // Returnera ovaliderad snarare än att krascha hela appen
     return {
       prompt: AI_SYSTEM_PROMPT,
