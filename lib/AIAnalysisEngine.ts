@@ -32,7 +32,7 @@ export class AIAnalysisEngine {
         {
           description: "AI-analys ej tillgänglig — systemet körs i offline-läge.",
           missingAction:
-            "Lägg till en giltig Gemini API-nyckel i miljövariabeln GEMINI_API_KEY och starta om applikationen.",
+            "Lägg till en giltig Gemini API-nyckel via VITE_GEMINI_API_KEY, GEMINI_API_KEY eller window.GEMINI_API_KEY och starta om applikationen vid behov.",
         },
       ],
       holisticFlags: [

@@ -1,73 +1,7 @@
 import { GoogleGenAI, GenerateContentParameters } from '@google/genai';
-import { loggingService, LogMode } from './loggingService';
+import { loggingService } from './loggingService';
 import { getSyntheticResponse } from '../lib/syntheticLLMResponses';
-import { ApiError } from '../lib/errors';
-
-// ─────────────────────────────────────────────
-//  OFFLINE SERVICE
-// ─────────────────────────────────────────────
-type OfflineReason = 'API_KEY_MISSING' | 'QUOTA_EXCEEDED' | 'NETWORK_ERROR' | null;
-
-class OfflineService {
-  private _isOffline: boolean = false;
-  private _reason: OfflineReason = null;
-  private _subscribers: ((offline: boolean, reason: OfflineReason) => void)[] = [];
-  private _recoveryTimer: any = null;
-
-  constructor() {
-    const apiKey = this.getApiKey();
-    if (!apiKey) this.setOffline(true, 'API_KEY_MISSING');
-  }
-
-  private getApiKey(): string {
-    let key = '';
-    if (typeof import.meta !== 'undefined' && import.meta.env) key = import.meta.env.VITE_GEMINI_API_KEY || '';
-    if (!key && typeof window !== 'undefined') key = (window as any).GEMINI_API_KEY || '';
-    console.log('[OfflineService] API Key present:', !!key);
-    return key;
-  }
-
-  getIsOffline(): boolean { return this._isOffline; }
-  getReason(): OfflineReason { return this._reason; }
-
-  setOffline(offline: boolean, reason: OfflineReason = null) {
-    const wasOffline = this._isOffline;
-    this._isOffline = offline;
-    this._reason = reason;
-
-    if (typeof window !== 'undefined') {
-      (window as any).OFFLINE_MODE = offline;
-      (window as any).OFFLINE_REASON = reason;
-    }
-
-    this._subscribers.forEach(fn => fn(offline, reason));
-
-    if (offline && (reason === 'QUOTA_EXCEEDED' || reason === 'NETWORK_ERROR')) this.startRecoveryPolling();
-    else if (!offline && wasOffline) this.stopRecoveryPolling();
-  }
-
-  private startRecoveryPolling() {
-    if (this._recoveryTimer) return;
-    this._recoveryTimer = setInterval(async () => {
-      if (!this._isOffline) { this.stopRecoveryPolling(); return; }
-      try {
-        const status = await geminiService.checkApiStatus();
-        if (status.online) this.setOffline(false);
-      } catch { /* fortsätt */ }
-    }, 60000);
-  }
-
-  private stopRecoveryPolling() {
-    if (this._recoveryTimer) { clearInterval(this._recoveryTimer); this._recoveryTimer = null; }
-  }
-
-  subscribe(fn: (offline: boolean, reason: OfflineReason) => void): () => void {
-    this._subscribers.push(fn);
-    return () => { this._subscribers = this._subscribers.filter(s => s !== fn); };
-  }
-}
-
-export const offlineService = new OfflineService();
+import { getConfiguredGeminiApiKey, offlineService } from './offlineService';
 
 // ─────────────────────────────────────────────
 //  GEMINI SERVICE
@@ -85,17 +19,30 @@ export class GeminiService {
   constructor() { this.initializeClient(); }
 
   private getApiKey(): string {
-    let key = '';
-    if (typeof import.meta !== 'undefined' && import.meta.env) key = import.meta.env.VITE_GEMINI_API_KEY || '';
-    if (!key && typeof window !== 'undefined') key = (window as any).GEMINI_API_KEY || '';
+    const key = getConfiguredGeminiApiKey();
+    console.log('[GeminiService] API Key present:', !!key);
     return key;
   }
 
   private initializeClient(): void {
     const apiKey = this.getApiKey();
-    if (!apiKey) { offlineService.setOffline(true, 'API_KEY_MISSING'); return; }
-    try { this.ai = new GoogleGenAI({ apiKey } as any); offlineService.setOffline(false); }
-    catch (e: any) { offlineService.setOffline(true, 'NETWORK_ERROR'); }
+
+    if (!apiKey) {
+      loggingService.warn('[GeminiService] Ingen Gemini API-nyckel hittades i VITE_GEMINI_API_KEY, GEMINI_API_KEY eller window.GEMINI_API_KEY. AI-funktioner använder fallback tills en nyckel finns.');
+      this.ai = null;
+      offlineService.setOffline(false);
+      return;
+    }
+
+    try {
+      this.ai = new GoogleGenAI({ apiKey } as any);
+      console.log('[GeminiService] Klient initierad korrekt.');
+      offlineService.setOffline(false);
+    } catch (e: any) {
+      loggingService.error(`[GeminiService] Initiering misslyckades: ${e.message}`);
+      this.ai = null;
+      offlineService.setOffline(true, 'NETWORK_ERROR');
+    }
   }
 
   private getClient(): GoogleGenAI {
@@ -145,7 +92,7 @@ export class GeminiService {
         const response = await this.executeWithRetry(() =>
           (client as any).models.embedContent({ model: modelName, contents: { parts: [{ text }] } })
         );
-        const values = response?.embeddings?.[0]?.values || (response as any)?.embedding?.values;
+        const values = (response as any)?.embeddings?.[0]?.values || (response as any)?.embedding?.values;
         if (values?.length > 0) return values;
       } catch { continue; }
     }
@@ -173,3 +120,5 @@ export class GeminiLlmClient {
     return { text: text || '' };
   }
 }
+
+export { offlineService };

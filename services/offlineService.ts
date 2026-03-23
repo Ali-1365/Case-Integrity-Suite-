@@ -1,7 +1,19 @@
-
 import { loggingService } from './loggingService';
 
 export type OfflineReason = 'QUOTA_EXCEEDED' | 'NETWORK_ERROR' | 'API_KEY_MISSING' | 'MANUAL';
+
+export function getConfiguredGeminiApiKey(): string {
+    if (typeof import.meta !== 'undefined' && import.meta.env) {
+        const viteKey = import.meta.env.VITE_GEMINI_API_KEY || import.meta.env.GEMINI_API_KEY || '';
+        if (viteKey) return viteKey;
+    }
+
+    if (typeof window !== 'undefined') {
+        return (window as any).GEMINI_API_KEY || '';
+    }
+
+    return '';
+}
 
 class OfflineService {
     private isOffline: boolean = false;
@@ -9,25 +21,28 @@ class OfflineService {
     private listeners: ((isOffline: boolean, reason: OfflineReason | null) => void)[] = [];
 
     constructor() {
-        // Check if we were offline in previous session (optional, maybe better to start fresh)
-        const saved = localStorage.getItem('cis_offline_mode');
-        if (saved === 'true') {
-            this.isOffline = true;
-            this.reason = 'MANUAL';
+        if (typeof window !== 'undefined') {
+            (window as any).OFFLINE_MODE = false;
+            (window as any).OFFLINE_REASON = null;
         }
     }
 
     public setOffline(offline: boolean, reason: OfflineReason | null = null) {
         if (this.isOffline === offline && this.reason === reason) return;
-        
+
         this.isOffline = offline;
         this.reason = offline ? reason : null;
-        
+
+        if (typeof window !== 'undefined') {
+            (window as any).OFFLINE_MODE = offline;
+            (window as any).OFFLINE_REASON = offline ? reason : null;
+        }
+
         if (offline) {
             loggingService.warn(`[OFFLINE] Systemet har växlat till OFFLINE-LÄGE. Orsak: ${reason}`);
             localStorage.setItem('cis_offline_mode', 'true');
         } else {
-            loggingService.info(`[OFFLINE] Systemet är nu ONLINE.`);
+            loggingService.info('[OFFLINE] Systemet är nu ONLINE.');
             localStorage.removeItem('cis_offline_mode');
         }
 

@@ -23,7 +23,7 @@ const OfflineBanner: React.FC = () => {
       display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px'
     }}>
       <span>⚠</span>
-      <span>OFFLINE-LÄGE — API-kvot slut eller nyckel saknas.</span>
+      <span>OFFLINE-LÄGE — API-kvot slut, nätverksfel eller ogiltig nyckel.</span>
       <button 
         onClick={() => window.location.reload()}
         className="bg-black text-white px-3 py-1 rounded text-xs hover:bg-slate-800"
@@ -813,7 +813,7 @@ const AnalysView: React.FC = () => {
         <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 text-center">
           <div className="text-3xl mb-3">⚠</div>
           <h3 className="text-sm font-semibold text-amber-800 mb-2">Offline-läge aktivt</h3>
-          <p className="text-xs text-amber-600">AI-analysmodulen kräver en giltig API-nyckel. Lägg till GEMINI_API_KEY i miljövariablerna och starta om.</p>
+          <p className="text-xs text-amber-600">AI-analysmodulen kräver en giltig Gemini-nyckel. Använd VITE_GEMINI_API_KEY, GEMINI_API_KEY eller window.GEMINI_API_KEY och starta om vid behov.</p>
         </div>
       ) : (
         <div className="bg-white border border-slate-200 rounded-xl p-6 text-center">
