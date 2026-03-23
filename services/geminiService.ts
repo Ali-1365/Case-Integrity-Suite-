@@ -6,7 +6,7 @@ import { ApiError } from '../lib/errors';
 // ─────────────────────────────────────────────
 //  OFFLINE SERVICE (inbyggd — ingen extern fil behövs)
 // ─────────────────────────────────────────────
-type OfflineReason = 'API_KEY_MISSING' | 'QUOTA_EXCEEDED' | 'NETWORK_ERROR' | 'MANUAL' | null;
+type OfflineReason = 'API_KEY_MISSING' | 'QUOTA_EXCEEDED' | 'NETWORK_ERROR' | 'MANUAL' | 'SERVER_ERROR' | null;
 
 class OfflineService {
   private _isOffline: boolean = false;
@@ -37,6 +37,8 @@ class OfflineService {
   getReason(): OfflineReason { return this._reason; }
 
   setOffline(offline: boolean, reason: OfflineReason = null): void {
+    if (this._isOffline === offline && this._reason === reason) return;
+
     this._isOffline = offline;
     this._reason = reason;
     if (typeof window !== 'undefined') {
@@ -96,21 +98,31 @@ export class GeminiService {
     if (!apiKey) {
       loggingService.error('[GeminiService] GEMINI_API_KEY saknas. AI-tjänster otillgängliga.');
       offlineService.setOffline(true, 'API_KEY_MISSING');
+      this.ai = null;
       return;
     }
+
     try {
       this.ai = new GoogleGenAI({ apiKey } as any);
       console.log('[GeminiService] Klient initierad.');
+
+      // If we were offline solely due to missing API key or network error and we successfully re-initialized, we can mark as online.
+      if (offlineService.getReason() === 'API_KEY_MISSING') {
+         offlineService.setOffline(false);
+      }
     } catch (e: any) {
       loggingService.error(`[GeminiService] Initiering misslyckades: ${e.message}`);
       offlineService.setOffline(true, 'NETWORK_ERROR');
+      this.ai = null;
     }
   }
 
   private getClient(): GoogleGenAI {
     if (!this.ai) {
       this.initializeClient();
-      if (!this.ai) throw new Error('Gemini-klienten kunde inte initialiseras. API-nyckel saknas.');
+      if (!this.ai) {
+        throw new Error(`Gemini-klienten kunde inte initialiseras. Anledning: ${offlineService.getReason()}`);
+      }
     }
     return this.ai;
   }
@@ -121,10 +133,12 @@ export class GeminiService {
     initialDelay = 2000
   ): Promise<T> {
     let delay = initialDelay;
+
     for (let i = 0; i < retries; i++) {
       try {
+        const result = await operation();
         this.quotaState = { isThrottled: false, retryAfterMs: 0, lastError: null };
-        return await operation();
+        return result;
       } catch (error: any) {
         const msg = (error.message || '').toLowerCase();
         const isQuota = msg.includes('quota') || msg.includes('429') ||
@@ -132,23 +146,42 @@ export class GeminiService {
           error.status === 429 || error.status === 503;
         const isAuth = msg.includes('401') || msg.includes('api_key') ||
           msg.includes('unauthorized') || error.status === 401;
+        const isNetwork = msg.includes('fetch') || msg.includes('network') || msg.includes('timeout') || msg.includes('econnrefused');
 
         if (isAuth) {
           offlineService.setOffline(true, 'API_KEY_MISSING');
           throw new ApiError(`Auth-fel: ${error.message}`, { originalError: error });
         }
-        if (isQuota && i < retries - 1) {
-          console.warn(`[GeminiService] Kvotfel. Försök ${i + 1}/${retries}. Väntar ${delay / 1000}s...`);
-          this.quotaState = { isThrottled: true, retryAfterMs: delay, lastError: error.message };
+
+        // Retry logic for Quota, Network, or Server errors
+        const shouldRetry = isQuota || isNetwork || error.status >= 500;
+
+        if (shouldRetry && i < retries - 1) {
+          console.warn(`[GeminiService] Transient fel (${isQuota ? 'Kvot' : 'Nätverk/Server'}). Försök ${i + 1}/${retries}. Väntar ${delay / 1000}s...`);
+
+          if (isQuota) {
+            this.quotaState = { isThrottled: true, retryAfterMs: delay, lastError: error.message };
+          }
+
           await new Promise(r => setTimeout(r, delay));
           delay *= 2;
-        } else if (i === retries - 1) {
-          this.quotaState.lastError = error.message;
-          if (isQuota) offlineService.setOffline(true, 'QUOTA_EXCEEDED');
-          else offlineService.setOffline(true, 'NETWORK_ERROR');
-          throw new ApiError(`API-fel efter ${i + 1} försök: ${error.message}`, { originalError: error });
         } else {
-          throw error;
+          // No more retries or non-retryable error
+          this.quotaState.lastError = error.message;
+
+          if (isQuota) {
+             offlineService.setOffline(true, 'QUOTA_EXCEEDED');
+          } else if (isNetwork) {
+             offlineService.setOffline(true, 'NETWORK_ERROR');
+          } else if (error.status >= 500) {
+             offlineService.setOffline(true, 'SERVER_ERROR');
+          }
+
+          if (i === retries - 1 && shouldRetry) {
+             throw new ApiError(`API-fel efter ${i + 1} försök: ${error.message}`, { originalError: error });
+          } else {
+             throw error; // Throw immediately for non-retryable errors
+          }
         }
       }
     }
@@ -163,7 +196,7 @@ export class GeminiService {
     const startTime = Date.now();
 
     if (offlineService.getIsOffline()) {
-      console.warn('[GeminiService] Offline → syntetiskt svar.');
+      console.warn(`[GeminiService] Offline (${offlineService.getReason()}) → syntetiskt svar.`);
       const prompt = typeof params.contents === 'string'
         ? params.contents : JSON.stringify(params.contents);
       return getSyntheticResponse(prompt);
@@ -218,6 +251,14 @@ export class GeminiService {
       });
 
       // Fallback-kedja: Pro → Flash → Lite → Syntetiskt
+      // If we are already offline due to executeWithRetry, instantly return synthetic to prevent slow cascade.
+      if (offlineService.getIsOffline()) {
+         console.warn(`[GeminiService] API markerat som offline efter fel i ${modelName} → Syntetiskt.`);
+         const prompt = typeof params.contents === 'string'
+           ? params.contents : JSON.stringify(params.contents);
+         return getSyntheticResponse(prompt);
+      }
+
       if (modelName === this.proModel) {
         console.warn('[GeminiService] Pro misslyckades → Flash.');
         const np = { ...params, model: this.flashModel };
@@ -230,28 +271,38 @@ export class GeminiService {
         if (np.config) { const { thinkingConfig, ...r } = np.config as any; np.config = r; }
         return this.generate(np, 'fast');
       }
-      if (modelName === this.liteModel) {
-        console.warn('[GeminiService] Alla modeller misslyckades → Syntetiskt.');
-        const prompt = typeof params.contents === 'string'
-          ? params.contents : JSON.stringify(params.contents);
-        const synthetic = getSyntheticResponse(prompt);
-        if ((params.config as any)?.responseMimeType === 'application/json') {
-          return JSON.stringify({ status: 'SYNTHETIC_FALLBACK', content: synthetic,
-            warning: 'Syntetiskt svar på grund av API-begränsningar.' });
-        }
-        return synthetic;
+
+      console.warn(`[GeminiService] Modell ${modelName} misslyckades → Syntetiskt.`);
+      const prompt = typeof params.contents === 'string'
+        ? params.contents : JSON.stringify(params.contents);
+      const synthetic = getSyntheticResponse(prompt);
+
+      if ((params.config as any)?.responseMimeType === 'application/json') {
+        return JSON.stringify({ status: 'SYNTHETIC_FALLBACK', content: synthetic,
+          warning: 'Syntetiskt svar på grund av API-begränsningar.' });
       }
-      return `SYSTEMFEL: Kunde inte generera svar. ${error.message}`;
+      return synthetic;
     }
   }
 
   // ─── EMBED ──────────────────────────────────
   async embed(text: string): Promise<number[]> {
     if (offlineService.getIsOffline()) {
-      console.warn('[GeminiService] Offline → pseudo-embedding.');
+      console.warn(`[GeminiService] Offline (${offlineService.getReason()}) → pseudo-embedding.`);
       return this.pseudoEmbed(text);
     }
-    const client = this.getClient();
+
+    let client;
+    try {
+      client = this.getClient();
+    } catch (e) {
+      // If client cannot be initialized, we should drop to pseudo-embed
+      console.warn('[GeminiService] Embed kunde inte initiera klient → pseudo-embedding.');
+      return this.pseudoEmbed(text);
+    }
+
+    let lastError = null;
+
     for (const modelName of ['text-embedding-004', 'gemini-embedding-001']) {
       try {
         const response = await this.executeWithRetry(async () =>
@@ -264,9 +315,26 @@ export class GeminiService {
         if (values?.length > 0) return values;
       } catch (e: any) {
         console.warn(`[GeminiService] Embed misslyckades (${modelName}): ${e.message}`);
+        lastError = e;
+
+        // If API key is missing or quota is exceeded, don't try the next model
+        if (offlineService.getIsOffline()) {
+           break;
+        }
       }
     }
+
     console.warn('[GeminiService] Embed API helt nere → pseudo-embedding.');
+    // Ensure we mark the service offline if both embedding models failed due to network/server errors
+    if (!offlineService.getIsOffline()) {
+        const isAuth = lastError?.message?.includes('401') || lastError?.message?.includes('api_key');
+        const isQuota = lastError?.message?.includes('429') || lastError?.message?.includes('quota');
+
+        if (isAuth) offlineService.setOffline(true, 'API_KEY_MISSING');
+        else if (isQuota) offlineService.setOffline(true, 'QUOTA_EXCEEDED');
+        else offlineService.setOffline(true, 'NETWORK_ERROR');
+    }
+
     return this.pseudoEmbed(text);
   }
 
@@ -286,7 +354,24 @@ export class GeminiService {
   async checkApiStatus(): Promise<{ online: boolean; latencyMs?: number; message: string }> {
     const start = Date.now();
     try {
-      await this.generate({ contents: 'Svara med OK.' }, 'fast');
+      // We must bypass the standard `generate` offline check here to truly test the API.
+      // So we instantiate a temporary client and run a direct call.
+      const apiKey =
+        (typeof process !== 'undefined'
+          ? process.env?.GEMINI_API_KEY || process.env?.API_KEY
+          : null) || '';
+
+      if (!apiKey) {
+         return { online: false, message: 'API-nyckel saknas.' };
+      }
+
+      const testClient = new GoogleGenAI({ apiKey } as any);
+
+      await testClient.models.generateContent({
+        model: this.flashModel,
+        contents: [{ role: 'user', parts: [{ text: 'Svara med OK.' }] }]
+      });
+
       const latencyMs = Date.now() - start;
       offlineService.setOffline(false);
       return { online: true, latencyMs, message: 'API ansluten och operativ.' };
