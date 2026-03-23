@@ -3,63 +3,10 @@ import path from "path";
 import fs from "fs";
 import crypto from "crypto";
 import { createServer as createViteServer } from "vite";
-import { GoogleGenAI } from "@google/genai";
 
 async function startServer() {
   const app = express();
   const PORT = 3000;
-
-  app.use(express.json({ limit: "50mb" }));
-
-  // AI proxy routes
-  app.post("/api/ai/generate", async (req, res) => {
-    const apiKey = process.env.GEMINI_API_KEY || process.env.API_KEY || "";
-    if (!apiKey) {
-      return res.status(401).json({ error: "API key is missing" });
-    }
-
-    try {
-      const ai = new GoogleGenAI({ apiKey } as any);
-      const response = await ai.models.generateContent(req.body);
-      res.json({ ...response, text: response.text });
-    } catch (error: any) {
-      const msg = error.message || "";
-      if (
-        msg.includes("quota") ||
-        msg.includes("429") ||
-        msg.includes("resource_exhausted") ||
-        msg.includes("overloaded") ||
-        error.status === 429 ||
-        error.status === 503
-      ) {
-        return res.status(429).json({ error: error.message });
-      }
-      res.status(500).json({ error: error.message });
-    }
-  });
-
-  app.post("/api/ai/embed", async (req, res) => {
-    const apiKey = process.env.GEMINI_API_KEY || process.env.API_KEY || "";
-    if (!apiKey) {
-      return res.status(401).json({ error: "API key is missing" });
-    }
-
-    try {
-      const ai = new GoogleGenAI({ apiKey } as any);
-      const response = await (ai as any).models.embedContent(req.body);
-      res.json(response);
-    } catch (error: any) {
-      res.status(500).json({ error: error.message });
-    }
-  });
-
-  app.get("/api/ai/status", async (req, res) => {
-    const apiKey = process.env.GEMINI_API_KEY || process.env.API_KEY || "";
-    if (!apiKey) {
-      return res.json({ hasKey: false });
-    }
-    res.json({ hasKey: true });
-  });
 
   // API routes
   app.get("/api/praxis/:lawRef", (req, res) => {
