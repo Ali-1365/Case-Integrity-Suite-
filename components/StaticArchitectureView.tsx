@@ -60,7 +60,7 @@ const StaticArchitectureView: React.FC<StaticArchitectureViewProps> = ({ isOpen,
                         flowchart: { htmlLabels: true, curve: 'basis', useMaxWidth: true }
                     });
                     mermaid.run();
-                } catch (e) {
+                } catch (e: unknown) {
                     console.error("Mermaid failure:", e);
                 }
             }, 100);

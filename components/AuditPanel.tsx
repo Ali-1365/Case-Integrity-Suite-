@@ -26,7 +26,7 @@ const AuditPanel: React.FC<AuditPanelProps> = ({ isOpen, onClose }) => {
     try {
       const data = await db.getAuditLogs();
       setLogs(data);
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("Failed to load audit logs:", error);
     } finally {
       setIsLoading(false);

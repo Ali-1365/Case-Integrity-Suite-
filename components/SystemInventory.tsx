@@ -99,7 +99,7 @@ const SystemInventory: React.FC<SystemInventoryProps> = ({ isOpen, onClose }) =>
 
             setFiles(analyzedFiles);
             setLastScan(new Date());
-        } catch (err) {
+        } catch (err: unknown) {
             console.error('System scan failed:', err);
         } finally {
             setIsScanning(false);

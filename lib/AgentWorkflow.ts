@@ -80,7 +80,7 @@ export class AgentWorkflow {
         try {
             const parsed = this.parseJsonResponse<{ fakta: string[] }>(response, "Utredare");
             return parsed.fakta || [];
-        } catch (e) {
+        } catch (e: unknown) {
             // Fallback om JSON misslyckas men vi har text (för bakåtkompatibilitet eller oväntade svar)
             if (response && !response.trim().startsWith('{') && !response.includes('SYSTEMFEL')) {
                 return response.split('\n').filter(line => line.trim().length > 0);

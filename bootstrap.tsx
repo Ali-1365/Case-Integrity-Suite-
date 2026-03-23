@@ -61,7 +61,7 @@ export function startApp() {
     const root = createRoot(container);
     root.render(<App />);
     console.log("FMJAM_STARTUP: Render call completed.");
-  } catch (err) {
+  } catch (err: unknown) {
     console.error("React Root Initialization Error:", err);
     // Visa ett minimalt felmeddelande i DOM om React kraschar
     container.innerHTML = `

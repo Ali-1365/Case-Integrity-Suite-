@@ -52,7 +52,7 @@ const AnalysisView: React.FC<AnalysisViewProps> = ({ documentId, onBack, onDocum
       if (updatedDoc) setDocument(updatedDoc);
       onDocumentUpdate(document.id);
 
-    } catch (e) {
+    } catch (e: unknown) {
       console.error("Opinion generation failed:", e);
       setError(`Generering av yttrande misslyckades. ${e instanceof Error ? (e instanceof Error ? e.message : String(e)) : ''}`);
     } finally {
@@ -72,7 +72,7 @@ const AnalysisView: React.FC<AnalysisViewProps> = ({ documentId, onBack, onDocum
         await db.addDocument(updatedDoc);
         setDocument(updatedDoc);
         onDocumentUpdate(document.id);
-    } catch (e) {
+    } catch (e: unknown) {
         console.error("Synthesis regeneration failed:", e);
         setError("Kunde inte generera ny syntes.");
     } finally {

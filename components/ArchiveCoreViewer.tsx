@@ -54,7 +54,7 @@ const ArchiveCoreViewer: React.FC<ArchiveCoreViewerProps> = ({ onBack }) => {
                   </div>
                   <div>
                     <p className="text-sm font-black text-white uppercase italic tracking-tight">DOKUMENT-0{num}</p>
-                    <p className="text-[9px] text-gray-600 font-bold uppercase mt-1">LOCKED_HASH: SHA256_{Math.random().toString(36).substring(7).toUpperCase()}</p>
+                    <p className="text-[9px] text-gray-600 font-bold uppercase mt-1">LOCKED_HASH: SHA256_{Array.from(crypto.getRandomValues(new Uint8Array(4))).map(b => b.toString(16).padStart(2, '0')).join('').toUpperCase()}</p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-4">

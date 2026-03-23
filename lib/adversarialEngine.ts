@@ -98,7 +98,7 @@ export class AdversarialEngine {
                 integrityScore: result.integrityScore
             };
 
-        } catch (error) {
+        } catch (error: unknown) {
             console.error("Adversarial Duel failed:", error);
             throw error;
         }

@@ -80,7 +80,7 @@ const AgentWorkspace: React.FC<AgentWorkspaceProps> = ({ isOpen, onClose }) => {
           if (allCases.length > 0 && !activeCaseId) {
               setActiveCaseId(allCases[0].caseId);
           }
-        } catch (err) {
+        } catch (err: unknown) {
           console.error('AgentWorkspace initialization failed:', err);
         } finally {
           setIsReady(true);
@@ -103,7 +103,7 @@ const AgentWorkspace: React.FC<AgentWorkspaceProps> = ({ isOpen, onClose }) => {
         // Refresh cases to get updated versions/journal
         const allCases = await caseManagementService.getAllCases();
         setCases(allCases);
-      } catch (e) {
+      } catch (e: unknown) {
         setOpinion("### Kritiskt fel vid generering\n\nDet gick inte att generera ett yttrande för detta ärende. Kontrollera att ärendet har tillräckligt med data.");
       } finally {
         setIsGenerating(false);

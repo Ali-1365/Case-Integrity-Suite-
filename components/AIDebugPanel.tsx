@@ -260,7 +260,7 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
                         }
                         const text = await navigator.clipboard.readText();
                         setPrompt(prev => prev + text);
-                    } catch (err) {
+                    } catch (err: unknown) {
                         console.error('Failed to paste:', err);
                     }
                 }} className="px-3 py-1.5 hover:bg-white dark:hover:bg-slate-800 transition-colors bg-white dark:bg-slate-900 rounded-lg text-[10px] font-bold uppercase text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700">

@@ -46,7 +46,7 @@ export const LegalPipelineView: React.FC<LegalPipelineViewProps> = ({ analysis }
             await legalPipelineService.runFullPipeline(analysis.caseId, caseData, (newState) => {
                 setState(newState);
             });
-        } catch (error) {
+        } catch (error: unknown) {
             console.error("Legal pipeline failed:", error);
         } finally {
             setIsRunning(false);

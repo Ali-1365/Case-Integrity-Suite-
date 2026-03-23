@@ -108,7 +108,7 @@ export class CorpusService extends BaseService {
           metadata
         } as LegalParagraph;
 
-      } catch (err) {
+      } catch (err: unknown) {
         console.warn(`[CORPUS] Varning: Kunde inte sanitera paragraf i ${lawId} på index ${index}:`, err);
         // Returnera ett säkert fallback-objekt för att inte krascha hela inläsningen
         return {

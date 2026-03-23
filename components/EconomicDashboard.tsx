@@ -79,7 +79,7 @@ const EconomicDashboard: React.FC = () => {
 
     const newInvoice: Invoice = {
       id: `inv-${Date.now()}`,
-      invoiceNumber: `INV-${Math.floor(Math.random() * 10000)}`,
+      invoiceNumber: `INV-${(crypto.getRandomValues(new Uint32Array(1))[0] % 10000)}`,
       clientName: data.clientName || 'Okänd Kund',
       issueDate: new Date().toISOString().split('T')[0],
       dueDate: data.dueDate || '',
@@ -118,7 +118,7 @@ const EconomicDashboard: React.FC = () => {
       const analysis = await economicService.analyzeClaimAI(claim);
       economicService.updateClaim(claim.id, { aiAnalysis: analysis });
       loadData();
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("AI Analysis failed:", error);
     } finally {
       setIsAnalyzing(false);
