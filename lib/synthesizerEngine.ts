@@ -113,8 +113,8 @@ När du skapar Sakframställan, ska du inleda med Bevistemana (hämtade från Fa
       }, 'think');
 
       return { synthesis, duelResult, correlations };
-    } catch (error) {
-      console.error("Batch synthesis failure:", error);
+    } catch (err: unknown) {
+      console.error("Batch synthesis failure:", err);
       throw new Error("Systemet kunde inte slutföra batch-syntesen.");
     }
   }
@@ -149,7 +149,7 @@ När du skapar Sakframställan, ska du inleda med Bevistemana (hämtade från Fa
         contents: `CONTEXT_LOCKED (Använd denna data för att generera rapporten):\n\n${JSON.stringify(strippedData, null, 2)}`,
         config: { systemInstruction, temperature: 0.0 }
       }, 'think');
-    } catch (error) {
+    } catch (err: unknown) {
        return "KRITISKT FEL: Den deterministiska syntesmotorn svarar inte.";
     }
   }

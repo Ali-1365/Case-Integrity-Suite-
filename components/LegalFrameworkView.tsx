@@ -89,7 +89,7 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
     try {
       const praxis = await praxisService.getRelevantPraxis([lawRef]);
       setRelevantPraxis(praxis);
-    } catch (err) {
+    } catch (err: unknown) {
       console.error('Failed to fetch praxis:', err);
       setRelevantPraxis([]);
     }
@@ -103,8 +103,8 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
         const data = await response.json();
         setIntegrityStatus(data);
       }
-    } catch (error) {
-      console.error('Integrity verification failed:', error);
+    } catch (err: unknown) {
+      console.error('Integrity verification failed:', err);
     } finally {
       setIsVerifying(false);
     }

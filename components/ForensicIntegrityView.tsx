@@ -26,8 +26,8 @@ const ForensicIntegrityView: React.FC<ForensicIntegrityViewProps> = ({ analysis 
     try {
       const result = await forensicChainService.verifyChain(analysis);
       setVerification(result);
-    } catch (error) {
-      console.error("Forensic verification failed:", error);
+    } catch (err: unknown) {
+      console.error("Forensic verification failed:", err);
     } finally {
       setIsValidating(false);
     }

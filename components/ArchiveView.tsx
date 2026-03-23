@@ -36,8 +36,8 @@ const ArchiveView: React.FC<ArchiveViewProps> = ({ onSelect }) => {
             try {
                 const allDocs = await db.getAllDocuments();
                 setDocuments(allDocs.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()));
-            } catch (error) {
-                console.error("Failed to load archived documents:", error);
+            } catch (err: unknown) {
+                console.error("Failed to load archived documents:", err);
             } finally {
                 setIsLoading(false);
             }
@@ -50,8 +50,8 @@ const ArchiveView: React.FC<ArchiveViewProps> = ({ onSelect }) => {
             await db.deleteDocument(id);
             setDocuments(prev => prev.filter(d => d.id !== id));
             setStatusMessage({ text: "Ärendet raderat permanent.", type: 'success' });
-        } catch (error) {
-            console.error(`Failed to delete document ${id}:`, error);
+        } catch (err: unknown) {
+            console.error(`Failed to delete document ${id}:`, err);
             setStatusMessage({ text: "Kunde inte radera ärendet.", type: 'error' });
         } finally {
             setDeleteConfirmId(null);
