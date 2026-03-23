@@ -20,11 +20,11 @@ export abstract class BaseService {
         result: this.sanitizeResult(result)
       });
       return result;
-    } catch (error) {
+    } catch (error: any) {
       const duration = Date.now() - startTime;
       loggingService.error(`[${this.serviceName}] Failed ${operationName}`, {
         duration,
-        error: (error instanceof Error ? error.message : String(error)),
+        error: error.message,
         stack: error.stack,
         params
       });

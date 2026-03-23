@@ -84,8 +84,8 @@ const LegalTextProductionModule: React.FC = () => {
             setLogs(prev => [...prev, 'Produktion slutförd.', 'Slutlig granskning klar.']);
             setResult(output);
             setIsContextExpanded(false);
-        } catch (err) {
-            setError((err instanceof Error ? err.message : String(err)) || 'Ett fel inträffade vid produktion.');
+        } catch (err: any) {
+            setError(err.message || 'Ett fel inträffade vid produktion.');
         } finally {
             setIsProducing(false);
         }
