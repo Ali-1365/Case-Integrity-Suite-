@@ -2,6 +2,8 @@ import { loggingService } from './loggingService';
 
 export type OfflineReason = 'QUOTA_EXCEEDED' | 'NETWORK_ERROR' | 'API_KEY_MISSING' | 'MANUAL';
 
+const CUSTOM_GEMINI_API_KEY_STORAGE_KEY = 'cis_gemini_api_key';
+
 export function getConfiguredGeminiApiKey(): string {
     if (typeof import.meta !== 'undefined' && import.meta.env) {
         const viteKey = import.meta.env.VITE_GEMINI_API_KEY || import.meta.env.GEMINI_API_KEY || '';
@@ -9,10 +11,29 @@ export function getConfiguredGeminiApiKey(): string {
     }
 
     if (typeof window !== 'undefined') {
-        return (window as any).GEMINI_API_KEY || '';
+        const runtimeKey = (window as any).GEMINI_API_KEY || window.localStorage.getItem(CUSTOM_GEMINI_API_KEY_STORAGE_KEY) || '';
+        if (runtimeKey) return runtimeKey;
     }
 
     return '';
+}
+
+export function hasStoredGeminiApiKey(): boolean {
+    return !!getConfiguredGeminiApiKey();
+}
+
+export function setStoredGeminiApiKey(apiKey: string): void {
+    if (typeof window === 'undefined') return;
+
+    const trimmedKey = apiKey.trim();
+    if (!trimmedKey) {
+        window.localStorage.removeItem(CUSTOM_GEMINI_API_KEY_STORAGE_KEY);
+        delete (window as any).GEMINI_API_KEY;
+        return;
+    }
+
+    window.localStorage.setItem(CUSTOM_GEMINI_API_KEY_STORAGE_KEY, trimmedKey);
+    (window as any).GEMINI_API_KEY = trimmedKey;
 }
 
 class OfflineService {
