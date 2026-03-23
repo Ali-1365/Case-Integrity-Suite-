@@ -29,7 +29,7 @@ class GithubService {
     private readonly repo = "Ali-1365/Case-Integrity-Suite-";
     private readonly baseUrl = "https://api.github.com/repos";
 
-    private async safeFetch(url: string, timeout = 2500): Promise<any> {
+    public async safeFetch(url: string, timeout = 2500, throwOnAbort = false): Promise<any> {
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), timeout);
         try {
@@ -37,8 +37,11 @@ class GithubService {
             clearTimeout(timeoutId);
             if (!res.ok) return null;
             return await res.json();
-        } catch (e) {
+        } catch (e: any) {
             clearTimeout(timeoutId);
+            if (throwOnAbort && e.name === 'AbortError') {
+                throw e;
+            }
             return null;
         }
     }
@@ -48,9 +51,8 @@ class GithubService {
 
         // Attempting to fetch repo data sequentially to avoid CORS issues
         const repoData = await this.safeFetch(`${this.baseUrl}/${this.repo}`);
-        
         if (!repoData) {
-            // System remains Healthy in Local-First mode even if API gateway is down.
+             // System remains Healthy in Local-First mode even if API gateway is down.
             return {
                 name: this.repo,
                 stars: 0,
@@ -97,16 +99,20 @@ class GithubService {
 
     async getSyncHealth(): Promise<SyncHealth | null> {
         const start = Date.now();
-        const data = await this.safeFetch(`https://raw.githubusercontent.com/${this.repo}/main/metadata.json`, 3000);
-        
-        if (!data) return null;
-        
-        return {
-            isAligned: true, 
-            remoteVersion: data.version,
-            remoteSyncId: data.sync_id,
-            latencyMs: Date.now() - start
-        };
+        try {
+            const data = await this.safeFetch(`https://raw.githubusercontent.com/${this.repo}/main/metadata.json`, 3000);
+
+            if (!data) return null;
+
+            return {
+                isAligned: true,
+                remoteVersion: data.version,
+                remoteSyncId: data.sync_id,
+                latencyMs: Date.now() - start
+            };
+        } catch (e) {
+            return null;
+        }
     }
 
     getJulesTaskUrl(): string {

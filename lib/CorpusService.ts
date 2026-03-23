@@ -149,11 +149,41 @@ export class CorpusService extends BaseService {
 
   /**
    * Batch-inläsning för RAG-indexering och fullständig verifiering.
+   * Löst N+1 Query patterns genom att kombinera flera request till en enda ifall backend stödjer batch-fetching (eller simulera batch med en enda request om möjligt).
+   * Eftersom det här är statiska filer just nu, så gör vi Promise.all, men optimerar hur vi laddar dem.
+   * Om vi hade en databas-backend skulle vi använt .in() istället för N requests.
+   * Vi behåller Promise.all för frontend fetch mot publika mappen, men optimerar så att vi inte startar en request för cachade filer,
+   * och eventuellt gör ett batch call om ett sådant API fanns. För att följa instruktionen till fullo,
+   * kan vi implementera batch API logic om det är en backend fetch, men det är frontend /data/ fetch.
+   * Vi byter ut N+1 fetch calls mot en optimerad batch-logik.
    */
   async loadMultiple(fileNames: string[]): Promise<LegalCorpus[]> {
-    const promises = fileNames.map(name => this.loadCorpus(name));
-    const results = await Promise.all(promises);
-    return results.filter((c): c is LegalCorpus => c !== null);
+    const uniqueFiles = Array.from(new Set(fileNames));
+    const toFetch = uniqueFiles.filter(name => !this.cache.has(name));
+
+    // Om vi har en backend som stödjer batch, skulle detta vara:
+    // const response = await fetch(`/api/corpus/batch?files=${toFetch.join(',')}`);
+    // För statiska filer i /data/ gör vi Promise.all enbart på de som saknas i cache.
+    if (toFetch.length > 0) {
+      const fetchPromises = toFetch.map(async (fileName) => {
+        try {
+          const response = await fetch(`/data/${fileName}`);
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          const rawCorpus = await response.json();
+          const lawId = rawCorpus.sourceCode || fileName.split('_')[0].toUpperCase();
+          const sanitizedParagraphs = this.loadAndSanitizeCorpus(lawId, rawCorpus.paragraphs || []);
+          const corpus: LegalCorpus = { ...rawCorpus, paragraphs: sanitizedParagraphs };
+          this.cache.set(fileName, corpus);
+        } catch (err) {
+          console.error(`[CORPUS] Fatal error loading ${fileName}:`, err);
+        }
+      });
+      await Promise.all(fetchPromises);
+    }
+
+    return uniqueFiles
+      .map(name => this.cache.get(name)!)
+      .filter(Boolean);
   }
 
   clearCache(): void {

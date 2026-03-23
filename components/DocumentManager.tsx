@@ -140,17 +140,19 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
     const selectedDoc = documents.find(d => d.id === selectedDocId);
     const currentAnalysis = selectedDoc?.analysis || null;
 
-    const [activeCase, setActiveCase] = useState<any>(null);
+    const [activeCase, setActiveCase] = useState<import('../lib/cis.types').CISCase | null>(null);
 
     useEffect(() => {
         if (currentAnalysis?.caseId) {
             caseManagementService.getCase(currentAnalysis.caseId)
-              .then(setActiveCase)
+              .then(c => {
+                 if(c) setActiveCase(c);
+              })
               .catch(err => console.error('Failed to get case:', err));
         }
     }, [currentAnalysis?.caseId]);
 
-    const handleAnalyze = async (doc: any) => {
+    const handleAnalyze = async (doc: Partial<StoredDocument> & { textContent?: string; content?: string }) => {
         setIsAnalyzing(true);
         setPipelineStatus({
             ...initialPipelineStatus,
@@ -170,9 +172,11 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
             setPipelineStatus(prev => ({ ...prev, currentStep: 'Kör AI-orkestrering...', progress: 30 }));
             
             // 2. Kör full analys via AIOrchestrator
+            const content = doc.content || doc.textContent || '';
+            const docId = doc.id || `DOC-${Date.now()}`;
             const analysisResult = await orchestrator.runFullAnalysis(
-                doc.content || doc.textContent || '', 
-                doc.id || `DOC-${Date.now()}`, 
+                content,
+                docId,
                 legalFrameworkIndex as any, 
                 undefined, 
                 caseId
@@ -187,9 +191,9 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
 
             // 4. Uppdatera dokumentet med analysresultat
             const updatedDoc: StoredDocument = {
-                id: doc.id || `DOC-${Date.now()}`,
-                name: doc.name,
-                textContent: doc.content || doc.textContent || '',
+                id: docId,
+                name: doc.name || 'Namnlöst dokument',
+                textContent: content,
                 mimeType: doc.mimeType || 'text/plain',
                 createdAt: doc.createdAt || new Date().toISOString(),
                 analysis: analysisResult as any

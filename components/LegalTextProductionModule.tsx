@@ -17,10 +17,19 @@ import {
 } from './icons';
 import MarkdownRenderer from './shared/MarkdownRenderer';
 
+export interface ProductionContext {
+    goal: string;
+    facts: string;
+    evidence: string;
+    opponentPosition: string;
+    proceduralContext: string;
+    taskDescription: string;
+}
+
 const LegalTextProductionModule: React.FC = () => {
     const [documents, setDocuments] = useState<StoredDocument[]>([]);
     const [selectedDraftIds, setSelectedDraftIds] = useState<string[]>([]);
-    const [context, setContext] = useState({
+    const [context, setContext] = useState<ProductionContext>({
         goal: '',
         facts: '',
         evidence: '',
@@ -84,8 +93,9 @@ const LegalTextProductionModule: React.FC = () => {
             setLogs(prev => [...prev, 'Produktion slutförd.', 'Slutlig granskning klar.']);
             setResult(output);
             setIsContextExpanded(false);
-        } catch (err: any) {
-            setError(err.message || 'Ett fel inträffade vid produktion.');
+        } catch (err: unknown) {
+            const msg = err instanceof Error ? err.message : String(err);
+            setError(msg || 'Ett fel inträffade vid produktion.');
         } finally {
             setIsProducing(false);
         }
