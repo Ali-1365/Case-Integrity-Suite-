@@ -1,5 +1,6 @@
 
 import { db } from './db';
+import { generateId } from './utils';
 
 export interface NotaryEvent {
   id: string;
@@ -72,7 +73,7 @@ export class AutoNotaryService {
   private async log(event: Omit<NotaryEvent, 'id' | 'timestamp'>): Promise<void> {
     const fullEvent: NotaryEvent = {
       ...event,
-      id: `NOTE-${crypto.randomUUID().substring(0, 8)}`,
+      id: generateId('NOTE'),
       timestamp: new Date().toISOString()
     };
 

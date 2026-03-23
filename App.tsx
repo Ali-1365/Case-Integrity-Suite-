@@ -1,34 +1,48 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { offlineService } from './services/geminiService';
 
 // ─────────────────────────────────────────────
 //  OFFLINE BANNER
 // ─────────────────────────────────────────────
 const OfflineBanner: React.FC = () => {
-  const [isOffline, setIsOffline] = useState((window as any).OFFLINE_MODE === true);
+  const [isOffline, setIsOffline] = useState(offlineService.getIsOffline());
+  const [reason, setReason] = useState(offlineService.getReason());
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setIsOffline((window as any).OFFLINE_MODE === true);
-    }, 2000);
-    return () => clearInterval(interval);
+    return offlineService.subscribe((offline, r) => {
+      setIsOffline(offline);
+      setReason(r);
+    });
   }, []);
 
   if (!isOffline) return null;
 
+  const getMessage = () => {
+    switch (reason) {
+      case 'API_KEY_MISSING': return 'API-nyckel saknas. AI-funktioner inaktiverade.';
+      case 'QUOTA_EXCEEDED': return 'API-kvot överskriden. Försöker återansluta automatiskt...';
+      case 'NETWORK_ERROR': return 'Nätverksfel vid anslutning till AI-motor.';
+      case 'MANUAL': return 'Systemet är i manuellt offline-läge.';
+      default: return 'OFFLINE-LÄGE — Systemet körs lokalt.';
+    }
+  };
+
   return (
     <div style={{
       position: 'fixed', top: 0, left: 0, right: 0, zIndex: 9999,
-      background: '#f59e0b', color: '#000', padding: '6px 16px',
+      background: reason === 'QUOTA_EXCEEDED' ? '#3b82f6' : '#f59e0b', 
+      color: '#fff', padding: '6px 16px',
       fontSize: '13px', fontWeight: 500, textAlign: 'center',
-      display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px'
+      display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px',
+      boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
     }}>
-      <span>⚠</span>
-      <span>OFFLINE-LÄGE — API-kvot slut eller nyckel saknas.</span>
+      <span>{reason === 'QUOTA_EXCEEDED' ? 'ℹ' : '⚠'}</span>
+      <span>{getMessage()}</span>
       <button 
         onClick={() => window.location.reload()}
-        className="bg-black text-white px-3 py-1 rounded text-xs hover:bg-slate-800"
+        className="bg-white text-black px-3 py-1 rounded text-xs font-bold hover:bg-slate-100 transition-colors"
       >
-        Ladda om appen
+        Uppdatera
       </button>
     </div>
   );
@@ -86,6 +100,14 @@ const BootScreen: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
         </div>
         <p className="text-slate-400 text-xs text-center">{status}</p>
       </div>
+      
+      {/* Säkerhetsknapp om laddningen tar för lång tid */}
+      <button 
+        onClick={onComplete}
+        className="mt-12 text-[10px] text-slate-600 hover:text-slate-400 uppercase tracking-widest transition-colors"
+      >
+        Hoppa över introduktion →
+      </button>
     </div>
   );
 };
@@ -100,7 +122,13 @@ const TopBar: React.FC<{
   onTabChange: (tab: NavTab) => void;
   onHubOpen: () => void;
 }> = ({ activeTab, onTabChange, onHubOpen }) => {
-  const isOffline = (window as any).OFFLINE_MODE === true;
+  const [isOffline, setIsOffline] = useState(offlineService.getIsOffline());
+
+  useEffect(() => {
+    return offlineService.subscribe((offline) => {
+      setIsOffline(offline);
+    });
+  }, []);
 
   const navItems: { id: NavTab; label: string }[] = [
     { id: 'hubb',       label: 'Hubb' },
@@ -389,7 +417,13 @@ const ArkivWrapper: React.FC<{ onDocumentSelect: (id: string) => void }> = ({ on
 //  HUBB-VY  (oförändrad)
 // ─────────────────────────────────────────────
 const HubbView: React.FC<{ onModuleOpen: (mod: string) => void }> = ({ onModuleOpen }) => {
-  const isOffline = (window as any).OFFLINE_MODE === true;
+  const [isOffline, setIsOffline] = useState(offlineService.getIsOffline());
+
+  useEffect(() => {
+    return offlineService.subscribe((offline) => {
+      setIsOffline(offline);
+    });
+  }, []);
 
   const modules = [
     { id: 'ekonomi',    label: 'Ekonomisk Motor',          desc: 'Hantera betalningar, fakturor och skadeståndskrav med AI-precision.',  color: 'bg-emerald-50 border-emerald-200', tag: 'EXPERTIS',   tagColor: 'bg-emerald-100 text-emerald-700', requiresApi: false },
@@ -804,7 +838,14 @@ const EkonomiView: React.FC = () => {
 //  ANALYS-VY  (oförändrad)
 // ─────────────────────────────────────────────
 const AnalysView: React.FC = () => {
-  const isOffline = (window as any).OFFLINE_MODE === true;
+  const [isOffline, setIsOffline] = useState(offlineService.getIsOffline());
+
+  useEffect(() => {
+    return offlineService.subscribe((offline) => {
+      setIsOffline(offline);
+    });
+  }, []);
+
   return (
     <div className="p-6 max-w-5xl mx-auto">
       <h1 className="text-xl font-bold text-slate-900 mb-1">Analys & Utredning</h1>
@@ -830,7 +871,14 @@ const AnalysView: React.FC = () => {
 //  BESLUT-VY  (oförändrad)
 // ─────────────────────────────────────────────
 const BeslutView: React.FC = () => {
-  const isOffline = (window as any).OFFLINE_MODE === true;
+  const [isOffline, setIsOffline] = useState(offlineService.getIsOffline());
+
+  useEffect(() => {
+    return offlineService.subscribe((offline) => {
+      setIsOffline(offline);
+    });
+  }, []);
+
   const [fraga, setFraga] = useState('');
   return (
     <div className="p-6 max-w-3xl mx-auto">
@@ -850,7 +898,14 @@ const BeslutView: React.FC = () => {
 //  PRODUKTION-VY  (oförändrad)
 // ─────────────────────────────────────────────
 const ProduktionView: React.FC = () => {
-  const isOffline = (window as any).OFFLINE_MODE === true;
+  const [isOffline, setIsOffline] = useState(offlineService.getIsOffline());
+
+  useEffect(() => {
+    return offlineService.subscribe((offline) => {
+      setIsOffline(offline);
+    });
+  }, []);
+
   return (
     <div className="p-6 max-w-5xl mx-auto">
       <h1 className="text-xl font-bold text-slate-900 mb-1">Juridisk Textproduktion</h1>
@@ -883,11 +938,16 @@ const App: React.FC = () => {
   const [booted, setBooted] = useState(false);
   const [activeTab, setActiveTab] = useState<NavTab>('hubb');
   const [hubOpen, setHubOpen] = useState(false);
-  // NY: håller id för valt dokument från arkivet
   const [selectedDocId, setSelectedDocId] = useState<string | null>(null);
+  const [isOffline, setIsOffline] = useState(offlineService.getIsOffline());
+
+  useEffect(() => {
+    return offlineService.subscribe((offline) => {
+      setIsOffline(offline);
+    });
+  }, []);
 
   const handleBoot = useCallback(() => setBooted(true), []);
-  const isOffline = (window as any).OFFLINE_MODE === true;
   const topOffset = isOffline ? 'mt-[88px]' : 'mt-14';
 
   // NY: byt flik och rensa valt dokument

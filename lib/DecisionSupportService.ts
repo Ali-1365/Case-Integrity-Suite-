@@ -1,5 +1,6 @@
 
 import { geminiService } from '../services/geminiService';
+import { generateId } from './utils';
 import { ProvenanceChain } from './QueryProvenanceService';
 import { auditService } from './AuditService';
 import { QUALITY_PROFILE } from './QualityProfile';
@@ -14,7 +15,7 @@ import { DecisionProposal, DecisionObject, DecisionSupportResult, ReasoningResul
  */
 export class DecisionSupportService {
   async generateProposal(query: string, chain: ProvenanceChain, reasoning: ReasoningResult, caseId?: string): Promise<DecisionSupportResult> {
-    const decisionId = `DECIDE-${crypto.randomUUID().substring(0, 8).toUpperCase()}`;
+    const decisionId = generateId('DECIDE');
     const consolidation = reasoning.consolidation!;
     const risk = consolidation.riskReport!;
 
