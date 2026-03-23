@@ -83,7 +83,7 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
     window.print();
   };
 
-  const handleParagraphClick = async (p: any) => {
+  const handleParagraphClick = async (p: import("../types").LegalParagraph) => {
     setHighlightedParagraphId(p.id);
     const lawRef = `${activeCorpus?.shortName} ${p.section}`;
     try {
@@ -110,7 +110,7 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
     }
   };
 
-  const isOutdated = (law: any) => {
+  const isOutdated = (law: { sfsNumber?: string }) => {
     // Mock logic: if SFS year is before 2000, flag it as potentially outdated
     const year = parseInt(law.sfsNumber?.split(':')[0] || '2026');
     return year < 2000;

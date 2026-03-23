@@ -60,8 +60,8 @@ class LegalAIAgent {
       loggingService.info(`[AGENT] Initialization complete. Loaded ${this.laws.length} paragraphs.`, {
         duration: Date.now() - startTime
       });
-    } catch (error: any) {
-      loggingService.error("[AGENT] Initialization failed", { error: error.message });
+    } catch (error: unknown) {
+      loggingService.error("[AGENT] Initialization failed", { error: (error instanceof Error ? error.message : String(error)) });
       throw error;
     }
   }
@@ -150,9 +150,9 @@ class LegalAIAgent {
         duration: Date.now() - startTime
       });
       return response;
-    } catch (e: any) {
+    } catch (e: unknown) {
       loggingService.error(`[AGENT] Opinion generation failed for ${caseId}`, { 
-        error: e.message,
+        error: (e instanceof Error ? e.message : String(e)),
         duration: Date.now() - startTime 
       });
       return "### Kritiskt fel i AI-analysmotorn\n\nDet gick inte att generera yttrandet. Kontrollera systemloggarna.";

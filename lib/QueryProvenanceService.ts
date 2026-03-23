@@ -38,13 +38,13 @@ export class QueryProvenanceService {
     const chain: ProvenanceChain = {
       queryId: entry.id,
       timestamp: entry.timestamp,
-      queryText: entry.metadata?.query || "Okänd fråga",
+      queryText: (entry.metadata?.query as string) || "Okänd fråga",
       sources: [],
       auditLog: entry
     };
 
     // Hämta paragrafer från korpusar baserat på sparade hitIds (t.ex. "sol_2025_1_2")
-    const hitIds: string[] = entry.metadata?.hitIds || [];
+    const hitIds: string[] = (entry.metadata?.hitIds as string[]) || [];
     
     for (const hitId of hitIds) {
       // Identifiera vilken lag hitId tillhör (prefix-matchning)
