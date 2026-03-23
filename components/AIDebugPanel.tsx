@@ -117,7 +117,7 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
       setResponse(prev => prev + `\n\n### BAKNING SLUTFÖRD\n- Totalt antal chunks: ${updatedIndex.chunks.length}\n- Chunks med embeddings: ${bakedCount}\n\nKlicka på 'Exportera Index' för att ladda ner den nya filen.`);
       
       // Store in state so we can export it
-      (window as any)._lastBakedIndex = updatedIndex;
+      ((window as Window & typeof globalThis & { _lastBakedIndex?: RagIndex })._lastBakedIndex) = updatedIndex;
     } catch (err: any) {
       setResponse(prev => prev + `\n\n### FEL VID BAKNING\n${err.message}`);
     } finally {
@@ -126,7 +126,7 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
   };
 
   const handleExportIndex = () => {
-    const index = (window as any)._lastBakedIndex;
+    const index = ((window as Window & typeof globalThis & { _lastBakedIndex?: RagIndex })._lastBakedIndex);
     if (index) {
       ragIndexService.exportIndex(index);
     } else {

@@ -11,11 +11,11 @@ export class AIAnalysisEngine {
   //  OFFLINE-KONTROLL
   // ─────────────────────────────────────────────
   private isOffline(): boolean {
-    return (window as any).OFFLINE_MODE === true;
+    return ((window as Window & typeof globalThis & { OFFLINE_MODE?: boolean }).OFFLINE_MODE) === true;
   }
 
   private aktivera_offline(anledning: string): void {
-    (window as any).OFFLINE_MODE = true;
+    ((window as Window & typeof globalThis & { OFFLINE_MODE?: boolean }).OFFLINE_MODE) = true;
     console.warn(`AIAnalysisEngine: Offline-läge aktiverat — ${anledning}`);
   }
 
@@ -221,7 +221,7 @@ export class AIAnalysisEngine {
             responseMimeType: "application/json",
           },
         },
-        'pro'
+        'think'
       );
 
       const parsed = JSON.parse(res);
@@ -299,7 +299,7 @@ export class AIAnalysisEngine {
             responseMimeType: "application/json",
           },
         },
-        'pro'
+        'think'
       );
 
       const parsed = JSON.parse(res);
@@ -344,10 +344,10 @@ export class AIAnalysisEngine {
           contents: "Svara med ordet OK.",
           config: { responseMimeType: "text/plain" },
         },
-        'flash'
+        'fast'
       );
       const latencyMs = Date.now() - start;
-      (window as any).OFFLINE_MODE = false;
+      ((window as Window & typeof globalThis & { OFFLINE_MODE?: boolean }).OFFLINE_MODE) = false;
       console.log(`AIAnalysisEngine: API online — svarstid ${latencyMs}ms`);
       return { online: true, message: "API ansluten och operativ.", latencyMs };
     } catch (e: any) {
