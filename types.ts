@@ -1,6 +1,7 @@
 
 import { RiskScoreResult } from './lib/riskEngineV6.types';
 import { AnalysisResult } from './lib/cis.types';
+export type { AnalysisResult };
 
 export type LegalSourceCode = 'RF' | 'SFB' | 'FL' | 'PSA' | 'GDPR' | 'SoL' | 'BrB' | 'OSL' | 'PRAXIS' | 'BK' | 'LVU' | 'LVM' | 'LSS' | 'HSL' | 'FB' | 'SkL' | 'UTLL' | 'KL' | 'DL' | 'JB' | 'FMU' | 'PL' | 'YSL' | 'YSL-S' | 'YSL-V' | 'YFO-S' | 'TF' | 'YGL' | 'SJL' | 'RB' | 'SjukL' | 'LS' | 'LAS' | 'HSS' | 'FHS';
 
