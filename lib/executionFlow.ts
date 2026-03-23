@@ -121,8 +121,8 @@ export async function executeFullFlow(
   try {
     verifiedAnalysis = verifyAndLinkAnalysis(analysis, legalCorpus);
     console.log('[EXEC_FLOW] Analys verifierad och länkad. Alla villkor uppfyllda.');
-  } catch (err: unknown) {
-    console.error('[EXEC_FLOW] Verifiering misslyckades:', (err instanceof Error ? err.message : String(err)));
+  } catch (e: unknown) {
+    console.error('[EXEC_FLOW] Verifiering misslyckades:', (e instanceof Error ? e.message : String(e)));
     // Returnera ovaliderad snarare än att krascha hela appen
     return {
       prompt: AI_SYSTEM_PROMPT,

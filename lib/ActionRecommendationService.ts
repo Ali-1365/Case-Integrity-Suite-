@@ -96,8 +96,8 @@ export class ActionRecommendationService {
       });
 
       return report;
-    } catch (err: unknown) {
-      console.error("Action Engine failure:", err);
+    } catch (e) {
+      console.error("Action Engine failure:", e);
       throw new Error("Kritiskt fel i åtgärdsmotorn.");
     }
   }

@@ -81,7 +81,7 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
       }, 'think');
       setResponse(res);
       refreshLogs();
-    } catch (err: unknown) {
+    } catch (err) {
       setResponse(`### KRITISKT SYSTEMFEL\n\n${err instanceof Error ? err.message : 'Kommunikationsavbrott.'}`);
     } finally {
       setIsLoading(false);
@@ -126,7 +126,7 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
   };
 
   const handleExportIndex = () => {
-    const index = ((window as Window & typeof globalThis & { _lastBakedIndex?: RagIndex })._lastBakedIndex);
+    const index = window._lastBakedIndex;
     if (index) {
       ragIndexService.exportIndex(index);
     } else {
@@ -256,7 +256,7 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
                         }
                         const text = await navigator.clipboard.readText();
                         setPrompt(prev => prev + text);
-                    } catch (err: unknown) {
+                    } catch (err) {
                         console.error('Failed to paste:', err);
                     }
                 }} className="px-3 py-1.5 hover:bg-white dark:hover:bg-slate-800 transition-colors bg-white dark:bg-slate-900 rounded-lg text-[10px] font-bold uppercase text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700">

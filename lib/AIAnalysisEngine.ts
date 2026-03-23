@@ -1,22 +1,5 @@
-// // import { Contradiction } from '@/lib/cis.types';
-// // import { Contradiction } from '@/lib/cis.types';
-// // import { Contradiction } from '@/lib/cis.types';
-// // import { Contradiction } from '@/lib/cis.types';
-// // import { Contradiction } from '@/lib/cis.types';
-// // // // import { Contradiction } from '@/lib/cis.types';
-// // import { Contradiction } from '@/lib/cis.types';
-// // // // // // import { Contradiction } from '@/lib/cis.types';
-// // import { Contradiction } from '@/lib/cis.types';
-// // // // // // import { Contradiction } from '@/lib/cis.types';
-// // import { Contradiction } from '@/lib/cis.types';
-import { Fact } from '@/lib/cis.types';
-// // import { Contradiction } from '@/lib/cis.types';
-import { CISCase } from '@/lib/cis.types';
-// // // import { Fact, CISCase, ContradictionV2, LegalParagraph } from '@/lib/cis.types';
-// @ts-expect-error Typescript type resolution issue
-type Contradiction = ContradictionV2;
 import { geminiService } from '../services/geminiService';
-// import { ContradictionV2, UncertaintyV2 } from '../types';
+import { ContradictionV2, UncertaintyV2 } from '../types';
 
 /**
  * FMJAM AIAnalysisEngine v.7.7-GOLD
@@ -28,18 +11,16 @@ export class AIAnalysisEngine {
   //  OFFLINE-KONTROLL
   // ─────────────────────────────────────────────
   private isOffline(): boolean {
-    return ((window as Window & typeof globalThis & { OFFLINE_MODE?: boolean }).OFFLINE_MODE) === true;
+    return window.OFFLINE_MODE === true;
   }
 
   private aktivera_offline(anledning: string): void {
-    ((window as Window & typeof globalThis & { OFFLINE_MODE?: boolean }).OFFLINE_MODE) = true;
+    window.OFFLINE_MODE = true;
     console.warn(`AIAnalysisEngine: Offline-läge aktiverat — ${anledning}`);
   }
 
   private tomAnalysOffline(): {
-    // @ts-expect-error Typescript type resolution issue
     contradictions: ContradictionV2[];
-    // @ts-expect-error Typescript type resolution issue
     uncertainties: UncertaintyV2[];
     gapAnalysis: { description: string; missingAction: string }[];
     holisticFlags: { type: 'SOCIAL_CONTEXT' | 'CHILD_PERSPECTIVE' | 'ENVIRONMENT'; message: string }[];
@@ -67,10 +48,8 @@ export class AIAnalysisEngine {
   // ─────────────────────────────────────────────
   //  HUVUD-ANALYS (Oracle v.7.6-GOLD)
   // ─────────────────────────────────────────────
-  async analyze(facts: Fact[]): Promise<{
-    // @ts-expect-error Typescript type resolution issue
+  async analyze(facts: import("../types").FactV2[]): Promise<{
     contradictions: ContradictionV2[];
-    // @ts-expect-error Typescript type resolution issue
     uncertainties: UncertaintyV2[];
     gapAnalysis: { description: string; missingAction: string }[];
     holisticFlags: {
@@ -163,8 +142,8 @@ export class AIAnalysisEngine {
         holisticFlags:  parsed.holisticFlags   ?? [],
       };
 
-    } catch (err: unknown) {
-      const message = (err instanceof Error ? err.message : String(err)) ?? String(err);
+    } catch (e: unknown) {
+      const message = e instanceof Error ? e.message : String(e);
 
       // Quota slut eller auth-fel → aktivera offline
       if (
@@ -190,7 +169,7 @@ export class AIAnalysisEngine {
       }
 
       // JSON parse-fel → returnera tom men håll online-läge
-      console.error("AIAnalysisEngine.analyze: Parse-fel —", err);
+      console.error("AIAnalysisEngine.analyze: Parse-fel —", e);
       return { contradictions: [], uncertainties: [], gapAnalysis: [], holisticFlags: [] };
     }
   }
@@ -198,7 +177,7 @@ export class AIAnalysisEngine {
   // ─────────────────────────────────────────────
   //  RISKBEDÖMNING
   // ─────────────────────────────────────────────
-  async assessRisk(caseData: CISCase): Promise<{
+  async assessRisk(caseData: Record<string, unknown>): Promise<{
     riskScore: number;
     riskLevel: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
     factors: { factor: string; weight: number; description: string }[];
@@ -242,7 +221,7 @@ export class AIAnalysisEngine {
             responseMimeType: "application/json",
           },
         },
-        'think'
+        'pro'
       );
 
       const parsed = JSON.parse(res);
@@ -253,8 +232,8 @@ export class AIAnalysisEngine {
         recommendation: parsed.recommendation ?? '',
       };
 
-    } catch (err: unknown) {
-      const message = (err instanceof Error ? err.message : String(err)) ?? String(err);
+    } catch (e: unknown) {
+      const message = e instanceof Error ? e.message : String(e);
       if (
         message.includes('429') ||
         message.includes('quota') ||
@@ -262,7 +241,7 @@ export class AIAnalysisEngine {
       ) {
         this.aktivera_offline(`Riskbedömning API-fel: ${message}`);
       }
-      console.error("AIAnalysisEngine.assessRisk: Fel —", err);
+      console.error("AIAnalysisEngine.assessRisk: Fel —", e);
       return {
         riskScore: 0,
         riskLevel: 'LOW',
@@ -320,7 +299,7 @@ export class AIAnalysisEngine {
             responseMimeType: "application/json",
           },
         },
-        'think'
+        'pro'
       );
 
       const parsed = JSON.parse(res);
@@ -331,8 +310,8 @@ export class AIAnalysisEngine {
         nextSteps:   parsed.nextSteps   ?? [],
       };
 
-    } catch (err: unknown) {
-      const message = (err instanceof Error ? err.message : String(err)) ?? String(err);
+    } catch (e: unknown) {
+      const message = e instanceof Error ? e.message : String(e);
       if (
         message.includes('429') ||
         message.includes('quota') ||
@@ -340,7 +319,7 @@ export class AIAnalysisEngine {
       ) {
         this.aktivera_offline(`Sammanfattning API-fel: ${message}`);
       }
-      console.error("AIAnalysisEngine.summarize: Fel —", err);
+      console.error("AIAnalysisEngine.summarize: Fel —", e);
       return {
         summary: "Sammanfattning misslyckades.",
         keyPoints: [],
@@ -365,14 +344,14 @@ export class AIAnalysisEngine {
           contents: "Svara med ordet OK.",
           config: { responseMimeType: "text/plain" },
         },
-        'fast'
+        'flash'
       );
       const latencyMs = Date.now() - start;
-      ((window as Window & typeof globalThis & { OFFLINE_MODE?: boolean }).OFFLINE_MODE) = false;
+      window.OFFLINE_MODE = false;
       console.log(`AIAnalysisEngine: API online — svarstid ${latencyMs}ms`);
       return { online: true, message: "API ansluten och operativ.", latencyMs };
-    } catch (err: unknown) {
-      const message = (err instanceof Error ? err.message : String(err)) ?? String(err);
+    } catch (e: unknown) {
+      const message = e instanceof Error ? e.message : String(e);
       this.aktivera_offline(`API-statuskontroll misslyckades: ${message}`);
       return { online: false, message: `API ej tillgänglig: ${message}` };
     }

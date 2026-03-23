@@ -39,7 +39,7 @@ const LegalTextProductionModule: React.FC = () => {
             try {
                 const allDocs = await db.getAllDocuments();
                 setDocuments(allDocs);
-            } catch (err: unknown) {
+            } catch (err) {
                 console.error("Failed to load documents:", err);
             }
         };

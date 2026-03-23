@@ -85,8 +85,8 @@ const FMJAMControlPanel: React.FC<FMJAMControlPanelProps> = ({ isOpen, onClose, 
           setIsRepairing(false);
           setStatusMessage({ text: "Systemintegritet återställd. Lokala lås har hävts.", type: 'success' });
       }, 1500);
-    } catch (err: unknown) {
-      console.error("Repair failed:", err);
+    } catch (error) {
+      console.error("Repair failed:", error);
       setIsRepairing(false);
       setStatusMessage({ text: "Reparation misslyckades. Se konsol för detaljer.", type: 'error' });
     }
@@ -99,7 +99,7 @@ const FMJAMControlPanel: React.FC<FMJAMControlPanelProps> = ({ isOpen, onClose, 
       const index = await ragIndexService.buildIndex();
       ragIndexService.exportIndex(index);
       setStatusMessage({ text: "SYSTEM_BAKE slutförd. Indexfil genererad för produktion.", type: 'success' });
-    } catch (err: unknown) {
+    } catch (e) {
       setStatusMessage({ text: "Baking failure: Se konsol för detaljer.", type: 'error' });
     } finally {
       setIsBaking(false);

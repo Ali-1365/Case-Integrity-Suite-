@@ -118,8 +118,8 @@ const EconomicDashboard: React.FC = () => {
       const analysis = await economicService.analyzeClaimAI(claim);
       economicService.updateClaim(claim.id, { aiAnalysis: analysis });
       loadData();
-    } catch (err: unknown) {
-      console.error("AI Analysis failed:", err);
+    } catch (error) {
+      console.error("AI Analysis failed:", error);
     } finally {
       setIsAnalyzing(false);
     }

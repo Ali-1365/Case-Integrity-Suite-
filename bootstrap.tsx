@@ -5,7 +5,7 @@ import { loggingService } from "./services/loggingService";
 
 // Sätt offline-läge som default — aktiveras om API saknas
 if (typeof window !== 'undefined') {
-  ((window as Window & typeof globalThis & { OFFLINE_MODE?: boolean }).OFFLINE_MODE) = !import.meta.env.VITE_GEMINI_API_KEY &&
+  window.OFFLINE_MODE = !import.meta.env.VITE_GEMINI_API_KEY &&
                                  !import.meta.env.GEMINI_API_KEY;
 
   // Ignorera WebSocket-fel helt — påverkar inte appen
@@ -36,7 +36,7 @@ if (typeof window !== 'undefined') {
 
 export function startApp() {
   const timestamp = new Date().toISOString();
-  const offlineMode = ((window as Window & typeof globalThis & { OFFLINE_MODE?: boolean }).OFFLINE_MODE);
+  const offlineMode = window.OFFLINE_MODE;
 
   console.log(
     `%c Case Integrity Suite v1.0 %c ${offlineMode ? '⚠ OFFLINE-LÄGE' : 'Integrity Verified'} at ${timestamp}`,
@@ -61,7 +61,7 @@ export function startApp() {
     const root = createRoot(container);
     root.render(<App />);
     console.log("FMJAM_STARTUP: Render call completed.");
-  } catch (err: unknown) {
+  } catch (err) {
     console.error("React Root Initialization Error:", err);
     // Visa ett minimalt felmeddelande i DOM om React kraschar
     container.innerHTML = `

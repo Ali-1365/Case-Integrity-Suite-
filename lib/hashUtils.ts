@@ -13,14 +13,8 @@ export async function sha256(message: string): Promise<string> {
 export function generateIntegrityStamp(data: unknown): string {
     const timestamp = new Date().toISOString();
     const payload = JSON.stringify(data);
-
-    // Generate a secure random string of exactly 8 characters
-    const array = new Uint8Array(4); // 4 bytes = 8 hex chars
+    const array = new Uint32Array(2);
     crypto.getRandomValues(array);
-    const randomHex = Array.from(array)
-        .map(b => b.toString(16).padStart(2, '0'))
-        .join('')
-        .toUpperCase();
-
-    return `CIS-INT-${timestamp.replace(/[:.-]/g, '')}-${randomHex}`;
+    const randomHex = array[0].toString(16) + array[1].toString(16);
+    return `CIS-INT-${timestamp.replace(/[:.-]/g, '')}-${randomHex.substring(0, 8).toUpperCase()}`;
 }

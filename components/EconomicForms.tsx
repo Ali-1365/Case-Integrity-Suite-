@@ -14,7 +14,7 @@ export const NewPaymentForm: React.FC<FormProps<Payment>> = ({ onSave, onCancel 
     amount: 0,
     currency: 'SEK',
     description: '',
-    category: 'SERVICE' as unknown
+    category: 'SERVICE' as 'SERVICE' | 'GOODS' | 'LEGAL_FEE' | 'DAMAGES_PAYMENT' | 'TAX'
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -29,7 +29,6 @@ export const NewPaymentForm: React.FC<FormProps<Payment>> = ({ onSave, onCancel 
 
   const handleSubmit = () => {
     if (validate()) {
-      // @ts-expect-error
       onSave(formData);
     }
   };
@@ -103,7 +102,7 @@ export const NewInvoiceForm: React.FC<FormProps<Invoice>> = ({ onSave, onCancel 
     clientName: '',
     total: 0,
     dueDate: '',
-    items: [] as unknown[]
+    items: [] as any[]
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -118,7 +117,6 @@ export const NewInvoiceForm: React.FC<FormProps<Invoice>> = ({ onSave, onCancel 
 
   const handleSubmit = () => {
     if (validate()) {
-      // @ts-expect-error
       onSave(formData);
     }
   };
@@ -210,7 +208,7 @@ export const NewClaimForm: React.FC<FormProps<DamagesClaim>> = ({ onSave, onCanc
   const [formData, setFormData] = useState({
     claimant: '',
     defendant: '',
-    type: 'STATE' as unknown,
+    type: 'STATE' as 'PRIVATE' | 'STATE' | 'CIVIL',
     estimatedAmount: 0,
     description: '',
     legalBasis: [] as string[]
@@ -229,7 +227,6 @@ export const NewClaimForm: React.FC<FormProps<DamagesClaim>> = ({ onSave, onCanc
 
   const handleSubmit = () => {
     if (validate()) {
-      // @ts-expect-error
       onSave(formData);
     }
   };
@@ -271,9 +268,8 @@ export const NewClaimForm: React.FC<FormProps<DamagesClaim>> = ({ onSave, onCanc
           <label className="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-widest">Typ av Krav</label>
           <select 
             className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none transition-all appearance-none"
-            // @ts-expect-error
             value={formData.type}
-            onChange={e => setFormData({...formData, type: e.target.value as unknown})}
+            onChange={e => setFormData({...formData, type: e.target.value as any})}
           >
             <option value="STATE">Statligt Skadestånd</option>
             <option value="PRIVATE">Privaträttsligt</option>

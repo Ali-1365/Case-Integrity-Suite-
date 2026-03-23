@@ -18,7 +18,7 @@ export interface PipelineStatusState {
     resultat: StageStatus;
     säkerhet: StageStatus;
   };
-  log: { stage: string; message: string, status: StageStatus, metadata?: unknown }[];
+  log: { stage: string; message: string, status: StageStatus, metadata?: Record<string, unknown> }[];
 }
 
 export const initialPipelineStatus: PipelineStatusState = {
@@ -60,7 +60,7 @@ const PipelineStatus: React.FC<{ status: PipelineStatusState }> = ({ status }) =
                 if (response.ok) {
                     setIntegrityVerified(true);
                 }
-            } catch (err: unknown) {
+            } catch (e) {
                 console.error('Integrity check failed');
             } finally {
                 setIsVerifying(false);
