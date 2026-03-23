@@ -4,7 +4,8 @@ import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig(({ mode }) => {
-    const env = loadEnv(mode, '.', '');
+    // We don't need to loadEnv and inject GEMINI_API_KEY anymore
+    // It should only be accessed securely on the backend server
     return {
       server: {
         port: 3000,
@@ -17,10 +18,6 @@ export default defineConfig(({ mode }) => {
         }
       },
       plugins: [react(), tailwindcss()],
-      define: {
-        'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY ?? ''),
-        'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY ?? '')
-      },
       resolve: {
         alias: {
           '@': path.resolve(__dirname, '.'),
