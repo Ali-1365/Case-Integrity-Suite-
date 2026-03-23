@@ -39,7 +39,7 @@ const LegalTextProductionModule: React.FC = () => {
             try {
                 const allDocs = await db.getAllDocuments();
                 setDocuments(allDocs);
-            } catch (err) {
+            } catch (err: unknown) {
                 console.error("Failed to load documents:", err);
             }
         };
@@ -84,8 +84,8 @@ const LegalTextProductionModule: React.FC = () => {
             setLogs(prev => [...prev, 'Produktion slutförd.', 'Slutlig granskning klar.']);
             setResult(output);
             setIsContextExpanded(false);
-        } catch (err) {
-            setError((err as Error).message || 'Ett fel inträffade vid produktion.');
+        } catch (err: unknown) {
+            setError((err instanceof Error ? err.message : String(err)) || 'Ett fel inträffade vid produktion.');
         } finally {
             setIsProducing(false);
         }

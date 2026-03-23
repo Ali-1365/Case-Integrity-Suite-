@@ -81,8 +81,8 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
       }, 'think');
       setResponse(res);
       refreshLogs();
-    } catch (err) {
-      setResponse(`### KRITISKT SYSTEMFEL\n\n${err instanceof Error ? (err as Error).message : 'Kommunikationsavbrott.'}`);
+    } catch (err: unknown) {
+      setResponse(`### KRITISKT SYSTEMFEL\n\n${err instanceof Error ? err.message : 'Kommunikationsavbrott.'}`);
     } finally {
       setIsLoading(false);
     }
@@ -117,18 +117,16 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
       setResponse(prev => prev + `\n\n### BAKNING SLUTFÖRD\n- Totalt antal chunks: ${updatedIndex.chunks.length}\n- Chunks med embeddings: ${bakedCount}\n\nKlicka på 'Exportera Index' för att ladda ner den nya filen.`);
       
       // Store in state so we can export it
-      // @ts-expect-error
-      window._lastBakedIndex = updatedIndex;
-    } catch (err) {
-      setResponse(prev => prev + `\n\n### FEL VID BAKNING\n${(err as Error).message}`);
+      (window as any)._lastBakedIndex = updatedIndex;
+    } catch (err: unknown) {
+      setResponse(prev => prev + `\n\n### FEL VID BAKNING\n${(err instanceof Error ? err.message : String(err))}`);
     } finally {
       setIsLoading(false);
     }
   };
 
   const handleExportIndex = () => {
-    // @ts-expect-error
-    const index = window._lastBakedIndex;
+    const index = ((window as Window & typeof globalThis & { _lastBakedIndex?: RagIndex })._lastBakedIndex);
     if (index) {
       ragIndexService.exportIndex(index);
     } else {
@@ -155,8 +153,8 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
       } else {
         setResponse(prev => prev + "\n\n⚠️ TEST VARNING: Vissa lagrum saknas i resultatet.");
       }
-    } catch (err) {
-      setResponse(prev => prev + `\n\n### TEST FEL\n${(err as Error).message}`);
+    } catch (err: unknown) {
+      setResponse(prev => prev + `\n\n### TEST FEL\n${(err instanceof Error ? err.message : String(err))}`);
     } finally {
       setIsLoading(false);
     }
@@ -186,8 +184,8 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
       const uniqueLaws = Array.from(new Set(activeLaws));
       
       setResponse(prev => prev + `\n\n### PIPELINE SLUTFÖRD\n- Status: ${pipelineState.isExportBlocked ? 'BLOCKERAD' : 'GODKÄND'}\n- Identifierade lagrum: ${uniqueLaws.join(', ')}\n\nFINAL V3 PREVIEW:\n${pipelineState.finalV3?.substring(0, 300)}...`);
-    } catch (err) {
-      setResponse(prev => prev + `\n\n### PIPELINE FEL\n${(err as Error).message}`);
+    } catch (err: unknown) {
+      setResponse(prev => prev + `\n\n### PIPELINE FEL\n${(err instanceof Error ? err.message : String(err))}`);
     } finally {
       setIsLoading(false);
     }
@@ -218,8 +216,8 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
       setResponse(prev => prev + `  - Arkiv-data läst: ${res3.length > 0 ? 'JA' : 'NEJ'}\n  - Lagkopplingar i arkiv: ${hasLinks ? 'JA' : 'NEJ'}\n`);
 
       setResponse(prev => prev + "\n\n### REGRESSIONSTEST SLUTFÖRD\n✅ Alla kritiska flöden verifierade.");
-    } catch (err) {
-      setResponse(prev => prev + `\n\n### TEST FEL\n${(err as Error).message}`);
+    } catch (err: unknown) {
+      setResponse(prev => prev + `\n\n### TEST FEL\n${(err instanceof Error ? err.message : String(err))}`);
     } finally {
       setIsLoading(false);
     }
@@ -258,7 +256,7 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
                         }
                         const text = await navigator.clipboard.readText();
                         setPrompt(prev => prev + text);
-                    } catch (err) {
+                    } catch (err: unknown) {
                         console.error('Failed to paste:', err);
                     }
                 }} className="px-3 py-1.5 hover:bg-white dark:hover:bg-slate-800 transition-colors bg-white dark:bg-slate-900 rounded-lg text-[10px] font-bold uppercase text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700">

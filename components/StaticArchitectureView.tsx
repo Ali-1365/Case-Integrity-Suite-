@@ -60,10 +60,9 @@ const StaticArchitectureView: React.FC<StaticArchitectureViewProps> = ({ isOpen,
                         fontFamily: 'ui-sans-serif, system-ui, sans-serif',
                         flowchart: { htmlLabels: true, curve: 'basis', useMaxWidth: true }
                     });
-                    // @ts-expect-error
-                    (mermaid as Record<string, unknown>).run();
-                } catch (e) {
-                    console.error("Mermaid failure:", e);
+                    mermaid.run();
+                } catch (err: unknown) {
+                    console.error("Mermaid failure:", err);
                 }
             }, 100);
             return () => clearTimeout(timer);

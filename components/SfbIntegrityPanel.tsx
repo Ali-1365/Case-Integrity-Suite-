@@ -64,8 +64,8 @@ const SfbIntegrityPanel: React.FC<SfbIntegrityPanelProps> = ({ isOpen, onClose }
 
             const res = await sfbValidationService.validate(payload);
             setResult(res);
-        } catch (e) {
-            console.error(`Fel vid validering: ${(e as Error).message}`);
+        } catch (err: unknown) {
+            console.error(`Fel vid validering: ${(err instanceof Error ? err.message : String(err))}`);
         } finally {
             setIsValidating(false);
         }

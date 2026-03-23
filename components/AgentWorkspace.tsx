@@ -3,6 +3,8 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { legalAIAgent } from '../services/LegalAIAgent';
 import { caseManagementService } from '../lib/CaseManagementService';
 import { CISCase as Case } from '../lib/cis.types';
+import { FactV2 as Fact, ContradictionV2 } from '../types';
+import { EnrichedLegalParagraph } from '../services/LegalAIAgent';
 import { githubService, RepoStatus, SyncHealth } from '../services/githubService';
 import { offlineService } from '../services/offlineService';
 import { 
@@ -38,7 +40,7 @@ const AgentWorkspace: React.FC<AgentWorkspaceProps> = ({ isOpen, onClose }) => {
   const [activeCaseId, setActiveCaseId] = useState<string | null>(null);
   const [opinion, setOpinion] = useState<string>('');
   const [query, setQuery] = useState('');
-  const [queryResult, setQueryResult] = useState<unknown>(null);
+  const [queryResult, setQueryResult] = useState<Fact[] | ContradictionV2[] | EnrichedLegalParagraph[] | { error: string } | null>(null);
   const [isQuerying, setIsQuerying] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const [activeTab, setActiveTab] = useState<TabType>('analys');
@@ -80,7 +82,7 @@ const AgentWorkspace: React.FC<AgentWorkspaceProps> = ({ isOpen, onClose }) => {
           if (allCases.length > 0 && !activeCaseId) {
               setActiveCaseId(allCases[0].caseId);
           }
-        } catch (err) {
+        } catch (err: unknown) {
           console.error('AgentWorkspace initialization failed:', err);
         } finally {
           setIsReady(true);
@@ -103,7 +105,7 @@ const AgentWorkspace: React.FC<AgentWorkspaceProps> = ({ isOpen, onClose }) => {
         // Refresh cases to get updated versions/journal
         const allCases = await caseManagementService.getAllCases();
         setCases(allCases);
-      } catch (e) {
+      } catch (err: unknown) {
         setOpinion("### Kritiskt fel vid generering\n\nDet gick inte att generera ett yttrande för detta ärende. Kontrollera att ärendet har tillräckligt med data.");
       } finally {
         setIsGenerating(false);
@@ -120,7 +122,7 @@ const AgentWorkspace: React.FC<AgentWorkspaceProps> = ({ isOpen, onClose }) => {
     setActiveTab('analys');
 
     const lowerQuery = query.toLowerCase();
-    let result: unknown;
+    let result: Fact[] | ContradictionV2[] | EnrichedLegalParagraph[] | { error: string } | null;
     if (lowerQuery.startsWith('fakta om')) {
         const keyword = lowerQuery.replace('fakta om', '').trim();
         result = legalAIAgent.queryFacts(activeCaseId, keyword);
