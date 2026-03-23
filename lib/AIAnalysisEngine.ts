@@ -142,8 +142,8 @@ export class AIAnalysisEngine {
         holisticFlags:  parsed.holisticFlags   ?? [],
       };
 
-    } catch (e: any) {
-      const message = e?.message ?? String(e);
+    } catch (err: unknown) {
+      const message = (err instanceof Error ? err.message : String(err)) ?? String(err);
 
       // Quota slut eller auth-fel → aktivera offline
       if (
@@ -169,7 +169,7 @@ export class AIAnalysisEngine {
       }
 
       // JSON parse-fel → returnera tom men håll online-läge
-      console.error("AIAnalysisEngine.analyze: Parse-fel —", e);
+      console.error("AIAnalysisEngine.analyze: Parse-fel —", err);
       return { contradictions: [], uncertainties: [], gapAnalysis: [], holisticFlags: [] };
     }
   }
@@ -232,8 +232,8 @@ export class AIAnalysisEngine {
         recommendation: parsed.recommendation ?? '',
       };
 
-    } catch (e: any) {
-      const message = e?.message ?? String(e);
+    } catch (err: unknown) {
+      const message = (err instanceof Error ? err.message : String(err)) ?? String(err);
       if (
         message.includes('429') ||
         message.includes('quota') ||
@@ -241,7 +241,7 @@ export class AIAnalysisEngine {
       ) {
         this.aktivera_offline(`Riskbedömning API-fel: ${message}`);
       }
-      console.error("AIAnalysisEngine.assessRisk: Fel —", e);
+      console.error("AIAnalysisEngine.assessRisk: Fel —", err);
       return {
         riskScore: 0,
         riskLevel: 'LOW',
@@ -310,8 +310,8 @@ export class AIAnalysisEngine {
         nextSteps:   parsed.nextSteps   ?? [],
       };
 
-    } catch (e: any) {
-      const message = e?.message ?? String(e);
+    } catch (err: unknown) {
+      const message = (err instanceof Error ? err.message : String(err)) ?? String(err);
       if (
         message.includes('429') ||
         message.includes('quota') ||
@@ -319,7 +319,7 @@ export class AIAnalysisEngine {
       ) {
         this.aktivera_offline(`Sammanfattning API-fel: ${message}`);
       }
-      console.error("AIAnalysisEngine.summarize: Fel —", e);
+      console.error("AIAnalysisEngine.summarize: Fel —", err);
       return {
         summary: "Sammanfattning misslyckades.",
         keyPoints: [],
@@ -350,8 +350,8 @@ export class AIAnalysisEngine {
       ((window as Window & typeof globalThis & { OFFLINE_MODE?: boolean }).OFFLINE_MODE) = false;
       console.log(`AIAnalysisEngine: API online — svarstid ${latencyMs}ms`);
       return { online: true, message: "API ansluten och operativ.", latencyMs };
-    } catch (e: any) {
-      const message = e?.message ?? String(e);
+    } catch (err: unknown) {
+      const message = (err instanceof Error ? err.message : String(err)) ?? String(err);
       this.aktivera_offline(`API-statuskontroll misslyckades: ${message}`);
       return { online: false, message: `API ej tillgänglig: ${message}` };
     }

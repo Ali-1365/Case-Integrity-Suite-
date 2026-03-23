@@ -32,6 +32,7 @@ class OfflineService {
   private _isOffline: boolean = false;
   private _reason: OfflineReason = null;
   private _subscribers: ((offline: boolean, reason: OfflineReason) => void)[] = [];
+  private _recoveryTimer: any = null;
 
   constructor() {
     const apiKey =
@@ -57,17 +58,60 @@ class OfflineService {
   getReason(): OfflineReason { return this._reason; }
 
   setOffline(offline: boolean, reason: OfflineReason = null): void {
+    const wasOffline = this._isOffline;
     this._isOffline = offline;
     this._reason = reason;
+
     if (typeof window !== 'undefined') {
       ((window as Window & typeof globalThis & { OFFLINE_MODE?: boolean }).OFFLINE_MODE) = offline;
       ((window as Window & typeof globalThis & { OFFLINE_REASON?: string }).OFFLINE_REASON) = reason;
     }
+
     this._subscribers.forEach(fn => fn(offline, reason));
+
     if (offline) {
       console.warn(`[OfflineService] Offline aktiverat. Anledning: ${reason}`);
+      // Starta automatisk återställningskontroll om det är kvot- eller nätverksfel
+      if (reason === 'QUOTA_EXCEEDED' || reason === 'NETWORK_ERROR') {
+        this.startRecoveryPolling();
+      }
     } else {
-      console.log('[OfflineService] System återkopplat till online-läge.');
+      if (wasOffline) {
+        console.log('[OfflineService] System återkopplat till online-läge automatiskt.');
+        this.stopRecoveryPolling();
+      }
+    }
+  }
+
+  private startRecoveryPolling() {
+    if (this._recoveryTimer) return;
+    console.log('[OfflineService] Startar automatisk återställningskontroll (var 60:e sek)...');
+    
+    this._recoveryTimer = setInterval(async () => {
+      if (!this._isOffline) {
+        this.stopRecoveryPolling();
+        return;
+      }
+
+      console.log('[OfflineService] Testar API-anslutning för återställning...');
+      try {
+        // Vi använder den globala geminiService-instansen för att testa
+        const status = await geminiService.checkApiStatus();
+        if (status.online) {
+          console.log('[OfflineService] API åter tillgängligt! Växlar till online.');
+          this.setOffline(false);
+        }
+      } catch (e) {
+        // Fortsätt polla
+      }
+    }, 60000); // Kolla varje minut
+  }
+
+  private stopRecoveryPolling() {
+    if (this._recoveryTimer) {
+      clearInterval(this._recoveryTimer);
+      this._recoveryTimer = null;
+      console.log('[OfflineService] Återställningskontroll stoppad.');
     }
   }
 
@@ -121,8 +165,8 @@ export class GeminiService {
     try {
       this.ai = new GoogleGenAI({ apiKey } as { apiKey: string });
       console.log('[GeminiService] Klient initierad.');
-    } catch (e: any) {
-      loggingService.error(`[GeminiService] Initiering misslyckades: ${e.message}`);
+    } catch (err: unknown) {
+      loggingService.error(`[GeminiService] Initiering misslyckades: ${(err instanceof Error ? err.message : String(err))}`);
       offlineService.setOffline(true, 'NETWORK_ERROR');
     }
   }
@@ -145,30 +189,31 @@ export class GeminiService {
       try {
         this.quotaState = { isThrottled: false, retryAfterMs: 0, lastError: null };
         return await operation();
-      } catch (error: any) {
-        const msg = (error.message || '').toLowerCase();
+      } catch (err: unknown) {
+        const msg = ((err instanceof Error ? err.message : String(err)) || '').toLowerCase();
+        const errObj = err as any;
         const isQuota = msg.includes('quota') || msg.includes('429') ||
           msg.includes('resource_exhausted') || msg.includes('overloaded') ||
-          error.status === 429 || error.status === 503;
+          errObj.status === 429 || errObj.status === 503;
         const isAuth = msg.includes('401') || msg.includes('api_key') ||
-          msg.includes('unauthorized') || error.status === 401;
+          msg.includes('unauthorized') || errObj.status === 401;
 
         if (isAuth) {
           offlineService.setOffline(true, 'API_KEY_MISSING');
-          throw new ApiError(`Auth-fel: ${error.message}`, { originalError: error });
+          throw new ApiError(`Auth-fel: ${(err instanceof Error ? err.message : String(err))}`, { originalError: err });
         }
         if (isQuota && i < retries - 1) {
           console.warn(`[GeminiService] Kvotfel. Försök ${i + 1}/${retries}. Väntar ${delay / 1000}s...`);
-          this.quotaState = { isThrottled: true, retryAfterMs: delay, lastError: error.message };
+          this.quotaState = { isThrottled: true, retryAfterMs: delay, lastError: (err instanceof Error ? err.message : String(err)) };
           await new Promise(r => setTimeout(r, delay));
           delay *= 2;
         } else if (i === retries - 1) {
-          this.quotaState.lastError = error.message;
+          this.quotaState.lastError = (err instanceof Error ? err.message : String(err));
           if (isQuota) offlineService.setOffline(true, 'QUOTA_EXCEEDED');
           else offlineService.setOffline(true, 'NETWORK_ERROR');
-          throw new ApiError(`API-fel efter ${i + 1} försök: ${error.message}`, { originalError: error });
+          throw new ApiError(`API-fel efter ${i + 1} försök: ${(err instanceof Error ? err.message : String(err))}`, { originalError: err });
         } else {
-          throw error;
+          throw err;
         }
       }
     }
@@ -227,13 +272,13 @@ export class GeminiService {
       });
 
       return text;
-    } catch (error: any) {
+    } catch (err: unknown) {
       const duration = Date.now() - startTime;
       loggingService.addLog({
         mode,
         prompt: JSON.stringify(params.contents).substring(0, 500),
         response: null,
-        error: error.message,
+        error: (err instanceof Error ? err.message : String(err)),
         duration,
       });
 
@@ -261,7 +306,7 @@ export class GeminiService {
         }
         return synthetic;
       }
-      return `SYSTEMFEL: Kunde inte generera svar. ${error.message}`;
+      return `SYSTEMFEL: Kunde inte generera svar. ${(err instanceof Error ? err.message : String(err))}`;
     }
   }
 
@@ -282,8 +327,8 @@ export class GeminiService {
         );
         const values = response?.embeddings?.[0]?.values || (response as GeminiResponse)?.embedding?.values;
         if (values?.length > 0) return values;
-      } catch (e: any) {
-        console.warn(`[GeminiService] Embed misslyckades (${modelName}): ${e.message}`);
+      } catch (err: unknown) {
+        console.warn(`[GeminiService] Embed misslyckades (${modelName}): ${(err instanceof Error ? err.message : String(err))}`);
       }
     }
     console.warn('[GeminiService] Embed API helt nere → pseudo-embedding.');
@@ -310,8 +355,8 @@ export class GeminiService {
       const latencyMs = Date.now() - start;
       offlineService.setOffline(false);
       return { online: true, latencyMs, message: 'API ansluten och operativ.' };
-    } catch (e: any) {
-      return { online: false, message: `API ej tillgänglig: ${e.message}` };
+    } catch (err: unknown) {
+      return { online: false, message: `API ej tillgänglig: ${(err instanceof Error ? err.message : String(err))}` };
     }
   }
 

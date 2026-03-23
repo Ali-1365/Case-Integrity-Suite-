@@ -53,8 +53,8 @@ export class PraxisService {
       
       // Ta bort dubbletter
       return Array.from(new Map(results.map(item => [item.id, item])).values());
-    } catch (error) {
-      console.error('PraxisService Error:', error);
+    } catch (err: unknown) {
+      console.error('PraxisService Error:', err);
       return [];
     }
   }

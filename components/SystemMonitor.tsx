@@ -55,8 +55,8 @@ const SystemMonitor: React.FC<SystemMonitorProps> = ({ isOpen, onClose }) => {
             setQuotaUsage(usageMonitorService.getUsage());
             setIsOffline(offlineService.getIsOffline());
             refreshLogs();
-        } catch (error) {
-            console.error("Failed to refresh system monitor data:", error);
+        } catch (err: unknown) {
+            console.error("Failed to refresh system monitor data:", err);
         } finally {
             setIsRefreshing(false);
         }
@@ -69,8 +69,8 @@ const SystemMonitor: React.FC<SystemMonitorProps> = ({ isOpen, onClose }) => {
             githubService.setIntegrityBypass(true);
             await refreshData();
             // Notifiering om lyckad bypass-aktivering
-        } catch (error) {
-            console.error("Repair failed:", error);
+        } catch (err: unknown) {
+            console.error("Repair failed:", err);
         } finally {
             setIsRepairing(false);
         }

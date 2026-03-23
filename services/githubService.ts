@@ -37,7 +37,7 @@ class GithubService {
             clearTimeout(timeoutId);
             if (!res.ok) return null;
             return await res.json();
-        } catch (e) {
+        } catch (err: unknown) {
             clearTimeout(timeoutId);
             return null;
         }
