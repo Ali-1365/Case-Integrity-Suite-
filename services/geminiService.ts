@@ -55,10 +55,8 @@ class OfflineService {
 
     if (offline) {
       console.warn(`[OfflineService] Offline aktiverat. Anledning: ${reason}`);
-      // Starta automatisk återställningskontroll om det är kvot- eller nätverksfel
-      if (reason === 'QUOTA_EXCEEDED' || reason === 'NETWORK_ERROR') {
-        this.startRecoveryPolling();
-      }
+      // Starta automatisk återställningskontroll för alla fel, inklusive saknad nyckel
+      this.startRecoveryPolling();
     } else {
       if (wasOffline) {
         console.log('[OfflineService] System återkopplat till online-läge automatiskt.');
@@ -79,11 +77,17 @@ class OfflineService {
 
       console.log('[OfflineService] Testar API-anslutning för återställning...');
       try {
-        // Vi använder den globala geminiService-instansen för att testa
-        const status = await geminiService.checkApiStatus();
-        if (status.online) {
-          console.log('[OfflineService] API åter tillgängligt! Växlar till online.');
-          this.setOffline(false);
+        const response = await fetch('/api/ai/status');
+        if (response.ok) {
+          const data = await response.json();
+          if (data.hasKey) {
+             const status = await geminiService.checkApiStatus();
+             if (status.online) {
+               console.log('[OfflineService] API åter tillgängligt! Växlar till online.');
+               this.setOffline(false);
+               this.stopRecoveryPolling();
+             }
+          }
         }
       } catch (e) {
         // Fortsätt polla
@@ -167,18 +171,18 @@ export class GeminiService {
           offlineService.setOffline(true, 'API_KEY_MISSING');
           throw new ApiError(`Auth-fel: ${error.message}`, { originalError: error });
         }
-        if (isQuota && i < retries - 1) {
-          console.warn(`[GeminiService] Kvotfel. Försök ${i + 1}/${retries}. Väntar ${delay / 1000}s...`);
-          this.quotaState = { isThrottled: true, retryAfterMs: delay, lastError: error.message };
+        const isNetwork = !error.status || error.status >= 500;
+
+        if ((isQuota || isNetwork) && i < retries - 1) {
+          console.warn(`[GeminiService] Fel (${isQuota ? 'Kvot' : 'Nätverk'}). Försök ${i + 1}/${retries}. Väntar ${delay / 1000}s...`);
+          this.quotaState = { isThrottled: isQuota, retryAfterMs: delay, lastError: error.message };
           await new Promise(r => setTimeout(r, delay));
           delay *= 2;
-        } else if (i === retries - 1) {
+        } else {
           this.quotaState.lastError = error.message;
           if (isQuota) offlineService.setOffline(true, 'QUOTA_EXCEEDED');
           else offlineService.setOffline(true, 'NETWORK_ERROR');
           throw new ApiError(`API-fel efter ${i + 1} försök: ${error.message}`, { originalError: error });
-        } else {
-          throw error;
         }
       }
     }
@@ -341,28 +345,24 @@ export class GeminiService {
   async checkApiStatus(): Promise<{ online: boolean; latencyMs?: number; message: string }> {
     const start = Date.now();
     try {
-      await this.generate({ contents: 'Svara med OK.' }, 'fast');
+      const res = await fetch('/api/ai/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: this.flashModel,
+          contents: [{ role: 'user', parts: [{ text: 'Svara med OK.' }] }]
+        }),
+      });
+
+      if (!res.ok) {
+        throw new Error(`HTTP Error ${res.status}`);
+      }
+
+      await res.json();
       const latencyMs = Date.now() - start;
-      offlineService.setOffline(false);
       return { online: true, latencyMs, message: 'API ansluten och operativ.' };
     } catch (e: any) {
       return { online: false, message: `API ej tillgänglig: ${e.message}` };
-    }
-  }
-
-  public async checkInitialServerStatus(): Promise<void> {
-    try {
-      const response = await fetch('/api/ai/status');
-      if (response.ok) {
-        const data = await response.json();
-        if (data.hasKey) {
-          offlineService.setOffline(false);
-        } else {
-          offlineService.setOffline(true, 'API_KEY_MISSING');
-        }
-      }
-    } catch (e) {
-      // Don't override offline reason if it's already set to something else unless it's a network error connecting to proxy
     }
   }
 
