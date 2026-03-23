@@ -35,21 +35,23 @@ export class PraxisService {
         }));
       }
 
-      const results: PraxisEntry[] = [];
-      for (const ref of lawRefs) {
+      const promises = lawRefs.map(async (ref) => {
         const response = await fetch(`/api/praxis/${encodeURIComponent(ref)}`);
         if (response.ok) {
           const data = await response.json();
-          const mapped = data.map((p: any) => ({
+          return data.map((p: any) => ({
             id: p.id,
             reference: p.reference,
             linkedLaw: p.metadata.revisionNote || "",
             summary: p.text,
             provenanceHash: p.metadata.provenanceHash
           }));
-          results.push(...mapped);
         }
-      }
+        return [];
+      });
+
+      const resultsArray = await Promise.all(promises);
+      const results = resultsArray.flat();
       
       // Ta bort dubbletter
       return Array.from(new Map(results.map(item => [item.id, item])).values());
