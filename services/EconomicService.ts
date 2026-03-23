@@ -159,7 +159,7 @@ export class EconomicService {
    * Genererar en antifragil budgetprognos.
    * Tar hänsyn till osäkerhet och "svarta svanar" genom att simulera olika scenarier.
    */
-  generateAntifragileForecast(baseData: any): BudgetForecast {
+  generateAntifragileForecast(baseData: unknown): BudgetForecast {
     // Simulering av komplexitet och osäkerhet
     const variance = (Math.random() * 0.2) - 0.1; // +/- 10% osäkerhet
     return {

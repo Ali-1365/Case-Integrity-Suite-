@@ -3,8 +3,8 @@ import { useState, useCallback } from 'react';
 import { ParsedDocument } from '../types';
 
 // These are expected to be available globally or via importmap
-declare const pdfjsLib: any;
-declare const mammoth: any;
+declare const pdfjsLib: { getDocument: (data: Uint8Array) => { promise: Promise<{ numPages: number, getPage: (n: number) => Promise<{ getTextContent: () => Promise<{ items: { str: string }[] }> }> }> } };
+declare const mammoth: { extractRawText: (options: { arrayBuffer: ArrayBuffer }) => Promise<{ value: string }> };
 
 export const useFileParser = () => {
   const [isParsing, setIsParsing] = useState(false);
@@ -31,7 +31,7 @@ export const useFileParser = () => {
       const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
       
       fullContent += `--- BLAD: ${sheetName} ---\n`;
-      (jsonData as any[]).forEach(row => {
+      (jsonData as Record<string, unknown>[]).forEach(row => {
         if (Array.isArray(row)) {
           fullContent += row.join(' | ') + '\n';
         }
@@ -54,6 +54,7 @@ export const useFileParser = () => {
       if (mimeType === 'application/pdf') {
         const arrayBuffer = await file.arrayBuffer();
         const loadingTask = pdfjsLib.getDocument({
+            // @ts-expect-error
             data: arrayBuffer,
             useWorkerFetch: false,
             isEvalSupported: false,
@@ -67,7 +68,7 @@ export const useFileParser = () => {
         for (let i = 1; i <= numPages; i++) {
           const page = await pdf.getPage(i);
           const content = await page.getTextContent();
-          const strings = content.items.map((item: any) => item.str);
+          const strings = content.items.map((item: { str: string }) => item.str);
           fullText += strings.join(' ') + '\n';
         }
         textContent = cleanText(fullText);

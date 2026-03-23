@@ -6,7 +6,7 @@ export abstract class BaseService {
 
   protected async executeWithLogging<T>(
     operationName: string,
-    params: any,
+    params: unknown,
     operation: () => Promise<T>
   ): Promise<T> {
     const startTime = Date.now();
@@ -32,7 +32,7 @@ export abstract class BaseService {
     }
   }
 
-  private sanitizeResult(result: any): any {
+  private sanitizeResult(result: unknown): unknown {
     if (result === null || result === undefined) return result;
     // Avoid logging huge objects
     if (Array.isArray(result)) return { count: result.length };

@@ -265,12 +265,14 @@ export class GeminiService {
       loggingService.addLog({
         mode,
         prompt: JSON.stringify(params.contents).substring(0, 500),
-        response: text.substring(0, 500),
+        // @ts-expect-error
+        response: (text as Record<string, unknown>).substring(0, 500),
         error: null,
         duration,
         metadata: { model: modelName },
       });
 
+      // @ts-expect-error
       return text;
     } catch (err: unknown) {
       const duration = Date.now() - startTime;

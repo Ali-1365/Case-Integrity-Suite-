@@ -12,7 +12,7 @@ import {
 } from './icons';
 
 interface FmjamControllerProps {
-  analysis: any;
+  analysis: unknown;
 }
 
 export const FmjamController: React.FC<FmjamControllerProps> = ({ analysis }) => {
