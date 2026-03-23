@@ -36,7 +36,7 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
   const [isLoading, setIsLoading] = useState(false);
   const [highlightedParagraphId, setHighlightedParagraphId] = useState<string | null>(null);
   const [relevantPraxis, setRelevantPraxis] = useState<PraxisEntry[]>([]);
-  const [integrityStatus, setIntegrityStatus] = useState<unknown[] | null>(null);
+  const [integrityStatus, setIntegrityStatus] = useState<any[] | null>(null);
   const [isVerifying, setIsVerifying] = useState(false);
 
   const years = useMemo(() => {
@@ -83,14 +83,13 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
     window.print();
   };
 
-  const handleParagraphClick = async (p: unknown) => {
-    // @ts-expect-error
-    setHighlightedParagraphId((p as Record<string, unknown>).id);
-    const lawRef = `${activeCorpus?.shortName} ${(p as Record<string, unknown>).section}`;
+  const handleParagraphClick = async (p: any) => {
+    setHighlightedParagraphId(p.id);
+    const lawRef = `${activeCorpus?.shortName} ${p.section}`;
     try {
       const praxis = await praxisService.getRelevantPraxis([lawRef]);
       setRelevantPraxis(praxis);
-    } catch (err: unknown) {
+    } catch (err) {
       console.error('Failed to fetch praxis:', err);
       setRelevantPraxis([]);
     }
@@ -104,17 +103,16 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
         const data = await response.json();
         setIntegrityStatus(data);
       }
-    } catch (err: unknown) {
-      console.error('Integrity verification failed:', err);
+    } catch (error) {
+      console.error('Integrity verification failed:', error);
     } finally {
       setIsVerifying(false);
     }
   };
 
-  const isOutdated = (law: unknown) => {
+  const isOutdated = (law: any) => {
     // Mock logic: if SFS year is before 2000, flag it as potentially outdated
-    // @ts-expect-error
-    const year = parseInt((law as Record<string, unknown>).sfsNumber?.split(':')[0] || '2026');
+    const year = parseInt(law.sfsNumber?.split(':')[0] || '2026');
     return year < 2000;
   };
 
@@ -195,8 +193,7 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
                         <select 
                             className="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg py-2 px-3 text-sm text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all"
                             value={selectedType}
-                            // @ts-expect-error
-                            onChange={(e) => setSelectedType(e.target.value as unknown)}
+                            onChange={(e) => setSelectedType(e.target.value as any)}
                         >
                             <option value="all">Alla Kategorier</option>
                             <option value="lag">Lagar</option>
@@ -219,7 +216,7 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         {filteredIndex.map((source) => (
                             <div 
-                                key={source.id}
+                                key={source.id} 
                                 onClick={() => setSelectedLawId(source.id)}
                                 className="group bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl p-5 hover:border-blue-200 dark:hover:border-blue-900/50 transition-all cursor-pointer shadow-sm flex flex-col"
                             >
@@ -275,7 +272,7 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
                             <div className="lg:col-span-2 space-y-8">
                                 {activeCorpus.paragraphs.map((p) => (
                                     <div 
-                                        key={p.id}
+                                        key={p.id} 
                                         onClick={() => handleParagraphClick(p)}
                                         className={`relative pl-10 group cursor-pointer transition-all ${highlightedParagraphId === p.id ? 'scale-[1.02]' : ''}`}
                                     >

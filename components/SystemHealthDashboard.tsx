@@ -165,7 +165,7 @@ const SystemHealthDashboard: React.FC<SystemHealthDashboardProps> = ({ isOpen, o
             />
             <KPICard 
               title="API Latency" 
-              value={`${Math.round(metrics[metrics.length-1]?.apiLatency || 0)}ms`}
+              value={`${Math.round(metrics[metrics.length-1]?.apiLatency || 0)}ms`} 
               trend="neutral"
               icon={<BoltIcon className="w-5 h-5 text-amber-400" />}
               color="amber"
@@ -281,8 +281,8 @@ const SystemHealthDashboard: React.FC<SystemHealthDashboardProps> = ({ isOpen, o
                         if (!res.ok) throw new Error(`HTTP ${res.status}`);
                         await res.json();
                         results.push({ file, status: 'ok' as const });
-                      } catch (err: unknown) {
-                        results.push({ file, status: 'error' as const, message: err instanceof Error ? err.message : String(err) });
+                      } catch (e) {
+                        results.push({ file, status: 'error' as const, message: e instanceof Error ? e.message : String(e) });
                       }
                     }
                     setIntegrityResults(results);

@@ -19,7 +19,6 @@ export class SicknessBenefitStrategy implements IBenefitStrategy {
             reasoning.push('Läkarintyg saknas för perioden.');
         }
 
-        // @ts-expect-error
         if (clientData.income < 0) {
             isValid = false;
             outcome = 'REJECTED';

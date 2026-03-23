@@ -42,8 +42,8 @@ export class AuditEngine {
                 const labelMatch = ref.rawText.toLowerCase().includes(source.label.toLowerCase());
                 const idMatch = ref.id.toLowerCase().startsWith(source.id.toLowerCase());
                 // Matchning på kapitel och paragraf i det nu kompletta 1-16 registret
-                const sectionMatch = source.reference === ref.source &&
-                                   ref.rawText.includes(`${source.chapter} kap.`) &&
+                const sectionMatch = source.reference === ref.source && 
+                                   ref.rawText.includes(`${source.chapter} kap.`) && 
                                    ref.rawText.includes(`${source.section} §`);
                 return labelMatch || idMatch || sectionMatch;
             });
@@ -72,7 +72,7 @@ export class AuditEngine {
         }
 
         // 3. Verifiera lagrumskonsekvens (SFS 2025:400 vs 2001:453)
-        const obsoleteLaws = analysis.legalReferences.filter(r =>
+        const obsoleteLaws = analysis.legalReferences.filter(r => 
             r.rawText.includes("2001:453") && new Date(analysis.createdAt) > new Date("2025-07-01")
         );
 

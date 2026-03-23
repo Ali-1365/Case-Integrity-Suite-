@@ -10,7 +10,7 @@ export class QualityAssuranceEngine {
             id: 'QA-SOURCE-V1',
             label: 'Forensisk Citatkontroll',
             status: weakFacts.length === 0 ? 'pass' : 'warning',
-            message: weakFacts.length === 0
+            message: weakFacts.length === 0 
                 ? 'Samtliga påståenden har verifierbart textstöd.' 
                 : `${weakFacts.length} påståenden har svagt citatstöd.`
         });

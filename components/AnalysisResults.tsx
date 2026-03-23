@@ -195,13 +195,13 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = (props) => {
                                     <div className="space-y-4">
                                         {props.analysis.legalReferences.map(r => {
                                             const isVerified = LEGAL_SOURCES.some(s => 
-                                                s.reference === r.source ||
+                                                s.reference === r.source || 
                                                 s.label.toLowerCase() === r.rawText.toLowerCase() ||
                                                 (s.sfsNumber && r.rawText.includes(s.sfsNumber))
                                             );
                                             return (
                                                 <button 
-                                                    key={r.id}
+                                                    key={r.id} 
                                                     onClick={() => setSelectedLegalRefId(r.id)}
                                                     className="w-full text-left p-6 bg-slate-50 dark:bg-slate-800/40 rounded-[1.5rem] border border-slate-200 dark:border-slate-700 hover:border-blue-500/40 hover:bg-blue-500/5 transition-all group flex justify-between items-center shadow-sm active:scale-[0.98]"
                                                 >

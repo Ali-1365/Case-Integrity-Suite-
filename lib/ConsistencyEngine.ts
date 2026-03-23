@@ -41,7 +41,7 @@ export class ConsistencyEngine {
         if (!c1.activeResult || !c2.activeResult) continue;
 
         // 2. Likabehandlingsprincipen & Saklighet
-        const sameLaws = JSON.stringify(c1.activeResult.machineReadable.legalBasis.sort()) ===
+        const sameLaws = JSON.stringify(c1.activeResult.machineReadable.legalBasis.sort()) === 
                          JSON.stringify(c2.activeResult.machineReadable.legalBasis.sort());
         
         const sameRisk = c1.activeResult.machineReadable.riskLevel === c2.activeResult.machineReadable.riskLevel;

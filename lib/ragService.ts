@@ -35,15 +35,15 @@ export class RagService {
         if (response.ok) {
           this.index = await response.json();
         }
-      } catch (err: unknown) {
-        console.warn("[RAG] Kunde inte ladda index.json", err);
+      } catch (e) {
+        console.warn("[RAG] Kunde inte ladda index.json", e);
       }
       
       await this.ingestArchive();
       this.isInitialized = true;
       console.log("%c[SYSTEM]%c DRIFTLÄGE_AKTIVERAT: RagService v8 redo.", "color:white; background:green; padding:2px 4px;", "color:green; font-weight:bold;");
       autoNotary.info('SYSTEM', 'RagService', 'Initierad', { indexSize: this.index?.chunks.length });
-    } catch (err: unknown) {
+    } catch (err) {
       console.error("[RAG] Init failure:", err);
       autoNotary.info('SYSTEM', 'RagService', 'Initiering misslyckades', { error: err });
     }
@@ -116,7 +116,7 @@ export class RagService {
       }
 
       autoNotary.endTrace(traceId, 'RagService', 'getContextForText', 'SUCCESS', { 
-          hitCount: lawHits.length,
+          hitCount: lawHits.length, 
           hasReasoning: !!reasoning, 
           hasDecisionSupport: !!decisionSupport 
       });
@@ -128,9 +128,9 @@ export class RagService {
         reasoning,
         decisionSupport
       };
-    } catch (err: unknown) {
-      console.error("[RAG] Drift failure:", err);
-      autoNotary.endTrace(traceId, 'RagService', 'getContextForText', 'FAILURE', { error: err });
+    } catch (e) {
+      console.error("[RAG] Drift failure:", e);
+      autoNotary.endTrace(traceId, 'RagService', 'getContextForText', 'FAILURE', { error: e });
       return { context: "", queryId: "ERROR", hitCount: 0 };
     }
   }

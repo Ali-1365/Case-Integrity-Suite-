@@ -64,7 +64,7 @@ export const ArchiveSearch: React.FC<ArchiveSearchProps> = ({ query, title = "Ar
       <div className="space-y-4">
         {results.map((res, idx) => (
           <div 
-            key={`${res.document.id}-${idx}`}
+            key={`${res.document.id}-${idx}`} 
             className="p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[1.5rem] hover:border-blue-500/40 transition-all group relative overflow-hidden shadow-sm hover:shadow-md"
           >
             <div className="absolute top-0 right-0 p-4 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity">

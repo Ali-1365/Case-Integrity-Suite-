@@ -99,7 +99,7 @@ const SystemInventory: React.FC<SystemInventoryProps> = ({ isOpen, onClose }) =>
 
             setFiles(analyzedFiles);
             setLastScan(new Date());
-        } catch (err: unknown) {
+        } catch (err) {
             console.error('System scan failed:', err);
         } finally {
             setIsScanning(false);
@@ -162,7 +162,7 @@ const SystemInventory: React.FC<SystemInventoryProps> = ({ isOpen, onClose }) =>
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
                         <StatCard 
                             title="Totalt Antal Filer" 
-                            value={files.length}
+                            value={files.length} 
                             icon={<CodeBracketIcon className="w-6 h-6 text-gray-400" />} 
                             colorClass="text-gray-100"
                         />
@@ -238,26 +238,6 @@ const SystemInventory: React.FC<SystemInventoryProps> = ({ isOpen, onClose }) =>
                                             file.status === 'warning' ? 'text-amber-400/90' : 
                                             'text-gray-500'
                                         }`}>
-                                            // @ts-expect-error Typescript type resolution issue
-                                            // @ts-expect-error Typescript type resolution issue
-                                            // @ts-expect-error Typescript type resolution issue
-                                            // @ts-expect-error Typescript type resolution issue
-                                            // @ts-expect-error Typescript type resolution issue
-                                            // @ts-expect-error Typescript type resolution issue
-                                            // @ts-expect-error Typescript type resolution issue
-                                            // @ts-expect-error Typescript type resolution issue
-                                            // @ts-expect-error Typescript type resolution issue
-                                            // @ts-expect-error Typescript type resolution issue
-                                            // @ts-expect-error Typescript type resolution issue
-                                            // @ts-expect-error Typescript type resolution issue
-                                            // @ts-expect-error Typescript type resolution issue
-                                            // @ts-expect-error Typescript type resolution issue
-                                            // @ts-expect-error Typescript type resolution issue
-                                            // @ts-expect-error Typescript type resolution issue
-                                            // @ts-expect-error Typescript type resolution issue
-                                            // @ts-expect-error Typescript type resolution issue
-                                            // @ts-expect-error Typescript type resolution issue
-                                            // @ts-expect-error Typescript type resolution issue
                                             {file.message}
                                         </td>
                                     </tr>

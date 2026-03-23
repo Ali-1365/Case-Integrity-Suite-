@@ -34,7 +34,6 @@ export class AIFactEngine {
       config: { responseMimeType: "application/json", responseSchema: AIFactEngine.schema }
     }, 'fast');
     
-    // @ts-expect-error
-    return JSON.parse(res).map((f: unknown) => ({ ...f, source: { ...(f as Record<string, unknown>).source, documentId: docId } }));
+    return JSON.parse(res).map((f: any) => ({ ...f, source: { ...f.source, documentId: docId } }));
   }
 }

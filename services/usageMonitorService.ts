@@ -30,15 +30,11 @@ class UsageMonitorService {
         // Since we don't have a real tokenizer, we estimate 4 characters = 1 token
         let tpm = 0;
         recentLlmLogs.forEach(log => {
-            // @ts-expect-error
             if (log.details?.prompt) {
-                // @ts-expect-error
-                tpm += Math.ceil((log.details as Record<string, unknown>).prompt.length / 4);
+                tpm += Math.ceil(log.details.prompt.length / 4);
             }
-            // @ts-expect-error
             if (log.details?.response) {
-                // @ts-expect-error
-                tpm += Math.ceil((log.details as Record<string, unknown>).response.length / 4);
+                tpm += Math.ceil(log.details.response.length / 4);
             }
         });
         

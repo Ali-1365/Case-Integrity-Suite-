@@ -16,11 +16,11 @@ export enum ErrorCode {
 
 export class AppError extends Error {
   public readonly code: ErrorCode;
-  public readonly details?: unknown;
+  public readonly details?: any;
   public readonly timestamp: Date;
   public readonly isOperational: boolean;
 
-  constructor(message: string, code: ErrorCode = ErrorCode.UNKNOWN_ERROR, details?: unknown, isOperational: boolean = true) {
+  constructor(message: string, code: ErrorCode = ErrorCode.UNKNOWN_ERROR, details?: any, isOperational: boolean = true) {
     super(message);
     this.name = this.constructor.name;
     this.code = code;
@@ -38,29 +38,29 @@ export class AppError extends Error {
 }
 
 export class ApiError extends AppError {
-  constructor(message: string, details?: unknown) {
+  constructor(message: string, details?: any) {
     super(message, ErrorCode.API_ERROR, details);
   }
 }
 
 export class ValidationError extends AppError {
-  constructor(message: string, details?: unknown) {
+  constructor(message: string, details?: any) {
     super(message, ErrorCode.VALIDATION_ERROR, details);
   }
 }
 
 export class AuthError extends AppError {
-  constructor(message: string, details?: unknown) {
+  constructor(message: string, details?: any) {
     super(message, ErrorCode.AUTH_ERROR, details);
   }
 }
 
 export class NetworkError extends AppError {
-  constructor(message: string, details?: unknown) {
+  constructor(message: string, details?: any) {
     super(message, ErrorCode.NETWORK_ERROR, details);
   }
 }
 
-export const isAppError = (error: unknown): error is AppError => {
+export const isAppError = (error: any): error is AppError => {
   return error instanceof AppError;
 };

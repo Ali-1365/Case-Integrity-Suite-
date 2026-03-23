@@ -132,7 +132,7 @@ const RiskProfileEditor: React.FC<RiskProfileEditorProps> = ({
                 <div className="grid grid-cols-1 gap-6">
                     {legalFramework.map((item) => (
                         <div 
-                            key={item.id}
+                            key={item.id} 
                             ref={el => { itemRefs.current[item.id] = el; }}
                             className={`p-6 rounded-2xl border transition-all ${focusedItemId?.startsWith(item.id) ? 'bg-cyan-900/10 border-cyan-500/50 ring-1 ring-cyan-500/20 shadow-lg' : 'bg-gray-800/40 border-gray-800'}`}
                         >

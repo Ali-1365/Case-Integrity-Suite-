@@ -1,10 +1,3 @@
-// // import { Contradiction } from '@/lib/cis.types';
-// // import { Contradiction } from '@/lib/cis.types';
-// // // // import { Contradiction } from '@/lib/cis.types';
-// // import { Contradiction } from '@/lib/cis.types';
-// // import { Fact, CISCase, ContradictionV2, LegalParagraph } from '@/lib/cis.types';
-// @ts-expect-error Typescript type resolution issue
-type Contradiction = ContradictionV2;
 
 import { geminiService } from '../services/geminiService';
 import { AnalysisResult, CrossCorrelation } from './cis.types';
@@ -73,7 +66,6 @@ Du är en senior juridisk analytiker och AI-agent specialiserad på svensk förv
 När du skapar Sakframställan, ska du inleda med Bevistemana (hämtade från Faktamaster_State["Bevisteman"]) som huvudrubriker. När du kommer till Juridisk Slutsats, måste du inkludera hela den Argumentativa Syllogismen (hämtad från Faktamaster_State["Juridisk_Syllogism"]) som ett separat, numrerat stycke.
 `;
 
-    // @ts-expect-error
     return this.runGeminiSynthesis(systemInstruction, analysis, template.sections);
   }
 
@@ -121,18 +113,17 @@ När du skapar Sakframställan, ska du inleda med Bevistemana (hämtade från Fa
       }, 'think');
 
       return { synthesis, duelResult, correlations };
-    } catch (err: unknown) {
-      console.error("Batch synthesis failure:", err);
+    } catch (error) {
+      console.error("Batch synthesis failure:", error);
       throw new Error("Systemet kunde inte slutföra batch-syntesen.");
     }
   }
 
-  private async runGeminiSynthesis(systemInstruction: string, data: Record<string, unknown>, sections: string[]): Promise<string> {
+  private async runGeminiSynthesis(systemInstruction: string, data: any, sections: string[]): Promise<string> {
     // Vi skickar en avskalad version av AnalysisResult för att spara tokens
     const strippedData = {
         caseId: data.caseId,
-        // @ts-expect-error
-        facts: (data.facts as Record<string, unknown>).map((f: Fact) => ({
+        facts: data.facts.map((f: any) => ({ 
             id: f.id, 
             date: f.timestamp, 
             category: f.category, 
@@ -158,7 +149,7 @@ När du skapar Sakframställan, ska du inleda med Bevistemana (hämtade från Fa
         contents: `CONTEXT_LOCKED (Använd denna data för att generera rapporten):\n\n${JSON.stringify(strippedData, null, 2)}`,
         config: { systemInstruction, temperature: 0.0 }
       }, 'think');
-    } catch (err: unknown) {
+    } catch (error) {
        return "KRITISKT FEL: Den deterministiska syntesmotorn svarar inte.";
     }
   }
