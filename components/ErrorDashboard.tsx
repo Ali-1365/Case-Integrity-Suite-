@@ -43,7 +43,7 @@ const ErrorDashboard: React.FC<ErrorDashboardProps> = ({ isOpen, onClose }) => {
         </header>
 
         <main className="p-6 flex-grow overflow-y-auto">
-            {(logs as { length: number }).length === 0 ? (
+            {logs.length === 0 ? (
                 <div className="text-center text-gray-500 py-16">
                     <p>Inga loggar tillgängliga än.</p>
                 </div>
@@ -56,7 +56,7 @@ const ErrorDashboard: React.FC<ErrorDashboardProps> = ({ isOpen, onClose }) => {
                         const bgColor = isError ? 'bg-red-900/20' : isWarn ? 'bg-amber-900/20' : 'bg-gray-900/50';
 
                         return (
-                            <div key={(log as { id: string }).id} className={`p-4 border ${borderColor} ${bgColor} rounded-lg`}>
+                            <div key={log.id} className={`p-4 border ${borderColor} ${bgColor} rounded-lg`}>
                                 <div className="flex justify-between items-start text-sm">
                                     <div>
                                         <span className={`font-bold ${isError ? 'text-red-400' : isWarn ? 'text-amber-400' : 'text-green-400'}`}>{log.level}</span>
@@ -69,8 +69,8 @@ const ErrorDashboard: React.FC<ErrorDashboardProps> = ({ isOpen, onClose }) => {
                                 </div>
                                 <div className="mt-2">
                                     <p className="text-sm text-gray-200">{log.message}</p>
-                                    {(log as { details?: unknown }).details && (
-                                        <LogDetail label="Visa detaljer" content={(JSON as { str: string }).stringify((log as { details?: unknown }).details, null, 2)} />
+                                    {log.details && (
+                                        <LogDetail label="Visa detaljer" content={JSON.stringify(log.details, null, 2)} />
                                     )}
                                 </div>
                             </div>

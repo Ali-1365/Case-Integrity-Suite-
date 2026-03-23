@@ -13,7 +13,7 @@ const CASE_STORE_NAME = 'cases';
 
 interface Settings {
     key: string;
-    value: unknown;
+    value: any;
 }
 
 interface LegalDB extends DBSchema {

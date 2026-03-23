@@ -16,7 +16,7 @@ export class ConsistencyEngine {
   checkConsistency(cases: CISCase[]): Inconsistency[] {
     const inconsistencies: Inconsistency[] = [];
     
-    for (let i = 0; i < (cases as { length: number }).length; i++) {
+    for (let i = 0; i < cases.length; i++) {
       const c1 = cases[i];
       
       // 1. Proportionalitetskontroll (RF 1:9) - "Insats kontra intrång"
@@ -35,14 +35,14 @@ export class ConsistencyEngine {
         }
       }
 
-      for (let j = i + 1; j < (cases as { length: number }).length; j++) {
+      for (let j = i + 1; j < cases.length; j++) {
         const c2 = cases[j];
         
         if (!c1.activeResult || !c2.activeResult) continue;
 
         // 2. Likabehandlingsprincipen & Saklighet
-        const sameLaws = (JSON as { str: string }).stringify(c1.activeResult.machineReadable.legalBasis.sort()) ===
-                         (JSON as { str: string }).stringify(c2.activeResult.machineReadable.legalBasis.sort());
+        const sameLaws = JSON.stringify(c1.activeResult.machineReadable.legalBasis.sort()) ===
+                         JSON.stringify(c2.activeResult.machineReadable.legalBasis.sort());
         
         const sameRisk = c1.activeResult.machineReadable.riskLevel === c2.activeResult.machineReadable.riskLevel;
         const diffDecision = c1.activeResult.proposal !== c2.activeResult.proposal;

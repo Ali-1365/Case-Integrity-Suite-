@@ -3,8 +3,8 @@ import { useState, useCallback } from 'react';
 import { ParsedDocument } from '../types';
 
 // These are expected to be available globally or via importmap
-declare const pdfjsLib: unknown;
-declare const mammoth: unknown;
+declare const pdfjsLib: any;
+declare const mammoth: any;
 
 export const useFileParser = () => {
   const [isParsing, setIsParsing] = useState(false);
@@ -31,7 +31,7 @@ export const useFileParser = () => {
       const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
       
       fullContent += `--- BLAD: ${sheetName} ---\n`;
-      (jsonData as unknown[]).forEach(row => {
+      (jsonData as any[]).forEach(row => {
         if (Array.isArray(row)) {
           fullContent += row.join(' | ') + '\n';
         }
@@ -49,11 +49,11 @@ export const useFileParser = () => {
     try {
       let textContent = '';
       const mimeType = file.type;
-      const fileName = (file as { name: string }).name.toLowerCase();
+      const fileName = file.name.toLowerCase();
 
       if (mimeType === 'application/pdf') {
         const arrayBuffer = await file.arrayBuffer();
-        const loadingTask = (pdfjsLib as { getDocument: (opts: unknown) => { promise: Promise<unknown> } }).getDocument({
+        const loadingTask = pdfjsLib.getDocument({
             data: arrayBuffer,
             useWorkerFetch: false,
             isEvalSupported: false,
@@ -67,52 +67,52 @@ export const useFileParser = () => {
         for (let i = 1; i <= numPages; i++) {
           const page = await pdf.getPage(i);
           const content = await page.getTextContent();
-          const strings = content.items.map((item: unknown) => (item as { str: string }).str);
+          const strings = content.items.map((item: any) => item.str);
           fullText += strings.join(' ') + '\n';
         }
         textContent = cleanText(fullText);
       } 
       else if (mimeType === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
         const arrayBuffer = await file.arrayBuffer();
-        const result = await (mammoth as { extractRawText: (opts: unknown) => Promise<{value: string}> }).extractRawText({ arrayBuffer: arrayBuffer });
+        const result = await mammoth.extractRawText({ arrayBuffer: arrayBuffer });
         textContent = cleanText(result.value);
       } 
       else if (fileName.endsWith('.xlsx') || fileName.endsWith('.xls') || fileName.endsWith('.csv') || mimeType === 'text/csv') {
         textContent = await parseExcel(file);
       }
       else if (fileName.endsWith('.json') || mimeType === 'application/json') {
-        const rawJson = await (file as { text: string }).text();
+        const rawJson = await file.text();
         try {
           const parsed = JSON.parse(rawJson);
-          textContent = `--- STRUKTURERAD JSON-DATA ---\n${(JSON as { str: string }).stringify(parsed, null, 2)}`;
+          textContent = `--- STRUKTURERAD JSON-DATA ---\n${JSON.stringify(parsed, null, 2)}`;
         } catch (e) {
           textContent = rawJson; // Fallback to raw text if invalid JSON
         }
       }
       else if (mimeType === 'text/plain' || fileName.endsWith('.txt')) {
-        textContent = cleanText(await (file as { text: string }).text());
+        textContent = cleanText(await file.text());
       } 
       else {
         // Försök läsa som text om formatet är okänt men filändelsen antyder text/data
         try {
-           textContent = cleanText(await (file as { text: string }).text());
+           textContent = cleanText(await file.text());
         } catch (e) {
            throw new Error(`Filformat som inte stöds: ${mimeType || 'okänd typ'}`);
         }
       }
 
-      if (!textContent || (textContent as { length: number }).length < 5) {
+      if (!textContent || textContent.length < 5) {
           throw new Error("Kunde inte extrahera tillräcklig data från dokumentet.");
       }
 
       return {
-        name: (file as { name: string }).name,
+        name: file.name,
         mimeType: mimeType || 'application/octet-stream',
         textContent: textContent,
       };
     } catch (error) {
       console.error('File parsing error:', error);
-      const message = error instanceof Error ? (error as Error).message : 'Ett okänt fel uppstod vid filbehandling.';
+      const message = error instanceof Error ? error.message : 'Ett okänt fel uppstod vid filbehandling.';
       setParsingError(message);
       return null;
     } finally {

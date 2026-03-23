@@ -37,10 +37,10 @@ const SfbIntegrityPanel: React.FC<SfbIntegrityPanelProps> = ({ isOpen, onClose }
         fetch('/data/sfb_2010_110.json')
             .then(res => res.json())
             .then(data => {
-                if ((data as { kapitel: unknown[] }).kapitel) {
-                    const mappedChapters = (data as { kapitel: unknown[] }).kapitel.map((k: unknown) => ({
-                        chapter: parseInt((k as { kapitel: unknown[] }).kapitel),
-                        title: (k as { rubrik: string }).rubrik
+                if (data.kapitel) {
+                    const mappedChapters = data.kapitel.map((k: any) => ({
+                        chapter: parseInt(k.kapitel),
+                        title: k.rubrik
                     }));
                     setChapters(mappedChapters);
                 }
@@ -63,8 +63,8 @@ const SfbIntegrityPanel: React.FC<SfbIntegrityPanelProps> = ({ isOpen, onClose }
 
             const res = await sfbValidationService.validate(payload);
             setResult(res);
-        } catch (e) {
-            console.error(`Fel vid validering: ${(e as Error).message}`);
+        } catch (e: any) {
+            console.error(`Fel vid validering: ${e.message}`);
         } finally {
             setIsValidating(false);
         }
@@ -110,8 +110,8 @@ const SfbIntegrityPanel: React.FC<SfbIntegrityPanelProps> = ({ isOpen, onClose }
                                     className="w-full px-4 py-3 rounded-xl border bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all"
                                 >
                                     {chapters.map((c, i) => (
-                                        <option key={`${(c as { chapter: string | number }).chapter}-${i}`} value={(c as { chapter: string | number }).chapter}>
-                                            Kapitel {(c as { chapter: string | number }).chapter}: {c.title}
+                                        <option key={`${c.chapter}-${i}`} value={c.chapter}>
+                                            Kapitel {c.chapter}: {c.title}
                                         </option>
                                     ))}
                                 </select>

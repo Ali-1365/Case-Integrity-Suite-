@@ -93,10 +93,10 @@ const Chatbot: React.FC<ChatbotProps> = ({ isOpen, onClose, ragService, currentA
     try {
       const ragRes: RagResult = await ragService.getContextForText(queryText, true);
       
-      const analysisData = currentAnalysis ? (JSON as { str: string }).stringify({
+      const analysisData = currentAnalysis ? JSON.stringify({
           caseId: currentAnalysis.caseId,
-          facts: (currentAnalysis as { facts: unknown[] }).facts.map(f => f.statement),
-          laws: (currentAnalysis as { legalReferences: unknown[] }).legalReferences.map(l => l.rawText)
+          facts: currentAnalysis.facts.map(f => f.statement),
+          laws: currentAnalysis.legalReferences.map(l => l.rawText)
       }) : "Ingen aktiv analys.";
 
       const systemInstruction = `
@@ -175,7 +175,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ isOpen, onClose, ragService, currentA
                         ? 'bg-blue-600 text-white rounded-tr-none' 
                         : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-tl-none border border-slate-200 dark:border-slate-700'
                     }`}>
-                        <SafeChatText text={(msg as { text: string }).text} />
+                        <SafeChatText text={msg.text} />
                         
                         {(msg.queryId || msg.reasoning || msg.decisionSupport) && (
                             <div className="mt-3 flex flex-wrap gap-1.5">

@@ -21,7 +21,7 @@ export class AuditService {
     await db.addAuditLog(fullEntry);
     
     // 2. Skriv till konsol för realtidsövervakning (Oracle-vänligt)
-    console.log(`[AUDIT_LOG_WRITE] -> audit/rag.log.json | ID: ${(fullEntry as { id: string }).id} | ${fullEntry.resultSummary}`);
+    console.log(`[AUDIT_LOG_WRITE] -> audit/rag.log.json | ID: ${fullEntry.id} | ${fullEntry.resultSummary}`);
   }
 
   /**
@@ -31,7 +31,7 @@ export class AuditService {
     const allLogs = await db.getAuditLogs();
     const filtered = type === 'ALL' ? allLogs : allLogs.filter(l => l.operationType === type);
     
-    const data = (JSON as { str: string }).stringify(filtered, null, 2);
+    const data = JSON.stringify(filtered, null, 2);
     const blob = new Blob([data], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');

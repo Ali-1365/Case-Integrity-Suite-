@@ -41,7 +41,7 @@ export function denoise(text: string): DenoiseResult {
     }
   });
 
-  const noiseLevel = Math.min(1, matches / ((tokens as { length: number }).length || 1));
+  const noiseLevel = Math.min(1, matches / (tokens.length || 1));
 
   return {
     cleaned,

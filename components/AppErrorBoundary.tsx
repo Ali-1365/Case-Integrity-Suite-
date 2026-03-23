@@ -110,8 +110,8 @@ export default class AppErrorBoundary extends Component<AppErrorBoundaryProps, A
                      </div>
                      <div className="overflow-auto max-h-48 custom-scrollbar">
                           <p className="font-medium text-rose-400 mb-2">{error.toString()}</p>
-                          {isAppErr && (error as { details?: unknown }).details && (
-                            <pre className="text-amber-400/60 mb-2 text-[10px]">DETAILS: {(JSON as { str: string }).stringify((error as { details?: unknown }).details, null, 2)}</pre>
+                          {isAppErr && error.details && (
+                            <pre className="text-amber-400/60 mb-2 text-[10px]">DETAILS: {JSON.stringify(error.details, null, 2)}</pre>
                           )}
                           {errorInfo && (
                               <pre className="opacity-60 whitespace-pre-wrap leading-relaxed text-[10px]">{errorInfo.componentStack}</pre>

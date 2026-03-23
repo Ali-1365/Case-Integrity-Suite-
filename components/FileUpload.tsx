@@ -13,8 +13,8 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFilesSelect, isParsing, parsi
   const [selectedCount, setSelectedCount] = useState(0);
 
   const handleFileChange = (files: FileList | null) => {
-    if (files && (files as { length: number }).length > 0) {
-      setSelectedCount((files as { length: number }).length);
+    if (files && files.length > 0) {
+      setSelectedCount(files.length);
       onFilesSelect(Array.from(files));
     }
   };

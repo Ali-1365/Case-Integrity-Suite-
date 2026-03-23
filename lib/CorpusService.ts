@@ -13,7 +13,7 @@ export interface LegalParagraph {
   metadata: {
     provenanceHash: string;
     lawId: string;
-    [key: string]: unknown;
+    [key: string]: any;
   };
 }
 
@@ -44,7 +44,7 @@ export class CorpusService extends BaseService {
       }
       
       const rawCorpus = await response.json();
-      const lawId = (rawCorpus as { sourceCode: string }).sourceCode || fileName.split('_')[0].toUpperCase();
+      const lawId = rawCorpus.sourceCode || fileName.split('_')[0].toUpperCase();
       
       // Saniterar alla paragrafer i korpusen
       const sanitizedParagraphs = this.loadAndSanitizeCorpus(lawId, rawCorpus.paragraphs || []);
@@ -66,21 +66,21 @@ export class CorpusService extends BaseService {
    * Universal Legal Sanitizer: Validerar och korrigerar juridisk data.
    * Garanterar att beviskedjan (Forensic Chain) är intakt.
    */
-  public loadAndSanitizeCorpus(lawId: string, rawData: unknown[]): LegalParagraph[] {
+  public loadAndSanitizeCorpus(lawId: string, rawData: any[]): LegalParagraph[] {
     return rawData.map((p, index) => {
       try {
         // Fallback-logik för text
-        const text = (p as { text: string }).text || "[TOM TEXT - DATA-FEL]";
+        const text = p.text || "[TOM TEXT - DATA-FEL]";
         
         // Extrahera kapitel om det saknas
-        let chapter = (p as { chapter: string | number }).chapter;
+        let chapter = p.chapter;
         if (chapter === undefined || chapter === null) {
           const chapterMatch = text.match(/(\d+)\s*kap\.?/i);
           chapter = chapterMatch ? parseInt(chapterMatch[1]) : 0;
         }
 
         // Extrahera sektion om det saknas
-        let section = (p as { section: string | number }).section;
+        let section = p.section;
         if (section === undefined || section === null) {
           const sectionMatch = text.match(/(\d+)\s*§/);
           section = sectionMatch ? sectionMatch[1] : 0;
@@ -91,17 +91,17 @@ export class CorpusService extends BaseService {
 
         // Metadata-hantering
         const metadata = {
-          ...((p as { metadata: Record<string, unknown> }).metadata || {}),
+          ...(p.metadata || {}),
           lawId: lawId
         };
 
         // Beviskedje-hash (Deterministisk)
-        if (!(metadata as { provenanceHash: string }).provenanceHash) {
-          (metadata as { provenanceHash: string }).provenanceHash = this.generateDeterministicHash(lawId, chapter, normalizedSection, text);
+        if (!metadata.provenanceHash) {
+          metadata.provenanceHash = this.generateDeterministicHash(lawId, chapter, normalizedSection, text);
         }
 
         return {
-          id: (p as { id: string }).id || `${lawId.toLowerCase()}_${chapter}_${normalizedSection}_${index}`,
+          id: p.id || `${lawId.toLowerCase()}_${chapter}_${normalizedSection}_${index}`,
           chapter,
           section: normalizedSection,
           text,
@@ -112,10 +112,10 @@ export class CorpusService extends BaseService {
         console.warn(`[CORPUS] Varning: Kunde inte sanitera paragraf i ${lawId} på index ${index}:`, err);
         // Returnera ett säkert fallback-objekt för att inte krascha hela inläsningen
         return {
-          id: (p as { id: string }).id || `error_${lawId}_${index}`,
+          id: p.id || `error_${lawId}_${index}`,
           chapter: 0,
           section: "0",
-          text: (p as { text: string }).text || "[KORRUPT DATA]",
+          text: p.text || "[KORRUPT DATA]",
           metadata: { lawId, provenanceHash: `err_${index}_${Date.now()}` }
         } as LegalParagraph;
       }
@@ -125,7 +125,7 @@ export class CorpusService extends BaseService {
   /**
    * Tvättar sektionssträngar till ett konsekvent format (endast siffror).
    */
-  private normalizeSection(input: unknown): string {
+  private normalizeSection(input: any): string {
     if (input === undefined || input === null) return "0";
     const str = String(input);
     const match = str.match(/(\d+)/);
@@ -138,7 +138,7 @@ export class CorpusService extends BaseService {
   private generateDeterministicHash(lawId: string, chapter: string | number, section: string | number, text: string): string {
     const seed = `${lawId}|${chapter}|${section}|${text.substring(0, 20)}`;
     let hash = 0;
-    for (let i = 0; i < (seed as { length: number }).length; i++) {
+    for (let i = 0; i < seed.length; i++) {
       const char = seed.charCodeAt(i);
       hash = ((hash << 5) - hash) + char;
       hash |= 0; // Konvertera till 32-bitars heltal

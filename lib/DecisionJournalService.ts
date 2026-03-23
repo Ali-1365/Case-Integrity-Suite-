@@ -36,7 +36,7 @@ export class DecisionJournalService {
     // Generera en automatisk förklaring av den rättsliga betydelsen via Gemini (FAS 16)
     const impactPrompt = `
       Analysera följande ändring i ett juridiskt ärende och förklara den RÄTTSLIGA BETYDELSEN kortfattat.
-      Ändring: ${(JSON as { str: string }).stringify(diff)}
+      Ändring: ${JSON.stringify(diff)}
       Beslut: ${diff.newProposal}
       Risknivå: ${diff.newRisk}
     `;

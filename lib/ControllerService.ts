@@ -59,7 +59,7 @@ export class ControllerService {
         await journalService.addEntry(
           dev.caseId, 
           'CONTROLLER_FLAG', 
-          `Kritisk avvikelse detekterad (${dev.type}): ${(dev as { details?: unknown }).details}`,
+          `Kritisk avvikelse detekterad (${dev.type}): ${dev.details}`,
           [], 
           'CONTROLLER_ENGINE'
         );
@@ -73,12 +73,12 @@ export class ControllerService {
       actor: 'SYSTEM',
       affectedLaws: ['CIS-CTRL'],
       provenanceHashes: [],
-      resultSummary: `Controller Audit Executed: ${controllerEventId}. Found ${(deviations as { length: number }).length} deviations, ${(inconsistencies as { length: number }).length} inconsistencies.`,
+      resultSummary: `Controller Audit Executed: ${controllerEventId}. Found ${deviations.length} deviations, ${inconsistencies.length} inconsistencies.`,
       status: 'OK',
       metadata: { 
         controllerEventId, 
-        deviationCount: (deviations as { length: number }).length,
-        inconsistencyCount: (inconsistencies as { length: number }).length,
+        deviationCount: deviations.length,
+        inconsistencyCount: inconsistencies.length,
         status: 'CONTROLLER_OK'
       }
     });
@@ -108,12 +108,12 @@ export class ControllerService {
              markdown.includes('bristande utredning');
     });
 
-    if ((fl23Failures as { length: number }).length >= 3) {
+    if (fl23Failures.length >= 3) {
       systemicDeviations.push({
         caseId: 'SYSTEMIC-01',
         type: 'SYSTEMIC_INVESTIGATION_FAILURE',
         severity: 'CRITICAL',
-        details: `SYSTEMISKT FEL DETEKTERAT: ${(fl23Failures as { length: number }).length} ärenden uppvisar brister i utredningsskyldigheten enligt FL 23 §. Detta indikerar en strukturell brist hos myndigheten.`,
+        details: `SYSTEMISKT FEL DETEKTERAT: ${fl23Failures.length} ärenden uppvisar brister i utredningsskyldigheten enligt FL 23 §. Detta indikerar en strukturell brist hos myndigheten.`,
         timestamp: new Date().toISOString()
       });
     }
@@ -129,14 +129,14 @@ export class ControllerService {
     const risks: Deviation[] = [];
     cases.forEach(c => {
         const facts = c.activeResult?.facts || [];
-        const factsWithoutSnippet = facts.filter(f => !(f as { source: unknown }).source?.snippet || (f as { source: unknown }).source.(snippet as { length: number }).length < 10);
+        const factsWithoutSnippet = facts.filter(f => !f.source?.snippet || f.source.snippet.length < 10);
         
-        if ((factsWithoutSnippet as { length: number }).length > 0) {
+        if (factsWithoutSnippet.length > 0) {
             risks.push({
                 caseId: c.caseId,
                 type: 'AUDIT-HALLUCINATION-01',
                 severity: 'HIGH',
-                details: `RISK FÖR HALLUCINATION: ${(factsWithoutSnippet as { length: number }).length} faktapunkter saknar direkt textstöd i källmaterialet. Verifiera ATOM-mappning.`,
+                details: `RISK FÖR HALLUCINATION: ${factsWithoutSnippet.length} faktapunkter saknar direkt textstöd i källmaterialet. Verifiera ATOM-mappning.`,
                 timestamp: new Date().toISOString()
             });
         }

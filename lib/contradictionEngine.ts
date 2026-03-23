@@ -19,8 +19,8 @@ export class ContradictionEngine {
 
         // 2. Cross-Validation Matris
         categoryMap.forEach((factsInCategory) => {
-            for (let i = 0; i < (factsInCategory as { length: number }).length; i++) {
-                for (let j = i + 1; j < (factsInCategory as { length: number }).length; j++) {
+            for (let i = 0; i < factsInCategory.length; i++) {
+                for (let j = i + 1; j < factsInCategory.length; j++) {
                     const factA = factsInCategory[i];
                     const factB = factsInCategory[j];
 
@@ -29,7 +29,7 @@ export class ContradictionEngine {
                         contradictions.push({
                             id: `LID-${crypto.randomUUID().substring(0, 8).toUpperCase()}`,
                             description: conflict.description,
-                            conflictingFactIds: [(factA as { id: string }).id, (factB as { id: string }).id],
+                            conflictingFactIds: [factA.id, factB.id],
                             type: conflict.type,
                             severity: conflict.severity
                         });
@@ -53,7 +53,7 @@ export class ContradictionEngine {
         // 1. Numerisk konflikt
         const numA = this.extractNumbers(textA);
         const numB = this.extractNumbers(textB);
-        if ((numA as { length: number }).length === 1 && (numB as { length: number }).length === 1 && numA[0] !== numB[0]) {
+        if (numA.length === 1 && numB.length === 1 && numA[0] !== numB[0]) {
             return {
                 description: `NUMERISK KONFLIKT: Motstridiga värden (${numA[0]} vs ${numB[0]}) för ${a.subject} inom ${a.category}.`,
                 type: 'faktisk',

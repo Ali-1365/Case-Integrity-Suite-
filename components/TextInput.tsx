@@ -27,7 +27,7 @@ const TextInput: React.FC<TextInputProps> = ({ onTextSubmit, isProcessing }) => 
             <h3 className="text-xl font-black text-slate-900 dark:text-white tracking-tight">Mata in råmaterial</h3>
             <p className="text-[10px] text-slate-400 uppercase font-black tracking-[0.2em] mt-1">Klistra in transkriberingar eller anteckningar</p>
         </div>
-        {(text as { length: number }).length > 0 && (
+        {text.length > 0 && (
             <button 
                 onClick={handleClear}
                 className="text-slate-400 hover:text-rose-500 transition-all p-2 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-rose-500/30"
@@ -49,7 +49,7 @@ const TextInput: React.FC<TextInputProps> = ({ onTextSubmit, isProcessing }) => 
           autoFocus
         />
         <div className="absolute bottom-4 right-4 text-[10px] font-mono font-bold text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity">
-          {(text as { length: number }).length} tecken
+          {text.length} tecken
         </div>
       </div>
       <div className="flex flex-col space-y-3 mt-6">

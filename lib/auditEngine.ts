@@ -11,20 +11,20 @@ export class AuditEngine {
         let score = 100;
 
         // 1. Verifiera att alla fakta har en existerande atom-koppling via textlikhet
-        const factsWithNoTextSupport = (analysis as { facts: unknown[] }).facts.filter(fact => {
+        const factsWithNoTextSupport = analysis.facts.filter(fact => {
             const hasMatch = analysis.atoms.some(atom => 
-                (atom as { text: string }).text.includes((fact as { source: unknown }).source.snippet) || (fact as { source: unknown }).source.snippet.includes((atom as { text: string }).text)
+                atom.text.includes(fact.source.snippet) || fact.source.snippet.includes(atom.text)
             );
             return !hasMatch;
         });
 
-        if ((factsWithNoTextSupport as { length: number }).length > 0) {
+        if (factsWithNoTextSupport.length > 0) {
             score -= 30;
             checks.push({
                 id: 'AUDIT-HALLUCINATION-01',
                 label: 'Bevisatomer vs Fakta',
                 status: 'failed',
-                details: `${(factsWithNoTextSupport as { length: number }).length} faktapunkter saknar direkt textstöd. Risk för LLM-hallucination.`
+                details: `${factsWithNoTextSupport.length} faktapunkter saknar direkt textstöd. Risk för LLM-hallucination.`
             });
         } else {
             checks.push({
@@ -37,14 +37,14 @@ export class AuditEngine {
 
         // 2. Registry Gap Analysis: Kontrollera om lagrummen i analysen finns i GOLD-registret
         const unregisteredLaws: string[] = [];
-        (analysis as { legalReferences: unknown[] }).legalReferences.forEach(ref => {
+        analysis.legalReferences.forEach(ref => {
             const exists = LEGAL_SOURCES.some(source => {
                 const labelMatch = ref.rawText.toLowerCase().includes(source.label.toLowerCase());
-                const idMatch = (ref as { id: string }).id.toLowerCase().startsWith((source as { id: string }).id.toLowerCase());
+                const idMatch = ref.id.toLowerCase().startsWith(source.id.toLowerCase());
                 // Matchning på kapitel och paragraf i det nu kompletta 1-16 registret
-                const sectionMatch = (source as { reference: string }).reference === (ref as { source: unknown }).source &&
-                                   ref.rawText.includes(`${(source as { chapter: string | number }).chapter} kap.`) &&
-                                   ref.rawText.includes(`${(source as { section: string | number }).section} §`);
+                const sectionMatch = source.reference === ref.source &&
+                                   ref.rawText.includes(`${source.chapter} kap.`) &&
+                                   ref.rawText.includes(`${source.section} §`);
                 return labelMatch || idMatch || sectionMatch;
             });
             
@@ -53,7 +53,7 @@ export class AuditEngine {
             }
         });
 
-        if ((unregisteredLaws as { length: number }).length > 0) {
+        if (unregisteredLaws.length > 0) {
             score -= 25;
             const uniqueUnregistered = Array.from(new Set(unregisteredLaws));
             checks.push({
@@ -72,17 +72,17 @@ export class AuditEngine {
         }
 
         // 3. Verifiera lagrumskonsekvens (SFS 2025:400 vs 2001:453)
-        const obsoleteLaws = (analysis as { legalReferences: unknown[] }).legalReferences.filter(r =>
+        const obsoleteLaws = analysis.legalReferences.filter(r =>
             r.rawText.includes("2001:453") && new Date(analysis.createdAt) > new Date("2025-07-01")
         );
 
-        if ((obsoleteLaws as { length: number }).length > 0) {
+        if (obsoleteLaws.length > 0) {
             score -= 15;
             checks.push({
                 id: 'AUDIT-LEGAL-VERSION',
                 label: 'Versionskontroll Lagstöd',
                 status: 'failed',
-                details: `Varning: ${(obsoleteLaws as { length: number }).length} referenser till gamla SoL (2001) hittades i ett ärende som skapats efter 2025-reformen.`
+                details: `Varning: ${obsoleteLaws.length} referenser till gamla SoL (2001) hittades i ett ärende som skapats efter 2025-reformen.`
             });
         } else {
             checks.push({
@@ -94,7 +94,7 @@ export class AuditEngine {
         }
 
         // 4. RAG Provenance Status
-        const hasProvenance = analysis.(legalFrameworkLinks as { length: number }).length > 0 && analysis.legalFrameworkLinks.every(l => l.reasoning);
+        const hasProvenance = analysis.legalFrameworkLinks.length > 0 && analysis.legalFrameworkLinks.every(l => l.reasoning);
         checks.push({
             id: 'AUDIT-RAG-PROVENANCE',
             label: 'RAG Provenance Status',

@@ -22,11 +22,11 @@ Regler (HARD-FAIL IMPLEMENTERAD):
 1. INPUT-VERIFIERING
    - Du får aldrig producera output om obligatoriska fält saknas.
    - Obligatoriska fält:
-     • (AnalysisResult as { id: string }).id
+     • AnalysisResult.id
      • AnalysisResult.caseId
      • AnalysisResult.createdAt
-     • (AnalysisResult as { facts: unknown[] }).facts[] med: subject, statement, timestamp, source
-     • (AnalysisResult as { contradictions: unknown[] }).contradictions[] med: description, conflictingFactIds, type, severity
+     • AnalysisResult.facts[] med: subject, statement, timestamp, source
+     • AnalysisResult.contradictions[] med: description, conflictingFactIds, type, severity
      • AnalysisResult.uncertainties[] med: description, relatedFactIds, relevantLegalReferenceIds
      • AnalysisResult.legalFrameworkLinks[] med: label, references[], relatedFactIds[]
    - Om något saknas: "HARD-FAIL: Obligatoriska fält saknas: [lista]"
@@ -68,23 +68,23 @@ export async function loadAllLegalCorpus(): Promise<LegalCorpus[]> {
 
   try {
     const corpusFiles = legalFrameworkIndex.map(item => item.corpusFile);
-    console.log(`[EXEC_FLOW] Laddar ${(corpusFiles as { length: number }).length} lagkorpusar...`);
+    console.log(`[EXEC_FLOW] Laddar ${corpusFiles.length} lagkorpusar...`);
     const corpora = await corpusService.loadMultiple(corpusFiles);
 
-    if ((corpora as { length: number }).length < (corpusFiles as { length: number }).length) {
+    if (corpora.length < corpusFiles.length) {
       console.warn(
-        `[EXEC_FLOW] Varning: ${(corpusFiles as { length: number }).length - (corpora as { length: number }).length} korpusfiler kunde inte laddas.`
+        `[EXEC_FLOW] Varning: ${corpusFiles.length - corpora.length} korpusfiler kunde inte laddas.`
       );
     }
-    console.log(`[EXEC_FLOW] ${(corpora as { length: number }).length} lagkorpusar laddade.`);
+    console.log(`[EXEC_FLOW] ${corpora.length} lagkorpusar laddade.`);
     return corpora;
-  } catch (err) {
+  } catch (err: any) {
     console.error('[EXEC_FLOW] Kritiskt fel vid laddning av lagkorpus:', err);
     // Aktivera inte offline direkt — kan vara en tillfällig 404
-    if ((err as Error).message?.includes('NetworkError') || (err as Error).message?.includes('Failed to fetch')) {
+    if (err.message?.includes('NetworkError') || err.message?.includes('Failed to fetch')) {
       offlineService.setOffline(true, 'NETWORK_ERROR');
     }
-    throw new Error(`HARD-FAIL: Kunde inte ladda nödvändiga lagfiler. ${(err as Error).message}`);
+    throw new Error(`HARD-FAIL: Kunde inte ladda nödvändiga lagfiler. ${err.message}`);
   }
 }
 
@@ -121,8 +121,8 @@ export async function executeFullFlow(
   try {
     verifiedAnalysis = verifyAndLinkAnalysis(analysis, legalCorpus);
     console.log('[EXEC_FLOW] Analys verifierad och länkad. Alla villkor uppfyllda.');
-  } catch (e) {
-    console.error('[EXEC_FLOW] Verifiering misslyckades:', (e as Error).message);
+  } catch (e: any) {
+    console.error('[EXEC_FLOW] Verifiering misslyckades:', e.message);
     // Returnera ovaliderad snarare än att krascha hela appen
     return {
       prompt: AI_SYSTEM_PROMPT,
@@ -150,7 +150,7 @@ export function canExecuteFlow(): { canRun: boolean; reason: string } {
       reason: `Offline-läge aktivt (${offlineService.getReason()}). Lägg till GEMINI_API_KEY.`,
     };
   }
-  if ((legalFrameworkIndex as { length: number }).length === 0) {
+  if (legalFrameworkIndex.length === 0) {
     return { canRun: false, reason: 'Ingen lagdata konfigurerad i legalFrameworkIndex.' };
   }
   return { canRun: true, reason: 'System redo.' };

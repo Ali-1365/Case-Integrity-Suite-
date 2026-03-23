@@ -60,7 +60,7 @@ const CaseViewer: React.FC<CaseViewerProps> = ({ caseData, onClose }) => {
             <div className="flex bg-black/40 p-1.5 rounded-2xl border border-gray-800 shadow-inner">
                 <TabBtn active={activeTab === 'overview'} onClick={() => setActiveTab('overview')} label="Överblick" />
                 <TabBtn active={activeTab === 'journal'} onClick={() => setActiveTab('journal')} label="Händelselogg" />
-                <TabBtn active={activeTab === 'versions'} onClick={() => setActiveTab('versions')} label="Beslutsjournal" count={caseData.(versions as { length: number }).length} />
+                <TabBtn active={activeTab === 'versions'} onClick={() => setActiveTab('versions')} label="Beslutsjournal" count={caseData.versions.length} />
             </div>
             <button onClick={onClose} className="p-3 text-gray-500 hover:text-white hover:bg-gray-800 rounded-2xl transition-all">
               <XMarkIcon className="h-8 w-8" />

@@ -63,7 +63,7 @@ const DecisionSupportViewer: React.FC<DecisionSupportViewerProps> = ({ result, o
             <div className="flex bg-black/40 p-1.5 rounded-2xl border border-gray-800 shadow-inner mr-4">
                 <TabBtn active={activeTab === 'report'} onClick={() => setActiveTab('report')} label="Rapport" />
                 <TabBtn active={activeTab === 'justice'} onClick={() => setActiveTab('justice')} label="Rättssäkerhet" color="emerald" warn={result.proportionality?.level !== 'GRÖN'} />
-                <TabBtn active={activeTab === 'actions'} onClick={() => setActiveTab('actions')} label="Åtgärder" color="indigo" count={result.actions?.(recommendations as { length: number }).length} />
+                <TabBtn active={activeTab === 'actions'} onClick={() => setActiveTab('actions')} label="Åtgärder" color="indigo" count={result.actions?.recommendations.length} />
             </div>
             <button 
                 onClick={() => setShowRawJson(!showRawJson)}
@@ -102,7 +102,7 @@ const DecisionSupportViewer: React.FC<DecisionSupportViewerProps> = ({ result, o
                             <div className="lg:col-span-8 space-y-8">
                                 {showRawJson ? (
                                     <div className="bg-black p-10 rounded-[3rem] border border-cyan-500/30 font-mono text-[11px] text-cyan-400 overflow-x-auto h-full shadow-inner">
-                                        <pre>{(JSON as { str: string }).stringify(result.machineReadable, null, 2)}</pre>
+                                        <pre>{JSON.stringify(result.machineReadable, null, 2)}</pre>
                                     </div>
                                 ) : (
                                     <div className="bg-white text-slate-900 p-16 rounded-[4rem] shadow-2xl relative border-t-8 border-cyan-500 font-serif min-h-[600px]">
@@ -128,7 +128,7 @@ const DecisionSupportViewer: React.FC<DecisionSupportViewerProps> = ({ result, o
                                         <div>
                                             <p className="text-xs font-black text-white uppercase tracking-tight mb-2">Åtgärdsanalys</p>
                                             <p className="text-[11px] text-gray-500 leading-relaxed">
-                                                Systemet har identifierat <span className="text-indigo-400 font-bold">{result.actions?.(recommendations as { length: number }).length}</span> åtgärder för att stärka rättssäkerheten i ärendet.
+                                                Systemet har identifierat <span className="text-indigo-400 font-bold">{result.actions?.recommendations.length}</span> åtgärder för att stärka rättssäkerheten i ärendet.
                                             </p>
                                         </div>
                                     </div>

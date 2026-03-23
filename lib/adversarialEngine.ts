@@ -38,7 +38,7 @@ export class AdversarialEngine {
             Svara i strikt JSON-format.
         `;
 
-        const context = (JSON as { str: string }).stringify({
+        const context = JSON.stringify({
             proposedFacts: proposals,
             sourceAtoms: allAtoms.slice(0, 200) // Begränsar till de mest relevanta för att hålla context window stabilt
         });
@@ -81,11 +81,11 @@ export class AdversarialEngine {
             
             // Mappa tillbaka resultaten till de ursprungliga påståendena
             const finalAssertions: DuelAssertion[] = proposals.map(p => {
-                const audit = result.assertions.find((a: unknown) => (a as { id: string }).id === (p as { id: string }).id);
+                const audit = result.assertions.find((a: any) => a.id === p.id);
                 return {
-                    id: (p as { id: string }).id,
+                    id: p.id,
                     statement: p.statement,
-                    sourceIds: [(p as { source: unknown }).source.documentId],
+                    sourceIds: [p.source.documentId],
                     confidence: audit?.confidence || 0,
                     status: audit?.status || 'CHALLENGED',
                     critique: audit?.critique

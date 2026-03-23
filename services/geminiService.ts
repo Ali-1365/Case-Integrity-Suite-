@@ -23,15 +23,15 @@ class OfflineService {
       this._isOffline = true;
       this._reason = 'API_KEY_MISSING';
       if (typeof window !== 'undefined') {
-        (window as Window & typeof globalThis & { OFFLINE_MODE?: boolean; OFFLINE_REASON?: string; _lastBakedIndex?: number; aistudio?: unknown }).OFFLINE_MODE = true;
-        (window as Window & typeof globalThis & { OFFLINE_MODE?: boolean; OFFLINE_REASON?: string; _lastBakedIndex?: number; aistudio?: unknown }).OFFLINE_REASON = 'API_KEY_MISSING';
+        (window as any).OFFLINE_MODE = true;
+        (window as any).OFFLINE_REASON = 'API_KEY_MISSING';
       }
     }
   }
 
   getIsOffline(): boolean {
     return this._isOffline ||
-      (typeof window !== 'undefined' && (window as Window & typeof globalThis & { OFFLINE_MODE?: boolean; OFFLINE_REASON?: string; _lastBakedIndex?: number; aistudio?: unknown }).OFFLINE_MODE === true);
+      (typeof window !== 'undefined' && (window as any).OFFLINE_MODE === true);
   }
 
   getReason(): OfflineReason { return this._reason; }
@@ -40,8 +40,8 @@ class OfflineService {
     this._isOffline = offline;
     this._reason = reason;
     if (typeof window !== 'undefined') {
-      (window as Window & typeof globalThis & { OFFLINE_MODE?: boolean; OFFLINE_REASON?: string; _lastBakedIndex?: number; aistudio?: unknown }).OFFLINE_MODE = offline;
-      (window as Window & typeof globalThis & { OFFLINE_MODE?: boolean; OFFLINE_REASON?: string; _lastBakedIndex?: number; aistudio?: unknown }).OFFLINE_REASON = reason;
+      (window as any).OFFLINE_MODE = offline;
+      (window as any).OFFLINE_REASON = reason;
     }
     this._subscribers.forEach(fn => fn(offline, reason));
     if (offline) {
@@ -99,10 +99,10 @@ export class GeminiService {
       return;
     }
     try {
-      this.ai = new GoogleGenAI({ apiKey } as unknown);
+      this.ai = new GoogleGenAI({ apiKey } as any);
       console.log('[GeminiService] Klient initierad.');
-    } catch (e) {
-      loggingService.error(`[GeminiService] Initiering misslyckades: ${(e as Error).message}`);
+    } catch (e: any) {
+      loggingService.error(`[GeminiService] Initiering misslyckades: ${e.message}`);
       offlineService.setOffline(true, 'NETWORK_ERROR');
     }
   }
@@ -125,8 +125,8 @@ export class GeminiService {
       try {
         this.quotaState = { isThrottled: false, retryAfterMs: 0, lastError: null };
         return await operation();
-      } catch (error) {
-        const msg = ((error as Error).message || '').toLowerCase();
+      } catch (error: any) {
+        const msg = (error.message || '').toLowerCase();
         const isQuota = msg.includes('quota') || msg.includes('429') ||
           msg.includes('resource_exhausted') || msg.includes('overloaded') ||
           error.status === 429 || error.status === 503;
@@ -135,18 +135,18 @@ export class GeminiService {
 
         if (isAuth) {
           offlineService.setOffline(true, 'API_KEY_MISSING');
-          throw new ApiError(`Auth-fel: ${(error as Error).message}`, { originalError: error });
+          throw new ApiError(`Auth-fel: ${error.message}`, { originalError: error });
         }
         if (isQuota && i < retries - 1) {
           console.warn(`[GeminiService] Kvotfel. Försök ${i + 1}/${retries}. Väntar ${delay / 1000}s...`);
-          this.quotaState = { isThrottled: true, retryAfterMs: delay, lastError: (error as Error).message };
+          this.quotaState = { isThrottled: true, retryAfterMs: delay, lastError: error.message };
           await new Promise(r => setTimeout(r, delay));
           delay *= 2;
         } else if (i === retries - 1) {
-          this.quotaState.lastError = (error as Error).message;
+          this.quotaState.lastError = error.message;
           if (isQuota) offlineService.setOffline(true, 'QUOTA_EXCEEDED');
           else offlineService.setOffline(true, 'NETWORK_ERROR');
-          throw new ApiError(`API-fel efter ${i + 1} försök: ${(error as Error).message}`, { originalError: error });
+          throw new ApiError(`API-fel efter ${i + 1} försök: ${error.message}`, { originalError: error });
         } else {
           throw error;
         }
@@ -164,8 +164,8 @@ export class GeminiService {
 
     if (offlineService.getIsOffline()) {
       console.warn('[GeminiService] Offline → syntetiskt svar.');
-      const prompt = typeof (params as { content?: string, textContent?: string }).textContents === 'string'
-        ? (params as { content?: string, textContent?: string }).textContents : (JSON as { str: string }).stringify((params as { content?: string, textContent?: string }).textContents);
+      const prompt = typeof params.contents === 'string'
+        ? params.contents : JSON.stringify(params.contents);
       return getSyntheticResponse(prompt);
     }
 
@@ -176,30 +176,30 @@ export class GeminiService {
       const config = { ...(params.config || {}) };
 
       if (mode === 'think' && modelName === this.proModel) {
-        (config as unknown).thinkingConfig = {
-          thinkingBudget: (config as unknown).thinkingConfig?.thinkingBudget ?? 8000
+        (config as any).thinkingConfig = {
+          thinkingBudget: (config as any).thinkingConfig?.thinkingBudget ?? 8000
         };
       } else {
-        delete (config as unknown).thinkingConfig;
-        if (!(config as unknown).maxOutputTokens) (config as unknown).maxOutputTokens = 8192;
+        delete (config as any).thinkingConfig;
+        if (!(config as any).maxOutputTokens) (config as any).maxOutputTokens = 8192;
       }
 
       const response = await this.executeWithRetry(async () =>
-        (client as { models: { embedContent: (opts: unknown) => unknown } }).models.generateContent({
+        client.models.generateContent({
           model: modelName,
-          contents: typeof (params as { content?: string, textContent?: string }).textContents === 'string'
-            ? [{ role: 'user', parts: [{ text: (params as { content?: string, textContent?: string }).textContents as string }] }]
-            : ((params as { content?: string, textContent?: string }).textContents as unknown),
+          contents: typeof params.contents === 'string'
+            ? [{ role: 'user', parts: [{ text: params.contents as string }] }]
+            : (params.contents as any),
           config,
         })
       );
 
-      const text = (response as unknown).text || '';
+      const text = (response as any).text || '';
       const duration = Date.now() - startTime;
 
       loggingService.addLog({
         mode,
-        prompt: (JSON as { str: string }).stringify((params as { content?: string, textContent?: string }).textContents).substring(0, 500),
+        prompt: JSON.stringify(params.contents).substring(0, 500),
         response: text.substring(0, 500),
         error: null,
         duration,
@@ -207,13 +207,13 @@ export class GeminiService {
       });
 
       return text;
-    } catch (error) {
+    } catch (error: any) {
       const duration = Date.now() - startTime;
       loggingService.addLog({
         mode,
-        prompt: (JSON as { str: string }).stringify((params as { content?: string, textContent?: string }).textContents).substring(0, 500),
+        prompt: JSON.stringify(params.contents).substring(0, 500),
         response: null,
-        error: (error as Error).message,
+        error: error.message,
         duration,
       });
 
@@ -221,27 +221,27 @@ export class GeminiService {
       if (modelName === this.proModel) {
         console.warn('[GeminiService] Pro misslyckades → Flash.');
         const np = { ...params, model: this.flashModel };
-        if (np.config) { const { thinkingConfig, ...r } = np.config as unknown; np.config = r; }
+        if (np.config) { const { thinkingConfig, ...r } = np.config as any; np.config = r; }
         return this.generate(np, 'fast');
       }
       if (modelName === this.flashModel) {
         console.warn('[GeminiService] Flash misslyckades → Lite.');
         const np = { ...params, model: this.liteModel };
-        if (np.config) { const { thinkingConfig, ...r } = np.config as unknown; np.config = r; }
+        if (np.config) { const { thinkingConfig, ...r } = np.config as any; np.config = r; }
         return this.generate(np, 'fast');
       }
       if (modelName === this.liteModel) {
         console.warn('[GeminiService] Alla modeller misslyckades → Syntetiskt.');
-        const prompt = typeof (params as { content?: string, textContent?: string }).textContents === 'string'
-          ? (params as { content?: string, textContent?: string }).textContents : (JSON as { str: string }).stringify((params as { content?: string, textContent?: string }).textContents);
+        const prompt = typeof params.contents === 'string'
+          ? params.contents : JSON.stringify(params.contents);
         const synthetic = getSyntheticResponse(prompt);
-        if ((params.config as unknown)?.responseMimeType === 'application/json') {
-          return (JSON as { str: string }).stringify({ status: 'SYNTHETIC_FALLBACK', content: synthetic,
+        if ((params.config as any)?.responseMimeType === 'application/json') {
+          return JSON.stringify({ status: 'SYNTHETIC_FALLBACK', content: synthetic,
             warning: 'Syntetiskt svar på grund av API-begränsningar.' });
         }
         return synthetic;
       }
-      return `SYSTEMFEL: Kunde inte generera svar. ${(error as Error).message}`;
+      return `SYSTEMFEL: Kunde inte generera svar. ${error.message}`;
     }
   }
 
@@ -255,15 +255,15 @@ export class GeminiService {
     for (const modelName of ['text-embedding-004', 'gemini-embedding-001']) {
       try {
         const response = await this.executeWithRetry(async () =>
-          (client as unknown).models.embedContent({
+          (client as any).models.embedContent({
             model: modelName,
             contents: { parts: [{ text }] },
           })
         );
-        const values = response?.embeddings?.[0]?.values || (response as unknown)?.embedding?.values;
+        const values = response?.embeddings?.[0]?.values || (response as any)?.embedding?.values;
         if (values?.length > 0) return values;
-      } catch (e) {
-        console.warn(`[GeminiService] Embed misslyckades (${modelName}): ${(e as Error).message}`);
+      } catch (e: any) {
+        console.warn(`[GeminiService] Embed misslyckades (${modelName}): ${e.message}`);
       }
     }
     console.warn('[GeminiService] Embed API helt nere → pseudo-embedding.');
@@ -274,7 +274,7 @@ export class GeminiService {
   private pseudoEmbed(text: string): number[] {
     const dim = 768;
     const result = new Array(dim).fill(0);
-    for (let i = 0; i < (text as { length: number }).length; i++) {
+    for (let i = 0; i < text.length; i++) {
       const c = text.charCodeAt(i);
       result[(c * (i + 1)) % dim] = (result[(c * (i + 1)) % dim] + c / 255) % 1;
     }
@@ -290,20 +290,20 @@ export class GeminiService {
       const latencyMs = Date.now() - start;
       offlineService.setOffline(false);
       return { online: true, latencyMs, message: 'API ansluten och operativ.' };
-    } catch (e) {
-      return { online: false, message: `API ej tillgänglig: ${(e as Error).message}` };
+    } catch (e: any) {
+      return { online: false, message: `API ej tillgänglig: ${e.message}` };
     }
   }
 
   public async hasCustomKey(): Promise<boolean> {
-    if (typeof window !== 'undefined' && (window as Window & typeof globalThis & { OFFLINE_MODE?: boolean; OFFLINE_REASON?: string; _lastBakedIndex?: number; aistudio?: unknown }).aistudio?.hasSelectedApiKey)
-      return (window as Window & typeof globalThis & { OFFLINE_MODE?: boolean; OFFLINE_REASON?: string; _lastBakedIndex?: number; aistudio?: unknown }).aistudio.hasSelectedApiKey();
+    if (typeof window !== 'undefined' && (window as any).aistudio?.hasSelectedApiKey)
+      return (window as any).aistudio.hasSelectedApiKey();
     return false;
   }
 
   public async openKeySelection(): Promise<void> {
-    if (typeof window !== 'undefined' && (window as Window & typeof globalThis & { OFFLINE_MODE?: boolean; OFFLINE_REASON?: string; _lastBakedIndex?: number; aistudio?: unknown }).aistudio?.openSelectKey) {
-      await (window as Window & typeof globalThis & { OFFLINE_MODE?: boolean; OFFLINE_REASON?: string; _lastBakedIndex?: number; aistudio?: unknown }).aistudio.openSelectKey();
+    if (typeof window !== 'undefined' && (window as any).aistudio?.openSelectKey) {
+      await (window as any).aistudio.openSelectKey();
       this.initializeClient();
     }
   }

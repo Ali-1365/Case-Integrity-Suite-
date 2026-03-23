@@ -48,7 +48,7 @@ const ArchiveView: React.FC<ArchiveViewProps> = ({ onSelect }) => {
     const handleDelete = async (id: string) => {
         try {
             await db.deleteDocument(id);
-            setDocuments(prev => prev.filter(d => (d as { id: string }).id !== id));
+            setDocuments(prev => prev.filter(d => d.id !== id));
             setStatusMessage({ text: "Ärendet raderat permanent.", type: 'success' });
         } catch (error) {
             console.error(`Failed to delete document ${id}:`, error);
@@ -59,8 +59,8 @@ const ArchiveView: React.FC<ArchiveViewProps> = ({ onSelect }) => {
     };
 
     const filteredDocs = documents.filter(doc => 
-        (doc as { name: string }).name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        (doc as { id: string }).id.toLowerCase().includes(searchTerm.toLowerCase())
+        doc.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        doc.id.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     return (
@@ -69,7 +69,7 @@ const ArchiveView: React.FC<ArchiveViewProps> = ({ onSelect }) => {
                 <div className={`fixed top-8 right-8 z-50 px-6 py-3 rounded-2xl shadow-2xl border animate-in slide-in-from-right-8 duration-300 ${
                     statusMessage.type === 'success' ? 'bg-emerald-500 text-white border-emerald-400' : 'bg-rose-500 text-white border-rose-400'
                 }`}>
-                    <p className="text-xs font-black uppercase tracking-widest">{(statusMessage as { text: string }).text}</p>
+                    <p className="text-xs font-black uppercase tracking-widest">{statusMessage.text}</p>
                 </div>
             )}
 
@@ -123,12 +123,12 @@ const ArchiveView: React.FC<ArchiveViewProps> = ({ onSelect }) => {
                     <Spinner className="w-12 h-12 text-cyan-500 mb-4" />
                     <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Laddar arkiv...</p>
                 </div>
-            ) : (filteredDocs as { length: number }).length > 0 ? (
+            ) : filteredDocs.length > 0 ? (
                 <div className="grid grid-cols-1 gap-4">
                     {filteredDocs.map(doc => (
                         <div 
-                            key={(doc as { id: string }).id}
-                            onClick={() => onSelect((doc as { id: string }).id)}
+                            key={doc.id}
+                            onClick={() => onSelect(doc.id)}
                             className="bg-white dark:bg-[#111111] border border-slate-200 dark:border-gray-800 rounded-2xl p-6 hover:border-cyan-500/50 transition-all cursor-pointer group flex items-center justify-between"
                         >
                             <div className="flex items-center gap-6">
@@ -136,7 +136,7 @@ const ArchiveView: React.FC<ArchiveViewProps> = ({ onSelect }) => {
                                     <ArchiveBoxIcon className="w-8 h-8" />
                                 </div>
                                 <div>
-                                    <h4 className="text-lg font-bold text-slate-900 dark:text-white mb-1 group-hover:text-cyan-400 transition-colors">{(doc as { name: string }).name}</h4>
+                                    <h4 className="text-lg font-bold text-slate-900 dark:text-white mb-1 group-hover:text-cyan-400 transition-colors">{doc.name}</h4>
                                     <div className="flex items-center gap-4 text-xs text-slate-500 dark:text-gray-500">
                                         <div className="flex items-center gap-1.5">
                                             <CalendarIcon className="w-3.5 h-3.5" />
@@ -144,10 +144,10 @@ const ArchiveView: React.FC<ArchiveViewProps> = ({ onSelect }) => {
                                         </div>
                                         <div className="flex items-center gap-1.5">
                                             <DocumentTextIcon className="w-3.5 h-3.5" />
-                                            <span>{doc.(textContent as { length: number }).length.toLocaleString()} tecken</span>
+                                            <span>{doc.textContent.length.toLocaleString()} tecken</span>
                                         </div>
                                         <div className="font-mono text-[10px] bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded">
-                                            ID: {(doc as { id: string }).id.substring(0, 8)}...
+                                            ID: {doc.id.substring(0, 8)}...
                                         </div>
                                     </div>
                                 </div>
@@ -156,7 +156,7 @@ const ArchiveView: React.FC<ArchiveViewProps> = ({ onSelect }) => {
                                 <button 
                                     onClick={(e) => {
                                         e.stopPropagation();
-                                        setDeleteConfirmId((doc as { id: string }).id);
+                                        setDeleteConfirmId(doc.id);
                                     }}
                                     className="p-3 text-slate-400 hover:text-red-500 hover:bg-red-500/10 rounded-xl transition-all"
                                 >

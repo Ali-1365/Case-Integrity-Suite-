@@ -157,7 +157,7 @@ export class AIOrchestrator {
     autoNotary.info(traceId, 'AIOrchestrator', 'Detekterade ärendetyper', { types: detectedTypes });
     
     const injectedLaws = this.getRelevantGroundTruth(detectedTypes, legalFramework);
-    autoNotary.info(traceId, 'AIOrchestrator', 'Injekterade lagar', { laws: injectedLaws.map(l => (l as { reference: string }).reference) });
+    autoNotary.info(traceId, 'AIOrchestrator', 'Injekterade lagar', { laws: injectedLaws.map(l => l.reference) });
 
     const systemPrompt = `
       **SYSTEMROLL: CIS FORENSIC ARCHITECT v.1.0**
@@ -194,21 +194,21 @@ export class AIOrchestrator {
         
         const parsed = JSON.parse(responseText.trim());
         autoNotary.endTrace(traceId, 'AIOrchestrator', 'runFullAnalysis', 'SUCCESS', { 
-            factsCount: (parsed as { facts: unknown[] }).facts?.length || 0,
+            factsCount: parsed.facts?.length || 0,
             linksCount: parsed.legalLinks?.length || 0
         });
         
-        const facts = ((parsed as { facts: unknown[] }).facts || []).map((f: import("../types").FactV2, idx: number) => ({
-            ...(f as {}),
-            id: (f as { id: string }).id ? ((f as { id: string }).id.includes('_') ? (f as { id: string }).id : `${(f as { id: string }).id}_${idx}`) : `FACT_${Date.now()}_${idx}`,
-            source: { ...(f as { source: unknown }).source, documentId }
+        const facts = (parsed.facts || []).map((f: any, idx: number) => ({
+            ...f,
+            id: f.id ? (f.id.includes('_') ? f.id : `${f.id}_${idx}`) : `FACT_${Date.now()}_${idx}`,
+            source: { ...f.source, documentId }
         }));
-        const contradictions = (parsed as { contradictions: unknown[] }).contradictions || [];
+        const contradictions = parsed.contradictions || [];
         
         const decisionSupport = ragResult?.decisionSupport;
         if (decisionSupport) {
-            (decisionSupport as { facts: unknown[] }).facts = facts;
-            (decisionSupport as { contradictions: unknown[] }).contradictions = contradictions;
+            decisionSupport.facts = facts;
+            decisionSupport.contradictions = contradictions;
         }
 
         return {
@@ -244,10 +244,10 @@ export class AIOrchestrator {
       Analysera fakta och identifiera korsreferenser. Svara i strikt JSON enligt schema.
     `;
 
-    const payload = (JSON as { str: string }).stringify(documents.map(d => ({
-        id: (d as { id: string }).id,
-        name: (d as { name: string }).name,
-        facts: (d as { facts: unknown[] }).facts.map(f => ({ id: (f as { id: string }).id, statement: f.statement }))
+    const payload = JSON.stringify(documents.map(d => ({
+        id: d.id,
+        name: d.name,
+        facts: d.facts.map(f => ({ id: f.id, statement: f.statement }))
     })));
 
     try {
@@ -263,9 +263,9 @@ export class AIOrchestrator {
         }, 'think');
 
         const parsed = JSON.parse(response.trim());
-        return (parsed.correlations || []).map((c: unknown) => ({
+        return (parsed.correlations || []).map((c: any) => ({
             ...c,
-            id: (c as { id: string }).id || `CORR-${crypto.randomUUID().substring(0, 8)}`
+            id: c.id || `CORR-${crypto.randomUUID().substring(0, 8)}`
         }));
     } catch (error) {
         console.error("CrossCorrelation failure:", error);
@@ -300,7 +300,7 @@ export class AIOrchestrator {
         types.push(def.type);
       }
     });
-    return (types as { length: number }).length > 0 ? types : ['PROCESS_MYNDIGHETSUTÖVNING'];
+    return types.length > 0 ? types : ['PROCESS_MYNDIGHETSUTÖVNING'];
   }
 
   private getRelevantGroundTruth(types: CaseType[], framework: LegalFrameworkItem[]): LegalFrameworkItem[] {
@@ -309,6 +309,6 @@ export class AIOrchestrator {
       const def = CASE_TYPE_REGISTRY.find(d => d.type === t);
       def?.primaryLaws.forEach(law => relevantLaws.add(law));
     });
-    return framework.filter(item => relevantLaws.has((item as { reference: string }).reference) || (item as { reference: string }).reference === 'FL' || item.auditTrail.status === 'VERIFIED');
+    return framework.filter(item => relevantLaws.has(item.reference) || item.reference === 'FL' || item.auditTrail.status === 'VERIFIED');
   }
 }

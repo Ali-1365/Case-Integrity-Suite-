@@ -85,12 +85,12 @@ export class ActionRecommendationService {
         operationType: 'RAG_QUERY',
         actor: 'SYSTEM',
         affectedLaws: consolidation.affectedNorms,
-        provenanceHashes: (consolidation as { provenanceHash: string }).provenanceHashes,
-        resultSummary: `Action recommendations generated: ${actionId}. Actions: ${report.(recommendations as { length: number }).length}.`,
+        provenanceHashes: consolidation.provenanceHashes,
+        resultSummary: `Action recommendations generated: ${actionId}. Actions: ${report.recommendations.length}.`,
         status: 'OK',
         metadata: { 
           actionId, 
-          recommendedActions: report.recommendations.map(r => (r as { id: string }).id),
+          recommendedActions: report.recommendations.map(r => r.id),
           impact: report.impactOnDecision 
         }
       });

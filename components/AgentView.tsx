@@ -34,8 +34,8 @@ export const AgentView: React.FC<AgentViewProps> = ({ caseData, caseId }) => {
     try {
       const report = await agentWorkflow.runAutonomousWorkflow(caseId || 'AUTO-GEN', caseData);
       setFinalReport(report);
-    } catch (err) {
-      setError((err as Error).message || "Ett okänt fel inträffade under agentkörningen.");
+    } catch (err: any) {
+      setError(err.message || "Ett okänt fel inträffade under agentkörningen.");
     } finally {
       console.log = originalLog; // Restore console.log
       setIsRunning(false);
@@ -81,7 +81,7 @@ export const AgentView: React.FC<AgentViewProps> = ({ caseData, caseId }) => {
             {isRunning && <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>}
           </div>
           <div className="flex-grow overflow-y-auto p-4 font-mono text-xs space-y-2 custom-scrollbar">
-            {(logs as { length: number }).length === 0 ? (
+            {logs.length === 0 ? (
               <p className="text-gray-600 italic text-center mt-10">Väntar på start...</p>
             ) : (
               logs.map((log, i) => (

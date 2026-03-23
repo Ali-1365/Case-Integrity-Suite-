@@ -35,7 +35,7 @@ const ForensicIntegrityView: React.FC<ForensicIntegrityViewProps> = ({ analysis 
 
   useEffect(() => {
     runVerification().catch(err => console.error("Initial verification failed:", err));
-  }, [(analysis as { id: string }).id]);
+  }, [analysis.id]);
 
   return (
     <div className="space-y-12 animate-in fade-in duration-700">
@@ -92,13 +92,13 @@ const ForensicIntegrityView: React.FC<ForensicIntegrityViewProps> = ({ analysis 
           <Card title="Data-atomer & Hash-kedja" icon={<FingerPrintIcon className="w-5 h-5" />}>
             <div className="space-y-4">
               {analysis.atoms.map((atom) => {
-                const isFailed = verification?.failedAtoms.includes((atom as { id: string }).id);
+                const isFailed = verification?.failedAtoms.includes(atom.id);
                 return (
-                  <div key={(atom as { id: string }).id} className={`p-8 rounded-[2rem] border transition-all shadow-sm ${isFailed ? 'bg-rose-500/5 border-rose-500/30' : 'bg-slate-50 dark:bg-slate-950/50 border-slate-200 dark:border-slate-800 hover:border-blue-500/40'}`}>
+                  <div key={atom.id} className={`p-8 rounded-[2rem] border transition-all shadow-sm ${isFailed ? 'bg-rose-500/5 border-rose-500/30' : 'bg-slate-50 dark:bg-slate-950/50 border-slate-200 dark:border-slate-800 hover:border-blue-500/40'}`}>
                     <div className="flex justify-between items-start mb-4">
                       <div className="flex items-center gap-3">
                         <DocumentTextIcon className="w-5 h-5 text-slate-400" />
-                        <span className="text-[10px] font-mono font-black text-slate-500 uppercase tracking-widest">ATOM_ID: {(atom as { id: string }).id}</span>
+                        <span className="text-[10px] font-mono font-black text-slate-500 uppercase tracking-widest">ATOM_ID: {atom.id}</span>
                       </div>
                       <div className="flex items-center gap-2">
                         {isFailed ? (
@@ -108,7 +108,7 @@ const ForensicIntegrityView: React.FC<ForensicIntegrityViewProps> = ({ analysis 
                         )}
                       </div>
                     </div>
-                    <p className="text-base text-slate-700 dark:text-slate-300 leading-relaxed italic font-medium mb-6">"{(atom as { text: string }).text}"</p>
+                    <p className="text-base text-slate-700 dark:text-slate-300 leading-relaxed italic font-medium mb-6">"{atom.text}"</p>
                     <div className="flex items-center gap-3 pt-4 border-t border-slate-200 dark:border-slate-800">
                       <CpuChipIcon className="w-4 h-4 text-slate-400" />
                       <span className="text-[10px] font-mono font-black text-slate-500 truncate bg-white dark:bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-100 dark:border-slate-800 shadow-inner w-full">{atom.hash}</span>
@@ -132,7 +132,7 @@ const ForensicIntegrityView: React.FC<ForensicIntegrityViewProps> = ({ analysis 
                 <div className="relative">
                   <div className="absolute -left-[42px] top-0 w-6 h-6 rounded-full bg-blue-500 border-4 border-white dark:border-slate-900 shadow-lg shadow-blue-500/20"></div>
                   <p className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-[0.15em]">Atomisering</p>
-                  <p className="text-[10px] font-black text-slate-400 uppercase mt-2 tracking-widest">{analysis.(atoms as { length: number }).length} diskreta segment skapade</p>
+                  <p className="text-[10px] font-black text-slate-400 uppercase mt-2 tracking-widest">{analysis.atoms.length} diskreta segment skapade</p>
                 </div>
                 <div className="relative">
                   <div className="absolute -left-[42px] top-0 w-6 h-6 rounded-full bg-blue-500 border-4 border-white dark:border-slate-900 shadow-lg shadow-blue-500/20"></div>

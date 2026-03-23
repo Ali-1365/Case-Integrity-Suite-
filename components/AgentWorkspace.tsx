@@ -38,7 +38,7 @@ const AgentWorkspace: React.FC<AgentWorkspaceProps> = ({ isOpen, onClose }) => {
   const [activeCaseId, setActiveCaseId] = useState<string | null>(null);
   const [opinion, setOpinion] = useState<string>('');
   const [query, setQuery] = useState('');
-  const [queryResult, setQueryResult] = useState<import("./types").StoredDocument | null>(null);
+  const [queryResult, setQueryResult] = useState<any>(null);
   const [isQuerying, setIsQuerying] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const [activeTab, setActiveTab] = useState<TabType>('analys');
@@ -71,13 +71,13 @@ const AgentWorkspace: React.FC<AgentWorkspaceProps> = ({ isOpen, onClose }) => {
           setRepoStatus(status);
           setSyncHealth(health);
 
-          await legalAIAgent.(initialize as Function)($1);
+          await legalAIAgent.initialize();
           
           const allCases = await caseManagementService.getAllCases();
           allCases.forEach(c => legalAIAgent.addCase(c));
           
           setCases(allCases);
-          if ((allCases as { length: number }).length > 0 && !activeCaseId) {
+          if (allCases.length > 0 && !activeCaseId) {
               setActiveCaseId(allCases[0].caseId);
           }
         } catch (err) {
@@ -120,7 +120,7 @@ const AgentWorkspace: React.FC<AgentWorkspaceProps> = ({ isOpen, onClose }) => {
     setActiveTab('analys');
 
     const lowerQuery = query.toLowerCase();
-    let result: unknown;
+    let result: any;
     if (lowerQuery.startsWith('fakta om')) {
         const keyword = lowerQuery.replace('fakta om', '').trim();
         result = legalAIAgent.queryFacts(activeCaseId, keyword);
@@ -250,7 +250,7 @@ const AgentWorkspace: React.FC<AgentWorkspaceProps> = ({ isOpen, onClose }) => {
                     {queryResult && (
                         <div className="mb-6">
                             <Card title="Svar från Agent" icon={<ChatIcon className="w-4 h-4"/>}>
-                                <pre className="bg-slate-50 dark:bg-slate-950 p-4 rounded-lg text-[10px] font-mono text-blue-800 dark:text-blue-400 whitespace-pre-wrap border border-slate-100 dark:border-slate-800">{(JSON as { str: string }).stringify(queryResult, null, 2)}</pre>
+                                <pre className="bg-slate-50 dark:bg-slate-950 p-4 rounded-lg text-[10px] font-mono text-blue-800 dark:text-blue-400 whitespace-pre-wrap border border-slate-100 dark:border-slate-800">{JSON.stringify(queryResult, null, 2)}</pre>
                             </Card>
                         </div>
                     )}
@@ -295,11 +295,11 @@ const AgentWorkspace: React.FC<AgentWorkspaceProps> = ({ isOpen, onClose }) => {
                                         <span className="text-[10px] text-slate-400">{new Date(entry.timestamp).toLocaleString('sv-SE')}</span>
                                     </div>
                                     <p className="text-xs text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-950 p-3 rounded-xl border border-slate-100 dark:border-slate-800">
-                                        {(entry as { details?: unknown }).details}
+                                        {entry.details}
                                     </p>
-                                    {(entry as { provenanceHash: string }).provenanceHashes && (entry as { provenanceHash: string }).(provenanceHashes as { length: number }).length > 0 && (
+                                    {entry.provenanceHashes && entry.provenanceHashes.length > 0 && (
                                         <div className="mt-2 flex flex-wrap gap-1">
-                                            {(entry as { provenanceHash: string }).provenanceHashes.map((p, i) => (
+                                            {entry.provenanceHashes.map((p, i) => (
                                                 <span key={i} className="text-[8px] font-mono text-slate-400 bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded">
                                                     {p.substring(0, 8)}...
                                                 </span>
@@ -311,7 +311,7 @@ const AgentWorkspace: React.FC<AgentWorkspaceProps> = ({ isOpen, onClose }) => {
                         ))}
                     </div>
                     
-                    {activeCase.(versions as { length: number }).length > 0 && (
+                    {activeCase.versions.length > 0 && (
                         <div className="mt-10 pt-10 border-t border-slate-100 dark:border-slate-800">
                             <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-widest mb-6">Versionshistorik</h3>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

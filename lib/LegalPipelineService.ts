@@ -10,7 +10,7 @@ export interface PipelineReport {
     status: 'pending' | 'running' | 'completed' | 'error' | 'blocked';
     output?: string;
     error?: string;
-    metadata?: Record<string, unknown>;
+    metadata?: any;
 }
 
 export interface PipelineState {
@@ -186,7 +186,7 @@ export class LegalPipelineService {
         `;
         
         const response = await geminiService.generate({
-            contents: (JSON as { str: string }).stringify({
+            contents: JSON.stringify({
                 document: state.correctedV2,
                 evidence: state.evidenceReport,
                 caseLaw: state.caseLawReport,
@@ -298,7 +298,7 @@ export class LegalPipelineService {
             const control = await this.exportControl(state);
             state.isExportBlocked = control.isBlocked;
             if (control.isBlocked) {
-                updateStatus('8', 'error', `EXPORT STOPPAD: ${(control as { reason?: string }).reason}`);
+                updateStatus('8', 'error', `EXPORT STOPPAD: ${control.reason}`);
                 updateStatus('9', 'blocked');
                 return state;
             }
@@ -311,9 +311,9 @@ export class LegalPipelineService {
 
             await journalService.addEntry(caseId, 'PIPELINE_COMPLETED', `Fullständig juridisk pipeline slutförd för ${caseId}`);
             
-        } catch (error) {
+        } catch (error: any) {
             console.error("Pipeline error:", error);
-            await journalService.addEntry(caseId, 'PIPELINE_ERROR', `Fel i pipeline: ${(error as Error).message}`);
+            await journalService.addEntry(caseId, 'PIPELINE_ERROR', `Fel i pipeline: ${error.message}`);
         }
 
         return state;

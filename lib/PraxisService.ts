@@ -21,17 +21,17 @@ export class PraxisService {
    */
   async getRelevantPraxis(lawRefs: string[]): Promise<PraxisEntry[]> {
     try {
-      if ((lawRefs as { length: number }).length === 0) {
+      if (lawRefs.length === 0) {
         // Fallback om inga specifika lagar begärs, hämta alla (eller hantera annorlunda)
         const response = await fetch('/data/praxis.json');
         if (!response.ok) throw new Error('Kunde inte hämta praxisdata');
         const data = await response.json();
-        return data.paragraphs.map((p: import("../types").LegalParagraph) => ({
-          id: (p as { id: string }).id,
-          reference: (p as { reference: string }).reference,
-          linkedLaw: (p as { metadata: Record<string, unknown> }).metadata.revisionNote || "",
-          summary: (p as { text: string }).text,
-          provenanceHash: p.(metadata as { provenanceHash: string }).provenanceHash
+        return data.paragraphs.map((p: any) => ({
+          id: p.id,
+          reference: p.reference,
+          linkedLaw: p.metadata.revisionNote || "",
+          summary: p.text,
+          provenanceHash: p.metadata.provenanceHash
         }));
       }
 
@@ -40,19 +40,19 @@ export class PraxisService {
         const response = await fetch(`/api/praxis/${encodeURIComponent(ref)}`);
         if (response.ok) {
           const data = await response.json();
-          const mapped = data.map((p: import("../types").LegalParagraph) => ({
-            id: (p as { id: string }).id,
-            reference: (p as { reference: string }).reference,
-            linkedLaw: (p as { metadata: Record<string, unknown> }).metadata.revisionNote || "",
-            summary: (p as { text: string }).text,
-            provenanceHash: p.(metadata as { provenanceHash: string }).provenanceHash
+          const mapped = data.map((p: any) => ({
+            id: p.id,
+            reference: p.reference,
+            linkedLaw: p.metadata.revisionNote || "",
+            summary: p.text,
+            provenanceHash: p.metadata.provenanceHash
           }));
           results.push(...mapped);
         }
       }
       
       // Ta bort dubbletter
-      return Array.from(new Map(results.map(item => [(item as { id: string }).id, item])).values());
+      return Array.from(new Map(results.map(item => [item.id, item])).values());
     } catch (error) {
       console.error('PraxisService Error:', error);
       return [];

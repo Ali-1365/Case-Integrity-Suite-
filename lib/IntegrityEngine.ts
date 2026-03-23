@@ -21,7 +21,7 @@ export class IntegrityEngine {
    */
   async verifyAtom(atom: Atom): Promise<boolean> {
     if (localStorage.getItem('FMJAM_INTEGRITY_BYPASS') === '1') return true;
-    const currentHash = await generateSHA256((atom as { text: string }).text);
+    const currentHash = await generateSHA256(atom.text);
     return currentHash === atom.hash;
   }
 
@@ -33,14 +33,14 @@ export class IntegrityEngine {
     
     // Hämta lagrumshänvisningar beroende på resultattyp
     const references = 'legalReferences' in result 
-      ? (result as { legalReferences: unknown[] }).legalReferences.map(r => ({ source: (r as { source: unknown }).source, rawText: r.rawText }))
-      : result.machineReadable.legalBasis.map(b => ({ source: b as unknown, rawText: b }));
+      ? result.legalReferences.map(r => ({ source: r.source, rawText: r.rawText }))
+      : result.machineReadable.legalBasis.map(b => ({ source: b as any, rawText: b }));
 
     references.forEach(ref => {
       const exists = LEGAL_SOURCES.some(source => 
-        (source as { reference: string }).reference === (ref as { source: unknown }).source ||
+        source.reference === ref.source ||
         source.label.toLowerCase() === ref.rawText.toLowerCase() ||
-        ((source as { sfsNumber: string }).sfsNumber && ref.rawText.includes((source as { sfsNumber: string }).sfsNumber))
+        (source.sfsNumber && ref.rawText.includes(source.sfsNumber))
       );
 
       if (!exists) {
@@ -59,11 +59,11 @@ export class IntegrityEngine {
    * Berikar ett resultat med verifieringsstatus för lagrumshänvisningar.
    */
   enrichWithLegalVerification(result: AnalysisResult): AnalysisResult {
-    const enrichedReferences = (result as { legalReferences: unknown[] }).legalReferences.map(ref => {
+    const enrichedReferences = result.legalReferences.map(ref => {
       const exists = LEGAL_SOURCES.some(source => 
-        (source as { reference: string }).reference === (ref as { source: unknown }).source ||
+        source.reference === ref.source ||
         source.label.toLowerCase() === ref.rawText.toLowerCase() ||
-        ((source as { sfsNumber: string }).sfsNumber && ref.rawText.includes((source as { sfsNumber: string }).sfsNumber))
+        (source.sfsNumber && ref.rawText.includes(source.sfsNumber))
       );
       return { ...ref, valid: exists };
     });
@@ -82,12 +82,12 @@ export class IntegrityEngine {
       }
 
       // 2. Kontrollera Journal-koppling
-      if (c.(journal as { length: number }).length === 0) {
+      if (c.journal.length === 0) {
         issues.push({ caseId: c.caseId, issue: 'Ärendet saknar händelsejournal (Brott mot FL 27 §).', severity: 'CRITICAL' });
       }
 
       // 3. Kontrollera Versions-historik
-      if (c.(versions as { length: number }).length === 0 && c.activeResult) {
+      if (c.versions.length === 0 && c.activeResult) {
         issues.push({ caseId: c.caseId, issue: 'Aktivt resultat finns men versionshistorik saknas.', severity: 'CRITICAL' });
       }
 
@@ -98,7 +98,7 @@ export class IntegrityEngine {
           if (!isValid) {
             issues.push({ 
               caseId: c.caseId, 
-              issue: `Forensiskt Integritetsfel: Atom ${(atom as { id: string }).id} har manipulerats eller korrumperats (Hash mismatch).`,
+              issue: `Forensiskt Integritetsfel: Atom ${atom.id} har manipulerats eller korrumperats (Hash mismatch).`,
               severity: 'CRITICAL' 
             });
           }
@@ -111,7 +111,7 @@ export class IntegrityEngine {
 
       // 6. Versions-proveniens
       c.versions.forEach(v => {
-        if (v.(provenance as { length: number }).length === 0) {
+        if (v.provenance.length === 0) {
           issues.push({ caseId: c.caseId, issue: `Version ${v.versionId} saknar proveniens-hashar.`, severity: 'CRITICAL' });
         }
       });

@@ -184,7 +184,7 @@ Inga antaganden, inga spekulationer, inga overifierade rättsfall. Vid osäkerhe
 
     async produce(request: ProductionRequest): Promise<string> {
         const orderedDrafts = request.order 
-            ? request.order.map(id => request.drafts.find(d => (d as { id: string }).id === id)).filter(Boolean)
+            ? request.order.map(id => request.drafts.find(d => d.id === id)).filter(Boolean)
             : request.drafts;
 
         const draftsContent = orderedDrafts.map((d, i) => `--- UTKAST ${i + 1}: ${d?.name} ---\n${d?.content}`).join('\n\n');
@@ -194,7 +194,7 @@ Inga antaganden, inga spekulationer, inga overifierade rättsfall. Vid osäkerhe
 ${request.context.goal}
 
 --- RÄTTSFAKTA ---
-${request.(context as { facts: unknown[] }).facts}
+${request.context.facts}
 
 --- BEVISNING ---
 ${request.context.evidence}

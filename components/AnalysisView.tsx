@@ -47,14 +47,14 @@ const AnalysisView: React.FC<AnalysisViewProps> = ({ documentId, onBack, onDocum
       const opinionEngine = new OpinionEngine(geminiClient, mode);
       const result = await opinionEngine.generateOpinion(document.analysis, config);
       
-      await db.saveOpinion((document as { id: string }).id, result);
-      const updatedDoc = await db.getDocument((document as { id: string }).id);
+      await db.saveOpinion(document.id, result);
+      const updatedDoc = await db.getDocument(document.id);
       if (updatedDoc) setDocument(updatedDoc);
-      onDocumentUpdate((document as { id: string }).id);
+      onDocumentUpdate(document.id);
 
     } catch (e) {
       console.error("Opinion generation failed:", e);
-      setError(`Generering av yttrande misslyckades. ${e instanceof Error ? (e as Error).message : ''}`);
+      setError(`Generering av yttrande misslyckades. ${e instanceof Error ? e.message : ''}`);
     } finally {
       setIsGenerating(false);
     }
@@ -71,7 +71,7 @@ const AnalysisView: React.FC<AnalysisViewProps> = ({ documentId, onBack, onDocum
         const updatedDoc = { ...document, analysis: updatedAnalysis };
         await db.addDocument(updatedDoc);
         setDocument(updatedDoc);
-        onDocumentUpdate((document as { id: string }).id);
+        onDocumentUpdate(document.id);
     } catch (e) {
         console.error("Synthesis regeneration failed:", e);
         setError("Kunde inte generera ny syntes.");
@@ -123,7 +123,7 @@ const AnalysisView: React.FC<AnalysisViewProps> = ({ documentId, onBack, onDocum
         <div className="relative pl-10">
           <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-blue-600 to-indigo-600 rounded-full shadow-[0_0_15px_rgba(59,130,246,0.5)]"></div>
           <h2 className="text-5xl font-black text-slate-900 dark:text-white m-0 tracking-tighter leading-none">
-            Analysrapport: <span className="text-blue-600 dark:text-blue-400 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">{(document as { name: string }).name}</span>
+            Analysrapport: <span className="text-blue-600 dark:text-blue-400 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">{document.name}</span>
           </h2>
           <div className="flex items-center gap-4 mt-6">
             <div className="flex items-center gap-3 px-5 py-2 bg-slate-100 dark:bg-slate-800/50 rounded-full border border-slate-200 dark:border-slate-700 shadow-sm">

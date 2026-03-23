@@ -74,7 +74,7 @@ export const InteractiveAnalyst: React.FC<InteractiveAnalystProps> = ({ analysis
             // 1. Hämta kontext via RAG
             setAnalysisStatus('ANALYSERAR');
             setStatusMessage(isOffline ? 'Söker i lokalt ramverk (RAG)...' : 'Söker i juridiskt ramverk (RAG)...');
-            const ragResult = await ragService.getContextForText((analysis as { facts: unknown[] }).facts.map(f => f.statement).join(' '), true, analysis.caseId);
+            const ragResult = await ragService.getContextForText(analysis.facts.map(f => f.statement).join(' '), true, analysis.caseId);
             
             setStatusMessage(isOffline ? 'Genererar yttrande via lokal motor...' : 'Genererar juridiskt yttrande via Gemini...');
             const systemPrompt = `
@@ -82,9 +82,9 @@ export const InteractiveAnalyst: React.FC<InteractiveAnalystProps> = ({ analysis
                 DIN UPPGIFT ÄR ATT GENERERA ETT JURIDISKT YTTRANDE BASERAT PÅ FÖLJANDE DATA:
                 
                 ÄRENDE_ID: ${analysis.caseId}
-                FAKTA_ATOMER: ${(JSON as { str: string }).stringify((analysis as { facts: unknown[] }).facts)}
-                LAGRUM_FRÅN_ANALYS: ${(JSON as { str: string }).stringify((analysis as { legalReferences: unknown[] }).legalReferences)}
-                TEMAN: ${(JSON as { str: string }).stringify(analysis.themes)}
+                FAKTA_ATOMER: ${JSON.stringify(analysis.facts)}
+                LAGRUM_FRÅN_ANALYS: ${JSON.stringify(analysis.legalReferences)}
+                TEMAN: ${JSON.stringify(analysis.themes)}
                 
                 JURIDISK KONTEXT (RAG):
                 ${ragResult.context}
@@ -150,9 +150,9 @@ export const InteractiveAnalyst: React.FC<InteractiveAnalystProps> = ({ analysis
                 DIN UPPGIFT ÄR ATT GE DYNAMISK ÄRENDEANALYS BASERAT PÅ FÖLJANDE DATA:
                 
                 ÄRENDE_ID: ${analysis.caseId}
-                FAKTA_ATOMER: ${(JSON as { str: string }).stringify((analysis as { facts: unknown[] }).facts)}
-                LAGRUM: ${(JSON as { str: string }).stringify((analysis as { legalReferences: unknown[] }).legalReferences)}
-                TEMAN: ${(JSON as { str: string }).stringify(analysis.themes)}
+                FAKTA_ATOMER: ${JSON.stringify(analysis.facts)}
+                LAGRUM: ${JSON.stringify(analysis.legalReferences)}
+                TEMAN: ${JSON.stringify(analysis.themes)}
                 
                 INSTRUKTIONER:
                 1. Svara alltid professionellt och objektivt.
@@ -165,10 +165,10 @@ export const InteractiveAnalyst: React.FC<InteractiveAnalystProps> = ({ analysis
 
             const response = await geminiService.generate({
                 contents: [
-                    { role: 'user', parts: [{ text: `Här är ärendedatan: ${(JSON as { str: string }).stringify(analysis)}` }] },
+                    { role: 'user', parts: [{ text: `Här är ärendedatan: ${JSON.stringify(analysis)}` }] },
                     ...messages.map(m => ({
                         role: m.role === 'user' ? 'user' : 'model',
-                        parts: [{ text: (m as { content?: string, textContent?: string }).textContent }]
+                        parts: [{ text: m.content }]
                     })),
                     { role: 'user', parts: [{ text: input }] }
                 ],
@@ -211,10 +211,10 @@ export const InteractiveAnalyst: React.FC<InteractiveAnalystProps> = ({ analysis
                             <p className="text-[10px] text-gray-500 font-bold uppercase mb-3">Bevisdensitet per Kategori</p>
                             <div className="space-y-3">
                                 {analysis.themes.map(t => {
-                                    const count = (analysis as { facts: unknown[] }).facts.filter(f => f.category === (t as { id: string }).id).length;
-                                    const percentage = Math.min(100, (count / (analysis as { facts: unknown[] }).(facts as { length: number }).length) * 300);
+                                    const count = analysis.facts.filter(f => f.category === t.id).length;
+                                    const percentage = Math.min(100, (count / analysis.facts.length) * 300);
                                     return (
-                                        <div key={(t as { id: string }).id} className="space-y-1">
+                                        <div key={t.id} className="space-y-1">
                                             <div className="flex justify-between text-[10px]">
                                                 <span className="text-gray-400">{t.label}</span>
                                                 <span className="text-cyan-500">{count} atomer</span>
@@ -342,7 +342,7 @@ export const InteractiveAnalyst: React.FC<InteractiveAnalystProps> = ({ analysis
                                     {m.role === 'user' ? <UserIcon className="w-4 h-4" /> : <SparklesIcon className="w-4 h-4" />}
                                 </div>
                                 <div className={`p-4 rounded-2xl text-sm leading-relaxed ${m.role === 'user' ? 'bg-indigo-500/10 text-gray-100 border border-indigo-500/20 rounded-tr-none' : 'bg-[#161616] text-gray-200 border border-gray-800 rounded-tl-none'}`}>
-                                    <MarkdownRenderer content={(m as { content?: string, textContent?: string }).textContent} />
+                                    <MarkdownRenderer content={m.content} />
                                     <p className="text-[9px] text-gray-600 mt-2 font-mono uppercase">
                                         {m.timestamp.toLocaleTimeString()}
                                     </p>

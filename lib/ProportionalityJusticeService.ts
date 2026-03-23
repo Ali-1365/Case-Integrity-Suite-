@@ -64,7 +64,7 @@ export class ProportionalityJusticeService {
 
     try {
       const responseText = await geminiService.generate({
-        contents: `Analysera proportionalitet för: ${(JSON as { str: string }).stringify(payload)}`,
+        contents: `Analysera proportionalitet för: ${JSON.stringify(payload)}`,
         config: {
           systemInstruction,
           responseMimeType: "application/json",
@@ -86,7 +86,7 @@ export class ProportionalityJusticeService {
         operationType: 'RAG_QUERY',
         actor: 'SYSTEM',
         affectedLaws: consolidation.affectedNorms,
-        provenanceHashes: (consolidation as { provenanceHash: string }).provenanceHashes,
+        provenanceHashes: consolidation.provenanceHashes,
         resultSummary: `Proportionality analysis complete: ${proportionalityId}. Level: ${report.level}. Score: ${report.legalCertaintyScore}.`,
         status: report.level === 'RÖD' ? 'WARN' : 'OK',
         metadata: { 

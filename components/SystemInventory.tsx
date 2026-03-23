@@ -162,7 +162,7 @@ const SystemInventory: React.FC<SystemInventoryProps> = ({ isOpen, onClose }) =>
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
                         <StatCard 
                             title="Totalt Antal Filer" 
-                            value={(files as { length: number }).length}
+                            value={files.length}
                             icon={<CodeBracketIcon className="w-6 h-6 text-gray-400" />} 
                             colorClass="text-gray-100"
                         />
@@ -242,7 +242,7 @@ const SystemInventory: React.FC<SystemInventoryProps> = ({ isOpen, onClose }) =>
                                         </td>
                                     </tr>
                                 ))}
-                                {(files as { length: number }).length === 0 && !isScanning && (
+                                {files.length === 0 && !isScanning && (
                                     <tr>
                                         <td colSpan={3} className="px-6 py-12 text-center text-gray-500 text-sm">
                                             Inga filer hittades.

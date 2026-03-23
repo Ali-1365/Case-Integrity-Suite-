@@ -56,7 +56,7 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
     if (!prompt.trim() || isLoading) return;
     
     setIsLoading(true);
-    const context = (JSON as { str: string }).stringify({
+    const context = JSON.stringify({
         logs: logs.slice(0, 5),
         git: repoStatus,
         jules_task: githubService.getJulesTaskUrl()
@@ -82,7 +82,7 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
       setResponse(res);
       refreshLogs();
     } catch (err) {
-      setResponse(`### KRITISKT SYSTEMFEL\n\n${err instanceof Error ? (err as Error).message : 'Kommunikationsavbrott.'}`);
+      setResponse(`### KRITISKT SYSTEMFEL\n\n${err instanceof Error ? err.message : 'Kommunikationsavbrott.'}`);
     } finally {
       setIsLoading(false);
     }
@@ -109,24 +109,24 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
       if (!res.ok) throw new Error("Kunde inte ladda index.json");
       const currentIndex: RagIndex = await res.json();
       
-      setResponse(prev => prev + `\nIndex laddat: ${currentIndex.(chunks as { length: number }).length} chunks.\nBakar saknade embeddings...`);
+      setResponse(prev => prev + `\nIndex laddat: ${currentIndex.chunks.length} chunks.\nBakar saknade embeddings...`);
       
       const updatedIndex = await ragIndexService.bakeMissingEmbeddings(currentIndex);
       
-      const bakedCount = updatedIndex.chunks.filter(c => (c as { embedding?: { values: number[] } }).embedding && (c as { embedding?: { values: number[] } }).(embedding as { length: number }).length > 0).length;
-      setResponse(prev => prev + `\n\n### BAKNING SLUTFÖRD\n- Totalt antal chunks: ${updatedIndex.(chunks as { length: number }).length}\n- Chunks med embeddings: ${bakedCount}\n\nKlicka på 'Exportera Index' för att ladda ner den nya filen.`);
+      const bakedCount = updatedIndex.chunks.filter(c => c.embedding && c.embedding.length > 0).length;
+      setResponse(prev => prev + `\n\n### BAKNING SLUTFÖRD\n- Totalt antal chunks: ${updatedIndex.chunks.length}\n- Chunks med embeddings: ${bakedCount}\n\nKlicka på 'Exportera Index' för att ladda ner den nya filen.`);
       
       // Store in state so we can export it
-      (window as Window & typeof globalThis & { OFFLINE_MODE?: boolean; OFFLINE_REASON?: string; _lastBakedIndex?: number; aistudio?: unknown })._lastBakedIndex = updatedIndex;
-    } catch (err) {
-      setResponse(prev => prev + `\n\n### FEL VID BAKNING\n${(err as Error).message}`);
+      (window as any)._lastBakedIndex = updatedIndex;
+    } catch (err: any) {
+      setResponse(prev => prev + `\n\n### FEL VID BAKNING\n${err.message}`);
     } finally {
       setIsLoading(false);
     }
   };
 
   const handleExportIndex = () => {
-    const index = (window as Window & typeof globalThis & { OFFLINE_MODE?: boolean; OFFLINE_REASON?: string; _lastBakedIndex?: number; aistudio?: unknown })._lastBakedIndex;
+    const index = (window as any)._lastBakedIndex;
     if (index) {
       ragIndexService.exportIndex(index);
     } else {
@@ -153,8 +153,8 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
       } else {
         setResponse(prev => prev + "\n\n⚠️ TEST VARNING: Vissa lagrum saknas i resultatet.");
       }
-    } catch (err) {
-      setResponse(prev => prev + `\n\n### TEST FEL\n${(err as Error).message}`);
+    } catch (err: any) {
+      setResponse(prev => prev + `\n\n### TEST FEL\n${err.message}`);
     } finally {
       setIsLoading(false);
     }
@@ -171,8 +171,8 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
       setResponse(prev => prev + "\nKör pipeline...");
       const pipelineState = await legalPipelineService.runFullPipeline(
         "TEST-CASE-2026", 
-        (JSON as { str: string }).stringify(testData),
-        (s) => console.log("Pipeline update:", s.reports[s.(reports as { length: number }).length-1].label)
+        JSON.stringify(testData),
+        (s) => console.log("Pipeline update:", s.reports[s.reports.length-1].label)
       );
       
       const activeLaws = pipelineState.reports
@@ -184,8 +184,8 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
       const uniqueLaws = Array.from(new Set(activeLaws));
       
       setResponse(prev => prev + `\n\n### PIPELINE SLUTFÖRD\n- Status: ${pipelineState.isExportBlocked ? 'BLOCKERAD' : 'GODKÄND'}\n- Identifierade lagrum: ${uniqueLaws.join(', ')}\n\nFINAL V3 PREVIEW:\n${pipelineState.finalV3?.substring(0, 300)}...`);
-    } catch (err) {
-      setResponse(prev => prev + `\n\n### PIPELINE FEL\n${(err as Error).message}`);
+    } catch (err: any) {
+      setResponse(prev => prev + `\n\n### PIPELINE FEL\n${err.message}`);
     } finally {
       setIsLoading(false);
     }
@@ -211,13 +211,13 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
 
       // Scenario 3: Arkiv & Lagkopplingar
       setResponse(prev => prev + "\nScenario 3: Arkiv-laddning & Lagkopplingar...\n");
-      const res3 = await fetch('/data/caseArchive.ts').then(r => (r as { text: string }).text());
+      const res3 = await fetch('/data/caseArchive.ts').then(r => r.text());
       const hasLinks = res3.includes("legalReferenceIds") || res3.includes("references");
-      setResponse(prev => prev + `  - Arkiv-data läst: ${(res3 as { length: number }).length > 0 ? 'JA' : 'NEJ'}\n  - Lagkopplingar i arkiv: ${hasLinks ? 'JA' : 'NEJ'}\n`);
+      setResponse(prev => prev + `  - Arkiv-data läst: ${res3.length > 0 ? 'JA' : 'NEJ'}\n  - Lagkopplingar i arkiv: ${hasLinks ? 'JA' : 'NEJ'}\n`);
 
       setResponse(prev => prev + "\n\n### REGRESSIONSTEST SLUTFÖRD\n✅ Alla kritiska flöden verifierade.");
-    } catch (err) {
-      setResponse(prev => prev + `\n\n### TEST FEL\n${(err as Error).message}`);
+    } catch (err: any) {
+      setResponse(prev => prev + `\n\n### TEST FEL\n${err.message}`);
     } finally {
       setIsLoading(false);
     }
@@ -289,9 +289,9 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
                 </button>
             </div>
             <div className="space-y-2 max-h-[200px] overflow-y-auto custom-scrollbar">
-                {(logs as { length: number }).length > 0 ? logs.map((log) => (
-                    <div key={(log as { id: string }).id} className={`flex flex-col font-mono p-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 transition-all ${expandedLogId === (log as { id: string }).id ? 'border-blue-300' : 'hover:border-slate-200 dark:hover:border-slate-700'}`}>
-                        <div className="flex items-center justify-between cursor-pointer" onClick={() => setExpandedLogId(expandedLogId === (log as { id: string }).id ? null : (log as { id: string }).id)}>
+                {logs.length > 0 ? logs.map((log) => (
+                    <div key={log.id} className={`flex flex-col font-mono p-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 transition-all ${expandedLogId === log.id ? 'border-blue-300' : 'hover:border-slate-200 dark:hover:border-slate-700'}`}>
+                        <div className="flex items-center justify-between cursor-pointer" onClick={() => setExpandedLogId(expandedLogId === log.id ? null : log.id)}>
                             <div className="flex items-center gap-4 text-[10px]">
                                 <span className="text-slate-400 shrink-0">{new Date(log.timestamp).toLocaleTimeString()}</span>
                                 <span className={`shrink-0 font-bold px-1.5 rounded ${log.level === 'ERROR' ? 'bg-red-100 text-red-700' : log.level === 'WARN' ? 'bg-amber-100 text-amber-700' : 'bg-blue-100 text-blue-800'}`}>
@@ -306,12 +306,12 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
                             </div>
                             <span className="text-slate-400 font-bold">{log.duration ? `${log.duration}ms` : ''}</span>
                         </div>
-                        {expandedLogId === (log as { id: string }).id && (
+                        {expandedLogId === log.id && (
                             <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800 text-[10px] text-slate-600 dark:text-slate-400 space-y-2">
                                 <p><span className="font-bold text-slate-400">MESSAGE:</span> {log.message}</p>
-                                {(log as { details?: unknown }).details && (
+                                {log.details && (
                                     <div className="bg-slate-50 dark:bg-slate-950 p-2 rounded-lg mt-1 overflow-x-auto">
-                                        <pre className="text-[9px]">{(JSON as { str: string }).stringify((log as { details?: unknown }).details, null, 2)}</pre>
+                                        <pre className="text-[9px]">{JSON.stringify(log.details, null, 2)}</pre>
                                     </div>
                                 )}
                             </div>

@@ -48,13 +48,13 @@ export const AutoNotaryView: React.FC = () => {
       </div>
 
       <div className="flex-1 overflow-y-auto p-4 space-y-3 custom-scrollbar">
-        {(filteredEvents as { length: number }).length === 0 ? (
+        {filteredEvents.length === 0 ? (
           <div className="text-center py-10 opacity-30 italic text-gray-500">
             Inväntar processdata...
           </div>
         ) : (
           filteredEvents.map(event => (
-            <div key={(event as { id: string }).id} className="relative pl-4 border-l border-gray-800 hover:border-cyan-500/50 transition-colors group">
+            <div key={event.id} className="relative pl-4 border-l border-gray-800 hover:border-cyan-500/50 transition-colors group">
               <div className={`absolute -left-[5px] top-0 w-2.5 h-2.5 rounded-full border-2 border-[#0a0a0a] ${
                 event.status === 'SUCCESS' ? 'bg-emerald-500' :
                 event.status === 'FAILURE' ? 'bg-rose-500' :
@@ -72,7 +72,7 @@ export const AutoNotaryView: React.FC = () => {
               
               {event.data && (
                 <pre className="text-[10px] text-gray-400 bg-[#111111] p-2.5 rounded-lg border border-gray-800 overflow-x-auto">
-                  {(JSON as { str: string }).stringify(event.data, null, 2)}
+                  {JSON.stringify(event.data, null, 2)}
                 </pre>
               )}
 

@@ -25,23 +25,23 @@ interface LegalReferenceDetailProps {
 
 const LegalReferenceDetail: React.FC<LegalReferenceDetailProps> = ({ referenceId, analysis, onClose }) => {
   // Hitta referensen i analysen
-  const ref = (analysis as { legalReferences: unknown[] }).legalReferences.find(r => (r as { id: string }).id === referenceId);
+  const ref = analysis.legalReferences.find(r => r.id === referenceId);
   
   // Hitta matchande grunddata i lagkatalogen
   const sourceData = LEGAL_SOURCES.find(s => 
     ref?.rawText.includes(s.label) || 
-    ref?.rawText.includes((s as { reference: string }).reference) ||
-    referenceId.startsWith((s as { id: string }).id)
+    ref?.rawText.includes(s.reference) ||
+    referenceId.startsWith(s.id)
   );
 
   // Hitta den AI-genererade länken (som innehåller reasoning)
   const legalLink = analysis.legalFrameworkLinks.find(link => 
-    (link as { id: string }).id.includes(referenceId) ||
+    link.id.includes(referenceId) ||
     (ref && link.label.includes(ref.rawText))
   );
   
   const relatedFactIds = new Set(legalLink?.relatedFactIds || []);
-  const relatedFacts = (analysis as { facts: unknown[] }).facts.filter(f => relatedFactIds.has((f as { id: string }).id));
+  const relatedFacts = analysis.facts.filter(f => relatedFactIds.has(f.id));
 
   if (!ref) return null;
 
@@ -138,7 +138,7 @@ const LegalReferenceDetail: React.FC<LegalReferenceDetailProps> = ({ referenceId
                        <span className={`text-[10px] font-black uppercase px-4 py-1.5 rounded-full border ${sourceData.auditTrail.status === 'VERIFIED' ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20' : 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20'}`}>
                           {sourceData.auditTrail.status}
                        </span>
-                       <span className="text-xs font-black text-slate-400 uppercase tracking-widest">SFS {(sourceData as { sfsNumber: string }).sfsNumber}</span>
+                       <span className="text-xs font-black text-slate-400 uppercase tracking-widest">SFS {sourceData.sfsNumber}</span>
                     </div>
                     <p className="text-slate-800 dark:text-slate-100 leading-relaxed text-lg font-bold">"{sourceData.description}"</p>
                     <div className="mt-10 pt-8 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center">
@@ -181,17 +181,17 @@ const LegalReferenceDetail: React.FC<LegalReferenceDetailProps> = ({ referenceId
                   Detaljerad Bevisföring & Provenans
                 </h3>
                 <span className="text-[10px] font-black text-indigo-600 dark:text-indigo-400 bg-indigo-500/10 px-4 py-2 rounded-full border border-indigo-500/20 uppercase tracking-widest shadow-sm">
-                    {(relatedFacts as { length: number }).length} Atomer Funna
+                    {relatedFacts.length} Atomer Funna
                 </span>
             </div>
             
-            {(relatedFacts as { length: number }).length > 0 ? (
+            {relatedFacts.length > 0 ? (
               <div className="space-y-10">
                 {relatedFacts.map(fact => {
-                  const docInfo = analysis.documents.find(d => (d as { id: string }).id === (fact as { source: unknown }).source.documentId) || { name: (fact as { source: unknown }).source.documentId };
+                  const docInfo = analysis.documents.find(d => d.id === fact.source.documentId) || { name: fact.source.documentId };
                   
                   return (
-                    <div key={(fact as { id: string }).id} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2.5rem] p-10 hover:border-blue-500/40 transition-all group relative overflow-hidden shadow-xl shadow-slate-200/50 dark:shadow-none">
+                    <div key={fact.id} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2.5rem] p-10 hover:border-blue-500/40 transition-all group relative overflow-hidden shadow-xl shadow-slate-200/50 dark:shadow-none">
                       <div className="absolute top-0 right-0 p-10 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity transform group-hover:scale-110 duration-500">
                           <ShieldCheckIcon className="w-24 h-24 text-slate-900 dark:text-white" />
                       </div>
@@ -199,18 +199,18 @@ const LegalReferenceDetail: React.FC<LegalReferenceDetailProps> = ({ referenceId
                       <div className="flex justify-between items-start mb-8 relative z-10">
                         <div className="flex items-center space-x-4">
                            <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-mono font-black border border-indigo-500/20 shadow-inner text-lg">
-                              {(fact as { id: string }).id.replace('fact_', '')}
+                              {fact.id.replace('fact_', '')}
                            </div>
                            <div>
                               <span className="text-[10px] font-black text-indigo-600 dark:text-indigo-400 uppercase tracking-widest bg-indigo-500/5 px-3 py-1 rounded-full border border-indigo-500/10">
                                  {fact.category}
                               </span>
-                              <p className="text-[10px] text-slate-400 font-black uppercase mt-2 tracking-widest">{(docInfo as { name: string }).name}</p>
+                              <p className="text-[10px] text-slate-400 font-black uppercase mt-2 tracking-widest">{docInfo.name}</p>
                            </div>
                         </div>
                         <div className="flex flex-col items-end">
                             <span className="text-[9px] font-black text-slate-300 dark:text-slate-600 uppercase tracking-widest">FACT_LOCKED_ID</span>
-                            <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">{(fact as { id: string }).id}</span>
+                            <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">{fact.id}</span>
                         </div>
                       </div>
                       
@@ -221,7 +221,7 @@ const LegalReferenceDetail: React.FC<LegalReferenceDetailProps> = ({ referenceId
                       <div className="relative z-10">
                         <div className="p-6 bg-slate-50 dark:bg-slate-950 rounded-2xl text-sm text-slate-500 dark:text-slate-400 italic leading-relaxed border-l-4 border-indigo-500/50 shadow-inner font-medium">
                           <span className="text-indigo-500/60 font-black not-italic mr-3 text-[10px] uppercase tracking-widest">Verbatim Source:</span>
-                          "{(fact as { source: unknown }).source.snippet}"
+                          "{fact.source.snippet}"
                         </div>
                         <div className="absolute -bottom-3 -right-3 p-2 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xl">
                             <LinkIcon className="w-4 h-4 text-slate-400" />
@@ -233,7 +233,7 @@ const LegalReferenceDetail: React.FC<LegalReferenceDetailProps> = ({ referenceId
                              <CheckCircleIcon className="w-4 h-4 text-emerald-500/50" />
                              <span>Verified Provenance</span>
                           </div>
-                          <span className="text-[10px] font-black text-slate-400 bg-slate-50 dark:bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-100 dark:border-slate-800 uppercase tracking-widest">{(fact as { source: unknown }).source.location}</span>
+                          <span className="text-[10px] font-black text-slate-400 bg-slate-50 dark:bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-100 dark:border-slate-800 uppercase tracking-widest">{fact.source.location}</span>
                       </div>
                     </div>
                   );
@@ -258,7 +258,7 @@ const LegalReferenceDetail: React.FC<LegalReferenceDetailProps> = ({ referenceId
                 <span>Forensic Integrity Hash: Verified</span>
               </div>
               <div className="h-5 w-px bg-slate-200 dark:bg-slate-800"></div>
-              <span>Logic Strength Index: {((relatedFacts as { length: number }).length > 0 ? 0.85 + ((relatedFacts as { length: number }).length * 0.02) : 0.45).toFixed(2)}</span>
+              <span>Logic Strength Index: {(relatedFacts.length > 0 ? 0.85 + (relatedFacts.length * 0.02) : 0.45).toFixed(2)}</span>
            </div>
            <div className="flex items-center space-x-3">
                <span className="animate-pulse w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.5)]"></span>

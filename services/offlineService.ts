@@ -13,15 +13,15 @@ class OfflineService {
         const saved = localStorage.getItem('cis_offline_mode');
         if (saved === 'true') {
             this.isOffline = true;
-            (this as { reason?: string }).reason = 'MANUAL';
+            this.reason = 'MANUAL';
         }
     }
 
     public setOffline(offline: boolean, reason: OfflineReason | null = null) {
-        if (this.isOffline === offline && (this as { reason?: string }).reason === reason) return;
+        if (this.isOffline === offline && this.reason === reason) return;
         
         this.isOffline = offline;
-        (this as { reason?: string }).reason = offline ? reason : null;
+        this.reason = offline ? reason : null;
         
         if (offline) {
             loggingService.warn(`[OFFLINE] Systemet har växlat till OFFLINE-LÄGE. Orsak: ${reason}`);
@@ -39,7 +39,7 @@ class OfflineService {
     }
 
     public getReason(): OfflineReason | null {
-        return (this as { reason?: string }).reason;
+        return this.reason;
     }
 
     public subscribe(listener: (isOffline: boolean, reason: OfflineReason | null) => void) {
@@ -50,7 +50,7 @@ class OfflineService {
     }
 
     private notify() {
-        this.listeners.forEach(l => l(this.isOffline, (this as { reason?: string }).reason));
+        this.listeners.forEach(l => l(this.isOffline, this.reason));
     }
 }
 

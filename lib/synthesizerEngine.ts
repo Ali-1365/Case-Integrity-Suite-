@@ -7,7 +7,7 @@ import { AIOrchestrator } from './AIOrchestrator';
 
 export class SynthesizerEngine {
   async synthesize(analysis: AnalysisResult, templateId: string = 'CIS_REPORT_V1'): Promise<string> {
-    const template = opinionTemplateRegistry.find(t => (t as { id: string }).id === templateId) || opinionTemplateRegistry[0];
+    const template = opinionTemplateRegistry.find(t => t.id === templateId) || opinionTemplateRegistry[0];
     
     const systemInstruction = `
 **ROLL:**
@@ -73,7 +73,7 @@ När du skapar Sakframställan, ska du inleda med Bevistemana (hämtade från Fa
     const adversarialEngine = new AdversarialEngine();
     const orchestrator = new AIOrchestrator();
     
-    const allFacts = analyses.flatMap(a => (a as { facts: unknown[] }).facts);
+    const allFacts = analyses.flatMap(a => a.facts);
     const allAtoms = analyses.flatMap(a => a.atoms);
 
     // 1. Adversarial Duel (Agent B granskar Agent A)
@@ -81,9 +81,9 @@ När du skapar Sakframställan, ska du inleda med Bevistemana (hämtade från Fa
 
     // 2. Cross-Correlation (Hitta motsägelser mellan filer)
     const correlations = await orchestrator.runCrossCorrelation(analyses.map(a => ({
-        id: (a as { id: string }).id,
+        id: a.id,
         name: a.caseId,
-        facts: (a as { facts: unknown[] }).facts
+        facts: a.facts
     })));
 
     // 3. Deep RAG Batch Synthesis
@@ -95,11 +95,11 @@ När du skapar Sakframställan, ska du inleda med Bevistemana (hämtade från Fa
     `;
 // ... (rest of the file)
 
-    const inputPayload = (JSON as { str: string }).stringify({
-        documents: analyses.map(a => ({ id: (a as { id: string }).id, name: a.caseId, factsCount: (a as { facts: unknown[] }).(facts as { length: number }).length })),
+    const inputPayload = JSON.stringify({
+        documents: analyses.map(a => ({ id: a.id, name: a.caseId, factsCount: a.facts.length })),
         adversarialAudit: duelResult,
         crossCorrelations: correlations,
-        legalReferences: Array.from(new Set(analyses.flatMap(a => (a as { legalReferences: unknown[] }).legalReferences.map(r => r.rawText))))
+        legalReferences: Array.from(new Set(analyses.flatMap(a => a.legalReferences.map(r => r.rawText))))
     }, null, 2);
 
     try {
@@ -119,22 +119,22 @@ När du skapar Sakframställan, ska du inleda med Bevistemana (hämtade från Fa
     }
   }
 
-  private async runGeminiSynthesis(systemInstruction: string, data: unknown, sections: string[]): Promise<string> {
+  private async runGeminiSynthesis(systemInstruction: string, data: any, sections: string[]): Promise<string> {
     // Vi skickar en avskalad version av AnalysisResult för att spara tokens
     const strippedData = {
         caseId: data.caseId,
-        facts: (data as { facts: unknown[] }).facts.map((f: unknown) => ({
-            id: (f as { id: string }).id,
+        facts: data.facts.map((f: any) => ({
+            id: f.id,
             date: f.timestamp, 
             category: f.category, 
             description: f.statement,
             source: {
-                document: (f as { source: unknown }).source.documentId,
-                location: (f as { source: unknown }).source.location
+                document: f.source.documentId,
+                location: f.source.location
             }
         })),
-        legalReferences: (data as { legalReferences: unknown[] }).legalReferences,
-        contradictions: (data as { contradictions: unknown[] }).contradictions,
+        legalReferences: data.legalReferences,
+        contradictions: data.contradictions,
         qaSummary: data.qaSummary,
         
         // Advanced Legal Chain Results
@@ -146,7 +146,7 @@ När du skapar Sakframställan, ska du inleda med Bevistemana (hämtade från Fa
 
     try {
       return await geminiService.generate({
-        contents: `CONTEXT_LOCKED (Använd denna data för att generera rapporten):\n\n${(JSON as { str: string }).stringify(strippedData, null, 2)}`,
+        contents: `CONTEXT_LOCKED (Använd denna data för att generera rapporten):\n\n${JSON.stringify(strippedData, null, 2)}`,
         config: { systemInstruction, temperature: 0.0 }
       }, 'think');
     } catch (error) {

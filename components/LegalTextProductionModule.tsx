@@ -65,11 +65,11 @@ const LegalTextProductionModule: React.FC = () => {
 
         try {
             const selectedDrafts = documents
-                .filter(d => selectedDraftIds.includes((d as { id: string }).id))
+                .filter(d => selectedDraftIds.includes(d.id))
                 .map(d => ({
-                    id: (d as { id: string }).id,
+                    id: d.id,
                     content: d.textContent,
-                    name: (d as { name: string }).name
+                    name: d.name
                 }));
 
             const request: ProductionRequest = {
@@ -84,8 +84,8 @@ const LegalTextProductionModule: React.FC = () => {
             setLogs(prev => [...prev, 'Produktion slutförd.', 'Slutlig granskning klar.']);
             setResult(output);
             setIsContextExpanded(false);
-        } catch (err) {
-            setError((err as Error).message || 'Ett fel inträffade vid produktion.');
+        } catch (err: any) {
+            setError(err.message || 'Ett fel inträffade vid produktion.');
         } finally {
             setIsProducing(false);
         }
@@ -122,32 +122,32 @@ const LegalTextProductionModule: React.FC = () => {
                         <div className="px-6 py-4 border-b border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/50 flex justify-between items-center">
                             <h3 className="text-sm font-bold uppercase tracking-wider text-slate-500 flex items-center">
                                 <DocumentTextIcon className="w-4 h-4 mr-2" />
-                                Utkast & Underlag ({(selectedDraftIds as { length: number }).length})
+                                Utkast & Underlag ({selectedDraftIds.length})
                             </h3>
                         </div>
                         <div className="p-4 max-h-64 overflow-y-auto custom-scrollbar space-y-2">
                             {documents.map(doc => (
                                 <button
-                                    key={(doc as { id: string }).id}
-                                    onClick={() => handleToggleDraft((doc as { id: string }).id)}
+                                    key={doc.id}
+                                    onClick={() => handleToggleDraft(doc.id)}
                                     className={`w-full text-left p-3 rounded-xl border transition-all flex items-center justify-between group ${
-                                        selectedDraftIds.includes((doc as { id: string }).id)
+                                        selectedDraftIds.includes(doc.id)
                                             ? 'bg-indigo-50 border-indigo-200 dark:bg-indigo-900/20 dark:border-indigo-800'
                                             : 'bg-white dark:bg-slate-900 border-slate-100 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-600'
                                     }`}
                                 >
                                     <div className="flex items-center space-x-3 overflow-hidden">
-                                        <div className={`p-2 rounded-lg ${selectedDraftIds.includes((doc as { id: string }).id) ? 'bg-indigo-500 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-400'}`}>
+                                        <div className={`p-2 rounded-lg ${selectedDraftIds.includes(doc.id) ? 'bg-indigo-500 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-400'}`}>
                                             <DocumentTextIcon className="w-4 h-4" />
                                         </div>
-                                        <span className="text-sm font-medium truncate text-slate-700 dark:text-slate-300">{(doc as { name: string }).name}</span>
+                                        <span className="text-sm font-medium truncate text-slate-700 dark:text-slate-300">{doc.name}</span>
                                     </div>
-                                    {selectedDraftIds.includes((doc as { id: string }).id) && (
+                                    {selectedDraftIds.includes(doc.id) && (
                                         <CheckCircleIcon className="w-5 h-5 text-indigo-500" />
                                     )}
                                 </button>
                             ))}
-                            {(documents as { length: number }).length === 0 && (
+                            {documents.length === 0 && (
                                 <p className="text-center py-8 text-slate-400 text-sm italic">Inga dokument tillgängliga.</p>
                             )}
                         </div>
@@ -180,7 +180,7 @@ const LegalTextProductionModule: React.FC = () => {
                                 <div>
                                     <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Rättsfakta (Tidslinjer & Belopp)</label>
                                     <textarea 
-                                        value={(context as { facts: unknown[] }).facts}
+                                        value={context.facts}
                                         onChange={e => setContext({...context, facts: e.target.value})}
                                         className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none transition-all h-20"
                                     />

@@ -8,9 +8,9 @@ const RiskProfileRegistry: React.FC = () => {
         <Card title="Gällande Riskmallar (v.6.2.2-GOLD)" icon={<ShieldCheckIcon />}>
             <div className="space-y-4">
                 {riskTemplateRegistry.map(template => (
-                    <div key={(template as { id: string }).id} className="p-4 bg-gray-800/40 border border-gray-700 rounded-2xl">
+                    <div key={template.id} className="p-4 bg-gray-800/40 border border-gray-700 rounded-2xl">
                         <div className="flex justify-between items-start mb-2">
-                            <h4 className="font-bold text-white">{(template as { name: string }).name}</h4>
+                            <h4 className="font-bold text-white">{template.name}</h4>
                             <span className="text-[10px] font-mono text-cyan-500 uppercase">SFS 2025:400 COMPLIANT</span>
                         </div>
                         <p className="text-sm text-gray-400 mb-3">{template.description}</p>

@@ -32,7 +32,7 @@ const renderMarkdown = (text: string) => {
     return text
       .split('\n')
       .map(line => line.trim())
-      .filter(line => (line as { length: number }).length > 0)
+      .filter(line => line.length > 0)
       .map((line, index) => {
         if (line.startsWith('# ')) {
           return (

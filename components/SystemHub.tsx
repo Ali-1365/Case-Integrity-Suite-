@@ -44,7 +44,7 @@ const ModuleCard: React.FC<ModuleCardProps> = ({ title, description, icon, statu
         
         <div className="flex justify-between items-start mb-8 relative z-10">
             <div className={`p-4 rounded-2xl bg-opacity-10 border border-opacity-20 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 ${color.replace('text-', 'bg-').replace('text-', 'border-')}`}>
-                {React.cloneElement(icon as React.ReactElement<{className?: string}>, { className: `w-8 h-8 ${color}` })}
+                {React.cloneElement(icon as React.ReactElement<any>, { className: `w-8 h-8 ${color}` })}
             </div>
             <div className="flex flex-col items-end space-y-2">
                 <div className="flex items-center space-x-2">
@@ -349,7 +349,7 @@ export const SystemHub: React.FC<SystemHubProps> = ({ onNavigate }) => {
             <div className="space-y-16">
                 {categories.map(cat => {
                     const categoryModules = filteredModules.filter(m => m.category === cat);
-                    if ((categoryModules as { length: number }).length === 0) return null;
+                    if (categoryModules.length === 0) return null;
                     
                     return (
                         <div key={cat} className="space-y-8">
@@ -364,14 +364,14 @@ export const SystemHub: React.FC<SystemHubProps> = ({ onNavigate }) => {
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                                 {categoryModules.map((mod) => (
                                     <ModuleCard 
-                                        key={(mod as { id: string }).id}
+                                        key={mod.id}
                                         title={mod.title}
                                         description={mod.description}
                                         icon={mod.icon}
                                         status={mod.status}
                                         color={mod.color}
                                         category={mod.category}
-                                        onClick={() => onNavigate((mod as { id: string }).id)}
+                                        onClick={() => onNavigate(mod.id)}
                                     />
                                 ))}
                             </div>
@@ -379,7 +379,7 @@ export const SystemHub: React.FC<SystemHubProps> = ({ onNavigate }) => {
                     );
                 })}
                 
-                {(filteredModules as { length: number }).length === 0 && (
+                {filteredModules.length === 0 && (
                     <div className="py-24 text-center space-y-6 bg-white dark:bg-slate-900 rounded-[3rem] border border-slate-200 dark:border-slate-800 border-dashed">
                         <div className="w-20 h-20 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center mx-auto">
                             <ExclamationTriangleIcon className="h-10 w-10 text-slate-400" />

@@ -38,14 +38,14 @@ export const PaymentsView: React.FC<{ payments: Payment[], onAdd: () => void, on
       </div>
     </div>
     <div className="grid grid-cols-1 gap-4">
-      {(payments as { length: number }).length === 0 ? (
+      {payments.length === 0 ? (
         <div className="p-12 text-center bg-slate-50 dark:bg-slate-900/50 rounded-[2rem] border border-dashed border-slate-200 dark:border-slate-800">
           <BanknotesIcon className="w-12 h-12 text-slate-300 mx-auto mb-4" />
           <p className="text-sm text-slate-500 font-medium">Inga betalningar registrerade ännu.</p>
         </div>
       ) : (
         payments.map(payment => (
-          <div key={(payment as { id: string }).id} className="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-100 dark:border-slate-800 flex items-center justify-between hover:shadow-md transition-all group">
+          <div key={payment.id} className="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-100 dark:border-slate-800 flex items-center justify-between hover:shadow-md transition-all group">
             <div className="flex items-center space-x-4">
               <div className={`p-3 rounded-xl transition-colors ${payment.status === 'COMPLETED' ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-500/10' : 'bg-amber-100 text-amber-600 dark:bg-amber-500/10'}`}>
                 <BanknotesIcon className="w-6 h-6" />
@@ -86,14 +86,14 @@ export const InvoicesView: React.FC<{ invoices: Invoice[], onAdd: () => void, on
       </button>
     </div>
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      {(invoices as { length: number }).length === 0 ? (
+      {invoices.length === 0 ? (
         <div className="col-span-full p-12 text-center bg-slate-50 dark:bg-slate-900/50 rounded-[2rem] border border-dashed border-slate-200 dark:border-slate-800">
           <ClipboardDocumentListIcon className="w-12 h-12 text-slate-300 mx-auto mb-4" />
           <p className="text-sm text-slate-500 font-medium">Inga fakturor skapade ännu.</p>
         </div>
       ) : (
         invoices.map(invoice => (
-          <div key={(invoice as { id: string }).id} className="bg-white dark:bg-slate-900 p-6 rounded-[2rem] border border-slate-100 dark:border-slate-800 hover:border-indigo-500/30 transition-all group relative overflow-hidden shadow-sm hover:shadow-md">
+          <div key={invoice.id} className="bg-white dark:bg-slate-900 p-6 rounded-[2rem] border border-slate-100 dark:border-slate-800 hover:border-indigo-500/30 transition-all group relative overflow-hidden shadow-sm hover:shadow-md">
             <div className="absolute top-0 right-0 p-4">
               <span className={`text-[10px] font-black px-2 py-1 rounded-lg uppercase tracking-widest ${
                 invoice.status === 'PAID' ? 'bg-emerald-500/10 text-emerald-600' : 
@@ -166,14 +166,14 @@ export const DamagesView: React.FC<{ claims: DamagesClaim[], onAdd: () => void, 
       </div>
     </div>
     <div className="space-y-6">
-      {(claims as { length: number }).length === 0 ? (
+      {claims.length === 0 ? (
         <div className="p-12 text-center bg-slate-50 dark:bg-slate-900/50 rounded-[2rem] border border-dashed border-slate-200 dark:border-slate-800">
           <ScaleIcon className="w-12 h-12 text-slate-300 mx-auto mb-4" />
           <p className="text-sm text-slate-500 font-medium">Inga skadeståndskrav registrerade.</p>
         </div>
       ) : (
         claims.map(claim => (
-          <div key={(claim as { id: string }).id} className="bg-white dark:bg-slate-900 p-8 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow">
+          <div key={claim.id} className="bg-white dark:bg-slate-900 p-8 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow">
             <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
               <div className="flex items-center space-x-4">
                 <div className={`p-4 rounded-2xl ${claim.type === 'STATE' ? 'bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-500' : 'bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-500'}`}>
@@ -212,7 +212,7 @@ export const DamagesView: React.FC<{ claims: DamagesClaim[], onAdd: () => void, 
                 <h5 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-4">Skadekomponenter</h5>
                 <div className="space-y-3">
                   {claim.components.map(comp => (
-                    <div key={(comp as { id: string }).id} className="p-4 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800">
+                    <div key={comp.id} className="p-4 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800">
                       <div className="flex justify-between items-start mb-2">
                         <span className="text-sm font-bold text-slate-900 dark:text-white">{comp.label}</span>
                         <span className="text-sm font-mono font-bold text-indigo-600">
@@ -288,7 +288,7 @@ export const BudgetView: React.FC<{ forecasts: BudgetForecast[], onGenerate?: ()
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
       <div className="lg:col-span-2 space-y-8">
         {forecasts.map(fc => (
-          <div key={(fc as { id: string }).id} className="bg-white dark:bg-slate-900 p-8 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 shadow-sm">
+          <div key={fc.id} className="bg-white dark:bg-slate-900 p-8 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 shadow-sm">
             <div className="flex justify-between items-start mb-8">
               <div>
                 <h4 className="text-2xl font-black text-slate-900 dark:text-white">{fc.period}</h4>

@@ -17,8 +17,8 @@ export class CaseClassifier {
     ): MatchedRisk[] {
         const matchedRisks: MatchedRisk[] = [];
         const analysisKeywords = new Set(keywordHits.map(h => h.keyword));
-        const analysisThemes = new Set(themes.map(t => (t as { id: string }).id));
-        const analysisLegalSources = new Set(legalReferences.map(r => (r as { source: unknown }).source));
+        const analysisThemes = new Set(themes.map(t => t.id));
+        const analysisLegalSources = new Set(legalReferences.map(r => r.source));
 
         for (const template of this.registry) {
             let score = 0;

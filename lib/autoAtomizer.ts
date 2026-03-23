@@ -30,7 +30,7 @@ export class AutoAtomizer {
       const segmentText = segmentRaw.trim();
       
       // Ignorera extremt korta segment (skräp)
-      if ((segmentText as { length: number }).length < 5) continue;
+      if (segmentText.length < 5) continue;
 
       // Forensisk hashning för total integritet
       const hash = await generateSHA256(segmentText);
@@ -44,14 +44,14 @@ export class AutoAtomizer {
         text: segmentText,
         hash, // Spara den fullständiga hashen för verifiering
         startIndex: match.index,
-        endIndex: match.index + (segmentRaw as { length: number }).length,
+        endIndex: match.index + segmentRaw.length,
         keywords: [],
         tags: []
       });
     }
 
     // Om ingen mening hittades (t.ex. bara en kort rad utan punkt), returnera hela texten som en atom
-    if ((atoms as { length: number }).length === 0 && text.trim().length > 0) {
+    if (atoms.length === 0 && text.trim().length > 0) {
         const segmentText = text.trim();
         const hash = await generateSHA256(segmentText);
         atoms.push({
@@ -61,7 +61,7 @@ export class AutoAtomizer {
             text: segmentText,
             hash,
             startIndex: 0,
-            endIndex: (text as { length: number }).length,
+            endIndex: text.length,
             keywords: [],
             tags: []
         });

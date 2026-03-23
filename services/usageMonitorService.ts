@@ -24,17 +24,17 @@ class UsageMonitorService {
             (log.mode === 'fast' || log.mode === 'think')
         );
         
-        const rpm = (recentLlmLogs as { length: number }).length;
+        const rpm = recentLlmLogs.length;
         
         // Estimate TPM (Tokens Per Minute)
         // Since we don't have a real tokenizer, we estimate 4 characters = 1 token
         let tpm = 0;
         recentLlmLogs.forEach(log => {
-            if ((log as { details?: unknown }).details?.prompt) {
-                tpm += Math.ceil((log as { details?: unknown }).(details as { prompt?: string }).(prompt as { length: number }).length / 4);
+            if (log.details?.prompt) {
+                tpm += Math.ceil(log.details.prompt.length / 4);
             }
-            if ((log as { details?: unknown }).details?.response) {
-                tpm += Math.ceil((log as { details?: unknown }).(details as { response?: string }).(response as { length: number }).length / 4);
+            if (log.details?.response) {
+                tpm += Math.ceil(log.details.response.length / 4);
             }
         });
         

@@ -45,7 +45,7 @@ export const ArchiveSearch: React.FC<ArchiveSearchProps> = ({ query, title = "Ar
     );
   }
 
-  if ((results as { length: number }).length === 0) {
+  if (results.length === 0) {
     return null; // Visa inget om inget hittas för att inte störa vyn
   }
 
@@ -57,14 +57,14 @@ export const ArchiveSearch: React.FC<ArchiveSearchProps> = ({ query, title = "Ar
           {title}
         </h3>
         <span className="text-[9px] font-black text-blue-500/60 uppercase tracking-widest bg-blue-500/5 px-3 py-1 rounded-full border border-blue-500/10">
-          {(results as { length: number }).length} Träffar
+          {results.length} Träffar
         </span>
       </div>
 
       <div className="space-y-4">
         {results.map((res, idx) => (
           <div 
-            key={`${res.(document as { id: string }).id}-${idx}`}
+            key={`${res.document.id}-${idx}`}
             className="p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[1.5rem] hover:border-blue-500/40 transition-all group relative overflow-hidden shadow-sm hover:shadow-md"
           >
             <div className="absolute top-0 right-0 p-4 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity">
@@ -78,11 +78,11 @@ export const ArchiveSearch: React.FC<ArchiveSearchProps> = ({ query, title = "Ar
                 </div>
                 <p className="text-sm font-black text-slate-900 dark:text-white tracking-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{res.document.title}</p>
               </div>
-              <span className="text-[9px] font-mono font-black text-slate-400 uppercase tracking-widest">ID: {res.(document as { id: string }).id}</span>
+              <span className="text-[9px] font-mono font-black text-slate-400 uppercase tracking-widest">ID: {res.document.id}</span>
             </div>
 
             <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed line-clamp-2 mb-4 font-medium italic">
-              "{res.(document as { content?: string, textContent?: string }).textContent.substring(0, 150)}..."
+              "{res.document.content.substring(0, 150)}..."
             </p>
 
             <div className="flex items-center justify-between pt-4 border-t border-slate-50 dark:border-slate-800/50 relative z-10">

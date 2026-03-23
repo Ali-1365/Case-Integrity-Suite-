@@ -95,7 +95,7 @@ export class EconomicService {
   }
 
   updateInvoiceStatus(id: string, status: Invoice['status']) {
-    const invoice = this.state.invoices.find(i => (i as { id: string }).id === id);
+    const invoice = this.state.invoices.find(i => i.id === id);
     if (invoice) {
       invoice.status = status;
     }
@@ -111,7 +111,7 @@ export class EconomicService {
   }
 
   updateClaim(id: string, updates: Partial<DamagesClaim>) {
-    const claimIndex = this.state.claims.findIndex(c => (c as { id: string }).id === id);
+    const claimIndex = this.state.claims.findIndex(c => c.id === id);
     if (claimIndex !== -1) {
       this.state.claims[claimIndex] = { ...this.state.claims[claimIndex], ...updates };
     }
@@ -159,7 +159,7 @@ export class EconomicService {
    * Genererar en antifragil budgetprognos.
    * Tar hänsyn till osäkerhet och "svarta svanar" genom att simulera olika scenarier.
    */
-  generateAntifragileForecast(baseData: unknown): BudgetForecast {
+  generateAntifragileForecast(baseData: any): BudgetForecast {
     // Simulering av komplexitet och osäkerhet
     const variance = (Math.random() * 0.2) - 0.1; // +/- 10% osäkerhet
     return {

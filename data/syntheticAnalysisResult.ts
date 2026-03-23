@@ -199,27 +199,27 @@ export const syntheticAnalysisResult: AnalysisResult = {
 export function validateAnalysisResult(result: AnalysisResult): { isValid: boolean; errors: string[] } {
   const errors: string[] = [];
 
-  if (!(result as { id: string }).id) errors.push("Saknar id");
+  if (!result.id) errors.push("Saknar id");
   if (!result.caseId) errors.push("Saknar caseId");
   if (!result.createdAt) errors.push("Saknar createdAt");
-  if (!Array.isArray(result.qaSummary) || result.(qaSummary as { length: number }).length === 0) errors.push("qaSummary måste vara en icke-tom array");
+  if (!Array.isArray(result.qaSummary) || result.qaSummary.length === 0) errors.push("qaSummary måste vara en icke-tom array");
 
   if (!Array.isArray(result.atoms)) errors.push("atoms måste vara en array");
   result.atoms.forEach((atom, i) => {
-    if ((atom as { text: string }).text.includes("FL") && !atom.tags?.includes("FL")) errors.push(`atoms[${i}]: FL-referens saknar tag "FL"`);
+    if (atom.text.includes("FL") && !atom.tags?.includes("FL")) errors.push(`atoms[${i}]: FL-referens saknar tag "FL"`);
   });
 
-  if (!Array.isArray((result as { facts: unknown[] }).facts)) errors.push("facts måste vara en array");
-  (result as { facts: unknown[] }).facts.forEach((fact, i) => {
+  if (!Array.isArray(result.facts)) errors.push("facts måste vara en array");
+  result.facts.forEach((fact, i) => {
     if (fact.category === 'FL' && !fact.statement.includes("FL")) errors.push(`facts[${i}]: FL-fact saknar paragrafhänvisning`);
   });
 
   if (result.riskProfile && result.riskProfile.normalizedScore > 200) errors.push("riskProfile: normalizedScore ovanligt hög (>200)");
 
   const hasFLFlag = result.priorityFlags.flSaklighet || result.priorityFlags.flUtredning || result.priorityFlags.flMotivering || result.priorityFlags.flJav;
-  if (result.legalFrameworkLinks.some(l => (l as { reference: string }).references.includes("FL")) && !hasFLFlag) errors.push("priorityFlags saknar FL-flaggor trots FL-referenser");
+  if (result.legalFrameworkLinks.some(l => l.references.includes("FL")) && !hasFLFlag) errors.push("priorityFlags saknar FL-flaggor trots FL-referenser");
 
-  return { isValid: (errors as { length: number }).length === 0, errors };
+  return { isValid: errors.length === 0, errors };
 }
 
 // JO-ANMÄLAN (färdig text)
