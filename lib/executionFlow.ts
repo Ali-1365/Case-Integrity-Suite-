@@ -1,4 +1,5 @@
 import { AnalysisResult } from './cis.types';
+import { getErrorMessage } from './errors';
 import { LegalCorpus } from '../types';
 import { legalFrameworkIndex } from '../data/legalFramework';
 import { corpusService } from './CorpusService';
@@ -78,13 +79,13 @@ export async function loadAllLegalCorpus(): Promise<LegalCorpus[]> {
     }
     console.log(`[EXEC_FLOW] ${corpora.length} lagkorpusar laddade.`);
     return corpora;
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error('[EXEC_FLOW] Kritiskt fel vid laddning av lagkorpus:', err);
     // Aktivera inte offline direkt — kan vara en tillfällig 404
-    if (err.message?.includes('NetworkError') || err.message?.includes('Failed to fetch')) {
+    if (getErrorMessage(err)?.includes('NetworkError') || getErrorMessage(err)?.includes('Failed to fetch')) {
       offlineService.setOffline(true, 'NETWORK_ERROR');
     }
-    throw new Error(`HARD-FAIL: Kunde inte ladda nödvändiga lagfiler. ${err.message}`);
+    throw new Error(`HARD-FAIL: Kunde inte ladda nödvändiga lagfiler. ${getErrorMessage(err)}`);
   }
 }
 

@@ -1,5 +1,6 @@
 
 import { corpusService } from '../lib/CorpusService';
+import { getErrorMessage } from '../lib/errors';
 import { legalFrameworkIndex } from '../data/legalFramework';
 import { FactV2 as Fact } from '../types';
 import { CISCase as Case } from '../lib/cis.types';
@@ -60,8 +61,8 @@ class LegalAIAgent {
       loggingService.info(`[AGENT] Initialization complete. Loaded ${this.laws.length} paragraphs.`, {
         duration: Date.now() - startTime
       });
-    } catch (error: any) {
-      loggingService.error("[AGENT] Initialization failed", { error: error.message });
+    } catch (error: unknown) {
+      loggingService.error("[AGENT] Initialization failed", { error: getErrorMessage(error) });
       throw error;
     }
   }

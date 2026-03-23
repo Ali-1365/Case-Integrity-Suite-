@@ -1,4 +1,5 @@
 import { GoogleGenAI, GenerateContentParameters, ThinkingLevel } from '@google/genai';
+import { getErrorMessage } from '../lib/errors';
 import { loggingService, LogMode } from './loggingService';
 import { getSyntheticResponse } from '../lib/syntheticLLMResponses';
 import { ApiError } from '../lib/errors';
@@ -168,28 +169,29 @@ export class GeminiService {
       try {
         this.quotaState = { isThrottled: false, retryAfterMs: 0, lastError: null };
         return await operation();
-      } catch (error: any) {
-        const msg = (error.message || '').toLowerCase();
+      } catch (error: unknown) {
+        const msg = (getErrorMessage(error) || '').toLowerCase();
+        const status = (error as any)?.status;
         const isQuota = msg.includes('quota') || msg.includes('429') ||
           msg.includes('resource_exhausted') || msg.includes('overloaded') ||
-          error.status === 429 || error.status === 503;
+          status === 429 || status === 503;
         const isAuth = msg.includes('401') || msg.includes('api_key') ||
-          msg.includes('unauthorized') || error.status === 401;
+          msg.includes('unauthorized') || status === 401;
 
         if (isAuth) {
           offlineService.setOffline(true, 'API_KEY_MISSING');
-          throw new ApiError(`Auth-fel: ${error.message}`, { originalError: error });
+          throw new ApiError(`Auth-fel: ${getErrorMessage(error)}`, { originalError: error });
         }
         if (isQuota && i < retries - 1) {
           console.warn(`[GeminiService] Kvotfel. Försök ${i + 1}/${retries}. Väntar ${delay / 1000}s...`);
-          this.quotaState = { isThrottled: true, retryAfterMs: delay, lastError: error.message };
+          this.quotaState = { isThrottled: true, retryAfterMs: delay, lastError: getErrorMessage(error) };
           await new Promise(r => setTimeout(r, delay));
           delay *= 2;
         } else if (i === retries - 1) {
-          this.quotaState.lastError = error.message;
+          this.quotaState.lastError = getErrorMessage(error);
           if (isQuota) offlineService.setOffline(true, 'QUOTA_EXCEEDED');
           else offlineService.setOffline(true, 'NETWORK_ERROR');
-          throw new ApiError(`API-fel efter ${i + 1} försök: ${error.message}`, { originalError: error });
+          throw new ApiError(`API-fel efter ${i + 1} försök: ${getErrorMessage(error)}`, { originalError: error });
         } else {
           throw error;
         }
@@ -250,13 +252,13 @@ export class GeminiService {
       });
 
       return text;
-    } catch (error: any) {
+    } catch (error: unknown) {
       const duration = Date.now() - startTime;
       loggingService.addLog({
         mode,
         prompt: JSON.stringify(params.contents).substring(0, 500),
         response: null,
-        error: error.message,
+        error: getErrorMessage(error),
         duration,
       });
 
@@ -284,7 +286,7 @@ export class GeminiService {
         }
         return synthetic;
       }
-      return `SYSTEMFEL: Kunde inte generera svar. ${error.message}`;
+      return `SYSTEMFEL: Kunde inte generera svar. ${getErrorMessage(error)}`;
     }
   }
 
