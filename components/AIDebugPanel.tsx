@@ -118,8 +118,9 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
       
       // Store in state so we can export it
       (window as any)._lastBakedIndex = updatedIndex;
-    } catch (err: any) {
-      setResponse(prev => prev + `\n\n### FEL VID BAKNING\n${err.message}`);
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : String(err);
+      setResponse(prev => prev + `\n\n### FEL VID BAKNING\n${errorMessage}`);
     } finally {
       setIsLoading(false);
     }
@@ -153,8 +154,9 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
       } else {
         setResponse(prev => prev + "\n\n⚠️ TEST VARNING: Vissa lagrum saknas i resultatet.");
       }
-    } catch (err: any) {
-      setResponse(prev => prev + `\n\n### TEST FEL\n${err.message}`);
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : String(err);
+      setResponse(prev => prev + `\n\n### TEST FEL\n${errorMessage}`);
     } finally {
       setIsLoading(false);
     }
@@ -184,8 +186,9 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
       const uniqueLaws = Array.from(new Set(activeLaws));
       
       setResponse(prev => prev + `\n\n### PIPELINE SLUTFÖRD\n- Status: ${pipelineState.isExportBlocked ? 'BLOCKERAD' : 'GODKÄND'}\n- Identifierade lagrum: ${uniqueLaws.join(', ')}\n\nFINAL V3 PREVIEW:\n${pipelineState.finalV3?.substring(0, 300)}...`);
-    } catch (err: any) {
-      setResponse(prev => prev + `\n\n### PIPELINE FEL\n${err.message}`);
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : String(err);
+      setResponse(prev => prev + `\n\n### PIPELINE FEL\n${errorMessage}`);
     } finally {
       setIsLoading(false);
     }
@@ -216,8 +219,9 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
       setResponse(prev => prev + `  - Arkiv-data läst: ${res3.length > 0 ? 'JA' : 'NEJ'}\n  - Lagkopplingar i arkiv: ${hasLinks ? 'JA' : 'NEJ'}\n`);
 
       setResponse(prev => prev + "\n\n### REGRESSIONSTEST SLUTFÖRD\n✅ Alla kritiska flöden verifierade.");
-    } catch (err: any) {
-      setResponse(prev => prev + `\n\n### TEST FEL\n${err.message}`);
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : String(err);
+      setResponse(prev => prev + `\n\n### TEST FEL\n${errorMessage}`);
     } finally {
       setIsLoading(false);
     }
