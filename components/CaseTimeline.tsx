@@ -42,13 +42,13 @@ const CaseTimeline: React.FC<CaseTimelineProps> = ({ entries }) => {
             </h4>
             
             <div className="p-4 bg-black/40 rounded-xl border-l-2 border-gray-700 italic text-xs text-gray-400 leading-relaxed">
-              "{entry.details}"
+              "{(entry as { details?: unknown }).details}"
             </div>
             
             <div className="mt-6 flex items-center gap-4 text-[10px] text-gray-500 font-bold uppercase tracking-widest">
               <span className="flex items-center gap-1.5"><ShieldCheckIcon className="w-3 h-3 text-green-500/50" /> Logged & Signed</span>
               <span className="w-1 h-1 bg-gray-700 rounded-full"></span>
-              <span>Hashes: {entry.provenanceHashes.length}</span>
+              <span>Hashes: {(entry as { provenanceHash: string }).(provenanceHashes as { length: number }).length}</span>
             </div>
           </div>
         </div>

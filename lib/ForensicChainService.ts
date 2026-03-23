@@ -36,13 +36,13 @@ export class ForensicChainService {
     // Gruppera atomer per dokument för att visa atomisering
     const docs = result.documents || [];
     for (const doc of docs) {
-      const docAtoms = atoms.filter(a => a.documentId === doc.id);
+      const docAtoms = atoms.filter(a => a.documentId === (doc as { id: string }).id);
       let docVerified = true;
       
       for (const atom of docAtoms) {
         // Verifiera att vi inte blandar metadata med atom-text
-        if (atom.text.includes('metadata:') || atom.text.includes('hash:')) {
-          failedAtoms.push(atom.id);
+        if ((atom as { text: string }).text.includes('metadata:') || (atom as { text: string }).text.includes('hash:')) {
+          failedAtoms.push((atom as { id: string }).id);
           docVerified = false;
           continue;
         }
@@ -51,24 +51,24 @@ export class ForensicChainService {
         if (isValid) {
           verifiedCount++;
         } else {
-          failedAtoms.push(atom.id);
+          failedAtoms.push((atom as { id: string }).id);
           docVerified = false;
         }
       }
 
       documentSummary.push({
-        id: doc.id,
-        atomCount: docAtoms.length,
+        id: (doc as { id: string }).id,
+        atomCount: (docAtoms as { length: number }).length,
         status: docVerified ? 'VERIFIED' : 'FAILED'
       });
     }
 
-    const integrityScore = atoms.length > 0 ? (verifiedCount / atoms.length) * 100 : 100;
-    const isValid = failedAtoms.length === 0;
+    const integrityScore = (atoms as { length: number }).length > 0 ? (verifiedCount / (atoms as { length: number }).length) * 100 : 100;
+    const isValid = (failedAtoms as { length: number }).length === 0;
 
     const verificationResult: ChainVerificationResult = {
       isValid,
-      totalAtoms: atoms.length,
+      totalAtoms: (atoms as { length: number }).length,
       verifiedAtoms: verifiedCount,
       failedAtoms,
       integrityScore,
@@ -81,9 +81,9 @@ export class ForensicChainService {
     await auditService.log({
       operationType: 'INDEX',
       actor: 'SYSTEM',
-      affectedLaws: result.legalReferences.map(r => r.source),
+      affectedLaws: (result as { legalReferences: unknown[] }).legalReferences.map(r => (r as { source: unknown }).source),
       provenanceHashes: atoms.map(a => a.hash),
-      resultSummary: `Forensisk kedja verifierad för ${docs.length} dokument. ${atoms.length} segment låsta med SHA-256. Score: ${integrityScore}%`,
+      resultSummary: `Forensisk kedja verifierad för ${(docs as { length: number }).length} dokument. ${(atoms as { length: number }).length} segment låsta med SHA-256. Score: ${integrityScore}%`,
       status: isValid ? 'OK' : 'ERROR',
       metadata: { caseId: result.caseId, verificationResult }
     });

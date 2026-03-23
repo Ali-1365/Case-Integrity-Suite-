@@ -47,9 +47,9 @@ const RiskProfileEditor: React.FC<RiskProfileEditorProps> = ({
 
   useEffect(() => {
     if (isOpen) {
-      setTemplates(JSON.parse(JSON.stringify(initialTemplates)));
-      setWeights(JSON.parse(JSON.stringify(initialWeights)));
-      setLegalFramework(JSON.parse(JSON.stringify(initialLegalFramework)));
+      setTemplates(JSON.parse((JSON as { str: string }).stringify(initialTemplates)));
+      setWeights(JSON.parse((JSON as { str: string }).stringify(initialWeights)));
+      setLegalFramework(JSON.parse((JSON as { str: string }).stringify(initialLegalFramework)));
       
       if (focusedItemId) {
           setActiveTab('framework');
@@ -79,16 +79,16 @@ const RiskProfileEditor: React.FC<RiskProfileEditorProps> = ({
   };
 
   const updateLegalItem = (id: string, updates: Partial<LegalFrameworkItem>) => {
-      setLegalFramework(legalFramework.map(item => item.id === id ? { ...item, ...updates } : item));
+      setLegalFramework(legalFramework.map(item => (item as { id: string }).id === id ? { ...item, ...updates } : item));
   };
 
   const updateTemplate = (id: string, updates: Partial<RiskTemplate>) => {
-      setTemplates(templates.map(t => t.id === id ? { ...t, ...updates } : t));
+      setTemplates(templates.map(t => (t as { id: string }).id === id ? { ...t, ...updates } : t));
   };
 
   const deleteTemplate = (id: string) => {
       if (window.confirm("Är du säker på att du vill ta bort denna riskmodell?")) {
-        setTemplates(templates.filter(t => t.id !== id));
+        setTemplates(templates.filter(t => (t as { id: string }).id !== id));
       }
   };
 
@@ -132,9 +132,9 @@ const RiskProfileEditor: React.FC<RiskProfileEditorProps> = ({
                 <div className="grid grid-cols-1 gap-6">
                     {legalFramework.map((item) => (
                         <div 
-                            key={item.id} 
-                            ref={el => { itemRefs.current[item.id] = el; }}
-                            className={`p-6 rounded-2xl border transition-all ${focusedItemId?.startsWith(item.id) ? 'bg-cyan-900/10 border-cyan-500/50 ring-1 ring-cyan-500/20 shadow-lg' : 'bg-gray-800/40 border-gray-800'}`}
+                            key={(item as { id: string }).id}
+                            ref={el => { itemRefs.current[(item as { id: string }).id] = el; }}
+                            className={`p-6 rounded-2xl border transition-all ${focusedItemId?.startsWith((item as { id: string }).id) ? 'bg-cyan-900/10 border-cyan-500/50 ring-1 ring-cyan-500/20 shadow-lg' : 'bg-gray-800/40 border-gray-800'}`}
                         >
                             <div className="flex justify-between items-start mb-6">
                                 <div className="flex-1 pr-10">
@@ -142,12 +142,12 @@ const RiskProfileEditor: React.FC<RiskProfileEditorProps> = ({
                                         <span className={`text-[10px] px-2 py-0.5 rounded font-black uppercase ${item.auditTrail.status === 'VERIFIED' ? 'bg-green-950 text-green-400 border border-green-900' : 'bg-red-950 text-red-400 border border-red-900'}`}>
                                             {item.auditTrail.status}
                                         </span>
-                                        <span className="text-[10px] font-mono text-gray-600">v.{item.version}</span>
+                                        <span className="text-[10px] font-mono text-gray-600">v.{(item as { version: string }).version}</span>
                                     </div>
                                     <input 
                                         type="text"
                                         value={item.label}
-                                        onChange={(e) => updateLegalItem(item.id, { label: e.target.value })}
+                                        onChange={(e) => updateLegalItem((item as { id: string }).id, { label: e.target.value })}
                                         className="bg-transparent border-none text-xl font-bold text-white p-0 focus:ring-0 w-full"
                                     />
                                 </div>
@@ -158,13 +158,13 @@ const RiskProfileEditor: React.FC<RiskProfileEditorProps> = ({
                             <textarea 
                                 rows={2}
                                 value={item.description}
-                                onChange={(e) => updateLegalItem(item.id, { description: e.target.value })}
+                                onChange={(e) => updateLegalItem((item as { id: string }).id, { description: e.target.value })}
                                 className="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-sm text-gray-300 mb-4"
                             />
                             <div className="grid grid-cols-3 gap-4">
                                 <div className="p-2 bg-black/40 rounded-lg border border-gray-800/50">
                                     <p className="text-[8px] text-gray-500 uppercase font-black">SFS NUMMER</p>
-                                    <p className="text-xs text-cyan-400 font-mono">{item.sfsNumber}</p>
+                                    <p className="text-xs text-cyan-400 font-mono">{(item as { sfsNumber: string }).sfsNumber}</p>
                                 </div>
                                 <div className="p-2 bg-black/40 rounded-lg border border-gray-800/50">
                                     <p className="text-[8px] text-gray-500 uppercase font-black">GILTIGHET</p>
@@ -172,7 +172,7 @@ const RiskProfileEditor: React.FC<RiskProfileEditorProps> = ({
                                 </div>
                                 <div className="p-2 bg-black/40 rounded-lg border border-gray-800/50">
                                     <p className="text-[8px] text-gray-500 uppercase font-black">ID</p>
-                                    <p className="text-xs text-gray-500 font-mono truncate">{item.id}</p>
+                                    <p className="text-xs text-gray-500 font-mono truncate">{(item as { id: string }).id}</p>
                                 </div>
                             </div>
                         </div>
@@ -193,22 +193,22 @@ const RiskProfileEditor: React.FC<RiskProfileEditorProps> = ({
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {templates.map(t => (
-                        <div key={t.id} className="p-6 bg-gray-800/40 border border-gray-800 rounded-3xl hover:border-gray-700 transition-all">
+                        <div key={(t as { id: string }).id} className="p-6 bg-gray-800/40 border border-gray-800 rounded-3xl hover:border-gray-700 transition-all">
                             <div className="flex justify-between items-start mb-4">
                                 <div>
                                     <input 
                                         className="bg-transparent border-none p-0 text-lg font-bold text-white focus:ring-0 w-full"
-                                        value={t.name}
-                                        onChange={(e) => updateTemplate(t.id, { name: e.target.value })}
+                                        value={(t as { name: string }).name}
+                                        onChange={(e) => updateTemplate((t as { id: string }).id, { name: e.target.value })}
                                     />
-                                    <p className="text-[10px] text-gray-500 font-mono">{t.id}</p>
+                                    <p className="text-[10px] text-gray-500 font-mono">{(t as { id: string }).id}</p>
                                 </div>
-                                <button onClick={() => deleteTemplate(t.id)} className="p-1.5 text-gray-600 hover:text-red-400 transition-colors"><TrashIcon className="w-5 h-5" /></button>
+                                <button onClick={() => deleteTemplate((t as { id: string }).id)} className="p-1.5 text-gray-600 hover:text-red-400 transition-colors"><TrashIcon className="w-5 h-5" /></button>
                             </div>
                             <textarea 
                                 rows={2}
                                 value={t.description}
-                                onChange={(e) => updateTemplate(t.id, { description: e.target.value })}
+                                onChange={(e) => updateTemplate((t as { id: string }).id, { description: e.target.value })}
                                 className="w-full bg-gray-900/50 border border-gray-700 rounded-xl px-3 py-2 text-xs text-gray-400 mb-4 outline-none resize-none"
                             />
                             <div className="grid grid-cols-2 gap-4">
@@ -218,7 +218,7 @@ const RiskProfileEditor: React.FC<RiskProfileEditorProps> = ({
                                         type="number" min="1" max="5"
                                         className="w-full bg-gray-950 border border-gray-700 rounded-lg px-3 py-1.5 text-white text-sm"
                                         value={t.severity}
-                                        onChange={(e) => updateTemplate(t.id, { severity: parseInt(e.target.value) as RiskSeverity })}
+                                        onChange={(e) => updateTemplate((t as { id: string }).id, { severity: parseInt(e.target.value) as RiskSeverity })}
                                     />
                                 </div>
                                 <div>
@@ -227,7 +227,7 @@ const RiskProfileEditor: React.FC<RiskProfileEditorProps> = ({
                                         type="number" min="1" max="5"
                                         className="w-full bg-gray-950 border border-gray-700 rounded-lg px-3 py-1.5 text-white text-sm"
                                         value={t.likelihood}
-                                        onChange={(e) => updateTemplate(t.id, { likelihood: parseInt(e.target.value) as RiskLikelihood })}
+                                        onChange={(e) => updateTemplate((t as { id: string }).id, { likelihood: parseInt(e.target.value) as RiskLikelihood })}
                                     />
                                 </div>
                             </div>

@@ -49,9 +49,9 @@ const RiskProfileEditor: React.FC<RiskProfileEditorProps> = ({
 
   useEffect(() => {
     if (isOpen) {
-      setTemplates(JSON.parse(JSON.stringify(initialTemplates)));
-      setWeights(JSON.parse(JSON.stringify(initialWeights)));
-      setLegalFramework(JSON.parse(JSON.stringify(initialLegalFramework)));
+      setTemplates(JSON.parse((JSON as { str: string }).stringify(initialTemplates)));
+      setWeights(JSON.parse((JSON as { str: string }).stringify(initialWeights)));
+      setLegalFramework(JSON.parse((JSON as { str: string }).stringify(initialLegalFramework)));
       
       if (focusedItemId) {
           setActiveTab('framework');
@@ -98,22 +98,22 @@ const RiskProfileEditor: React.FC<RiskProfileEditorProps> = ({
   };
 
   const updateLegalItem = (id: string, updates: Partial<LegalFrameworkItem>) => {
-      setLegalFramework(legalFramework.map(item => item.id === id ? { ...item, ...updates } : item));
+      setLegalFramework(legalFramework.map(item => (item as { id: string }).id === id ? { ...item, ...updates } : item));
   };
 
   const deleteLegalItem = (id: string) => {
       if (window.confirm("Är du säker på att du vill ta bort detta lagrum från ramverket?")) {
-        setLegalFramework(legalFramework.filter(item => item.id !== id));
+        setLegalFramework(legalFramework.filter(item => (item as { id: string }).id !== id));
       }
   };
 
   const updateTemplate = (id: string, updates: Partial<RiskTemplate>) => {
-      setTemplates(templates.map(t => t.id === id ? { ...t, ...updates } : t));
+      setTemplates(templates.map(t => (t as { id: string }).id === id ? { ...t, ...updates } : t));
   };
 
   const deleteTemplate = (id: string) => {
       if (window.confirm("Är du säker på att du vill ta bort denna riskmodell?")) {
-        setTemplates(templates.filter(t => t.id !== id));
+        setTemplates(templates.filter(t => (t as { id: string }).id !== id));
       }
   };
 
@@ -178,9 +178,9 @@ const RiskProfileEditor: React.FC<RiskProfileEditorProps> = ({
                 <div className="grid grid-cols-1 gap-8">
                     {legalFramework.map((item) => (
                         <div 
-                            key={item.id} 
-                            ref={el => { itemRefs.current[item.id] = el; }}
-                            className={`p-8 rounded-[2rem] border transition-all relative overflow-hidden group ${focusedItemId?.startsWith(item.id) ? 'bg-cyan-950/20 border-cyan-500 shadow-[0_0_30px_rgba(34,211,238,0.15)]' : 'bg-gray-900/40 border-gray-800'}`}
+                            key={(item as { id: string }).id}
+                            ref={el => { itemRefs.current[(item as { id: string }).id] = el; }}
+                            className={`p-8 rounded-[2rem] border transition-all relative overflow-hidden group ${focusedItemId?.startsWith((item as { id: string }).id) ? 'bg-cyan-950/20 border-cyan-500 shadow-[0_0_30px_rgba(34,211,238,0.15)]' : 'bg-gray-900/40 border-gray-800'}`}
                         >
                             <div className="flex justify-between items-start mb-8">
                                 <div className="flex-1 pr-12">
@@ -188,17 +188,17 @@ const RiskProfileEditor: React.FC<RiskProfileEditorProps> = ({
                                         <span className={`text-[10px] px-3 py-1 rounded-full font-black uppercase tracking-widest border ${item.auditTrail.status === 'VERIFIED' ? 'bg-green-950/30 text-green-400 border-green-500/20' : 'bg-orange-950/30 text-orange-400 border-orange-500/20'}`}>
                                             {item.auditTrail.status}
                                         </span>
-                                        <span className="text-[10px] font-mono text-gray-600 font-bold uppercase">VERSION_LOCKED: {item.version}</span>
+                                        <span className="text-[10px] font-mono text-gray-600 font-bold uppercase">VERSION_LOCKED: {(item as { version: string }).version}</span>
                                     </div>
                                     <input 
                                         type="text"
                                         value={item.label}
-                                        onChange={(e) => updateLegalItem(item.id, { label: e.target.value })}
+                                        onChange={(e) => updateLegalItem((item as { id: string }).id, { label: e.target.value })}
                                         className="bg-transparent border-none text-2xl font-black text-white p-0 focus:ring-0 w-full tracking-tight group-hover:text-cyan-400 transition-colors"
                                     />
                                 </div>
                                 <div className="flex items-center space-x-3">
-                                    <button onClick={() => deleteLegalItem(item.id)} className="p-3 text-gray-600 hover:text-red-400 transition-colors bg-gray-950 rounded-xl border border-gray-800">
+                                    <button onClick={() => deleteLegalItem((item as { id: string }).id)} className="p-3 text-gray-600 hover:text-red-400 transition-colors bg-gray-950 rounded-xl border border-gray-800">
                                         <TrashIcon className="h-5 w-5" />
                                     </button>
                                     <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer" className="p-3 text-gray-500 hover:text-cyan-400 transition-colors bg-gray-950 rounded-xl border border-gray-800">
@@ -210,29 +210,29 @@ const RiskProfileEditor: React.FC<RiskProfileEditorProps> = ({
                             <textarea 
                                 rows={3}
                                 value={item.description}
-                                onChange={(e) => updateLegalItem(item.id, { description: e.target.value })}
+                                onChange={(e) => updateLegalItem((item as { id: string }).id, { description: e.target.value })}
                                 className="w-full bg-gray-950 border border-gray-800 rounded-[1.2rem] px-5 py-4 text-sm text-gray-300 mb-6 focus:border-cyan-500/50 outline-none transition-all resize-none shadow-inner"
                             />
                             
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                                 <ConfigDataField 
                                     label="SFS NUMMER" 
-                                    value={item.sfsNumber} 
-                                    onChange={(val) => updateLegalItem(item.id, { sfsNumber: val })}
+                                    value={(item as { sfsNumber: string }).sfsNumber}
+                                    onChange={(val) => updateLegalItem((item as { id: string }).id, { sfsNumber: val })}
                                 />
                                 <ConfigDataField 
                                     label="REFERENS-KOD" 
-                                    value={item.reference} 
-                                    onChange={(val) => updateLegalItem(item.id, { reference: val as any })}
+                                    value={(item as { reference: string }).reference}
+                                    onChange={(val) => updateLegalItem((item as { id: string }).id, { reference: val as unknown })}
                                 />
                                 <ConfigDataField 
                                     label="GILTIGHET" 
                                     value={item.validFrom} 
-                                    onChange={(val) => updateLegalItem(item.id, { validFrom: val })}
+                                    onChange={(val) => updateLegalItem((item as { id: string }).id, { validFrom: val })}
                                 />
                                 <div className="p-3 bg-black/20 rounded-xl border border-gray-800/50">
                                     <p className="text-[8px] text-gray-600 uppercase font-black tracking-widest mb-1">SYSTEM_ID</p>
-                                    <p className="text-[10px] text-gray-500 font-mono truncate font-bold uppercase">{item.id}</p>
+                                    <p className="text-[10px] text-gray-500 font-mono truncate font-bold uppercase">{(item as { id: string }).id}</p>
                                 </div>
                             </div>
                         </div>
@@ -253,22 +253,22 @@ const RiskProfileEditor: React.FC<RiskProfileEditorProps> = ({
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {templates.map(t => (
-                        <div key={t.id} className="p-8 bg-gray-900/40 border border-gray-800 rounded-[2rem] hover:border-cyan-500/30 transition-all relative overflow-hidden group">
+                        <div key={(t as { id: string }).id} className="p-8 bg-gray-900/40 border border-gray-800 rounded-[2rem] hover:border-cyan-500/30 transition-all relative overflow-hidden group">
                             <div className="flex justify-between items-start mb-6">
                                 <div>
                                     <input 
                                         className="bg-transparent border-none p-0 text-xl font-black text-white focus:ring-0 w-full tracking-tight group-hover:text-cyan-400 transition-colors"
-                                        value={t.name}
-                                        onChange={(e) => updateTemplate(t.id, { name: e.target.value })}
+                                        value={(t as { name: string }).name}
+                                        onChange={(e) => updateTemplate((t as { id: string }).id, { name: e.target.value })}
                                     />
-                                    <p className="text-[9px] text-gray-600 font-mono font-bold mt-1">ID: {t.id}</p>
+                                    <p className="text-[9px] text-gray-600 font-mono font-bold mt-1">ID: {(t as { id: string }).id}</p>
                                 </div>
-                                <button onClick={() => deleteTemplate(t.id)} className="p-2.5 text-gray-600 hover:text-red-400 transition-colors bg-black/20 rounded-lg"><TrashIcon className="w-5 h-5" /></button>
+                                <button onClick={() => deleteTemplate((t as { id: string }).id)} className="p-2.5 text-gray-600 hover:text-red-400 transition-colors bg-black/20 rounded-lg"><TrashIcon className="w-5 h-5" /></button>
                             </div>
                             <textarea 
                                 rows={2}
                                 value={t.description}
-                                onChange={(e) => updateTemplate(t.id, { description: e.target.value })}
+                                onChange={(e) => updateTemplate((t as { id: string }).id, { description: e.target.value })}
                                 className="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-xs text-gray-400 mb-6 outline-none resize-none focus:border-cyan-500/30 transition-all shadow-inner"
                             />
                             <div className="grid grid-cols-2 gap-6">
@@ -278,7 +278,7 @@ const RiskProfileEditor: React.FC<RiskProfileEditorProps> = ({
                                         type="number" min="1" max="5"
                                         className="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-2.5 text-white text-sm font-bold focus:ring-1 focus:ring-cyan-500/50"
                                         value={t.severity}
-                                        onChange={(e) => updateTemplate(t.id, { severity: parseInt(e.target.value) as RiskSeverity })}
+                                        onChange={(e) => updateTemplate((t as { id: string }).id, { severity: parseInt(e.target.value) as RiskSeverity })}
                                     />
                                 </div>
                                 <div>
@@ -287,7 +287,7 @@ const RiskProfileEditor: React.FC<RiskProfileEditorProps> = ({
                                         type="number" min="1" max="5"
                                         className="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-2.5 text-white text-sm font-bold focus:ring-1 focus:ring-cyan-500/50"
                                         value={t.likelihood}
-                                        onChange={(e) => updateTemplate(t.id, { likelihood: parseInt(e.target.value) as RiskLikelihood })}
+                                        onChange={(e) => updateTemplate((t as { id: string }).id, { likelihood: parseInt(e.target.value) as RiskLikelihood })}
                                     />
                                 </div>
                             </div>

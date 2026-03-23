@@ -20,7 +20,7 @@ const WhitebookViewer: React.FC<WhitebookViewerProps> = ({ isOpen, onClose }) =>
   React.useEffect(() => {
     if (isOpen) {
       fetch('/docs/FMJAM_WHITEBOOK_V1.md')
-        .then(res => res.text())
+        .then(res => (res as { text: string }).text())
         .then(setContent)
         .catch(() => setContent('# Fel\nKunde inte ladda vitboken.'));
     }

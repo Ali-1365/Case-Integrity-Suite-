@@ -64,11 +64,11 @@ export class FactEngine {
         }, 'fast');
         
         const parsed = JSON.parse(responseText.trim());
-        const facts: FactV2[] = parsed.facts || [];
+        const facts: FactV2[] = (parsed as { facts: unknown[] }).facts || [];
 
         return facts.map(fact => ({
             ...fact,
-            source: { ...fact.source, documentId }
+            source: { ...(fact as { source: unknown }).source, documentId }
         }));
     } catch (error) {
         console.error("Specialized FactEngine failed:", error);

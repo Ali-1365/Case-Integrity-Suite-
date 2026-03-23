@@ -127,7 +127,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
             ]);
             setDocuments(docs);
             setLegalCorpora(corpora);
-            await ragService.initialize();
+            await ragService.(initialize as Function)($1);
         } catch (e) {
             console.error("[BOOT] Data load failure:", e);
         } finally {
@@ -137,10 +137,10 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
 
     useEffect(() => { loadData().catch(err => console.error('Initial data load failed:', err)); }, [loadData]);
 
-    const selectedDoc = documents.find(d => d.id === selectedDocId);
+    const selectedDoc = documents.find(d => (d as { id: string }).id === selectedDocId);
     const currentAnalysis = selectedDoc?.analysis || null;
 
-    const [activeCase, setActiveCase] = useState<any>(null);
+    const [activeCase, setActiveCase] = useState<import("./types").StoredDocument | null>(null);
 
     useEffect(() => {
         if (currentAnalysis?.caseId) {
@@ -150,7 +150,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
         }
     }, [currentAnalysis?.caseId]);
 
-    const handleAnalyze = async (doc: any) => {
+    const handleAnalyze = async (doc: import("../types").StoredDocument) => {
         setIsAnalyzing(true);
         setPipelineStatus({
             ...initialPipelineStatus,
@@ -161,19 +161,19 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
 
         try {
             // 1. Skapa ärende om det inte finns
-            const caseId = `CASE-${doc.id?.substring(0, 8) || Date.now()}`;
+            const caseId = `CASE-${(doc as { id: string }).id?.substring(0, 8) || Date.now()}`;
             const existingCase = await caseManagementService.getCase(caseId);
             if (!existingCase) {
-                await caseManagementService.createCase(doc.name, { hasChildAspect: false, isPreventive: false });
+                await caseManagementService.createCase((doc as { name: string }).name, { hasChildAspect: false, isPreventive: false });
             }
 
             setPipelineStatus(prev => ({ ...prev, currentStep: 'Kör AI-orkestrering...', progress: 30 }));
             
             // 2. Kör full analys via AIOrchestrator
             const analysisResult = await orchestrator.runFullAnalysis(
-                doc.content || doc.textContent || '', 
-                doc.id || `DOC-${Date.now()}`, 
-                legalFrameworkIndex as any, 
+                (doc as { content?: string, textContent?: string }).textContent || doc.textContent || '',
+                (doc as { id: string }).id || `DOC-${Date.now()}`,
+                legalFrameworkIndex as unknown,
                 undefined, 
                 caseId
             );
@@ -187,19 +187,19 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
 
             // 4. Uppdatera dokumentet med analysresultat
             const updatedDoc: StoredDocument = {
-                id: doc.id || `DOC-${Date.now()}`,
-                name: doc.name,
-                textContent: doc.content || doc.textContent || '',
+                id: (doc as { id: string }).id || `DOC-${Date.now()}`,
+                name: (doc as { name: string }).name,
+                textContent: (doc as { content?: string, textContent?: string }).textContent || doc.textContent || '',
                 mimeType: doc.mimeType || 'text/plain',
                 createdAt: doc.createdAt || new Date().toISOString(),
-                analysis: analysisResult as any
+                analysis: analysisResult as unknown
             };
 
             await db.addDocument(updatedDoc);
             setDocuments(prev => {
-                const exists = prev.find(d => d.id === updatedDoc.id);
+                const exists = prev.find(d => (d as { id: string }).id === (updatedDoc as { id: string }).id);
                 if (exists) {
-                    return prev.map(d => d.id === updatedDoc.id ? updatedDoc : d);
+                    return prev.map(d => (d as { id: string }).id === (updatedDoc as { id: string }).id ? updatedDoc : d);
                 }
                 return [updatedDoc, ...prev];
             });
@@ -233,10 +233,10 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
         });
 
         try {
-            const selectedDocs = documents.filter(d => ids.includes(d.id));
+            const selectedDocs = documents.filter(d => ids.includes((d as { id: string }).id));
             const batchDocs = selectedDocs.map(d => ({
-                id: d.id,
-                name: d.name,
+                id: (d as { id: string }).id,
+                name: (d as { name: string }).name,
                 facts: d.analysis?.facts || []
             }));
 
@@ -246,18 +246,18 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
 
             const aggregateDoc: StoredDocument = {
                 id: `AGG-${Date.now()}`,
-                name: `Batch-analys (${ids.length} dokument)`,
-                textContent: `Korsanalys av: ${selectedDocs.map(d => d.name).join(', ')}`,
+                name: `Batch-analys (${(ids as { length: number }).length} dokument)`,
+                textContent: `Korsanalys av: ${selectedDocs.map(d => (d as { name: string }).name).join(', ')}`,
                 mimeType: 'application/aggregate',
                 createdAt: new Date().toISOString(),
                 analysis: {
                     correlations
-                } as any
+                } as unknown
             };
 
             await db.addDocument(aggregateDoc);
             setDocuments(prev => [aggregateDoc, ...prev]);
-            setSelectedDocId(aggregateDoc.id);
+            setSelectedDocId((aggregateDoc as { id: string }).id);
 
             setPipelineStatus({
                 ...initialPipelineStatus,
@@ -289,7 +289,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
             });
             if (selectedDoc) {
                 items.push({ 
-                    label: selectedDoc.name, 
+                    label: (selectedDoc as { name: string }).name,
                     onClick: () => {},
                     icon: <DocumentTextIcon className="w-3.5 h-3.5" />
                 });
@@ -323,10 +323,10 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                         {index > 0 && <span className="text-slate-400 dark:text-slate-600 font-normal">/</span>}
                         <button 
                             onClick={item.onClick}
-                            className={`flex items-center space-x-2.5 transition-all duration-300 ${index === items.length - 1 ? 'text-blue-600 dark:text-blue-400' : 'hover:text-slate-900 dark:hover:text-white hover:translate-x-0.5'}`}
-                            aria-current={index === items.length - 1 ? 'page' : undefined}
+                            className={`flex items-center space-x-2.5 transition-all duration-300 ${index === (items as { length: number }).length - 1 ? 'text-blue-600 dark:text-blue-400' : 'hover:text-slate-900 dark:hover:text-white hover:translate-x-0.5'}`}
+                            aria-current={index === (items as { length: number }).length - 1 ? 'page' : undefined}
                         >
-                            <div className={`${index === items.length - 1 ? 'text-blue-500' : 'text-slate-500 dark:text-slate-400'}`}>
+                            <div className={`${index === (items as { length: number }).length - 1 ? 'text-blue-500' : 'text-slate-500 dark:text-slate-400'}`}>
                                 {item.icon}
                             </div>
                             <span>{item.label}</span>

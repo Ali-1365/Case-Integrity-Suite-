@@ -28,7 +28,7 @@ export class LegalMappingService {
 
     legalCorpora.forEach(corpus => {
       // Vi prioriterar Socialtjänstlagen om det finns matchningar där
-      const isSoL = corpus.sourceCode === 'SoL';
+      const isSoL = (corpus as { sourceCode: string }).sourceCode === 'SoL';
       
       corpus.paragraphs.forEach(paragraph => {
         if (!paragraph.keywords) return;
@@ -41,9 +41,9 @@ export class LegalMappingService {
           })
         );
 
-        if (matchedKeywords.length > 0) {
+        if ((matchedKeywords as { length: number }).length > 0) {
           // Beräkna en relevanspoäng. SoL får en liten boost om det är relevant.
-          let score = matchedKeywords.length / paragraph.keywords.length;
+          let score = (matchedKeywords as { length: number }).length / paragraph.(keywords as { length: number }).length;
           if (isSoL) score *= 1.2; 
 
           results.push({

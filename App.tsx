@@ -4,11 +4,11 @@ import React, { useState, useEffect, useCallback } from 'react';
 //  OFFLINE BANNER
 // ─────────────────────────────────────────────
 const OfflineBanner: React.FC = () => {
-  const [isOffline, setIsOffline] = useState((window as any).OFFLINE_MODE === true);
+  const [isOffline, setIsOffline] = useState((window as Window & typeof globalThis & { OFFLINE_MODE?: boolean; OFFLINE_REASON?: string; _lastBakedIndex?: number; aistudio?: unknown }).OFFLINE_MODE === true);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setIsOffline((window as any).OFFLINE_MODE === true);
+      setIsOffline((window as Window & typeof globalThis & { OFFLINE_MODE?: boolean; OFFLINE_REASON?: string; _lastBakedIndex?: number; aistudio?: unknown }).OFFLINE_MODE === true);
     }, 2000);
     return () => clearInterval(interval);
   }, []);
@@ -46,7 +46,7 @@ const BootScreen: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
     ];
     let i = 0;
     const timer = setInterval(() => {
-      if (i < steps.length) {
+      if (i < (steps as { length: number }).length) {
         setProgress(steps[i].p);
         setStatus(steps[i].msg);
         i++;
@@ -94,7 +94,7 @@ const TopBar: React.FC<{
   onTabChange: (tab: NavTab) => void;
   onHubOpen: () => void;
 }> = ({ activeTab, onTabChange, onHubOpen }) => {
-  const isOffline = (window as any).OFFLINE_MODE === true;
+  const isOffline = (window as Window & typeof globalThis & { OFFLINE_MODE?: boolean; OFFLINE_REASON?: string; _lastBakedIndex?: number; aistudio?: unknown }).OFFLINE_MODE === true;
 
   const navItems: { id: NavTab; label: string }[] = [
     { id: 'hubb',       label: 'Hubb' },
@@ -125,10 +125,10 @@ const TopBar: React.FC<{
       <nav className="flex items-center gap-1 flex-1">
         {navItems.map(item => (
           <button
-            key={item.id}
-            onClick={() => onTabChange(item.id)}
+            key={(item as { id: string }).id}
+            onClick={() => onTabChange((item as { id: string }).id)}
             className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
-              activeTab === item.id
+              activeTab === (item as { id: string }).id
                 ? 'bg-slate-100 text-slate-900'
                 : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
             }`}
@@ -159,7 +159,7 @@ const DocumentDetailView: React.FC<{
   documentId: string;
   onBack: () => void;
 }> = ({ documentId, onBack }) => {
-  const [doc, setDoc] = useState<any>(null);
+  const [doc, setDoc] = useState<import("./types").StoredDocument | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -172,8 +172,8 @@ const DocumentDetailView: React.FC<{
         const found = await db.getDocument(documentId);
         if (found) setDoc(found);
         else setError('Ärendet hittades inte i databasen.');
-      } catch (e: any) {
-        setError(`Kunde inte ladda ärendet: ${e.message}`);
+      } catch (e) {
+        setError(`Kunde inte ladda ärendet: ${(e as Error).message}`);
       } finally {
         setLoading(false);
       }
@@ -208,9 +208,9 @@ const DocumentDetailView: React.FC<{
   }
 
   const analysis = doc.analysis || {};
-  const facts = analysis.facts || [];
-  const contradictions = analysis.contradictions || [];
-  const legalRefs = analysis.legalReferences || [];
+  const facts = (analysis as { facts: unknown[] }).facts || [];
+  const contradictions = (analysis as { contradictions: unknown[] }).contradictions || [];
+  const legalRefs = (analysis as { legalReferences: unknown[] }).legalReferences || [];
 
   return (
     <div className="max-w-5xl mx-auto p-6">
@@ -222,9 +222,9 @@ const DocumentDetailView: React.FC<{
           ← Tillbaka
         </button>
         <div className="flex-1">
-          <h1 className="text-xl font-bold text-slate-900 truncate">{doc.name}</h1>
+          <h1 className="text-xl font-bold text-slate-900 truncate">{(doc as { name: string }).name}</h1>
           <div className="flex items-center gap-3 mt-1">
-            <span className="text-xs text-slate-400 font-mono">ID: {doc.id}</span>
+            <span className="text-xs text-slate-400 font-mono">ID: {(doc as { id: string }).id}</span>
             <span className="text-xs text-slate-400">{new Date(doc.createdAt).toLocaleString('sv-SE')}</span>
           </div>
         </div>
@@ -233,9 +233,9 @@ const DocumentDetailView: React.FC<{
       {/* Statistik */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
         {[
-          { label: 'Faktaatomer',   value: facts.length,          color: 'text-blue-600' },
-          { label: 'Motsägelser',   value: contradictions.length, color: contradictions.length > 0 ? 'text-red-600' : 'text-emerald-600' },
-          { label: 'Lagkopplingar', value: legalRefs.length,      color: 'text-indigo-600' },
+          { label: 'Faktaatomer',   value: (facts as { length: number }).length,          color: 'text-blue-600' },
+          { label: 'Motsägelser',   value: (contradictions as { length: number }).length, color: (contradictions as { length: number }).length > 0 ? 'text-red-600' : 'text-emerald-600' },
+          { label: 'Lagkopplingar', value: (legalRefs as { length: number }).length,      color: 'text-indigo-600' },
           { label: 'Tecken',        value: (doc.textContent?.length || 0).toLocaleString('sv-SE'), color: 'text-slate-600' },
         ].map(m => (
           <div key={m.label} className="bg-white border border-slate-200 rounded-xl p-3">
@@ -246,24 +246,24 @@ const DocumentDetailView: React.FC<{
       </div>
 
       {/* Faktaatomer */}
-      {facts.length > 0 && (
+      {(facts as { length: number }).length > 0 && (
         <div className="bg-white border border-slate-200 rounded-xl p-4 mb-4">
           <h3 className="text-sm font-semibold text-slate-700 mb-3 flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-blue-500 inline-block" />
-            Faktaatomer ({facts.length})
+            Faktaatomer ({(facts as { length: number }).length})
           </h3>
           <div className="space-y-2 max-h-64 overflow-y-auto">
-            {facts.map((f: any, i: number) => (
-              <div key={f.id || i} className="p-3 bg-slate-50 rounded-lg border border-slate-100">
+            {facts.map((f: import("../types").FactV2, i: number) => (
+              <div key={(f as { id: string }).id || i} className="p-3 bg-slate-50 rounded-lg border border-slate-100">
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="text-[10px] font-mono text-slate-400">{f.id || `FACT-${i}`}</span>
+                  <span className="text-[10px] font-mono text-slate-400">{(f as { id: string }).id || `FACT-${i}`}</span>
                   {f.category && (
                     <span className="text-[9px] bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded-full font-semibold">{f.category}</span>
                   )}
                 </div>
                 <p className="text-xs text-slate-700 leading-relaxed">{f.statement}</p>
-                {f.source?.location && (
-                  <p className="text-[10px] text-slate-400 mt-1">Källa: {f.source.location}</p>
+                {(f as { source: unknown }).source?.location && (
+                  <p className="text-[10px] text-slate-400 mt-1">Källa: {(f as { source: unknown }).source.location}</p>
                 )}
               </div>
             ))}
@@ -272,15 +272,15 @@ const DocumentDetailView: React.FC<{
       )}
 
       {/* Motsägelser */}
-      {contradictions.length > 0 && (
+      {(contradictions as { length: number }).length > 0 && (
         <div className="bg-white border border-red-100 rounded-xl p-4 mb-4">
           <h3 className="text-sm font-semibold text-red-700 mb-3 flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-red-500 inline-block" />
-            Motsägelser ({contradictions.length})
+            Motsägelser ({(contradictions as { length: number }).length})
           </h3>
           <div className="space-y-2">
-            {contradictions.map((c: any, i: number) => (
-              <div key={c.id || i} className="p-3 bg-red-50 rounded-lg border border-red-100">
+            {contradictions.map((c: import("../types").ContradictionV2, i: number) => (
+              <div key={(c as { id: string }).id || i} className="p-3 bg-red-50 rounded-lg border border-red-100">
                 <div className="flex items-center gap-2 mb-1">
                   <span className={`text-[9px] font-semibold px-1.5 py-0.5 rounded-full ${
                     c.severity === 'hög' ? 'bg-red-200 text-red-800'
@@ -297,16 +297,16 @@ const DocumentDetailView: React.FC<{
       )}
 
       {/* Lagkopplingar */}
-      {legalRefs.length > 0 && (
+      {(legalRefs as { length: number }).length > 0 && (
         <div className="bg-white border border-slate-200 rounded-xl p-4 mb-4">
           <h3 className="text-sm font-semibold text-slate-700 mb-3 flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-indigo-500 inline-block" />
-            Lagkopplingar ({legalRefs.length})
+            Lagkopplingar ({(legalRefs as { length: number }).length})
           </h3>
           <div className="flex flex-wrap gap-2">
-            {legalRefs.map((ref: any, i: number) => (
-              <span key={ref.id || i} className="text-xs bg-indigo-50 text-indigo-700 border border-indigo-100 px-2 py-1 rounded-lg font-mono">
-                {ref.rawText || ref.source || ref.id}
+            {legalRefs.map((ref: import("../types").FactV2, i: number) => (
+              <span key={(ref as { id: string }).id || i} className="text-xs bg-indigo-50 text-indigo-700 border border-indigo-100 px-2 py-1 rounded-lg font-mono">
+                {ref.rawText || (ref as { source: unknown }).source || (ref as { id: string }).id}
               </span>
             ))}
           </div>
@@ -321,7 +321,7 @@ const DocumentDetailView: React.FC<{
             Dokumenttext (utdrag)
           </h3>
           <pre className="text-xs text-slate-600 leading-relaxed whitespace-pre-wrap font-sans bg-slate-50 rounded-lg p-3 max-h-48 overflow-y-auto">
-            {doc.textContent.substring(0, 1500)}{doc.textContent.length > 1500 ? '\n...' : ''}
+            {doc.textContent.substring(0, 1500)}{doc.(textContent as { length: number }).length > 1500 ? '\n...' : ''}
           </pre>
         </div>
       )}
@@ -335,7 +335,7 @@ const DocumentDetailView: React.FC<{
 //  kopplar onSelect → handleDocumentSelect
 // ─────────────────────────────────────────────
 const ArkivWrapper: React.FC<{ onDocumentSelect: (id: string) => void }> = ({ onDocumentSelect }) => {
-  const [Comp, setComp] = useState<React.ComponentType<any> | null>(null);
+  const [Comp, setComp] = useState<React.ComponentType<unknown> | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -343,7 +343,7 @@ const ArkivWrapper: React.FC<{ onDocumentSelect: (id: string) => void }> = ({ on
       .then(mod => setComp(() => mod.default))
       .catch(err => {
         console.error('Kunde inte ladda ArchiveView:', err);
-        setLoadError(err.message);
+        setLoadError((err as Error).message);
       });
   }, []);
 
@@ -383,7 +383,7 @@ const ArkivWrapper: React.FC<{ onDocumentSelect: (id: string) => void }> = ({ on
 //  HUBB-VY  (oförändrad)
 // ─────────────────────────────────────────────
 const HubbView: React.FC<{ onModuleOpen: (mod: string) => void }> = ({ onModuleOpen }) => {
-  const isOffline = (window as any).OFFLINE_MODE === true;
+  const isOffline = (window as Window & typeof globalThis & { OFFLINE_MODE?: boolean; OFFLINE_REASON?: string; _lastBakedIndex?: number; aistudio?: unknown }).OFFLINE_MODE === true;
 
   const modules = [
     { id: 'ekonomi',    label: 'Ekonomisk Motor',          desc: 'Hantera betalningar, fakturor och skadeståndskrav med AI-precision.',  color: 'bg-emerald-50 border-emerald-200', tag: 'EXPERTIS',   tagColor: 'bg-emerald-100 text-emerald-700', requiresApi: false },
@@ -444,7 +444,7 @@ const HubbView: React.FC<{ onModuleOpen: (mod: string) => void }> = ({ onModuleO
           { icon: '🛡',  title: 'Integritetskontroll',  sub: 'VERIFIERA FORENSISK KEDJA',  id: 'integritet' },
           { icon: '📈', title: 'Systemtelemetri',        sub: 'MONITORERA AI-NODER',         id: 'monitor' },
         ].map(item => (
-          <button key={item.id} onClick={() => onModuleOpen(item.id)}
+          <button key={(item as { id: string }).id} onClick={() => onModuleOpen((item as { id: string }).id)}
             className="bg-white border border-slate-200 rounded-xl p-4 flex items-center gap-3 hover:border-blue-300 hover:bg-blue-50 transition-all text-left">
             <span className="text-2xl">{item.icon}</span>
             <div>
@@ -460,7 +460,7 @@ const HubbView: React.FC<{ onModuleOpen: (mod: string) => void }> = ({ onModuleO
         {modules.map(mod => {
           const disabled = isOffline && mod.requiresApi;
           return (
-            <button key={mod.id} onClick={() => !disabled && onModuleOpen(mod.id)} disabled={disabled}
+            <button key={(mod as { id: string }).id} onClick={() => !disabled && onModuleOpen((mod as { id: string }).id)} disabled={disabled}
               className={`border rounded-xl p-4 text-left transition-all ${mod.color} ${disabled ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-md hover:-translate-y-0.5 cursor-pointer'}`}>
               <div className="flex items-center justify-between mb-3">
                 <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${mod.tagColor}`}>{mod.tag}</span>
@@ -487,7 +487,7 @@ const EkonomiView: React.FC = () => {
   const [showNyFaktura, setShowNyFaktura] = useState(false);
   const [showNyBetalning, setShowNyBetalning] = useState(false);
   const [showNyttKrav, setShowNyttKrav] = useState(false);
-  const [fakturor, setFakturor] = useState<any[]>([]);
+  const [fakturor, setFakturor] = useState<Array<{kundnamn: string, forfallodatum: string, belopp: string}>>([]);
   const [betalningar, setBetalningar] = useState([
     { id: 1, mottagare: 'Advokatbyrå X', datum: '2026-03-10', belopp: 5000 },
     { id: 2, mottagare: 'Domstolsverket', datum: '2026-03-25', belopp: 1200 },
@@ -530,8 +530,8 @@ const EkonomiView: React.FC = () => {
       </div>
       <div className="flex gap-1 mb-6 bg-slate-100 rounded-lg p-1">
         {tabs.map(t => (
-          <button key={t.id} onClick={() => setActiveTab(t.id as any)}
-            className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors flex-1 ${activeTab === t.id ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}>
+          <button key={(t as { id: string }).id} onClick={() => setActiveTab((t as { id: string }).id as "oversikt" | "betalningar" | "fakturor" | "skadestand" | "budget")}
+            className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors flex-1 ${activeTab === (t as { id: string }).id ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}>
             {t.label}
           </button>
         ))}
@@ -544,7 +544,7 @@ const EkonomiView: React.FC = () => {
             <p className="text-xs text-slate-400 mb-4">Realtidsanalys av pågående rättsliga processer och budgetstatus.</p>
             <div className="space-y-2">
               {krav.map(k => (
-                <div key={k.id} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                <div key={(k as { id: string }).id} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
                   <div><div className="text-sm font-medium text-slate-900">{k.karande} vs {k.svarande}</div><div className="text-xs text-slate-400">Skadestånd</div></div>
                   <div className="text-right"><div className="text-sm font-semibold text-slate-900">{k.belopp.toLocaleString('sv-SE')} kr</div><div className="text-xs text-slate-400">{k.status}</div></div>
                 </div>
@@ -554,7 +554,7 @@ const EkonomiView: React.FC = () => {
           <div className="bg-white border border-slate-200 rounded-xl p-4">
             <h3 className="text-sm font-semibold text-slate-700 mb-3">Senaste Betalningar</h3>
             {betalningar.map(b => (
-              <div key={b.id} className="flex justify-between items-center py-2 border-b border-slate-100 last:border-0">
+              <div key={(b as { id: string }).id} className="flex justify-between items-center py-2 border-b border-slate-100 last:border-0">
                 <div><div className="text-sm font-medium text-slate-900">{b.mottagare}</div><div className="text-xs text-slate-400">{b.datum}</div></div>
                 <div className="text-sm font-semibold text-slate-900">{b.belopp.toLocaleString('sv-SE')} kr</div>
               </div>
@@ -572,10 +572,10 @@ const EkonomiView: React.FC = () => {
             <h3 className="text-sm font-semibold text-slate-700">Betalningshistorik</h3>
             <button onClick={() => setShowNyBetalning(true)} className="text-xs bg-blue-600 text-white px-3 py-1.5 rounded-lg hover:bg-blue-700 transition-colors">+ Ny Betalning</button>
           </div>
-          {betalningar.length === 0
+          {(betalningar as { length: number }).length === 0
             ? <p className="text-xs text-slate-400 text-center py-8">Inga betalningar registrerade.</p>
             : betalningar.map(b => (
-              <div key={b.id} className="flex justify-between items-center py-3 border-b border-slate-100 last:border-0">
+              <div key={(b as { id: string }).id} className="flex justify-between items-center py-3 border-b border-slate-100 last:border-0">
                 <div><div className="text-sm font-medium text-slate-900">{b.mottagare}</div><div className="text-xs text-slate-400">{b.datum}</div></div>
                 <div className="text-sm font-semibold text-emerald-600">{b.belopp.toLocaleString('sv-SE')} kr</div>
               </div>
@@ -590,7 +590,7 @@ const EkonomiView: React.FC = () => {
             <h3 className="text-sm font-semibold text-slate-700">Fakturahantering</h3>
             <button onClick={() => setShowNyFaktura(true)} className="text-xs bg-blue-600 text-white px-3 py-1.5 rounded-lg hover:bg-blue-700 transition-colors">+ Ny Faktura</button>
           </div>
-          {fakturor.length === 0 ? (
+          {(fakturor as { length: number }).length === 0 ? (
             <div className="text-center py-8">
               <div className="text-3xl mb-2">📄</div>
               <p className="text-xs text-slate-400">Inga fakturor skapade ännu.</p>
@@ -612,7 +612,7 @@ const EkonomiView: React.FC = () => {
             <button onClick={() => setShowNyttKrav(true)} className="text-xs bg-blue-600 text-white px-3 py-1.5 rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-1">+ Nytt Krav</button>
           </div>
           {krav.map(k => (
-            <div key={k.id} className="bg-white border border-slate-200 rounded-xl p-4">
+            <div key={(k as { id: string }).id} className="bg-white border border-slate-200 rounded-xl p-4">
               <div className="flex justify-between items-start mb-3">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
@@ -645,7 +645,7 @@ const EkonomiView: React.FC = () => {
                   <div className="text-[10px] text-slate-400 uppercase mb-2">Juridisk Grund & Analys</div>
                   <div className="text-[10px] text-blue-600 font-medium mb-2">AI-Legal Analys</div>
                   <div className="text-[10px] text-slate-500">
-                    {(window as any).OFFLINE_MODE ? 'AI-analys ej tillgänglig i offline-läge.' : 'Klicka "Uppdatera Analys" för att generera AI-bedömning.'}
+                    {(window as Window & typeof globalThis & { OFFLINE_MODE?: boolean; OFFLINE_REASON?: string; _lastBakedIndex?: number; aistudio?: unknown }).OFFLINE_MODE ? 'AI-analys ej tillgänglig i offline-läge.' : 'Klicka "Uppdatera Analys" för att generera AI-bedömning.'}
                   </div>
                 </div>
               </div>
@@ -687,25 +687,25 @@ const EkonomiView: React.FC = () => {
             <div className="space-y-4">
               <div>
                 <label className="text-xs font-medium text-slate-600 uppercase tracking-wide block mb-1">Kundnamn</label>
-                <input className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-400" placeholder="Kundens fullständiga namn" value={nyFaktura.kundnamn} onChange={e => setNyFaktura(p => ({ ...p, kundnamn: e.target.value }))} />
+                <input className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-400" placeholder="Kundens fullständiga namn" value={nyFaktura.kundnamn} onChange={e => setNyFaktura(p => ({ ...(p as {}), kundnamn: e.target.value }))} />
                 <p className="text-[10px] text-slate-400 mt-1">Namnet på den kund som faktureras.</p>
               </div>
               <div>
                 <label className="text-xs font-medium text-slate-600 uppercase tracking-wide block mb-1">Förfallodatum</label>
-                <input type="date" className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-400" value={nyFaktura.forfallodatum} onChange={e => setNyFaktura(p => ({ ...p, forfallodatum: e.target.value }))} />
+                <input type="date" className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-400" value={nyFaktura.forfallodatum} onChange={e => setNyFaktura(p => ({ ...(p as {}), forfallodatum: e.target.value }))} />
                 <p className="text-[10px] text-slate-400 mt-1">Sista dagen för kunden att betala fakturan.</p>
               </div>
               <div>
                 <label className="text-xs font-medium text-slate-600 uppercase tracking-wide block mb-1">Totalbelopp (inkl. moms)</label>
                 <div className="relative">
-                  <input type="number" className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm pr-12 focus:outline-none focus:border-blue-400" placeholder="0.00" value={nyFaktura.belopp} onChange={e => setNyFaktura(p => ({ ...p, belopp: e.target.value }))} />
+                  <input type="number" className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm pr-12 focus:outline-none focus:border-blue-400" placeholder="0.00" value={nyFaktura.belopp} onChange={e => setNyFaktura(p => ({ ...(p as {}), belopp: e.target.value }))} />
                   <span className="absolute right-3 top-2 text-xs text-slate-400">SEK</span>
                 </div>
               </div>
             </div>
             <div className="flex gap-3 mt-6">
               <button onClick={() => setShowNyFaktura(false)} className="flex-1 border border-slate-200 rounded-lg py-2 text-sm text-slate-600 hover:bg-slate-50 transition-colors">Avbryt</button>
-              <button onClick={() => { if (nyFaktura.kundnamn && nyFaktura.belopp) { setFakturor(p => [...p, { ...nyFaktura }]); setNyFaktura({ kundnamn: '', forfallodatum: '', belopp: '' }); setShowNyFaktura(false); } }} className="flex-1 bg-emerald-600 text-white rounded-lg py-2 text-sm font-medium hover:bg-emerald-700 transition-colors">✓ Skapa Faktura</button>
+              <button onClick={() => { if (nyFaktura.kundnamn && nyFaktura.belopp) { setFakturor(p => [...(p as {}), { ...nyFaktura }]); setNyFaktura({ kundnamn: '', forfallodatum: '', belopp: '' }); setShowNyFaktura(false); } }} className="flex-1 bg-emerald-600 text-white rounded-lg py-2 text-sm font-medium hover:bg-emerald-700 transition-colors">✓ Skapa Faktura</button>
             </div>
           </div>
         </div>
@@ -722,24 +722,24 @@ const EkonomiView: React.FC = () => {
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="text-xs font-medium text-slate-600 uppercase tracking-wide block mb-1">Mottagare</label>
-                  <input className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-400" placeholder="T.ex. Juridisk person..." value={nyBetalning.mottagare} onChange={e => setNyBetalning(p => ({ ...p, mottagare: e.target.value }))} />
+                  <input className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-400" placeholder="T.ex. Juridisk person..." value={nyBetalning.mottagare} onChange={e => setNyBetalning(p => ({ ...(p as {}), mottagare: e.target.value }))} />
                 </div>
                 <div>
                   <label className="text-xs font-medium text-slate-600 uppercase tracking-wide block mb-1">Belopp (brutto)</label>
                   <div className="relative">
-                    <input type="number" className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm pr-12 focus:outline-none focus:border-blue-400" placeholder="0.00" value={nyBetalning.belopp} onChange={e => setNyBetalning(p => ({ ...p, belopp: e.target.value }))} />
+                    <input type="number" className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm pr-12 focus:outline-none focus:border-blue-400" placeholder="0.00" value={nyBetalning.belopp} onChange={e => setNyBetalning(p => ({ ...(p as {}), belopp: e.target.value }))} />
                     <span className="absolute right-3 top-2 text-xs text-slate-400">SEK</span>
                   </div>
                 </div>
               </div>
               <div>
                 <label className="text-xs font-medium text-slate-600 uppercase tracking-wide block mb-1">Ändamål / Beskrivning</label>
-                <textarea className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-400 h-20 resize-none" placeholder="T.ex. Betalning av faktura #12345..." value={nyBetalning.andamal} onChange={e => setNyBetalning(p => ({ ...p, andamal: e.target.value }))} />
+                <textarea className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-400 h-20 resize-none" placeholder="T.ex. Betalning av faktura #12345..." value={nyBetalning.andamal} onChange={e => setNyBetalning(p => ({ ...(p as {}), andamal: e.target.value }))} />
               </div>
             </div>
             <div className="flex gap-3 mt-6">
               <button onClick={() => setShowNyBetalning(false)} className="flex-1 border border-slate-200 rounded-lg py-2 text-sm text-slate-600 hover:bg-slate-50 transition-colors">Avbryt</button>
-              <button onClick={() => { if (nyBetalning.mottagare && nyBetalning.belopp) { setBetalningar(p => [...p, { id: Date.now(), mottagare: nyBetalning.mottagare, datum: new Date().toISOString().slice(0,10), belopp: parseFloat(nyBetalning.belopp) }]); setNyBetalning({ mottagare: '', belopp: '', andamal: '' }); setShowNyBetalning(false); } }} className="flex-1 bg-blue-600 text-white rounded-lg py-2 text-sm font-medium hover:bg-blue-700 transition-colors">✓ Spara Betalning</button>
+              <button onClick={() => { if (nyBetalning.mottagare && nyBetalning.belopp) { setBetalningar(p => [...(p as {}), { id: Date.now(), mottagare: nyBetalning.mottagare, datum: new Date().toISOString().slice(0,10), belopp: parseFloat(nyBetalning.belopp) }]); setNyBetalning({ mottagare: '', belopp: '', andamal: '' }); setShowNyBetalning(false); } }} className="flex-1 bg-blue-600 text-white rounded-lg py-2 text-sm font-medium hover:bg-blue-700 transition-colors">✓ Spara Betalning</button>
             </div>
           </div>
         </div>
@@ -756,36 +756,36 @@ const EkonomiView: React.FC = () => {
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="text-xs font-medium text-slate-600 uppercase tracking-wide block mb-1">Kärande</label>
-                  <input className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-400" placeholder="Vem ställer kravet?" value={nyttKrav.karande} onChange={e => setNyttKrav(p => ({ ...p, karande: e.target.value }))} />
+                  <input className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-400" placeholder="Vem ställer kravet?" value={nyttKrav.karande} onChange={e => setNyttKrav(p => ({ ...(p as {}), karande: e.target.value }))} />
                 </div>
                 <div>
                   <label className="text-xs font-medium text-slate-600 uppercase tracking-wide block mb-1">Svarande</label>
-                  <input className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-400" placeholder="Vem riktas kravet mot?" value={nyttKrav.svarande} onChange={e => setNyttKrav(p => ({ ...p, svarande: e.target.value }))} />
+                  <input className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-400" placeholder="Vem riktas kravet mot?" value={nyttKrav.svarande} onChange={e => setNyttKrav(p => ({ ...(p as {}), svarande: e.target.value }))} />
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="text-xs font-medium text-slate-600 uppercase tracking-wide block mb-1">Typ av krav</label>
-                  <select className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-400" value={nyttKrav.typ} onChange={e => setNyttKrav(p => ({ ...p, typ: e.target.value }))}>
+                  <select className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-400" value={nyttKrav.typ} onChange={e => setNyttKrav(p => ({ ...(p as {}), typ: e.target.value }))}>
                     <option>Statligt Skadestånd</option><option>Privat Skadestånd</option><option>Kränkningsersättning</option><option>Sakskada</option>
                   </select>
                 </div>
                 <div>
                   <label className="text-xs font-medium text-slate-600 uppercase tracking-wide block mb-1">Estimerat belopp</label>
                   <div className="relative">
-                    <input type="number" className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm pr-12 focus:outline-none focus:border-blue-400" placeholder="0.00" value={nyttKrav.belopp} onChange={e => setNyttKrav(p => ({ ...p, belopp: e.target.value }))} />
+                    <input type="number" className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm pr-12 focus:outline-none focus:border-blue-400" placeholder="0.00" value={nyttKrav.belopp} onChange={e => setNyttKrav(p => ({ ...(p as {}), belopp: e.target.value }))} />
                     <span className="absolute right-3 top-2 text-xs text-slate-400">SEK</span>
                   </div>
                 </div>
               </div>
               <div>
                 <label className="text-xs font-medium text-slate-600 uppercase tracking-wide block mb-1">Händelsebeskrivning & Grund</label>
-                <textarea className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-400 h-24 resize-none" placeholder="Beskriv händelsen, tidpunkt och den juridiska grunden för kravet..." value={nyttKrav.beskrivning} onChange={e => setNyttKrav(p => ({ ...p, beskrivning: e.target.value }))} />
+                <textarea className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-400 h-24 resize-none" placeholder="Beskriv händelsen, tidpunkt och den juridiska grunden för kravet..." value={nyttKrav.beskrivning} onChange={e => setNyttKrav(p => ({ ...(p as {}), beskrivning: e.target.value }))} />
               </div>
             </div>
             <div className="flex gap-3 mt-6">
               <button onClick={() => setShowNyttKrav(false)} className="flex-1 border border-slate-200 rounded-lg py-2 text-sm text-slate-600 hover:bg-slate-50 transition-colors">Avbryt</button>
-              <button onClick={() => { if (nyttKrav.karande && nyttKrav.svarande && nyttKrav.belopp) { setKrav(p => [...p, { id: Date.now(), karande: nyttKrav.karande, svarande: nyttKrav.svarande, typ: nyttKrav.typ, belopp: parseFloat(nyttKrav.belopp), sannolikhet: 50, status: 'INLÄMNAD', komponenter: [] }]); setNyttKrav({ karande: '', svarande: '', typ: 'Statligt Skadestånd', belopp: '', beskrivning: '' }); setShowNyttKrav(false); } }} className="flex-1 bg-blue-600 text-white rounded-lg py-2 text-sm font-medium hover:bg-blue-700 transition-colors">✓ Registrera Krav</button>
+              <button onClick={() => { if (nyttKrav.karande && nyttKrav.svarande && nyttKrav.belopp) { setKrav(p => [...(p as {}), { id: Date.now(), karande: nyttKrav.karande, svarande: nyttKrav.svarande, typ: nyttKrav.typ, belopp: parseFloat(nyttKrav.belopp), sannolikhet: 50, status: 'INLÄMNAD', komponenter: [] }]); setNyttKrav({ karande: '', svarande: '', typ: 'Statligt Skadestånd', belopp: '', beskrivning: '' }); setShowNyttKrav(false); } }} className="flex-1 bg-blue-600 text-white rounded-lg py-2 text-sm font-medium hover:bg-blue-700 transition-colors">✓ Registrera Krav</button>
             </div>
           </div>
         </div>
@@ -798,7 +798,7 @@ const EkonomiView: React.FC = () => {
 //  ANALYS-VY  (oförändrad)
 // ─────────────────────────────────────────────
 const AnalysView: React.FC = () => {
-  const isOffline = (window as any).OFFLINE_MODE === true;
+  const isOffline = (window as Window & typeof globalThis & { OFFLINE_MODE?: boolean; OFFLINE_REASON?: string; _lastBakedIndex?: number; aistudio?: unknown }).OFFLINE_MODE === true;
   return (
     <div className="p-6 max-w-5xl mx-auto">
       <h1 className="text-xl font-bold text-slate-900 mb-1">Analys & Utredning</h1>
@@ -824,7 +824,7 @@ const AnalysView: React.FC = () => {
 //  BESLUT-VY  (oförändrad)
 // ─────────────────────────────────────────────
 const BeslutView: React.FC = () => {
-  const isOffline = (window as any).OFFLINE_MODE === true;
+  const isOffline = (window as Window & typeof globalThis & { OFFLINE_MODE?: boolean; OFFLINE_REASON?: string; _lastBakedIndex?: number; aistudio?: unknown }).OFFLINE_MODE === true;
   const [fraga, setFraga] = useState('');
   return (
     <div className="p-6 max-w-3xl mx-auto">
@@ -844,7 +844,7 @@ const BeslutView: React.FC = () => {
 //  PRODUKTION-VY  (oförändrad)
 // ─────────────────────────────────────────────
 const ProduktionView: React.FC = () => {
-  const isOffline = (window as any).OFFLINE_MODE === true;
+  const isOffline = (window as Window & typeof globalThis & { OFFLINE_MODE?: boolean; OFFLINE_REASON?: string; _lastBakedIndex?: number; aistudio?: unknown }).OFFLINE_MODE === true;
   return (
     <div className="p-6 max-w-5xl mx-auto">
       <h1 className="text-xl font-bold text-slate-900 mb-1">Juridisk Textproduktion</h1>
@@ -881,7 +881,7 @@ const App: React.FC = () => {
   const [selectedDocId, setSelectedDocId] = useState<string | null>(null);
 
   const handleBoot = useCallback(() => setBooted(true), []);
-  const isOffline = (window as any).OFFLINE_MODE === true;
+  const isOffline = (window as Window & typeof globalThis & { OFFLINE_MODE?: boolean; OFFLINE_REASON?: string; _lastBakedIndex?: number; aistudio?: unknown }).OFFLINE_MODE === true;
   const topOffset = isOffline ? 'mt-[88px]' : 'mt-14';
 
   // NY: byt flik och rensa valt dokument
@@ -981,14 +981,14 @@ const App: React.FC = () => {
                     {grupp.items.map(mod => {
                       const disabled = isOffline && mod.requiresApi;
                       return (
-                        <button key={mod.id} disabled={disabled}
-                          onClick={() => { handleTabChange(mod.id as NavTab); setHubOpen(false); }}
+                        <button key={(mod as { id: string }).id} disabled={disabled}
+                          onClick={() => { handleTabChange((mod as { id: string }).id as NavTab); setHubOpen(false); }}
                           className={`border rounded-xl p-3 text-left transition-all ${disabled ? 'border-slate-100 bg-slate-50 opacity-50 cursor-not-allowed' : 'border-slate-200 bg-white hover:border-blue-300 hover:shadow-md cursor-pointer'}`}>
                           <div className="flex items-center justify-between mb-2">
                             <span className="text-[9px] text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded-full font-semibold">{disabled ? 'OFFLINE' : '● ACTIVE'}</span>
                             <span className="text-[9px] text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded-full">{grupp.label}</span>
                           </div>
-                          <div className="text-sm font-semibold text-slate-900 mb-1">{mod.name}</div>
+                          <div className="text-sm font-semibold text-slate-900 mb-1">{(mod as { name: string }).name}</div>
                           <div className="text-[10px] text-slate-400 leading-relaxed">{mod.desc}</div>
                           {!disabled && <div className="mt-2 text-[10px] text-blue-500 font-medium">ÖPPNA MODUL +</div>}
                         </button>

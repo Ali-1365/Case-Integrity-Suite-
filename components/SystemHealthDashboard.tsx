@@ -52,7 +52,7 @@ const SystemHealthDashboard: React.FC<SystemHealthDashboardProps> = ({ isOpen, o
   const [activeTab, setActiveTab] = useState<'overview' | 'api' | 'resources' | 'integrity'>('overview');
   const [integrityResults, setIntegrityResults] = useState<{file: string, status: 'ok' | 'error', message?: string}[]>([]);
   const [isCheckingIntegrity, setIsCheckingIntegrity] = useState(false);
-  const [isUsingFallback, setIsUsingFallback] = useState(corpusService.isUsingFallback || FULL_LEGAL_CORPUS.length > 0);
+  const [isUsingFallback, setIsUsingFallback] = useState(corpusService.isUsingFallback || (FULL_LEGAL_CORPUS as { length: number }).length > 0);
 
   // Mock data generation for demonstration if real history is sparse
   useEffect(() => {
@@ -101,7 +101,7 @@ const SystemHealthDashboard: React.FC<SystemHealthDashboardProps> = ({ isOpen, o
   const apiHealth = useMemo(() => {
     const recentLogs = logs.filter(l => Date.now() - new Date(l.timestamp).getTime() < 300000);
     const errors = recentLogs.filter(l => l.level === 'ERROR').length;
-    const total = recentLogs.length || 1;
+    const total = (recentLogs as { length: number }).length || 1;
     return Math.max(0, 100 - (errors / total) * 100);
   }, [logs]);
 
@@ -165,7 +165,7 @@ const SystemHealthDashboard: React.FC<SystemHealthDashboardProps> = ({ isOpen, o
             />
             <KPICard 
               title="API Latency" 
-              value={`${Math.round(metrics[metrics.length-1]?.apiLatency || 0)}ms`} 
+              value={`${Math.round(metrics[(metrics as { length: number }).length-1]?.apiLatency || 0)}ms`}
               trend="neutral"
               icon={<BoltIcon className="w-5 h-5 text-amber-400" />}
               color="amber"
@@ -241,7 +241,7 @@ const SystemHealthDashboard: React.FC<SystemHealthDashboardProps> = ({ isOpen, o
               </div>
               <div className="space-y-2 font-mono text-xs">
                 {logs.slice(0, 8).map(log => (
-                  <div key={log.id} className="flex items-center gap-4 p-3 bg-slate-900 rounded-lg border border-slate-800/50 hover:border-slate-700 transition-colors">
+                  <div key={(log as { id: string }).id} className="flex items-center gap-4 p-3 bg-slate-900 rounded-lg border border-slate-800/50 hover:border-slate-700 transition-colors">
                     <span className={`w-2 h-2 rounded-full ${log.level === 'ERROR' ? 'bg-red-500' : log.level === 'WARN' ? 'bg-amber-500' : 'bg-emerald-500'}`}></span>
                     <span className="text-slate-500">{new Date(log.timestamp).toLocaleTimeString()}</span>
                     <span className={`font-bold ${log.level === 'ERROR' ? 'text-red-400' : 'text-slate-300'}`}>{log.level}</span>
@@ -282,7 +282,7 @@ const SystemHealthDashboard: React.FC<SystemHealthDashboardProps> = ({ isOpen, o
                         await res.json();
                         results.push({ file, status: 'ok' as const });
                       } catch (e) {
-                        results.push({ file, status: 'error' as const, message: e instanceof Error ? e.message : String(e) });
+                        results.push({ file, status: 'error' as const, message: e instanceof Error ? (e as Error).message : String(e) });
                       }
                     }
                     setIntegrityResults(results);
@@ -308,7 +308,7 @@ const SystemHealthDashboard: React.FC<SystemHealthDashboardProps> = ({ isOpen, o
                     </span>
                   </div>
                 ))}
-                {integrityResults.length === 0 && !isCheckingIntegrity && (
+                {(integrityResults as { length: number }).length === 0 && !isCheckingIntegrity && (
                   <div className="col-span-full py-12 text-center opacity-20">
                     <DatabaseIcon className="w-12 h-12 mx-auto mb-4" />
                     <p className="text-sm font-bold uppercase tracking-widest">No diagnostic data available</p>

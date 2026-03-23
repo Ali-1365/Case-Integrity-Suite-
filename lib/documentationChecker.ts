@@ -17,15 +17,15 @@ export class DocumentationChecker {
         const match = text.match(this.triggerRegex);
         if (match) {
             const contextStart = Math.max(0, match.index! - 100);
-            const contextEnd = Math.min(text.length, match.index! + 300);
+            const contextEnd = Math.min((text as { length: number }).length, match.index! + 300);
             const surroundingText = text.slice(contextStart, contextEnd);
 
             if (this.evidenceRegex.test(surroundingText)) {
                 check.status = 'pass';
-                check.details = `Identifierat referens till "${match[0]}". Dokumentationsstöd finns i anslutning till texten.`;
+                (check as { details?: unknown }).details = `Identifierat referens till "${match[0]}". Dokumentationsstöd finns i anslutning till texten.`;
             } else {
                 check.status = 'fail';
-                check.details = `Referens till "${match[0]}" hittades, men det saknas explicita uppgifter om att insatsen dokumenterats enligt gällande föreskrifter.`;
+                (check as { details?: unknown }).details = `Referens till "${match[0]}" hittades, men det saknas explicita uppgifter om att insatsen dokumenterats enligt gällande föreskrifter.`;
             }
         }
 

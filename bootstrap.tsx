@@ -5,12 +5,12 @@ import { loggingService } from "./services/loggingService";
 
 // Sätt offline-läge som default — aktiveras om API saknas
 if (typeof window !== 'undefined') {
-  (window as any).OFFLINE_MODE = !import.meta.env.VITE_GEMINI_API_KEY && 
+  (window as Window & typeof globalThis & { OFFLINE_MODE?: boolean; OFFLINE_REASON?: string; _lastBakedIndex?: number; aistudio?: unknown }).OFFLINE_MODE = !import.meta.env.VITE_GEMINI_API_KEY &&
                                  !import.meta.env.GEMINI_API_KEY;
 
   // Ignorera WebSocket-fel helt — påverkar inte appen
   window.addEventListener('unhandledrejection', (event) => {
-    const reason = event.reason;
+    const reason = (event as { reason?: string }).reason;
     const message = typeof reason === 'string' ? reason : reason?.message ?? '';
     if (
       message.includes('WebSocket') ||
@@ -21,7 +21,7 @@ if (typeof window !== 'undefined') {
       event.preventDefault();
       return;
     }
-    loggingService.handleError(event.reason, "Unhandled Promise Rejection");
+    loggingService.handleError((event as { reason?: string }).reason, "Unhandled Promise Rejection");
   });
 
   window.addEventListener('error', (event) => {
@@ -36,7 +36,7 @@ if (typeof window !== 'undefined') {
 
 export function startApp() {
   const timestamp = new Date().toISOString();
-  const offlineMode = (window as any).OFFLINE_MODE;
+  const offlineMode = (window as Window & typeof globalThis & { OFFLINE_MODE?: boolean; OFFLINE_REASON?: string; _lastBakedIndex?: number; aistudio?: unknown }).OFFLINE_MODE;
 
   console.log(
     `%c Case Integrity Suite v1.0 %c ${offlineMode ? '⚠ OFFLINE-LÄGE' : 'Integrity Verified'} at ${timestamp}`,

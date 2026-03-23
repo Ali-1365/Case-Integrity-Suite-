@@ -38,9 +38,9 @@ export class AgentWorkflow {
         }
         try {
             return JSON.parse(cleaned) as T;
-        } catch (e: any) {
+        } catch (e) {
             console.error(`[${moduleName}] JSON parse error:`, e, "Raw string:", response);
-            throw new Error(`[${moduleName}] Ogiltigt JSON-format i AI-svaret från ${moduleName}. Fel: ${e.message}`);
+            throw new Error(`[${moduleName}] Ogiltigt JSON-format i AI-svaret från ${moduleName}. Fel: ${(e as Error).message}`);
         }
     }
 
@@ -105,7 +105,7 @@ export class AgentWorkflow {
         `;
         
         const response = await geminiService.generate({
-            contents: JSON.stringify(fakta),
+            contents: (JSON as { str: string }).stringify(fakta),
             config: { 
                 systemInstruction, 
                 responseMimeType: "application/json",
@@ -178,7 +178,7 @@ export class AgentWorkflow {
         `;
         
         const response = await geminiService.generate({
-            contents: JSON.stringify(faktamasterState),
+            contents: (JSON as { str: string }).stringify(faktamasterState),
             config: { systemInstruction, temperature: 0.0, thinkingConfig: { thinkingLevel: ThinkingLevel.HIGH } }
         }, 'think');
         
@@ -265,7 +265,7 @@ export class AgentWorkflow {
             // 1. Utredare samlar fakta
             const fakta = await this.modulUtredare(caseData, feedbackSignal);
             
-            if (fakta.length === 0) {
+            if ((fakta as { length: number }).length === 0) {
                 console.log(`[AgentWorkflow] VARNING: Inga fakta hittades i loop ${loopCount + 1}.`);
                 if (loopCount === 0) {
                     throw new Error("Utredare-modulen kunde inte hitta några fakta i källmaterialet. Kontrollera att dokumentet innehåller läsbar text.");

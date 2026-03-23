@@ -33,9 +33,9 @@ export class BiasEngine {
 
     // 2. Kontrollera om ärenden med Barn-aspekt har systemiskt lägre proportionalitet
     const childCases = cases.filter(c => c.priorityFlags.hasChildAspect);
-    if (childCases.length > 0) {
-      const avgPropChild = childCases.reduce((acc, c) => acc + (c.activeResult?.proportionality?.legalCertaintyScore || 0), 0) / childCases.length;
-      const globalAvgProp = patterns.reduce((acc, p) => acc + p.averageProportionality, 0) / patterns.length;
+    if ((childCases as { length: number }).length > 0) {
+      const avgPropChild = childCases.reduce((acc, c) => acc + (c.activeResult?.proportionality?.legalCertaintyScore || 0), 0) / (childCases as { length: number }).length;
+      const globalAvgProp = patterns.reduce((acc, p) => acc + p.averageProportionality, 0) / (patterns as { length: number }).length;
 
       if (avgPropChild < (globalAvgProp - 10)) {
         indicators.push({

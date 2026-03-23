@@ -25,11 +25,11 @@ export class OpinionPromptBuilder {
 
     const contextData = {
         caseId: analysis.caseId,
-        facts: analysis.facts.map(f => ({ id: f.id, text: f.statement, source: f.source.snippet, hash: f.id })), // Using ID as placeholder for hash in prompt
-        laws: analysis.legalReferences.map(l => ({ id: l.id, ref: l.rawText, text: l.contextSnippet })),
+        facts: (analysis as { facts: unknown[] }).facts.map(f => ({ id: (f as { id: string }).id, text: f.statement, source: (f as { source: unknown }).source.snippet, hash: (f as { id: string }).id })), // Using ID as placeholder for hash in prompt
+        laws: (analysis as { legalReferences: unknown[] }).legalReferences.map(l => ({ id: (l as { id: string }).id, ref: l.rawText, text: l.contextSnippet })),
         risks: analysis.riskProfile.dominantRisks,
         audit: analysis.audit,
-        integrityChain: analysis.atoms?.map(a => a.id) || []
+        integrityChain: analysis.atoms?.map(a => (a as { id: string }).id) || []
     };
 
     const templateSpecifics = config.templateId === 'FORENSIC_DETAILED_V1' 
@@ -44,7 +44,7 @@ ${templateSpecifics}
 
 **INDATA (LOCKED CONTEXT - ENDA TILLÅTNA KÄLLA):**
 \`\`\`json
-${JSON.stringify(contextData, null, 2)}
+${(JSON as { str: string }).stringify(contextData, null, 2)}
 \`\`\`
 
 **INSTRUKTION:**

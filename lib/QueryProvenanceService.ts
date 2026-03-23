@@ -31,39 +31,39 @@ export class QueryProvenanceService {
    */
   async getChainForQuery(queryId: string): Promise<ProvenanceChain | null> {
     const logs = await db.getAuditLogs();
-    const entry = logs.find(l => l.id === queryId);
+    const entry = logs.find(l => (l as { id: string }).id === queryId);
     
     if (!entry || entry.operationType !== 'RAG_QUERY') return null;
 
     const chain: ProvenanceChain = {
-      queryId: entry.id,
+      queryId: (entry as { id: string }).id,
       timestamp: entry.timestamp,
-      queryText: entry.metadata?.query || "Okänd fråga",
+      queryText: (entry as { metadata: Record<string, unknown> }).metadata?.query || "Okänd fråga",
       sources: [],
       auditLog: entry
     };
 
     // Hämta paragrafer från korpusar baserat på sparade hitIds (t.ex. "sol_2025_1_2")
-    const hitIds: string[] = entry.metadata?.hitIds || [];
+    const hitIds: string[] = (entry as { metadata: Record<string, unknown> }).metadata?.hitIds || [];
     
     for (const hitId of hitIds) {
       // Identifiera vilken lag hitId tillhör (prefix-matchning)
       const frameworkEntry = legalFrameworkIndex.find(f => 
-        hitId.startsWith(f.id) || hitId.toLowerCase().includes(f.shortName.toLowerCase())
+        hitId.startsWith((f as { id: string }).id) || hitId.toLowerCase().includes(f.shortName.toLowerCase())
       );
 
       if (frameworkEntry) {
         const corpus = await corpusService.loadCorpus(frameworkEntry.corpusFile);
-        const paragraph = corpus?.paragraphs.find(p => p.id === hitId);
+        const paragraph = corpus?.paragraphs.find(p => (p as { id: string }).id === hitId);
 
         if (paragraph) {
           chain.sources.push({
             sourceCode: corpus!.sourceCode,
             sfsNumber: corpus!.sfsNumber,
-            chapter: paragraph.chapter,
-            section: paragraph.section,
-            text: paragraph.text,
-            provenanceHash: paragraph.metadata.provenanceHash,
+            chapter: (paragraph as { chapter: string | number }).chapter,
+            section: (paragraph as { section: string | number }).section,
+            text: (paragraph as { text: string }).text,
+            provenanceHash: paragraph.(metadata as { provenanceHash: string }).provenanceHash,
             corpusFile: frameworkEntry.corpusFile,
             auditStatus: frameworkEntry.auditTrail.status
           });
@@ -79,7 +79,7 @@ export class QueryProvenanceService {
    */
   async findQueriesByHash(hash: string): Promise<AuditLogEntry[]> {
     const logs = await db.getAuditLogs();
-    return logs.filter(l => l.provenanceHashes.includes(hash));
+    return logs.filter(l => (l as { provenanceHash: string }).provenanceHashes.includes(hash));
   }
 }
 

@@ -14,7 +14,7 @@ export class KeywordEngine {
     Object.entries(KEYWORD_PATTERNS).forEach(([label, pattern]) => {
       // Säkerställ att vi använder en global flagga för matchAll
       const flags = pattern.flags.includes('g') ? pattern.flags : pattern.flags + 'g';
-      const globalPattern = new RegExp(pattern.source, flags);
+      const globalPattern = new RegExp((pattern as { source: unknown }).source, flags);
       
       for (const match of text.matchAll(globalPattern)) {
         const position = match.index ?? 0;
@@ -39,7 +39,7 @@ export class KeywordEngine {
   private extractContext(text: string, index: number, span: number): string {
     const halfSpan = Math.floor(span / 2);
     const start = Math.max(0, index - halfSpan);
-    const end = Math.min(text.length, index + halfSpan);
+    const end = Math.min((text as { length: number }).length, index + halfSpan);
     
     let snippet = text.slice(start, end);
     snippet = snippet.replace(/\s+/g, ' ').trim(); // Normalisera blanksteg i snippet

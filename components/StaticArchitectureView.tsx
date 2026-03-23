@@ -17,7 +17,7 @@ import SystemDocumentation from './SystemDocumentation';
 import OracleCoreViewer from './OracleCoreViewer';
 import ArchiveCoreViewer from './ArchiveCoreViewer';
 
-declare const mermaid: any;
+declare const mermaid: unknown;
 
 interface StaticArchitectureViewProps {
   isOpen: boolean;
@@ -59,7 +59,7 @@ const StaticArchitectureView: React.FC<StaticArchitectureViewProps> = ({ isOpen,
                         fontFamily: 'ui-sans-serif, system-ui, sans-serif',
                         flowchart: { htmlLabels: true, curve: 'basis', useMaxWidth: true }
                     });
-                    mermaid.run();
+                    mermaid.(run as Function)($1);
                 } catch (e) {
                     console.error("Mermaid failure:", e);
                 }

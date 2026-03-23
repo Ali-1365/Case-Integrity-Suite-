@@ -68,7 +68,7 @@ const ForensicAuditView: React.FC<ForensicAuditViewProps> = ({ analysis }) => {
                         </div>
                         <div className="flex justify-between items-center p-5 bg-slate-50 dark:bg-slate-800/40 rounded-2xl border border-slate-200 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-800 transition-all">
                             <span className="text-sm text-slate-500 dark:text-slate-400 font-bold uppercase tracking-widest">Immutable Log ID</span>
-                            <span className="text-xs font-black text-slate-400 dark:text-slate-500 tracking-widest uppercase">{analysis.id.substring(0,18)}</span>
+                            <span className="text-xs font-black text-slate-400 dark:text-slate-500 tracking-widest uppercase">{(analysis as { id: string }).id.substring(0,18)}</span>
                         </div>
                         <div className="flex justify-between items-center p-5 bg-slate-50 dark:bg-slate-800/40 rounded-2xl border border-slate-200 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-800 transition-all">
                             <span className="text-sm text-slate-500 dark:text-slate-400 font-bold uppercase tracking-widest">Verifieringstidpunkt</span>
@@ -92,7 +92,7 @@ const ForensicAuditView: React.FC<ForensicAuditViewProps> = ({ analysis }) => {
                     </div>
                     <div className="divide-y divide-slate-100 dark:divide-slate-800 max-h-[500px] overflow-y-auto">
                         {audit.checks.map(check => (
-                            <div key={check.id} className="p-8 flex items-start gap-6 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all group">
+                            <div key={(check as { id: string }).id} className="p-8 flex items-start gap-6 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all group">
                                 <div className={`p-2 rounded-xl flex-shrink-0 mt-1 ${check.status === 'ok' ? 'bg-emerald-500/10 text-emerald-500' : 'bg-rose-500/10 text-rose-500'}`}>
                                     {check.status === 'ok' ? (
                                         <CheckCircleIcon className="w-6 h-6" />
@@ -103,9 +103,9 @@ const ForensicAuditView: React.FC<ForensicAuditViewProps> = ({ analysis }) => {
                                 <div>
                                     <div className="flex items-center gap-3 mb-2">
                                         <p className="text-slate-900 dark:text-white font-black text-base tracking-tight">{check.label}</p>
-                                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">[{check.id}]</span>
+                                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">[{(check as { id: string }).id}]</span>
                                     </div>
-                                    <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed font-medium">{check.details}</p>
+                                    <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed font-medium">{(check as { details?: unknown }).details}</p>
                                 </div>
                             </div>
                         ))}
@@ -122,17 +122,17 @@ const ForensicAuditView: React.FC<ForensicAuditViewProps> = ({ analysis }) => {
                     </div>
                     <div className="p-8 space-y-8 flex-1 overflow-y-auto max-h-[500px]">
                         {analysis.documents.map(doc => {
-                            const docAtoms = analysis.atoms.filter(a => a.documentId === doc.id);
+                            const docAtoms = analysis.atoms.filter(a => a.documentId === (doc as { id: string }).id);
                             return (
-                                <div key={doc.id} className="space-y-6">
+                                <div key={(doc as { id: string }).id} className="space-y-6">
                                     <div className="flex items-center justify-between p-5 bg-slate-50 dark:bg-slate-800/40 rounded-2xl border border-slate-200 dark:border-slate-700">
                                         <div className="flex items-center gap-4">
                                             <div className="p-2 bg-slate-200 dark:bg-slate-700 rounded-lg text-slate-500 dark:text-slate-400">
                                                 <DocumentTextIcon className="w-5 h-5" />
                                             </div>
                                             <div>
-                                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Källdokument: ID: {doc.id}</p>
-                                                <p className="text-[10px] text-emerald-600 dark:text-emerald-400 font-black uppercase tracking-widest mt-1">Atomisering: {docAtoms.length} segment</p>
+                                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Källdokument: ID: {(doc as { id: string }).id}</p>
+                                                <p className="text-[10px] text-emerald-600 dark:text-emerald-400 font-black uppercase tracking-widest mt-1">Atomisering: {(docAtoms as { length: number }).length} segment</p>
                                             </div>
                                         </div>
                                         <div className="text-right">
@@ -143,21 +143,21 @@ const ForensicAuditView: React.FC<ForensicAuditViewProps> = ({ analysis }) => {
                                     
                                     <div className="space-y-4 pl-6 border-l-2 border-slate-100 dark:border-slate-800">
                                         {docAtoms.slice(0, 3).map(atom => (
-                                            <div key={atom.id} className="p-5 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 group hover:border-blue-500/30 transition-all shadow-sm">
+                                            <div key={(atom as { id: string }).id} className="p-5 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 group hover:border-blue-500/30 transition-all shadow-sm">
                                                 <div className="flex justify-between items-center mb-3">
-                                                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">ATOM-{atom.id.substring(0,8)}</span>
+                                                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">ATOM-{(atom as { id: string }).id.substring(0,8)}</span>
                                                     <span className="text-[9px] font-black text-emerald-500/60 group-hover:text-emerald-500 transition-colors uppercase tracking-widest">LÅST_HASH</span>
                                                 </div>
-                                                <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-2 italic mb-4 font-medium leading-relaxed">"{atom.text}"</p>
+                                                <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-2 italic mb-4 font-medium leading-relaxed">"{(atom as { text: string }).text}"</p>
                                                 <div className="flex items-center gap-3">
                                                     <div className="flex-1 h-[1px] bg-slate-100 dark:bg-slate-800"></div>
                                                     <span className="text-[8px] font-black text-slate-300 dark:text-slate-600 truncate max-w-[150px] uppercase tracking-widest">{atom.hash}</span>
                                                 </div>
                                             </div>
                                         ))}
-                                        {docAtoms.length > 3 && (
+                                        {(docAtoms as { length: number }).length > 3 && (
                                             <div className="text-center py-2">
-                                                <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest">... ytterligare {docAtoms.length - 3} segment SHA-256 signerade</p>
+                                                <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest">... ytterligare {(docAtoms as { length: number }).length - 3} segment SHA-256 signerade</p>
                                             </div>
                                         )}
                                     </div>

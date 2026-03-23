@@ -36,25 +36,25 @@ export class RagIndexService {
     const hashes: string[] = [];
 
     for (const corpus of corpora) {
-      affectedLaws.push(`${corpus.sourceCode} ${corpus.sfsNumber}`);
+      affectedLaws.push(`${(corpus as { sourceCode: string }).sourceCode} ${(corpus as { sfsNumber: string }).sfsNumber}`);
       for (const p of corpus.paragraphs) {
         const chunkText = this.prepareChunkText(corpus, p);
         try {
           const embedding = await geminiService.embed(chunkText);
           chunks.push({
-            id: p.id,
-            text: p.text,
-            section: p.section,
-            chapter: p.chapter,
-            sfsNumber: corpus.sfsNumber,
-            sourceCode: corpus.sourceCode,
-            provenanceHash: p.metadata.provenanceHash,
+            id: (p as { id: string }).id,
+            text: (p as { text: string }).text,
+            section: (p as { section: string | number }).section,
+            chapter: (p as { chapter: string | number }).chapter,
+            sfsNumber: (corpus as { sfsNumber: string }).sfsNumber,
+            sourceCode: (corpus as { sourceCode: string }).sourceCode,
+            provenanceHash: p.(metadata as { provenanceHash: string }).provenanceHash,
             versionChain: corpus.versionChain,
             embedding: embedding,
-            metadata: { title: corpus.title, validFrom: p.metadata.validFrom, auditStatus: "VERIFIED" }
+            metadata: { title: corpus.title, validFrom: (p as { metadata: Record<string, unknown> }).metadata.validFrom, auditStatus: "VERIFIED" }
           });
-          hashes.push(p.metadata.provenanceHash);
-        } catch (e) { console.error(`[RAG_INDEX] Failed paragraph ${p.id}:`, e); }
+          hashes.push(p.(metadata as { provenanceHash: string }).provenanceHash);
+        } catch (e) { console.error(`[RAG_INDEX] Failed paragraph ${(p as { id: string }).id}:`, e); }
       }
     }
 
@@ -65,7 +65,7 @@ export class RagIndexService {
       actor: 'SYSTEM',
       affectedLaws,
       provenanceHashes: hashes,
-      resultSummary: `RAG Index v${this.INDEX_VERSION} baked. ${chunks.length} chunks mapped to vector space.`,
+      resultSummary: `RAG Index v${this.INDEX_VERSION} baked. ${(chunks as { length: number }).length} chunks mapped to vector space.`,
       status: 'OK'
     });
 
@@ -73,26 +73,26 @@ export class RagIndexService {
   }
 
   private prepareChunkText(corpus: LegalCorpus, p: LegalParagraph): string {
-    return `LAG: ${corpus.title}\nSFS: ${corpus.sfsNumber}\n${p.chapter ? 'KAPITEL: ' + p.chapter + '\n' : ''}PARAGRAF: ${p.section}\nINNEHÅLL: ${p.text}`;
+    return `LAG: ${corpus.title}\nSFS: ${(corpus as { sfsNumber: string }).sfsNumber}\n${(p as { chapter: string | number }).chapter ? 'KAPITEL: ' + (p as { chapter: string | number }).chapter + '\n' : ''}PARAGRAF: ${(p as { section: string | number }).section}\nINNEHÅLL: ${(p as { text: string }).text}`;
   }
 
   async bakeMissingEmbeddings(currentIndex: RagIndex): Promise<RagIndex> {
-    console.log(`[RAG_INDEX] Baking missing embeddings for index v${currentIndex.version}...`);
+    console.log(`[RAG_INDEX] Baking missing embeddings for index v${(currentIndex as { version: string }).version}...`);
     const updatedChunks = [...currentIndex.chunks];
     let bakedCount = 0;
 
-    for (let i = 0; i < updatedChunks.length; i++) {
+    for (let i = 0; i < (updatedChunks as { length: number }).length; i++) {
       const chunk = updatedChunks[i];
-      if (!chunk.embedding || chunk.embedding.length === 0) {
+      if (!(chunk as { embedding?: { values: number[] } }).embedding || (chunk as { embedding?: { values: number[] } }).(embedding as { length: number }).length === 0) {
         // Find the corpus to get full context if possible, or use chunk text
-        const chunkText = `LAG: ${chunk.metadata.title}\nSFS: ${chunk.sfsNumber}\nPARAGRAF: ${chunk.section}\nINNEHÅLL: ${chunk.text}`;
+        const chunkText = `LAG: ${(chunk as { metadata: Record<string, unknown> }).metadata.title}\nSFS: ${(chunk as { sfsNumber: string }).sfsNumber}\nPARAGRAF: ${(chunk as { section: string | number }).section}\nINNEHÅLL: ${(chunk as { text: string }).text}`;
         try {
           const embedding = await geminiService.embed(chunkText);
           updatedChunks[i] = { ...chunk, embedding };
           bakedCount++;
           if (bakedCount % 10 === 0) console.log(`[RAG_INDEX] Baked ${bakedCount} embeddings...`);
         } catch (e) {
-          console.error(`[RAG_INDEX] Failed to bake embedding for chunk ${chunk.id}:`, e);
+          console.error(`[RAG_INDEX] Failed to bake embedding for chunk ${(chunk as { id: string }).id}:`, e);
         }
       }
     }
@@ -106,7 +106,7 @@ export class RagIndexService {
   }
 
   exportIndex(index: RagIndex): void {
-    const data = JSON.stringify(index, null, 2);
+    const data = (JSON as { str: string }).stringify(index, null, 2);
     const blob = new Blob([data], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');

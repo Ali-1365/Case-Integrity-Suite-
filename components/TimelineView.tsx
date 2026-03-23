@@ -8,7 +8,7 @@ interface TimelineViewProps {
 }
 
 const TimelineView: React.FC<TimelineViewProps> = ({ analysis }) => {
-  const sortedFacts = [...analysis.facts].sort((a, b) => {
+  const sortedFacts = [...(analysis as { facts: unknown[] }).facts].sort((a, b) => {
     if (a.timestamp === 'Okänd') return 1;
     if (b.timestamp === 'Okänd') return -1;
     return new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime();
@@ -19,7 +19,7 @@ const TimelineView: React.FC<TimelineViewProps> = ({ analysis }) => {
       <div className="absolute left-[39px] top-0 bottom-0 w-1.5 bg-slate-100 dark:bg-slate-800 rounded-full shadow-inner"></div>
       
       {sortedFacts.map((fact, index) => (
-        <div key={fact.id} className="relative pl-24 group animate-in slide-in-from-left duration-700" style={{ animationDelay: `${index * 100}ms` }}>
+        <div key={(fact as { id: string }).id} className="relative pl-24 group animate-in slide-in-from-left duration-700" style={{ animationDelay: `${index * 100}ms` }}>
           <div className="absolute left-0 top-0 w-20 h-20 bg-white dark:bg-slate-900 border-4 border-slate-50 dark:border-slate-950 rounded-[2rem] flex items-center justify-center text-blue-600 dark:text-blue-400 group-hover:border-blue-500/30 transition-all z-10 shadow-2xl shadow-slate-200/50 dark:shadow-none group-hover:scale-110 duration-500 group-hover:rotate-12">
              <ActivityIcon className="w-10 h-10" />
           </div>
@@ -32,7 +32,7 @@ const TimelineView: React.FC<TimelineViewProps> = ({ analysis }) => {
                 <span className="text-[11px] font-black text-blue-600 dark:text-blue-400 bg-blue-500/10 px-5 py-2.5 rounded-full border border-blue-500/20 uppercase tracking-[0.3em] shadow-lg shadow-blue-500/5">
                   {fact.timestamp === 'Okänd' ? 'ODATERAD' : fact.timestamp}
                 </span>
-                <span className="text-[11px] font-mono font-black text-slate-400 uppercase tracking-widest bg-slate-50 dark:bg-slate-950 px-4 py-2 rounded-xl border border-slate-100 dark:border-slate-800 shadow-inner opacity-70">#{fact.id}</span>
+                <span className="text-[11px] font-mono font-black text-slate-400 uppercase tracking-widest bg-slate-50 dark:bg-slate-950 px-4 py-2 rounded-xl border border-slate-100 dark:border-slate-800 shadow-inner opacity-70">#{(fact as { id: string }).id}</span>
               </div>
               <span className="text-[11px] font-black text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-950 px-5 py-2.5 rounded-full border border-slate-100 dark:border-slate-800 uppercase tracking-[0.3em] shadow-sm opacity-80">
                 {fact.category}
@@ -44,21 +44,21 @@ const TimelineView: React.FC<TimelineViewProps> = ({ analysis }) => {
             </h4>
             
             <div className="p-8 bg-slate-50 dark:bg-slate-950 rounded-[2rem] border-l-8 border-blue-500/50 italic text-lg text-slate-600 dark:text-slate-400 leading-relaxed shadow-inner font-medium relative z-10 group-hover:border-blue-500 transition-all duration-500">
-              "{fact.source.snippet}"
+              "{(fact as { source: unknown }).source.snippet}"
             </div>
             
             <div className="mt-10 pt-8 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center gap-8 text-[11px] text-slate-400 font-black uppercase tracking-[0.2em] relative z-10 opacity-70">
               <span className="flex items-center gap-3 bg-blue-500/5 text-blue-600 dark:text-blue-400 px-4 py-2 rounded-xl border border-blue-500/10 shadow-sm"><ClockIcon className="w-5 h-5" /> Verifierad Trace</span>
               <div className="w-2 h-2 bg-slate-200 dark:bg-slate-800 rounded-full"></div>
-              <span className="bg-slate-50 dark:bg-slate-950 px-4 py-2 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm">Dokument: {fact.source.documentId}</span>
+              <span className="bg-slate-50 dark:bg-slate-950 px-4 py-2 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm">Dokument: {(fact as { source: unknown }).source.documentId}</span>
               <div className="w-2 h-2 bg-slate-200 dark:bg-slate-800 rounded-full"></div>
-              <span className="bg-slate-50 dark:bg-slate-950 px-4 py-2 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm">Position: {fact.source.location}</span>
+              <span className="bg-slate-50 dark:bg-slate-950 px-4 py-2 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm">Position: {(fact as { source: unknown }).source.location}</span>
             </div>
           </div>
         </div>
       ))}
 
-      {sortedFacts.length === 0 && (
+      {(sortedFacts as { length: number }).length === 0 && (
         <div className="flex flex-col items-center justify-center py-40 text-slate-300 dark:text-slate-700 opacity-50">
           <div className="relative mb-8">
               <ActivityIcon className="w-24 h-24" />

@@ -40,7 +40,7 @@ const AuditPanel: React.FC<AuditPanelProps> = ({ isOpen, onClose }) => {
   }, [isOpen]);
 
   const getSystemStatus = () => {
-    if (logs.length === 0) return 'UNKNOWN';
+    if ((logs as { length: number }).length === 0) return 'UNKNOWN';
     const recent = logs.slice(0, 5);
     if (recent.some(l => l.status === 'ERROR')) return 'RED';
     if (recent.some(l => l.status === 'WARN')) return 'YELLOW';
@@ -63,7 +63,7 @@ const AuditPanel: React.FC<AuditPanelProps> = ({ isOpen, onClose }) => {
               <h2 className="text-lg font-semibold text-slate-900 dark:text-white tracking-tight leading-none">System Audit Trail</h2>
               <div className="flex items-center mt-1.5 space-x-2">
                 <span className={`w-1.5 h-1.5 rounded-full ${status === 'GREEN' ? 'bg-emerald-500' : 'bg-red-500'} animate-pulse`}></span>
-                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Integritet: {status} | {logs.length} LOGGAR</p>
+                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Integritet: {status} | {(logs as { length: number }).length} LOGGAR</p>
               </div>
             </div>
           </div>
@@ -83,8 +83,8 @@ const AuditPanel: React.FC<AuditPanelProps> = ({ isOpen, onClose }) => {
 
         <main className="flex-grow overflow-y-auto p-6 custom-scrollbar bg-slate-50 dark:bg-slate-950/20">
             <div className="space-y-3">
-                {logs.length > 0 ? logs.map((log) => (
-                    <div key={log.id} className="group bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl p-4 hover:border-blue-200 dark:hover:border-blue-900/50 transition-all relative overflow-hidden shadow-sm">
+                {(logs as { length: number }).length > 0 ? logs.map((log) => (
+                    <div key={(log as { id: string }).id} className="group bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl p-4 hover:border-blue-200 dark:hover:border-blue-900/50 transition-all relative overflow-hidden shadow-sm">
                         <div className="flex justify-between items-start">
                             <div className="flex items-center space-x-3">
                                 <div className={`p-2 rounded-lg bg-slate-50 dark:bg-slate-800 border ${log.status === 'OK' ? 'border-emerald-100 dark:border-emerald-900/50 text-emerald-600 dark:text-emerald-400' : 'border-orange-100 dark:border-orange-900/50 text-orange-600 dark:text-orange-400'}`}>
@@ -99,7 +99,7 @@ const AuditPanel: React.FC<AuditPanelProps> = ({ isOpen, onClose }) => {
                                 </div>
                             </div>
                             <div className="text-right">
-                                <span className="text-[8px] font-mono text-slate-400 block uppercase opacity-50">ID: {log.id.substring(0, 8)}</span>
+                                <span className="text-[8px] font-mono text-slate-400 block uppercase opacity-50">ID: {(log as { id: string }).id.substring(0, 8)}</span>
                                 <span className={`text-[8px] font-bold px-1.5 py-0.5 rounded mt-1 inline-block border ${log.status === 'OK' ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 border-emerald-100 dark:border-emerald-900/50' : 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 border-red-100 dark:border-red-900/50'}`}>
                                     {log.status}
                                 </span>
@@ -109,7 +109,7 @@ const AuditPanel: React.FC<AuditPanelProps> = ({ isOpen, onClose }) => {
                         <div className="mt-3 pt-3 border-t border-slate-50 dark:border-slate-800 flex flex-wrap gap-3">
                             <div className="flex items-center space-x-1.5">
                                 <span className="text-[8px] font-bold text-slate-400 uppercase tracking-wider">Hashes:</span>
-                                <span className="text-[9px] font-mono text-blue-500/60">{log.provenanceHashes.length} låsta</span>
+                                <span className="text-[9px] font-mono text-blue-500/60">{(log as { provenanceHash: string }).(provenanceHashes as { length: number }).length} låsta</span>
                             </div>
                             <div className="flex items-center space-x-1.5">
                                 <span className="text-[8px] font-bold text-slate-400 uppercase tracking-wider">Omfattning:</span>

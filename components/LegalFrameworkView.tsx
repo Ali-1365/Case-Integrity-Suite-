@@ -36,12 +36,12 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
   const [isLoading, setIsLoading] = useState(false);
   const [highlightedParagraphId, setHighlightedParagraphId] = useState<string | null>(null);
   const [relevantPraxis, setRelevantPraxis] = useState<PraxisEntry[]>([]);
-  const [integrityStatus, setIntegrityStatus] = useState<any[] | null>(null);
+  const [integrityStatus, setIntegrityStatus] = useState<unknown[] | null>(null);
   const [isVerifying, setIsVerifying] = useState(false);
 
   const years = useMemo(() => {
     const allYears = legalFrameworkIndex
-      .map(s => s.sfsNumber?.split(':')[0])
+      .map(s => (s as { sfsNumber: string }).sfsNumber?.split(':')[0])
       .filter((y): y is string => !!y);
     return Array.from(new Set(allYears)).sort((a, b) => b.localeCompare(a));
   }, []);
@@ -50,10 +50,10 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
     return legalFrameworkIndex.filter(s => {
         const matchesSearch = s.label.toLowerCase().includes(searchQuery.toLowerCase()) || 
                              s.shortName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                             s.sfsNumber?.includes(searchQuery);
+                             (s as { sfsNumber: string }).sfsNumber?.includes(searchQuery);
         
         const matchesType = selectedType === 'all' || s.type === selectedType;
-        const matchesYear = selectedYear === 'all' || s.sfsNumber?.startsWith(selectedYear);
+        const matchesYear = selectedYear === 'all' || (s as { sfsNumber: string }).sfsNumber?.startsWith(selectedYear);
         
         return matchesSearch && matchesType && matchesYear;
     });
@@ -61,7 +61,7 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
 
   useEffect(() => {
     if (selectedLawId) {
-      const entry = legalFrameworkIndex.find(l => l.id === selectedLawId);
+      const entry = legalFrameworkIndex.find(l => (l as { id: string }).id === selectedLawId);
       if (entry) {
         setIsLoading(true);
         corpusService.loadCorpus(entry.corpusFile)
@@ -83,9 +83,9 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
     window.print();
   };
 
-  const handleParagraphClick = async (p: any) => {
-    setHighlightedParagraphId(p.id);
-    const lawRef = `${activeCorpus?.shortName} ${p.section}`;
+  const handleParagraphClick = async (p: import("../types").LegalParagraph) => {
+    setHighlightedParagraphId((p as { id: string }).id);
+    const lawRef = `${activeCorpus?.shortName} ${(p as { section: string | number }).section}`;
     try {
       const praxis = await praxisService.getRelevantPraxis([lawRef]);
       setRelevantPraxis(praxis);
@@ -110,9 +110,9 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
     }
   };
 
-  const isOutdated = (law: any) => {
+  const isOutdated = (law: import("../types").LegalCorpus) => {
     // Mock logic: if SFS year is before 2000, flag it as potentially outdated
-    const year = parseInt(law.sfsNumber?.split(':')[0] || '2026');
+    const year = parseInt((law as { sfsNumber: string }).sfsNumber?.split(':')[0] || '2026');
     return year < 2000;
   };
 
@@ -141,7 +141,7 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
                 </h2>
                 <div className="flex items-center gap-2 mt-1">
                   <p className="text-[10px] text-slate-500 font-medium uppercase tracking-wider">
-                      FMJAM GOLD v.7.3 | {legalFrameworkIndex.length} Källor
+                      FMJAM GOLD v.7.3 | {(legalFrameworkIndex as { length: number }).length} Källor
                   </p>
                   <span className="flex items-center gap-0.5 px-1.5 py-0.5 bg-emerald-500/10 border border-emerald-500/20 rounded text-[8px] font-black text-emerald-500 uppercase tracking-widest">
                     <ShieldCheckIcon className="w-2.5 h-2.5" />
@@ -193,7 +193,7 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
                         <select 
                             className="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg py-2 px-3 text-sm text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all"
                             value={selectedType}
-                            onChange={(e) => setSelectedType(e.target.value as any)}
+                            onChange={(e) => setSelectedType(e.target.value as "STATE" | "PRIVATE")}
                         >
                             <option value="all">Alla Kategorier</option>
                             <option value="lag">Lagar</option>
@@ -216,13 +216,13 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         {filteredIndex.map((source) => (
                             <div 
-                                key={source.id} 
-                                onClick={() => setSelectedLawId(source.id)}
+                                key={(source as { id: string }).id}
+                                onClick={() => setSelectedLawId((source as { id: string }).id)}
                                 className="group bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl p-5 hover:border-blue-200 dark:hover:border-blue-900/50 transition-all cursor-pointer shadow-sm flex flex-col"
                             >
                                 <div className="flex items-center justify-between mb-3">
                                     <span className="text-[9px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest">{source.type}</span>
-                                    <span className="text-[9px] font-mono text-slate-400">SFS {source.sfsNumber || 'REGELVERK'}</span>
+                                    <span className="text-[9px] font-mono text-slate-400">SFS {(source as { sfsNumber: string }).sfsNumber || 'REGELVERK'}</span>
                                 </div>
                                 <h3 className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors uppercase italic tracking-tight mb-4">{source.label}</h3>
                                 {isOutdated(source) && (
@@ -238,7 +238,7 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
                             </div>
                         ))}
                     </div>
-                    {filteredIndex.length === 0 && (
+                    {(filteredIndex as { length: number }).length === 0 && (
                         <div className="py-20 text-center opacity-20 flex flex-col items-center">
                             <LawIcon className="h-16 w-16 mb-4" />
                             <p className="text-lg font-bold uppercase italic tracking-widest">Inga matchningar funna</p>
@@ -272,26 +272,26 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
                             <div className="lg:col-span-2 space-y-8">
                                 {activeCorpus.paragraphs.map((p) => (
                                     <div 
-                                        key={p.id} 
+                                        key={(p as { id: string }).id}
                                         onClick={() => handleParagraphClick(p)}
-                                        className={`relative pl-10 group cursor-pointer transition-all ${highlightedParagraphId === p.id ? 'scale-[1.02]' : ''}`}
+                                        className={`relative pl-10 group cursor-pointer transition-all ${highlightedParagraphId === (p as { id: string }).id ? 'scale-[1.02]' : ''}`}
                                     >
-                                        <div className={`absolute left-0 top-0 w-7 h-7 border rounded flex items-center justify-center text-[10px] font-bold transition-all ${highlightedParagraphId === p.id ? 'bg-blue-600 border-blue-600 text-white shadow-lg shadow-blue-500/20' : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-blue-600 dark:text-blue-400'}`}>
-                                            {p.section}§
+                                        <div className={`absolute left-0 top-0 w-7 h-7 border rounded flex items-center justify-center text-[10px] font-bold transition-all ${highlightedParagraphId === (p as { id: string }).id ? 'bg-blue-600 border-blue-600 text-white shadow-lg shadow-blue-500/20' : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-blue-600 dark:text-blue-400'}`}>
+                                            {(p as { section: string | number }).section}§
                                         </div>
-                                        <div className={`bg-white dark:bg-slate-900 border rounded-xl p-6 transition-all shadow-sm ${highlightedParagraphId === p.id ? 'border-blue-500 ring-2 ring-blue-500/10' : 'border-slate-200 dark:border-slate-800 hover:border-blue-100 dark:hover:border-blue-900'}`}>
+                                        <div className={`bg-white dark:bg-slate-900 border rounded-xl p-6 transition-all shadow-sm ${highlightedParagraphId === (p as { id: string }).id ? 'border-blue-500 ring-2 ring-blue-500/10' : 'border-slate-200 dark:border-slate-800 hover:border-blue-100 dark:hover:border-blue-900'}`}>
                                             <div className="flex justify-between items-start mb-4">
                                                 <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                                                    {p.chapter ? `Kapitel ${p.chapter} | ` : ''}Paragraf {p.section}
+                                                    {(p as { chapter: string | number }).chapter ? `Kapitel ${(p as { chapter: string | number }).chapter} | ` : ''}Paragraf {(p as { section: string | number }).section}
                                                 </span>
-                                                {highlightedParagraphId === p.id && (
+                                                {highlightedParagraphId === (p as { id: string }).id && (
                                                     <span className="text-[9px] font-bold text-blue-500 uppercase tracking-widest flex items-center gap-1">
                                                         <CheckCircleIcon className="w-3 h-3" />
                                                         Markerad
                                                     </span>
                                                 )}
                                             </div>
-                                            <p className="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">{p.text}</p>
+                                            <p className="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">{(p as { text: string }).text}</p>
                                         </div>
                                     </div>
                                 ))}
@@ -304,13 +304,13 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
                                         Vägledande Praxis
                                     </h3>
                                     
-                                    {relevantPraxis.length > 0 ? (
+                                    {(relevantPraxis as { length: number }).length > 0 ? (
                                         <div className="space-y-4">
                                             {relevantPraxis.map(entry => (
-                                                <div key={entry.id} className="bg-white dark:bg-slate-950 border border-slate-100 dark:border-slate-800 rounded-xl p-4 shadow-sm">
+                                                <div key={(entry as { id: string }).id} className="bg-white dark:bg-slate-950 border border-slate-100 dark:border-slate-800 rounded-xl p-4 shadow-sm">
                                                     <div className="flex justify-between items-center mb-2">
-                                                        <span className="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase">{entry.reference}</span>
-                                                        <span className="text-[9px] font-mono text-slate-400">{entry.provenanceHash}</span>
+                                                        <span className="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase">{(entry as { reference: string }).reference}</span>
+                                                        <span className="text-[9px] font-mono text-slate-400">{(entry as { provenanceHash: string }).provenanceHash}</span>
                                                     </div>
                                                     <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">{entry.summary}</p>
                                                 </div>
@@ -345,7 +345,7 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
                 {integrityStatus && (
                     <div className="flex items-center gap-1 px-2 py-0.5 bg-emerald-500/10 border border-emerald-500/20 rounded text-[9px] font-bold text-emerald-500 uppercase tracking-widest">
                         <CheckCircleIcon className="w-3 h-3" />
-                        {integrityStatus.length} Filer Validerade
+                        {(integrityStatus as { length: number }).length} Filer Validerade
                     </div>
                 )}
             </div>

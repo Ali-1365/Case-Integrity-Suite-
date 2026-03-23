@@ -37,7 +37,7 @@ const SystemMonitor: React.FC<SystemMonitorProps> = ({ isOpen, onClose }) => {
     const [isOffline, setIsOffline] = useState(offlineService.getIsOffline());
     const { logs, refreshLogs, clearLogs } = useLogging(50);
     const [isRefreshing, setIsRefreshing] = useState(false);
-    const [localMetadata, setLocalMetadata] = useState<any>(null);
+    const [localMetadata, setLocalMetadata] = useState<import("./types").StoredDocument | null>(null);
     const [showNukePanel, setShowNukePanel] = useState(false);
     const [isRepairing, setIsRepairing] = useState(false);
 
@@ -102,7 +102,7 @@ const SystemMonitor: React.FC<SystemMonitorProps> = ({ isOpen, onClose }) => {
 
     if (!isOpen) return null;
 
-    const isSyncOk = syncHealth && localMetadata && syncHealth.remoteSyncId === localMetadata.sync_id;
+    const isSyncOk = syncHealth && localMetadata && syncHealth.remoteSyncId === (localMetadata as { sync_id: string }).sync_id;
     const isOfflineGateway = repoStatus?.errorContext === 'API_GATEWAY_DOWN' || isOffline;
     const isBypassed = repoStatus?.isBypassed;
 
@@ -227,13 +227,13 @@ const SystemMonitor: React.FC<SystemMonitorProps> = ({ isOpen, onClose }) => {
                                     </button>
                                 </div>
                                 <div className="flex-grow overflow-y-auto p-4 font-mono text-[10px] space-y-2 custom-scrollbar">
-                                    {logs.length > 0 ? logs.map(log => (
-                                        <div key={log.id} className="flex gap-4 border-l-2 border-slate-100 dark:border-slate-800 pl-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group rounded-r-lg">
+                                    {(logs as { length: number }).length > 0 ? logs.map(log => (
+                                        <div key={(log as { id: string }).id} className="flex gap-4 border-l-2 border-slate-100 dark:border-slate-800 pl-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group rounded-r-lg">
                                             <span className="text-slate-400 shrink-0">{new Date(log.timestamp).toLocaleTimeString()}</span>
                                             <span className={`font-bold shrink-0 w-16 ${log.level === 'ERROR' ? 'text-red-600' : 'text-emerald-600'}`}>{log.mode.toUpperCase()}</span>
                                             <div className="flex-grow min-w-0">
                                                 <p className="text-slate-700 dark:text-slate-300 truncate group-hover:text-slate-900 dark:group-hover:text-white">{log.message}</p>
-                                                {log.level === 'ERROR' && log.details && <p className="text-red-600 mt-1 font-medium bg-red-50 dark:bg-red-900/20 px-2 py-0.5 rounded">{JSON.stringify(log.details)}</p>}
+                                                {log.level === 'ERROR' && (log as { details?: unknown }).details && <p className="text-red-600 mt-1 font-medium bg-red-50 dark:bg-red-900/20 px-2 py-0.5 rounded">{(JSON as { str: string }).stringify((log as { details?: unknown }).details)}</p>}
                                             </div>
                                             <span className="text-slate-400 shrink-0 ml-auto">{log.duration ? `${log.duration}ms` : ''}</span>
                                         </div>

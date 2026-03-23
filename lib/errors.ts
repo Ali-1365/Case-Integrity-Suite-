@@ -16,15 +16,15 @@ export enum ErrorCode {
 
 export class AppError extends Error {
   public readonly code: ErrorCode;
-  public readonly details?: any;
+  public readonly details?: Record<string, unknown> | unknown;
   public readonly timestamp: Date;
   public readonly isOperational: boolean;
 
-  constructor(message: string, code: ErrorCode = ErrorCode.UNKNOWN_ERROR, details?: any, isOperational: boolean = true) {
+  constructor(message: string, code: ErrorCode = ErrorCode.UNKNOWN_ERROR, details?: Record<string, unknown> | unknown, isOperational: boolean = true) {
     super(message);
-    this.name = this.constructor.name;
+    (this as { name: string }).name = this.(constructor as { name: string }).name;
     this.code = code;
-    this.details = details;
+    (this as { details?: unknown }).details = details;
     this.timestamp = new Date();
     this.isOperational = isOperational;
     
@@ -38,29 +38,29 @@ export class AppError extends Error {
 }
 
 export class ApiError extends AppError {
-  constructor(message: string, details?: any) {
+  constructor(message: string, details?: Record<string, unknown> | unknown) {
     super(message, ErrorCode.API_ERROR, details);
   }
 }
 
 export class ValidationError extends AppError {
-  constructor(message: string, details?: any) {
+  constructor(message: string, details?: Record<string, unknown> | unknown) {
     super(message, ErrorCode.VALIDATION_ERROR, details);
   }
 }
 
 export class AuthError extends AppError {
-  constructor(message: string, details?: any) {
+  constructor(message: string, details?: Record<string, unknown> | unknown) {
     super(message, ErrorCode.AUTH_ERROR, details);
   }
 }
 
 export class NetworkError extends AppError {
-  constructor(message: string, details?: any) {
+  constructor(message: string, details?: Record<string, unknown> | unknown) {
     super(message, ErrorCode.NETWORK_ERROR, details);
   }
 }
 
-export const isAppError = (error: any): error is AppError => {
+export const isAppError = (error: Error | unknown): error is AppError => {
   return error instanceof AppError;
 };

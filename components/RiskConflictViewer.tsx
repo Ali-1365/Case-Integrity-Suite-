@@ -50,10 +50,10 @@ const RiskConflictViewer: React.FC<RiskConflictViewerProps> = ({ report }) => {
         <div className="lg:col-span-8 space-y-4">
             <p className="text-[10px] font-black text-gray-500 uppercase tracking-widest flex items-center ml-2">
                 <ActivityIcon className="w-3 h-3 mr-2" />
-                Identifierade Normkonflikter ({report.conflicts.length})
+                Identifierade Normkonflikter ({report.(conflicts as { length: number }).length})
             </p>
             
-            {report.conflicts.length > 0 ? report.conflicts.map((conflict, idx) => (
+            {report.(conflicts as { length: number }).length > 0 ? report.conflicts.map((conflict, idx) => (
                 <div key={idx} className="bg-gray-800/40 border border-gray-700 rounded-3xl p-6 hover:bg-gray-800/60 transition-all group">
                     <div className="flex justify-between items-start mb-4">
                         <div className="flex items-center space-x-3">

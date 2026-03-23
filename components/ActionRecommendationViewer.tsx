@@ -53,17 +53,17 @@ const ActionRecommendationViewer: React.FC<ActionRecommendationViewerProps> = ({
       <div className="grid grid-cols-1 gap-6">
           <p className="text-[10px] font-black text-gray-500 uppercase tracking-widest flex items-center ml-2">
               <ArrowPathIcon className="w-3 h-3 mr-2" />
-              Rekommenderade Åtgärder ({report.recommendations.length})
+              Rekommenderade Åtgärder ({report.(recommendations as { length: number }).length})
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {report.recommendations.map((action) => (
-                  <div key={action.id} className="bg-gray-900 border border-gray-800 rounded-[2rem] p-8 flex flex-col hover:border-indigo-500/30 transition-all group">
+                  <div key={(action as { id: string }).id} className="bg-gray-900 border border-gray-800 rounded-[2rem] p-8 flex flex-col hover:border-indigo-500/30 transition-all group">
                       <div className="flex justify-between items-start mb-6">
                           <div className="p-3 bg-gray-950 rounded-2xl border border-gray-800 group-hover:scale-110 transition-transform">
                               {getCategoryIcon(action.category)}
                           </div>
-                          <span className="text-[9px] font-mono text-gray-700 font-bold uppercase">{action.id}</span>
+                          <span className="text-[9px] font-mono text-gray-700 font-bold uppercase">{(action as { id: string }).id}</span>
                       </div>
                       
                       <p className="text-[9px] font-black text-indigo-500 uppercase tracking-widest mb-2">

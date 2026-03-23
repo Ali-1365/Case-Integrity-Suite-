@@ -51,7 +51,7 @@ export class DecisionSupportService {
       const machineReadable: DecisionObject = {
         decision: proposal,
         legalBasis: consolidation.affectedNorms,
-        provenance: consolidation.provenanceHashes,
+        provenance: (consolidation as { provenanceHash: string }).provenanceHashes,
         riskLevel: risk.level,
         queryId: reasoning.queryId,
         reasoningId: reasoning.reasoningId,
@@ -67,7 +67,7 @@ export class DecisionSupportService {
         operationType: 'RAG_QUERY',
         actor: 'SYSTEM',
         affectedLaws: consolidation.affectedNorms,
-        provenanceHashes: consolidation.provenanceHashes,
+        provenanceHashes: (consolidation as { provenanceHash: string }).provenanceHashes,
         resultSummary: `Decision generated for case ${caseId || 'N/A'}: ${decisionId}. Proposal: ${proposal}.`,
         status: 'OK',
         metadata: { decisionId, recommendedDecision: proposal, caseId }

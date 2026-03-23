@@ -68,14 +68,14 @@ const ConsolidationViewer: React.FC<ConsolidationViewerProps> = ({ result, onClo
                 <div className="absolute left-6 top-6 bottom-6 w-0.5 bg-gray-800/50"></div>
                 
                 {/* Konstitution */}
-                <div className={`relative pl-14 transition-all ${result.hierarchy.constitution.length === 0 ? 'opacity-30' : 'opacity-100'}`}>
+                <div className={`relative pl-14 transition-all ${result.hierarchy.(constitution as { length: number }).length === 0 ? 'opacity-30' : 'opacity-100'}`}>
                     <div className="absolute left-4.5 top-4 w-4 h-4 bg-gray-900 border-2 border-gray-700 rounded-full z-10"></div>
                     <div className="bg-gray-800/40 p-6 rounded-3xl border border-gray-700">
                     <span className="text-[9px] font-black text-gray-500 uppercase tracking-widest">Grundlag / Konvention (Lvl 1)</span>
                     <div className="mt-3 space-y-2">
-                        {result.hierarchy.constitution.length > 0 ? result.hierarchy.constitution.map(s => (
-                            <div key={s.provenanceHash} className="flex justify-between items-center">
-                                <p className="text-sm font-black text-white italic">{s.sourceCode} {s.sfsNumber}</p>
+                        {result.hierarchy.(constitution as { length: number }).length > 0 ? result.hierarchy.constitution.map(s => (
+                            <div key={(s as { provenanceHash: string }).provenanceHash} className="flex justify-between items-center">
+                                <p className="text-sm font-black text-white italic">{(s as { sourceCode: string }).sourceCode} {(s as { sfsNumber: string }).sfsNumber}</p>
                                 <ShieldCheckIcon className="w-4 h-4 text-green-500" />
                             </div>
                         )) : <p className="text-xs font-bold text-gray-600 italic">Inga direkta träffar</p>}
@@ -100,14 +100,14 @@ const ConsolidationViewer: React.FC<ConsolidationViewerProps> = ({ result, onClo
                 </div>
 
                 {/* Praxis */}
-                <div className={`relative pl-14 transition-all ${result.hierarchy.praxis.length === 0 ? 'opacity-30' : 'opacity-100'}`}>
+                <div className={`relative pl-14 transition-all ${result.hierarchy.(praxis as { length: number }).length === 0 ? 'opacity-30' : 'opacity-100'}`}>
                     <div className="absolute left-4.5 top-4 w-4 h-4 bg-purple-500 border-4 border-gray-900 rounded-full z-10 shadow-[0_0_15px_rgba(168,85,247,0.5)]"></div>
                     <div className="bg-purple-900/10 p-6 rounded-3xl border border-purple-500/20">
                     <span className="text-[9px] font-black text-purple-400 uppercase tracking-widest">Praxis / Tolkning (Lvl 3)</span>
                     <div className="mt-3 space-y-2">
-                        {result.hierarchy.praxis.length > 0 ? result.hierarchy.praxis.map(p => (
-                        <div key={p.id} className="text-xs font-bold text-gray-300 flex items-center justify-between bg-black/20 p-3 rounded-xl border border-white/5">
-                            <span>{p.reference}</span>
+                        {result.hierarchy.(praxis as { length: number }).length > 0 ? result.hierarchy.praxis.map(p => (
+                        <div key={(p as { id: string }).id} className="text-xs font-bold text-gray-300 flex items-center justify-between bg-black/20 p-3 rounded-xl border border-white/5">
+                            <span>{(p as { reference: string }).reference}</span>
                             <BoltIcon className="w-4 h-4 text-purple-400" />
                         </div>
                         )) : <p className="text-xs font-bold text-gray-600 italic">Ingen matchande praxis</p>}
@@ -122,8 +122,8 @@ const ConsolidationViewer: React.FC<ConsolidationViewerProps> = ({ result, onClo
             <div>
                 <p className="text-[9px] font-black text-gray-600 uppercase tracking-widest mb-6">Analys-Metaspace</p>
                 <div className="space-y-6">
-                    <DataStat label="Provenance Count" value={result.provenanceHashes.length} />
-                    <DataStat label="Active Norms" value={result.affectedNorms.length} />
+                    <DataStat label="Provenance Count" value={(result as { provenanceHash: string }).(provenanceHashes as { length: number }).length} />
+                    <DataStat label="Active Norms" value={result.(affectedNorms as { length: number }).length} />
                     <DataStat label="Conflict Risk" value={result.riskReport?.level || 'GRÖN'} highlight={result.riskReport?.level !== 'GRÖN'} />
                 </div>
             </div>

@@ -42,7 +42,7 @@ export const LegalPipelineView: React.FC<LegalPipelineViewProps> = ({ analysis }
     const runPipeline = async () => {
         setIsRunning(true);
         try {
-            const caseData = JSON.stringify(analysis);
+            const caseData = (JSON as { str: string }).stringify(analysis);
             await legalPipelineService.runFullPipeline(analysis.caseId, caseData, (newState) => {
                 setState(newState);
             });

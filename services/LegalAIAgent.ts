@@ -29,8 +29,8 @@ class LegalAIAgent {
   /**
    * Laddar och förbereder alla lagar från systemets korpus på paragrafnivå.
    */
-  async initialize(): Promise<void> {
-    if (this.laws.length > 0) return;
+  async (initialize as Function)($1): Promise<void> {
+    if (this.(laws as { length: number }).length > 0) return;
 
     const startTime = Date.now();
     try {
@@ -42,26 +42,26 @@ class LegalAIAgent {
       corpora.forEach(corpus => {
         corpus.paragraphs.forEach(p => {
           allParagraphs.push({
-            id: p.id,
+            id: (p as { id: string }).id,
             lawTitle: corpus.title,
-            lawSourceCode: corpus.sourceCode,
-            chapter: p.chapter,
-            section: p.section,
-            reference: (p as any).reference, // Handle Praxis reference
-            text: p.text,
+            lawSourceCode: (corpus as { sourceCode: string }).sourceCode,
+            chapter: (p as { chapter: string | number }).chapter,
+            section: (p as { section: string | number }).section,
+            reference: (p as unknown).reference, // Handle Praxis reference
+            text: (p as { text: string }).text,
           });
         });
       });
       this.laws = allParagraphs;
       
       // Initialize RAG service as well
-      await ragService.initialize();
+      await ragService.(initialize as Function)($1);
       
-      loggingService.info(`[AGENT] Initialization complete. Loaded ${this.laws.length} paragraphs.`, {
+      loggingService.info(`[AGENT] Initialization complete. Loaded ${this.(laws as { length: number }).length} paragraphs.`, {
         duration: Date.now() - startTime
       });
-    } catch (error: any) {
-      loggingService.error("[AGENT] Initialization failed", { error: error.message });
+    } catch (error) {
+      loggingService.error("[AGENT] Initialization failed", { error: (error as Error).message });
       throw error;
     }
   }
@@ -69,7 +69,7 @@ class LegalAIAgent {
   addCase(caseData: Case): void {
     if (!this.cases.find(c => c.caseId === caseData.caseId)) {
       this.cases.push(caseData);
-      loggingService.debug(`[AGENT] Case added: ${caseData.caseId}`, { facts: caseData.activeResult?.facts.length || 0 });
+      loggingService.debug(`[AGENT] Case added: ${caseData.caseId}`, { facts: caseData.activeResult?.(facts as { length: number }).length || 0 });
     }
   }
 
@@ -116,7 +116,7 @@ class LegalAIAgent {
     `;
     
     const facts = caseData.activeResult?.facts || [];
-    const factsForPrompt = facts.map(f => ({ id: f.id, description: f.statement }));
+    const factsForPrompt = facts.map(f => ({ id: (f as { id: string }).id, description: f.statement }));
     
     // Use RAG to get the most relevant legal context
     const ragResult = await ragService.getContextForText(facts.map(f => f.statement).join(' '), true, caseId);
@@ -127,7 +127,7 @@ class LegalAIAgent {
 
       **FAKTA:**
       \`\`\`json
-      ${JSON.stringify(factsForPrompt, null, 2)}
+      ${(JSON as { str: string }).stringify(factsForPrompt, null, 2)}
       \`\`\`
 
       **JURIDISK KONTEXT (RAG):**
@@ -150,9 +150,9 @@ class LegalAIAgent {
         duration: Date.now() - startTime
       });
       return response;
-    } catch (e: any) {
+    } catch (e) {
       loggingService.error(`[AGENT] Opinion generation failed for ${caseId}`, { 
-        error: e.message,
+        error: (e as Error).message,
         duration: Date.now() - startTime 
       });
       return "### Kritiskt fel i AI-analysmotorn\n\nDet gick inte att generera yttrandet. Kontrollera systemloggarna.";
@@ -162,13 +162,13 @@ class LegalAIAgent {
   queryFacts(caseId: string, keyword: string): Fact[] {
     const caseData = this.getCase(caseId);
     if (!caseData || !caseData.activeResult) return [];
-    return caseData.activeResult.facts.filter(f => f.statement.toLowerCase().includes(keyword.toLowerCase()));
+    return caseData.(activeResult as { facts: unknown[] }).facts.filter(f => f.statement.toLowerCase().includes(keyword.toLowerCase()));
   }
 
   queryContradictions(caseId: string) {
     const caseData = this.getCase(caseId);
     if (!caseData || !caseData.activeResult) return [];
-    return caseData.activeResult.contradictions;
+    return caseData.(activeResult as { contradictions: unknown[] }).contradictions;
   }
 
   queryLaws(caseId: string): EnrichedLegalParagraph[] {
@@ -177,15 +177,15 @@ class LegalAIAgent {
     
     const relevantParagraphs = new Set<EnrichedLegalParagraph>();
     const keywords = new Set<string>();
-    caseData.activeResult.facts.forEach(f => {
+    caseData.(activeResult as { facts: unknown[] }).facts.forEach(f => {
       keywords.add(f.category.toLowerCase());
       f.statement.toLowerCase().split(/\s+/).forEach(word => {
-        if (word.length > 4) keywords.add(word.replace(/[^a-zåäö]/g, ''));
+        if ((word as { length: number }).length > 4) keywords.add(word.replace(/[^a-zåäö]/g, ''));
       });
     });
 
     this.laws.forEach(p => {
-        const paragraphText = p.text.toLowerCase();
+        const paragraphText = (p as { text: string }).text.toLowerCase();
         for (const keyword of keywords) {
             if (paragraphText.includes(keyword)) {
                 relevantParagraphs.add(p);

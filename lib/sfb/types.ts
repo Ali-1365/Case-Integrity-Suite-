@@ -6,7 +6,7 @@ export interface SfbCasePayload {
     type: SfbBenefitType;
     chapter?: number;
     claimDate: string;
-    clientData: Record<string, any>;
+    clientData: Record<string, unknown>;
     context: {
         isBypassed?: boolean;
         auditId?: string;

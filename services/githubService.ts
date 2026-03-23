@@ -29,7 +29,7 @@ class GithubService {
     private readonly repo = "Ali-1365/Case-Integrity-Suite-";
     private readonly baseUrl = "https://api.github.com/repos";
 
-    private async safeFetch(url: string, timeout = 2500): Promise<any> {
+    private async safeFetch(url: string, timeout = 2500): Promise<unknown> {
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), timeout);
         try {
@@ -71,16 +71,16 @@ class GithubService {
         const branchesData = await this.safeFetch(`${this.baseUrl}/${this.repo}/branches`);
 
         const hasOpenJulesBranch = Array.isArray(branchesData) && 
-            branchesData.some(b => b.name === 'jules/add-config-workflow');
+            branchesData.some(b => (b as { name: string }).name === 'jules/add-config-workflow');
 
         return {
-            name: repoData.full_name,
-            stars: repoData.stargazers_count,
-            openIssues: repoData.open_issues_count,
-            updatedAt: repoData.updated_at,
+            name: (repoData as { full_name: string }).full_name,
+            stars: (repoData as { stargazers_count: number }).stargazers_count,
+            openIssues: (repoData as { open_issues_count: number }).open_issues_count,
+            updatedAt: (repoData as { updated_at: string }).updated_at,
             lastCommit: commitData?.[0]?.sha.substring(0, 7) || "unknown",
             isHealthy: true,
-            julesActive: Array.isArray(issuesData) && issuesData.length > 0,
+            julesActive: Array.isArray(issuesData) && (issuesData as { length: number }).length > 0,
             lastWorkflowStatus: 'success',
             isMerged: !hasOpenJulesBranch,
             isBypassed
@@ -103,8 +103,8 @@ class GithubService {
         
         return {
             isAligned: true, 
-            remoteVersion: data.version,
-            remoteSyncId: data.sync_id,
+            remoteVersion: (data as { version: string }).version,
+            remoteSyncId: (data as { sync_id: string }).sync_id,
             latencyMs: Date.now() - start
         };
     }

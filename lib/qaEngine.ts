@@ -5,18 +5,18 @@ export class QualityAssuranceEngine {
         const checks: QACheck[] = [];
 
         // 1. Källverifiering
-        const weakFacts = analysis.facts.filter(f => !f.source.snippet || f.source.snippet.length < 10);
+        const weakFacts = (analysis as { facts: unknown[] }).facts.filter(f => !(f as { source: unknown }).source.snippet || (f as { source: unknown }).source.(snippet as { length: number }).length < 10);
         checks.push({
             id: 'QA-SOURCE-V1',
             label: 'Forensisk Citatkontroll',
-            status: weakFacts.length === 0 ? 'pass' : 'warning',
-            message: weakFacts.length === 0 
+            status: (weakFacts as { length: number }).length === 0 ? 'pass' : 'warning',
+            message: (weakFacts as { length: number }).length === 0
                 ? 'Samtliga påståenden har verifierbart textstöd.' 
-                : `${weakFacts.length} påståenden har svagt citatstöd.`
+                : `${(weakFacts as { length: number }).length} påståenden har svagt citatstöd.`
         });
 
         // 2. Barnrättskontroll (SFS 2025:400 1:2)
-        const hasNöd = analysis.themes.some(t => t.id === 'NÖD' || t.id === 'AKUT');
+        const hasNöd = analysis.themes.some(t => (t as { id: string }).id === 'NÖD' || (t as { id: string }).id === 'AKUT');
         const hasBarnAnalys = analysis.priorityFlags.hasChildAspect;
         if (hasNöd && !hasBarnAnalys) {
             checks.push({
@@ -28,7 +28,7 @@ export class QualityAssuranceEngine {
         }
 
         // 3. Spårbarhets-hash
-        const hasHash = analysis.atoms.every(a => a.id.startsWith('ATOM-'));
+        const hasHash = analysis.atoms.every(a => (a as { id: string }).id.startsWith('ATOM-'));
         checks.push({
             id: 'QA-INTEGRITY-HASH',
             label: 'Data Integrity Shield',

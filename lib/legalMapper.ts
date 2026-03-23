@@ -11,12 +11,12 @@ export class LegalMapper {
     
     return LEGAL_SOURCES.find(item => {
       const labelMatch = normalized.includes(item.label.toLowerCase());
-      const refMatch = normalized.includes(item.reference.toLowerCase());
-      const sfsMatch = item.sfsNumber && normalized.includes(item.sfsNumber);
+      const refMatch = normalized.includes((item as { reference: string }).reference.toLowerCase());
+      const sfsMatch = (item as { sfsNumber: string }).sfsNumber && normalized.includes((item as { sfsNumber: string }).sfsNumber);
       
       // If we have a specific chapter/section, check that too
-      if (item.chapter && item.section) {
-        const pattern = new RegExp(`${item.chapter}\\s*kap\\.?\\s*${item.section}\\s*§`, 'i');
+      if ((item as { chapter: string | number }).chapter && (item as { section: string | number }).section) {
+        const pattern = new RegExp(`${(item as { chapter: string | number }).chapter}\\s*kap\\.?\\s*${(item as { section: string | number }).section}\\s*§`, 'i');
         return pattern.test(normalized) && (refMatch || sfsMatch);
       }
       
@@ -25,6 +25,6 @@ export class LegalMapper {
   }
 
   static getProvenanceLabel(item: LegalFrameworkItem): string {
-    return `[SFS ${item.sfsNumber} | ${item.reference} ${item.chapter ? item.chapter + ' kap. ' : ''}${item.section ? item.section + ' §' : ''}]`;
+    return `[SFS ${(item as { sfsNumber: string }).sfsNumber} | ${(item as { reference: string }).reference} ${(item as { chapter: string | number }).chapter ? (item as { chapter: string | number }).chapter + ' kap. ' : ''}${(item as { section: string | number }).section ? (item as { section: string | number }).section + ' §' : ''}]`;
   }
 }

@@ -51,7 +51,7 @@ const Toast: React.FC<ToastProps> = ({ message, type = 'error', onClose, duratio
       <div className="flex items-start gap-3">
         <div className="flex-shrink-0 mt-0.5">{styles.icon}</div>
         <div className="flex-grow">
-          <p className={`text-sm font-medium leading-relaxed ${styles.text}`}>{message}</p>
+          <p className={`text-sm font-medium leading-relaxed ${(styles as { text: string }).text}`}>{message}</p>
         </div>
         <button 
           onClick={onClose}

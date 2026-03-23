@@ -32,16 +32,16 @@ export class NormalizationEngine {
     actionRecommendations?: ActionRecommendationReport
   ): AnalysisResult {
     // 1. Map AI Facts to Atoms if atoms are empty
-    const finalAtoms: Atom[] = atoms.length > 0 ? atoms : aiFacts.map((f, idx) => ({
-      id: `${f.id.replace('FACT', 'ATOM')}-${idx}`,
-      text: f.source.snippet,
+    const finalAtoms: Atom[] = (atoms as { length: number }).length > 0 ? atoms : aiFacts.map((f, idx) => ({
+      id: `${(f as { id: string }).id.replace('FACT', 'ATOM')}-${idx}`,
+      text: (f as { source: unknown }).source.snippet,
       tags: [f.category],
-      documentId: doc.name,
+      documentId: (doc as { name: string }).name,
       position: idx,
       confidence: 1.0,
       hash: "FALLBACK_HASH_NOT_VERIFIED",
       source: {
-        documentId: doc.name,
+        documentId: (doc as { name: string }).name,
         page: 1,
         index: idx
       }
@@ -52,14 +52,14 @@ export class NormalizationEngine {
     const themes = categories.map(cat => ({
       id: cat,
       label: cat.charAt(0).toUpperCase() + cat.slice(1).toLowerCase(),
-      score: aiFacts.filter(f => f.category === cat).length / aiFacts.length,
+      score: aiFacts.filter(f => f.category === cat).length / (aiFacts as { length: number }).length,
       keywords: Array.from(new Set(aiFacts.filter(f => f.category === cat).map(f => f.subject))),
-      relatedAtomIds: finalAtoms.filter(a => a.tags.includes(cat)).map(a => a.id)
+      relatedAtomIds: finalAtoms.filter(a => a.tags.includes(cat)).map(a => (a as { id: string }).id)
     }));
 
     // 3. Calculate Risk Profile
-    const totalContradictions = aiContradictions.length;
-    const totalUncertainties = aiUncertainties.length;
+    const totalContradictions = (aiContradictions as { length: number }).length;
+    const totalUncertainties = (aiUncertainties as { length: number }).length;
     const riskScore = Math.min(100, (totalContradictions * 15) + (totalUncertainties * 5));
     
     const dominantRisks = Array.from(new Set([
@@ -71,26 +71,26 @@ export class NormalizationEngine {
 
     return {
       id: `AN-${crypto.randomUUID().substring(0,8)}`,
-      caseId: doc.name,
+      caseId: (doc as { name: string }).name,
       createdAt: new Date().toISOString(),
-      documents: [{ id: 'DOC-1', name: doc.name, mimeType: doc.mimeType }],
+      documents: [{ id: 'DOC-1', name: (doc as { name: string }).name, mimeType: doc.mimeType }],
       atoms: finalAtoms,
       facts: aiFacts,
       contradictions: aiContradictions,
       uncertainties: aiUncertainties,
       legalFrameworkLinks: aiLinks.map(l => {
-          const fwItem = framework.find(f => f.id === l.legalReferenceId);
+          const fwItem = framework.find(f => (f as { id: string }).id === l.legalReferenceId);
           return {
             id: l.legalReferenceId,
             label: fwItem?.label || l.legalReferenceId,
-            references: fwItem ? [fwItem.reference] : ['SoL'],
+            references: fwItem ? [(fwItem as { reference: string }).reference] : ['SoL'],
             relatedFactIds: l.relatedFactIds,
             reasoning: l.reasoning
           };
       }),
       riskProfile: {
           id: `RP-${crypto.randomUUID().substring(0,4)}`,
-          caseId: doc.name,
+          caseId: (doc as { name: string }).name,
           totalScore: riskScore,
           maxScore: 100,
           normalizedScore: riskScore,
@@ -98,12 +98,12 @@ export class NormalizationEngine {
           dominantRisks: dominantRisks
       },
       contextState: {
-          caseId: doc.name,
+          caseId: (doc as { name: string }).name,
           flags: { barn: priority.hasChildAspect },
           detectedCaseTypes: []
       },
       themes: themes,
-      legalReferences: legalRefs.map(r => ({ id: r.id, source: r.source, rawText: r.rawText, contextSnippet: r.contextSnippet })),
+      legalReferences: legalRefs.map(r => ({ id: (r as { id: string }).id, source: (r as { source: unknown }).source, rawText: r.rawText, contextSnippet: r.contextSnippet })),
       qaSummary: [],
       priorityFlags: priority,
       oversightClassifications: oversight,

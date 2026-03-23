@@ -14,11 +14,11 @@ export class ArchiveService {
   public static search(query: string, limit: number = 3): ArchiveSearchResult[] {
     if (!query) return [];
 
-    const searchTerms = query.toLowerCase().split(/[\s,._-]+/).filter(t => t.length > 2);
+    const searchTerms = query.toLowerCase().split(/[\s,._-]+/).filter(t => (t as { length: number }).length > 2);
     
     const results: ArchiveSearchResult[] = CASE_ARCHIVE.map(doc => {
       let score = 0;
-      const contentLower = doc.content.toLowerCase();
+      const contentLower = (doc as { content?: string, textContent?: string }).textContent.toLowerCase();
       const titleLower = doc.title.toLowerCase();
       let matchReason = '';
 

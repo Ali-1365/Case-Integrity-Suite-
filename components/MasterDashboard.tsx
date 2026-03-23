@@ -124,7 +124,7 @@ const MasterDashboard: React.FC<MasterDashboardProps> = ({ analysis }) => {
                 <Card title="Juridiskt Ramverk & Provenans" icon={<LawIcon className="w-6 h-6" />}>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-2">
                         {analysis.legalFrameworkLinks.map(link => (
-                            <div key={link.id} className="bg-slate-50 dark:bg-slate-800/30 p-8 rounded-[2.5rem] border border-slate-200 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-800 transition-all duration-500 relative overflow-hidden group shadow-sm hover:shadow-xl hover:-translate-y-1">
+                            <div key={(link as { id: string }).id} className="bg-slate-50 dark:bg-slate-800/30 p-8 rounded-[2.5rem] border border-slate-200 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-800 transition-all duration-500 relative overflow-hidden group shadow-sm hover:shadow-xl hover:-translate-y-1">
                                 <div className="absolute top-0 right-0 p-8 opacity-[0.04] group-hover:opacity-[0.12] transition-all transform group-hover:scale-125 group-hover:rotate-12 duration-700">
                                     <CpuChipIcon className="w-24 h-24 text-blue-500" />
                                 </div>

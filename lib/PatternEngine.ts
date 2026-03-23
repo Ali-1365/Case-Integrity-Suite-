@@ -49,7 +49,7 @@ export class PatternEngine {
 
       return {
         category,
-        frequency: caseList.length,
+        frequency: (caseList as { length: number }).length,
         averageRisk: countWithData > 0 ? totalRisk / countWithData : 0,
         averageProportionality: countWithData > 0 ? totalProp / countWithData : 0,
         commonDecisions: decisions

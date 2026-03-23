@@ -46,8 +46,8 @@ export const AdversarialDuelView: React.FC<AdversarialDuelViewProps> = ({ caseDa
 
       setLogs(prev => [...prev, "[DUEL] Rättegångssimulering avslutad."]);
 
-    } catch (err: any) {
-      setError(err.message || "Ett fel inträffade under duellen.");
+    } catch (err) {
+      setError((err as Error).message || "Ett fel inträffade under duellen.");
     } finally {
       console.log = originalLog;
       setIsSimulating(false);
@@ -136,7 +136,7 @@ export const AdversarialDuelView: React.FC<AdversarialDuelViewProps> = ({ caseDa
 
       {/* Log Console */}
       <div className="bg-[#050505] border border-gray-800 rounded-xl p-4 h-48 overflow-y-auto font-mono text-xs custom-scrollbar">
-        {logs.length === 0 ? (
+        {(logs as { length: number }).length === 0 ? (
             <p className="text-gray-700 italic">System redo. Initiera duell för att se processloggar.</p>
         ) : (
             logs.map((log, i) => (

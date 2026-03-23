@@ -19,16 +19,16 @@ export class LegalReasoningService extends BaseService {
       const risk = consolidation.riskReport;
       
       const sourcesContext = chain.sources.map(s => 
-        `[REF: ${s.sourceCode} ${s.chapter ? s.chapter + ':' : ''}${s.section} § | HASH: ${s.provenanceHash}]\nTEXT: ${s.text}`
+        `[REF: ${(s as { sourceCode: string }).sourceCode} ${(s as { chapter: string | number }).chapter ? (s as { chapter: string | number }).chapter + ':' : ''}${(s as { section: string | number }).section} § | HASH: ${(s as { provenanceHash: string }).provenanceHash}]\nTEXT: ${(s as { text: string }).text}`
       ).join('\n\n');
 
       const praxisContext = consolidation.hierarchy.praxis.map(p => 
-        `[PRAXIS: ${p.reference} | HASH: ${p.provenanceHash}]\nSAMMANFATTNING: ${p.summary}`
+        `[PRAXIS: ${(p as { reference: string }).reference} | HASH: ${(p as { provenanceHash: string }).provenanceHash}]\nSAMMANFATTNING: ${p.summary}`
       ).join('\n\n');
 
       const systemInstruction = `
         DU ÄR FMJAM ORACLE v.7.6-GOLD – BRED JURIDISK ANALYTIKER.
-        Du ska svara enligt KVALITETSPROFIL ${QUALITY_PROFILE.version}.
+        Du ska svara enligt KVALITETSPROFIL ${(QUALITY_PROFILE as { version: string }).version}.
         
         SÄRSKILT UPPDRAG (FAS 8 - EXPANDERAD):
         1. KONSTITUTIONELL HIERARKI (LEX SUPERIOR):
@@ -77,8 +77,8 @@ export class LegalReasoningService extends BaseService {
       await auditService.log({
         operationType: 'RAG_QUERY',
         actor: 'SYSTEM',
-        affectedLaws: chain.sources.map(s => s.sourceCode),
-        provenanceHashes: consolidation.provenanceHashes,
+        affectedLaws: chain.sources.map(s => (s as { sourceCode: string }).sourceCode),
+        provenanceHashes: (consolidation as { provenanceHash: string }).provenanceHashes,
         resultSummary: `Consolidated risk-aware reasoning generated: ${reasoningId}. Risk: ${risk?.level}.`,
         status: risk?.level === 'RÖD' ? 'WARN' : 'OK',
         metadata: { queryId: chain.queryId, reasoningId, riskId: risk?.riskId }
@@ -91,7 +91,7 @@ export class LegalReasoningService extends BaseService {
         consolidation,
         sections: {
           facts: "Fastställda omständigheter.",
-          laws: chain.sources.map(s => ({ ref: `${s.sourceCode} ${s.section}§`, text: s.text, hash: s.provenanceHash })),
+          laws: chain.sources.map(s => ({ ref: `${(s as { sourceCode: string }).sourceCode} ${(s as { section: string | number }).section}§`, text: (s as { text: string }).text, hash: (s as { provenanceHash: string }).provenanceHash })),
           analysis: "Normativ prövning utförd.",
           conclusion: "Slutsats med beaktande av identifierade risker."
         },

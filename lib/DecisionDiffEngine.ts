@@ -48,18 +48,18 @@ export class DecisionDiffEngine {
     if (proportionalityChanged) changedFields.push('PROPORTIONALITY');
 
     // Jämför åtgärder
-    const oldActions = oldRes.actions?.recommendations.map(r => r.id) || [];
-    const newActions = newRes.actions?.recommendations.map(r => r.id) || [];
+    const oldActions = oldRes.actions?.recommendations.map(r => (r as { id: string }).id) || [];
+    const newActions = newRes.actions?.recommendations.map(r => (r as { id: string }).id) || [];
     
     const addedActions = newRes.actions?.recommendations
-      .filter(r => !oldActions.includes(r.id))
+      .filter(r => !oldActions.includes((r as { id: string }).id))
       .map(r => r.description) || [];
       
     const removedActions = oldRes.actions?.recommendations
-      .filter(r => !newActions.includes(r.id))
+      .filter(r => !newActions.includes((r as { id: string }).id))
       .map(r => r.description) || [];
 
-    if (addedActions.length > 0 || removedActions.length > 0) {
+    if ((addedActions as { length: number }).length > 0 || (removedActions as { length: number }).length > 0) {
       changedFields.push('ACTIONS');
     }
 
@@ -76,7 +76,7 @@ export class DecisionDiffEngine {
       newProp: newRes.proportionality?.level || 'N/A',
       addedActions,
       removedActions,
-      hasChanges: changedFields.length > 0
+      hasChanges: (changedFields as { length: number }).length > 0
     };
   }
 }

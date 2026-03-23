@@ -57,7 +57,7 @@ const FMJAMControlPanel: React.FC<FMJAMControlPanelProps> = ({ isOpen, onClose, 
   }, []);
 
   const stats = useMemo(() => {
-    const total = LEGAL_SOURCES.length;
+    const total = (LEGAL_SOURCES as { length: number }).length;
     const verified = LEGAL_SOURCES.filter(s => s.auditTrail.status === 'VERIFIED').length;
     const pending = total - verified;
     return { total, verified, pending, percent: Math.round((verified / total) * 100) };
@@ -67,8 +67,8 @@ const FMJAMControlPanel: React.FC<FMJAMControlPanelProps> = ({ isOpen, onClose, 
     return LEGAL_SOURCES.filter(source => {
       const searchStr = filter.toLowerCase();
       const matchesSearch = source.label.toLowerCase().includes(searchStr) || 
-                            source.reference.toLowerCase().includes(searchStr) ||
-                            source.sfsNumber.includes(searchStr);
+                            (source as { reference: string }).reference.toLowerCase().includes(searchStr) ||
+                            (source as { sfsNumber: string }).sfsNumber.includes(searchStr);
       
       const matchesTab = activeTab === 'all' || 
                          (activeTab === 'verified' && source.auditTrail.status === 'VERIFIED') ||
@@ -173,7 +173,7 @@ const FMJAMControlPanel: React.FC<FMJAMControlPanelProps> = ({ isOpen, onClose, 
               {statusMessage.type === 'success' ? <CheckCircleIcon className="w-5 h-5" /> : 
                statusMessage.type === 'error' ? <ExclamationTriangleIcon className="w-5 h-5" /> : 
                <InformationCircleIcon className="w-5 h-5" />}
-              <span className="text-xs font-bold uppercase tracking-wider">{statusMessage.text}</span>
+              <span className="text-xs font-bold uppercase tracking-wider">{(statusMessage as { text: string }).text}</span>
             </div>
             <button onClick={() => setStatusMessage(null)}>
               <XMarkIcon className="w-4 h-4 opacity-50 hover:opacity-100" />
@@ -251,15 +251,15 @@ const FMJAMControlPanel: React.FC<FMJAMControlPanelProps> = ({ isOpen, onClose, 
         <main className="flex-grow overflow-y-auto p-10 custom-scrollbar bg-slate-50/30 dark:bg-slate-950/20">
             <div className="grid grid-cols-1 gap-6">
                 {filteredSources.map((source) => (
-                    <div key={source.id} className="group bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-3xl p-8 hover:border-blue-200 dark:hover:border-blue-900/50 transition-all duration-500 relative overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1">
+                    <div key={(source as { id: string }).id} className="group bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-3xl p-8 hover:border-blue-200 dark:hover:border-blue-900/50 transition-all duration-500 relative overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1">
                         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 relative z-10">
                             <div className="flex-grow">
                                 <div className="flex items-center gap-4 mb-4">
                                     <span className={`text-[10px] font-black uppercase px-3 py-1 rounded-full border tracking-[0.15em] ${source.auditTrail.status === 'VERIFIED' ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 border-emerald-100 dark:border-emerald-900/50' : 'bg-rose-50 dark:bg-rose-900/20 text-rose-600 dark:text-rose-400 border-rose-100 dark:border-rose-900/50'}`}>
                                         {source.auditTrail.status === 'VERIFIED' ? 'Verifierad' : 'Väntande'}
                                     </span>
-                                    <span className="text-[11px] font-mono text-blue-500/70 font-black tracking-tighter">SFS {source.sfsNumber}</span>
-                                    {source.version.includes('2025') && (
+                                    <span className="text-[11px] font-mono text-blue-500/70 font-black tracking-tighter">SFS {(source as { sfsNumber: string }).sfsNumber}</span>
+                                    {(source as { version: string }).version.includes('2025') && (
                                         <span className="bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400 text-[10px] font-black px-3 py-1 rounded-full border border-amber-100 dark:border-amber-900/50 tracking-widest uppercase">Reform</span>
                                     )}
                                 </div>
@@ -269,14 +269,14 @@ const FMJAMControlPanel: React.FC<FMJAMControlPanelProps> = ({ isOpen, onClose, 
                             
                             <div className="flex gap-3 shrink-0">
                                 <button 
-                                    onClick={() => handleVerify(source.id)}
-                                    className={`flex items-center space-x-3 text-[10px] font-black uppercase tracking-[0.2em] px-6 py-3 rounded-2xl border transition-all duration-300 ${verifyingId === source.id ? 'bg-emerald-600 text-white border-emerald-400 scale-105 shadow-lg shadow-emerald-600/20' : 'bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-slate-700 hover:shadow-md'}`}
+                                    onClick={() => handleVerify((source as { id: string }).id)}
+                                    className={`flex items-center space-x-3 text-[10px] font-black uppercase tracking-[0.2em] px-6 py-3 rounded-2xl border transition-all duration-300 ${verifyingId === (source as { id: string }).id ? 'bg-emerald-600 text-white border-emerald-400 scale-105 shadow-lg shadow-emerald-600/20' : 'bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-slate-700 hover:shadow-md'}`}
                                 >
-                                    {verifyingId === source.id ? <CheckCircleIcon className="h-5 w-5" /> : <ActivityIcon className="h-5 w-5" />}
-                                    <span>{verifyingId === source.id ? 'Klar' : 'Granska'}</span>
+                                    {verifyingId === (source as { id: string }).id ? <CheckCircleIcon className="h-5 w-5" /> : <ActivityIcon className="h-5 w-5" />}
+                                    <span>{verifyingId === (source as { id: string }).id ? 'Klar' : 'Granska'}</span>
                                 </button>
                                 <button 
-                                    onClick={() => onEditItem?.(source.id)}
+                                    onClick={() => onEditItem?.((source as { id: string }).id)}
                                     className="p-3 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded-2xl border border-blue-100 dark:border-blue-900/50 hover:bg-blue-600 hover:text-white transition-all duration-300 shadow-sm hover:shadow-lg hover:scale-110"
                                 >
                                     <CogIcon className="h-6 w-6" />
@@ -286,7 +286,7 @@ const FMJAMControlPanel: React.FC<FMJAMControlPanelProps> = ({ isOpen, onClose, 
                     </div>
                 ))}
                 
-                {filteredSources.length === 0 && (
+                {(filteredSources as { length: number }).length === 0 && (
                     <div className="py-32 text-center opacity-30 flex flex-col items-center animate-in fade-in duration-1000">
                         <div className="w-24 h-24 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center mb-6">
                             <InformationCircleIcon className="h-12 w-12 text-slate-400" />

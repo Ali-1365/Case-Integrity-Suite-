@@ -30,11 +30,11 @@ const OpinionGenerator: React.FC<OpinionGeneratorProps> = ({ analysis, onComplet
   });
 
   useEffect(() => {
-    const selectedTemplate = opinionTemplateRegistry.find(t => t.id === selectedTemplateId);
+    const selectedTemplate = opinionTemplateRegistry.find(t => (t as { id: string }).id === selectedTemplateId);
     if (selectedTemplate) {
         setConfig(prev => ({
             ...prev,
-            templateId: selectedTemplate.id,
+            templateId: (selectedTemplate as { id: string }).id,
             includeSections: selectedTemplate.sections
         }));
     }
@@ -58,13 +58,13 @@ const OpinionGenerator: React.FC<OpinionGeneratorProps> = ({ analysis, onComplet
     }
   };
 
-  const selectedTemplate = opinionTemplateRegistry.find(t => t.id === selectedTemplateId);
+  const selectedTemplate = opinionTemplateRegistry.find(t => (t as { id: string }).id === selectedTemplateId);
   
   const renderMarkdown = (text: string) => {
     return text
       .split('\n')
       .map(line => line.trim())
-      .filter(line => line.length > 0)
+      .filter(line => (line as { length: number }).length > 0)
       .map((line, index) => {
         if (line.startsWith('---')) {
             return <hr key={`hr-${index}`} className="border-gray-800 my-4" />;
@@ -92,11 +92,11 @@ const OpinionGenerator: React.FC<OpinionGeneratorProps> = ({ analysis, onComplet
         return <p key={`p-${index}`} className="mb-4 text-gray-300 leading-relaxed">{line}</p>;
       })
       .reduce((acc: React.ReactElement[], el) => {
-        if (el.type === 'li' && acc.length > 0 && acc[acc.length-1].type === 'ul') {
-            const lastUl = acc[acc.length-1];
-            const children = React.Children.toArray((lastUl.props as any).children);
+        if (el.type === 'li' && (acc as { length: number }).length > 0 && acc[(acc as { length: number }).length-1].type === 'ul') {
+            const lastUl = acc[(acc as { length: number }).length-1];
+            const children = React.Children.toArray((lastUl.props as unknown).children);
             const newUl = React.cloneElement(lastUl, {}, [...children, el]);
-            acc[acc.length-1] = newUl;
+            acc[(acc as { length: number }).length-1] = newUl;
             return acc;
         } else if (el.type === 'li') {
             return [...acc, <ul key={`ul-${el.key}`} className="mb-4 space-y-1">{el}</ul>];
@@ -121,7 +121,7 @@ const OpinionGenerator: React.FC<OpinionGeneratorProps> = ({ analysis, onComplet
                     disabled={isGenerating}
                 >
                     {opinionTemplateRegistry.map(template => (
-                        <option key={template.id} value={template.id}>{template.name}</option>
+                        <option key={(template as { id: string }).id} value={(template as { id: string }).id}>{(template as { name: string }).name}</option>
                     ))}
                 </select>
                 {selectedTemplate && <p className="text-xs text-gray-400 mt-2">{selectedTemplate.description}</p>}
@@ -177,7 +177,7 @@ const OpinionGenerator: React.FC<OpinionGeneratorProps> = ({ analysis, onComplet
       {opinionResult && (
         <Card title="Genererat Yttrande" icon={<DocumentTextIcon />}>
           <div className="prose prose-invert prose-p:text-gray-300 prose-headings:text-cyan-400 max-w-none bg-gray-900 p-4 rounded-lg">
-             {renderMarkdown(opinionResult.content)}
+             {renderMarkdown((opinionResult as { content?: string, textContent?: string }).textContent)}
           </div>
           <div className="mt-8 flex justify-end">
             <button 

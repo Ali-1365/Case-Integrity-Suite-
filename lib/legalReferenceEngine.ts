@@ -37,7 +37,7 @@ export class LegalReferenceEngine {
     const references: LegalReference[] = [];
 
     this.legalFrameworkData.forEach(item => {
-      const ref = item.reference.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const ref = (item as { reference: string }).reference.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       const label = item.label.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       
       const patterns = [
@@ -54,20 +54,20 @@ export class LegalReferenceEngine {
           if (references.some(r => r.position === position)) continue;
 
           const contextSnippet = this.extractContext(text, position, 140);
-          const source = item.reference;
+          const source = (item as { reference: string }).reference;
 
           references.push({
-            id: `${item.id}-${position}`,
+            id: `${(item as { id: string }).id}-${position}`,
             source,
             rawText,
-            chapter: this.parseSectionNumber(item.chapter),
-            section: this.parseSectionNumber(item.section),
+            chapter: this.parseSectionNumber((item as { chapter: string | number }).chapter),
+            section: this.parseSectionNumber((item as { section: string | number }).section),
             contextSnippet,
             documentName,
             position,
             valid: item.auditTrail.status === 'VERIFIED',
             validationReason: item.auditTrail.status,
-            keywords: [item.type, item.description, item.sfsNumber],
+            keywords: [item.type, item.description, (item as { sfsNumber: string }).sfsNumber],
           });
         }
       });
@@ -79,7 +79,7 @@ export class LegalReferenceEngine {
   private extractContext(text: string, index: number, span: number): string {
     const halfSpan = Math.floor(span / 2);
     const start = Math.max(0, index - halfSpan);
-    const end = Math.min(text.length, index + halfSpan);
+    const end = Math.min((text as { length: number }).length, index + halfSpan);
     let snippet = text.slice(start, end).replace(/\s+/g, ' ').trim();
     return `...${snippet}...`;
   }

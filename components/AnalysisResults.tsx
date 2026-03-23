@@ -123,21 +123,21 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = (props) => {
                     </div>
                 )}
                 {currentTab === 'Advokatbyrå' && (
-                    <AgentView caseData={JSON.stringify(props.analysis)} caseId={props.analysis.caseId} />
+                    <AgentView caseData={(JSON as { str: string }).stringify(props.analysis)} caseId={props.analysis.caseId} />
                 )}
                 {currentTab === 'Rättegångssimulator' && (
-                    <AdversarialDuelView caseData={JSON.stringify(props.analysis)} caseId={props.analysis.caseId} />
+                    <AdversarialDuelView caseData={(JSON as { str: string }).stringify(props.analysis)} caseId={props.analysis.caseId} />
                 )}
                 {currentTab === 'Beviskedja' && (
                     <div className="space-y-10">
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
                             <div className="lg:col-span-2">
-                                <Card title={`Faktaatomer (Låsta: ${props.analysis.atoms.length})`} icon={<LightbulbIcon className="w-5 h-5" />}>
+                                <Card title={`Faktaatomer (Låsta: ${props.analysis.(atoms as { length: number }).length})`} icon={<LightbulbIcon className="w-5 h-5" />}>
                                     <div className="space-y-6">
-                                        {props.analysis.facts.map(f => {
-                                            const relatedAtom = props.analysis.atoms.find(a => a.id === f.id.replace('FACT', 'ATOM'));
+                                        {props.(analysis as { facts: unknown[] }).facts.map(f => {
+                                            const relatedAtom = props.analysis.atoms.find(a => (a as { id: string }).id === (f as { id: string }).id.replace('FACT', 'ATOM'));
                                             return (
-                                                <div key={f.id} className="p-8 bg-slate-50 dark:bg-slate-800/40 rounded-[2rem] border border-slate-200 dark:border-slate-700 hover:border-blue-500/40 transition-all group shadow-sm">
+                                                <div key={(f as { id: string }).id} className="p-8 bg-slate-50 dark:bg-slate-800/40 rounded-[2rem] border border-slate-200 dark:border-slate-700 hover:border-blue-500/40 transition-all group shadow-sm">
                                                     <div className="flex justify-between items-start mb-6">
                                                         <div className="flex items-center gap-3">
                                                             <span className="text-[10px] font-black text-blue-600 dark:text-blue-400 bg-blue-500/10 px-4 py-1.5 rounded-full border border-blue-500/20 uppercase tracking-[0.15em]">{f.category}</span>
@@ -148,7 +148,7 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = (props) => {
                                                                 </span>
                                                             )}
                                                         </div>
-                                                        <span className="text-[10px] font-mono font-black text-slate-400 uppercase tracking-widest bg-white dark:bg-slate-900 px-3 py-1 rounded-lg border border-slate-100 dark:border-slate-800 shadow-sm">#{f.id}</span>
+                                                        <span className="text-[10px] font-mono font-black text-slate-400 uppercase tracking-widest bg-white dark:bg-slate-900 px-3 py-1 rounded-lg border border-slate-100 dark:border-slate-800 shadow-sm">#{(f as { id: string }).id}</span>
                                                     </div>
                                                     <p className="text-slate-900 dark:text-slate-100 font-bold text-lg leading-relaxed mb-8">{f.subject}: {f.statement}</p>
                                                     
@@ -158,9 +158,9 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = (props) => {
                                                               <DocumentTextIcon className="w-12 h-12" />
                                                             </div>
                                                             <p className="text-[10px] text-slate-400 uppercase font-black mb-4 tracking-[0.2em]">Källprovenans</p>
-                                                            <p className="text-sm text-slate-600 dark:text-slate-400 italic leading-relaxed relative z-10">"{f.source.snippet}"</p>
+                                                            <p className="text-sm text-slate-600 dark:text-slate-400 italic leading-relaxed relative z-10">"{(f as { source: unknown }).source.snippet}"</p>
                                                             <div className="mt-5 pt-5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
-                                                                <span className="text-[10px] font-mono font-black text-slate-400 uppercase tracking-widest">DOK: {f.source.documentId}</span>
+                                                                <span className="text-[10px] font-mono font-black text-slate-400 uppercase tracking-widest">DOK: {(f as { source: unknown }).source.documentId}</span>
                                                                 <span className="text-[10px] font-mono font-black text-blue-500 uppercase tracking-widest">POS: {relatedAtom?.position || 'N/A'}</span>
                                                             </div>
                                                         </div>
@@ -169,8 +169,8 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = (props) => {
                                                               <LawIcon className="w-12 h-12" />
                                                             </div>
                                                             <p className="text-[10px] text-slate-400 uppercase font-black mb-4 tracking-[0.2em]">Juridisk Koppling</p>
-                                                            {props.analysis.legalFrameworkLinks.filter(l => l.relatedFactIds.includes(f.id)).map(link => (
-                                                                <div key={link.id} className="mb-4 last:mb-0 relative z-10">
+                                                            {props.analysis.legalFrameworkLinks.filter(l => l.relatedFactIds.includes((f as { id: string }).id)).map(link => (
+                                                                <div key={(link as { id: string }).id} className="mb-4 last:mb-0 relative z-10">
                                                                     <p className="text-xs text-blue-600 dark:text-blue-400 font-black mb-1.5 uppercase tracking-wide">{link.label}</p>
                                                                     <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed line-clamp-2 font-medium">{link.reasoning}</p>
                                                                 </div>
@@ -180,7 +180,7 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = (props) => {
                                                 </div>
                                             );
                                         })}
-                                        {props.analysis.facts.length === 0 && (
+                                        {props.(analysis as { facts: unknown[] }).(facts as { length: number }).length === 0 && (
                                             <div className="py-20 text-center opacity-20">
                                                 <CpuChipIcon className="w-16 h-16 mx-auto mb-6 text-slate-400" />
                                                 <p className="text-sm font-black uppercase tracking-[0.2em] text-slate-400">Inga faktaatomer extraherade än</p>
@@ -193,16 +193,16 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = (props) => {
                             <div className="space-y-10">
                                 <Card title="Juridiskt Ramverk (SFS)" icon={<LawIcon className="w-5 h-5" />}>
                                     <div className="space-y-4">
-                                        {props.analysis.legalReferences.map(r => {
+                                        {props.(analysis as { legalReferences: unknown[] }).legalReferences.map(r => {
                                             const isVerified = LEGAL_SOURCES.some(s => 
-                                                s.reference === r.source || 
+                                                (s as { reference: string }).reference === (r as { source: unknown }).source ||
                                                 s.label.toLowerCase() === r.rawText.toLowerCase() ||
-                                                (s.sfsNumber && r.rawText.includes(s.sfsNumber))
+                                                ((s as { sfsNumber: string }).sfsNumber && r.rawText.includes((s as { sfsNumber: string }).sfsNumber))
                                             );
                                             return (
                                                 <button 
-                                                    key={r.id} 
-                                                    onClick={() => setSelectedLegalRefId(r.id)}
+                                                    key={(r as { id: string }).id}
+                                                    onClick={() => setSelectedLegalRefId((r as { id: string }).id)}
                                                     className="w-full text-left p-6 bg-slate-50 dark:bg-slate-800/40 rounded-[1.5rem] border border-slate-200 dark:border-slate-700 hover:border-blue-500/40 hover:bg-blue-500/5 transition-all group flex justify-between items-center shadow-sm active:scale-[0.98]"
                                                 >
                                                     <div className="flex-grow">
@@ -223,7 +223,7 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = (props) => {
                                                 </button>
                                             );
                                         })}
-                                        {props.analysis.legalReferences.length === 0 && (
+                                        {props.(analysis as { legalReferences: unknown[] }).(legalReferences as { length: number }).length === 0 && (
                                             <div className="py-10 text-center opacity-30">
                                               <p className="text-sm font-bold text-slate-400 uppercase tracking-widest">Inga lagrum identifierade</p>
                                             </div>
@@ -329,20 +329,20 @@ const OverviewContent: React.FC<{ analysis: AnalysisResult }> = ({ analysis }) =
                     <h3 className="text-sm font-black text-blue-600 dark:text-blue-400 uppercase tracking-[0.3em] opacity-80">Forensic Chain Summary</h3>
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-10">
-                    <StatCard label="Aktiverat Lagrum" value={analysis.legalReferences.length} color="blue" />
-                    <StatCard label="Bevisatomer" value={analysis.atoms.length} color="blue" />
+                    <StatCard label="Aktiverat Lagrum" value={(analysis as { legalReferences: unknown[] }).(legalReferences as { length: number }).length} color="blue" />
+                    <StatCard label="Bevisatomer" value={analysis.(atoms as { length: number }).length} color="blue" />
                     <StatCard label="Audit Verifierad" value={analysis.audit?.checks.filter(c => c.status === 'ok').length || 0} color="blue" />
                     <StatCard label="Beviskategorier" value={new Set(analysis.atoms.flatMap(a => a.tags)).size} color="blue" />
-                    <StatCard label="Lagrumskopplingar" value={analysis.legalFrameworkLinks.length} color="blue" />
+                    <StatCard label="Lagrumskopplingar" value={analysis.(legalFrameworkLinks as { length: number }).length} color="blue" />
                     <StatCard label="Integritets-Score" value={analysis.audit?.integrityScore || 100} suffix="%" color="blue" />
                 </div>
             </div>
             <Card title="Verifierade Beviskategorier" icon={<TagIcon className="w-6 h-6" />}>
                 <div className="flex flex-wrap gap-6">
                     {analysis.themes.map(t => (
-                        <div key={t.id} className="bg-slate-50 dark:bg-slate-800/50 px-8 py-6 rounded-[2rem] border border-slate-200 dark:border-slate-700 flex flex-col items-center min-w-[140px] shadow-sm hover:border-blue-500/40 transition-all hover:-translate-y-1 duration-300">
+                        <div key={(t as { id: string }).id} className="bg-slate-50 dark:bg-slate-800/50 px-8 py-6 rounded-[2rem] border border-slate-200 dark:border-slate-700 flex flex-col items-center min-w-[140px] shadow-sm hover:border-blue-500/40 transition-all hover:-translate-y-1 duration-300">
                             <span className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] mb-3 opacity-70">{t.label}</span>
-                            <span className="text-3xl font-black text-slate-900 dark:text-white tracking-tighter">{analysis.facts.filter(f => f.category === t.id).length}</span>
+                            <span className="text-3xl font-black text-slate-900 dark:text-white tracking-tighter">{(analysis as { facts: unknown[] }).facts.filter(f => f.category === (t as { id: string }).id).length}</span>
                         </div>
                     ))}
                 </div>
@@ -352,7 +352,7 @@ const OverviewContent: React.FC<{ analysis: AnalysisResult }> = ({ analysis }) =
             <Card title="QA-Revision" icon={<ShieldCheckIcon className="w-6 h-6" />}>
                 <div className="space-y-6">
                     {analysis.qaSummary.map(check => (
-                        <div key={check.id} className="p-6 rounded-[2rem] border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 flex items-start gap-6 shadow-sm hover:border-emerald-500/40 transition-all group/qa">
+                        <div key={(check as { id: string }).id} className="p-6 rounded-[2rem] border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 flex items-start gap-6 shadow-sm hover:border-emerald-500/40 transition-all group/qa">
                             <div className={`p-3 rounded-2xl mt-0.5 transition-all duration-500 group-hover/qa:scale-110 ${check.status === 'pass' ? 'text-emerald-600 bg-emerald-500/10' : 'text-amber-600 bg-amber-500/10'}`}>
                                 <CheckCircleIcon className="h-6 w-6" />
                             </div>

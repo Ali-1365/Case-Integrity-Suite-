@@ -116,7 +116,7 @@ const EconomicDashboard: React.FC = () => {
     setIsAnalyzing(true);
     try {
       const analysis = await economicService.analyzeClaimAI(claim);
-      economicService.updateClaim(claim.id, { aiAnalysis: analysis });
+      economicService.updateClaim((claim as { id: string }).id, { aiAnalysis: analysis });
       loadData();
     } catch (error) {
       console.error("AI Analysis failed:", error);
@@ -227,8 +227,8 @@ const EconomicDashboard: React.FC = () => {
 
               <Card title="Aktiva Skadeståndsprocesser" icon={<ScaleIcon className="w-5 h-5" />}>
                 <div className="space-y-4">
-                  {claims.length > 0 ? claims.map(claim => (
-                    <div key={claim.id} className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 hover:border-indigo-500/30 transition-all cursor-pointer group">
+                  {(claims as { length: number }).length > 0 ? claims.map(claim => (
+                    <div key={(claim as { id: string }).id} className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 hover:border-indigo-500/30 transition-all cursor-pointer group">
                       <div className="flex items-center space-x-4">
                         <div className={`p-2 rounded-lg ${claim.type === 'STATE' ? 'bg-amber-100 text-amber-700' : 'bg-blue-100 text-blue-700'}`}>
                           <ScaleIcon className="w-5 h-5" />
@@ -299,8 +299,8 @@ const EconomicDashboard: React.FC = () => {
             <div className="space-y-8">
               <Card title="Senaste Betalningar" icon={<BanknotesIcon className="w-5 h-5" />}>
                 <div className="space-y-4">
-                  {payments.length > 0 ? payments.map(payment => (
-                    <div key={payment.id} className="flex items-center justify-between py-2 border-b border-slate-100 dark:border-slate-800 last:border-0">
+                  {(payments as { length: number }).length > 0 ? payments.map(payment => (
+                    <div key={(payment as { id: string }).id} className="flex items-center justify-between py-2 border-b border-slate-100 dark:border-slate-800 last:border-0">
                       <div>
                         <p className="text-sm font-bold text-slate-900 dark:text-white">{payment.recipient}</p>
                         <p className="text-[10px] text-slate-500 uppercase">

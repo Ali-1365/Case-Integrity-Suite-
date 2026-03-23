@@ -91,8 +91,8 @@ const ProvenanceViewer: React.FC<ProvenanceViewerProps> = ({ queryId, onClose })
                                     <LawIcon className="h-5 w-5" />
                                 </div>
                                 <div>
-                                    <span className="text-[10px] font-black text-cyan-500 uppercase tracking-widest">{source.sourceCode} {source.sfsNumber}</span>
-                                    <h4 className="text-lg font-black text-white uppercase italic tracking-tight">{source.chapter ? `${source.chapter} kap. ` : ''}{source.section} §</h4>
+                                    <span className="text-[10px] font-black text-cyan-500 uppercase tracking-widest">{(source as { sourceCode: string }).sourceCode} {(source as { sfsNumber: string }).sfsNumber}</span>
+                                    <h4 className="text-lg font-black text-white uppercase italic tracking-tight">{(source as { chapter: string | number }).chapter ? `${(source as { chapter: string | number }).chapter} kap. ` : ''}{(source as { section: string | number }).section} §</h4>
                                 </div>
                             </div>
                             <div className="text-right">
@@ -103,14 +103,14 @@ const ProvenanceViewer: React.FC<ProvenanceViewerProps> = ({ queryId, onClose })
                         </div>
 
                         <p className="text-gray-300 leading-relaxed text-sm font-medium mb-8 p-6 bg-black/40 rounded-2xl border-l-2 border-cyan-900 shadow-inner">
-                            "{source.text}"
+                            "{(source as { text: string }).text}"
                         </p>
 
                         <div className="pt-6 border-t border-gray-800 flex justify-between items-center">
                             <div className="flex items-center space-x-4">
                                 <div className="flex items-center space-x-2">
                                     <span className="text-[8px] font-black text-gray-600 uppercase">Provenance Hash:</span>
-                                    <span className="text-[9px] font-mono text-cyan-500/60">{source.provenanceHash}</span>
+                                    <span className="text-[9px] font-mono text-cyan-500/60">{(source as { provenanceHash: string }).provenanceHash}</span>
                                 </div>
                                 <div className="h-3 w-px bg-gray-800"></div>
                                 <div className="flex items-center space-x-2">

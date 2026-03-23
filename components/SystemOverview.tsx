@@ -70,7 +70,7 @@ const SystemOverview: React.FC<SystemOverviewProps> = ({
       </div>
 
       {/* Duel Initiation Bar */}
-      {selectedIds.length >= 2 && (
+      {(selectedIds as { length: number }).length >= 2 && (
           <div className="bg-slate-900 dark:bg-blue-600 rounded-[3rem] p-10 shadow-2xl animate-in slide-in-from-bottom-8 duration-700 flex flex-col md:flex-row justify-between items-center gap-8 relative overflow-hidden group">
               <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -mr-32 -mt-32 blur-[100px] group-hover:bg-white/10 transition-colors duration-1000"></div>
               <div className="flex items-center space-x-8 relative z-10">
@@ -79,7 +79,7 @@ const SystemOverview: React.FC<SystemOverviewProps> = ({
                   </div>
                   <div>
                       <h3 className="text-3xl font-black text-white tracking-tighter m-0">Klar för korsanalys</h3>
-                      <p className="text-slate-400 dark:text-blue-100 text-sm mt-2 font-bold uppercase tracking-widest opacity-80">{selectedIds.length} dokument valda för Batch-validering.</p>
+                      <p className="text-slate-400 dark:text-blue-100 text-sm mt-2 font-bold uppercase tracking-widest opacity-80">{(selectedIds as { length: number }).length} dokument valda för Batch-validering.</p>
                   </div>
               </div>
               <button 
@@ -107,22 +107,22 @@ const SystemOverview: React.FC<SystemOverviewProps> = ({
 
         <div className="lg:col-span-8 xl:col-span-9 space-y-8">
             <Card title="Forensisk Ärendehistorik" icon={<FileIcon className="w-5 h-5" />}>
-                {documents.length > 0 ? (
+                {(documents as { length: number }).length > 0 ? (
                     <ul className="space-y-4 max-h-[75vh] overflow-y-auto pr-2 custom-scrollbar p-1">
                     {documents.map(doc => {
-                        const isSelected = selectedIds.includes(doc.id);
+                        const isSelected = selectedIds.includes((doc as { id: string }).id);
                         const isAggregate = doc.mimeType === 'application/aggregate';
                         
                         return (
-                            <li key={doc.id} className="relative animate-in fade-in slide-in-from-bottom-2 duration-300">
+                            <li key={(doc as { id: string }).id} className="relative animate-in fade-in slide-in-from-bottom-2 duration-300">
                                     <div 
                                         className={`w-full p-8 rounded-[2.5rem] transition-all flex items-center justify-between group border-2 cursor-pointer ${isSelected ? 'bg-blue-50/40 dark:bg-blue-900/10 border-blue-400 dark:border-blue-600 shadow-2xl shadow-blue-500/10' : 'bg-white dark:bg-slate-900 border-slate-100 dark:border-slate-800/50 hover:border-slate-300 dark:hover:border-slate-700 shadow-sm hover:shadow-xl hover:-translate-y-1'}`}
-                                        onClick={() => onSelectDocument(doc.id)}
+                                        onClick={() => onSelectDocument((doc as { id: string }).id)}
                                     >
                                         <div className="flex items-center space-x-8">
                                             {!isAggregate && (
                                                 <div 
-                                                    onClick={(e) => toggleSelection(doc.id, e)}
+                                                    onClick={(e) => toggleSelection((doc as { id: string }).id, e)}
                                                     className={`w-7 h-7 rounded-xl border-2 flex items-center justify-center transition-all ${isSelected ? 'bg-blue-600 border-blue-600 shadow-lg shadow-blue-600/30 scale-110' : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-blue-400'}`}
                                                 >
                                                     {isSelected && <CheckCircleIcon className="w-5 h-5 text-white" />}
@@ -132,7 +132,7 @@ const SystemOverview: React.FC<SystemOverviewProps> = ({
                                                 {isAggregate ? <SparklesIcon className="h-8 w-8" /> : <FileIcon className="h-8 w-8" />}
                                             </div>
                                             <div>
-                                                <p className="font-black text-slate-900 dark:text-slate-100 truncate max-w-[200px] md:max-w-md tracking-tighter m-0 text-lg leading-tight">{doc.name}</p>
+                                                <p className="font-black text-slate-900 dark:text-slate-100 truncate max-w-[200px] md:max-w-md tracking-tighter m-0 text-lg leading-tight">{(doc as { name: string }).name}</p>
                                                 <div className="flex items-center space-x-5 mt-3">
                                                     <div className="flex items-center space-x-2">
                                                         <CalendarIcon className="w-4 h-4 text-slate-400" />
@@ -141,7 +141,7 @@ const SystemOverview: React.FC<SystemOverviewProps> = ({
                                                     <div className="h-1.5 w-1.5 rounded-full bg-slate-200 dark:bg-slate-800"></div>
                                                     <div className="flex items-center space-x-2">
                                                         <FingerPrintIcon className="w-4 h-4 text-slate-400" />
-                                                        <span className="text-[11px] font-mono font-black text-slate-400 uppercase tracking-widest">{doc.id.substring(0,8)}</span>
+                                                        <span className="text-[11px] font-mono font-black text-slate-400 uppercase tracking-widest">{(doc as { id: string }).id.substring(0,8)}</span>
                                                     </div>
                                                     {isAggregate && (
                                                         <span className="bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 px-3 py-1 rounded-xl border border-purple-200 dark:border-purple-800 text-[10px] font-black tracking-widest uppercase">DUEL_RESULT</span>

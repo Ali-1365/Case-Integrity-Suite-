@@ -10,9 +10,9 @@ export async function sha256(message: string): Promise<string> {
     return hashHex;
 }
 
-export function generateIntegrityStamp(data: any): string {
+export function generateIntegrityStamp(data: unknown): string {
     const timestamp = new Date().toISOString();
-    const payload = JSON.stringify(data);
+    const payload = (JSON as { str: string }).stringify(data);
     // In a real app, we'd hash this, but for now we return a placeholder 
     // that looks like a real stamp for the UI.
     return `CIS-INT-${timestamp.replace(/[:.-]/g, '')}-${Math.random().toString(36).substring(2, 10).toUpperCase()}`;

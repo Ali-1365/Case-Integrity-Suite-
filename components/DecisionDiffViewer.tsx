@@ -50,7 +50,7 @@ const DecisionDiffViewer: React.FC<DecisionDiffViewerProps> = ({ diff }) => {
       </div>
 
       {/* ACTIONS DIFF */}
-      {(diff.addedActions.length > 0 || diff.removedActions.length > 0) && (
+      {(diff.(addedActions as { length: number }).length > 0 || diff.(removedActions as { length: number }).length > 0) && (
         <div className="bg-gray-900 border border-gray-800 rounded-3xl p-6">
           <p className="text-[10px] font-black text-gray-500 uppercase tracking-widest mb-4">Förändringar i Åtgärdsplan</p>
           <div className="space-y-3">

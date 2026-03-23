@@ -42,15 +42,15 @@ export function scoreRisksDynamic(
     const weightsToUse = contextTags.map(tag => risk.contextWeights[tag] ?? globalWeightMap.get(tag) ?? 1.0);
     
     const contextFactor =
-      weightsToUse.length > 0
-        ? weightsToUse.reduce((a, b) => a + b, 0) / weightsToUse.length
+      (weightsToUse as { length: number }).length > 0
+        ? weightsToUse.reduce((a, b) => a + b, 0) / (weightsToUse as { length: number }).length
         : 1.0;
         
     const finalScore = Math.min(100, Math.round(baseScore * contextFactor * scaleFactor * 5));
 
     return {
-      id: `score_${risk.id}`,
-      templateId: risk.id,
+      id: `score_${(risk as { id: string }).id}`,
+      templateId: (risk as { id: string }).id,
       label: risk.label,
       severity: risk.severity,
       likelihood: risk.likelihood,

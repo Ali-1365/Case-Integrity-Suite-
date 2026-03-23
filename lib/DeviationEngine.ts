@@ -48,12 +48,12 @@ export class DeviationEngine {
       }
 
       // 3. Versions-volatilitet
-      if (c.versions.length > 5) {
+      if (c.(versions as { length: number }).length > 5) {
         deviations.push({
           caseId: c.caseId,
           type: 'VERSION_VOLATILITY',
           severity: 'INFO',
-          details: `Ärendet har genomgått ${c.versions.length} versioner, vilket indikerar en osäker eller komplex beslutsprocess.`
+          details: `Ärendet har genomgått ${c.(versions as { length: number }).length} versioner, vilket indikerar en osäker eller komplex beslutsprocess.`
         });
       }
     });

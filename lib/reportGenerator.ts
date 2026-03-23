@@ -14,7 +14,7 @@ export interface GeneratedReport {
 
 /**
  * Generates a structured, technical report directly from an AnalysisResult object.
- * This function is deterministic and does not use any AI/LLM. It strictly follows
+ * This function is deterministic and does not use unknown AI/LLM. It strictly follows
  * the FMJAM reporting structure.
  */
 export function generateReportFromAnalysis(analysis: AnalysisResult): GeneratedReport {
@@ -24,7 +24,7 @@ export function generateReportFromAnalysis(analysis: AnalysisResult): GeneratedR
     sections: [
       {
         title: "Inledning",
-        body: `Detta dokument utgör en teknisk och strukturerad analys baserad på AnalysisResult med id ${analysis.id} för ärende ${analysis.caseId}, skapad ${new Date(analysis.createdAt).toLocaleString('sv-SE')}.`
+        body: `Detta dokument utgör en teknisk och strukturerad analys baserad på AnalysisResult med id ${(analysis as { id: string }).id} för ärende ${analysis.caseId}, skapad ${new Date(analysis.createdAt).toLocaleString('sv-SE')}.`
       },
       {
         title: "Metod",
@@ -33,18 +33,18 @@ export function generateReportFromAnalysis(analysis: AnalysisResult): GeneratedR
       {
         title: "Faktaredogörelse",
         body:
-          analysis.facts.length === 0
+          (analysis as { facts: unknown[] }).(facts as { length: number }).length === 0
             ? "Inga faktapunkter har registrerats."
-            : analysis.facts
-                .map(f => `• ${f.subject}: ${f.statement} (Källa: ${f.source.location})`)
+            : (analysis as { facts: unknown[] }).facts
+                .map(f => `• ${f.subject}: ${f.statement} (Källa: ${(f as { source: unknown }).source.location})`)
                 .join("\n")
       },
       {
         title: "Motstridiga uppgifter",
         body:
-          analysis.contradictions.length === 0
+          (analysis as { contradictions: unknown[] }).(contradictions as { length: number }).length === 0
             ? "Inga motstridiga uppgifter har identifierats av systemet."
-            : analysis.contradictions
+            : (analysis as { contradictions: unknown[] }).contradictions
                 .map(
                   c =>
                     `• ${c.description} (Härlett från fakta: ${c.conflictingFactIds.join(", ")})`
@@ -54,7 +54,7 @@ export function generateReportFromAnalysis(analysis: AnalysisResult): GeneratedR
       {
         title: "Juridiskt relevanta oklarheter",
         body:
-          analysis.uncertainties.length === 0
+          analysis.(uncertainties as { length: number }).length === 0
             ? "Inga specifika oklarheter har markerats av systemet."
             : analysis.uncertainties
                 .map(
@@ -66,12 +66,12 @@ export function generateReportFromAnalysis(analysis: AnalysisResult): GeneratedR
       {
         title: "Praxis- och lagrumskopplingar",
         body:
-          analysis.legalFrameworkLinks.length === 0
+          analysis.(legalFrameworkLinks as { length: number }).length === 0
             ? "Inga strukturerade kopplingar har registrerats."
             : analysis.legalFrameworkLinks
                 .map(
                   l =>
-                    `• ${l.label} – referenser: ${l.references.join(
+                    `• ${l.label} – referenser: ${(l as { reference: string }).references.join(
                       ", "
                     )} (Relaterar till fakta: ${l.relatedFactIds.join(", ")})`
                 )

@@ -21,10 +21,10 @@ async function startServer() {
       const rawData = fs.readFileSync(praxisPath, "utf-8");
       const data = JSON.parse(rawData);
       
-      const results = data.paragraphs.filter((p: any) => {
-        const linkedLaw = p.metadata?.revisionNote || "";
+      const results = data.paragraphs.filter((p: import("../types").LegalParagraph) => {
+        const linkedLaw = (p as { metadata: Record<string, unknown> }).metadata?.revisionNote || "";
         return linkedLaw.toLowerCase().includes(lawRef.toLowerCase()) || 
-               p.text.toLowerCase().includes(lawRef.toLowerCase());
+               (p as { text: string }).text.toLowerCase().includes(lawRef.toLowerCase());
       });
 
       res.json(results);

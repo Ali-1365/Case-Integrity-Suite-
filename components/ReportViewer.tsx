@@ -38,11 +38,11 @@ const AiReportTab: React.FC<AiReportTabProps> = ({ analysis, onGenerate, opinion
   });
 
   useEffect(() => {
-    const selectedTemplate = opinionTemplateRegistry.find(t => t.id === selectedTemplateId);
+    const selectedTemplate = opinionTemplateRegistry.find(t => (t as { id: string }).id === selectedTemplateId);
     if (selectedTemplate) {
         setConfig(prev => ({
             ...prev,
-            templateId: selectedTemplate.id,
+            templateId: (selectedTemplate as { id: string }).id,
             includeSections: selectedTemplate.sections
         }));
     }
@@ -55,7 +55,7 @@ const AiReportTab: React.FC<AiReportTabProps> = ({ analysis, onGenerate, opinion
     }
   };
 
-  const selectedTemplate = opinionTemplateRegistry.find(t => t.id === selectedTemplateId);
+  const selectedTemplate = opinionTemplateRegistry.find(t => (t as { id: string }).id === selectedTemplateId);
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 animate-fade-in">
@@ -72,7 +72,7 @@ const AiReportTab: React.FC<AiReportTabProps> = ({ analysis, onGenerate, opinion
                     disabled={isGenerating}
                 >
                     {opinionTemplateRegistry.map(template => (
-                        <option key={template.id} value={template.id}>{template.name}</option>
+                        <option key={(template as { id: string }).id} value={(template as { id: string }).id}>{(template as { name: string }).name}</option>
                     ))}
                 </select>
                 {selectedTemplate && <p className="text-xs text-slate-500 dark:text-slate-400 mt-3 leading-relaxed font-medium">{selectedTemplate.description}</p>}
@@ -168,7 +168,7 @@ const AiReportTab: React.FC<AiReportTabProps> = ({ analysis, onGenerate, opinion
                 
                 <main className="flex-grow overflow-y-auto p-12 md:p-20 custom-scrollbar bg-white dark:bg-slate-900">
                     <div className="max-w-3xl mx-auto">
-                        {opinionResult.content.includes('**INTEGRITETSKEDJA (SHA-256):**') && (
+                        {(opinionResult as { content?: string, textContent?: string }).textContent.includes('**INTEGRITETSKEDJA (SHA-256):**') && (
                             <div className="bg-emerald-50 dark:bg-emerald-500/5 border border-emerald-200 dark:border-emerald-500/20 p-6 rounded-2xl mb-12 flex items-center space-x-5 shadow-sm">
                                 <div className="p-2 bg-emerald-500/10 rounded-xl text-emerald-600 dark:text-emerald-400">
                                     <ShieldCheckIcon className="w-8 h-8" />
@@ -176,13 +176,13 @@ const AiReportTab: React.FC<AiReportTabProps> = ({ analysis, onGenerate, opinion
                                 <div>
                                     <p className="text-[10px] font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-widest mb-1">Integritetsverifierad Data</p>
                                     <p className="text-[10px] font-mono text-emerald-600 dark:text-emerald-500 break-all leading-relaxed">
-                                        {opinionResult.content.split('**INTEGRITETSKEDJA (SHA-256):**')[1].split('\n')[0].trim()}
+                                        {(opinionResult as { content?: string, textContent?: string }).textContent.split('**INTEGRITETSKEDJA (SHA-256):**')[1].split('\n')[0].trim()}
                                     </p>
                                 </div>
                             </div>
                         )}
                         <div className="prose prose-slate dark:prose-invert max-w-none">
-                            <MarkdownRenderer content={opinionResult.content} />
+                            <MarkdownRenderer content={(opinionResult as { content?: string, textContent?: string }).textContent} />
                         </div>
                         
                         <div className="mt-20 pt-10 border-t border-slate-200 dark:border-slate-800 flex justify-between items-end">

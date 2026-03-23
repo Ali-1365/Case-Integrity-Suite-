@@ -49,7 +49,7 @@ const ManualTrigger: React.FC<ManualTriggerProps> = ({ label, icon, onClick, isL
     );
 };
 
-export const IntelligenceCore: React.FC<{ analysis: any }> = ({ analysis }) => {
+export const IntelligenceCore: React.FC<{ analysis: import("../lib/cis.types").AnalysisResult }> = ({ analysis }) => {
     const [activeProcesses, setActiveProcesses] = useState<Record<string, 'idle' | 'running' | 'completed' | 'error'>>({});
     const [localLogs, setLocalLogs] = useState<{ id: string, msg: string, time: string }[]>([]);
 
@@ -146,12 +146,12 @@ export const IntelligenceCore: React.FC<{ analysis: any }> = ({ analysis }) => {
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                             {pipelineSteps.map(step => (
                                 <ManualTrigger 
-                                    key={step.id}
+                                    key={(step as { id: string }).id}
                                     label={step.label}
                                     icon={step.icon}
-                                    status={activeProcesses[step.id]}
-                                    isLoading={activeProcesses[step.id] === 'running'}
-                                    onClick={() => triggerProcess(step.id, step.label)}
+                                    status={activeProcesses[(step as { id: string }).id]}
+                                    isLoading={activeProcesses[(step as { id: string }).id] === 'running'}
+                                    onClick={() => triggerProcess((step as { id: string }).id, step.label)}
                                 />
                             ))}
                         </div>
@@ -165,12 +165,12 @@ export const IntelligenceCore: React.FC<{ analysis: any }> = ({ analysis }) => {
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             {systemActions.map(action => (
                                 <ManualTrigger 
-                                    key={action.id}
+                                    key={(action as { id: string }).id}
                                     label={action.label}
                                     icon={action.icon}
-                                    status={activeProcesses[action.id]}
-                                    isLoading={activeProcesses[action.id] === 'running'}
-                                    onClick={() => triggerProcess(action.id, action.label)}
+                                    status={activeProcesses[(action as { id: string }).id]}
+                                    isLoading={activeProcesses[(action as { id: string }).id] === 'running'}
+                                    onClick={() => triggerProcess((action as { id: string }).id, action.label)}
                                 />
                             ))}
                         </div>
@@ -196,8 +196,8 @@ export const IntelligenceCore: React.FC<{ analysis: any }> = ({ analysis }) => {
                             Kärnloggar
                         </h3>
                         <div className="space-y-2 text-gray-500 max-h-40 overflow-y-auto custom-scrollbar">
-                            {localLogs.length > 0 ? localLogs.map(log => (
-                                <p key={log.id} className="animate-in slide-in-from-left duration-300">
+                            {(localLogs as { length: number }).length > 0 ? localLogs.map(log => (
+                                <p key={(log as { id: string }).id} className="animate-in slide-in-from-left duration-300">
                                     <span className="text-amber-500/50">[{log.time}]</span> {log.msg}
                                 </p>
                             )) : (

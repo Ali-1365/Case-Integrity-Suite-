@@ -88,10 +88,10 @@ const ControllerDashboard: React.FC<ControllerDashboardProps> = ({ isOpen, onClo
                     <>
                         {/* STATS GRID */}
                         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                            <StatCard label="Avvikelser" value={report.deviations.length} color="amber" icon={<ExclamationTriangleIcon className="w-6 h-6 text-amber-500/70" />} />
-                            <StatCard label="Inkonsekvenser" value={report.inconsistencies.length} color="rose" icon={<ActivityIcon className="w-6 h-6 text-rose-500/70" />} />
-                            <StatCard label="Bias-indikatorer" value={report.biasIndicators.length} color="indigo" icon={<AdjustmentsHorizontalIcon className="w-6 h-6 text-indigo-500/70" />} />
-                            <StatCard label="Integritetsfel" value={report.integrityIssues.length} color="rose" icon={<FingerPrintIcon className="w-6 h-6 text-rose-500/70" />} />
+                            <StatCard label="Avvikelser" value={report.(deviations as { length: number }).length} color="amber" icon={<ExclamationTriangleIcon className="w-6 h-6 text-amber-500/70" />} />
+                            <StatCard label="Inkonsekvenser" value={report.(inconsistencies as { length: number }).length} color="rose" icon={<ActivityIcon className="w-6 h-6 text-rose-500/70" />} />
+                            <StatCard label="Bias-indikatorer" value={report.(biasIndicators as { length: number }).length} color="indigo" icon={<AdjustmentsHorizontalIcon className="w-6 h-6 text-indigo-500/70" />} />
+                            <StatCard label="Integritetsfel" value={report.(integrityIssues as { length: number }).length} color="rose" icon={<FingerPrintIcon className="w-6 h-6 text-rose-500/70" />} />
                         </div>
 
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -109,16 +109,16 @@ const ControllerDashboard: React.FC<ControllerDashboardProps> = ({ isOpen, onClo
                                             </div>
                                             <div>
                                                 <p className="text-xs font-medium text-gray-500 mb-1">{d.caseId} | {d.type}</p>
-                                                <p className="text-sm text-gray-300 leading-snug">{d.details}</p>
+                                                <p className="text-sm text-gray-300 leading-snug">{(d as { details?: unknown }).details}</p>
                                             </div>
                                         </div>
                                     ))}
-                                    {report.deviations.length === 0 && <p className="text-gray-500 text-sm">Inga avvikelser funna i baslinjen.</p>}
+                                    {report.(deviations as { length: number }).length === 0 && <p className="text-gray-500 text-sm">Inga avvikelser funna i baslinjen.</p>}
                                 </div>
                             </section>
 
                             {/* INTEGRITY ISSUES LIST */}
-                            {report.integrityIssues.length > 0 && (
+                            {report.(integrityIssues as { length: number }).length > 0 && (
                                 <section className="bg-rose-500/5 border border-rose-500/20 rounded-xl p-6 space-y-6">
                                     <h3 className="text-sm font-medium text-rose-400 flex items-center gap-2">
                                         <FingerPrintIcon className="w-4 h-4" />
@@ -160,7 +160,7 @@ const ControllerDashboard: React.FC<ControllerDashboardProps> = ({ isOpen, onClo
                                                 <p className="text-xs text-gray-500">{b.description}</p>
                                             </div>
                                         ))}
-                                        {report.biasIndicators.length === 0 && <p className="text-gray-500 text-sm">Inga bias-indikatorer funna.</p>}
+                                        {report.(biasIndicators as { length: number }).length === 0 && <p className="text-gray-500 text-sm">Inga bias-indikatorer funna.</p>}
                                     </div>
                                 </div>
 
@@ -176,10 +176,10 @@ const ControllerDashboard: React.FC<ControllerDashboardProps> = ({ isOpen, onClo
                                                     <span className="text-xs font-medium bg-rose-500/10 text-rose-400 px-2 py-0.5 rounded border border-rose-500/20">CONFL: {inc.caseIds[0]}</span>
                                                     <span className="text-xs font-medium bg-rose-500/10 text-rose-400 px-2 py-0.5 rounded border border-rose-500/20">CONFL: {inc.caseIds[1]}</span>
                                                 </div>
-                                                <p className="text-sm text-gray-300">{inc.reason}</p>
+                                                <p className="text-sm text-gray-300">{(inc as { reason?: string }).reason}</p>
                                             </div>
                                         ))}
-                                        {report.inconsistencies.length === 0 && <p className="text-gray-500 text-sm">Inga inkonsekvenser funna.</p>}
+                                        {report.(inconsistencies as { length: number }).length === 0 && <p className="text-gray-500 text-sm">Inga inkonsekvenser funna.</p>}
                                     </div>
                                 </div>
                             </section>
@@ -199,7 +199,7 @@ const ControllerDashboard: React.FC<ControllerDashboardProps> = ({ isOpen, onClo
                 <CheckCircleIcon className="h-4 w-4 text-emerald-500/70" />
                 <span>Metodologisk Revision: 100% | controller.v17.gold</span>
             </div>
-            {report?.integrityIssues.length ? (
+            {report?.(integrityIssues as { length: number }).length ? (
                 <div className="flex items-center space-x-2 text-rose-500 animate-pulse">
                     <span className="opacity-50">........................................................................................................................</span>
                     <span className="whitespace-nowrap">Critical Sync Error</span>
