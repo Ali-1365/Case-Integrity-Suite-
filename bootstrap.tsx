@@ -64,33 +64,14 @@ export function startApp() {
   } catch (err) {
     console.error("React Root Initialization Error:", err);
     // Visa ett minimalt felmeddelande i DOM om React kraschar
-    container.textContent = ''; // Clear container
-
-    const errorDiv = document.createElement('div');
-    errorDiv.style.padding = '2rem';
-    errorDiv.style.fontFamily = 'sans-serif';
-    errorDiv.style.color = '#1e293b';
-
-    const header = document.createElement('h2');
-    header.style.color = '#dc2626';
-    header.textContent = 'Startfel';
-    errorDiv.appendChild(header);
-
-    const paragraph = document.createElement('p');
-    paragraph.textContent = 'Appen kunde inte starta. Försök ladda om sidan.';
-    errorDiv.appendChild(paragraph);
-
-    const button = document.createElement('button');
-    button.textContent = 'Ladda om';
-    button.style.padding = '0.5rem 1rem';
-    button.style.background = '#2563eb';
-    button.style.color = 'white';
-    button.style.border = 'none';
-    button.style.borderRadius = '6px';
-    button.style.cursor = 'pointer';
-    button.onclick = () => location.reload();
-    errorDiv.appendChild(button);
-
-    container.appendChild(errorDiv);
+    container.innerHTML = `
+      <div style="padding:2rem;font-family:sans-serif;color:#1e293b;">
+        <h2 style="color:#dc2626;">Startfel</h2>
+        <p>Appen kunde inte starta. Försök ladda om sidan.</p>
+        <button onclick="location.reload()"
+          style="padding:0.5rem 1rem;background:#2563eb;color:white;border:none;border-radius:6px;cursor:pointer;">
+          Ladda om
+        </button>
+      </div>`;
   }
 }

@@ -112,7 +112,7 @@ const EconomicDashboard: React.FC = () => {
     setActiveForm('NONE');
   };
 
-  const handleAnalyzeClaim = useCallback(async (claim: DamagesClaim) => {
+  const handleAnalyzeClaim = async (claim: DamagesClaim) => {
     setIsAnalyzing(true);
     try {
       const analysis = await economicService.analyzeClaimAI(claim);
@@ -123,7 +123,7 @@ const EconomicDashboard: React.FC = () => {
     } finally {
       setIsAnalyzing(false);
     }
-  }, []);
+  };
 
   const handleFilterPayments = () => {
     console.log("Filtering payments...");

@@ -1,109 +1,87 @@
-import test, { describe, it, mock, beforeEach, afterEach } from 'node:test';
-import assert from 'node:assert';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { githubService } from './githubService';
 
-describe('githubService.getSyncHealth', () => {
-    let originalFetch: typeof global.fetch;
+describe('GithubService.safeFetch', () => {
+  const originalFetch = global.fetch;
+  let fetchMock: any;
 
-    beforeEach(() => {
-        originalFetch = global.fetch;
+  beforeEach(() => {
+    fetchMock = vi.fn();
+    global.fetch = fetchMock;
+    vi.useFakeTimers();
+  });
+
+  afterEach(() => {
+    global.fetch = originalFetch;
+    vi.useRealTimers();
+    vi.clearAllMocks();
+  });
+
+  it('should return null when the request times out', async () => {
+    fetchMock.mockImplementation((url: string, options: RequestInit) => {
+      return new Promise((resolve, reject) => {
+        // Set up an abort listener to reject the promise if the signal aborts
+        if (options?.signal) {
+          options.signal.addEventListener('abort', () => {
+            reject(new DOMException('The user aborted a request.', 'AbortError'));
+          });
+        }
+
+        // This setTimeout is tracked by fake timers
+        setTimeout(() => {
+          resolve({
+            ok: true,
+            json: () => Promise.resolve({ data: 'delayed' }),
+          });
+        }, 5000); // Intentionally delayed longer than the timeout
+      });
     });
 
-    afterEach(() => {
-        global.fetch = originalFetch;
-        mock.restoreAll();
+    const safeFetchPromise = (githubService as any).safeFetch('https://example.com/api', 2500);
+
+    // Advance the timers by enough time to trigger the internal setTimeout
+    // inside safeFetch (which aborts the signal)
+    await vi.advanceTimersByTimeAsync(3000);
+
+    const result = await safeFetchPromise;
+
+    expect(result).toBeNull();
+  });
+
+  it('should return json data on successful fetch', async () => {
+    const mockData = { id: 1, name: 'test' };
+    fetchMock.mockResolvedValueOnce({
+      ok: true,
+      json: () => Promise.resolve(mockData),
     });
 
-    it('returns SyncHealth when metadata is valid', async () => {
-        const mockMetadata = {
-            version: '1.2.3',
-            sync_id: 'sync-12345',
-        };
+    const safeFetchPromise = (githubService as any).safeFetch('https://example.com/api');
+    await vi.runAllTimersAsync();
+    const result = await safeFetchPromise;
 
-        global.fetch = mock.fn(async () => {
-            return {
-                ok: true,
-                json: async () => mockMetadata,
-            } as Response;
-        });
+    expect(result).toEqual(mockData);
+    expect(fetchMock).toHaveBeenCalledWith('https://example.com/api', expect.any(Object));
+  });
 
-        const result = await githubService.getSyncHealth();
-
-        assert.ok(result);
-        assert.strictEqual(result.isAligned, true);
-        assert.strictEqual(result.remoteVersion, '1.2.3');
-        assert.strictEqual(result.remoteSyncId, 'sync-12345');
-        assert.ok(result.latencyMs >= 0);
+  it('should return null when fetch response is not ok', async () => {
+    fetchMock.mockResolvedValueOnce({
+      ok: false,
     });
 
-    it('returns null when metadata is missing version', async () => {
-        const mockMetadata = {
-            sync_id: 'sync-12345',
-        };
+    const safeFetchPromise = (githubService as any).safeFetch('https://example.com/api');
+    await vi.runAllTimersAsync();
+    const result = await safeFetchPromise;
 
-        global.fetch = mock.fn(async () => {
-            return {
-                ok: true,
-                json: async () => mockMetadata,
-            } as Response;
-        });
+    expect(result).toBeNull();
+  });
 
-        const result = await githubService.getSyncHealth();
+  it('should return null when fetch throws an error (e.g., network error)', async () => {
+    fetchMock.mockRejectedValueOnce(new Error('Network error'));
 
-        assert.strictEqual(result, null);
-    });
+    const safeFetchPromise = (githubService as any).safeFetch('https://example.com/api');
+    await vi.runAllTimersAsync();
+    const result = await safeFetchPromise;
 
-    it('returns null when metadata is missing sync_id', async () => {
-        const mockMetadata = {
-            version: '1.2.3',
-        };
-
-        global.fetch = mock.fn(async () => {
-            return {
-                ok: true,
-                json: async () => mockMetadata,
-            } as Response;
-        });
-
-        const result = await githubService.getSyncHealth();
-
-        assert.strictEqual(result, null);
-    });
-
-    it('returns null when metadata is empty', async () => {
-        const mockMetadata = {};
-
-        global.fetch = mock.fn(async () => {
-            return {
-                ok: true,
-                json: async () => mockMetadata,
-            } as Response;
-        });
-
-        const result = await githubService.getSyncHealth();
-
-        assert.strictEqual(result, null);
-    });
-
-    it('returns null on fetch failure (non-ok response)', async () => {
-        global.fetch = mock.fn(async () => {
-            return {
-                ok: false,
-            } as Response;
-        });
-
-        const result = await githubService.getSyncHealth();
-
-        assert.strictEqual(result, null);
-    });
-
-    it('returns null on fetch throw (network error)', async () => {
-        global.fetch = mock.fn(async () => {
-            throw new Error('Network error');
-        });
-
-        const result = await githubService.getSyncHealth();
-
-        assert.strictEqual(result, null);
-    });
+    expect(result).toBeNull();
+  });
 });

@@ -311,9 +311,9 @@ export class LegalPipelineService {
 
             await journalService.addEntry(caseId, 'PIPELINE_COMPLETED', `Fullständig juridisk pipeline slutförd för ${caseId}`);
             
-        } catch (error) {
+        } catch (error: any) {
             console.error("Pipeline error:", error);
-            await journalService.addEntry(caseId, 'PIPELINE_ERROR', `Fel i pipeline: ${(error instanceof Error ? error.message : String(error))}`);
+            await journalService.addEntry(caseId, 'PIPELINE_ERROR', `Fel i pipeline: ${error.message}`);
         }
 
         return state;
