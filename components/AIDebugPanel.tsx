@@ -8,6 +8,12 @@ import { ragIndexService, RagIndex } from '../lib/RagIndexService';
 import { ragService } from '../lib/ragService';
 import { legalPipelineService } from '../lib/LegalPipelineService';
 import { ingestService } from '../lib/IngestService';
+declare global {
+  interface Window {
+    _lastBakedIndex?: RagIndex;
+  }
+}
+
 import { 
   XMarkIcon, 
   CodeBracketIcon, 
@@ -117,16 +123,17 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
       setResponse(prev => prev + `\n\n### BAKNING SLUTFÖRD\n- Totalt antal chunks: ${updatedIndex.chunks.length}\n- Chunks med embeddings: ${bakedCount}\n\nKlicka på 'Exportera Index' för att ladda ner den nya filen.`);
       
       // Store in state so we can export it
-      (window as any)._lastBakedIndex = updatedIndex;
-    } catch (err: any) {
-      setResponse(prev => prev + `\n\n### FEL VID BAKNING\n${err.message}`);
+      window._lastBakedIndex = updatedIndex;
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      setResponse(prev => prev + `\n\n### FEL VID BAKNING\n${msg}`);
     } finally {
       setIsLoading(false);
     }
   };
 
   const handleExportIndex = () => {
-    const index = (window as any)._lastBakedIndex;
+    const index = window._lastBakedIndex;
     if (index) {
       ragIndexService.exportIndex(index);
     } else {
@@ -153,8 +160,9 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
       } else {
         setResponse(prev => prev + "\n\n⚠️ TEST VARNING: Vissa lagrum saknas i resultatet.");
       }
-    } catch (err: any) {
-      setResponse(prev => prev + `\n\n### TEST FEL\n${err.message}`);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      setResponse(prev => prev + `\n\n### TEST FEL\n${msg}`);
     } finally {
       setIsLoading(false);
     }
@@ -184,8 +192,9 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
       const uniqueLaws = Array.from(new Set(activeLaws));
       
       setResponse(prev => prev + `\n\n### PIPELINE SLUTFÖRD\n- Status: ${pipelineState.isExportBlocked ? 'BLOCKERAD' : 'GODKÄND'}\n- Identifierade lagrum: ${uniqueLaws.join(', ')}\n\nFINAL V3 PREVIEW:\n${pipelineState.finalV3?.substring(0, 300)}...`);
-    } catch (err: any) {
-      setResponse(prev => prev + `\n\n### PIPELINE FEL\n${err.message}`);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      setResponse(prev => prev + `\n\n### PIPELINE FEL\n${msg}`);
     } finally {
       setIsLoading(false);
     }
@@ -216,8 +225,9 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
       setResponse(prev => prev + `  - Arkiv-data läst: ${res3.length > 0 ? 'JA' : 'NEJ'}\n  - Lagkopplingar i arkiv: ${hasLinks ? 'JA' : 'NEJ'}\n`);
 
       setResponse(prev => prev + "\n\n### REGRESSIONSTEST SLUTFÖRD\n✅ Alla kritiska flöden verifierade.");
-    } catch (err: any) {
-      setResponse(prev => prev + `\n\n### TEST FEL\n${err.message}`);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      setResponse(prev => prev + `\n\n### TEST FEL\n${msg}`);
     } finally {
       setIsLoading(false);
     }

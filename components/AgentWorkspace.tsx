@@ -32,26 +32,62 @@ interface AgentWorkspaceProps {
 
 type TabType = 'analys' | 'historik' | 'profil';
 
+export interface AgentQueryResult {
+  error?: string;
+  facts?: string[];
+  laws?: string[];
+  contradictions?: string[];
+  [key: string]: unknown;
+}
+
+export interface AgentWorkspaceState {
+  isReady: boolean;
+  cases: Case[];
+  activeCaseId: string | null;
+  opinion: string;
+  query: string;
+  queryResult: AgentQueryResult | null;
+  isQuerying: boolean;
+  isGenerating: boolean;
+  activeTab: TabType;
+  isOffline: boolean;
+  repoStatus: RepoStatus | null;
+  syncHealth: SyncHealth | null;
+}
+
+export interface AgentWorkspaceConfig {
+  defaultTab: TabType;
+  pollingIntervalMs: number;
+}
+
 const AgentWorkspace: React.FC<AgentWorkspaceProps> = ({ isOpen, onClose }) => {
-  const [isReady, setIsReady] = useState(false);
-  const [cases, setCases] = useState<Case[]>([]);
-  const [activeCaseId, setActiveCaseId] = useState<string | null>(null);
-  const [opinion, setOpinion] = useState<string>('');
-  const [query, setQuery] = useState('');
-  const [queryResult, setQueryResult] = useState<any>(null);
-  const [isQuerying, setIsQuerying] = useState(false);
-  const [isGenerating, setIsGenerating] = useState(false);
-  const [activeTab, setActiveTab] = useState<TabType>('analys');
-  const [isOffline, setIsOffline] = useState(offlineService.getIsOffline());
-  
-  const [repoStatus, setRepoStatus] = useState<RepoStatus | null>(null);
-  const [syncHealth, setSyncHealth] = useState<SyncHealth | null>(null);
+  const [state, setState] = useState<AgentWorkspaceState>({
+    isReady: false,
+    cases: [],
+    activeCaseId: null,
+    opinion: '',
+    query: '',
+    queryResult: null,
+    isQuerying: false,
+    isGenerating: false,
+    activeTab: 'analys',
+    isOffline: offlineService.getIsOffline(),
+    repoStatus: null,
+    syncHealth: null
+  });
+
+  const updateState = (updates: Partial<AgentWorkspaceState>) => setState(prev => ({ ...prev, ...updates }));
+
+  const {
+    isReady, cases, activeCaseId, opinion, query, queryResult,
+    isQuerying, isGenerating, activeTab, isOffline, repoStatus, syncHealth
+  } = state;
 
   const activeCase = useMemo(() => cases.find(c => c.caseId === activeCaseId), [cases, activeCaseId]);
 
   useEffect(() => {
     const unsubscribe = offlineService.subscribe((offline) => {
-        setIsOffline(offline);
+        updateState({ isOffline: offline });
     });
     return unsubscribe;
   }, []);
@@ -59,31 +95,29 @@ const AgentWorkspace: React.FC<AgentWorkspaceProps> = ({ isOpen, onClose }) => {
   useEffect(() => {
     if (isOpen) {
       const init = async () => {
-        setIsReady(false);
-        setOpinion('');
-        setQueryResult(null);
+        updateState({ isReady: false, opinion: '', queryResult: null });
         
         try {
           const [status, health] = await Promise.all([
               githubService.getRepoStatus(),
               githubService.getSyncHealth()
           ]);
-          setRepoStatus(status);
-          setSyncHealth(health);
 
           await legalAIAgent.initialize();
           
           const allCases = await caseManagementService.getAllCases();
           allCases.forEach(c => legalAIAgent.addCase(c));
           
-          setCases(allCases);
-          if (allCases.length > 0 && !activeCaseId) {
-              setActiveCaseId(allCases[0].caseId);
-          }
+          updateState({
+            repoStatus: status,
+            syncHealth: health,
+            cases: allCases,
+            activeCaseId: activeCaseId || (allCases.length > 0 ? allCases[0].caseId : null),
+            isReady: true
+          });
         } catch (err) {
           console.error('AgentWorkspace initialization failed:', err);
-        } finally {
-          setIsReady(true);
+          updateState({ isReady: true });
         }
       };
       init();
@@ -92,21 +126,16 @@ const AgentWorkspace: React.FC<AgentWorkspaceProps> = ({ isOpen, onClose }) => {
 
   const handleGenerateOpinion = async () => {
     if (activeCaseId) {
-      setIsGenerating(true);
-      setOpinion('');
-      setQueryResult(null);
-      setActiveTab('analys');
+      updateState({ isGenerating: true, opinion: '', queryResult: null, activeTab: 'analys' });
       try {
         const result = await legalAIAgent.generateOpinion(activeCaseId);
-        setOpinion(result);
-        
-        // Refresh cases to get updated versions/journal
         const allCases = await caseManagementService.getAllCases();
-        setCases(allCases);
+        updateState({ opinion: result, cases: allCases, isGenerating: false });
       } catch (e) {
-        setOpinion("### Kritiskt fel vid generering\n\nDet gick inte att generera ett yttrande för detta ärende. Kontrollera att ärendet har tillräckligt med data.");
-      } finally {
-        setIsGenerating(false);
+        updateState({
+          opinion: "### Kritiskt fel vid generering\n\nDet gick inte att generera ett yttrande för detta ärende. Kontrollera att ärendet har tillräckligt med data.",
+          isGenerating: false
+        });
       }
     }
   };
@@ -114,27 +143,23 @@ const AgentWorkspace: React.FC<AgentWorkspaceProps> = ({ isOpen, onClose }) => {
   const handleQuery = () => {
     if (!query.trim() || !activeCaseId) return;
     
-    setIsQuerying(true);
-    setOpinion('');
-    setQueryResult(null);
-    setActiveTab('analys');
+    updateState({ isQuerying: true, opinion: '', queryResult: null, activeTab: 'analys' });
 
     const lowerQuery = query.toLowerCase();
-    let result: any;
+    let result: AgentQueryResult;
     if (lowerQuery.startsWith('fakta om')) {
         const keyword = lowerQuery.replace('fakta om', '').trim();
-        result = legalAIAgent.queryFacts(activeCaseId, keyword);
+        result = legalAIAgent.queryFacts(activeCaseId, keyword) as unknown as AgentQueryResult;
     } else if (lowerQuery.includes('lagrum') || lowerQuery.includes('lagar')) {
-        result = legalAIAgent.queryLaws(activeCaseId);
+        result = legalAIAgent.queryLaws(activeCaseId) as unknown as AgentQueryResult;
     } else if (lowerQuery.includes('motstridigheter') || lowerQuery.includes('konflikt')) {
-        result = legalAIAgent.queryContradictions(activeCaseId);
+        result = legalAIAgent.queryContradictions(activeCaseId) as unknown as AgentQueryResult;
     } else {
         result = { error: "Okänd fråga. Prova 'fakta om [nyckelord]', 'lagrum' eller 'motstridigheter'." };
     }
     
     setTimeout(() => {
-        setQueryResult(result);
-        setIsQuerying(false);
+        updateState({ queryResult: result, isQuerying: false });
     }, 500);
   };
 
@@ -181,7 +206,7 @@ const AgentWorkspace: React.FC<AgentWorkspaceProps> = ({ isOpen, onClose }) => {
                         <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2 block">Aktivt Ärende</label>
                         <select 
                             value={activeCaseId || ''}
-                            onChange={(e) => setActiveCaseId(e.target.value)}
+                            onChange={(e) => updateState({ activeCaseId: e.target.value })}
                             className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-2.5 text-sm text-slate-900 dark:text-white outline-none focus:ring-2 focus:ring-blue-500/20"
                             disabled={isGenerating || isQuerying}>
                             {cases.map(c => <option key={c.caseId} value={c.caseId}>{c.caseId}</option>)}
@@ -200,7 +225,7 @@ const AgentWorkspace: React.FC<AgentWorkspaceProps> = ({ isOpen, onClose }) => {
                         <div className="relative">
                             <textarea
                                 value={query}
-                                onChange={e => setQuery(e.target.value)}
+                                onChange={e => updateState({ query: e.target.value })}
                                 onKeyPress={e => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), handleQuery())}
                                 placeholder="Fråga agenten..."
                                 rows={2}
@@ -215,21 +240,21 @@ const AgentWorkspace: React.FC<AgentWorkspaceProps> = ({ isOpen, onClose }) => {
                         <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Navigering</h4>
                         <div className="grid grid-cols-3 gap-2">
                             <button 
-                                onClick={() => setActiveTab('analys')}
+                                onClick={() => updateState({ activeTab: 'analys' })}
                                 className={`p-2 rounded-lg flex flex-col items-center justify-center border transition-all ${activeTab === 'analys' ? 'bg-blue-50 border-blue-200 text-blue-600 dark:bg-blue-900/20 dark:border-blue-800 dark:text-blue-400' : 'bg-white border-slate-100 text-slate-400 dark:bg-slate-900 dark:border-slate-800'}`}
                             >
                                 <ChatIcon className="w-4 h-4 mb-1" />
                                 <span className="text-[8px] font-bold uppercase">Analys</span>
                             </button>
                             <button 
-                                onClick={() => setActiveTab('historik')}
+                                onClick={() => updateState({ activeTab: 'historik' })}
                                 className={`p-2 rounded-lg flex flex-col items-center justify-center border transition-all ${activeTab === 'historik' ? 'bg-blue-50 border-blue-200 text-blue-600 dark:bg-blue-900/20 dark:border-blue-800 dark:text-blue-400' : 'bg-white border-slate-100 text-slate-400 dark:bg-slate-900 dark:border-slate-800'}`}
                             >
                                 <ClockIcon className="w-4 h-4 mb-1" />
                                 <span className="text-[8px] font-bold uppercase">Historik</span>
                             </button>
                             <button 
-                                onClick={() => setActiveTab('profil')}
+                                onClick={() => updateState({ activeTab: 'profil' })}
                                 className={`p-2 rounded-lg flex flex-col items-center justify-center border transition-all ${activeTab === 'profil' ? 'bg-blue-50 border-blue-200 text-blue-600 dark:bg-blue-900/20 dark:border-blue-800 dark:text-blue-400' : 'bg-white border-slate-100 text-slate-400 dark:bg-slate-900 dark:border-slate-800'}`}
                             >
                                 <UserGroupIcon className="w-4 h-4 mb-1" />

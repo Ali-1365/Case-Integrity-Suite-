@@ -36,7 +36,7 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
   const [isLoading, setIsLoading] = useState(false);
   const [highlightedParagraphId, setHighlightedParagraphId] = useState<string | null>(null);
   const [relevantPraxis, setRelevantPraxis] = useState<PraxisEntry[]>([]);
-  const [integrityStatus, setIntegrityStatus] = useState<any[] | null>(null);
+  const [integrityStatus, setIntegrityStatus] = useState<Array<{ id: string; isValid: boolean; checkedAt: string }> | null>(null);
   const [isVerifying, setIsVerifying] = useState(false);
 
   const years = useMemo(() => {
@@ -110,7 +110,7 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
     }
   };
 
-  const isOutdated = (law: any) => {
+  const isOutdated = (law: typeof legalFrameworkIndex[0]) => {
     // Mock logic: if SFS year is before 2000, flag it as potentially outdated
     const year = parseInt(law.sfsNumber?.split(':')[0] || '2026');
     return year < 2000;
@@ -193,7 +193,7 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
                         <select 
                             className="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg py-2 px-3 text-sm text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all"
                             value={selectedType}
-                            onChange={(e) => setSelectedType(e.target.value as any)}
+                            onChange={(e) => setSelectedType(e.target.value as 'all' | 'lag' | 'regelverk')}
                         >
                             <option value="all">Alla Kategorier</option>
                             <option value="lag">Lagar</option>
