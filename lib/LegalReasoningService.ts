@@ -1,5 +1,6 @@
 
 import { geminiService } from '../services/geminiService';
+import { generateId } from './utils';
 import { ProvenanceChain } from './QueryProvenanceService';
 import { auditService } from './AuditService';
 import { consolidationService } from './ConsolidationService';
@@ -13,7 +14,7 @@ export class LegalReasoningService extends BaseService {
 
   async generateReasoning(query: string, chain: ProvenanceChain): Promise<ReasoningResult> {
     return this.executeWithLogging('generateReasoning', { query, queryId: chain.queryId }, async () => {
-      const reasoningId = `REASON-${crypto.randomUUID().substring(0, 8).toUpperCase()}`;
+      const reasoningId = generateId('REASON');
       
       const consolidation = await consolidationService.consolidate(query, chain);
       const risk = consolidation.riskReport;

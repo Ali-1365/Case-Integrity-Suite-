@@ -1,5 +1,6 @@
 
 import { geminiService } from '../services/geminiService';
+import { generateId } from './utils';
 import { RagIndex, RagIndexChunk } from './RagIndexService';
 import { auditService } from './AuditService';
 import { queryProvenanceService } from './QueryProvenanceService';
@@ -50,7 +51,7 @@ export class RagService {
   }
 
   async getContextForText(query: string, includeDecisionSupport = true, caseId?: string): Promise<RagResult> {
-    const traceId = `RAG-${Date.now()}`;
+    const traceId = generateId('RAG');
     autoNotary.startTrace(traceId, 'RagService', 'getContextForText');
 
     if (!this.isInitialized) {
@@ -80,7 +81,7 @@ export class RagService {
 
       autoNotary.info(traceId, 'RagService', 'Vektorsökning klar', { hits: lawHits.length, scoped: !!caseId });
 
-      const queryId = `AUDIT-${crypto.randomUUID().substring(0, 8).toUpperCase()}`;
+      const queryId = generateId('AUDIT');
 
       await auditService.log({
         operationType: 'RAG_QUERY',

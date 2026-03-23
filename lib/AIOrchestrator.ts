@@ -3,6 +3,7 @@ import { Type } from '@google/genai';
 import { FactV2, ContradictionV2, UncertaintyV2, FactCategory } from '../types';
 import { LegalFrameworkItem } from './legalReferenceEngine';
 import { geminiService } from '../services/geminiService';
+import { generateId } from './utils';
 import { CASE_TYPE_REGISTRY } from '../data/caseTypeRegistry';
 import { CaseType, CrossCorrelation, CISCase } from './cis.types';
 import { caseManagementService } from './CaseManagementService';
@@ -132,7 +133,7 @@ import { autoNotary } from './AutoNotaryService';
 
 export class AIOrchestrator {
   async runFullAnalysis(documentText: string, documentId: string, legalFramework: LegalFrameworkItem[], ragContext?: string, caseId?: string): Promise<FullAnalysisPayload> {
-    const traceId = `TRACE-${documentId}-${Date.now()}`;
+    const traceId = generateId('TRACE');
     autoNotary.startTrace(traceId, 'AIOrchestrator', 'runFullAnalysis');
     
     // 1. Get RAG Context & Deep Legal Analysis (The "Chain")
@@ -265,7 +266,7 @@ export class AIOrchestrator {
         const parsed = JSON.parse(response.trim());
         return (parsed.correlations || []).map((c: any) => ({
             ...c,
-            id: c.id || `CORR-${crypto.randomUUID().substring(0, 8)}`
+            id: c.id || generateId('CORR')
         }));
     } catch (error) {
         console.error("CrossCorrelation failure:", error);

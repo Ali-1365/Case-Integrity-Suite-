@@ -1,4 +1,4 @@
-import { GoogleGenAI, GenerateContentParameters } from '@google/genai';
+import { GoogleGenAI, GenerateContentParameters, GenerateContentResponse } from '@google/genai';
 import { loggingService, LogMode } from './loggingService';
 import { getSyntheticResponse } from '../lib/syntheticLLMResponses';
 import { getConfiguredGeminiApiKey, hasStoredGeminiApiKey, offlineService, setStoredGeminiApiKey } from './offlineService';
@@ -10,9 +10,9 @@ export interface QuotaState { isThrottled: boolean; retryAfterMs: number; lastEr
 
 export class GeminiService {
   private ai: GoogleGenAI | null = null;
-  private readonly flashModel = 'gemini-2.0-flash';
-  private readonly proModel   = 'gemini-2.5-pro-preview-05-06';
-  private readonly liteModel  = 'gemini-2.0-flash-lite';
+  private readonly flashModel = 'gemini-3-flash-preview';
+  private readonly proModel   = 'gemini-3.1-pro-preview';
+  private readonly liteModel  = 'gemini-3.1-flash-lite-preview';
 
   public quotaState: QuotaState = { isThrottled: false, retryAfterMs: 0, lastError: null };
 
@@ -53,11 +53,15 @@ export class GeminiService {
   }
 
   private getClient(): GoogleGenAI {
-    if (!this.ai) { this.initializeClient(); if (!this.ai) throw new Error('Gemini-klienten kunde inte initialiseras.'); }
+    if (!this.ai) {
+      this.initializeClient();
+      if (!this.ai) throw new ApiError('Gemini client could not be initialized.');
+    }
     return this.ai;
   }
 
-  private async executeWithRetry<T>(operation: () => Promise<T>, retries = 3, delay = 2000): Promise<T> {
+  private async executeWithRetry<T>(operation: () => Promise<T>, retries = 3, initialDelay = 2000): Promise<T> {
+    let delay = initialDelay;
     for (let i = 0; i < retries; i++) {
       try {
         const result = await operation();
@@ -92,7 +96,6 @@ export class GeminiService {
     const startTime = Date.now();
 
     if (offlineService.getIsOffline()) {
-      const prompt = typeof params.contents === 'string' ? params.contents : JSON.stringify(params.contents);
       return getSyntheticResponse(prompt);
     }
 
@@ -136,16 +139,26 @@ export class GeminiService {
 
   async embed(text: string): Promise<number[]> {
     if (offlineService.getIsOffline()) return this.pseudoEmbed(text);
+    
     const client = this.getClient();
-    for (const modelName of ['text-embedding-004', 'gemini-embedding-001']) {
+    const models = ['text-embedding-004', 'gemini-embedding-001'];
+    
+    for (const modelName of models) {
       try {
-        const response = await this.executeWithRetry(() =>
-          (client as any).models.embedContent({ model: modelName, contents: { parts: [{ text }] } })
+        const response: any = await this.executeWithRetry(() =>
+          (client as any).models.embedContent({
+            model: modelName,
+            contents: { parts: [{ text }] }
+          })
         );
         const values = (response as any)?.embeddings?.[0]?.values || (response as any)?.embedding?.values;
         if (values?.length > 0) return values;
-      } catch { continue; }
+      } catch (e: any) {
+        console.warn(`[GeminiService] Embedding failed with ${modelName}: ${e.message}`);
+      }
     }
+    
+    console.warn('[GeminiService] All embedding models failed -> Pseudo-embedding fallback.');
     return this.pseudoEmbed(text);
   }
 
@@ -168,14 +181,37 @@ export class GeminiService {
   }
 
   private pseudoEmbed(text: string): number[] {
-    const dim = 768; const result = new Array(dim).fill(0);
-    for (let i = 0; i < text.length; i++) { const c = text.charCodeAt(i); result[(c * (i+1)) % dim] = (result[(c * (i+1)) % dim] + c / 255) % 1; }
-    const mag = Math.sqrt(result.reduce((s,v) => s+v*v,0)) || 1; return result.map(v => v/mag);
+    const dim = 768;
+    const result = new Array(dim).fill(0);
+    for (let i = 0; i < text.length; i++) {
+      const c = text.charCodeAt(i);
+      result[(c * (i + 1)) % dim] = (result[(c * (i + 1)) % dim] + c / 255) % 1;
+    }
+    const mag = Math.sqrt(result.reduce((s, v) => s + v * v, 0)) || 1;
+    return result.map(v => v / mag);
   }
 
   async checkApiStatus(): Promise<{ online: boolean; message: string }> {
-    try { await this.generate({ contents: 'Svara med OK.' }); offlineService.setOffline(false); return { online: true, message: 'API online' }; }
-    catch (e: any) { offlineService.setOffline(true, 'NETWORK_ERROR'); return { online: false, message: e.message }; }
+    try {
+      await this.generate({ contents: 'Respond with OK.' }, 'fast');
+      offlineService.setOffline(false);
+      return { online: true, message: 'API is online and operational.' };
+    } catch (e: any) {
+      return { online: false, message: `API unavailable: ${e.message}` };
+    }
+  }
+
+  public async hasCustomKey(): Promise<boolean> {
+    if (typeof window !== 'undefined' && (window as any).aistudio?.hasSelectedApiKey)
+      return (window as any).aistudio.hasSelectedApiKey();
+    return false;
+  }
+
+  public async openKeySelection(): Promise<void> {
+    if (typeof window !== 'undefined' && (window as any).aistudio?.openSelectKey) {
+      await (window as any).aistudio.openSelectKey();
+      this.initializeClient();
+    }
   }
 }
 
@@ -183,8 +219,8 @@ export const geminiService = new GeminiService();
 
 // ─── GeminiLlmClient ────────────────────────
 export class GeminiLlmClient {
-  async generate(prompt: string): Promise<{ text: string }> {
-    const text = await geminiService.generate({ contents: prompt });
+  async generate(prompt: string, mode: LogMode = 'fast'): Promise<{ text: string }> {
+    const text = await geminiService.generate({ contents: prompt }, mode);
     return { text: text || '' };
   }
 }

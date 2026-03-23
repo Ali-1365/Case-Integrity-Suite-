@@ -1,5 +1,6 @@
 
 import { AppError, ErrorCode } from '../lib/errors';
+import { generateId } from '../lib/utils';
 
 export type LogMode = 'fast' | 'think' | 'system';
 export type LogLevel = 'INFO' | 'WARN' | 'ERROR' | 'DEBUG';
@@ -27,7 +28,7 @@ class LoggingService {
 
   log(level: LogLevel, mode: LogMode, message: string, details?: any, duration?: number, metadata?: Record<string, any>): void {
     const logEntry: LogEntry = {
-      id: crypto.randomUUID(),
+      id: generateId('LOG'),
       correlationId: this.currentCorrelationId || 'N/A',
       timestamp: new Date(),
       level,
