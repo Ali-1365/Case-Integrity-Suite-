@@ -299,7 +299,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
             });
             if (selectedDoc) {
                 items.push({ 
-                    label: selectedDoc.name, 
+                    label: selectedDoc.name,
                     onClick: () => {},
                     icon: <DocumentTextIcon className="w-3.5 h-3.5" />
                 });

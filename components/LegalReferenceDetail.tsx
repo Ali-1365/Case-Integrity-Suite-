@@ -36,7 +36,7 @@ const LegalReferenceDetail: React.FC<LegalReferenceDetailProps> = ({ referenceId
 
   // Hitta den AI-genererade länken (som innehåller reasoning)
   const legalLink = analysis.legalFrameworkLinks.find(link => 
-    link.id.includes(referenceId) || 
+    link.id.includes(referenceId) ||
     (ref && link.label.includes(ref.rawText))
   );
   

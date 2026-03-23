@@ -116,7 +116,7 @@ export class RagService {
       }
 
       autoNotary.endTrace(traceId, 'RagService', 'getContextForText', 'SUCCESS', { 
-          hitCount: lawHits.length, 
+          hitCount: lawHits.length,
           hasReasoning: !!reasoning, 
           hasDecisionSupport: !!decisionSupport 
       });

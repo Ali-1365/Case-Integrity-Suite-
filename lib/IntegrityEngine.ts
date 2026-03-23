@@ -38,7 +38,7 @@ export class IntegrityEngine {
 
     references.forEach(ref => {
       const exists = LEGAL_SOURCES.some(source => 
-        source.reference === ref.source || 
+        source.reference === ref.source ||
         source.label.toLowerCase() === ref.rawText.toLowerCase() ||
         (source.sfsNumber && ref.rawText.includes(source.sfsNumber))
       );
@@ -61,7 +61,7 @@ export class IntegrityEngine {
   enrichWithLegalVerification(result: AnalysisResult): AnalysisResult {
     const enrichedReferences = result.legalReferences.map(ref => {
       const exists = LEGAL_SOURCES.some(source => 
-        source.reference === ref.source || 
+        source.reference === ref.source ||
         source.label.toLowerCase() === ref.rawText.toLowerCase() ||
         (source.sfsNumber && ref.rawText.includes(source.sfsNumber))
       );
@@ -98,7 +98,7 @@ export class IntegrityEngine {
           if (!isValid) {
             issues.push({ 
               caseId: c.caseId, 
-              issue: `Forensiskt Integritetsfel: Atom ${atom.id} har manipulerats eller korrumperats (Hash mismatch).`, 
+              issue: `Forensiskt Integritetsfel: Atom ${atom.id} har manipulerats eller korrumperats (Hash mismatch).`,
               severity: 'CRITICAL' 
             });
           }

@@ -36,7 +36,7 @@ const AnalysisDashboard: React.FC<AnalysisDashboardProps> = ({ analysis }) => {
         />
         <StatBox 
           label="Bevisatomer" 
-          value={analysis.facts.length.toString()} 
+          value={analysis.facts.length.toString()}
           subtext="Verifierade påståenden" 
           icon={<ShieldCheckIcon className="w-7 h-7 text-blue-600 dark:text-blue-400" />}
           bgClass="bg-blue-500/10"
@@ -44,7 +44,7 @@ const AnalysisDashboard: React.FC<AnalysisDashboardProps> = ({ analysis }) => {
         />
         <StatBox 
           label="Lagrumskopplingar" 
-          value={analysis.legalReferences.length.toString()} 
+          value={analysis.legalReferences.length.toString()}
           subtext="Träffar i GOLD-index" 
           icon={<LawIcon className="w-7 h-7 text-indigo-600 dark:text-indigo-400" />}
           bgClass="bg-indigo-500/10"

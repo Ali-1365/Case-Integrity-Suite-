@@ -219,7 +219,7 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         {filteredIndex.map((source) => (
                             <div 
-                                key={source.id} 
+                                key={source.id}
                                 onClick={() => setSelectedLawId(source.id)}
                                 className="group bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl p-5 hover:border-blue-200 dark:hover:border-blue-900/50 transition-all cursor-pointer shadow-sm flex flex-col"
                             >
@@ -275,7 +275,7 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
                             <div className="lg:col-span-2 space-y-8">
                                 {activeCorpus.paragraphs.map((p) => (
                                     <div 
-                                        key={p.id} 
+                                        key={p.id}
                                         onClick={() => handleParagraphClick(p)}
                                         className={`relative pl-10 group cursor-pointer transition-all ${highlightedParagraphId === p.id ? 'scale-[1.02]' : ''}`}
                                     >

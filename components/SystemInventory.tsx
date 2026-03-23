@@ -162,7 +162,7 @@ const SystemInventory: React.FC<SystemInventoryProps> = ({ isOpen, onClose }) =>
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
                         <StatCard 
                             title="Totalt Antal Filer" 
-                            value={files.length} 
+                            value={files.length}
                             icon={<CodeBracketIcon className="w-6 h-6 text-gray-400" />} 
                             colorClass="text-gray-100"
                         />

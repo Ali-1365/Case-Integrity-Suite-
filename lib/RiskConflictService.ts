@@ -58,7 +58,7 @@ export class RiskConflictService {
       riskId,
       level: finalLevel,
       conflicts,
-      assessment: conflicts.length > 0 
+      assessment: conflicts.length > 0
         ? `Systemet har identifierat ${conflicts.length} normativa beröringspunkter som kräver fördjupad juridisk prövning.`
         : "Inga normativa konflikter eller kända tolkningsrisker identifierade utifrån tillgänglig korpus."
     };

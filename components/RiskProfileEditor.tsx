@@ -178,7 +178,7 @@ const RiskProfileEditor: React.FC<RiskProfileEditorProps> = ({
                 <div className="grid grid-cols-1 gap-8">
                     {legalFramework.map((item) => (
                         <div 
-                            key={item.id} 
+                            key={item.id}
                             ref={el => { itemRefs.current[item.id] = el; }}
                             className={`p-8 rounded-[2rem] border transition-all relative overflow-hidden group ${focusedItemId?.startsWith(item.id) ? 'bg-cyan-950/20 border-cyan-500 shadow-[0_0_30px_rgba(34,211,238,0.15)]' : 'bg-gray-900/40 border-gray-800'}`}
                         >
@@ -217,7 +217,7 @@ const RiskProfileEditor: React.FC<RiskProfileEditorProps> = ({
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                                 <ConfigDataField 
                                     label="SFS NUMMER" 
-                                    value={item.sfsNumber} 
+                                    value={item.sfsNumber}
                                     onChange={(val) => updateLegalItem(item.id, { sfsNumber: val })}
                                 />
                                 <ConfigDataField 

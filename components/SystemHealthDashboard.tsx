@@ -165,7 +165,7 @@ const SystemHealthDashboard: React.FC<SystemHealthDashboardProps> = ({ isOpen, o
             />
             <KPICard 
               title="API Latency" 
-              value={`${Math.round(metrics[metrics.length-1]?.apiLatency || 0)}ms`} 
+              value={`${Math.round(metrics[metrics.length-1]?.apiLatency || 0)}ms`}
               trend="neutral"
               icon={<BoltIcon className="w-5 h-5 text-amber-400" />}
               color="amber"
