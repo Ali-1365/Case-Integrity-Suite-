@@ -126,7 +126,7 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
   };
 
   const handleExportIndex = () => {
-    const index = (window as any)._lastBakedIndex;
+    const index = ((window as Window & typeof globalThis & { _lastBakedIndex?: RagIndex })._lastBakedIndex);
     if (index) {
       ragIndexService.exportIndex(index);
     } else {

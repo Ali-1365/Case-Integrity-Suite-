@@ -1,4 +1,24 @@
+
 import { GoogleGenAI, GenerateContentParameters, ThinkingLevel } from '@google/genai';
+import { Content } from '@google/genai';
+
+export interface GeminiConfig {
+    thinkingConfig?: { thinkingBudget?: number };
+    maxOutputTokens?: number;
+    responseMimeType?: string;
+}
+
+export interface GeminiResponse {
+    text?: string | (() => string);
+    embedding?: { values: number[] };
+}
+
+export interface GeminiClient {
+    models: {
+        embedContent: (params: { model: string; contents: string | string[] | { parts: { text: string }[] }[] }) => Promise<{ embeddings: { values: number[] }[] }>;
+    };
+}
+
 import { loggingService, LogMode } from './loggingService';
 import { getSyntheticResponse } from '../lib/syntheticLLMResponses';
 import { ApiError } from '../lib/errors';
@@ -24,15 +44,15 @@ class OfflineService {
       this._isOffline = true;
       this._reason = 'API_KEY_MISSING';
       if (typeof window !== 'undefined') {
-        (window as any).OFFLINE_MODE = true;
-        (window as any).OFFLINE_REASON = 'API_KEY_MISSING';
+        ((window as Window & typeof globalThis & { OFFLINE_MODE?: boolean }).OFFLINE_MODE) = true;
+        ((window as Window & typeof globalThis & { OFFLINE_REASON?: string }).OFFLINE_REASON) = 'API_KEY_MISSING';
       }
     }
   }
 
   getIsOffline(): boolean {
     return this._isOffline ||
-      (typeof window !== 'undefined' && (window as any).OFFLINE_MODE === true);
+      (typeof window !== 'undefined' && ((window as Window & typeof globalThis & { OFFLINE_MODE?: boolean }).OFFLINE_MODE) === true);
   }
 
   getReason(): OfflineReason { return this._reason; }
@@ -43,8 +63,8 @@ class OfflineService {
     this._reason = reason;
 
     if (typeof window !== 'undefined') {
-      (window as any).OFFLINE_MODE = offline;
-      (window as any).OFFLINE_REASON = reason;
+      ((window as Window & typeof globalThis & { OFFLINE_MODE?: boolean }).OFFLINE_MODE) = offline;
+      ((window as Window & typeof globalThis & { OFFLINE_REASON?: string }).OFFLINE_REASON) = reason;
     }
 
     this._subscribers.forEach(fn => fn(offline, reason));
@@ -143,7 +163,7 @@ export class GeminiService {
       return;
     }
     try {
-      this.ai = new GoogleGenAI({ apiKey } as any);
+      this.ai = new GoogleGenAI({ apiKey } as { apiKey: string });
       console.log('[GeminiService] Klient initierad.');
     } catch (err: unknown) {
       loggingService.error(`[GeminiService] Initiering misslyckades: ${(err instanceof Error ? err.message : String(err))}`);
@@ -221,12 +241,12 @@ export class GeminiService {
       const config = { ...(params.config || {}) };
 
       if (mode === 'think' && modelName === this.proModel) {
-        (config as any).thinkingConfig = {
-          thinkingBudget: (config as any).thinkingConfig?.thinkingBudget ?? 8000
+        (config as GeminiConfig).thinkingConfig = {
+          thinkingBudget: (config as GeminiConfig).thinkingConfig?.thinkingBudget ?? 8000
         };
       } else {
-        delete (config as any).thinkingConfig;
-        if (!(config as any).maxOutputTokens) (config as any).maxOutputTokens = 8192;
+        delete (config as GeminiConfig).thinkingConfig;
+        if (!(config as GeminiConfig).maxOutputTokens) (config as GeminiConfig).maxOutputTokens = 8192;
       }
 
       const response = await this.executeWithRetry(async () =>
@@ -234,12 +254,12 @@ export class GeminiService {
           model: modelName,
           contents: typeof params.contents === 'string'
             ? [{ role: 'user', parts: [{ text: params.contents as string }] }]
-            : (params.contents as any),
+            : (params.contents as unknown as Content[]),
           config,
         })
       );
 
-      const text = (response as any).text || '';
+      const text = typeof (response as GeminiResponse).text === "function" ? ((response as GeminiResponse).text as () => string)() : ((response as GeminiResponse).text as string) || '';
       const duration = Date.now() - startTime;
 
       loggingService.addLog({
@@ -266,13 +286,13 @@ export class GeminiService {
       if (modelName === this.proModel) {
         console.warn('[GeminiService] Pro misslyckades → Flash.');
         const np = { ...params, model: this.flashModel };
-        if (np.config) { const { thinkingConfig, ...r } = np.config as any; np.config = r; }
+        if (np.config) { const { thinkingConfig, ...r } = np.config as GeminiConfig; np.config = r; }
         return this.generate(np, 'fast');
       }
       if (modelName === this.flashModel) {
         console.warn('[GeminiService] Flash misslyckades → Lite.');
         const np = { ...params, model: this.liteModel };
-        if (np.config) { const { thinkingConfig, ...r } = np.config as any; np.config = r; }
+        if (np.config) { const { thinkingConfig, ...r } = np.config as GeminiConfig; np.config = r; }
         return this.generate(np, 'fast');
       }
       if (modelName === this.liteModel) {
@@ -280,7 +300,7 @@ export class GeminiService {
         const prompt = typeof params.contents === 'string'
           ? params.contents : JSON.stringify(params.contents);
         const synthetic = getSyntheticResponse(prompt);
-        if ((params.config as any)?.responseMimeType === 'application/json') {
+        if ((params.config as GeminiConfig)?.responseMimeType === 'application/json') {
           return JSON.stringify({ status: 'SYNTHETIC_FALLBACK', content: synthetic,
             warning: 'Syntetiskt svar på grund av API-begränsningar.' });
         }
@@ -300,12 +320,12 @@ export class GeminiService {
     for (const modelName of ['text-embedding-004', 'gemini-embedding-001']) {
       try {
         const response = await this.executeWithRetry(async () =>
-          (client as any).models.embedContent({
+          (client as GeminiClient).models.embedContent({
             model: modelName,
-            contents: { parts: [{ text }] },
+            contents: [{ parts: [{ text }] }],
           })
         );
-        const values = response?.embeddings?.[0]?.values || (response as any)?.embedding?.values;
+        const values = response?.embeddings?.[0]?.values || (response as GeminiResponse)?.embedding?.values;
         if (values?.length > 0) return values;
       } catch (err: unknown) {
         console.warn(`[GeminiService] Embed misslyckades (${modelName}): ${(err instanceof Error ? err.message : String(err))}`);
@@ -341,14 +361,14 @@ export class GeminiService {
   }
 
   public async hasCustomKey(): Promise<boolean> {
-    if (typeof window !== 'undefined' && (window as any).aistudio?.hasSelectedApiKey)
-      return (window as any).aistudio.hasSelectedApiKey();
+    if (typeof window !== 'undefined' && ((window as Window & typeof globalThis & { aistudio?: { hasSelectedApiKey: () => boolean, openSelectKey: () => Promise<void> } }).aistudio)?.hasSelectedApiKey)
+      return ((window as Window & typeof globalThis & { aistudio?: { hasSelectedApiKey: () => boolean, openSelectKey: () => Promise<void> } }).aistudio).hasSelectedApiKey();
     return false;
   }
 
   public async openKeySelection(): Promise<void> {
-    if (typeof window !== 'undefined' && (window as any).aistudio?.openSelectKey) {
-      await (window as any).aistudio.openSelectKey();
+    if (typeof window !== 'undefined' && ((window as Window & typeof globalThis & { aistudio?: { hasSelectedApiKey: () => boolean, openSelectKey: () => Promise<void> } }).aistudio)?.openSelectKey) {
+      await ((window as Window & typeof globalThis & { aistudio?: { hasSelectedApiKey: () => boolean, openSelectKey: () => Promise<void> } }).aistudio).openSelectKey();
       this.initializeClient();
     }
   }

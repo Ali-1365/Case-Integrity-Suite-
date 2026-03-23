@@ -8,7 +8,7 @@ import { loggingService } from './loggingService';
 import { ragService } from '../lib/ragService';
 
 // Ny typ för mer granulär lagdata
-interface EnrichedLegalParagraph {
+export interface EnrichedLegalParagraph {
   id: string;
   lawTitle: string;
   lawSourceCode: string;
@@ -47,7 +47,7 @@ class LegalAIAgent {
             lawSourceCode: corpus.sourceCode,
             chapter: p.chapter,
             section: p.section,
-            reference: (p as any).reference, // Handle Praxis reference
+            reference: (p as { reference?: string }).reference, // Handle Praxis reference
             text: p.text,
           });
         });
