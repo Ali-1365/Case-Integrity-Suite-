@@ -1,8 +1,8 @@
 
 import React, { useState, useMemo, useEffect } from 'react';
-import { legalFrameworkIndex } from '../data/legalFramework';
+import { legalFrameworkIndex, LegalFrameworkIndexEntry } from '../data/legalFramework';
 import { corpusService } from '../lib/CorpusService';
-import { LegalCorpus, LegalSourceCode } from '../types';
+import { LegalCorpus, LegalSourceCode, LegalParagraph } from '../types';
 import { 
     LawIcon, 
     PrinterIcon, 
@@ -36,7 +36,7 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
   const [isLoading, setIsLoading] = useState(false);
   const [highlightedParagraphId, setHighlightedParagraphId] = useState<string | null>(null);
   const [relevantPraxis, setRelevantPraxis] = useState<PraxisEntry[]>([]);
-  const [integrityStatus, setIntegrityStatus] = useState<any[] | null>(null);
+  const [integrityStatus, setIntegrityStatus] = useState<{ file: string; hash: string; status: string; timestamp: string; }[] | null>(null);
   const [isVerifying, setIsVerifying] = useState(false);
 
   const years = useMemo(() => {
@@ -83,7 +83,7 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
     window.print();
   };
 
-  const handleParagraphClick = async (p: any) => {
+  const handleParagraphClick = async (p: LegalParagraph) => {
     setHighlightedParagraphId(p.id);
     const lawRef = `${activeCorpus?.shortName} ${p.section}`;
     try {
@@ -110,7 +110,7 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
     }
   };
 
-  const isOutdated = (law: any) => {
+  const isOutdated = (law: LegalFrameworkIndexEntry) => {
     // Mock logic: if SFS year is before 2000, flag it as potentially outdated
     const year = parseInt(law.sfsNumber?.split(':')[0] || '2026');
     return year < 2000;
