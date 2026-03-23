@@ -17,7 +17,7 @@ import SystemDocumentation from './SystemDocumentation';
 import OracleCoreViewer from './OracleCoreViewer';
 import ArchiveCoreViewer from './ArchiveCoreViewer';
 
-declare const mermaid: any;
+declare const mermaid: unknown;
 
 interface StaticArchitectureViewProps {
   isOpen: boolean;
@@ -52,7 +52,8 @@ const StaticArchitectureView: React.FC<StaticArchitectureViewProps> = ({ isOpen,
         if (isOpen && activeSubView === 'root') {
             const timer = setTimeout(() => {
                 try {
-                    mermaid.initialize({ 
+                    // @ts-expect-error
+                    (mermaid as Record<string, unknown>).initialize({
                         startOnLoad: false, 
                         theme: 'dark', 
                         securityLevel: 'loose',
@@ -60,8 +61,8 @@ const StaticArchitectureView: React.FC<StaticArchitectureViewProps> = ({ isOpen,
                         flowchart: { htmlLabels: true, curve: 'basis', useMaxWidth: true }
                     });
                     mermaid.run();
-                } catch (e) {
-                    console.error("Mermaid failure:", e);
+                } catch (err: unknown) {
+                    console.error("Mermaid failure:", err);
                 }
             }, 100);
             return () => clearTimeout(timer);

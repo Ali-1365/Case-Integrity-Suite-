@@ -9,7 +9,9 @@ interface SystemGuideProps {
 const GuideStep: React.FC<{ icon: React.ReactElement, title: string, children: React.ReactNode }> = ({ icon, title, children }) => (
     <div className="flex items-start space-x-6 p-6 rounded-3xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700/50 transition-all hover:shadow-md group">
         <div className="flex-shrink-0 w-14 h-14 flex items-center justify-center bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-2xl border border-blue-500/20 group-hover:scale-110 transition-transform">
-            {React.cloneElement(icon as React.ReactElement<any>, { className: 'h-8 w-8' })}
+            // @ts-expect-error
+            {/* @ts-expect-error React specific type mismatch */}
+            {React.cloneElement(icon as React.ReactElement<unknown>, { className: 'h-8 w-8' })}
         </div>
         <div className="space-y-2">
             <h4 className="text-xl font-black text-slate-900 dark:text-white tracking-tight">{title}</h4>

@@ -1,4 +1,24 @@
+
 import { GoogleGenAI, GenerateContentParameters, ThinkingLevel } from '@google/genai';
+import { Content } from '@google/genai';
+
+export interface GeminiConfig {
+    thinkingConfig?: { thinkingBudget?: number };
+    maxOutputTokens?: number;
+    responseMimeType?: string;
+}
+
+export interface GeminiResponse {
+    text?: string | (() => string);
+    embedding?: { values: number[] };
+}
+
+export interface GeminiClient {
+    models: {
+        embedContent: (params: { model: string; contents: string | string[] | { parts: { text: string }[] }[] }) => Promise<{ embeddings: { values: number[] }[] }>;
+    };
+}
+
 import { loggingService, LogMode } from './loggingService';
 import { getSyntheticResponse } from '../lib/syntheticLLMResponses';
 import { ApiError } from '../lib/errors';
@@ -12,6 +32,7 @@ class OfflineService {
   private _isOffline: boolean = false;
   private _reason: OfflineReason = null;
   private _subscribers: ((offline: boolean, reason: OfflineReason) => void)[] = [];
+  private _recoveryTimer: any = null;
 
   constructor() {
     const apiKey =
@@ -23,31 +44,74 @@ class OfflineService {
       this._isOffline = true;
       this._reason = 'API_KEY_MISSING';
       if (typeof window !== 'undefined') {
-        (window as any).OFFLINE_MODE = true;
-        (window as any).OFFLINE_REASON = 'API_KEY_MISSING';
+        ((window as Window & typeof globalThis & { OFFLINE_MODE?: boolean }).OFFLINE_MODE) = true;
+        ((window as Window & typeof globalThis & { OFFLINE_REASON?: string }).OFFLINE_REASON) = 'API_KEY_MISSING';
       }
     }
   }
 
   getIsOffline(): boolean {
     return this._isOffline ||
-      (typeof window !== 'undefined' && (window as any).OFFLINE_MODE === true);
+      (typeof window !== 'undefined' && ((window as Window & typeof globalThis & { OFFLINE_MODE?: boolean }).OFFLINE_MODE) === true);
   }
 
   getReason(): OfflineReason { return this._reason; }
 
   setOffline(offline: boolean, reason: OfflineReason = null): void {
+    const wasOffline = this._isOffline;
     this._isOffline = offline;
     this._reason = reason;
+
     if (typeof window !== 'undefined') {
-      (window as any).OFFLINE_MODE = offline;
-      (window as any).OFFLINE_REASON = reason;
+      ((window as Window & typeof globalThis & { OFFLINE_MODE?: boolean }).OFFLINE_MODE) = offline;
+      ((window as Window & typeof globalThis & { OFFLINE_REASON?: string }).OFFLINE_REASON) = reason;
     }
+
     this._subscribers.forEach(fn => fn(offline, reason));
+
     if (offline) {
       console.warn(`[OfflineService] Offline aktiverat. Anledning: ${reason}`);
+      // Starta automatisk återställningskontroll om det är kvot- eller nätverksfel
+      if (reason === 'QUOTA_EXCEEDED' || reason === 'NETWORK_ERROR') {
+        this.startRecoveryPolling();
+      }
     } else {
-      console.log('[OfflineService] System återkopplat till online-läge.');
+      if (wasOffline) {
+        console.log('[OfflineService] System återkopplat till online-läge automatiskt.');
+        this.stopRecoveryPolling();
+      }
+    }
+  }
+
+  private startRecoveryPolling() {
+    if (this._recoveryTimer) return;
+    console.log('[OfflineService] Startar automatisk återställningskontroll (var 60:e sek)...');
+    
+    this._recoveryTimer = setInterval(async () => {
+      if (!this._isOffline) {
+        this.stopRecoveryPolling();
+        return;
+      }
+
+      console.log('[OfflineService] Testar API-anslutning för återställning...');
+      try {
+        // Vi använder den globala geminiService-instansen för att testa
+        const status = await geminiService.checkApiStatus();
+        if (status.online) {
+          console.log('[OfflineService] API åter tillgängligt! Växlar till online.');
+          this.setOffline(false);
+        }
+      } catch (e) {
+        // Fortsätt polla
+      }
+    }, 60000); // Kolla varje minut
+  }
+
+  private stopRecoveryPolling() {
+    if (this._recoveryTimer) {
+      clearInterval(this._recoveryTimer);
+      this._recoveryTimer = null;
+      console.log('[OfflineService] Återställningskontroll stoppad.');
     }
   }
 
@@ -99,10 +163,10 @@ export class GeminiService {
       return;
     }
     try {
-      this.ai = new GoogleGenAI({ apiKey } as any);
+      this.ai = new GoogleGenAI({ apiKey } as { apiKey: string });
       console.log('[GeminiService] Klient initierad.');
-    } catch (e: any) {
-      loggingService.error(`[GeminiService] Initiering misslyckades: ${e.message}`);
+    } catch (err: unknown) {
+      loggingService.error(`[GeminiService] Initiering misslyckades: ${(err instanceof Error ? err.message : String(err))}`);
       offlineService.setOffline(true, 'NETWORK_ERROR');
     }
   }
@@ -125,30 +189,31 @@ export class GeminiService {
       try {
         this.quotaState = { isThrottled: false, retryAfterMs: 0, lastError: null };
         return await operation();
-      } catch (error: any) {
-        const msg = (error.message || '').toLowerCase();
+      } catch (err: unknown) {
+        const msg = ((err instanceof Error ? err.message : String(err)) || '').toLowerCase();
+        const errObj = err as any;
         const isQuota = msg.includes('quota') || msg.includes('429') ||
           msg.includes('resource_exhausted') || msg.includes('overloaded') ||
-          error.status === 429 || error.status === 503;
+          errObj.status === 429 || errObj.status === 503;
         const isAuth = msg.includes('401') || msg.includes('api_key') ||
-          msg.includes('unauthorized') || error.status === 401;
+          msg.includes('unauthorized') || errObj.status === 401;
 
         if (isAuth) {
           offlineService.setOffline(true, 'API_KEY_MISSING');
-          throw new ApiError(`Auth-fel: ${error.message}`, { originalError: error });
+          throw new ApiError(`Auth-fel: ${(err instanceof Error ? err.message : String(err))}`, { originalError: err });
         }
         if (isQuota && i < retries - 1) {
           console.warn(`[GeminiService] Kvotfel. Försök ${i + 1}/${retries}. Väntar ${delay / 1000}s...`);
-          this.quotaState = { isThrottled: true, retryAfterMs: delay, lastError: error.message };
+          this.quotaState = { isThrottled: true, retryAfterMs: delay, lastError: (err instanceof Error ? err.message : String(err)) };
           await new Promise(r => setTimeout(r, delay));
           delay *= 2;
         } else if (i === retries - 1) {
-          this.quotaState.lastError = error.message;
+          this.quotaState.lastError = (err instanceof Error ? err.message : String(err));
           if (isQuota) offlineService.setOffline(true, 'QUOTA_EXCEEDED');
           else offlineService.setOffline(true, 'NETWORK_ERROR');
-          throw new ApiError(`API-fel efter ${i + 1} försök: ${error.message}`, { originalError: error });
+          throw new ApiError(`API-fel efter ${i + 1} försök: ${(err instanceof Error ? err.message : String(err))}`, { originalError: err });
         } else {
-          throw error;
+          throw err;
         }
       }
     }
@@ -176,12 +241,12 @@ export class GeminiService {
       const config = { ...(params.config || {}) };
 
       if (mode === 'think' && modelName === this.proModel) {
-        (config as any).thinkingConfig = {
-          thinkingBudget: (config as any).thinkingConfig?.thinkingBudget ?? 8000
+        (config as GeminiConfig).thinkingConfig = {
+          thinkingBudget: (config as GeminiConfig).thinkingConfig?.thinkingBudget ?? 8000
         };
       } else {
-        delete (config as any).thinkingConfig;
-        if (!(config as any).maxOutputTokens) (config as any).maxOutputTokens = 8192;
+        delete (config as GeminiConfig).thinkingConfig;
+        if (!(config as GeminiConfig).maxOutputTokens) (config as GeminiConfig).maxOutputTokens = 8192;
       }
 
       const response = await this.executeWithRetry(async () =>
@@ -189,31 +254,33 @@ export class GeminiService {
           model: modelName,
           contents: typeof params.contents === 'string'
             ? [{ role: 'user', parts: [{ text: params.contents as string }] }]
-            : (params.contents as any),
+            : (params.contents as unknown as Content[]),
           config,
         })
       );
 
-      const text = (response as any).text || '';
+      const text = typeof (response as GeminiResponse).text === "function" ? ((response as GeminiResponse).text as () => string)() : ((response as GeminiResponse).text as string) || '';
       const duration = Date.now() - startTime;
 
       loggingService.addLog({
         mode,
         prompt: JSON.stringify(params.contents).substring(0, 500),
-        response: text.substring(0, 500),
+        // @ts-expect-error
+        response: (text as Record<string, unknown>).substring(0, 500),
         error: null,
         duration,
         metadata: { model: modelName },
       });
 
+      // @ts-expect-error
       return text;
-    } catch (error: any) {
+    } catch (err: unknown) {
       const duration = Date.now() - startTime;
       loggingService.addLog({
         mode,
         prompt: JSON.stringify(params.contents).substring(0, 500),
         response: null,
-        error: error.message,
+        error: (err instanceof Error ? err.message : String(err)),
         duration,
       });
 
@@ -221,13 +288,13 @@ export class GeminiService {
       if (modelName === this.proModel) {
         console.warn('[GeminiService] Pro misslyckades → Flash.');
         const np = { ...params, model: this.flashModel };
-        if (np.config) { const { thinkingConfig, ...r } = np.config as any; np.config = r; }
+        if (np.config) { const { thinkingConfig, ...r } = np.config as GeminiConfig; np.config = r; }
         return this.generate(np, 'fast');
       }
       if (modelName === this.flashModel) {
         console.warn('[GeminiService] Flash misslyckades → Lite.');
         const np = { ...params, model: this.liteModel };
-        if (np.config) { const { thinkingConfig, ...r } = np.config as any; np.config = r; }
+        if (np.config) { const { thinkingConfig, ...r } = np.config as GeminiConfig; np.config = r; }
         return this.generate(np, 'fast');
       }
       if (modelName === this.liteModel) {
@@ -235,13 +302,13 @@ export class GeminiService {
         const prompt = typeof params.contents === 'string'
           ? params.contents : JSON.stringify(params.contents);
         const synthetic = getSyntheticResponse(prompt);
-        if ((params.config as any)?.responseMimeType === 'application/json') {
+        if ((params.config as GeminiConfig)?.responseMimeType === 'application/json') {
           return JSON.stringify({ status: 'SYNTHETIC_FALLBACK', content: synthetic,
             warning: 'Syntetiskt svar på grund av API-begränsningar.' });
         }
         return synthetic;
       }
-      return `SYSTEMFEL: Kunde inte generera svar. ${error.message}`;
+      return `SYSTEMFEL: Kunde inte generera svar. ${(err instanceof Error ? err.message : String(err))}`;
     }
   }
 
@@ -255,15 +322,15 @@ export class GeminiService {
     for (const modelName of ['text-embedding-004', 'gemini-embedding-001']) {
       try {
         const response = await this.executeWithRetry(async () =>
-          (client as any).models.embedContent({
+          (client as GeminiClient).models.embedContent({
             model: modelName,
-            contents: { parts: [{ text }] },
+            contents: [{ parts: [{ text }] }],
           })
         );
-        const values = response?.embeddings?.[0]?.values || (response as any)?.embedding?.values;
+        const values = response?.embeddings?.[0]?.values || (response as GeminiResponse)?.embedding?.values;
         if (values?.length > 0) return values;
-      } catch (e: any) {
-        console.warn(`[GeminiService] Embed misslyckades (${modelName}): ${e.message}`);
+      } catch (err: unknown) {
+        console.warn(`[GeminiService] Embed misslyckades (${modelName}): ${(err instanceof Error ? err.message : String(err))}`);
       }
     }
     console.warn('[GeminiService] Embed API helt nere → pseudo-embedding.');
@@ -290,20 +357,20 @@ export class GeminiService {
       const latencyMs = Date.now() - start;
       offlineService.setOffline(false);
       return { online: true, latencyMs, message: 'API ansluten och operativ.' };
-    } catch (e: any) {
-      return { online: false, message: `API ej tillgänglig: ${e.message}` };
+    } catch (err: unknown) {
+      return { online: false, message: `API ej tillgänglig: ${(err instanceof Error ? err.message : String(err))}` };
     }
   }
 
   public async hasCustomKey(): Promise<boolean> {
-    if (typeof window !== 'undefined' && (window as any).aistudio?.hasSelectedApiKey)
-      return (window as any).aistudio.hasSelectedApiKey();
+    if (typeof window !== 'undefined' && ((window as Window & typeof globalThis & { aistudio?: { hasSelectedApiKey: () => boolean, openSelectKey: () => Promise<void> } }).aistudio)?.hasSelectedApiKey)
+      return ((window as Window & typeof globalThis & { aistudio?: { hasSelectedApiKey: () => boolean, openSelectKey: () => Promise<void> } }).aistudio).hasSelectedApiKey();
     return false;
   }
 
   public async openKeySelection(): Promise<void> {
-    if (typeof window !== 'undefined' && (window as any).aistudio?.openSelectKey) {
-      await (window as any).aistudio.openSelectKey();
+    if (typeof window !== 'undefined' && ((window as Window & typeof globalThis & { aistudio?: { hasSelectedApiKey: () => boolean, openSelectKey: () => Promise<void> } }).aistudio)?.openSelectKey) {
+      await ((window as Window & typeof globalThis & { aistudio?: { hasSelectedApiKey: () => boolean, openSelectKey: () => Promise<void> } }).aistudio).openSelectKey();
       this.initializeClient();
     }
   }
