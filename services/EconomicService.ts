@@ -140,8 +140,8 @@ export class EconomicService {
     try {
       const response = await geminiService.generate({ contents: prompt });
       return response || "Kunde inte generera analys.";
-    } catch (err: unknown) {
-      console.error("AI Analysis failed:", err);
+    } catch (error) {
+      console.error("AI Analysis failed:", error);
       return "Ett fel uppstod vid AI-analysen.";
     }
   }

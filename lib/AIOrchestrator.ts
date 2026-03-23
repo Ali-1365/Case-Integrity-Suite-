@@ -147,9 +147,9 @@ export class AIOrchestrator {
             ragResult = await ragService.getContextForText(documentText, true, caseId);
             contextString = ragResult.context;
             autoNotary.info(traceId, 'AIOrchestrator', 'RAG-kedja slutförd', { hitCount: ragResult.hitCount });
-        } catch (err: unknown) {
-            console.error("[AIOrchestrator] RAG Chain failed, proceeding with local context only.", err);
-            autoNotary.endTrace(traceId, 'AIOrchestrator', 'RAG-kedja misslyckades', 'FAILURE', { error: err });
+        } catch (e) {
+            console.error("[AIOrchestrator] RAG Chain failed, proceeding with local context only.", e);
+            autoNotary.endTrace(traceId, 'AIOrchestrator', 'RAG-kedja misslyckades', 'FAILURE', { error: e });
         }
     }
 
@@ -224,10 +224,10 @@ export class AIOrchestrator {
             proportionality: ragResult?.decisionSupport?.proportionality,
             actionRecommendations: ragResult?.decisionSupport?.actions
         };
-    } catch (err: unknown) {
-        console.error("Integrity Core failure:", err);
-        autoNotary.endTrace(traceId, 'AIOrchestrator', 'runFullAnalysis', 'FAILURE', { err });
-        throw err;
+    } catch (error) {
+        console.error("Integrity Core failure:", error);
+        autoNotary.endTrace(traceId, 'AIOrchestrator', 'runFullAnalysis', 'FAILURE', { error });
+        throw error;
     }
   }
 
@@ -267,8 +267,8 @@ export class AIOrchestrator {
             ...c,
             id: c.id || `CORR-${crypto.randomUUID().substring(0, 8)}`
         }));
-    } catch (err: unknown) {
-        console.error("CrossCorrelation failure:", err);
+    } catch (error) {
+        console.error("CrossCorrelation failure:", error);
         return [];
     }
   }

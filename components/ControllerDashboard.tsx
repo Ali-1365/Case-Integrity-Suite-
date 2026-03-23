@@ -31,8 +31,8 @@ const ControllerDashboard: React.FC<ControllerDashboardProps> = ({ isOpen, onClo
       const cases = await caseManagementService.getAllCases();
       const res = await controllerService.runFullControl(cases);
       setReport(res);
-    } catch (err: unknown) {
-      console.error("Analysis failed:", err);
+    } catch (error) {
+      console.error("Analysis failed:", error);
     } finally {
       setIsAnalyzing(false);
     }

@@ -28,7 +28,7 @@ async function startServer() {
       });
 
       res.json(results);
-    } catch (err: unknown) {
+    } catch (error) {
       res.status(500).json({ error: "Failed to parse praxis data" });
     }
   });

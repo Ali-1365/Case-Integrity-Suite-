@@ -60,8 +60,8 @@ const StaticArchitectureView: React.FC<StaticArchitectureViewProps> = ({ isOpen,
                         flowchart: { htmlLabels: true, curve: 'basis', useMaxWidth: true }
                     });
                     mermaid.run();
-                } catch (err: unknown) {
-                    console.error("Mermaid failure:", err);
+                } catch (e) {
+                    console.error("Mermaid failure:", e);
                 }
             }, 100);
             return () => clearTimeout(timer);

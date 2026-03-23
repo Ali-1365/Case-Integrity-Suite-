@@ -31,6 +31,11 @@ class OfflineService {
             localStorage.removeItem('cis_offline_mode');
         }
 
+
+        if (typeof window !== "undefined") {
+            (window as Window & typeof globalThis & { OFFLINE_MODE?: boolean }).OFFLINE_MODE = offline;
+            (window as Window & typeof globalThis & { OFFLINE_REASON?: string }).OFFLINE_REASON = offline ? (reason || "UNKNOWN") : undefined;
+        }
         this.notify();
     }
 
