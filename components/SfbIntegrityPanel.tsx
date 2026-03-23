@@ -86,7 +86,7 @@ const SfbIntegrityPanel: React.FC<SfbIntegrityPanelProps> = ({ isOpen, onClose }
                             <p className="text-xs text-slate-500">Fullständig validering av alla lagrum i SFB (2010:110)</p>
                         </div>
                     </div>
-                    <button onClick={onClose} className="p-1.5 text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors">
+                    <button aria-label="Stäng" onClick={onClose} className="p-1.5 text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors">
                         <XMarkIcon className="h-6 w-6" />
                     </button>
                 </header>

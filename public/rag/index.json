@@ -14,9 +14,16 @@
       "sfsNumber": "2025:400",
       "sourceCode": "SoL",
       "provenanceHash": "sha256-sol2025-1-1",
-      "versionChain": ["2001:453", "2025:400"],
+      "versionChain": [
+        "2001:453",
+        "2025:400"
+      ],
       "embedding": [],
-      "metadata": { "title": "Socialtjänstlag (2025:400)", "validFrom": "2025-07-01", "auditStatus": "VERIFIED" }
+      "metadata": {
+        "title": "Socialtjänstlag (2025:400)",
+        "validFrom": "2025-07-01",
+        "auditStatus": "VERIFIED"
+      }
     },
     {
       "id": "sol_2025_1_2",
@@ -26,9 +33,16 @@
       "sfsNumber": "2025:400",
       "sourceCode": "SoL",
       "provenanceHash": "sha256-sol2025-1-2",
-      "versionChain": ["2001:453", "2025:400"],
+      "versionChain": [
+        "2001:453",
+        "2025:400"
+      ],
       "embedding": [],
-      "metadata": { "title": "Socialtjänstlag (2025:400)", "validFrom": "2025-07-01", "auditStatus": "VERIFIED" }
+      "metadata": {
+        "title": "Socialtjänstlag (2025:400)",
+        "validFrom": "2025-07-01",
+        "auditStatus": "VERIFIED"
+      }
     },
     {
       "id": "bk_2018_3",
@@ -37,9 +51,15 @@
       "sfsNumber": "2018:1197",
       "sourceCode": "BK",
       "provenanceHash": "sha256-bk2018-3",
-      "versionChain": ["2018:1197"],
+      "versionChain": [
+        "2018:1197"
+      ],
       "embedding": [],
-      "metadata": { "title": "Barnkonventionen (2018:1197)", "validFrom": "2020-01-01", "auditStatus": "VERIFIED" }
+      "metadata": {
+        "title": "Barnkonventionen (2018:1197)",
+        "validFrom": "2020-01-01",
+        "auditStatus": "VERIFIED"
+      }
     },
     {
       "id": "skl_1972_2_1",
@@ -49,9 +69,15 @@
       "sfsNumber": "1972:207",
       "sourceCode": "SkL",
       "provenanceHash": "sha256-skl1972-2-1",
-      "versionChain": ["1972:207"],
+      "versionChain": [
+        "1972:207"
+      ],
       "embedding": [],
-      "metadata": { "title": "Skadeståndslag (1972:207)", "validFrom": "1972-07-01", "auditStatus": "VERIFIED" }
+      "metadata": {
+        "title": "Skadeståndslag (1972:207)",
+        "validFrom": "1972-07-01",
+        "auditStatus": "VERIFIED"
+      }
     },
     {
       "id": "skl_1972_3_2",
@@ -61,9 +87,15 @@
       "sfsNumber": "1972:207",
       "sourceCode": "SkL",
       "provenanceHash": "sha256-skl1972-3-2",
-      "versionChain": ["1972:207"],
+      "versionChain": [
+        "1972:207"
+      ],
       "embedding": [],
-      "metadata": { "title": "Skadeståndslag (1972:207)", "validFrom": "1972-07-01", "auditStatus": "VERIFIED" }
+      "metadata": {
+        "title": "Skadeståndslag (1972:207)",
+        "validFrom": "1972-07-01",
+        "auditStatus": "VERIFIED"
+      }
     },
     {
       "id": "fl_2017_23",
@@ -72,9 +104,16 @@
       "sfsNumber": "2017:900",
       "sourceCode": "FL",
       "provenanceHash": "sha256-fl2017-23",
-      "versionChain": ["1986:223", "2017:900"],
+      "versionChain": [
+        "1986:223",
+        "2017:900"
+      ],
       "embedding": [],
-      "metadata": { "title": "Förvaltningslag (2017:900)", "validFrom": "2018-07-01", "auditStatus": "VERIFIED" }
+      "metadata": {
+        "title": "Förvaltningslag (2017:900)",
+        "validFrom": "2018-07-01",
+        "auditStatus": "VERIFIED"
+      }
     },
     {
       "id": "sfb_2010_1_1",
@@ -84,9 +123,15 @@
       "sfsNumber": "2010:110",
       "sourceCode": "SFB",
       "provenanceHash": "sha256-sfb2010-1-1",
-      "versionChain": ["2010:110"],
+      "versionChain": [
+        "2010:110"
+      ],
       "embedding": [],
-      "metadata": { "title": "Socialförsäkringsbalk (2010:110)", "validFrom": "2011-01-01", "auditStatus": "VERIFIED" }
+      "metadata": {
+        "title": "Socialförsäkringsbalk (2010:110)",
+        "validFrom": "2011-01-01",
+        "auditStatus": "VERIFIED"
+      }
     },
     {
       "id": "lss_1993_7",
@@ -95,9 +140,15 @@
       "sfsNumber": "1993:387",
       "sourceCode": "LSS",
       "provenanceHash": "sha256-lss1993-7",
-      "versionChain": ["1993:387"],
+      "versionChain": [
+        "1993:387"
+      ],
       "embedding": [],
-      "metadata": { "title": "LSS (1993:387)", "validFrom": "1994-01-01", "auditStatus": "VERIFIED" }
+      "metadata": {
+        "title": "LSS (1993:387)",
+        "validFrom": "1994-01-01",
+        "auditStatus": "VERIFIED"
+      }
     },
     {
       "id": "fb_1949_6_1",
@@ -107,9 +158,15 @@
       "sfsNumber": "1949:381",
       "sourceCode": "FB",
       "provenanceHash": "sha256-fb1949-6-1",
-      "versionChain": ["1949:381"],
+      "versionChain": [
+        "1949:381"
+      ],
       "embedding": [],
-      "metadata": { "title": "Föräldrabalk (1949:381)", "validFrom": "1950-01-01", "auditStatus": "VERIFIED" }
+      "metadata": {
+        "title": "Föräldrabalk (1949:381)",
+        "validFrom": "1950-01-01",
+        "auditStatus": "VERIFIED"
+      }
     },
     {
       "id": "hsl_2017_3_1",
@@ -119,9 +176,16 @@
       "sfsNumber": "2017:30",
       "sourceCode": "HSL",
       "provenanceHash": "sha256-hsl2017-3-1",
-      "versionChain": ["1982:763", "2017:30"],
+      "versionChain": [
+        "1982:763",
+        "2017:30"
+      ],
       "embedding": [],
-      "metadata": { "title": "Hälso- och sjukvårdslag (2017:30)", "validFrom": "2017-04-01", "auditStatus": "VERIFIED" }
+      "metadata": {
+        "title": "Hälso- och sjukvårdslag (2017:30)",
+        "validFrom": "2017-04-01",
+        "auditStatus": "VERIFIED"
+      }
     },
     {
       "id": "rb_1942_42_1",
@@ -131,9 +195,15 @@
       "sfsNumber": "1942:740",
       "sourceCode": "RB",
       "provenanceHash": "sha256-rb1942-42-1",
-      "versionChain": ["1942:740"],
+      "versionChain": [
+        "1942:740"
+      ],
       "embedding": [],
-      "metadata": { "title": "Rättegångsbalk (1942:740)", "validFrom": "1948-01-01", "auditStatus": "VERIFIED" }
+      "metadata": {
+        "title": "Rättegångsbalk (1942:740)",
+        "validFrom": "1948-01-01",
+        "auditStatus": "VERIFIED"
+      }
     },
     {
       "id": "rf_1974_2_1",
@@ -143,9 +213,1095 @@
       "sfsNumber": "1974:152",
       "sourceCode": "RF",
       "provenanceHash": "sha256-rf1974-2-1",
-      "versionChain": ["1974:152"],
+      "versionChain": [
+        "1974:152"
+      ],
       "embedding": [],
-      "metadata": { "title": "Regeringsformen (1974:152)", "validFrom": "1974-01-01", "auditStatus": "VERIFIED" }
+      "metadata": {
+        "title": "Regeringsformen (1974:152)",
+        "validFrom": "1974-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "brb_mock_1",
+      "text": "Placeholder text for brb part 1",
+      "section": 1,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "BRB",
+      "provenanceHash": "sha256-brb-mock-1",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock BRB",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "brb_mock_2",
+      "text": "Placeholder text for brb part 2",
+      "section": 2,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "BRB",
+      "provenanceHash": "sha256-brb-mock-2",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock BRB",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "brb_mock_3",
+      "text": "Placeholder text for brb part 3",
+      "section": 3,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "BRB",
+      "provenanceHash": "sha256-brb-mock-3",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock BRB",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "dl_mock_1",
+      "text": "Placeholder text for dl part 1",
+      "section": 1,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "DL",
+      "provenanceHash": "sha256-dl-mock-1",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock DL",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "dl_mock_2",
+      "text": "Placeholder text for dl part 2",
+      "section": 2,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "DL",
+      "provenanceHash": "sha256-dl-mock-2",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock DL",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "dl_mock_3",
+      "text": "Placeholder text for dl part 3",
+      "section": 3,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "DL",
+      "provenanceHash": "sha256-dl-mock-3",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock DL",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "fhs_mock_1",
+      "text": "Placeholder text for fhs part 1",
+      "section": 1,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "FHS",
+      "provenanceHash": "sha256-fhs-mock-1",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock FHS",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "fhs_mock_2",
+      "text": "Placeholder text for fhs part 2",
+      "section": 2,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "FHS",
+      "provenanceHash": "sha256-fhs-mock-2",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock FHS",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "fhs_mock_3",
+      "text": "Placeholder text for fhs part 3",
+      "section": 3,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "FHS",
+      "provenanceHash": "sha256-fhs-mock-3",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock FHS",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "fmu_mock_1",
+      "text": "Placeholder text for fmu part 1",
+      "section": 1,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "FMU",
+      "provenanceHash": "sha256-fmu-mock-1",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock FMU",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "fmu_mock_2",
+      "text": "Placeholder text for fmu part 2",
+      "section": 2,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "FMU",
+      "provenanceHash": "sha256-fmu-mock-2",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock FMU",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "fmu_mock_3",
+      "text": "Placeholder text for fmu part 3",
+      "section": 3,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "FMU",
+      "provenanceHash": "sha256-fmu-mock-3",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock FMU",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "kl_mock_1",
+      "text": "Placeholder text for kl part 1",
+      "section": 1,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "KL",
+      "provenanceHash": "sha256-kl-mock-1",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock KL",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "kl_mock_2",
+      "text": "Placeholder text for kl part 2",
+      "section": 2,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "KL",
+      "provenanceHash": "sha256-kl-mock-2",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock KL",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "kl_mock_3",
+      "text": "Placeholder text for kl part 3",
+      "section": 3,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "KL",
+      "provenanceHash": "sha256-kl-mock-3",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock KL",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "lag_2017_612_mock_1",
+      "text": "Placeholder text for lag_2017_612 part 1",
+      "section": 1,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "LAG_2017_612",
+      "provenanceHash": "sha256-lag_2017_612-mock-1",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock LAG_2017_612",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "lag_2017_612_mock_2",
+      "text": "Placeholder text for lag_2017_612 part 2",
+      "section": 2,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "LAG_2017_612",
+      "provenanceHash": "sha256-lag_2017_612-mock-2",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock LAG_2017_612",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "lag_2017_612_mock_3",
+      "text": "Placeholder text for lag_2017_612 part 3",
+      "section": 3,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "LAG_2017_612",
+      "provenanceHash": "sha256-lag_2017_612-mock-3",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock LAG_2017_612",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "las_mock_1",
+      "text": "Placeholder text for las part 1",
+      "section": 1,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "LAS",
+      "provenanceHash": "sha256-las-mock-1",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock LAS",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "las_mock_2",
+      "text": "Placeholder text for las part 2",
+      "section": 2,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "LAS",
+      "provenanceHash": "sha256-las-mock-2",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock LAS",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "las_mock_3",
+      "text": "Placeholder text for las part 3",
+      "section": 3,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "LAS",
+      "provenanceHash": "sha256-las-mock-3",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock LAS",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "lvm_mock_1",
+      "text": "Placeholder text for lvm part 1",
+      "section": 1,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "LVM",
+      "provenanceHash": "sha256-lvm-mock-1",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock LVM",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "lvm_mock_2",
+      "text": "Placeholder text for lvm part 2",
+      "section": 2,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "LVM",
+      "provenanceHash": "sha256-lvm-mock-2",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock LVM",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "lvm_mock_3",
+      "text": "Placeholder text for lvm part 3",
+      "section": 3,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "LVM",
+      "provenanceHash": "sha256-lvm-mock-3",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock LVM",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "lvu_mock_1",
+      "text": "Placeholder text for lvu part 1",
+      "section": 1,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "LVU",
+      "provenanceHash": "sha256-lvu-mock-1",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock LVU",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "lvu_mock_2",
+      "text": "Placeholder text for lvu part 2",
+      "section": 2,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "LVU",
+      "provenanceHash": "sha256-lvu-mock-2",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock LVU",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "lvu_mock_3",
+      "text": "Placeholder text for lvu part 3",
+      "section": 3,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "LVU",
+      "provenanceHash": "sha256-lvu-mock-3",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock LVU",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "osl_mock_1",
+      "text": "Placeholder text for osl part 1",
+      "section": 1,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "OSL",
+      "provenanceHash": "sha256-osl-mock-1",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock OSL",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "osl_mock_2",
+      "text": "Placeholder text for osl part 2",
+      "section": 2,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "OSL",
+      "provenanceHash": "sha256-osl-mock-2",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock OSL",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "osl_mock_3",
+      "text": "Placeholder text for osl part 3",
+      "section": 3,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "OSL",
+      "provenanceHash": "sha256-osl-mock-3",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock OSL",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "pl_mock_1",
+      "text": "Placeholder text for pl part 1",
+      "section": 1,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "PL",
+      "provenanceHash": "sha256-pl-mock-1",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock PL",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "pl_mock_2",
+      "text": "Placeholder text for pl part 2",
+      "section": 2,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "PL",
+      "provenanceHash": "sha256-pl-mock-2",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock PL",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "pl_mock_3",
+      "text": "Placeholder text for pl part 3",
+      "section": 3,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "PL",
+      "provenanceHash": "sha256-pl-mock-3",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock PL",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "sjukl_mock_1",
+      "text": "Placeholder text for sjukl part 1",
+      "section": 1,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "SJUKL",
+      "provenanceHash": "sha256-sjukl-mock-1",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock SJUKL",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "sjukl_mock_2",
+      "text": "Placeholder text for sjukl part 2",
+      "section": 2,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "SJUKL",
+      "provenanceHash": "sha256-sjukl-mock-2",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock SJUKL",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "sjukl_mock_3",
+      "text": "Placeholder text for sjukl part 3",
+      "section": 3,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "SJUKL",
+      "provenanceHash": "sha256-sjukl-mock-3",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock SJUKL",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "tf_mock_1",
+      "text": "Placeholder text for tf part 1",
+      "section": 1,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "TF",
+      "provenanceHash": "sha256-tf-mock-1",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock TF",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "tf_mock_2",
+      "text": "Placeholder text for tf part 2",
+      "section": 2,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "TF",
+      "provenanceHash": "sha256-tf-mock-2",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock TF",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "tf_mock_3",
+      "text": "Placeholder text for tf part 3",
+      "section": 3,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "TF",
+      "provenanceHash": "sha256-tf-mock-3",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock TF",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "yfo_statlig_mock_1",
+      "text": "Placeholder text for yfo_statlig part 1",
+      "section": 1,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "YFO_STATLIG",
+      "provenanceHash": "sha256-yfo_statlig-mock-1",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock YFO_STATLIG",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "yfo_statlig_mock_2",
+      "text": "Placeholder text for yfo_statlig part 2",
+      "section": 2,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "YFO_STATLIG",
+      "provenanceHash": "sha256-yfo_statlig-mock-2",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock YFO_STATLIG",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "yfo_statlig_mock_3",
+      "text": "Placeholder text for yfo_statlig part 3",
+      "section": 3,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "YFO_STATLIG",
+      "provenanceHash": "sha256-yfo_statlig-mock-3",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock YFO_STATLIG",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "ygl_mock_1",
+      "text": "Placeholder text for ygl part 1",
+      "section": 1,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "YGL",
+      "provenanceHash": "sha256-ygl-mock-1",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock YGL",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "ygl_mock_2",
+      "text": "Placeholder text for ygl part 2",
+      "section": 2,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "YGL",
+      "provenanceHash": "sha256-ygl-mock-2",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock YGL",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "ygl_mock_3",
+      "text": "Placeholder text for ygl part 3",
+      "section": 3,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "YGL",
+      "provenanceHash": "sha256-ygl-mock-3",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock YGL",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "ysl_mock_1",
+      "text": "Placeholder text for ysl part 1",
+      "section": 1,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "YSL",
+      "provenanceHash": "sha256-ysl-mock-1",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock YSL",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "ysl_mock_2",
+      "text": "Placeholder text for ysl part 2",
+      "section": 2,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "YSL",
+      "provenanceHash": "sha256-ysl-mock-2",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock YSL",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "ysl_mock_3",
+      "text": "Placeholder text for ysl part 3",
+      "section": 3,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "YSL",
+      "provenanceHash": "sha256-ysl-mock-3",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock YSL",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "ysl_statlig_mock_1",
+      "text": "Placeholder text for ysl_statlig part 1",
+      "section": 1,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "YSL_STATLIG",
+      "provenanceHash": "sha256-ysl_statlig-mock-1",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock YSL_STATLIG",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "ysl_statlig_mock_2",
+      "text": "Placeholder text for ysl_statlig part 2",
+      "section": 2,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "YSL_STATLIG",
+      "provenanceHash": "sha256-ysl_statlig-mock-2",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock YSL_STATLIG",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "ysl_statlig_mock_3",
+      "text": "Placeholder text for ysl_statlig part 3",
+      "section": 3,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "YSL_STATLIG",
+      "provenanceHash": "sha256-ysl_statlig-mock-3",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock YSL_STATLIG",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "ysl_varde_mock_1",
+      "text": "Placeholder text for ysl_varde part 1",
+      "section": 1,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "YSL_VARDE",
+      "provenanceHash": "sha256-ysl_varde-mock-1",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock YSL_VARDE",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "ysl_varde_mock_2",
+      "text": "Placeholder text for ysl_varde part 2",
+      "section": 2,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "YSL_VARDE",
+      "provenanceHash": "sha256-ysl_varde-mock-2",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock YSL_VARDE",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "ysl_varde_mock_3",
+      "text": "Placeholder text for ysl_varde part 3",
+      "section": 3,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "YSL_VARDE",
+      "provenanceHash": "sha256-ysl_varde-mock-3",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock YSL_VARDE",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "praxis_mock_1",
+      "text": "Placeholder text for praxis part 1",
+      "section": 1,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "PRAXIS",
+      "provenanceHash": "sha256-praxis-mock-1",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock PRAXIS",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "praxis_mock_2",
+      "text": "Placeholder text for praxis part 2",
+      "section": 2,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "PRAXIS",
+      "provenanceHash": "sha256-praxis-mock-2",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock PRAXIS",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "praxis_mock_3",
+      "text": "Placeholder text for praxis part 3",
+      "section": 3,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "PRAXIS",
+      "provenanceHash": "sha256-praxis-mock-3",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock PRAXIS",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "lvu_mock_1",
+      "text": "Placeholder text for lvu part 1",
+      "section": 1,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "LVU",
+      "provenanceHash": "sha256-lvu-mock-1",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock LVU",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "lvu_mock_2",
+      "text": "Placeholder text for lvu part 2",
+      "section": 2,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "LVU",
+      "provenanceHash": "sha256-lvu-mock-2",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock LVU",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
+    },
+    {
+      "id": "lvu_mock_3",
+      "text": "Placeholder text for lvu part 3",
+      "section": 3,
+      "chapter": 1,
+      "sfsNumber": "0000:000",
+      "sourceCode": "LVU",
+      "provenanceHash": "sha256-lvu-mock-3",
+      "versionChain": [
+        "0000:000"
+      ],
+      "embedding": [],
+      "metadata": {
+        "title": "Mock LVU",
+        "validFrom": "2026-01-01",
+        "auditStatus": "VERIFIED"
+      }
     }
   ]
 }
