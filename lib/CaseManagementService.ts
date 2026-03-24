@@ -1,5 +1,5 @@
 
-import { DecisionSupportResult, CISCase, CaseVersion } from './cis.types';
+import { DecisionSupportResult, CISCase, CaseVersion, CaseType } from './cis.types';
 import { journalService } from './JournalService';
 import { auditService } from './AuditService';
 import { decisionJournalService } from './DecisionJournalService';
@@ -7,16 +7,19 @@ export type { CISCase, CaseVersion };
 import { db } from './db';
 
 export class CaseManagementService {
-  async createCase(query: string, priorityFlags = { hasChildAspect: false, isPreventive: false }): Promise<CISCase> {
+  async createCase(name: string, priorityFlags = { hasChildAspect: false, isPreventive: false }, type: CaseType = 'EKONOMISKT_BISTÅND', description: string = ''): Promise<CISCase> {
     const caseId = `CASE-${crypto.randomUUID().substring(0, 8).toUpperCase()}`;
     const timestamp = new Date().toISOString();
     
     const newCase: CISCase = {
       caseId,
+      name,
+      type,
+      description,
       createdAt: timestamp,
       updatedAt: timestamp,
       status: 'INITIERAT',
-      query,
+      query: name, // Use name as initial query
       currentVersion: 1,
       versions: [],
       journal: [],
@@ -24,7 +27,7 @@ export class CaseManagementService {
       priorityFlags
     };
 
-    const journal = await journalService.addEntry(caseId, 'ÄRENDE_SKAPAT', `Nytt ärende initierat med fråga: "${query}"`);
+    const journal = await journalService.addEntry(caseId, 'ÄRENDE_SKAPAT', `Nytt ärende initierat: "${name}"`);
     newCase.journal.push(journal);
     
     await db.saveCase(newCase);

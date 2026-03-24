@@ -1,30 +1,15 @@
-import { LegalReference, LegalSourceCode } from '../types';
-
-export interface LegalFrameworkItem {
-  id: string;
-  label: string;
-  type: 'lagrum' | 'praxis' | 'förarbete';
-  reference: LegalSourceCode;
-  sfsNumber: string;
-  chapter?: string;
-  section?: string;
-  description: string;
-  validFrom: string;
-  validTo?: string;
-  sourceUrl: string;
-  version: string;
-  auditTrail: {
-    verifiedAt: string;
-    status: 'VERIFIED' | 'UNDERLAG SAKNAS' | 'OBSOLETE';
-    hash?: string;
-  };
-}
+import { LegalReference, LegalSourceCode, LegalFrameworkItem } from '../types';
+import { LEGAL_SOURCES } from '../data/legalSources';
 
 export class LegalReferenceEngine {
   private readonly legalFrameworkData: LegalFrameworkItem[];
 
   constructor(legalFrameworkData: LegalFrameworkItem[]) {
     this.legalFrameworkData = legalFrameworkData;
+  }
+
+  async getFramework(): Promise<LegalFrameworkItem[]> {
+    return this.legalFrameworkData;
   }
 
   private parseSectionNumber(input: string | undefined): number | undefined {
@@ -84,3 +69,5 @@ export class LegalReferenceEngine {
     return `...${snippet}...`;
   }
 }
+
+export const legalReferenceEngine = new LegalReferenceEngine(LEGAL_SOURCES);

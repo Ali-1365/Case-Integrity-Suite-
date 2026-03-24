@@ -165,8 +165,8 @@ const AnalysView: React.FC<AnalysViewProps> = ({ activeCase }) => {
               </div>
               <div className="p-0">
                 <div className="divide-y divide-slate-50">
-                  {activeCase?.decisionSupport?.facts && activeCase.decisionSupport.facts.length > 0 ? (
-                    activeCase.decisionSupport.facts.map(atom => (
+                  {activeCase?.activeResult?.facts && activeCase.activeResult.facts.length > 0 ? (
+                    activeCase.activeResult.facts.map(atom => (
                       <div key={atom.id} className="p-4 hover:bg-slate-50 transition-colors flex gap-4">
                         <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-500 font-mono text-[10px]">
                           {atom.category}

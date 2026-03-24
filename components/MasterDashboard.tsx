@@ -55,8 +55,9 @@ const DonutChart: React.FC<{ score: number }> = ({ score }) => {
 };
 
 const BarChart: React.FC<{ data: { label: string; value: number }[] }> = ({ data }) => {
-    const maxValue = Math.max(...data.map(d => d.value), 1);
-    const sortedData = [...data].sort((a,b) => b.value - a.value);
+    const safeData = data || [];
+    const maxValue = Math.max(...safeData.map(d => d.value), 1);
+    const sortedData = [...safeData].sort((a,b) => b.value - a.value);
 
     return (
         <div className="space-y-8">
@@ -83,8 +84,8 @@ const BarChart: React.FC<{ data: { label: string; value: number }[] }> = ({ data
 const MasterDashboard: React.FC<MasterDashboardProps> = ({ analysis }) => {
     const themeDistribution = useMemo(() => {
         const counts: Record<string, number> = {};
-        analysis.atoms.forEach(atom => {
-            atom.tags.forEach(tag => {
+        (analysis.atoms || []).forEach(atom => {
+            (atom.tags || []).forEach(tag => {
                 counts[tag] = (counts[tag] || 0) + 1;
             });
         });
@@ -96,11 +97,11 @@ const MasterDashboard: React.FC<MasterDashboardProps> = ({ analysis }) => {
             <div className="lg:col-span-4 space-y-12">
                 <Card title="Riskprofilering (v.6.5)" icon={<AlertIcon className="w-6 h-6" />}>
                     <div className="flex flex-col items-center space-y-12 py-10">
-                        <DonutChart score={analysis.riskProfile.normalizedScore} />
+                        <DonutChart score={analysis.riskProfile?.normalizedScore || 0} />
                         <div className="w-full space-y-6 border-t border-slate-100 dark:border-slate-800 pt-10">
                             <h4 className="text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.25em] text-center mb-8">Dominerande Riskfaktorer</h4>
                             <div className="grid grid-cols-1 gap-4">
-                                {analysis.riskProfile.dominantRisks.map((risk, idx) => (
+                                {(analysis.riskProfile?.dominantRisks || []).map((risk, idx) => (
                                     <div key={risk} className="flex items-center space-x-5 bg-slate-50 dark:bg-slate-800/30 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 hover:border-rose-500/40 hover:bg-white dark:hover:bg-slate-800 transition-all duration-300 group shadow-sm hover:shadow-md">
                                         <div className="w-10 h-10 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-[11px] font-black text-rose-500 uppercase tracking-widest group-hover:scale-110 transition-transform">
                                             0{idx + 1}
@@ -123,7 +124,7 @@ const MasterDashboard: React.FC<MasterDashboardProps> = ({ analysis }) => {
                 
                 <Card title="Juridiskt Ramverk & Provenans" icon={<LawIcon className="w-6 h-6" />}>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-2">
-                        {analysis.legalFrameworkLinks.map(link => (
+                        {(analysis.legalFrameworkLinks || []).map(link => (
                             <div key={link.id} className="bg-slate-50 dark:bg-slate-800/30 p-8 rounded-[2.5rem] border border-slate-200 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-800 transition-all duration-500 relative overflow-hidden group shadow-sm hover:shadow-xl hover:-translate-y-1">
                                 <div className="absolute top-0 right-0 p-8 opacity-[0.04] group-hover:opacity-[0.12] transition-all transform group-hover:scale-125 group-hover:rotate-12 duration-700">
                                     <CpuChipIcon className="w-24 h-24 text-blue-500" />
@@ -134,7 +135,7 @@ const MasterDashboard: React.FC<MasterDashboardProps> = ({ analysis }) => {
                                 </div>
                                 <div className="space-y-4 relative z-10">
                                     <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
-                                        Stöds av bevis: <span className="text-slate-900 dark:text-white font-black bg-blue-50 dark:bg-blue-900/30 px-2 py-0.5 rounded border border-blue-100 dark:border-blue-800/50">{link.relatedFactIds.join(', ')}</span>
+                                        Stöds av bevis: <span className="text-slate-900 dark:text-white font-black bg-blue-50 dark:bg-blue-900/30 px-2 py-0.5 rounded border border-blue-100 dark:border-blue-800/50">{(link.relatedFactIds || []).join(', ')}</span>
                                     </p>
                                     {link.reasoning && (
                                         <div className="mt-6 p-4 bg-white dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800/50">

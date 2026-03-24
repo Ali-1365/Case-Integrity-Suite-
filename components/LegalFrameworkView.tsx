@@ -1,8 +1,9 @@
 
 import React, { useState, useMemo, useEffect } from 'react';
 import { legalFrameworkIndex } from '../data/legalFramework';
+import { LEGAL_SOURCES } from '../data/legalSources';
 import { corpusService } from '../lib/CorpusService';
-import { LegalCorpus, LegalSourceCode } from '../types';
+import { LegalCorpus, LegalSourceCode, LegalFrameworkItem } from '../types';
 import { 
     LawIcon, 
     PrinterIcon, 
@@ -18,7 +19,8 @@ import {
     Spinner,
     ExclamationTriangleIcon,
     CheckCircleIcon,
-    ScaleIcon
+    ScaleIcon,
+    SparklesIcon
 } from './icons';
 import { praxisService, PraxisEntry } from '../lib/PraxisService';
 
@@ -30,7 +32,7 @@ interface LegalFrameworkViewProps {
 const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose }) => {
   const [selectedLawId, setSelectedLawId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedType, setSelectedType] = useState<'all' | 'lag' | 'regelverk'>('all');
+  const [selectedType, setSelectedType] = useState<'all' | 'lag' | 'regelverk' | 'gold'>('all');
   const [selectedYear, setSelectedYear] = useState<string>('all');
   const [activeCorpus, setActiveCorpus] = useState<LegalCorpus | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -40,13 +42,23 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
   const [isVerifying, setIsVerifying] = useState(false);
 
   const years = useMemo(() => {
-    const allYears = legalFrameworkIndex
+    const allYears = [...legalFrameworkIndex, ...LEGAL_SOURCES]
       .map(s => s.sfsNumber?.split(':')[0])
       .filter((y): y is string => !!y);
     return Array.from(new Set(allYears)).sort((a, b) => b.localeCompare(a));
   }, []);
 
   const filteredIndex = useMemo(() => {
+    if (selectedType === 'gold') {
+        return LEGAL_SOURCES.filter(s => {
+            const matchesSearch = s.label.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                                 s.reference.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                 s.sfsNumber?.includes(searchQuery);
+            const matchesYear = selectedYear === 'all' || s.sfsNumber?.startsWith(selectedYear);
+            return matchesSearch && matchesYear;
+        });
+    }
+
     return legalFrameworkIndex.filter(s => {
         const matchesSearch = s.label.toLowerCase().includes(searchQuery.toLowerCase()) || 
                              s.shortName.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -198,6 +210,7 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
                             <option value="all">Alla Kategorier</option>
                             <option value="lag">Lagar</option>
                             <option value="regelverk">Regelverk</option>
+                            <option value="gold">GOLD-Standard (Verifierade)</option>
                         </select>
                         <select 
                             className="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg py-2 px-3 text-sm text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all"
@@ -214,29 +227,68 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
 
                 <main className="flex-grow overflow-y-auto p-8 custom-scrollbar">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {filteredIndex.map((source) => (
-                            <div 
-                                key={source.id} 
-                                onClick={() => setSelectedLawId(source.id)}
-                                className="group bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl p-5 hover:border-blue-200 dark:hover:border-blue-900/50 transition-all cursor-pointer shadow-sm flex flex-col"
-                            >
-                                <div className="flex items-center justify-between mb-3">
-                                    <span className="text-[9px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest">{source.type}</span>
-                                    <span className="text-[9px] font-mono text-slate-400">SFS {source.sfsNumber || 'REGELVERK'}</span>
-                                </div>
-                                <h3 className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors uppercase italic tracking-tight mb-4">{source.label}</h3>
-                                {isOutdated(source) && (
-                                    <div className="mb-4 flex items-center gap-2 px-2 py-1 bg-amber-50 dark:bg-amber-900/20 border border-amber-100 dark:border-amber-800 rounded text-[9px] font-bold text-amber-700 dark:text-amber-400 uppercase tracking-widest">
-                                        <ExclamationTriangleIcon className="w-3 h-3" />
-                                        Potentiellt inaktuell (Ej auditerad nyligen)
+                        {filteredIndex.map((source) => {
+                            const isGold = 'reference' in source;
+                            const label = source.label;
+                            const type = isGold ? (source as LegalFrameworkItem).type : (source as any).type;
+                            const sfs = source.sfsNumber || 'REGELVERK';
+                            const shortName = isGold ? (source as LegalFrameworkItem).reference : (source as any).shortName;
+                            const id = source.id;
+
+                            return (
+                                <div 
+                                    key={id} 
+                                    onClick={() => {
+                                        if (isGold) {
+                                            window.open((source as LegalFrameworkItem).sourceUrl, '_blank');
+                                        } else {
+                                            setSelectedLawId(id);
+                                        }
+                                    }}
+                                    className={`group bg-white dark:bg-slate-900 border rounded-xl p-5 hover:border-blue-200 dark:hover:border-blue-900/50 transition-all cursor-pointer shadow-sm flex flex-col ${isGold ? 'border-amber-100 dark:border-amber-900/30 ring-1 ring-amber-500/5' : 'border-slate-100 dark:border-slate-800'}`}
+                                >
+                                    <div className="flex items-center justify-between mb-3">
+                                        <div className="flex items-center gap-2">
+                                            <span className={`text-[9px] font-bold uppercase tracking-widest ${isGold ? 'text-amber-600 dark:text-amber-400' : 'text-blue-600 dark:text-blue-400'}`}>
+                                                {type}
+                                            </span>
+                                            {isGold && (
+                                                <SparklesIcon className="w-3 h-3 text-amber-500" />
+                                            )}
+                                        </div>
+                                        <span className="text-[9px] font-mono text-slate-400">SFS {sfs}</span>
                                     </div>
-                                )}
-                                <div className="mt-auto pt-3 border-t border-slate-50 dark:border-slate-800 flex justify-between items-center">
-                                    <span className="text-[9px] font-medium text-slate-400 uppercase tracking-wider">{source.shortName}</span>
-                                    <LinkIcon className="w-3.5 h-3.5 text-slate-300 group-hover:text-blue-500" />
+                                    <h3 className={`text-sm font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors uppercase italic tracking-tight mb-4 ${isGold ? 'text-amber-900 dark:text-amber-100' : ''}`}>
+                                        {label}
+                                    </h3>
+                                    
+                                    {isGold && (
+                                        <p className="text-[10px] text-slate-500 dark:text-slate-400 line-clamp-2 mb-4 italic">
+                                            {(source as LegalFrameworkItem).description}
+                                        </p>
+                                    )}
+
+                                    {!isGold && isOutdated(source) && (
+                                        <div className="mb-4 flex items-center gap-2 px-2 py-1 bg-amber-50 dark:bg-amber-900/20 border border-amber-100 dark:border-amber-800 rounded text-[9px] font-bold text-amber-700 dark:text-amber-400 uppercase tracking-widest">
+                                            <ExclamationTriangleIcon className="w-3 h-3" />
+                                            Potentiellt inaktuell (Ej auditerad nyligen)
+                                        </div>
+                                    )}
+                                    
+                                    <div className="mt-auto pt-3 border-t border-slate-50 dark:border-slate-800 flex justify-between items-center">
+                                        <span className="text-[9px] font-medium text-slate-400 uppercase tracking-wider">{shortName}</span>
+                                        {isGold ? (
+                                            <div className="flex items-center gap-1">
+                                                <span className="text-[8px] font-bold text-emerald-500 uppercase">Verified</span>
+                                                <ShieldCheckIcon className="w-3.5 h-3.5 text-emerald-500" />
+                                            </div>
+                                        ) : (
+                                            <LinkIcon className="w-3.5 h-3.5 text-slate-300 group-hover:text-blue-500" />
+                                        )}
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
                     {filteredIndex.length === 0 && (
                         <div className="py-20 text-center opacity-20 flex flex-col items-center">

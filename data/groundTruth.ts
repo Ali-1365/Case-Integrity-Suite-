@@ -1,5 +1,5 @@
 
-import { LegalFrameworkItem } from '../lib/legalReferenceEngine';
+import { LegalFrameworkItem } from '../types';
 
 const goldAudit = { verifiedAt: "2026-02-14", status: "VERIFIED" as const };
 

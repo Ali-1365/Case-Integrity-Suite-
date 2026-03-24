@@ -30,6 +30,9 @@ export interface CaseVersion {
 
 export interface CISCase {
   caseId: string;
+  name: string;
+  type: CaseType;
+  description: string;
   createdAt: string;
   updatedAt: string;
   status: CaseStatus;

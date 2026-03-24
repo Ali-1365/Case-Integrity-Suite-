@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { db } from '../lib/db';
+import { db, CISCase } from '../lib/db';
 import { StoredDocument, ParsedDocument, LegalCorpus } from '../types';
 import { useFileParser } from '../hooks/useFileParser';
 import { ragService } from '../lib/ragService';
@@ -72,6 +72,11 @@ import { IntelligenceCore } from './IntelligenceCore';
 import ArchiveView from './ArchiveView';
 import { FmjamController } from './FmjamController';
 import { CaseProfiler } from './CaseProfiler';
+import { SystemHub } from './SystemHub';
+import OpinionGenerator from './OpinionGenerator';
+import { AdversarialDuelView } from './AdversarialDuelView';
+import ForensicIntegrityView from './ForensicIntegrityView';
+import { LegalPipelineView } from './LegalPipelineView';
 
 import { AutoAtomizer } from '../lib/autoAtomizer';
 import { forensicChainService } from '../lib/ForensicChainService';
@@ -187,7 +192,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
             const analysisResult = await orchestrator.runFullAnalysis(
                 doc.content || doc.textContent || '', 
                 doc.id || `DOC-${Date.now()}`, 
-                legalFrameworkIndex as any, 
+                LEGAL_SOURCES, 
                 undefined, 
                 caseId
             );
@@ -257,6 +262,14 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                 facts: d.analysis?.facts || []
             }));
 
+            // Samla in alla lagreferenser och kopplingar från källdokumenten
+            const allLegalRefs = selectedDocs.flatMap(d => d.analysis?.legalReferences || []);
+            const allLegalLinks = selectedDocs.flatMap(d => d.analysis?.legalFrameworkLinks || []);
+            const allFacts = selectedDocs.flatMap(d => d.analysis?.facts || []);
+            const allAtoms = selectedDocs.flatMap(d => d.analysis?.atoms || []);
+            const allContradictions = selectedDocs.flatMap(d => d.analysis?.contradictions || []);
+            const allUncertainties = selectedDocs.flatMap(d => d.analysis?.uncertainties || []);
+
             setPipelineStatus(prev => ({ ...prev, currentStep: 'Kör korskorrelering...', progress: 50 }));
             
             const correlations = await orchestrator.runCrossCorrelation(batchDocs);
@@ -268,7 +281,15 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                 mimeType: 'application/aggregate',
                 createdAt: new Date().toISOString(),
                 analysis: {
-                    correlations
+                    correlations,
+                    legalReferences: allLegalRefs,
+                    legalFrameworkLinks: allLegalLinks,
+                    facts: allFacts,
+                    atoms: allAtoms,
+                    contradictions: allContradictions,
+                    uncertainties: allUncertainties,
+                    themes: selectedDocs.flatMap(d => d.analysis?.themes || []),
+                    qaSummary: selectedDocs.flatMap(d => d.analysis?.qaSummary || []),
                 } as any
             };
 

@@ -2,7 +2,7 @@
 import { ParsedDocument, FactV2, ContradictionV2, UncertaintyV2, LegalReference, KeywordHit } from '../types';
 import { AnalysisResult, Atom, LegalFrameworkLink, OversightBodyClassification, DocumentationCheck } from './cis.types';
 import { RiskTemplate, ContextWeight } from './riskEngineV6.types';
-import { LegalFrameworkItem } from './legalReferenceEngine';
+import { LegalFrameworkItem } from '../types';
 import { AILink } from './AIOrchestrator';
 import { PriorityFlags } from './priorityEngine';
 

@@ -14,7 +14,7 @@ import {
   LinkIcon,
   ExclamationTriangleIcon
 } from '../icons';
-import { LegalFrameworkItem } from '../../lib/legalReferenceEngine';
+import { LegalFrameworkItem } from '../../types';
 
 interface RiskProfileEditorProps {
   isOpen: boolean;

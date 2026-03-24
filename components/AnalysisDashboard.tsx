@@ -10,7 +10,7 @@ interface AnalysisDashboardProps {
 }
 
 const AnalysisDashboard: React.FC<AnalysisDashboardProps> = ({ analysis }) => {
-  const riskScore = analysis.riskProfile.normalizedScore;
+  const riskScore = analysis.riskProfile?.normalizedScore || 0;
   const riskColor = riskScore > 70 ? 'text-rose-600 dark:text-rose-400' : riskScore > 40 ? 'text-amber-600 dark:text-amber-400' : 'text-emerald-600 dark:text-emerald-400';
   const riskBg = riskScore > 70 ? 'bg-rose-500/10' : riskScore > 40 ? 'bg-amber-500/10' : 'bg-emerald-500/10';
   const riskBorder = riskScore > 70 ? 'border-rose-500/20' : riskScore > 40 ? 'border-amber-500/20' : 'border-emerald-500/20';
@@ -19,7 +19,7 @@ const AnalysisDashboard: React.FC<AnalysisDashboardProps> = ({ analysis }) => {
   const categories = ['Ekonomi', 'Tillgång', 'Process', 'Hälsa'];
   const density = categories.map(cat => ({
     label: cat,
-    count: analysis.facts.filter(f => f.category.toLowerCase().includes(cat.toLowerCase())).length
+    count: (analysis.facts || []).filter(f => f.category?.toLowerCase().includes(cat.toLowerCase())).length
   }));
 
   return (
@@ -36,7 +36,7 @@ const AnalysisDashboard: React.FC<AnalysisDashboardProps> = ({ analysis }) => {
         />
         <StatBox 
           label="Bevisatomer" 
-          value={analysis.facts.length.toString()} 
+          value={(analysis.facts?.length || 0).toString()} 
           subtext="Verifierade påståenden" 
           icon={<ShieldCheckIcon className="w-7 h-7 text-blue-600 dark:text-blue-400" />}
           bgClass="bg-blue-500/10"
@@ -44,7 +44,7 @@ const AnalysisDashboard: React.FC<AnalysisDashboardProps> = ({ analysis }) => {
         />
         <StatBox 
           label="Lagrumskopplingar" 
-          value={analysis.legalReferences.length.toString()} 
+          value={(analysis.legalReferences?.length || 0).toString()} 
           subtext="Träffar i GOLD-index" 
           icon={<LawIcon className="w-7 h-7 text-indigo-600 dark:text-indigo-400" />}
           bgClass="bg-indigo-500/10"
@@ -82,7 +82,7 @@ const AnalysisDashboard: React.FC<AnalysisDashboardProps> = ({ analysis }) => {
                 <div className="h-3 bg-slate-200 dark:bg-slate-900 rounded-full overflow-hidden shadow-inner">
                   <div 
                     className="h-full bg-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.6)] transition-all duration-1000" 
-                    style={{ width: `${Math.min(100, (d.count / (analysis.facts.length || 1)) * 100)}%` }}
+                    style={{ width: `${Math.min(100, (d.count / (analysis.facts?.length || 1)) * 100)}%` }}
                   ></div>
                 </div>
                 
@@ -108,17 +108,17 @@ const AnalysisDashboard: React.FC<AnalysisDashboardProps> = ({ analysis }) => {
               </div>
             </div>
             <p className="text-7xl font-black text-slate-900 dark:text-white mb-8 tracking-tighter leading-none">
-              {((analysis.facts.length / (analysis.atoms.length || 1)) * 100).toFixed(1)}%
+              {(((analysis.facts?.length || 0) / (analysis.atoms?.length || 1)) * 100).toFixed(1)}%
             </p>
             <p className="text-lg text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
-              Systemet har framgångsrikt korrelerat <span className="text-slate-900 dark:text-white font-black">{analysis.facts.length}</span> av <span className="text-slate-900 dark:text-white font-black">{analysis.atoms.length}</span> identifierade textsegment till juridiska bevisatomer.
+              Systemet har framgångsrikt korrelerat <span className="text-slate-900 dark:text-white font-black">{analysis.facts?.length || 0}</span> av <span className="text-slate-900 dark:text-white font-black">{analysis.atoms?.length || 0}</span> identifierade textsegment till juridiska bevisatomer.
             </p>
           </div>
         </div>
       </div>
 
       {/* Automatisk Arkivsökning för Risker */}
-      {analysis.riskProfile.dominantRisks.length > 0 && (
+      {(analysis.riskProfile?.dominantRisks || []).length > 0 && (
         <div className="animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-500">
           <div className="bg-slate-50 dark:bg-slate-800/20 p-12 rounded-[3.5rem] border border-slate-200 dark:border-slate-800 shadow-sm">
             <div className="flex items-center justify-between mb-10">
@@ -135,7 +135,7 @@ const AnalysisDashboard: React.FC<AnalysisDashboardProps> = ({ analysis }) => {
             </div>
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-              {analysis.riskProfile.dominantRisks.slice(0, 2).map((riskLabel, idx) => (
+              {(analysis.riskProfile?.dominantRisks || []).slice(0, 2).map((riskLabel, idx) => (
                 <ArchiveSearch 
                   key={`risk-search-${idx}`}
                   query={riskLabel} 

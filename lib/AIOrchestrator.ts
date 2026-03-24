@@ -1,7 +1,7 @@
 
 import { Type } from '@google/genai';
-import { FactV2, ContradictionV2, UncertaintyV2, FactCategory } from '../types';
-import { LegalFrameworkItem } from './legalReferenceEngine';
+import { FactV2, ContradictionV2, UncertaintyV2, FactCategory, LegalFrameworkItem, LegalReference } from '../types';
+import { legalReferenceEngine } from './legalReferenceEngine';
 import { geminiService } from '../services/geminiService';
 import { generateId } from './utils';
 import { CASE_TYPE_REGISTRY } from '../data/caseTypeRegistry';
@@ -107,6 +107,8 @@ const crossCorrelationSchema = {
 };
 
 export interface AILink {
+    id: string;
+    label: string;
     legalReferenceId: string;
     relatedFactIds: string[];
     reasoning: string;
@@ -120,7 +122,8 @@ export interface FullAnalysisPayload {
     facts: FactV2[];
     contradictions: ContradictionV2[];
     uncertainties: UncertaintyV2[];
-    links: AILink[];
+    legalFrameworkLinks: AILink[];
+    legalReferences: LegalReference[];
     
     // Advanced Legal Chain Results
     reasoning?: ReasoningResult;
@@ -160,6 +163,10 @@ export class AIOrchestrator {
     const injectedLaws = this.getRelevantGroundTruth(detectedTypes, legalFramework);
     autoNotary.info(traceId, 'AIOrchestrator', 'Injekterade lagar', { laws: injectedLaws.map(l => l.reference) });
 
+    const groundTruthString = injectedLaws.map(l => 
+        `[${l.reference}] ${l.label} (SFS ${l.sfsNumber}): ${l.description}`
+    ).join('\n');
+
     const systemPrompt = `
       **SYSTEMROLL: CIS FORENSIC ARCHITECT v.1.0**
       
@@ -178,6 +185,9 @@ export class AIOrchestrator {
       
       LOCKED CONTEXT (RAG):
       ${contextString || 'Ingen kontext tillgänglig.'}
+
+      GROUND TRUTH (JURIDISKT RAMVERK):
+      ${groundTruthString || 'Ingen specifik lagtext injekterad.'}
     `;
 
     try {
@@ -212,12 +222,22 @@ export class AIOrchestrator {
             decisionSupport.contradictions = contradictions;
         }
 
+        // 3. Run local Legal Reference Engine for high-precision extraction
+        const legalReferences = legalReferenceEngine.analyze(documentId, documentText);
+
         return {
             detectedCaseTypes: parsed.detectedCaseTypes || detectedTypes,
             facts,
             contradictions,
             uncertainties: parsed.uncertainties || [],
-            links: parsed.legalLinks || [],
+            legalFrameworkLinks: (parsed.legalLinks || []).map((l: any, idx: number) => ({
+                id: `LINK_${Date.now()}_${idx}`,
+                label: l.legalReferenceId || 'Juridisk koppling',
+                references: [l.legalReferenceId] as any,
+                relatedFactIds: l.relatedFactIds || [],
+                reasoning: l.reasoning
+            })),
+            legalReferences,
             
             // Attach the deep legal analysis results from the RAG chain
             reasoning: ragResult?.reasoning,

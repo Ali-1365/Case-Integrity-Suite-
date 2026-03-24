@@ -1,5 +1,5 @@
 
-import { LegalFrameworkItem } from './legalReferenceEngine';
+import { LegalFrameworkItem } from '../types';
 import { LEGAL_SOURCES } from '../data/legalSources';
 
 export class LegalMapper {

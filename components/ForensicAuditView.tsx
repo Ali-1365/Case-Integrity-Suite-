@@ -91,7 +91,7 @@ const ForensicAuditView: React.FC<ForensicAuditViewProps> = ({ analysis }) => {
                         <span className="text-[10px] font-black text-blue-500 uppercase tracking-widest">v.1.0 CIS_SYNC</span>
                     </div>
                     <div className="divide-y divide-slate-100 dark:divide-slate-800 max-h-[500px] overflow-y-auto">
-                        {audit.checks.map(check => (
+                        {(audit.checks || []).map(check => (
                             <div key={check.id} className="p-8 flex items-start gap-6 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all group">
                                 <div className={`p-2 rounded-xl flex-shrink-0 mt-1 ${check.status === 'ok' ? 'bg-emerald-500/10 text-emerald-500' : 'bg-rose-500/10 text-rose-500'}`}>
                                     {check.status === 'ok' ? (
@@ -121,8 +121,8 @@ const ForensicAuditView: React.FC<ForensicAuditViewProps> = ({ analysis }) => {
                         <span className="text-[10px] font-black text-emerald-500 uppercase tracking-widest">SHA-256 ACTIVE</span>
                     </div>
                     <div className="p-8 space-y-8 flex-1 overflow-y-auto max-h-[500px]">
-                        {analysis.documents.map(doc => {
-                            const docAtoms = analysis.atoms.filter(a => a.documentId === doc.id);
+                        {(analysis.documents || []).map(doc => {
+                            const docAtoms = (analysis.atoms || []).filter(a => a.documentId === doc.id);
                             return (
                                 <div key={doc.id} className="space-y-6">
                                     <div className="flex items-center justify-between p-5 bg-slate-50 dark:bg-slate-800/40 rounded-2xl border border-slate-200 dark:border-slate-700">

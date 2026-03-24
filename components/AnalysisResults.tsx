@@ -132,10 +132,10 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = (props) => {
                     <div className="space-y-10">
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
                             <div className="lg:col-span-2">
-                                <Card title={`Faktaatomer (Låsta: ${props.analysis.atoms.length})`} icon={<LightbulbIcon className="w-5 h-5" />}>
+                                <Card title={`Faktaatomer (Låsta: ${props.analysis.atoms?.length || 0})`} icon={<LightbulbIcon className="w-5 h-5" />}>
                                     <div className="space-y-6">
-                                        {props.analysis.facts.map(f => {
-                                            const relatedAtom = props.analysis.atoms.find(a => a.id === f.id.replace('FACT', 'ATOM'));
+                                        {(props.analysis.facts || []).map(f => {
+                                            const relatedAtom = (props.analysis.atoms || []).find(a => a.id === f.id.replace('FACT', 'ATOM'));
                                             return (
                                                 <div key={f.id} className="p-8 bg-slate-50 dark:bg-slate-800/40 rounded-[2rem] border border-slate-200 dark:border-slate-700 hover:border-blue-500/40 transition-all group shadow-sm">
                                                     <div className="flex justify-between items-start mb-6">
@@ -169,7 +169,7 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = (props) => {
                                                               <LawIcon className="w-12 h-12" />
                                                             </div>
                                                             <p className="text-[10px] text-slate-400 uppercase font-black mb-4 tracking-[0.2em]">Juridisk Koppling</p>
-                                                            {props.analysis.legalFrameworkLinks.filter(l => l.relatedFactIds.includes(f.id)).map(link => (
+                                                            {(props.analysis.legalFrameworkLinks || []).filter(l => l.relatedFactIds?.includes(f.id)).map(link => (
                                                                 <div key={link.id} className="mb-4 last:mb-0 relative z-10">
                                                                     <p className="text-xs text-blue-600 dark:text-blue-400 font-black mb-1.5 uppercase tracking-wide">{link.label}</p>
                                                                     <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed line-clamp-2 font-medium">{link.reasoning}</p>
@@ -180,7 +180,7 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = (props) => {
                                                 </div>
                                             );
                                         })}
-                                        {props.analysis.facts.length === 0 && (
+                                        {(props.analysis.facts?.length || 0) === 0 && (
                                             <div className="py-20 text-center opacity-20">
                                                 <CpuChipIcon className="w-16 h-16 mx-auto mb-6 text-slate-400" />
                                                 <p className="text-sm font-black uppercase tracking-[0.2em] text-slate-400">Inga faktaatomer extraherade än</p>
@@ -191,43 +191,71 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = (props) => {
                             </div>
                             
                             <div className="space-y-10">
-                                <Card title="Juridiskt Ramverk (SFS)" icon={<LawIcon className="w-5 h-5" />}>
-                                    <div className="space-y-4">
-                                        {props.analysis.legalReferences.map(r => {
-                                            const isVerified = LEGAL_SOURCES.some(s => 
-                                                s.reference === r.source || 
-                                                s.label.toLowerCase() === r.rawText.toLowerCase() ||
-                                                (s.sfsNumber && r.rawText.includes(s.sfsNumber))
-                                            );
-                                            return (
-                                                <button 
-                                                    key={r.id} 
-                                                    onClick={() => setSelectedLegalRefId(r.id)}
-                                                    className="w-full text-left p-6 bg-slate-50 dark:bg-slate-800/40 rounded-[1.5rem] border border-slate-200 dark:border-slate-700 hover:border-blue-500/40 hover:bg-blue-500/5 transition-all group flex justify-between items-center shadow-sm active:scale-[0.98]"
-                                                >
-                                                    <div className="flex-grow">
-                                                        <div className="flex items-center gap-3 mb-2.5">
-                                                            <p className="text-sm font-black text-blue-600 dark:text-blue-400 tracking-tight">{r.rawText}</p>
-                                                            {(r.valid || isVerified) && (
-                                                                <span className="flex items-center gap-1.5 px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 rounded-full text-[9px] font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-[0.15em]">
-                                                                    <ShieldCheckIcon className="w-3 h-3" />
-                                                                    Verifierad
-                                                                </span>
-                                                            )}
+                                <Card title="Juridiskt Ramverk & Lagrum" icon={<LawIcon className="w-5 h-5" />}>
+                                    <div className="space-y-6">
+                                        {/* AI-genererade kopplingar */}
+                                        {(props.analysis.legalFrameworkLinks?.length || 0) > 0 && (
+                                            <div className="space-y-3">
+                                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 px-2">AI-identifierade kopplingar</p>
+                                                {(props.analysis.legalFrameworkLinks || []).map(link => (
+                                                    <div 
+                                                        key={link.id}
+                                                        className="p-5 bg-blue-500/5 border border-blue-500/10 rounded-2xl shadow-sm"
+                                                    >
+                                                        <div className="flex justify-between items-start mb-3">
+                                                            <p className="text-sm font-black text-blue-600 dark:text-blue-400 tracking-tight italic uppercase">{link.label}</p>
+                                                            <span className="text-[9px] font-black text-blue-500 bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/20 uppercase tracking-widest">AI-Link</span>
                                                         </div>
-                                                        <p className="text-xs text-slate-500 dark:text-slate-400 italic line-clamp-1 leading-relaxed font-medium">"{r.contextSnippet}"</p>
+                                                        <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-medium mb-4 italic">"{link.reasoning}"</p>
+                                                        <div className="flex flex-wrap gap-2">
+                                                            {(link.relatedFactIds || []).map(fid => (
+                                                                <span key={fid} className="text-[9px] font-mono font-black text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700">#{fid}</span>
+                                                            ))}
+                                                        </div>
                                                     </div>
-                                                    <div className="ml-4 p-2.5 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 group-hover:border-blue-500/30 transition-all shadow-sm group-hover:shadow-md">
-                                                        <LinkIcon className="w-4 h-4 text-slate-400 group-hover:text-blue-500" />
-                                                    </div>
-                                                </button>
-                                            );
-                                        })}
-                                        {props.analysis.legalReferences.length === 0 && (
-                                            <div className="py-10 text-center opacity-30">
-                                              <p className="text-sm font-bold text-slate-400 uppercase tracking-widest">Inga lagrum identifierade</p>
+                                                ))}
                                             </div>
                                         )}
+
+                                        {/* Extraherade lagreferenser */}
+                                        <div className="space-y-3">
+                                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 px-2">Extraherade lagrum (SFS)</p>
+                                            {(props.analysis.legalReferences || []).map(r => {
+                                                const isVerified = LEGAL_SOURCES.some(s => 
+                                                    s.reference === r.source || 
+                                                    s.label.toLowerCase() === r.rawText.toLowerCase() ||
+                                                    (s.sfsNumber && r.rawText.includes(s.sfsNumber))
+                                                );
+                                                return (
+                                                    <button 
+                                                        key={r.id} 
+                                                        onClick={() => setSelectedLegalRefId(r.id)}
+                                                        className="w-full text-left p-6 bg-slate-50 dark:bg-slate-800/40 rounded-[1.5rem] border border-slate-200 dark:border-slate-700 hover:border-blue-500/40 hover:bg-blue-500/5 transition-all group flex justify-between items-center shadow-sm active:scale-[0.98]"
+                                                    >
+                                                        <div className="flex-grow">
+                                                            <div className="flex items-center gap-3 mb-2.5">
+                                                                <p className="text-sm font-black text-blue-600 dark:text-blue-400 tracking-tight">{r.rawText}</p>
+                                                                {(r.valid || isVerified) && (
+                                                                    <span className="flex items-center gap-1.5 px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 rounded-full text-[9px] font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-[0.15em]">
+                                                                        <ShieldCheckIcon className="w-3 h-3" />
+                                                                        Verifierad
+                                                                    </span>
+                                                                )}
+                                                            </div>
+                                                            <p className="text-xs text-slate-500 dark:text-slate-400 italic line-clamp-1 leading-relaxed font-medium">"{r.contextSnippet}"</p>
+                                                        </div>
+                                                        <div className="ml-4 p-2.5 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 group-hover:border-blue-500/30 transition-all shadow-sm group-hover:shadow-md">
+                                                            <LinkIcon className="w-4 h-4 text-slate-400 group-hover:text-blue-500" />
+                                                        </div>
+                                                    </button>
+                                                );
+                                            })}
+                                            {(props.analysis.legalReferences?.length || 0) === 0 && (
+                                                <div className="py-10 text-center opacity-30">
+                                                  <p className="text-sm font-bold text-slate-400 uppercase tracking-widest">Inga lagrum identifierade</p>
+                                                </div>
+                                            )}
+                                        </div>
                                     </div>
                                 </Card>
 
@@ -329,20 +357,20 @@ const OverviewContent: React.FC<{ analysis: AnalysisResult }> = ({ analysis }) =
                     <h3 className="text-sm font-black text-blue-600 dark:text-blue-400 uppercase tracking-[0.3em] opacity-80">Forensic Chain Summary</h3>
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-10">
-                    <StatCard label="Aktiverat Lagrum" value={analysis.legalReferences.length} color="blue" />
-                    <StatCard label="Bevisatomer" value={analysis.atoms.length} color="blue" />
-                    <StatCard label="Audit Verifierad" value={analysis.audit?.checks.filter(c => c.status === 'ok').length || 0} color="blue" />
-                    <StatCard label="Beviskategorier" value={new Set(analysis.atoms.flatMap(a => a.tags)).size} color="blue" />
-                    <StatCard label="Lagrumskopplingar" value={analysis.legalFrameworkLinks.length} color="blue" />
+                    <StatCard label="Aktiverat Lagrum" value={analysis.legalReferences?.length || 0} color="blue" />
+                    <StatCard label="Bevisatomer" value={analysis.atoms?.length || 0} color="blue" />
+                    <StatCard label="Audit Verifierad" value={analysis.audit?.checks?.filter(c => c.status === 'ok').length || 0} color="blue" />
+                    <StatCard label="Beviskategorier" value={new Set((analysis.atoms || []).flatMap(a => a.tags || [])).size} color="blue" />
+                    <StatCard label="Lagrumskopplingar" value={analysis.legalFrameworkLinks?.length || 0} color="blue" />
                     <StatCard label="Integritets-Score" value={analysis.audit?.integrityScore || 100} suffix="%" color="blue" />
                 </div>
             </div>
             <Card title="Verifierade Beviskategorier" icon={<TagIcon className="w-6 h-6" />}>
                 <div className="flex flex-wrap gap-6">
-                    {analysis.themes.map(t => (
+                    {(analysis.themes || []).map(t => (
                         <div key={t.id} className="bg-slate-50 dark:bg-slate-800/50 px-8 py-6 rounded-[2rem] border border-slate-200 dark:border-slate-700 flex flex-col items-center min-w-[140px] shadow-sm hover:border-blue-500/40 transition-all hover:-translate-y-1 duration-300">
                             <span className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] mb-3 opacity-70">{t.label}</span>
-                            <span className="text-3xl font-black text-slate-900 dark:text-white tracking-tighter">{analysis.facts.filter(f => f.category === t.id).length}</span>
+                            <span className="text-3xl font-black text-slate-900 dark:text-white tracking-tighter">{(analysis.facts || []).filter(f => f.category === t.id).length}</span>
                         </div>
                     ))}
                 </div>
@@ -351,7 +379,7 @@ const OverviewContent: React.FC<{ analysis: AnalysisResult }> = ({ analysis }) =
         <div className="lg:col-span-4">
             <Card title="QA-Revision" icon={<ShieldCheckIcon className="w-6 h-6" />}>
                 <div className="space-y-6">
-                    {analysis.qaSummary.map(check => (
+                    {(analysis.qaSummary || []).map(check => (
                         <div key={check.id} className="p-6 rounded-[2rem] border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 flex items-start gap-6 shadow-sm hover:border-emerald-500/40 transition-all group/qa">
                             <div className={`p-3 rounded-2xl mt-0.5 transition-all duration-500 group-hover/qa:scale-110 ${check.status === 'pass' ? 'text-emerald-600 bg-emerald-500/10' : 'text-amber-600 bg-amber-500/10'}`}>
                                 <CheckCircleIcon className="h-6 w-6" />

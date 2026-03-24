@@ -74,7 +74,7 @@ export const InteractiveAnalyst: React.FC<InteractiveAnalystProps> = ({ analysis
             // 1. Hämta kontext via RAG
             setAnalysisStatus('ANALYSERAR');
             setStatusMessage(isOffline ? 'Söker i lokalt ramverk (RAG)...' : 'Söker i juridiskt ramverk (RAG)...');
-            const ragResult = await ragService.getContextForText(analysis.facts.map(f => f.statement).join(' '), true, analysis.caseId);
+            const ragResult = await ragService.getContextForText((analysis.facts || []).map(f => f.statement).join(' '), true, analysis.caseId);
             
             setStatusMessage(isOffline ? 'Genererar yttrande via lokal motor...' : 'Genererar juridiskt yttrande via Gemini...');
             const systemPrompt = `
@@ -82,9 +82,9 @@ export const InteractiveAnalyst: React.FC<InteractiveAnalystProps> = ({ analysis
                 DIN UPPGIFT ÄR ATT GENERERA ETT JURIDISKT YTTRANDE BASERAT PÅ FÖLJANDE DATA:
                 
                 ÄRENDE_ID: ${analysis.caseId}
-                FAKTA_ATOMER: ${JSON.stringify(analysis.facts)}
-                LAGRUM_FRÅN_ANALYS: ${JSON.stringify(analysis.legalReferences)}
-                TEMAN: ${JSON.stringify(analysis.themes)}
+                FAKTA_ATOMER: ${JSON.stringify(analysis.facts || [])}
+                LAGRUM_FRÅN_ANALYS: ${JSON.stringify(analysis.legalReferences || [])}
+                TEMAN: ${JSON.stringify(analysis.themes || [])}
                 
                 JURIDISK KONTEXT (RAG):
                 ${ragResult.context}
@@ -150,9 +150,9 @@ export const InteractiveAnalyst: React.FC<InteractiveAnalystProps> = ({ analysis
                 DIN UPPGIFT ÄR ATT GE DYNAMISK ÄRENDEANALYS BASERAT PÅ FÖLJANDE DATA:
                 
                 ÄRENDE_ID: ${analysis.caseId}
-                FAKTA_ATOMER: ${JSON.stringify(analysis.facts)}
-                LAGRUM: ${JSON.stringify(analysis.legalReferences)}
-                TEMAN: ${JSON.stringify(analysis.themes)}
+                FAKTA_ATOMER: ${JSON.stringify(analysis.facts || [])}
+                LAGRUM: ${JSON.stringify(analysis.legalReferences || [])}
+                TEMAN: ${JSON.stringify(analysis.themes || [])}
                 
                 INSTRUKTIONER:
                 1. Svara alltid professionellt och objektivt.
@@ -210,9 +210,10 @@ export const InteractiveAnalyst: React.FC<InteractiveAnalystProps> = ({ analysis
                         <div className="p-4 bg-[#0a0a0a] rounded-xl border border-gray-800">
                             <p className="text-[10px] text-gray-500 font-bold uppercase mb-3">Bevisdensitet per Kategori</p>
                             <div className="space-y-3">
-                                {analysis.themes.map(t => {
-                                    const count = analysis.facts.filter(f => f.category === t.id).length;
-                                    const percentage = Math.min(100, (count / analysis.facts.length) * 300);
+                                {(analysis.themes || []).map(t => {
+                                    const count = (analysis.facts || []).filter(f => f.category === t.id).length;
+                                    const totalFacts = analysis.facts?.length || 1;
+                                    const percentage = Math.min(100, (count / totalFacts) * 300);
                                     return (
                                         <div key={t.id} className="space-y-1">
                                             <div className="flex justify-between text-[10px]">
