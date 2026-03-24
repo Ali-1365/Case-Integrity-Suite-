@@ -14,18 +14,39 @@ import {
   Layers,
   Activity
 } from 'lucide-react';
+import { db, CISCase } from '../lib/db';
 import { offlineService } from '../services/offlineService';
+import { AIOrchestrator } from '../lib/AIOrchestrator';
 import { motion, AnimatePresence } from 'motion/react';
 
-const AnalysView: React.FC = () => {
+interface AnalysViewProps {
+  activeCase?: CISCase | null;
+}
+
+const AnalysView: React.FC<AnalysViewProps> = ({ activeCase }) => {
   const [isOffline, setIsOffline] = useState(offlineService.getIsOffline());
-  const [activeAnalysis, setActiveAnalysis] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [orchestrator] = useState(() => new AIOrchestrator());
 
   useEffect(() => {
     const sub = offlineService.subscribe(setIsOffline);
     return () => sub();
   }, []);
+
+  const handleRunAnalysis = async () => {
+    if (!activeCase || isOffline) return;
+    setLoading(true);
+    try {
+      const { legalReferenceEngine } = await import('../lib/legalReferenceEngine');
+      const framework = await legalReferenceEngine.getFramework();
+      await orchestrator.orchestrateCaseAnalysis(activeCase.caseId, activeCase.description || '', framework);
+      window.location.reload(); // Refresh to show new data
+    } catch (e) {
+      console.error('Analysfel:', e);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const analysisSteps = [
     { id: 'norm', label: 'Normalisering', status: 'COMPLETED', icon: Layers },
@@ -41,13 +62,23 @@ const AnalysView: React.FC = () => {
         <div>
           <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Analys & Utredning</h1>
           <p className="text-slate-500 text-sm">Djupgående forensisk analys av bevisatomer och rättsliga förhållanden.</p>
+          {activeCase && (
+            <div className="mt-2 inline-flex items-center gap-2 px-3 py-1 bg-blue-50 text-blue-700 rounded-full border border-blue-100">
+              <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
+              <span className="text-[10px] font-bold uppercase tracking-wider">Aktivt Ärende: {activeCase.name}</span>
+            </div>
+          )}
         </div>
         <div className="flex gap-2">
           <button className="bg-white border border-slate-200 text-slate-700 px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-50 transition-all flex items-center gap-2 shadow-sm">
             <Filter size={18} /> Filtrera
           </button>
-          <button className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-all flex items-center gap-2 shadow-sm">
-            <Search size={18} /> Ny Analys
+          <button 
+            onClick={handleRunAnalysis}
+            disabled={loading || !activeCase}
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-all flex items-center gap-2 shadow-sm disabled:opacity-50"
+          >
+            <BrainCircuit size={18} /> {loading ? 'Analyserar...' : 'Starta Analys'}
           </button>
         </div>
       </div>
@@ -134,30 +165,29 @@ const AnalysView: React.FC = () => {
               </div>
               <div className="p-0">
                 <div className="divide-y divide-slate-50">
-                  {[
-                    { id: 'ATOM-001', type: 'TID', text: 'Händelsen ägde rum 2024-02-14 kl 08:45.', conf: 0.99 },
-                    { id: 'ATOM-002', type: 'PLATS', text: 'Platsen bekräftad till Storgatan 1, Stockholm via metadata.', conf: 0.95 },
-                    { id: 'ATOM-003', type: 'AKTÖR', text: 'Person A identifierad som avsändare av e-postmeddelandet.', conf: 0.92 },
-                    { id: 'ATOM-004', type: 'KONTRAKT', text: 'Paragraf 4.2 i avtalet reglerar ansvarsfrihet.', conf: 0.88 },
-                  ].map(atom => (
-                    <div key={atom.id} className="p-4 hover:bg-slate-50 transition-colors flex gap-4">
-                      <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-500 font-mono text-[10px]">
-                        {atom.type}
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex justify-between items-start mb-1">
-                          <span className="text-[10px] font-bold text-slate-400 font-mono">{atom.id}</span>
-                          <div className="flex items-center gap-1">
-                            <div className="w-16 h-1 bg-slate-100 rounded-full overflow-hidden">
-                              <div className="h-full bg-emerald-500" style={{ width: `${atom.conf * 100}%` }} />
-                            </div>
-                            <span className="text-[9px] font-bold text-emerald-600">{Math.round(atom.conf * 100)}%</span>
-                          </div>
+                  {activeCase?.decisionSupport?.facts && activeCase.decisionSupport.facts.length > 0 ? (
+                    activeCase.decisionSupport.facts.map(atom => (
+                      <div key={atom.id} className="p-4 hover:bg-slate-50 transition-colors flex gap-4">
+                        <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-500 font-mono text-[10px]">
+                          {atom.category}
                         </div>
-                        <p className="text-sm text-slate-700">{atom.text}</p>
+                        <div className="flex-1">
+                          <div className="flex justify-between items-start mb-1">
+                            <span className="text-[10px] font-bold text-slate-400 font-mono">{atom.id}</span>
+                            <div className="flex items-center gap-1">
+                              <div className="w-16 h-1 bg-slate-100 rounded-full overflow-hidden">
+                                <div className="h-full bg-emerald-500" style={{ width: `95%` }} />
+                              </div>
+                              <span className="text-[9px] font-bold text-emerald-600">95%</span>
+                            </div>
+                          </div>
+                          <p className="text-sm text-slate-700">{atom.statement}</p>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))
+                  ) : (
+                    <div className="p-8 text-center text-slate-400 text-xs">Inga fakta-atomer identifierade för detta ärende än.</div>
+                  )}
                 </div>
               </div>
               <div className="p-4 bg-slate-50 border-t border-slate-100">

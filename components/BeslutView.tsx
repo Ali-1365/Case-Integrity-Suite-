@@ -15,11 +15,16 @@ import {
   Sparkles
 } from 'lucide-react';
 import { offlineService } from '../services/offlineService';
+import { db, CISCase } from '../lib/db';
 import { motion, AnimatePresence } from 'motion/react';
 
 import { geminiService } from '../services/geminiService';
 
-const BeslutView: React.FC = () => {
+interface BeslutViewProps {
+  activeCase?: CISCase | null;
+}
+
+const BeslutView: React.FC<BeslutViewProps> = ({ activeCase }) => {
   const [isOffline, setIsOffline] = useState(offlineService.getIsOffline());
   const [fraga, setFraga] = useState('');
   const [chatHistory, setChatHistory] = useState<any[]>([
@@ -42,8 +47,10 @@ const BeslutView: React.FC = () => {
     setLoading(true);
 
     try {
+      const context = activeCase ? `\n\nKONTEXT FÖR ÄRENDE:\nNamn: ${activeCase.name}\nTyp: ${activeCase.type}\nBeskrivning: ${activeCase.description}\nStatus: ${activeCase.status}` : '';
+      
       const response = await geminiService.generate({
-        contents: [{ role: 'user', parts: [{ text: `Du är en svensk juridisk expert. Svara på följande fråga kortfattat och formellt: ${currentFraga}` }] }]
+        contents: [{ role: 'user', parts: [{ text: `Du är en svensk juridisk expert. Svara på följande fråga kortfattat och formellt: ${currentFraga}${context}` }] }]
       }, 'think');
 
       const aiMsg = { 
@@ -68,6 +75,12 @@ const BeslutView: React.FC = () => {
         <div>
           <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Beslutsmotor</h1>
           <p className="text-slate-500 text-sm">Interaktiv AI-rådgivare för komplexa juridiska frågeställningar.</p>
+          {activeCase && (
+            <div className="mt-2 inline-flex items-center gap-2 px-3 py-1 bg-blue-50 text-blue-700 rounded-full border border-blue-100">
+              <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
+              <span className="text-[10px] font-bold uppercase tracking-wider">Kontext: {activeCase.name}</span>
+            </div>
+          )}
         </div>
         <div className="flex gap-2">
           <button className="bg-white border border-slate-200 text-slate-700 px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-50 transition-all flex items-center gap-2 shadow-sm">

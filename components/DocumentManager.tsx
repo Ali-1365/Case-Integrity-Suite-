@@ -46,7 +46,8 @@ import {
     BanknotesIcon,
     ChevronDownIcon,
     DocumentTextIcon,
-    DocumentDuplicateIcon
+    DocumentDuplicateIcon,
+    BriefcaseIcon
 } from './icons';
 
 import Chatbot from './Chatbot';
@@ -63,13 +64,10 @@ import SystemInventory from './SystemInventory';
 import QuotaWarning from './QuotaWarning';
 import SfbIntegrityPanel from './SfbIntegrityPanel';
 import { AutoNotaryView } from './AutoNotaryView';
-import LegalTextProductionModule from './LegalTextProductionModule';
-import { SystemHub } from './SystemHub';
-import ForensicIntegrityView from './ForensicIntegrityView';
-import OpinionGenerator from './OpinionGenerator';
-import { AdversarialDuelView } from './AdversarialDuelView';
-import LegalPipelineView from './LegalPipelineView';
-import EconomicDashboard from './EconomicDashboard';
+import EkonomiView from './EkonomiView';
+import ProduktionView from './ProduktionView';
+import BeslutView from './BeslutView';
+import AnalysView from './AnalysView';
 import { IntelligenceCore } from './IntelligenceCore';
 import ArchiveView from './ArchiveView';
 import { FmjamController } from './FmjamController';
@@ -99,8 +97,13 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
             setActiveModal(null);
         } else {
             setActiveModal(view);
+            setShowMoreMenu(false);
         }
     };
+
+    const [activeCase, setActiveCase] = useState<CISCase | null>(null);
+    const [cases, setCases] = useState<CISCase[]>([]);
+    const [showCaseMenu, setShowCaseMenu] = useState(false);
     const orchestrator = React.useMemo(() => new AIOrchestrator(), []);
     const [quotaUsage, setQuotaUsage] = useState<QuotaUsage>(() => {
         try {
@@ -132,12 +135,14 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
     const loadData = useCallback(async () => {
         setIsLoading(true);
         try {
-            const [docs, corpora] = await Promise.all([
+            const [docs, corpora, allCases] = await Promise.all([
                 db.getAllDocuments(),
-                loadAllLegalCorpus()
+                loadAllLegalCorpus(),
+                db.getAllCases()
             ]);
             setDocuments(docs);
             setLegalCorpora(corpora);
+            setCases(allCases);
             await ragService.initialize();
         } catch (e) {
             console.error("[BOOT] Data load failure:", e);
@@ -150,8 +155,6 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
 
     const selectedDoc = documents.find(d => d.id === selectedDocId);
     const currentAnalysis = selectedDoc?.analysis || null;
-
-    const [activeCase, setActiveCase] = useState<any>(null);
 
     useEffect(() => {
         if (currentAnalysis?.caseId) {
@@ -215,6 +218,9 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                 return [updatedDoc, ...prev];
             });
             
+            setSelectedDocId(updatedDoc.id);
+            setCurrentView('analysis');
+
             setPipelineStatus({
                 ...initialPipelineStatus,
                 status: 'completed',
@@ -379,7 +385,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
         <div className={`flex flex-col min-h-screen ${isDarkMode ? 'dark bg-slate-950 text-slate-50' : 'bg-slate-50 text-slate-900'} font-sans transition-colors duration-700`}>
             <header className="h-24 px-10 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl flex justify-between items-center sticky top-0 z-[100] transition-all shadow-sm shadow-slate-200/20 dark:shadow-none">
                 <div className="flex items-center space-x-12 w-full overflow-hidden">
-                    <div className="flex items-center space-x-4 cursor-pointer shrink-0 group" onClick={() => { setSelectedDocId(null); setActiveModal(null); }}>
+                    <div className="flex items-center space-x-4 cursor-pointer shrink-0 group" onClick={() => navigateTo('overview')}>
                         <div className="p-3 bg-slate-900 dark:bg-blue-600 rounded-2xl group-hover:scale-110 group-hover:rotate-3 transition-all shadow-xl shadow-slate-900/20 dark:shadow-blue-900/30">
                             <LogoIcon className="h-7 w-7 text-white" />
                         </div>
@@ -392,24 +398,25 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                     <nav className="hidden xl:flex items-center space-x-1 flex-1 overflow-x-auto no-scrollbar py-2">
                         {/* Kärnfunktioner */}
                         <div className="flex items-center space-x-1 bg-slate-100 dark:bg-slate-800/50 p-1 rounded-2xl border border-slate-200 dark:border-slate-700/50">
-                            <ToolButton icon={<Squares2X2Icon />} onClick={() => setActiveModal('hub')} label="Hubb" active={activeModal === 'hub'} />
-                            <ToolButton icon={<MagnifyingGlassIcon />} onClick={() => setActiveModal('agent')} label="Analys" active={activeModal === 'agent'} />
-                            <ToolButton icon={<BanknotesIcon />} onClick={() => setActiveModal('ekonomi')} label="Ekonomi" active={activeModal === 'ekonomi'} />
+                            <ToolButton icon={<Squares2X2Icon />} onClick={() => navigateTo('hub')} label="Hubb" active={currentView === 'hub'} />
+                            <ToolButton icon={<DocumentDuplicateIcon />} onClick={() => navigateTo('overview')} label="Ärenden" active={currentView === 'overview' || currentView === 'analysis'} />
+                            <ToolButton icon={<MagnifyingGlassIcon />} onClick={() => navigateTo('agent')} label="Analys" active={activeModal === 'agent'} />
+                            <ToolButton icon={<BanknotesIcon />} onClick={() => navigateTo('ekonomi')} label="Ekonomi" active={activeModal === 'ekonomi'} />
                         </div>
 
                         <div className="w-px h-6 bg-slate-200 dark:bg-slate-800 mx-2 opacity-30"></div>
 
                         {/* Produktion & Beslut */}
                         <div className="flex items-center space-x-1 bg-slate-100 dark:bg-slate-800/50 p-1 rounded-2xl border border-slate-200 dark:border-slate-700/50">
-                            <ToolButton icon={<ChatIcon />} onClick={() => setActiveModal('chat')} label="Beslut" active={activeModal === 'chat'} />
-                            <ToolButton icon={<BoltIcon />} onClick={() => setActiveModal('production')} label="Produktion" active={activeModal === 'production'} />
+                            <ToolButton icon={<ChatIcon />} onClick={() => navigateTo('chat')} label="Beslut" active={activeModal === 'chat'} />
+                            <ToolButton icon={<BoltIcon />} onClick={() => navigateTo('production')} label="Produktion" active={activeModal === 'production'} />
                         </div>
 
                         <div className="w-px h-6 bg-slate-200 dark:bg-slate-800 mx-2 opacity-30"></div>
 
                         {/* System & Logg */}
                         <div className="flex items-center space-x-1 relative">
-                            <ToolButton icon={<ArchiveBoxIcon />} onClick={() => { setActiveModal('arch'); setShowMoreMenu(false); }} label="Arkiv" active={activeModal === 'arch' || activeModal === 'archive'} />
+                            <ToolButton icon={<ArchiveBoxIcon />} onClick={() => navigateTo('arch')} label="Arkiv" active={activeModal === 'arch' || activeModal === 'archive'} />
                             
                             <div className="relative">
                                 <button 
@@ -434,12 +441,82 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                                             <div className="px-4 py-2 mb-2">
                                                 <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Avancerade Verktyg</span>
                                             </div>
-                                            <MenuButton icon={<ShieldCheckIcon />} onClick={() => { setActiveModal('audit'); setShowMoreMenu(false); }} label="Systemlogg" active={activeModal === 'audit'} />
-                                            <MenuButton icon={<LawIcon />} onClick={() => { setActiveModal('framework'); setShowMoreMenu(false); }} label="Juridiskt Ramverk" active={activeModal === 'framework'} />
+                                            <MenuButton icon={<ShieldCheckIcon />} onClick={() => navigateTo('audit')} label="Systemlogg" active={activeModal === 'audit'} />
+                                            <MenuButton icon={<LawIcon />} onClick={() => navigateTo('framework')} label="Juridiskt Ramverk" active={activeModal === 'framework'} />
                                             <div className="h-px bg-slate-100 dark:bg-slate-800 my-3 mx-4"></div>
-                                            <MenuButton icon={<ActivityIcon />} onClick={() => { setActiveModal('monitor'); setShowMoreMenu(false); }} label="Systemövervakning" active={activeModal === 'monitor'} />
-                                            <MenuButton icon={<ClipboardDocumentListIcon />} onClick={() => { setActiveModal('inventory'); setShowMoreMenu(false); }} label="Systeminventering" active={activeModal === 'inventory'} />
-                                            <MenuButton icon={<CodeBracketIcon />} onClick={() => { setActiveModal('debug'); setShowMoreMenu(false); }} label="AI Debug Panel" active={activeModal === 'debug'} />
+                                            <MenuButton icon={<ActivityIcon />} onClick={() => navigateTo('monitor')} label="Systemövervakning" active={activeModal === 'monitor'} />
+                                            <MenuButton icon={<ClipboardDocumentListIcon />} onClick={() => navigateTo('inventory')} label="Systeminventering" active={activeModal === 'inventory'} />
+                                            <MenuButton icon={<CodeBracketIcon />} onClick={() => navigateTo('debug')} label="AI Debug Panel" active={activeModal === 'debug'} />
+                                        </div>
+                                    </>
+                                )}
+                            </div>
+
+                            <div className="w-px h-6 bg-slate-200 dark:bg-slate-800 mx-2 opacity-30"></div>
+
+                            {/* Case Selector */}
+                            <div className="relative">
+                                <button 
+                                    onClick={() => setShowCaseMenu(!showCaseMenu)}
+                                    className={`px-4 py-2.5 rounded-xl transition-all flex items-center space-x-3 border-2 ${
+                                        activeCase 
+                                        ? 'bg-blue-600 border-blue-700 text-white shadow-lg shadow-blue-900/20' 
+                                        : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
+                                    }`}
+                                >
+                                    <BriefcaseIcon className="w-4 h-4" />
+                                    <span className="text-xs font-bold truncate max-w-[120px]">
+                                        {activeCase ? activeCase.name || activeCase.caseId : 'Välj Ärende'}
+                                    </span>
+                                    <ChevronDownIcon className={`w-3 h-3 transition-transform ${showCaseMenu ? 'rotate-180' : ''}`} />
+                                </button>
+
+                                {showCaseMenu && (
+                                    <>
+                                        <div className="fixed inset-0 z-[105]" onClick={() => setShowCaseMenu(false)}></div>
+                                        <div className="absolute right-0 mt-3 w-80 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl p-2 z-[110] animate-in fade-in zoom-in-95 duration-200">
+                                            <div className="px-4 py-3 border-b border-slate-100 dark:border-slate-800 mb-2">
+                                                <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest">Aktiva Ärenden</h3>
+                                            </div>
+                                            <div className="max-h-[300px] overflow-y-auto p-1 space-y-1">
+                                                {cases.length > 0 ? (
+                                                    cases.map(c => (
+                                                        <button
+                                                            key={c.caseId}
+                                                            onClick={() => {
+                                                                setActiveCase(c);
+                                                                setShowCaseMenu(false);
+                                                            }}
+                                                            className={`w-full text-left px-4 py-3 rounded-2xl transition-all flex flex-col gap-1 ${
+                                                                activeCase?.caseId === c.caseId
+                                                                ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 ring-1 ring-blue-500/20'
+                                                                : 'hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300'
+                                                            }`}
+                                                        >
+                                                            <span className="text-sm font-bold truncate">{c.name || 'Namnlöst Ärende'}</span>
+                                                            <div className="flex items-center justify-between text-[10px] opacity-60 font-mono">
+                                                                <span>{c.caseId}</span>
+                                                                <span className="uppercase">{c.status}</span>
+                                                            </div>
+                                                        </button>
+                                                    ))
+                                                ) : (
+                                                    <div className="px-4 py-8 text-center text-slate-400 text-xs italic">
+                                                        Inga ärenden hittades.
+                                                    </div>
+                                                )}
+                                            </div>
+                                            <div className="p-2 mt-2 border-t border-slate-100 dark:border-slate-800">
+                                                <button 
+                                                    onClick={() => {
+                                                        // Logic to create new case could go here
+                                                        setShowCaseMenu(false);
+                                                    }}
+                                                    className="w-full py-2 text-xs font-bold text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-xl transition-all"
+                                                >
+                                                    + Skapa Nytt Ärende
+                                                </button>
+                                            </div>
                                         </div>
                                     </>
                                 )}
@@ -539,7 +616,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                                 setCurrentView('analysis');
                             }}
                             onAggregateSelected={handleAggregateSelected}
-                            onAction={setActiveModal}
+                            onAction={navigateTo}
                             isProcessing={isAnalyzing || isParsing}
                             parsingError={parsingError}
                         />
@@ -640,9 +717,9 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                                 </div>
                             )}
 
-                            {activeModal === 'hub' && <SystemHub onNavigate={(view) => setActiveModal(view)} />}
-                            {activeModal === 'ekonomi' && <EconomicDashboard />}
-                            {activeModal === 'production' && <LegalTextProductionModule />}
+                            {activeModal === 'hub' && <SystemHub onNavigate={navigateTo} />}
+                            {activeModal === 'ekonomi' && <EkonomiView activeCase={activeCase} />}
+                            {activeModal === 'production' && <ProduktionView activeCase={activeCase} />}
                             {activeModal === 'opinion' && currentAnalysis && <OpinionGenerator analysis={currentAnalysis} onComplete={() => setActiveModal(null)} />}
                             {activeModal === 'duel' && currentAnalysis && selectedDoc && <AdversarialDuelView caseData={selectedDoc.textContent} caseId={currentAnalysis.caseId} />}
                             {activeModal === 'integrity' && currentAnalysis && <ForensicIntegrityView analysis={currentAnalysis} />}
@@ -650,8 +727,8 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                             {activeModal === 'oracle' && <IntelligenceCore analysis={currentAnalysis} />}
                             {activeModal === 'archive' && <ArchiveView onSelect={(id) => { setSelectedDocId(id); setActiveModal(null); }} />}
                             {activeModal === 'audit' && <AuditPanel isOpen={true} onClose={() => setActiveModal(null)} />}
-                            {activeModal === 'chat' && <Chatbot isOpen={true} onClose={() => setActiveModal(null)} ragService={ragService} currentAnalysis={currentAnalysis} />}
-                            {activeModal === 'agent' && <AgentWorkspace isOpen={true} onClose={() => setActiveModal(null)} />}
+                            {activeModal === 'chat' && <BeslutView activeCase={activeCase} />}
+                            {activeModal === 'agent' && <AnalysView activeCase={activeCase} />}
                             {activeModal === 'debug' && <AIDebugPanel isOpen={true} onClose={() => setActiveModal(null)} />}
                             {activeModal === 'controller' && <FmjamController analysis={currentAnalysis} />}
                             {activeModal === 'notary' && <AutoNotaryView />}

@@ -16,9 +16,10 @@ export class EconomicService {
     claims: [],
     forecasts: []
   };
+  public ready: Promise<void>;
 
   constructor() {
-    this.loadFromDb();
+    this.ready = this.loadFromDb();
   }
 
   private async loadFromDb() {

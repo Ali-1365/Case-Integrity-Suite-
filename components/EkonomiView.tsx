@@ -20,10 +20,15 @@ import {
 import { economicService } from '../services/EconomicService';
 import { Payment, Invoice, DamagesClaim, BudgetForecast, DamageComponent } from '../lib/economic.types';
 import { offlineService } from '../services/offlineService';
+import { db, CISCase } from '../lib/db';
 import { generateId } from '../lib/utils';
 import { motion, AnimatePresence } from 'motion/react';
 
-const EkonomiView: React.FC = () => {
+interface EkonomiViewProps {
+  activeCase?: CISCase | null;
+}
+
+const EkonomiView: React.FC<EkonomiViewProps> = ({ activeCase }) => {
   const [activeSubTab, setActiveSubTab] = useState<'oversikt' | 'betalningar' | 'fakturor' | 'skadestand' | 'budget'>('oversikt');
   const [isOffline, setIsOffline] = useState(offlineService.getIsOffline());
   const [payments, setPayments] = useState<Payment[]>([]);
@@ -51,9 +56,8 @@ const EkonomiView: React.FC = () => {
 
   const loadCases = async () => {
     try {
-      const { db } = await import('../lib/db');
-      const allDocs = await db.getAllDocuments();
-      setCases(allDocs);
+      const allCases = await db.getAllCases();
+      setCases(allCases);
     } catch (e) {
       console.error('Kunde inte ladda ärenden:', e);
     }
@@ -66,6 +70,7 @@ const EkonomiView: React.FC = () => {
   };
 
   const loadData = async () => {
+    await economicService.ready;
     setPayments(economicService.getPayments());
     setInvoices(economicService.getInvoices());
     setClaims(economicService.getClaims());
@@ -155,6 +160,12 @@ const EkonomiView: React.FC = () => {
         <div>
           <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Ekonomisk Motor</h1>
           <p className="text-slate-500 text-sm">Avancerad hantering av betalningar, fakturor och skadeståndsprocesser.</p>
+          {activeCase && (
+            <div className="mt-2 inline-flex items-center gap-2 px-3 py-1 bg-blue-50 text-blue-700 rounded-full border border-blue-100">
+              <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
+              <span className="text-[10px] font-bold uppercase tracking-wider">Aktivt Ärende: {activeCase.name} ({activeCase.caseId})</span>
+            </div>
+          )}
         </div>
         <div className="flex gap-2">
           <button 
@@ -680,12 +691,12 @@ const EkonomiView: React.FC = () => {
                   ) : (
                     cases.map(c => (
                       <button 
-                        key={c.id}
-                        onClick={() => handleLinkClaimToCase(showLinkModal, c.id)}
+                        key={c.caseId}
+                        onClick={() => handleLinkClaimToCase(showLinkModal, c.caseId)}
                         className="w-full p-4 text-left border border-slate-100 rounded-2xl hover:border-blue-300 hover:bg-blue-50 transition-all group"
                       >
                         <div className="text-sm font-bold text-slate-900 mb-1 group-hover:text-blue-700 transition-colors">{c.name}</div>
-                        <div className="text-[10px] text-slate-400 uppercase font-mono">{c.id} · {new Date(c.createdAt).toLocaleDateString()}</div>
+                        <div className="text-[10px] text-slate-400 uppercase font-mono">{c.caseId} · {new Date(c.updatedAt).toLocaleDateString()}</div>
                       </button>
                     ))
                   )}
