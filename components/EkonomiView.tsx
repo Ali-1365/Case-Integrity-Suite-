@@ -15,7 +15,10 @@ import {
   MoreVertical,
   Trash2,
   ExternalLink,
-  BrainCircuit
+  BrainCircuit,
+  Loader2,
+  Sparkles,
+  X
 } from 'lucide-react';
 import { economicService } from '../services/EconomicService';
 import { Payment, Invoice, DamagesClaim, BudgetForecast, DamageComponent } from '../lib/economic.types';
@@ -23,6 +26,7 @@ import { offlineService } from '../services/offlineService';
 import { db, CISCase } from '../lib/db';
 import { generateId } from '../lib/utils';
 import { motion, AnimatePresence } from 'motion/react';
+import { toast, Toaster } from 'sonner';
 
 interface EkonomiViewProps {
   activeCase?: CISCase | null;
@@ -46,6 +50,9 @@ const EkonomiView: React.FC<EkonomiViewProps> = ({ activeCase }) => {
 
   const [showLinkModal, setShowLinkModal] = useState<string | null>(null); // claimId
   const [cases, setCases] = useState<any[]>([]);
+
+  const [aiResult, setAiResult] = useState<{ title: string, content: string } | null>(null);
+  const [isAiLoading, setIsAiLoading] = useState(false);
 
   useEffect(() => {
     const sub = offlineService.subscribe(setIsOffline);
@@ -78,7 +85,10 @@ const EkonomiView: React.FC<EkonomiViewProps> = ({ activeCase }) => {
   };
 
   const handleAddPayment = async () => {
-    if (!newPayment.amount || !newPayment.recipient) return;
+    if (!newPayment.amount || !newPayment.recipient) {
+      toast.error('Vänligen fyll i alla obligatoriska fält');
+      return;
+    }
     const p: Payment = {
       id: generateId('PAY'),
       amount: parseFloat(newPayment.amount),
@@ -91,11 +101,15 @@ const EkonomiView: React.FC<EkonomiViewProps> = ({ activeCase }) => {
     await economicService.addPayment(p);
     setNewPayment({ amount: '', recipient: '', description: '' });
     setShowModal(null);
+    toast.success('Betalning registrerad');
     loadData();
   };
 
   const handleAddInvoice = async () => {
-    if (!newInvoice.amount || !newInvoice.clientName) return;
+    if (!newInvoice.amount || !newInvoice.clientName) {
+      toast.error('Vänligen fyll i alla obligatoriska fält');
+      return;
+    }
     const i: Invoice = {
       id: generateId('INV'),
       invoiceNumber: `INV-${new Date().getFullYear()}-${Math.floor(Math.random() * 1000).toString().padStart(3, '0')}`,
@@ -111,11 +125,15 @@ const EkonomiView: React.FC<EkonomiViewProps> = ({ activeCase }) => {
     await economicService.addInvoice(i);
     setNewInvoice({ clientName: '', amount: '', dueDate: '' });
     setShowModal(null);
+    toast.success('Faktura skapad');
     loadData();
   };
 
   const handleAddClaim = async () => {
-    if (!newClaim.amount || !newClaim.claimant || !newClaim.defendant) return;
+    if (!newClaim.amount || !newClaim.claimant || !newClaim.defendant) {
+      toast.error('Vänligen fyll i alla obligatoriska fält');
+      return;
+    }
     const c: DamagesClaim = {
       id: generateId('CLAIM'),
       claimant: newClaim.claimant,
@@ -133,6 +151,7 @@ const EkonomiView: React.FC<EkonomiViewProps> = ({ activeCase }) => {
     await economicService.addClaim(c);
     setNewClaim({ claimant: '', defendant: '', type: 'STATE', amount: '', description: '' });
     setShowModal(null);
+    toast.success('Skadeståndskrav registrerat');
     loadData();
   };
 
@@ -145,8 +164,77 @@ const EkonomiView: React.FC<EkonomiViewProps> = ({ activeCase }) => {
     loadData();
   };
 
+  const handleOptimizeLiquidity = async () => {
+    setIsAiLoading(true);
+    toast.info('Analyserar kassaflöde och optimerar likviditet...');
+    try {
+      const result = await economicService.optimizeLiquidity();
+      setAiResult({ title: 'Likviditetsoptimering', content: result });
+      toast.success('Optimering slutförd');
+    } catch (error) {
+      toast.error('Kunde inte optimera likviditet');
+    } finally {
+      setIsAiLoading(false);
+    }
+  };
+
+  const handleFindPraxis = async (claim: DamagesClaim) => {
+    setIsAiLoading(true);
+    toast.info(`Söker praxis för krav: ${claim.id}...`);
+    try {
+      const result = await economicService.findPraxis(claim);
+      setAiResult({ title: `Rättspraxis - ${claim.id}`, content: result });
+      toast.success('Praxis hittad');
+    } catch (error) {
+      toast.error('Kunde inte hitta praxis');
+    } finally {
+      setIsAiLoading(false);
+    }
+  };
+
+  const handleGenerateReport = async () => {
+    setIsAiLoading(true);
+    toast.info('Genererar detaljerad ekonomisk rapport...');
+    try {
+      const result = await economicService.generateReport();
+      setAiResult({ title: 'Ekonomisk Rapport', content: result });
+      toast.success('Rapport genererad');
+    } catch (error) {
+      toast.error('Kunde inte generera rapport');
+    } finally {
+      setIsAiLoading(false);
+    }
+  };
+
+  const handleGenerateInlaga = async (claim: DamagesClaim) => {
+    setIsAiLoading(true);
+    toast.info(`Genererar inlaga för krav: ${claim.id}...`);
+    try {
+      const result = await economicService.generateInlaga(claim);
+      setAiResult({ title: `Juridisk Inlaga - ${claim.id}`, content: result });
+      toast.success('Inlaga genererad');
+    } catch (error) {
+      toast.error('Kunde inte generera inlaga');
+    } finally {
+      setIsAiLoading(false);
+    }
+  };
+
   const handleDeleteClaim = async (id: string) => {
     await economicService.deleteClaim(id);
+    toast.success('Skadeståndskrav raderat');
+    loadData();
+  };
+
+  const handleDeletePayment = async (id: string) => {
+    await economicService.deletePayment(id);
+    toast.success('Betalning raderad');
+    loadData();
+  };
+
+  const handleDeleteInvoice = async (id: string) => {
+    await economicService.deleteInvoice(id);
+    toast.success('Faktura raderad');
     loadData();
   };
 
@@ -248,7 +336,12 @@ const EkonomiView: React.FC<EkonomiViewProps> = ({ activeCase }) => {
               <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
                 <div className="p-4 border-b border-slate-100 flex justify-between items-center">
                   <h3 className="text-sm font-bold text-slate-800 uppercase tracking-wide">Senaste Aktivitet</h3>
-                  <button className="text-xs text-blue-600 font-medium hover:underline">Visa alla</button>
+                  <button 
+                    onClick={() => setActiveSubTab('betalningar')}
+                    className="text-xs text-blue-600 font-medium hover:underline cursor-pointer"
+                  >
+                    Visa alla
+                  </button>
                 </div>
                 <div className="divide-y divide-slate-50">
                   {payments.slice(0, 5).map(p => (
@@ -285,7 +378,12 @@ const EkonomiView: React.FC<EkonomiViewProps> = ({ activeCase }) => {
                   <p className="text-slate-400 text-xs leading-relaxed mb-6">
                     Ditt nuvarande kassaflöde visar en positiv trend, men 3 aktiva skadeståndskrav mot staten skapar en osäkerhet på ca 250k kr. Vi rekommenderar att reservera 15% av nästa månads intäkter för rättsliga omkostnader.
                   </p>
-                  <button className="w-full bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-xl py-2 text-xs font-bold transition-all uppercase tracking-widest">
+                  <button 
+                    onClick={handleOptimizeLiquidity}
+                    disabled={isAiLoading}
+                    className="w-full bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-xl py-2 text-xs font-bold transition-all uppercase tracking-widest flex items-center justify-center gap-2"
+                  >
+                    {isAiLoading ? <Loader2 className="w-3 h-3 animate-spin" /> : <Sparkles className="w-3 h-3" />}
                     Optimera Likviditet
                   </button>
                 </div>
@@ -366,7 +464,12 @@ const EkonomiView: React.FC<EkonomiViewProps> = ({ activeCase }) => {
                       </td>
                       <td className="px-6 py-4 text-right text-sm font-bold text-slate-900">{p.amount.toLocaleString('sv-SE')} kr</td>
                       <td className="px-6 py-4 text-right">
-                        <button className="text-slate-300 hover:text-slate-600 transition-colors"><MoreVertical size={16} /></button>
+                        <button 
+                          onClick={() => handleDeletePayment(p.id)}
+                          className="text-slate-300 hover:text-rose-600 transition-colors"
+                        >
+                          <Trash2 size={16} />
+                        </button>
                       </td>
                     </tr>
                   ))}
@@ -417,7 +520,12 @@ const EkonomiView: React.FC<EkonomiViewProps> = ({ activeCase }) => {
                     </div>
                     <div className="flex gap-2">
                       <button className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all"><ExternalLink size={16} /></button>
-                      <button className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-all"><Trash2 size={16} /></button>
+                      <button 
+                        onClick={() => handleDeleteInvoice(inv.id)}
+                        className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-all"
+                      >
+                        <Trash2 size={16} />
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -499,7 +607,7 @@ const EkonomiView: React.FC<EkonomiViewProps> = ({ activeCase }) => {
                           {/* NY: Visa kopplat ärende om det finns */}
                           {claim.linkedCaseId && (
                             <div className="flex items-center gap-2 text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-md border border-emerald-100">
-                              <CheckCircle2 size={12} /> KOPPLAT TILL ÄRENDE: {cases.find(c => c.id === claim.linkedCaseId)?.name || claim.linkedCaseId}
+                              <CheckCircle2 size={12} /> KOPPLAT TILL ÄRENDE: {cases.find(c => c.caseId === claim.linkedCaseId)?.name || claim.linkedCaseId}
                             </div>
                           )}
                         </div>
@@ -553,12 +661,20 @@ const EkonomiView: React.FC<EkonomiViewProps> = ({ activeCase }) => {
                         </div>
                         
                         <div className="space-y-2 mt-6">
-                          <button className="w-full bg-slate-900 text-white rounded-xl py-2.5 text-xs font-bold hover:bg-slate-800 transition-all flex items-center justify-center gap-2">
-                            <FileText size={14} /> Generera Inlaga
-                          </button>
-                          <button className="w-full bg-white border border-slate-200 text-slate-700 rounded-xl py-2.5 text-xs font-bold hover:bg-slate-50 transition-all flex items-center justify-center gap-2">
-                            <Search size={14} /> Hitta Praxis
-                          </button>
+                        <button 
+                          onClick={() => handleGenerateInlaga(claim)}
+                          disabled={isAiLoading}
+                          className="w-full bg-slate-900 text-white rounded-xl py-2.5 text-xs font-bold hover:bg-slate-800 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+                        >
+                          {isAiLoading ? <Loader2 size={14} className="animate-spin" /> : <FileText size={14} />} Generera Inlaga
+                        </button>
+                        <button 
+                          onClick={() => handleFindPraxis(claim)}
+                          disabled={isAiLoading}
+                          className="w-full bg-white border border-slate-200 text-slate-700 rounded-xl py-2.5 text-xs font-bold hover:bg-slate-50 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+                        >
+                          {isAiLoading ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />} Hitta Praxis
+                        </button>
                           {/* NY: Extra knapp för sammankoppling */}
                           <button 
                             onClick={() => setShowLinkModal(claim.id)}
@@ -640,8 +756,12 @@ const EkonomiView: React.FC<EkonomiViewProps> = ({ activeCase }) => {
                   <p className="text-xs text-slate-500 leading-relaxed">
                     Vår AI-modell har simulerat 10 000 scenarier baserat på din historik och pågående skadeståndsmål. Prognosen för Q2 indikerar en tillväxt på 12% med en risk för "svarta svanar" (oväntade rättsliga utfall) på endast 4%.
                   </p>
-                  <button className="w-full bg-blue-600 text-white rounded-xl py-3 text-xs font-bold hover:bg-blue-700 transition-all uppercase tracking-widest">
-                    Generera Detaljerad Rapport
+                  <button 
+                    onClick={handleGenerateReport}
+                    disabled={isAiLoading}
+                    className="w-full bg-blue-600 text-white rounded-xl py-3 text-xs font-bold hover:bg-blue-700 transition-all uppercase tracking-widest flex items-center justify-center gap-2 disabled:opacity-50"
+                  >
+                    {isAiLoading ? <Loader2 size={14} className="animate-spin" /> : <BarChart3 size={14} />} Generera Detaljerad Rapport
                   </button>
                 </div>
               </div>
@@ -875,6 +995,61 @@ const EkonomiView: React.FC<EkonomiViewProps> = ({ activeCase }) => {
                     </button>
                   </div>
                 )}
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+      {/* AI Result Modal */}
+      <AnimatePresence>
+        {aiResult && (
+          <div className="fixed inset-0 z-[300] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="bg-white dark:bg-slate-900 w-full max-w-2xl max-h-[80vh] rounded-[2.5rem] shadow-2xl overflow-hidden flex flex-col"
+            >
+              <div className="p-8 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-900/50">
+                <div className="flex items-center gap-4">
+                  <div className="p-3 bg-blue-600 rounded-2xl shadow-lg shadow-blue-500/20">
+                    <BrainCircuit className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-black text-slate-900 dark:text-white uppercase tracking-tight">{aiResult.title}</h3>
+                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">AI-Genererat Innehåll • Verifierat</p>
+                  </div>
+                </div>
+                <button 
+                  onClick={() => setAiResult(null)}
+                  className="p-3 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-2xl transition-all"
+                >
+                  <X className="w-6 h-6 text-slate-400" />
+                </button>
+              </div>
+              <div className="flex-1 overflow-y-auto p-8 custom-scrollbar">
+                <div className="prose prose-slate dark:prose-invert max-w-none">
+                  <div className="whitespace-pre-wrap text-slate-600 dark:text-slate-300 font-medium leading-relaxed">
+                    {aiResult.content}
+                  </div>
+                </div>
+              </div>
+              <div className="p-8 bg-slate-50 dark:bg-slate-900/50 border-t border-slate-100 dark:border-slate-800 flex justify-end gap-4">
+                <button 
+                  onClick={() => {
+                    navigator.clipboard.writeText(aiResult.content);
+                    toast.success('Kopierat till urklipp');
+                  }}
+                  className="px-6 py-3 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-2xl text-xs font-black uppercase tracking-widest transition-all border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700"
+                >
+                  Kopiera Text
+                </button>
+                <button 
+                  onClick={() => setAiResult(null)}
+                  className="px-8 py-3 bg-slate-900 text-white rounded-2xl text-xs font-black uppercase tracking-widest transition-all hover:bg-slate-800 shadow-xl shadow-slate-900/20"
+                >
+                  Stäng
+                </button>
               </div>
             </motion.div>
           </div>

@@ -230,7 +230,7 @@ export class GeminiService {
     if (offlineService.getIsOffline()) return this.pseudoEmbed(text);
     
     const client = this.getClient();
-    const models = ['text-embedding-004', 'gemini-embedding-001'];
+    const models = ['gemini-embedding-001'];
     
     for (const modelName of models) {
       try {

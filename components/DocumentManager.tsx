@@ -16,7 +16,7 @@ import { DEFAULT_CONTEXT_WEIGHTS } from '../data/contextWeights';
 import { riskTemplateRegistry } from '../data/riskTemplateRegistry';
 import { LegalReferenceEngine } from '../lib/legalReferenceEngine';
 import { KeywordEngine } from '../lib/keywordEngine';
-import { SystemHealthIndicator } from './SystemHealthIndicator';
+import { usageMonitorService, QuotaUsage } from '../services/usageMonitorService';
 import SystemOverview from './SystemOverview';
 import AnalysisView from './AnalysisView';
 import { initialPipelineStatus, PipelineStatusState } from './PipelineStatus';
@@ -110,6 +110,24 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
     const [cases, setCases] = useState<CISCase[]>([]);
     const [showCaseMenu, setShowCaseMenu] = useState(false);
     const orchestrator = React.useMemo(() => new AIOrchestrator(), []);
+    const [quotaUsage, setQuotaUsage] = useState<QuotaUsage>(() => {
+        try {
+            return usageMonitorService.getUsage();
+        } catch (e) {
+            return { rpm: 0, tpm: 0, limitRpm: 15, limitTpm: 1000000, status: 'stable' };
+        }
+    });
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            try {
+                setQuotaUsage(usageMonitorService.getUsage());
+            } catch (e) {
+                console.warn("Usage monitor not available yet");
+            }
+        }, 5000);
+        return () => clearInterval(interval);
+    }, []);
 
     useEffect(() => {
         if (isDarkMode) {
@@ -529,7 +547,15 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                 </div>
 
                 <div className="flex items-center space-x-6 ml-8">
-                    <SystemHealthIndicator />
+                    <div className="hidden lg:flex flex-col items-end mr-2 px-5 py-2 bg-slate-50 dark:bg-slate-800/40 rounded-2xl border border-slate-200 dark:border-slate-700/50 shadow-inner">
+                        <div className="flex items-center gap-2.5">
+                            <span className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em]">Systemhälsa</span>
+                            <div className={`w-2 h-2 rounded-full ${quotaUsage.status === 'critical' ? 'bg-red-500 animate-pulse' : (quotaUsage.status === 'warning' ? 'bg-amber-500' : 'bg-emerald-500')}`}></div>
+                        </div>
+                        <span className={`text-xs font-mono font-black mt-0.5 ${quotaUsage.status === 'critical' ? 'text-red-500' : 'text-slate-700 dark:text-slate-300'}`}>
+                            {quotaUsage.rpm}/{quotaUsage.limitRpm} <span className="text-[9px] opacity-50">RPM</span>
+                        </span>
+                    </div>
                     
                     <div className="flex items-center bg-slate-100 dark:bg-slate-800 p-1.5 rounded-[1.25rem] border border-slate-200 dark:border-slate-700 shadow-inner">
                         <button 

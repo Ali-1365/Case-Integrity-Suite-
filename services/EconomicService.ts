@@ -137,6 +137,16 @@ export class EconomicService {
     }
   }
 
+  async deletePayment(id: string) {
+    this.state.payments = this.state.payments.filter(p => p.id !== id);
+    await db.deleteEconomicData(id);
+  }
+
+  async deleteInvoice(id: string) {
+    this.state.invoices = this.state.invoices.filter(i => i.id !== id);
+    await db.deleteEconomicData(id);
+  }
+
   async deleteClaim(id: string) {
     this.state.claims = this.state.claims.filter(c => c.id !== id);
     await db.deleteEconomicData(id);
@@ -188,6 +198,74 @@ export class EconomicService {
       variance: 80000,
       confidenceScore: 0.85
     };
+  }
+
+  async optimizeLiquidity(): Promise<string> {
+    const prompt = `Analysera nuvarande ekonomiska status och föreslå optimeringar för likviditet baserat på följande data:
+    Totala betalningar: ${this.state.payments.length}
+    Totala fakturor: ${this.state.invoices.length}
+    Totala skadeståndskrav: ${this.state.claims.length}
+    
+    Fokusera på riskreducering och antifragilitet.`;
+    
+    try {
+      const response = await geminiService.generate({ contents: prompt });
+      return response || "Kunde inte generera optimeringsförslag.";
+    } catch (error) {
+      console.error("Liquidity optimization failed:", error);
+      return "Ett fel uppstod vid likviditetsoptimeringen.";
+    }
+  }
+
+  async findPraxis(claim: DamagesClaim): Promise<string> {
+    const prompt = `Hitta relevant rättspraxis (Högsta domstolen, Justitiekanslern) för följande skadeståndskrav:
+    Typ: ${claim.type}
+    Grund: ${claim.legalBasis.join(', ')}
+    Beskrivning: ${claim.components.map(c => c.description).join('. ')}
+    
+    Fokusera på beloppsnivåer och framgångsfaktorer i liknande fall mot staten.`;
+    
+    try {
+      const response = await geminiService.generate({ contents: prompt });
+      return response || "Kunde inte hitta relevant praxis.";
+    } catch (error) {
+      console.error("Praxis search failed:", error);
+      return "Ett fel uppstod vid sökning efter praxis.";
+    }
+  }
+
+  async generateReport(): Promise<string> {
+    const prompt = `Generera en detaljerad ekonomisk rapport för Case Integrity Suite.
+    Inkludera sammanfattning av betalningar, fakturor, skadeståndskrav och budgetprognoser.
+    Använd ett formellt juridiskt-ekonomiskt språk.`;
+    
+    try {
+      const response = await geminiService.generate({ contents: prompt });
+      return response || "Kunde inte generera rapport.";
+    } catch (error) {
+      console.error("Report generation failed:", error);
+      return "Ett fel uppstod vid rapportgenereringen.";
+    }
+  }
+
+  async generateInlaga(claim: DamagesClaim): Promise<string> {
+    const prompt = `Generera ett utkast till en skadeståndsinlaga baserat på följande krav:
+    Kärande: ${claim.claimant}
+    Svarande: ${claim.defendant}
+    Typ: ${claim.type}
+    Belopp: ${claim.estimatedAmount} SEK
+    Komponenter: ${claim.components.map(c => `${c.label}: ${c.amount} SEK (${c.description})`).join(', ')}
+    Juridisk grund: ${claim.legalBasis.join(', ')}
+    
+    Inlagan ska följa svensk juridisk standard för skadeståndsanspråk mot staten (HSS).`;
+    
+    try {
+      const response = await geminiService.generate({ contents: prompt });
+      return response || "Kunde inte generera inlaga.";
+    } catch (error) {
+      console.error("Inlaga generation failed:", error);
+      return "Ett fel uppstod vid generering av inlagan.";
+    }
   }
 }
 
