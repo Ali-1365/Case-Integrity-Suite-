@@ -13,8 +13,11 @@ interface MarkdownRendererProps {
 const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, className = "" }) => {
   if (!content) return null;
 
+  // Filter out internal IDs like [FACT_...], [CONTR_...], [INFOGAP_...], [ATOM_...]
+  const cleanContent = content.replace(/\[(FACT|CONTR|INFOGAP|ATOM|PROV|HASH)_[^\]]+\]/g, '');
+
   // Split content by lines but keep structure
-  const blocks = content.split('\n\n');
+  const blocks = cleanContent.split('\n\n');
   
   return (
     <div className={`prose prose-invert max-w-none font-serif selection:bg-cyan-500/30 ${className}`}>

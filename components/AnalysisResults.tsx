@@ -60,46 +60,46 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = (props) => {
       <AnalysisDashboard analysis={props.analysis} />
 
       {/* Quick Actions Bar */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-10 px-4 md:px-0">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-12 px-4 md:px-0">
         <button 
           onClick={() => setActiveTab('Interactive Analyst')}
-          className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-10 rounded-[3rem] flex items-center gap-10 hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/10 transition-all group active:scale-[0.98] relative overflow-hidden group/btn duration-500"
+          className="bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 p-12 rounded-[4rem] flex items-center gap-10 hover:border-indigo-400 dark:hover:border-indigo-600 hover:shadow-[0_40px_100px_-20px_rgba(99,102,241,0.15)] transition-all group active:scale-[0.98] relative overflow-hidden group/btn duration-500"
         >
-          <div className="absolute inset-0 bg-blue-500/0 group-hover/btn:bg-blue-500/[0.03] transition-colors"></div>
-          <div className="p-6 bg-blue-500/10 rounded-2xl text-blue-600 dark:text-blue-400 group-hover/btn:scale-110 group-hover/btn:rotate-6 transition-all duration-500 shadow-xl shadow-blue-500/10">
+          <div className="absolute inset-0 bg-indigo-500/0 group-hover/btn:bg-indigo-500/[0.03] transition-colors"></div>
+          <div className="p-7 bg-indigo-500/10 rounded-[2rem] text-indigo-600 dark:text-indigo-400 group-hover/btn:scale-110 group-hover/btn:rotate-6 transition-all duration-500 shadow-xl shadow-indigo-500/10 border border-indigo-500/20">
             <MagnifyingGlassIcon className="w-10 h-10" />
           </div>
           <div className="text-left relative z-10">
-            <p className="text-[11px] font-black text-blue-600/60 dark:text-blue-400/60 uppercase tracking-[0.3em] mb-2.5 opacity-70">Modul</p>
-            <p className="text-xl font-black text-slate-900 dark:text-white tracking-tight">Interactive Analyst</p>
+            <p className="text-[11px] font-black text-indigo-600/60 dark:text-indigo-400/60 uppercase tracking-[0.3em] mb-3 opacity-70">Modul</p>
+            <p className="text-2xl font-serif font-bold text-slate-900 dark:text-white tracking-tight">Interactive Analyst</p>
           </div>
         </button>
 
         <button 
           onClick={() => setActiveTab('Dokument-Pipeline')}
-          className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-10 rounded-[3rem] flex items-center gap-10 hover:border-emerald-500/50 hover:shadow-2xl hover:shadow-emerald-500/10 transition-all group active:scale-[0.98] relative overflow-hidden group/btn duration-500"
+          className="bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 p-12 rounded-[4rem] flex items-center gap-10 hover:border-emerald-400 dark:hover:border-emerald-600 hover:shadow-[0_40px_100px_-20px_rgba(16,185,129,0.15)] transition-all group active:scale-[0.98] relative overflow-hidden group/btn duration-500"
         >
           <div className="absolute inset-0 bg-emerald-500/0 group-hover/btn:bg-emerald-500/[0.03] transition-colors"></div>
-          <div className="p-6 bg-emerald-500/10 rounded-2xl text-emerald-600 dark:text-emerald-400 group-hover/btn:scale-110 group-hover/btn:-rotate-6 transition-all duration-500 shadow-xl shadow-emerald-500/10">
+          <div className="p-7 bg-emerald-500/10 rounded-[2rem] text-emerald-600 dark:text-emerald-400 group-hover/btn:scale-110 group-hover/btn:-rotate-6 transition-all duration-500 shadow-xl shadow-emerald-500/10 border border-emerald-500/20">
             <DocumentTextIcon className="w-10 h-10" />
           </div>
           <div className="text-left relative z-10">
-            <p className="text-[11px] font-black text-emerald-600/60 dark:text-emerald-400/60 uppercase tracking-[0.3em] mb-2.5 opacity-70">Process</p>
-            <p className="text-xl font-black text-slate-900 dark:text-white tracking-tight">Dokument-Pipeline</p>
+            <p className="text-[11px] font-black text-emerald-600/60 dark:text-emerald-400/60 uppercase tracking-[0.3em] mb-3 opacity-70">Process</p>
+            <p className="text-2xl font-serif font-bold text-slate-900 dark:text-white tracking-tight">Dokument-Pipeline</p>
           </div>
         </button>
 
         <button 
           onClick={() => setActiveTab('Snabbstartsguide')}
-          className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-10 rounded-[3rem] flex items-center gap-10 hover:border-purple-500/50 hover:shadow-2xl hover:shadow-purple-500/10 transition-all group active:scale-[0.98] relative overflow-hidden group/btn duration-500"
+          className="bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 p-12 rounded-[4rem] flex items-center gap-10 hover:border-rose-400 dark:hover:border-rose-600 hover:shadow-[0_40px_100px_-20px_rgba(244,63,94,0.15)] transition-all group active:scale-[0.98] relative overflow-hidden group/btn duration-500"
         >
-          <div className="absolute inset-0 bg-purple-500/0 group-hover/btn:bg-purple-500/[0.03] transition-colors"></div>
-          <div className="p-6 bg-purple-500/10 rounded-2xl text-purple-600 dark:text-purple-400 group-hover/btn:scale-110 group-hover/btn:rotate-6 transition-all duration-500 shadow-xl shadow-purple-500/10">
+          <div className="absolute inset-0 bg-rose-500/0 group-hover/btn:bg-rose-500/[0.03] transition-colors"></div>
+          <div className="p-7 bg-rose-500/10 rounded-[2rem] text-rose-600 dark:text-rose-400 group-hover/btn:scale-110 group-hover/btn:rotate-6 transition-all duration-500 shadow-xl shadow-rose-500/10 border border-rose-500/20">
             <ActivityIcon className="w-10 h-10" />
           </div>
           <div className="text-left relative z-10">
-            <p className="text-[11px] font-black text-purple-600/60 dark:text-purple-400/60 uppercase tracking-[0.3em] mb-2.5 opacity-70">Support</p>
-            <p className="text-xl font-black text-slate-900 dark:text-white tracking-tight">Snabbstartsguide</p>
+            <p className="text-[11px] font-black text-rose-600/60 dark:text-rose-400/60 uppercase tracking-[0.3em] mb-3 opacity-70">Support</p>
+            <p className="text-2xl font-serif font-bold text-slate-900 dark:text-white tracking-tight">Snabbstartsguide</p>
           </div>
         </button>
       </div>
@@ -148,7 +148,6 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = (props) => {
                                                                 </span>
                                                             )}
                                                         </div>
-                                                        <span className="text-[10px] font-mono font-black text-slate-400 uppercase tracking-widest bg-white dark:bg-slate-900 px-3 py-1 rounded-lg border border-slate-100 dark:border-slate-800 shadow-sm">#{f.id}</span>
                                                     </div>
                                                     <p className="text-slate-900 dark:text-slate-100 font-bold text-lg leading-relaxed mb-8">{f.subject}: {f.statement}</p>
                                                     
@@ -207,11 +206,6 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = (props) => {
                                                             <span className="text-[9px] font-black text-blue-500 bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/20 uppercase tracking-widest">AI-Link</span>
                                                         </div>
                                                         <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-medium mb-4 italic">"{link.reasoning}"</p>
-                                                        <div className="flex flex-wrap gap-2">
-                                                            {(link.relatedFactIds || []).map(fid => (
-                                                                <span key={fid} className="text-[9px] font-mono font-black text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700">#{fid}</span>
-                                                            ))}
-                                                        </div>
                                                     </div>
                                                 ))}
                                             </div>
@@ -347,30 +341,30 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = (props) => {
 };
 
 const OverviewContent: React.FC<{ analysis: AnalysisResult }> = ({ analysis }) => (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-        <div className="lg:col-span-8 space-y-12">
-            <div className="bg-slate-50 dark:bg-slate-800/50 p-12 rounded-[3rem] border border-slate-200 dark:border-slate-700 relative overflow-hidden shadow-sm group">
-                <div className="flex items-center space-x-5 mb-10">
-                    <div className="p-3 bg-blue-500/10 rounded-xl text-blue-600 dark:text-blue-400 group-hover:rotate-12 transition-transform duration-500">
-                        <ShieldCheckIcon className="w-7 h-7" />
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+        <div className="lg:col-span-8 space-y-16">
+            <div className="bg-slate-50 dark:bg-slate-800/30 p-16 rounded-[4rem] border-2 border-slate-100 dark:border-slate-800 relative overflow-hidden shadow-sm group">
+                <div className="flex items-center space-x-6 mb-12">
+                    <div className="p-4 bg-indigo-500/10 rounded-2xl text-indigo-600 dark:text-indigo-400 group-hover:rotate-12 transition-transform duration-500 border border-indigo-500/20">
+                        <ShieldCheckIcon className="w-8 h-8" />
                     </div>
-                    <h3 className="text-sm font-black text-blue-600 dark:text-blue-400 uppercase tracking-[0.3em] opacity-80">Forensic Chain Summary</h3>
+                    <h3 className="text-[11px] font-black text-indigo-600 dark:text-indigo-400 uppercase tracking-[0.4em] opacity-80">Forensic Chain Summary</h3>
                 </div>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-10">
-                    <StatCard label="Aktiverat Lagrum" value={analysis.legalReferences?.length || 0} color="blue" />
-                    <StatCard label="Bevisatomer" value={analysis.atoms?.length || 0} color="blue" />
-                    <StatCard label="Audit Verifierad" value={analysis.audit?.checks?.filter(c => c.status === 'ok').length || 0} color="blue" />
-                    <StatCard label="Beviskategorier" value={new Set((analysis.atoms || []).flatMap(a => a.tags || [])).size} color="blue" />
-                    <StatCard label="Lagrumskopplingar" value={analysis.legalFrameworkLinks?.length || 0} color="blue" />
-                    <StatCard label="Integritets-Score" value={analysis.audit?.integrityScore || 100} suffix="%" color="blue" />
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-12">
+                    <StatCard label="Aktiverat Lagrum" value={analysis.legalReferences?.length || 0} color="indigo" />
+                    <StatCard label="Bevisatomer" value={analysis.atoms?.length || 0} color="indigo" />
+                    <StatCard label="Audit Verifierad" value={analysis.audit?.checks?.filter(c => c.status === 'ok').length || 0} color="indigo" />
+                    <StatCard label="Beviskategorier" value={new Set((analysis.atoms || []).flatMap(a => a.tags || [])).size} color="indigo" />
+                    <StatCard label="Lagrumskopplingar" value={analysis.legalFrameworkLinks?.length || 0} color="indigo" />
+                    <StatCard label="Integritets-Score" value={analysis.audit?.integrityScore || 100} suffix="%" color="indigo" />
                 </div>
             </div>
             <Card title="Verifierade Beviskategorier" icon={<TagIcon className="w-6 h-6" />}>
-                <div className="flex flex-wrap gap-6">
+                <div className="flex flex-wrap gap-8">
                     {(analysis.themes || []).map(t => (
-                        <div key={t.id} className="bg-slate-50 dark:bg-slate-800/50 px-8 py-6 rounded-[2rem] border border-slate-200 dark:border-slate-700 flex flex-col items-center min-w-[140px] shadow-sm hover:border-blue-500/40 transition-all hover:-translate-y-1 duration-300">
-                            <span className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] mb-3 opacity-70">{t.label}</span>
-                            <span className="text-3xl font-black text-slate-900 dark:text-white tracking-tighter">{(analysis.facts || []).filter(f => f.category === t.id).length}</span>
+                        <div key={t.id} className="bg-slate-50 dark:bg-slate-800/50 px-10 py-8 rounded-[2.5rem] border-2 border-slate-100 dark:border-slate-700 flex flex-col items-center min-w-[160px] shadow-sm hover:border-indigo-400/40 transition-all hover:-translate-y-2 duration-300">
+                            <span className="text-[11px] font-black text-slate-400 uppercase tracking-[0.25em] mb-4 opacity-70">{t.label}</span>
+                            <span className="text-4xl font-serif font-bold text-slate-900 dark:text-white tracking-tight">{(analysis.facts || []).filter(f => f.category === t.id).length}</span>
                         </div>
                     ))}
                 </div>
@@ -378,15 +372,15 @@ const OverviewContent: React.FC<{ analysis: AnalysisResult }> = ({ analysis }) =
         </div>
         <div className="lg:col-span-4">
             <Card title="QA-Revision" icon={<ShieldCheckIcon className="w-6 h-6" />}>
-                <div className="space-y-6">
+                <div className="space-y-8">
                     {(analysis.qaSummary || []).map(check => (
-                        <div key={check.id} className="p-6 rounded-[2rem] border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 flex items-start gap-6 shadow-sm hover:border-emerald-500/40 transition-all group/qa">
-                            <div className={`p-3 rounded-2xl mt-0.5 transition-all duration-500 group-hover/qa:scale-110 ${check.status === 'pass' ? 'text-emerald-600 bg-emerald-500/10' : 'text-amber-600 bg-amber-500/10'}`}>
-                                <CheckCircleIcon className="h-6 w-6" />
+                        <div key={check.id} className="p-8 rounded-[2.5rem] border-2 border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 flex items-start gap-8 shadow-sm hover:border-emerald-400/40 transition-all group/qa">
+                            <div className={`p-4 rounded-2xl mt-0.5 transition-all duration-500 group-hover/qa:scale-110 shadow-inner ${check.status === 'pass' ? 'text-emerald-600 bg-emerald-500/10 border border-emerald-500/20' : 'text-rose-600 bg-rose-500/10 border border-rose-500/20'}`}>
+                                <CheckCircleIcon className="h-7 w-7" />
                             </div>
                             <div>
-                                <p className="font-black text-slate-900 dark:text-white text-base mb-1.5 tracking-tight">{check.label}</p>
-                                <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed font-medium">{check.message}</p>
+                                <p className="font-serif font-bold text-slate-900 dark:text-white text-xl mb-2 tracking-tight">{check.label}</p>
+                                <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed font-medium">{check.message}</p>
                             </div>
                         </div>
                     ))}
@@ -397,8 +391,8 @@ const OverviewContent: React.FC<{ analysis: AnalysisResult }> = ({ analysis }) =
 );
 
 const StatCard: React.FC<{ label: string, value: number, color: string, suffix?: string }> = ({ label, value, color, suffix = "" }) => (
-    <div className="text-center p-10 bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-200 dark:border-slate-800 shadow-sm group hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/10 transition-all active:scale-95 duration-500 hover:-translate-y-1">
-        <p className="text-6xl font-black text-blue-600 dark:text-blue-400 mb-4 tracking-tighter italic leading-none">{value}{suffix}</p>
+    <div className="text-center p-12 bg-white dark:bg-slate-900 rounded-[3rem] border-2 border-slate-100 dark:border-slate-800 shadow-sm group hover:border-indigo-400/50 hover:shadow-[0_30px_60px_-10px_rgba(99,102,241,0.15)] transition-all active:scale-95 duration-500 hover:-translate-y-2">
+        <p className="text-7xl font-serif font-bold text-indigo-600 dark:text-indigo-400 mb-5 tracking-tight leading-none">{value}{suffix}</p>
         <p className="text-[11px] font-black text-slate-400 uppercase tracking-[0.3em] opacity-70">{label}</p>
     </div>
 );

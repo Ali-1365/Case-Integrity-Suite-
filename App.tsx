@@ -82,31 +82,32 @@ const BootScreen: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
   }, [onComplete]);
 
   return (
-    <div className="fixed inset-0 bg-slate-950 flex flex-col items-center justify-center z-50">
-      <div className="mb-8 text-center">
-        <div className="w-16 h-16 rounded-2xl bg-blue-600 flex items-center justify-center mx-auto mb-4">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+    <div className="fixed inset-0 bg-[#FDFCFB] flex flex-col items-center justify-center z-50 p-6">
+      <div className="mb-12 text-center animate-fade-in">
+        <div className="w-24 h-24 rounded-[2rem] bg-indigo-600 flex items-center justify-center mx-auto mb-8 shadow-2xl shadow-indigo-200">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5">
             <path d="M12 2L2 7l10 5 10-5-10-5z"/>
             <path d="M2 17l10 5 10-5"/>
             <path d="M2 12l10 5 10-5"/>
           </svg>
         </div>
-        <h1 className="text-2xl font-bold text-white">Case Integrity Suite</h1>
-        <p className="text-slate-400 text-sm mt-1">ENTERPRISE V1.0</p>
+        <h1 className="text-5xl font-serif font-bold text-slate-900 tracking-tight mb-2">Case Integrity Suite</h1>
+        <p className="text-indigo-600 text-xs font-black uppercase tracking-[0.4em]">Enterprise Edition v1.0</p>
       </div>
-      <div className="w-64">
-        <div className="h-1 bg-slate-800 rounded-full overflow-hidden mb-3">
+      
+      <div className="w-full max-w-xs">
+        <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden mb-4">
           <div
-            className="h-full bg-blue-500 rounded-full transition-all duration-300"
+            className="h-full bg-indigo-500 rounded-full transition-all duration-500 ease-out"
             style={{ width: `${progress}%` }}
           />
         </div>
-        <p className="text-slate-400 text-xs text-center">{status}</p>
+        <p className="text-slate-500 text-[10px] font-bold uppercase tracking-widest text-center">{status}</p>
       </div>
       
       <button 
         onClick={onComplete}
-        className="mt-12 text-[10px] text-slate-600 hover:text-slate-400 uppercase tracking-widest transition-colors"
+        className="mt-16 text-[10px] text-slate-400 hover:text-indigo-600 uppercase tracking-[0.3em] font-black transition-all"
       >
         Hoppa över introduktion →
       </button>
@@ -132,13 +133,16 @@ const App: React.FC = () => {
   if (!booted) return <BootScreen onComplete={handleBoot} />;
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-[#FDFCFB]">
       <OfflineBanner />
       <div className={isOffline ? 'pt-[34px]' : ''}>
         <Suspense fallback={
-          <div className="flex flex-col h-screen items-center justify-center bg-slate-50 dark:bg-slate-950 space-y-8">
-            <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
-            <p className="text-xs font-bold uppercase tracking-[0.4em] text-slate-400">Laddar Case Integrity Suite...</p>
+          <div className="flex flex-col h-screen items-center justify-center bg-[#FDFCFB] space-y-12">
+            <div className="relative">
+              <div className="w-20 h-20 border-2 border-indigo-100 rounded-full" />
+              <div className="absolute inset-0 w-20 h-20 border-t-2 border-indigo-600 rounded-full animate-spin" />
+            </div>
+            <p className="text-[10px] font-black uppercase tracking-[0.5em] text-slate-400 animate-pulse">Laddar Case Integrity Suite...</p>
           </div>
         }>
           <DocumentManager onLogout={() => window.location.reload()} />

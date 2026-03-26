@@ -103,7 +103,6 @@ const ForensicAuditView: React.FC<ForensicAuditViewProps> = ({ analysis }) => {
                                 <div>
                                     <div className="flex items-center gap-3 mb-2">
                                         <p className="text-slate-900 dark:text-white font-black text-base tracking-tight">{check.label}</p>
-                                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">[{check.id}]</span>
                                     </div>
                                     <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed font-medium">{check.details}</p>
                                 </div>
@@ -131,7 +130,7 @@ const ForensicAuditView: React.FC<ForensicAuditViewProps> = ({ analysis }) => {
                                                 <DocumentTextIcon className="w-5 h-5" />
                                             </div>
                                             <div>
-                                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Källdokument: ID: {doc.id}</p>
+                                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Källdokument</p>
                                                 <p className="text-[10px] text-emerald-600 dark:text-emerald-400 font-black uppercase tracking-widest mt-1">Atomisering: {docAtoms.length} segment</p>
                                             </div>
                                         </div>
@@ -145,7 +144,6 @@ const ForensicAuditView: React.FC<ForensicAuditViewProps> = ({ analysis }) => {
                                         {docAtoms.slice(0, 3).map(atom => (
                                             <div key={atom.id} className="p-5 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 group hover:border-blue-500/30 transition-all shadow-sm">
                                                 <div className="flex justify-between items-center mb-3">
-                                                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">ATOM-{atom.id.substring(0,8)}</span>
                                                     <span className="text-[9px] font-black text-emerald-500/60 group-hover:text-emerald-500 transition-colors uppercase tracking-widest">LÅST_HASH</span>
                                                 </div>
                                                 <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-2 italic mb-4 font-medium leading-relaxed">"{atom.text}"</p>

@@ -376,13 +376,13 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
     };
 
     const PageHeader = ({ title, subtitle, icon }: { title: string, subtitle?: string, icon?: React.ReactNode }) => (
-        <div className="mb-10 flex items-start justify-between">
-            <div className="space-y-2">
-                <div className="flex items-center gap-4">
-                    {icon && <div className="p-2.5 bg-blue-600/10 rounded-xl text-blue-600 dark:text-blue-400">{icon}</div>}
-                    <h2 className="text-4xl font-black text-slate-900 dark:text-white tracking-tighter leading-none">{title}</h2>
+        <div className="mb-12 flex items-start justify-between animate-fade-in">
+            <div className="space-y-4">
+                <div className="flex items-center gap-6">
+                    {icon && <div className="p-4 bg-indigo-50 dark:bg-indigo-900/20 rounded-2xl text-indigo-600 dark:text-indigo-400 shadow-sm">{icon}</div>}
+                    <h2 className="text-5xl font-serif font-bold text-slate-900 dark:text-white tracking-tight leading-none">{title}</h2>
                 </div>
-                {subtitle && <p className="text-sm text-slate-500 dark:text-slate-400 font-medium max-w-2xl">{subtitle}</p>}
+                {subtitle && <p className="text-lg text-slate-500 dark:text-slate-400 font-medium max-w-3xl leading-relaxed">{subtitle}</p>}
             </div>
         </div>
     );
@@ -404,25 +404,25 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
 
     return (
         <div className={`flex flex-col min-h-screen ${isDarkMode ? 'dark bg-slate-950 text-slate-50' : 'bg-slate-50 text-slate-900'} font-sans transition-colors duration-700`}>
-            <header className="h-24 px-10 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl flex justify-between items-center sticky top-0 z-[100] transition-all shadow-sm shadow-slate-200/20 dark:shadow-none">
-                <div className="flex items-center space-x-12 w-full overflow-hidden">
-                    <div className="flex items-center space-x-4 cursor-pointer shrink-0 group" onClick={() => navigateTo('overview')}>
-                        <div className="p-3 bg-slate-900 dark:bg-blue-600 rounded-2xl group-hover:scale-110 group-hover:rotate-3 transition-all shadow-xl shadow-slate-900/20 dark:shadow-blue-900/30">
-                            <LogoIcon className="h-7 w-7 text-white" />
+            <header className="h-28 px-12 border-b border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 backdrop-blur-3xl flex justify-between items-center sticky top-0 z-[100] transition-all shadow-xl shadow-slate-200/10">
+                <div className="flex items-center space-x-16 w-full overflow-hidden">
+                    <div className="flex items-center space-x-5 cursor-pointer shrink-0 group" onClick={() => navigateTo('overview')}>
+                        <div className="p-4 bg-indigo-600 rounded-[1.5rem] group-hover:scale-110 group-hover:rotate-6 transition-all shadow-2xl shadow-indigo-200 dark:shadow-indigo-900/40">
+                            <LogoIcon className="h-8 w-8 text-white" />
                         </div>
                         <div className="flex flex-col">
-                            <h1 className="text-xl font-black tracking-tighter hidden sm:block m-0 leading-none text-slate-900 dark:text-white">Case Integrity Suite</h1>
-                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mt-1.5 hidden sm:block opacity-70">Enterprise v1.0</span>
+                            <h1 className="text-2xl font-serif font-bold tracking-tight hidden sm:block m-0 leading-none text-slate-900 dark:text-white">Case Integrity</h1>
+                            <span className="text-[10px] font-black text-indigo-500 uppercase tracking-[0.4em] mt-2 hidden sm:block opacity-80">Enterprise v1.0</span>
                         </div>
                     </div>
                     
-                    <nav className="hidden xl:flex items-center space-x-1 flex-1 overflow-x-auto no-scrollbar py-2">
+                    <nav className="hidden xl:flex items-center space-x-2 flex-1 overflow-x-auto no-scrollbar py-2">
                         {/* Kärnfunktioner */}
-                        <div className="flex items-center space-x-1 bg-slate-100 dark:bg-slate-800/50 p-1 rounded-2xl border border-slate-200 dark:border-slate-700/50">
-                            <ToolButton icon={<Squares2X2Icon />} onClick={() => navigateTo('hub')} label="Hubb" active={currentView === 'hub'} />
-                            <ToolButton icon={<DocumentDuplicateIcon />} onClick={() => navigateTo('overview')} label="Ärenden" active={currentView === 'overview' || currentView === 'analysis'} />
-                            <ToolButton icon={<MagnifyingGlassIcon />} onClick={() => navigateTo('agent')} label="Analys" active={activeModal === 'agent'} />
-                            <ToolButton icon={<BanknotesIcon />} onClick={() => navigateTo('ekonomi')} label="Ekonomi" active={activeModal === 'ekonomi'} />
+                        <div className="flex items-center space-x-1 bg-slate-50 dark:bg-slate-800/50 p-1.5 rounded-[1.5rem] border border-slate-200 dark:border-slate-700/50">
+                            <ToolButton icon={<Squares2X2Icon />} onClick={() => navigateTo('hub')} label="Hubb" active={currentView === 'hub'} color="indigo" />
+                            <ToolButton icon={<DocumentDuplicateIcon />} onClick={() => navigateTo('overview')} label="Ärenden" active={currentView === 'overview' || currentView === 'analysis'} color="rose" />
+                            <ToolButton icon={<MagnifyingGlassIcon />} onClick={() => navigateTo('agent')} label="Analys" active={activeModal === 'agent'} color="amber" />
+                            <ToolButton icon={<BanknotesIcon />} onClick={() => navigateTo('ekonomi')} label="Ekonomi" active={activeModal === 'ekonomi'} color="teal" />
                         </div>
 
                         <div className="w-px h-6 bg-slate-200 dark:bg-slate-800 mx-2 opacity-30"></div>
@@ -785,22 +785,31 @@ interface ToolButtonProps {
     active?: boolean;
 }
 
-const ToolButton: React.FC<ToolButtonProps> = ({ icon, onClick, label, active }) => (
-    <button 
-        onClick={onClick}
-        aria-label={label}
-        className={`px-6 py-3 rounded-[1.25rem] transition-all flex items-center space-x-4 group cursor-pointer border-2 ${
-            active 
-            ? 'bg-slate-900 text-white border-slate-900 dark:bg-blue-600 dark:border-blue-600 dark:text-white shadow-2xl shadow-slate-900/20 dark:shadow-blue-900/40 scale-105' 
-            : 'border-transparent text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800/50'
-        }`}
-    >
-        <div className={`transition-all duration-500 ${active ? 'text-white scale-110' : 'text-slate-500 group-hover:text-slate-700 dark:text-slate-500 dark:group-hover:text-slate-300 group-hover:scale-110 group-hover:rotate-6'}`}>
-            {React.isValidElement(icon) ? React.cloneElement(icon as React.ReactElement<{ className?: string }>, { className: 'w-5 h-5' }) : icon}
-        </div>
-        {label && <span className="text-sm font-black tracking-tight hidden lg:block">{label}</span>}
-    </button>
-);
+const ToolButton: React.FC<ToolButtonProps & { color?: string }> = ({ icon, onClick, label, active, color = 'indigo' }) => {
+    const colorClasses: Record<string, string> = {
+        indigo: 'bg-indigo-600 border-indigo-700 shadow-indigo-200',
+        rose: 'bg-rose-600 border-rose-700 shadow-rose-200',
+        amber: 'bg-amber-600 border-amber-700 shadow-amber-200',
+        teal: 'bg-teal-600 border-teal-700 shadow-teal-200'
+    };
+
+    return (
+        <button 
+            onClick={onClick}
+            aria-label={label}
+            className={`px-6 py-3 rounded-[1.25rem] transition-all flex items-center space-x-4 group cursor-pointer border-2 ${
+                active 
+                ? `${colorClasses[color]} text-white shadow-2xl scale-105` 
+                : 'border-transparent text-slate-500 hover:text-slate-900 hover:bg-white dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800/50'
+            }`}
+        >
+            <div className={`transition-all duration-500 ${active ? 'text-white scale-110' : 'text-slate-400 group-hover:text-slate-600 dark:text-slate-500 dark:group-hover:text-slate-300 group-hover:scale-110 group-hover:rotate-6'}`}>
+                {React.isValidElement(icon) ? React.cloneElement(icon as React.ReactElement<{ className?: string }>, { className: 'w-5 h-5' }) : icon}
+            </div>
+            {label && <span className="text-sm font-black tracking-tight hidden lg:block">{label}</span>}
+        </button>
+    );
+};
 
 interface MenuButtonProps {
     icon: React.ReactNode;

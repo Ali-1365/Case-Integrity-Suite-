@@ -92,52 +92,52 @@ const AnalysisView: React.FC<AnalysisViewProps> = ({ documentId, onBack, onDocum
 
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
-      <div className="mb-12 flex flex-col sm:flex-row sm:items-center justify-between gap-8">
+      <div className="mb-16 flex flex-col sm:flex-row sm:items-center justify-between gap-10">
         <button 
           onClick={onBack} 
-          className="group flex items-center gap-4 px-6 py-3 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 font-black text-sm rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-blue-500/50 hover:text-blue-600 dark:hover:text-blue-400 hover:shadow-2xl hover:shadow-blue-500/10 transition-all active:scale-95 w-fit uppercase tracking-widest"
+          className="group flex items-center gap-6 px-10 py-5 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 font-serif font-bold text-xl rounded-[2rem] border-2 border-slate-100 dark:border-slate-800 hover:border-indigo-400 dark:hover:border-indigo-600 hover:text-indigo-600 dark:hover:text-indigo-400 hover:shadow-2xl hover:shadow-indigo-500/10 transition-all active:scale-95 w-fit tracking-tight"
         >
-          <div className="p-2 bg-slate-100 dark:bg-slate-800 rounded-xl group-hover:bg-blue-500/10 transition-all duration-500 group-hover:rotate-[-10deg]">
-            <ArrowLeftIcon className="h-5 w-5"/>
+          <div className="p-3 bg-slate-50 dark:bg-slate-800 rounded-2xl group-hover:bg-indigo-500/10 transition-all duration-500 group-hover:rotate-[-10deg] shadow-inner">
+            <ArrowLeftIcon className="h-6 w-6"/>
           </div>
           <span>Tillbaka till ärendelistan</span>
         </button>
         
-        <div className="flex items-center space-x-6 px-8 py-4 bg-blue-500/5 dark:bg-blue-500/10 rounded-3xl border border-blue-500/20 shadow-xl shadow-blue-500/5">
+        <div className="flex items-center space-x-10 px-12 py-6 bg-indigo-50/30 dark:bg-indigo-900/10 rounded-[2.5rem] border-2 border-indigo-100 dark:border-indigo-900/30 shadow-2xl shadow-indigo-500/5">
           <div className="flex flex-col">
-            <span className="text-[11px] font-black text-blue-600/60 dark:text-blue-400/60 uppercase tracking-[0.3em] leading-none mb-2">Ärende-ID</span>
-            <span className="font-mono text-base font-black text-blue-700 dark:text-blue-300 tracking-tight">{document.analysis.caseId}</span>
+            <span className="text-[11px] font-black text-indigo-600/60 dark:text-indigo-400/60 uppercase tracking-[0.3em] leading-none mb-3">Ärende-ID</span>
+            <span className="font-mono text-xl font-black text-indigo-700 dark:text-indigo-300 tracking-tight">{document.analysis.caseId}</span>
           </div>
-          <div className="h-10 w-px bg-blue-500/20"></div>
+          <div className="h-12 w-px bg-indigo-200 dark:bg-indigo-800"></div>
           <div className="flex flex-col">
-            <span className="text-[11px] font-black text-blue-600/60 dark:text-blue-400/60 uppercase tracking-[0.3em] leading-none mb-2">Status</span>
-            <span className="text-sm font-black text-emerald-600 dark:text-emerald-400 flex items-center gap-2.5 uppercase tracking-widest">
-              <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_10px_rgba(16,185,129,0.8)]"></div>
+            <span className="text-[11px] font-black text-indigo-600/60 dark:text-indigo-400/60 uppercase tracking-[0.3em] leading-none mb-3">Status</span>
+            <span className="text-lg font-serif font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-3 tracking-tight">
+              <div className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_15px_rgba(16,185,129,0.8)]"></div>
               Slutförd
             </span>
           </div>
         </div>
       </div>
       
-      <div className="space-y-16">
-        <div className="relative pl-10">
-          <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-blue-600 to-indigo-600 rounded-full shadow-[0_0_15px_rgba(59,130,246,0.5)]"></div>
-          <h2 className="text-5xl font-black text-slate-900 dark:text-white m-0 tracking-tighter leading-none">
-            Analysrapport: <span className="text-blue-600 dark:text-blue-400 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">{document.name}</span>
+      <div className="space-y-20">
+        <div className="relative pl-14">
+          <div className="absolute left-0 top-0 bottom-0 w-2 bg-gradient-to-b from-indigo-600 via-purple-600 to-rose-600 rounded-full shadow-[0_0_20px_rgba(99,102,241,0.5)]"></div>
+          <h2 className="text-6xl font-serif font-bold text-slate-900 dark:text-white m-0 tracking-tight leading-tight">
+            Analysrapport: <span className="text-indigo-600 dark:text-indigo-400 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-purple-600 to-rose-600">{document.name}</span>
           </h2>
-          <div className="flex items-center gap-4 mt-6">
-            <div className="flex items-center gap-3 px-5 py-2 bg-slate-100 dark:bg-slate-800/50 rounded-full border border-slate-200 dark:border-slate-700 shadow-sm">
-              <span className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em]">Upprättad</span>
-              <span className="text-sm font-black text-slate-700 dark:text-slate-300">{new Date(document.createdAt).toLocaleString('sv-SE')}</span>
+          <div className="flex items-center gap-6 mt-10">
+            <div className="flex items-center gap-4 px-8 py-3 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border-2 border-slate-100 dark:border-slate-700 shadow-sm">
+              <span className="text-[11px] font-black text-slate-400 uppercase tracking-[0.25em]">Upprättad</span>
+              <span className="text-lg font-serif font-bold text-slate-700 dark:text-slate-300">{new Date(document.createdAt).toLocaleString('sv-SE')}</span>
             </div>
-            <div className="flex items-center gap-3 px-5 py-2 bg-slate-100 dark:bg-slate-800/50 rounded-full border border-slate-200 dark:border-slate-700 shadow-sm">
-              <span className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em]">Typ</span>
-              <span className="text-sm font-black text-slate-700 dark:text-slate-300 uppercase tracking-tight">Forensisk Utredning</span>
+            <div className="flex items-center gap-4 px-8 py-3 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border-2 border-slate-100 dark:border-slate-700 shadow-sm">
+              <span className="text-[11px] font-black text-slate-400 uppercase tracking-[0.25em]">Typ</span>
+              <span className="text-lg font-serif font-bold text-slate-700 dark:text-slate-300 tracking-tight">Forensisk Utredning</span>
             </div>
           </div>
         </div>
         
-        <div className="bg-white dark:bg-slate-900 rounded-[3.5rem] border border-slate-200 dark:border-slate-800 shadow-2xl shadow-slate-200/50 dark:shadow-none overflow-hidden hover:shadow-blue-500/5 transition-shadow duration-1000">
+        <div className="bg-white dark:bg-slate-900 rounded-[4rem] border-2 border-slate-100 dark:border-slate-800 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.1)] dark:shadow-none overflow-hidden hover:shadow-indigo-500/5 transition-all duration-1000">
           <AnalysisResults 
               analysis={document.analysis}
               onLegalReferenceSelect={onLegalReferenceSelect}

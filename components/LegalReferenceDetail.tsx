@@ -71,8 +71,6 @@ const LegalReferenceDetail: React.FC<LegalReferenceDetailProps> = ({ referenceId
               </div>
               <div className="flex items-center space-x-4 mt-2">
                 <span className="text-[10px] font-black text-blue-500/60 uppercase tracking-[0.2em]">Legal deep dive mode</span>
-                <div className="h-1.5 w-1.5 rounded-full bg-slate-200 dark:bg-slate-700"></div>
-                <span className="text-[10px] text-slate-400 dark:text-slate-500 font-black uppercase tracking-widest">Reference_ID: {referenceId.split('-')[0]}</span>
               </div>
             </div>
           </div>
@@ -114,7 +112,6 @@ const LegalReferenceDetail: React.FC<LegalReferenceDetailProps> = ({ referenceId
                               {Array.from(relatedFactIds).map(id => (
                                   <div key={id} className="flex items-center space-x-2 bg-blue-500/5 text-blue-600 dark:text-blue-400 px-4 py-2 rounded-xl border border-blue-500/10 hover:bg-blue-500/10 transition-all cursor-default shadow-sm">
                                       <CheckCircleIcon className="w-4 h-4" />
-                                      <span className="text-[10px] font-black font-mono tracking-widest">#{id}</span>
                                   </div>
                               ))}
                           </div>
@@ -199,19 +196,12 @@ const LegalReferenceDetail: React.FC<LegalReferenceDetailProps> = ({ referenceId
                       
                       <div className="flex justify-between items-start mb-8 relative z-10">
                         <div className="flex items-center space-x-4">
-                           <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-mono font-black border border-indigo-500/20 shadow-inner text-lg">
-                              {fact.id.replace('fact_', '')}
-                           </div>
                            <div>
                               <span className="text-[10px] font-black text-indigo-600 dark:text-indigo-400 uppercase tracking-widest bg-indigo-500/5 px-3 py-1 rounded-full border border-indigo-500/10">
                                  {fact.category}
                               </span>
                               <p className="text-[10px] text-slate-400 font-black uppercase mt-2 tracking-widest">{docInfo.name}</p>
                            </div>
-                        </div>
-                        <div className="flex flex-col items-end">
-                            <span className="text-[9px] font-black text-slate-300 dark:text-slate-600 uppercase tracking-widest">FACT_LOCKED_ID</span>
-                            <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">{fact.id}</span>
                         </div>
                       </div>
                       

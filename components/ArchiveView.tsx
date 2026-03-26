@@ -146,9 +146,6 @@ const ArchiveView: React.FC<ArchiveViewProps> = ({ onSelect }) => {
                                             <DocumentTextIcon className="w-3.5 h-3.5" />
                                             <span>{doc.textContent.length.toLocaleString()} tecken</span>
                                         </div>
-                                        <div className="font-mono text-[10px] bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded">
-                                            ID: {doc.id.substring(0, 8)}...
-                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -98,7 +98,6 @@ const ForensicIntegrityView: React.FC<ForensicIntegrityViewProps> = ({ analysis 
                     <div className="flex justify-between items-start mb-4">
                       <div className="flex items-center gap-3">
                         <DocumentTextIcon className="w-5 h-5 text-slate-400" />
-                        <span className="text-[10px] font-mono font-black text-slate-500 uppercase tracking-widest">ATOM_ID: {atom.id}</span>
                       </div>
                       <div className="flex items-center gap-2">
                         {isFailed ? (
@@ -127,7 +126,6 @@ const ForensicIntegrityView: React.FC<ForensicIntegrityViewProps> = ({ analysis 
                 <div className="relative">
                   <div className="absolute -left-[42px] top-0 w-6 h-6 rounded-full bg-blue-500 border-4 border-white dark:border-slate-900 shadow-lg shadow-blue-500/20"></div>
                   <p className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-[0.15em]">Källdokument</p>
-                  <p className="text-[10px] font-black text-slate-400 uppercase mt-2 tracking-widest">ID: {analysis.documents[0]?.id}</p>
                 </div>
                 <div className="relative">
                   <div className="absolute -left-[42px] top-0 w-6 h-6 rounded-full bg-blue-500 border-4 border-white dark:border-slate-900 shadow-lg shadow-blue-500/20"></div>

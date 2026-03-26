@@ -173,7 +173,6 @@ const AnalysView: React.FC<AnalysViewProps> = ({ activeCase }) => {
                         </div>
                         <div className="flex-1">
                           <div className="flex justify-between items-start mb-1">
-                            <span className="text-[10px] font-bold text-slate-400 font-mono">{atom.id}</span>
                             <div className="flex items-center gap-1">
                               <div className="w-16 h-1 bg-slate-100 rounded-full overflow-hidden">
                                 <div className="h-full bg-emerald-500" style={{ width: `95%` }} />
