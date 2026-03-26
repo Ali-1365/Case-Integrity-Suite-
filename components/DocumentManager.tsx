@@ -317,19 +317,19 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
     };
 
     const Breadcrumbs = () => {
-        const items = [{ label: 'Hem', onClick: () => { setSelectedDocId(null); setActiveModal(null); setShowMoreMenu(false); }, icon: <Squares2X2Icon className="w-3.5 h-3.5" /> }];
+        const items = [{ label: 'Hem', onClick: () => { setSelectedDocId(null); setActiveModal(null); setShowMoreMenu(false); }, icon: <Squares2X2Icon className="w-5 h-5" /> }];
         
         if (selectedDocId) {
             items.push({ 
                 label: 'Analys', 
                 onClick: () => { setActiveModal(null); setShowMoreMenu(false); },
-                icon: <MagnifyingGlassIcon className="w-3.5 h-3.5" />
+                icon: <MagnifyingGlassIcon className="w-5 h-5" />
             });
             if (selectedDoc) {
                 items.push({ 
                     label: selectedDoc.name, 
                     onClick: () => {},
-                    icon: <DocumentTextIcon className="w-3.5 h-3.5" />
+                    icon: <DocumentTextIcon className="w-5 h-5" />
                 });
             }
         } else if (activeModal) {
@@ -350,24 +350,24 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
             items.push({ 
                 label: modalLabels[activeModal] || 'Modul', 
                 onClick: () => {},
-                icon: <BoltIcon className="w-3.5 h-3.5" />
+                icon: <BoltIcon className="w-5 h-5" />
             });
         }
 
         return (
-            <nav className="flex items-center space-x-3 text-[11px] font-bold uppercase tracking-[0.2em] text-slate-600 dark:text-slate-400 mb-8 bg-white/50 dark:bg-slate-900/50 p-3 rounded-2xl border border-slate-200/50 dark:border-slate-800/50 backdrop-blur-sm w-fit" aria-label="Breadcrumb">
+            <nav className="flex items-center space-x-6 text-[12px] font-black uppercase tracking-[0.4em] text-slate-500 dark:text-slate-400 mb-14 bg-white/60 dark:bg-slate-900/60 p-6 rounded-[2rem] border border-slate-200/60 dark:border-slate-800/60 backdrop-blur-xl w-fit shadow-lg shadow-slate-200/20 dark:shadow-black/20" aria-label="Breadcrumb">
                 {items.map((item, index) => (
                     <React.Fragment key={index}>
-                        {index > 0 && <span className="text-slate-400 dark:text-slate-600 font-normal">/</span>}
+                        {index > 0 && <div className="w-2 h-2 rounded-full bg-indigo-500/30 dark:bg-indigo-500/20 mx-2" />}
                         <button 
                             onClick={item.onClick}
-                            className={`flex items-center space-x-2.5 transition-all duration-300 ${index === items.length - 1 ? 'text-blue-600 dark:text-blue-400' : 'hover:text-slate-900 dark:hover:text-white hover:translate-x-0.5'}`}
+                            className={`flex items-center space-x-4 transition-all duration-500 group ${index === items.length - 1 ? 'text-indigo-600 dark:text-indigo-400' : 'hover:text-slate-900 dark:hover:text-white'}`}
                             aria-current={index === items.length - 1 ? 'page' : undefined}
                         >
-                            <div className={`${index === items.length - 1 ? 'text-blue-500' : 'text-slate-500 dark:text-slate-400'}`}>
+                            <div className={`transition-all duration-700 ${index === items.length - 1 ? 'text-indigo-500 scale-125 drop-shadow-[0_0_8px_rgba(99,102,241,0.4)]' : 'text-slate-400 dark:text-slate-500 group-hover:text-indigo-500 group-hover:scale-125 group-hover:rotate-6'}`}>
                                 {item.icon}
                             </div>
-                            <span>{item.label}</span>
+                            <span className="group-hover:translate-x-1 transition-transform">{item.label}</span>
                         </button>
                     </React.Fragment>
                 ))}
@@ -376,13 +376,13 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
     };
 
     const PageHeader = ({ title, subtitle, icon }: { title: string, subtitle?: string, icon?: React.ReactNode }) => (
-        <div className="mb-12 flex items-start justify-between animate-fade-in">
-            <div className="space-y-4">
-                <div className="flex items-center gap-6">
-                    {icon && <div className="p-4 bg-indigo-50 dark:bg-indigo-900/20 rounded-2xl text-indigo-600 dark:text-indigo-400 shadow-sm">{icon}</div>}
-                    <h2 className="text-5xl font-serif font-bold text-slate-900 dark:text-white tracking-tight leading-none">{title}</h2>
+        <div className="mb-20 flex items-start justify-between animate-in fade-in slide-in-from-left-12 duration-1000">
+            <div className="space-y-8">
+                <div className="flex items-center gap-10">
+                    {icon && <div className="p-7 bg-gradient-to-br from-indigo-500 to-indigo-700 dark:from-indigo-600 dark:to-indigo-800 rounded-[2.5rem] text-white shadow-[0_20px_50px_rgba(79,70,229,0.3)] border-2 border-white/20 group hover:scale-110 hover:rotate-6 transition-all duration-700">{icon}</div>}
+                    <h2 className="text-7xl font-serif font-bold text-slate-900 dark:text-white tracking-tighter leading-none m-0">{title}</h2>
                 </div>
-                {subtitle && <p className="text-lg text-slate-500 dark:text-slate-400 font-medium max-w-3xl leading-relaxed">{subtitle}</p>}
+                {subtitle && <p className="text-2xl text-slate-500 dark:text-slate-400 font-medium max-w-5xl leading-relaxed opacity-90">{subtitle}</p>}
             </div>
         </div>
     );
@@ -403,103 +403,112 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
     );
 
     return (
-        <div className={`flex flex-col min-h-screen ${isDarkMode ? 'dark bg-slate-950 text-slate-50' : 'bg-slate-50 text-slate-900'} font-sans transition-colors duration-700`}>
-            <header className="h-28 px-12 border-b border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 backdrop-blur-3xl flex justify-between items-center sticky top-0 z-[100] transition-all shadow-xl shadow-slate-200/10">
-                <div className="flex items-center space-x-16 w-full overflow-hidden">
-                    <div className="flex items-center space-x-5 cursor-pointer shrink-0 group" onClick={() => navigateTo('overview')}>
-                        <div className="p-4 bg-indigo-600 rounded-[1.5rem] group-hover:scale-110 group-hover:rotate-6 transition-all shadow-2xl shadow-indigo-200 dark:shadow-indigo-900/40">
-                            <LogoIcon className="h-8 w-8 text-white" />
+        <div className={`flex flex-col min-h-screen ${isDarkMode ? 'dark bg-slate-950 text-slate-50' : 'bg-slate-50 text-slate-900'} font-sans transition-colors duration-1000`}>
+            <header className="h-40 px-16 border-b border-slate-200/60 dark:border-slate-800/60 bg-white/90 dark:bg-slate-950/90 backdrop-blur-3xl flex justify-between items-center sticky top-0 z-[100] transition-all shadow-[0_15px_50px_rgba(0,0,0,0.06)] dark:shadow-[0_15px_50px_rgba(0,0,0,0.3)]">
+                <div className="flex items-center space-x-20 w-full overflow-hidden">
+                    <div className="flex items-center space-x-8 cursor-pointer shrink-0 group" onClick={() => navigateTo('overview')}>
+                        <div className="p-6 bg-gradient-to-br from-indigo-600 via-indigo-700 to-indigo-900 rounded-[2.5rem] group-hover:scale-110 group-hover:rotate-12 transition-all duration-700 shadow-[0_25px_50px_rgba(79,70,229,0.4)] dark:shadow-[0_25px_50px_rgba(79,70,229,0.2)] border-2 border-white/20 relative overflow-hidden">
+                            <div className="absolute inset-0 bg-gradient-to-tr from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                            <LogoIcon className="h-11 w-11 text-white relative z-10" />
                         </div>
                         <div className="flex flex-col">
-                            <h1 className="text-2xl font-serif font-bold tracking-tight hidden sm:block m-0 leading-none text-slate-900 dark:text-white">Case Integrity</h1>
-                            <span className="text-[10px] font-black text-indigo-500 uppercase tracking-[0.4em] mt-2 hidden sm:block opacity-80">Enterprise v1.0</span>
+                            <h1 className="text-4xl font-serif font-black tracking-tighter hidden sm:block m-0 leading-none bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-400">Case Integrity</h1>
+                            <div className="flex items-center gap-3 mt-3.5 hidden sm:flex">
+                                <div className="h-1.5 w-1.5 rounded-full bg-indigo-500 animate-pulse shadow-[0_0_10px_rgba(99,102,241,0.8)]" />
+                                <span className="text-[12px] font-black text-indigo-500 uppercase tracking-[0.6em] opacity-100">Enterprise v1.0</span>
+                            </div>
                         </div>
                     </div>
                     
-                    <nav className="hidden xl:flex items-center space-x-2 flex-1 overflow-x-auto no-scrollbar py-2">
+                    <nav className="hidden xl:flex items-center space-x-4 flex-1 overflow-x-auto no-scrollbar py-4">
                         {/* Kärnfunktioner */}
-                        <div className="flex items-center space-x-1 bg-slate-50 dark:bg-slate-800/50 p-1.5 rounded-[1.5rem] border border-slate-200 dark:border-slate-700/50">
+                        <div className="flex items-center space-x-2 bg-slate-100/60 dark:bg-slate-900/40 p-2.5 rounded-[2.5rem] border border-slate-200/60 dark:border-slate-800/40 backdrop-blur-xl shadow-inner">
                             <ToolButton icon={<Squares2X2Icon />} onClick={() => navigateTo('hub')} label="Hubb" active={currentView === 'hub'} color="indigo" />
                             <ToolButton icon={<DocumentDuplicateIcon />} onClick={() => navigateTo('overview')} label="Ärenden" active={currentView === 'overview' || currentView === 'analysis'} color="rose" />
                             <ToolButton icon={<MagnifyingGlassIcon />} onClick={() => navigateTo('agent')} label="Analys" active={activeModal === 'agent'} color="amber" />
                             <ToolButton icon={<BanknotesIcon />} onClick={() => navigateTo('ekonomi')} label="Ekonomi" active={activeModal === 'ekonomi'} color="teal" />
                         </div>
 
-                        <div className="w-px h-6 bg-slate-200 dark:bg-slate-800 mx-2 opacity-30"></div>
+                        <div className="w-px h-10 bg-slate-200 dark:bg-slate-800 mx-4 opacity-60"></div>
 
                         {/* Produktion & Beslut */}
-                        <div className="flex items-center space-x-1 bg-slate-100 dark:bg-slate-800/50 p-1 rounded-2xl border border-slate-200 dark:border-slate-700/50">
-                            <ToolButton icon={<ChatIcon />} onClick={() => navigateTo('chat')} label="Beslut" active={activeModal === 'chat'} />
-                            <ToolButton icon={<BoltIcon />} onClick={() => navigateTo('production')} label="Produktion" active={activeModal === 'production'} />
+                        <div className="flex items-center space-x-2 bg-slate-100/60 dark:bg-slate-900/40 p-2.5 rounded-[2.5rem] border border-slate-200/60 dark:border-slate-800/40 backdrop-blur-xl shadow-inner">
+                            <ToolButton icon={<ChatIcon />} onClick={() => navigateTo('chat')} label="Beslut" active={activeModal === 'chat'} color="blue" />
+                            <ToolButton icon={<BoltIcon />} onClick={() => navigateTo('production')} label="Produktion" active={activeModal === 'production'} color="purple" />
                         </div>
 
-                        <div className="w-px h-6 bg-slate-200 dark:bg-slate-800 mx-2 opacity-30"></div>
+                        <div className="w-px h-10 bg-slate-200 dark:bg-slate-800 mx-4 opacity-60"></div>
 
                         {/* System & Logg */}
-                        <div className="flex items-center space-x-1 relative">
-                            <ToolButton icon={<ArchiveBoxIcon />} onClick={() => navigateTo('arch')} label="Arkiv" active={activeModal === 'arch' || activeModal === 'archive'} />
+                        <div className="flex items-center space-x-2 relative">
+                            <ToolButton icon={<ArchiveBoxIcon />} onClick={() => navigateTo('arch')} label="Arkiv" active={activeModal === 'arch' || activeModal === 'archive'} color="slate" />
                             
                             <div className="relative">
                                 <button 
                                     onClick={() => setShowMoreMenu(!showMoreMenu)}
-                                    className={`px-6 py-3 rounded-[1.25rem] transition-all flex items-center space-x-3 group cursor-pointer border-2 ${
+                                    className={`px-8 py-4 rounded-[2rem] transition-all duration-500 flex items-center space-x-5 group cursor-pointer border-2 shadow-md ${
                                         showMoreMenu 
-                                        ? 'bg-slate-200 dark:bg-slate-800 border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white' 
-                                        : 'border-transparent text-slate-500 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800/50'
+                                        ? 'bg-white dark:bg-slate-900 border-indigo-500/50 text-indigo-600 dark:text-indigo-400 shadow-indigo-500/20' 
+                                        : 'border-transparent text-slate-500 hover:text-slate-900 hover:bg-white dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-900/50'
                                     }`}
                                 >
-                                    <div className={`transition-all duration-500 ${showMoreMenu ? 'text-blue-600 scale-110' : 'text-slate-400 group-hover:text-slate-600 dark:text-slate-500 dark:group-hover:text-slate-300'}`}>
-                                        <AdjustmentsHorizontalIcon className="w-5 h-5" />
+                                    <div className={`transition-all duration-700 ${showMoreMenu ? 'text-indigo-600 scale-125 rotate-12 drop-shadow-[0_0_8px_rgba(99,102,241,0.4)]' : 'text-slate-400 group-hover:text-slate-600 dark:text-slate-500 dark:group-hover:text-slate-300 group-hover:scale-110'}`}>
+                                        <AdjustmentsHorizontalIcon className="w-6 h-6" />
                                     </div>
-                                    <span className="text-sm font-black tracking-tight hidden lg:block">Mer</span>
-                                    <ChevronDownIcon className={`w-4 h-4 transition-transform duration-300 ${showMoreMenu ? 'rotate-180' : ''}`} />
+                                    <span className="text-sm font-black tracking-tight hidden lg:block uppercase tracking-[0.1em]">Mer</span>
+                                    <ChevronDownIcon className={`w-5 h-5 transition-transform duration-700 ${showMoreMenu ? 'rotate-180' : ''}`} />
                                 </button>
                                 
                                 {showMoreMenu && (
                                     <>
                                         <div className="fixed inset-0 z-[105]" onClick={() => setShowMoreMenu(false)}></div>
-                                        <div className="absolute right-0 mt-3 w-72 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] shadow-2xl p-3 z-[110] animate-in fade-in zoom-in-95 duration-200 ring-1 ring-black/5">
-                                            <div className="px-4 py-2 mb-2">
-                                                <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Avancerade Verktyg</span>
+                                        <div className="absolute right-0 mt-6 w-80 bg-white/98 dark:bg-slate-950/98 border border-slate-200 dark:border-slate-800 rounded-[3rem] shadow-[0_35px_80px_rgba(0,0,0,0.25)] p-5 z-[110] animate-in fade-in zoom-in-95 duration-500 backdrop-blur-2xl ring-1 ring-black/5">
+                                            <div className="px-6 py-4 mb-4 border-b border-slate-100 dark:border-slate-800">
+                                                <span className="text-[12px] font-black text-slate-400 uppercase tracking-[0.4em]">Avancerade Verktyg</span>
                                             </div>
-                                            <MenuButton icon={<ShieldCheckIcon />} onClick={() => navigateTo('audit')} label="Systemlogg" active={activeModal === 'audit'} />
-                                            <MenuButton icon={<LawIcon />} onClick={() => navigateTo('framework')} label="Juridiskt Ramverk" active={activeModal === 'framework'} />
-                                            <div className="h-px bg-slate-100 dark:bg-slate-800 my-3 mx-4"></div>
-                                            <MenuButton icon={<ActivityIcon />} onClick={() => navigateTo('monitor')} label="Systemövervakning" active={activeModal === 'monitor'} />
-                                            <MenuButton icon={<ClipboardDocumentListIcon />} onClick={() => navigateTo('inventory')} label="Systeminventering" active={activeModal === 'inventory'} />
-                                            <MenuButton icon={<CodeBracketIcon />} onClick={() => navigateTo('debug')} label="AI Debug Panel" active={activeModal === 'debug'} />
+                                            <div className="space-y-2">
+                                                <MenuButton icon={<ShieldCheckIcon />} onClick={() => navigateTo('audit')} label="Systemlogg" active={activeModal === 'audit'} />
+                                                <MenuButton icon={<LawIcon />} onClick={() => navigateTo('framework')} label="Juridiskt Ramverk" active={activeModal === 'framework'} />
+                                                <div className="h-px bg-slate-100 dark:bg-slate-800 my-5 mx-6 opacity-50"></div>
+                                                <MenuButton icon={<ActivityIcon />} onClick={() => navigateTo('monitor')} label="Systemövervakning" active={activeModal === 'monitor'} />
+                                                <MenuButton icon={<ClipboardDocumentListIcon />} onClick={() => navigateTo('inventory')} label="Systeminventering" active={activeModal === 'inventory'} />
+                                                <MenuButton icon={<CodeBracketIcon />} onClick={() => navigateTo('debug')} label="AI Debug Panel" active={activeModal === 'debug'} />
+                                            </div>
                                         </div>
                                     </>
                                 )}
                             </div>
 
-                            <div className="w-px h-6 bg-slate-200 dark:bg-slate-800 mx-2 opacity-30"></div>
+                            <div className="w-px h-8 bg-slate-200 dark:bg-slate-800 mx-3 opacity-40"></div>
 
                             {/* Case Selector */}
                             <div className="relative">
                                 <button 
                                     onClick={() => setShowCaseMenu(!showCaseMenu)}
-                                    className={`px-4 py-2.5 rounded-xl transition-all flex items-center space-x-3 border-2 ${
+                                    className={`px-5 py-3 rounded-2xl transition-all flex items-center space-x-4 border-2 shadow-sm ${
                                         activeCase 
-                                        ? 'bg-blue-600 border-blue-700 text-white shadow-lg shadow-blue-900/20' 
-                                        : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
+                                        ? 'bg-gradient-to-r from-blue-600 to-indigo-600 border-blue-700/50 text-white shadow-lg shadow-blue-500/20' 
+                                        : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700'
                                     }`}
                                 >
-                                    <BriefcaseIcon className="w-4 h-4" />
-                                    <span className="text-xs font-bold truncate max-w-[120px]">
+                                    <div className={`p-1.5 rounded-lg ${activeCase ? 'bg-white/20' : 'bg-slate-100 dark:bg-slate-700'}`}>
+                                        <BriefcaseIcon className="w-4 h-4" />
+                                    </div>
+                                    <span className="text-xs font-black uppercase tracking-wider truncate max-w-[140px]">
                                         {activeCase ? activeCase.name || activeCase.caseId : 'Välj Ärende'}
                                     </span>
-                                    <ChevronDownIcon className={`w-3 h-3 transition-transform ${showCaseMenu ? 'rotate-180' : ''}`} />
+                                    <ChevronDownIcon className={`w-3.5 h-3.5 transition-transform duration-500 ${showCaseMenu ? 'rotate-180' : ''}`} />
                                 </button>
 
                                 {showCaseMenu && (
                                     <>
                                         <div className="fixed inset-0 z-[105]" onClick={() => setShowCaseMenu(false)}></div>
-                                        <div className="absolute right-0 mt-3 w-80 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl p-2 z-[110] animate-in fade-in zoom-in-95 duration-200">
-                                            <div className="px-4 py-3 border-b border-slate-100 dark:border-slate-800 mb-2">
-                                                <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest">Aktiva Ärenden</h3>
+                                        <div className="absolute right-0 mt-4 w-96 bg-white/95 dark:bg-slate-900/95 border border-slate-200 dark:border-slate-800 rounded-[2.5rem] shadow-[0_25px_60px_rgba(0,0,0,0.15)] p-4 z-[110] animate-in fade-in zoom-in-95 duration-300 backdrop-blur-xl">
+                                            <div className="px-6 py-4 border-b border-slate-100 dark:border-slate-800 mb-4 flex justify-between items-center">
+                                                <h3 className="text-[11px] font-black text-slate-400 uppercase tracking-[0.3em]">Aktiva Ärenden</h3>
+                                                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 rounded text-[9px] font-bold text-slate-500">{cases.length}</span>
                                             </div>
-                                            <div className="max-h-[300px] overflow-y-auto p-1 space-y-1">
+                                            <div className="max-h-[400px] overflow-y-auto p-1 space-y-2 custom-scrollbar">
                                                 {cases.length > 0 ? (
                                                     cases.map(c => (
                                                         <button
@@ -508,32 +517,37 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                                                                 setActiveCase(c);
                                                                 setShowCaseMenu(false);
                                                             }}
-                                                            className={`w-full text-left px-4 py-3 rounded-2xl transition-all flex flex-col gap-1 ${
+                                                            className={`w-full text-left px-5 py-4 rounded-[1.5rem] transition-all flex flex-col gap-1.5 group ${
                                                                 activeCase?.caseId === c.caseId
-                                                                ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 ring-1 ring-blue-500/20'
-                                                                : 'hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300'
+                                                                ? 'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 ring-2 ring-indigo-500/20'
+                                                                : 'hover:bg-slate-50 dark:hover:bg-slate-800/50 text-slate-700 dark:text-slate-300'
                                                             }`}
                                                         >
-                                                            <span className="text-sm font-bold truncate">{c.name || 'Namnlöst Ärende'}</span>
-                                                            <div className="flex items-center justify-between text-[10px] opacity-60 font-mono">
+                                                            <div className="flex items-center justify-between">
+                                                                <span className="text-sm font-black tracking-tight truncate group-hover:translate-x-1 transition-transform">{c.name || 'Namnlöst Ärende'}</span>
+                                                                {activeCase?.caseId === c.caseId && <div className="w-2 h-2 rounded-full bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.5)]" />}
+                                                            </div>
+                                                            <div className="flex items-center justify-between text-[10px] opacity-60 font-mono font-bold tracking-widest">
                                                                 <span>{c.caseId}</span>
-                                                                <span className="uppercase">{c.status}</span>
+                                                                <span className={`px-2 py-0.5 rounded uppercase ${
+                                                                    c.status === 'AVSLUTAT' ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600' : 'bg-amber-100 dark:bg-amber-900/30 text-amber-600'
+                                                                }`}>{c.status}</span>
                                                             </div>
                                                         </button>
                                                     ))
                                                 ) : (
-                                                    <div className="px-4 py-8 text-center text-slate-400 text-xs italic">
+                                                    <div className="px-6 py-12 text-center text-slate-400 text-xs italic bg-slate-50/50 dark:bg-slate-800/20 rounded-[2rem] border-2 border-dashed border-slate-200 dark:border-slate-800">
                                                         Inga ärenden hittades.
                                                     </div>
                                                 )}
                                             </div>
-                                            <div className="p-2 mt-2 border-t border-slate-100 dark:border-slate-800">
+                                            <div className="p-3 mt-4 border-t border-slate-100 dark:border-slate-800">
                                                 <button 
                                                     onClick={() => {
                                                         // Logic to create new case could go here
                                                         setShowCaseMenu(false);
                                                     }}
-                                                    className="w-full py-2 text-xs font-bold text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-xl transition-all"
+                                                    className="w-full py-4 text-xs font-black uppercase tracking-[0.2em] text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded-2xl transition-all active:scale-95"
                                                 >
                                                     + Skapa Nytt Ärende
                                                 </button>
@@ -546,21 +560,25 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                     </nav>
                 </div>
 
-                <div className="flex items-center space-x-6 ml-8">
-                    <div className="hidden lg:flex flex-col items-end mr-2 px-5 py-2 bg-slate-50 dark:bg-slate-800/40 rounded-2xl border border-slate-200 dark:border-slate-700/50 shadow-inner">
-                        <div className="flex items-center gap-2.5">
-                            <span className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em]">Systemhälsa</span>
-                            <div className={`w-2 h-2 rounded-full ${quotaUsage.status === 'critical' ? 'bg-red-500 animate-pulse' : (quotaUsage.status === 'warning' ? 'bg-amber-500' : 'bg-emerald-500')}`}></div>
+                <div className="flex items-center space-x-8 ml-8">
+                    <div className="hidden lg:flex flex-col items-end mr-2 px-6 py-2.5 bg-white dark:bg-slate-800/40 rounded-[1.5rem] border border-slate-200 dark:border-slate-700/50 shadow-sm">
+                        <div className="flex items-center gap-3">
+                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Systemhälsa</span>
+                            <div className={`w-2.5 h-2.5 rounded-full shadow-lg ${
+                                quotaUsage.status === 'critical' 
+                                    ? 'bg-red-500 animate-pulse shadow-red-500/50' 
+                                    : (quotaUsage.status === 'warning' ? 'bg-amber-500 shadow-amber-500/50' : 'bg-emerald-500 shadow-emerald-500/50')
+                            }`}></div>
                         </div>
-                        <span className={`text-xs font-mono font-black mt-0.5 ${quotaUsage.status === 'critical' ? 'text-red-500' : 'text-slate-700 dark:text-slate-300'}`}>
-                            {quotaUsage.rpm}/{quotaUsage.limitRpm} <span className="text-[9px] opacity-50">RPM</span>
+                        <span className={`text-sm font-mono font-black mt-1 ${quotaUsage.status === 'critical' ? 'text-red-500' : 'text-slate-800 dark:text-slate-200'}`}>
+                            {quotaUsage.rpm}/{quotaUsage.limitRpm} <span className="text-[10px] opacity-40 font-sans">RPM</span>
                         </span>
                     </div>
                     
-                    <div className="flex items-center bg-slate-100 dark:bg-slate-800 p-1.5 rounded-[1.25rem] border border-slate-200 dark:border-slate-700 shadow-inner">
+                    <div className="flex items-center bg-slate-100/80 dark:bg-slate-800/80 p-2 rounded-[1.5rem] border border-slate-200 dark:border-slate-700 shadow-inner backdrop-blur-sm">
                         <button 
                             onClick={() => setIsDarkMode(!isDarkMode)} 
-                            className="p-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700 transition-all shadow-sm hover:shadow-md active:scale-90"
+                            className="p-3 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700 transition-all shadow-sm hover:shadow-md active:scale-90"
                             title={isDarkMode ? 'Växla till ljust läge' : 'Växla till mörkt läge'}
                             aria-label={isDarkMode ? 'Växla till ljust läge' : 'Växla till mörkt läge'}
                         >
@@ -568,11 +586,11 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                         </button>
                         <button 
                             onClick={onLogout} 
-                            className="p-2.5 text-slate-500 dark:text-slate-400 hover:text-red-600 hover:bg-white dark:hover:bg-red-900/20 rounded-xl transition-all ml-1.5 active:scale-90"
+                            className="p-3 text-slate-500 dark:text-slate-400 hover:text-red-600 hover:bg-white dark:hover:bg-red-900/20 rounded-xl transition-all ml-2 active:scale-90"
                             title="Logga ut"
                             aria-label="Logga ut"
                         >
-                            <LogoutIcon className="h-5 w-5" />
+                            <LogoutIcon className="h-6 w-6" />
                         </button>
                     </div>
                 </div>
@@ -787,26 +805,32 @@ interface ToolButtonProps {
 
 const ToolButton: React.FC<ToolButtonProps & { color?: string }> = ({ icon, onClick, label, active, color = 'indigo' }) => {
     const colorClasses: Record<string, string> = {
-        indigo: 'bg-indigo-600 border-indigo-700 shadow-indigo-200',
-        rose: 'bg-rose-600 border-rose-700 shadow-rose-200',
-        amber: 'bg-amber-600 border-amber-700 shadow-amber-200',
-        teal: 'bg-teal-600 border-teal-700 shadow-teal-200'
+        indigo: 'bg-gradient-to-br from-indigo-600 via-indigo-700 to-indigo-900 border-indigo-400/50 shadow-[0_20px_50px_rgba(79,70,229,0.4)]',
+        rose: 'bg-gradient-to-br from-rose-600 via-rose-700 to-rose-900 border-rose-400/50 shadow-[0_20px_50px_rgba(225,29,72,0.4)]',
+        amber: 'bg-gradient-to-br from-amber-500 via-amber-600 to-amber-800 border-amber-400/50 shadow-[0_20px_50px_rgba(245,158,11,0.4)]',
+        teal: 'bg-gradient-to-br from-teal-600 via-teal-700 to-teal-900 border-teal-400/50 shadow-[0_20px_50px_rgba(20,184,166,0.4)]',
+        blue: 'bg-gradient-to-br from-blue-600 via-blue-700 to-blue-900 border-blue-400/50 shadow-[0_20px_50px_rgba(37,99,235,0.4)]',
+        purple: 'bg-gradient-to-br from-purple-600 via-purple-700 to-purple-900 border-purple-400/50 shadow-[0_20px_50px_rgba(147,51,234,0.4)]',
+        slate: 'bg-gradient-to-br from-slate-600 via-slate-700 to-slate-900 border-slate-400/50 shadow-[0_20px_50px_rgba(71,85,105,0.4)]'
     };
 
     return (
         <button 
             onClick={onClick}
             aria-label={label}
-            className={`px-6 py-3 rounded-[1.25rem] transition-all flex items-center space-x-4 group cursor-pointer border-2 ${
+            className={`px-10 py-5 rounded-[2.5rem] transition-all duration-700 flex items-center space-x-6 group cursor-pointer border-2 relative overflow-hidden ${
                 active 
-                ? `${colorClasses[color]} text-white shadow-2xl scale-105` 
-                : 'border-transparent text-slate-500 hover:text-slate-900 hover:bg-white dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800/50'
+                ? `${colorClasses[color]} text-white scale-110 ring-8 ring-white/10 z-10 rotate-1` 
+                : 'border-transparent text-slate-500 hover:text-slate-900 hover:bg-white dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-900/60 shadow-sm hover:shadow-2xl hover:-translate-y-1.5'
             }`}
         >
-            <div className={`transition-all duration-500 ${active ? 'text-white scale-110' : 'text-slate-400 group-hover:text-slate-600 dark:text-slate-500 dark:group-hover:text-slate-300 group-hover:scale-110 group-hover:rotate-6'}`}>
-                {React.isValidElement(icon) ? React.cloneElement(icon as React.ReactElement<{ className?: string }>, { className: 'w-5 h-5' }) : icon}
+            {active && (
+                <div className="absolute inset-0 bg-gradient-to-tr from-white/30 to-transparent animate-pulse" />
+            )}
+            <div className={`transition-all duration-1000 relative z-10 ${active ? 'text-white scale-150 rotate-12 drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]' : 'text-slate-400 group-hover:text-indigo-500 dark:group-hover:text-indigo-400 group-hover:scale-150 group-hover:rotate-12'}`}>
+                {React.isValidElement(icon) ? React.cloneElement(icon as React.ReactElement<{ className?: string }>, { className: 'w-7 h-7' }) : icon}
             </div>
-            {label && <span className="text-sm font-black tracking-tight hidden lg:block">{label}</span>}
+            {label && <span className={`text-base font-black tracking-widest hidden lg:block relative z-10 uppercase ${active ? 'opacity-100 translate-x-1' : 'opacity-80 group-hover:opacity-100 group-hover:translate-x-1'}`}>{label}</span>}
         </button>
     );
 };
@@ -821,16 +845,19 @@ interface MenuButtonProps {
 const MenuButton: React.FC<MenuButtonProps> = ({ icon, onClick, label, active }) => (
     <button 
         onClick={onClick}
-        className={`w-full px-4 py-3 rounded-2xl transition-all flex items-center space-x-3 group cursor-pointer ${
+        className={`w-full px-8 py-6 rounded-[2.5rem] transition-all duration-700 flex items-center space-x-6 group cursor-pointer border-2 relative overflow-hidden ${
             active 
-            ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 font-bold' 
-            : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white'
+            ? 'bg-gradient-to-r from-indigo-600 to-indigo-800 text-white border-indigo-400/50 shadow-2xl shadow-indigo-500/40 scale-[1.02]' 
+            : 'border-transparent text-slate-600 dark:text-slate-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 hover:text-indigo-600 dark:hover:text-indigo-400'
         }`}
     >
-        <div className={`transition-all duration-300 ${active ? 'text-blue-600 dark:text-blue-400' : 'text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300'}`}>
-            {React.isValidElement(icon) ? React.cloneElement(icon as React.ReactElement<{ className?: string }>, { className: 'w-4 h-4' }) : icon}
+        <div className={`transition-all duration-1000 relative z-10 ${active ? 'text-white scale-150 rotate-12' : 'text-slate-400 group-hover:text-indigo-500 group-hover:scale-150 group-hover:rotate-12'}`}>
+            {React.isValidElement(icon) ? React.cloneElement(icon as React.ReactElement<{ className?: string }>, { className: 'w-7 h-7' }) : icon}
         </div>
-        <span className="text-xs font-bold tracking-tight">{label}</span>
+        <span className={`text-base font-black uppercase tracking-[0.2em] relative z-10 transition-all duration-700 ${active ? 'opacity-100 translate-x-2' : 'opacity-80 group-hover:opacity-100 group-hover:translate-x-3'}`}>{label}</span>
+        {!active && (
+            <div className="absolute inset-0 bg-indigo-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+        )}
     </button>
 );
 

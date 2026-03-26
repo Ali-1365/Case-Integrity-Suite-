@@ -55,78 +55,101 @@ export const AdversarialDuelView: React.FC<AdversarialDuelViewProps> = ({ caseDa
   };
 
   return (
-    <div className="h-full min-h-[800px] flex flex-col space-y-6">
+    <div className="h-full min-h-[900px] flex flex-col space-y-10 animate-in fade-in duration-700">
       
       {/* Header / Control */}
-      <div className="bg-[#161616] p-6 rounded-xl border border-gray-800 flex flex-col md:flex-row justify-between items-center gap-6">
-        <div className="flex items-center space-x-4">
-            <div className="p-3 bg-red-500/10 rounded-xl border border-red-500/20">
-                <ExclamationTriangleIcon className="w-8 h-8 text-red-500" />
+      <div className="bg-[#161616]/60 backdrop-blur-md p-10 rounded-[2.5rem] border border-white/5 flex flex-col md:flex-row justify-between items-center gap-8 shadow-2xl relative overflow-hidden group">
+        <div className="absolute -top-24 -left-24 w-48 h-48 bg-red-500/10 rounded-full blur-3xl group-hover:bg-red-500/20 transition-all duration-1000"></div>
+        
+        <div className="flex items-center space-x-6 relative z-10">
+            <div className="p-4 bg-red-500/10 rounded-2xl border border-red-500/20 shadow-lg shadow-red-500/10">
+                <ExclamationTriangleIcon className="w-10 h-10 text-red-500" />
             </div>
             <div>
-                <h2 className="text-xl font-bold text-white uppercase tracking-tight">Adversarial Duel Simulator</h2>
-                <p className="text-sm text-gray-400">Simulera en rättsprocess mot en fientlig AI-motpart.</p>
+                <h2 className="text-2xl font-black text-white uppercase tracking-tighter">Adversarial Duel Simulator</h2>
+                <p className="text-sm text-gray-400 font-medium mt-1">Simulera en rättsprocess mot en <span className="text-red-500 font-bold">fientlig AI-motpart</span>.</p>
             </div>
         </div>
         
         <button
             onClick={runDuel}
             disabled={isSimulating}
-            className={`px-8 py-4 rounded-xl font-bold text-sm uppercase tracking-widest transition-all flex items-center space-x-3 ${
+            className={`px-10 py-5 rounded-2xl font-black text-xs uppercase tracking-[0.2em] transition-all flex items-center space-x-4 shadow-2xl relative overflow-hidden group/btn ${
               isSimulating 
-                ? 'bg-gray-800 text-gray-500 cursor-not-allowed' 
-                : 'bg-red-600 hover:bg-red-500 text-white shadow-lg shadow-red-900/40 border border-red-500'
+                ? 'bg-gray-800 text-gray-500 cursor-not-allowed border border-white/5' 
+                : 'bg-gradient-to-br from-red-600 to-rose-600 text-white hover:from-red-500 hover:to-rose-500 shadow-red-500/30 border border-red-400/20 active:scale-95'
             }`}
           >
-            {isSimulating ? <Spinner className="w-5 h-5" /> : <BoltIcon className="w-5 h-5" />}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000"></div>
+            {isSimulating ? <Spinner className="w-6 h-6" /> : <BoltIcon className="w-6 h-6 group-hover/btn:rotate-12 transition-transform" />}
             <span>{isSimulating ? 'Simulerar Rättegång...' : 'Starta Duell'}</span>
           </button>
       </div>
 
       {/* Main Arena */}
-      <div className="flex-grow grid grid-cols-1 lg:grid-cols-2 gap-8 min-h-[600px]">
+      <div className="flex-grow grid grid-cols-1 lg:grid-cols-2 gap-10 min-h-[700px]">
         
         {/* Advokatens Sida (Vänster) */}
-        <div className={`bg-[#0a0a0a] rounded-xl border ${advokatInlaga ? 'border-indigo-500/30' : 'border-gray-800'} flex flex-col overflow-hidden transition-all duration-500`}>
-            <div className="px-6 py-4 bg-[#111111] border-b border-gray-800 flex items-center justify-between">
-                <div className="flex items-center space-x-2">
-                    <UserIcon className="w-5 h-5 text-indigo-400" />
-                    <span className="font-bold text-indigo-400 uppercase tracking-wider text-sm">Kärande (Advokat-Agent)</span>
+        <div className={`bg-[#161616]/80 backdrop-blur-xl rounded-[2.5rem] border transition-all duration-700 shadow-2xl flex flex-col overflow-hidden relative group/left ${
+            advokatInlaga ? 'border-indigo-500/40 shadow-indigo-500/10' : 'border-white/5'
+        }`}>
+            <div className="absolute -top-24 -left-24 w-48 h-48 bg-indigo-500/5 rounded-full blur-3xl"></div>
+            
+            <div className="px-8 py-6 bg-[#111111]/40 backdrop-blur-md border-b border-white/5 flex items-center justify-between relative z-10">
+                <div className="flex items-center space-x-4">
+                    <div className="p-2 bg-indigo-500/10 rounded-xl border border-indigo-500/20">
+                        <UserIcon className="w-5 h-5 text-indigo-400" />
+                    </div>
+                    <span className="font-black text-indigo-400 uppercase tracking-widest text-xs">Kärande (Advokat-Agent)</span>
                 </div>
-                {isSimulating && !advokatInlaga && <Spinner className="w-4 h-4 text-indigo-500" />}
+                {isSimulating && !advokatInlaga && <Spinner className="w-5 h-5 text-indigo-500" />}
             </div>
-            <div className="flex-grow p-6 overflow-y-auto custom-scrollbar">
+            <div className="flex-grow p-10 overflow-y-auto custom-scrollbar relative z-10">
                 {advokatInlaga ? (
-                    <div className="prose prose-invert prose-sm max-w-none prose-headings:text-indigo-300">
-                        <MarkdownRenderer content={advokatInlaga} />
+                    <div className="animate-in fade-in slide-in-from-left-4 duration-700">
+                        <div className="prose prose-invert prose-sm max-w-none prose-headings:text-indigo-300 prose-headings:font-black prose-headings:uppercase prose-headings:tracking-widest prose-p:text-gray-300 prose-p:leading-relaxed prose-strong:text-indigo-400">
+                            <MarkdownRenderer content={advokatInlaga} />
+                        </div>
                     </div>
                 ) : (
-                    <div className="h-full flex flex-col items-center justify-center opacity-20">
-                        <DocumentTextIcon className="w-16 h-16 text-gray-600 mb-4" />
-                        <p className="text-sm font-bold uppercase tracking-widest text-gray-500">Väntar på inlaga...</p>
+                    <div className="h-full flex flex-col items-center justify-center space-y-6 opacity-20 group-hover/left:opacity-30 transition-opacity">
+                        <div className="p-8 bg-gray-900 rounded-full border border-white/5">
+                            <DocumentTextIcon className="w-20 h-20 text-gray-600" />
+                        </div>
+                        <p className="text-xs font-black uppercase tracking-[0.3em] text-gray-500">Väntar på inlaga...</p>
                     </div>
                 )}
             </div>
         </div>
 
         {/* Motpartens Sida (Höger) */}
-        <div className={`bg-[#0a0a0a] rounded-xl border ${motpartSvar ? 'border-red-500/30' : 'border-gray-800'} flex flex-col overflow-hidden transition-all duration-500`}>
-            <div className="px-6 py-4 bg-[#111111] border-b border-gray-800 flex items-center justify-between">
-                <div className="flex items-center space-x-2">
-                    <ShieldCheckIcon className="w-5 h-5 text-red-400" />
-                    <span className="font-bold text-red-400 uppercase tracking-wider text-sm">Svarande (Motparts-Agent)</span>
+        <div className={`bg-[#161616]/80 backdrop-blur-xl rounded-[2.5rem] border transition-all duration-700 shadow-2xl flex flex-col overflow-hidden relative group/right ${
+            motpartSvar ? 'border-red-500/40 shadow-red-500/10' : 'border-white/5'
+        }`}>
+            <div className="absolute -top-24 -right-24 w-48 h-48 bg-red-500/5 rounded-full blur-3xl"></div>
+            
+            <div className="px-8 py-6 bg-[#111111]/40 backdrop-blur-md border-b border-white/5 flex items-center justify-between relative z-10">
+                <div className="flex items-center space-x-4">
+                    <div className="p-2 bg-red-500/10 rounded-xl border border-red-500/20">
+                        <ShieldCheckIcon className="w-5 h-5 text-red-400" />
+                    </div>
+                    <span className="font-black text-red-400 uppercase tracking-widest text-xs">Svarande (Motparts-Agent)</span>
                 </div>
-                {isSimulating && advokatInlaga && !motpartSvar && <Spinner className="w-4 h-4 text-red-500" />}
+                {isSimulating && advokatInlaga && !motpartSvar && <Spinner className="w-5 h-5 text-red-500" />}
             </div>
-            <div className="flex-grow p-6 overflow-y-auto custom-scrollbar">
+            <div className="flex-grow p-10 overflow-y-auto custom-scrollbar relative z-10">
                 {motpartSvar ? (
-                    <div className="prose prose-invert prose-sm max-w-none prose-headings:text-red-300">
-                        <MarkdownRenderer content={motpartSvar} />
+                    <div className="animate-in fade-in slide-in-from-right-4 duration-700">
+                        <div className="prose prose-invert prose-sm max-w-none prose-headings:text-red-300 prose-headings:font-black prose-headings:uppercase prose-headings:tracking-widest prose-p:text-gray-300 prose-p:leading-relaxed prose-strong:text-red-400">
+                            <MarkdownRenderer content={motpartSvar} />
+                        </div>
                     </div>
                 ) : (
-                    <div className="h-full flex flex-col items-center justify-center opacity-20">
-                        <ExclamationTriangleIcon className="w-16 h-16 text-gray-600 mb-4" />
-                        <p className="text-sm font-bold uppercase tracking-widest text-gray-500">Väntar på svaromål...</p>
+                    <div className="h-full flex flex-col items-center justify-center space-y-6 opacity-20 group-hover/right:opacity-30 transition-opacity">
+                        <div className="p-8 bg-gray-900 rounded-full border border-white/5">
+                            <ExclamationTriangleIcon className="w-20 h-20 text-gray-600" />
+                        </div>
+                        <p className="text-xs font-black uppercase tracking-[0.3em] text-gray-500">Väntar på svaromål...</p>
                     </div>
                 )}
             </div>
@@ -135,18 +158,35 @@ export const AdversarialDuelView: React.FC<AdversarialDuelViewProps> = ({ caseDa
       </div>
 
       {/* Log Console */}
-      <div className="bg-[#050505] border border-gray-800 rounded-xl p-4 h-48 overflow-y-auto font-mono text-xs custom-scrollbar">
-        {logs.length === 0 ? (
-            <p className="text-gray-700 italic">System redo. Initiera duell för att se processloggar.</p>
-        ) : (
-            logs.map((log, i) => (
-                <div key={i} className="mb-1 text-gray-400">
-                    <span className="text-gray-600 mr-2">[{new Date().toLocaleTimeString()}]</span>
-                    {log.replace('[AgentWorkflow]', '').replace('[DUEL]', '').trim()}
+      <div className="bg-[#050505]/80 backdrop-blur-md border border-white/5 rounded-[2rem] p-8 h-64 overflow-hidden flex flex-col shadow-inner relative">
+        <div className="flex items-center justify-between mb-4 px-2">
+            <span className="text-[10px] font-black text-gray-600 uppercase tracking-widest">Processloggar</span>
+            <div className="flex gap-1.5">
+                <div className="w-1.5 h-1.5 rounded-full bg-red-500/20"></div>
+                <div className="w-1.5 h-1.5 rounded-full bg-amber-500/20"></div>
+                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/20"></div>
+            </div>
+        </div>
+        <div className="flex-grow overflow-y-auto custom-scrollbar font-mono text-[11px] space-y-2">
+            {logs.length === 0 ? (
+                <div className="h-full flex items-center justify-center">
+                    <p className="text-gray-700 italic font-medium tracking-wide">System redo. Initiera duell för att se processloggar.</p>
                 </div>
-            ))
-        )}
-        {error && <p className="text-red-500 font-bold mt-2">FEL: {error}</p>}
+            ) : (
+                logs.map((log, i) => (
+                    <div key={i} className="flex gap-4 animate-in fade-in slide-in-from-left-2 duration-300">
+                        <span className="text-gray-700 font-bold shrink-0">[{new Date().toLocaleTimeString()}]</span>
+                        <span className="text-gray-400 leading-relaxed">{log.replace('[AgentWorkflow]', '').replace('[DUEL]', '').trim()}</span>
+                    </div>
+                ))
+            )}
+            {error && (
+                <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 font-bold mt-4 animate-bounce">
+                    FEL: {error}
+                </div>
+            )}
+        </div>
+        <div className="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-t from-[#050505] to-transparent pointer-events-none"></div>
       </div>
 
     </div>
