@@ -121,7 +121,19 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
     useEffect(() => {
         const interval = setInterval(() => {
             try {
-                setQuotaUsage(usageMonitorService.getUsage());
+                const newUsage = usageMonitorService.getUsage();
+                setQuotaUsage(prev => {
+                    if (
+                        prev.rpm === newUsage.rpm &&
+                        prev.tpm === newUsage.tpm &&
+                        prev.status === newUsage.status &&
+                        prev.limitRpm === newUsage.limitRpm &&
+                        prev.limitTpm === newUsage.limitTpm
+                    ) {
+                        return prev; // Bail out of re-render
+                    }
+                    return newUsage;
+                });
             } catch (e) {
                 console.warn("Usage monitor not available yet");
             }
