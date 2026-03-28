@@ -115,10 +115,13 @@ const BeslutView: React.FC<BeslutViewProps> = ({ activeCase }) => {
         : 'Inget aktivt ärende valt.';
 
       const response = await geminiService.generate(
-        `Du är en juridisk expert-AI. Svara på följande fråga baserat på svensk lag och rättspraxis. 
-         Kontext: ${context}
-         Fråga: ${input}`,
-        { temperature: 0.2 }
+        {
+          contents: `Du är en juridisk expert-AI. Svara på följande fråga baserat på svensk lag och rättspraxis. 
+                     Kontext: ${context}
+                     Fråga: ${input}`,
+          config: { temperature: 0.2 }
+        },
+        'fast'
       );
 
       const assistantMessage: Message = {

@@ -20,10 +20,19 @@ import {
   Sparkles,
   X,
   Upload,
-  Zap
+  Zap,
+  Link2,
+  History,
+  FileSearch,
+  ChevronRight,
+  ChevronDown,
+  Download,
+  Filter,
+  Layers
 } from 'lucide-react';
 import { economicService } from '../services/EconomicService';
-import { Payment, Invoice, DamagesClaim, BudgetForecast, DamageComponent } from '../lib/economic.types';
+import { Payment, Invoice, DamagesClaim, BudgetForecast, DamageComponent, DebtChain, EconomicAnalysisReport, EconomicDocument } from '../lib/economic.types';
+import { economicAnalyzerEngine } from '../lib/EconomicAnalyzerEngine';
 import { offlineService } from '../services/offlineService';
 import { db, CISCase } from '../lib/db';
 import { generateId } from '../lib/utils';
@@ -37,16 +46,19 @@ interface EkonomiViewProps {
 }
 
 const EkonomiView: React.FC<EkonomiViewProps> = ({ activeCase }) => {
-  const [activeSubTab, setActiveSubTab] = useState<'oversikt' | 'betalningar' | 'fakturor' | 'skadestand' | 'budget'>('oversikt');
+  const [activeSubTab, setActiveSubTab] = useState<'oversikt' | 'betalningar' | 'fakturor' | 'skadestand' | 'budget' | 'analys'>('oversikt');
   const [isOffline, setIsOffline] = useState(offlineService.getIsOffline());
   const [payments, setPayments] = useState<Payment[]>([]);
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [claims, setClaims] = useState<DamagesClaim[]>([]);
   const [forecasts, setForecasts] = useState<BudgetForecast[]>([]);
   
-  const [showModal, setShowModal] = useState<'payment' | 'invoice' | 'claim' | 'upload' | null>(null);
+  const [showModal, setShowModal] = useState<'payment' | 'invoice' | 'claim' | 'upload' | 'auto-analys' | null>(null);
   const [loading, setLoading] = useState(false);
   const { parseFile, isParsing } = useFileParser();
+
+  const [analysisReport, setAnalysisReport] = useState<EconomicAnalysisReport | null>(null);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
 
   // Form states
   const [newPayment, setNewPayment] = useState({ amount: '', recipient: '', description: '' });
@@ -243,6 +255,36 @@ const EkonomiView: React.FC<EkonomiViewProps> = ({ activeCase }) => {
     loadData();
   };
 
+  const handleAutomaticAnalysis = async (files: File[]) => {
+    if (files.length === 0) return;
+    setIsAnalyzing(true);
+    toast.info(`Analyserar ${files.length} ekonomiska dokument...`);
+    
+    try {
+      const extractedDocs: EconomicDocument[] = [];
+      for (const file of files) {
+        const parsed = await parseFile(file);
+        if (parsed) {
+          const doc = economicAnalyzerEngine.extractInfo(parsed);
+          extractedDocs.push(doc);
+        }
+      }
+      
+      const chains = economicAnalyzerEngine.groupIntoChains(extractedDocs);
+      const report = economicAnalyzerEngine.generateReport(chains);
+      
+      setAnalysisReport(report);
+      toast.success('Automatisk analys slutförd');
+      setActiveSubTab('analys');
+    } catch (error) {
+      toast.error('Kunde inte genomföra automatisk analys');
+      console.error(error);
+    } finally {
+      setIsAnalyzing(false);
+      setShowModal(null);
+    }
+  };
+
   const handleFileUpload = async (files: File[]) => {
     if (files.length === 0) return;
     setLoading(true);
@@ -250,22 +292,24 @@ const EkonomiView: React.FC<EkonomiViewProps> = ({ activeCase }) => {
     
     try {
       for (const file of files) {
-        const content = await parseFile(file);
-        // In a real app, we'd send 'content' to Gemini to extract invoice data
-        // For now, we simulate finding a new invoice
-        const mockInvoice: Invoice = {
-          id: generateId('INV'),
-          invoiceNumber: `AI-INV-${Math.floor(Math.random() * 10000)}`,
-          issueDate: new Date().toISOString().split('T')[0],
-          dueDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-          amount: 15000 + Math.random() * 5000,
-          vat: 3750,
-          total: 18750,
-          status: 'SENT',
-          clientName: 'Extraherad Klient',
-          items: [{ id: generateId('ITEM'), description: 'AI-analyserad tjänst', quantity: 1, unitPrice: 15000, total: 15000 }]
-        };
-        await economicService.addInvoice(mockInvoice);
+        const result = await parseFile(file);
+        if (result) {
+          // In a real app, we'd send 'content' to Gemini to extract invoice data
+          // For now, we simulate finding a new invoice
+          const mockInvoice: Invoice = {
+            id: generateId('INV'),
+            invoiceNumber: `AI-INV-${Math.floor(Math.random() * 10000)}`,
+            issueDate: new Date().toISOString().split('T')[0],
+            dueDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+            amount: 15000 + Math.random() * 5000,
+            vat: 3750,
+            total: 18750,
+            status: 'SENT',
+            clientName: 'Extraherad Klient',
+            items: [{ id: generateId('ITEM'), description: 'AI-analyserad tjänst', quantity: 1, unitPrice: 15000, total: 15000 }]
+          };
+          await economicService.addInvoice(mockInvoice);
+        }
       }
       toast.success('Fakturor analyserade och tillagda');
       loadData();
@@ -297,6 +341,12 @@ const EkonomiView: React.FC<EkonomiViewProps> = ({ activeCase }) => {
         </div>
         <div className="flex gap-3">
           <button 
+            onClick={() => setShowModal('auto-analys')}
+            className="btn btn-secondary !bg-[var(--accent)] !text-white border-none shadow-lg shadow-[var(--accent)]/20"
+          >
+            <Zap size={18} /> Automatisk Analys
+          </button>
+          <button 
             onClick={() => setShowModal('upload')}
             className="btn btn-secondary"
           >
@@ -307,12 +357,6 @@ const EkonomiView: React.FC<EkonomiViewProps> = ({ activeCase }) => {
             className="btn btn-primary shadow-lg shadow-[var(--accent)]/20"
           >
             <Plus size={18} /> Nytt Krav
-          </button>
-          <button 
-            onClick={() => setShowModal('invoice')}
-            className="btn btn-secondary"
-          >
-            <FileText size={18} /> Skapa Faktura
           </button>
         </div>
       </div>
@@ -325,6 +369,7 @@ const EkonomiView: React.FC<EkonomiViewProps> = ({ activeCase }) => {
           { id: 'fakturor', label: 'Fakturor', icon: FileText },
           { id: 'skadestand', label: 'Skadestånd', icon: ShieldAlert },
           { id: 'budget', label: 'Budget & Prognos', icon: TrendingUp },
+          { id: 'analys', label: 'Automatisk Analys', icon: Zap },
         ].map(tab => (
           <button
             key={tab.id}
@@ -746,86 +791,179 @@ const EkonomiView: React.FC<EkonomiViewProps> = ({ activeCase }) => {
           </motion.div>
         )}
 
-        {activeSubTab === 'budget' && (
+        {activeSubTab === 'analys' && (
           <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="grid grid-cols-1 lg:grid-cols-2 gap-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="space-y-12"
           >
-            <div className="card">
-              <h3 className="text-2xl font-bold text-[var(--ink-main)] mb-8 uppercase tracking-tight m-0">Kassaflödesanalys</h3>
-              <div className="space-y-8">
-                <div className="flex items-end gap-3 h-64">
-                  {[45, 60, 35, 80, 55, 70, 90].map((h, i) => (
-                    <div key={i} className="flex-1 flex flex-col items-center gap-3">
-                      <div className="w-full bg-[var(--bg-main)] rounded-t-2xl relative group h-full">
-                        <div 
-                          className="absolute bottom-0 left-0 right-0 bg-[var(--accent)] rounded-t-2xl transition-all duration-700 ease-out" 
-                          style={{ height: `${h}%` }} 
-                        />
-                        <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-[var(--ink-main)] text-white text-[10px] px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity font-bold shadow-xl">
-                          {h*10}k
+            {!analysisReport ? (
+              <div className="card border-dashed border-2 border-[var(--line)] !bg-transparent py-24 text-center">
+                <div className="w-24 h-24 bg-[var(--bg-main)] rounded-[2.5rem] flex items-center justify-center mx-auto mb-8 text-[var(--accent)] shadow-inner">
+                  <Zap size={48} />
+                </div>
+                <h3 className="text-3xl font-serif font-bold text-[var(--ink-main)] mb-4">Ingen analys genomförd</h3>
+                <p className="text-[var(--ink-muted)] text-lg max-w-md mx-auto mb-12 font-medium">
+                  Ladda upp ekonomiska dokument för att automatiskt identifiera referenser, bygga skuldkedjor och beräkna tillkomna avgifter.
+                </p>
+                <button 
+                  onClick={() => setShowModal('auto-analys')}
+                  className="btn btn-primary px-12 py-5 text-base shadow-xl shadow-[var(--accent)]/20"
+                >
+                  <Upload size={20} /> Starta Automatisk Analys
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-12">
+                {/* Summary Stats */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  <div className="card !p-10">
+                    <p className="text-[10px] font-bold text-[var(--ink-muted)] uppercase tracking-[0.2em] mb-3">Total Skuldbelastning</p>
+                    <h3 className="text-4xl font-serif font-bold text-[var(--ink-main)]">{analysisReport.totalDebt.toLocaleString('sv-SE')} kr</h3>
+                  </div>
+                  <div className="card !p-10">
+                    <p className="text-[10px] font-bold text-[var(--ink-muted)] uppercase tracking-[0.2em] mb-3">Totala Tillkomna Avgifter</p>
+                    <h3 className="text-4xl font-serif font-bold text-amber-600">{analysisReport.totalFees.toLocaleString('sv-SE')} kr</h3>
+                  </div>
+                  <div className="card !p-10">
+                    <p className="text-[10px] font-bold text-[var(--ink-muted)] uppercase tracking-[0.2em] mb-3">Antal Skuldkedjor</p>
+                    <h3 className="text-4xl font-serif font-bold text-[var(--accent)]">{analysisReport.chains.length}</h3>
+                  </div>
+                </div>
+
+                {/* Chains List */}
+                <div className="space-y-8">
+                  <h2 className="text-2xl font-serif font-bold text-[var(--ink-main)] flex items-center gap-4">
+                    <Layers size={28} className="text-[var(--accent)]" /> Identifierade Skuldkedjor
+                  </h2>
+                  
+                  {analysisReport.chains.map((chain, index) => (
+                    <div key={chain.id} className="card !p-0 overflow-hidden group">
+                      <div className="p-10 border-b border-[var(--line)] bg-[var(--bg-main)]/30 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                        <div className="space-y-3">
+                          <div className="flex items-center gap-3">
+                            <span className="px-3 py-1.5 bg-[var(--ink-main)] text-white text-[10px] font-bold uppercase tracking-widest rounded-xl">Kedja #{index + 1}</span>
+                            <span className="text-xs font-bold text-[var(--ink-muted)] uppercase tracking-widest">REF: {chain.references.join(', ')}</span>
+                          </div>
+                          <h3 className="text-2xl font-serif font-bold text-[var(--ink-main)]">
+                            Ursprungsskuld: {chain.documents[0].amount.toLocaleString('sv-SE')} kr
+                          </h3>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-[10px] font-bold text-[var(--ink-muted)] uppercase tracking-[0.2em] mb-1">Avgiftsökning</p>
+                          <p className="text-3xl font-serif font-bold text-amber-600">+{chain.totalFees.toLocaleString('sv-SE')} kr</p>
                         </div>
                       </div>
-                      <span className="text-[10px] font-bold text-[var(--ink-muted)] uppercase tracking-widest">M{i+1}</span>
+                      
+                      <div className="p-10 bg-white/50">
+                        <div className="space-y-8">
+                          {chain.documents.map((doc, docIndex) => (
+                            <div key={doc.id} className="flex gap-8 relative">
+                              {docIndex < chain.documents.length - 1 && (
+                                <div className="absolute left-6 top-12 bottom-0 w-px bg-[var(--line)] border-dashed border-l" />
+                              )}
+                              <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 z-10 shadow-sm ${
+                                docIndex === 0 ? 'bg-[var(--accent)] text-white' : 'bg-[var(--bg-main)] text-[var(--ink-muted)] border border-[var(--border)]'
+                              }`}>
+                                {docIndex === 0 ? <Plus size={24} /> : <ArrowRight size={24} />}
+                              </div>
+                              <div className="flex-1 bg-white rounded-3xl p-8 border border-[var(--border)] flex flex-col md:flex-row md:items-center justify-between gap-6 hover:border-[var(--accent)]/30 transition-all shadow-sm">
+                                <div>
+                                  <div className="flex items-center gap-4 mb-2">
+                                    <span className="text-xs font-bold text-[var(--ink-muted)] uppercase tracking-widest">{doc.date}</span>
+                                    <span className="px-2.5 py-1 bg-[var(--bg-main)] border border-[var(--border)] text-[10px] font-bold uppercase tracking-widest rounded-lg">{doc.type}</span>
+                                  </div>
+                                  <p className="text-lg font-bold text-[var(--ink-main)]">{doc.name}</p>
+                                </div>
+                                <div className="flex items-center gap-12">
+                                  <div className="text-right">
+                                    <p className="text-[10px] font-bold text-[var(--ink-muted)] uppercase tracking-[0.2em] mb-1">Belopp</p>
+                                    <p className="text-xl font-serif font-bold text-[var(--ink-main)]">{doc.amount.toLocaleString('sv-SE')} kr</p>
+                                  </div>
+                                  {doc.addedFees && doc.addedFees !== 0 && (
+                                    <div className="text-right min-w-[100px]">
+                                      <p className="text-[10px] font-bold text-amber-600 uppercase tracking-[0.2em] mb-1">Avgift</p>
+                                      <p className="text-lg font-bold text-amber-600">+{doc.addedFees.toLocaleString('sv-SE')} kr</p>
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
                     </div>
                   ))}
                 </div>
-                <div className="grid grid-cols-2 gap-6 pt-8 border-t border-[var(--line)]">
-                  <div className="p-6 bg-[var(--success)]/5 rounded-[2rem] border border-[var(--success)]/10">
-                    <div className="text-[10px] font-bold text-[var(--success)] uppercase tracking-[0.2em] mb-2">Genomsnittlig Intäkt</div>
-                    <div className="text-2xl font-bold text-[var(--success)]">62.400 kr</div>
-                  </div>
-                  <div className="p-6 bg-[var(--danger)]/5 rounded-[2rem] border border-[var(--danger)]/10">
-                    <div className="text-[10px] font-bold text-[var(--danger)] uppercase tracking-[0.2em] mb-2">Genomsnittlig Utgift</div>
-                    <div className="text-2xl font-bold text-[var(--danger)]">48.200 kr</div>
-                  </div>
-                </div>
               </div>
-            </div>
-
-            <div className="space-y-8">
-              <div className="card">
-                <h3 className="text-2xl font-bold text-[var(--ink-main)] mb-6 uppercase tracking-tight m-0">Antifragil Prognos</h3>
-                <div className="space-y-6">
-                  <div className="p-6 bg-[var(--bg-main)]/50 rounded-[2rem] border border-[var(--border)]">
-                    <div className="flex justify-between items-center mb-3">
-                      <span className="text-xs font-bold text-[var(--ink-muted)] uppercase tracking-widest">Konfidensgrad</span>
-                      <span className="text-sm font-bold text-[var(--accent)]">85%</span>
-                    </div>
-                    <div className="h-3 bg-[var(--bg-main)] rounded-full overflow-hidden border border-[var(--border)]">
-                      <div className="h-full bg-[var(--accent)] w-[85%] rounded-full" />
-                    </div>
-                  </div>
-                  <p className="text-sm text-[var(--ink-muted)] leading-relaxed font-medium">
-                    Vår AI-modell har simulerat 10 000 scenarier baserat på din historik och pågående skadeståndsmål. Prognosen för Q2 indikerar en tillväxt på 12% med en risk för "svarta svanar" (oväntade rättsliga utfall) på endast 4%.
-                  </p>
-                  <button 
-                    onClick={handleGenerateReport}
-                    disabled={isAiLoading}
-                    className="btn btn-primary w-full py-4"
-                  >
-                    {isAiLoading ? <Loader2 size={18} className="animate-spin" /> : <BarChart3 size={18} />} Generera Detaljerad Rapport
-                  </button>
-                </div>
-              </div>
-
-              <div className="bg-[var(--warning)]/10 border border-[var(--warning)]/20 rounded-[2rem] p-8">
-                <div className="flex items-center gap-4 mb-4 text-[var(--warning)]">
-                  <AlertCircle size={24} />
-                  <h4 className="text-lg font-bold uppercase tracking-tight m-0">Varning: Likviditetsrisk</h4>
-                </div>
-                <p className="text-sm text-[var(--ink-main)]/80 leading-relaxed font-medium">
-                  Om skadeståndskravet "CLAIM-2026-001" inte avgörs till din fördel kan likviditeten sjunka under rekommenderad nivå i maj. Överväg att tidigarelägga fakturering för projekt "X".
-                </p>
-              </div>
-            </div>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
 
       {/* Modals */}
       <AnimatePresence>
+        {showModal === 'auto-analys' && (
+          <div className="fixed inset-0 z-[300] flex items-center justify-center p-8">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowModal(null)}
+              className="absolute inset-0 bg-[var(--ink-main)]/40 backdrop-blur-xl"
+            />
+            
+            <motion.div 
+              initial={{ scale: 0.95, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 20 }}
+              className="bg-[var(--bg-main)] rounded-[3rem] w-full max-w-2xl overflow-hidden flex flex-col shadow-2xl relative z-10 border border-white/20"
+            >
+              <div className="px-12 py-10 border-b border-[var(--border)] flex justify-between items-center bg-white/50 backdrop-blur-sm">
+                <div className="space-y-1">
+                  <h3 className="text-2xl font-black text-[var(--ink-main)] tracking-tight">Automatisk Dokumentanalys</h3>
+                  <p className="text-[10px] text-[var(--ink-muted)] uppercase tracking-[0.2em] font-black">Identifiera skuldkedjor och avgifter</p>
+                </div>
+                <button 
+                  onClick={() => setShowModal(null)}
+                  className="p-4 hover:bg-[var(--bg-main)] rounded-[1.5rem] transition-all text-[var(--ink-muted)] hover:text-[var(--ink-main)]"
+                >
+                  <X size={32} />
+                </button>
+              </div>
+              
+              <div className="p-12">
+                <FileUpload 
+                  onFilesSelect={handleAutomaticAnalysis}
+                  maxFiles={20}
+                  acceptedTypes={['application/pdf', 'image/jpeg', 'image/png', 'text/plain', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']}
+                />
+                
+                <div className="mt-8 p-6 bg-indigo-50 border border-indigo-100 rounded-2xl flex gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-indigo-500 text-white flex items-center justify-center shrink-0 shadow-lg shadow-indigo-500/20">
+                    <Layers size={20} />
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-xs font-black text-indigo-900 uppercase tracking-widest">Generisk Analysmotor</p>
+                    <p className="text-[11px] text-indigo-700 font-medium leading-relaxed">
+                      Ladda upp alla typer av ekonomiska dokument. Systemet hittar själv kopplingar mellan dem oavsett utfärdare.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="px-12 py-8 border-t border-[var(--border)] bg-white/50 backdrop-blur-sm flex justify-end">
+                <button 
+                  onClick={() => setShowModal(null)}
+                  className="px-10 py-4 text-[var(--ink-muted)] font-black text-[11px] uppercase tracking-widest hover:bg-[var(--bg-main)] rounded-[1.5rem] transition-all active:scale-95"
+                >
+                  Avbryt
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+
         {showModal === 'upload' && (
           <div className="fixed inset-0 z-[300] flex items-center justify-center p-8">
             <motion.div 
@@ -933,7 +1071,7 @@ const EkonomiView: React.FC<EkonomiViewProps> = ({ activeCase }) => {
           </div>
         )}
 
-        {showModal && (
+        {showModal && showModal !== 'upload' && showModal !== 'auto-analys' && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
             <motion.div 
               initial={{ opacity: 0 }}
@@ -1107,6 +1245,7 @@ const EkonomiView: React.FC<EkonomiViewProps> = ({ activeCase }) => {
           </div>
         )}
       </AnimatePresence>
+
       {/* AI Result Modal */}
       <AnimatePresence>
         {aiResult && (

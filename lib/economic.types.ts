@@ -82,3 +82,32 @@ export interface EconomicState {
   claims: DamagesClaim[];
   forecasts: BudgetForecast[];
 }
+
+export interface EconomicDocument {
+  id: string;
+  name: string;
+  type: string; // 'faktura', 'påminnelse', 'inkasso', 'kronofogden', 'avtal', etc.
+  amount: number;
+  date: string;
+  references: string[];
+  textContent: string;
+  fileType: string;
+  addedFees?: number;
+}
+
+export interface DebtChain {
+  id: string;
+  originalAmount: number;
+  currentAmount: number;
+  totalFees: number;
+  documents: EconomicDocument[];
+  references: string[];
+  status: 'ACTIVE' | 'SETTLED' | 'LITIGATION';
+}
+
+export interface EconomicAnalysisReport {
+  timestamp: string;
+  chains: DebtChain[];
+  totalDebt: number;
+  totalFees: number;
+}

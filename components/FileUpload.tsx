@@ -7,9 +7,17 @@ interface FileUploadProps {
   onFilesSelect: (files: File[]) => void;
   isParsing?: boolean;
   parsingError?: string | null;
+  maxFiles?: number;
+  acceptedTypes?: string[];
 }
 
-const FileUpload: React.FC<FileUploadProps> = ({ onFilesSelect, isParsing, parsingError }) => {
+const FileUpload: React.FC<FileUploadProps> = ({ 
+  onFilesSelect, 
+  isParsing, 
+  parsingError,
+  maxFiles = 10,
+  acceptedTypes = ['application/pdf', 'image/jpeg', 'image/png', 'text/plain', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']
+}) => {
   const [isDragging, setIsDragging] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
