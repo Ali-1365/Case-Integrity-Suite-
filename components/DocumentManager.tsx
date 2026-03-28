@@ -319,19 +319,19 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
     };
 
     const Breadcrumbs = () => {
-        const items = [{ label: 'Hem', onClick: () => { setSelectedDocId(null); setActiveModal(null); setShowMoreMenu(false); }, icon: <LayoutDashboard className="w-4 h-4" /> }];
+        const items = [{ label: 'Hem', onClick: () => { setSelectedDocId(null); setActiveModal(null); setShowMoreMenu(false); }, icon: <LayoutDashboard className="w-3.5 h-3.5" /> }];
         
         if (selectedDocId) {
             items.push({ 
                 label: 'Analys', 
                 onClick: () => { setActiveModal(null); setShowMoreMenu(false); },
-                icon: <Search className="w-4 h-4" />
+                icon: <Search className="w-3.5 h-3.5" />
             });
             if (selectedDoc) {
                 items.push({ 
                     label: selectedDoc.name, 
                     onClick: () => {},
-                    icon: <FileText className="w-4 h-4" />
+                    icon: <FileText className="w-3.5 h-3.5" />
                 });
             }
         } else if (activeModal) {
@@ -353,15 +353,15 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
             items.push({ 
                 label: modalLabels[activeModal] || 'Modul', 
                 onClick: () => {},
-                icon: <Settings2 className="w-4 h-4" />
+                icon: <Settings2 className="w-3.5 h-3.5" />
             });
         }
 
         return (
-            <nav className="flex items-center space-x-4 text-[9px] font-bold uppercase tracking-widest text-[var(--ink-muted)] mb-8" aria-label="Breadcrumb">
+            <nav className="flex items-center space-x-3 text-[10px] font-bold uppercase tracking-wider text-[var(--ink-light)] mb-8" aria-label="Breadcrumb">
                 {items.map((item, index) => (
                     <React.Fragment key={index}>
-                        {index > 0 && <span className="text-[var(--border)]">/</span>}
+                        {index > 0 && <span className="text-[var(--border-strong)] opacity-50">/</span>}
                         <button 
                             onClick={item.onClick}
                             className={`flex items-center space-x-2 transition-all ${index === items.length - 1 ? 'text-[var(--ink-main)]' : 'hover:text-[var(--accent)]'}`}
@@ -377,12 +377,12 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
     };
 
     const PageHeader = ({ title, subtitle, icon }: { title: string, subtitle?: string, icon?: React.ReactNode }) => (
-        <div className="mb-12 animate-in fade-in duration-700">
-            <div className="flex items-center gap-4 mb-2">
-                {icon && <div className="text-[var(--ink-main)]">{icon}</div>}
-                <h2 className="text-2xl font-bold text-[var(--ink-main)] tracking-tight m-0 font-serif">{title}</h2>
+        <div className="mb-12 animate-fade-in">
+            <div className="flex items-center gap-4 mb-3">
+                {icon && <div className="p-2 bg-[var(--accent)]/5 rounded-xl text-[var(--accent)]">{icon}</div>}
+                <h2 className="text-2xl font-bold text-[var(--ink-main)] tracking-tight m-0">{title}</h2>
             </div>
-            {subtitle && <p className="text-sm text-[var(--ink-muted)] font-medium max-w-3xl leading-relaxed">{subtitle}</p>}
+            {subtitle && <p className="text-sm text-[var(--ink-muted)] font-medium max-w-2xl leading-relaxed">{subtitle}</p>}
         </div>
     );
 
@@ -403,52 +403,53 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
 
     return (
         <div className={`flex flex-col min-h-screen ${isDarkMode ? 'dark bg-[var(--bg-main)] text-[var(--ink-main)]' : 'bg-[var(--bg-main)] text-[var(--ink-main)]'} font-sans transition-colors duration-1000`}>
-            <header className="h-16 px-6 border-b border-[var(--border)] bg-[var(--bg-card)] flex justify-between items-center sticky top-0 z-[100]">
-                <div className="flex items-center space-x-8 w-full">
+            <header className="h-16 px-6 bg-[var(--bg-nav)] border-b border-white/5 flex justify-between items-center sticky top-0 z-[100] shadow-lg">
+                <div className="flex items-center space-x-10 w-full">
                     <div className="flex items-center space-x-3 cursor-pointer group" onClick={() => navigateTo('overview')}>
-                        <div className="p-2 bg-[var(--accent)] rounded-lg transition-all">
+                        <div className="p-2 bg-[var(--accent)] rounded-lg transition-all shadow-sm group-hover:scale-105">
                             <ShieldCheck className="h-5 w-5 text-white" />
                         </div>
                         <div className="flex flex-col">
-                            <h1 className="text-sm font-bold tracking-tight m-0 leading-none text-[var(--ink-main)] font-serif">Case Integrity</h1>
+                            <h1 className="text-sm font-bold tracking-tight m-0 leading-none text-white uppercase">Case Integrity</h1>
+                            <span className="text-[8px] text-white/40 font-bold uppercase tracking-[0.2em] mt-1">Enterprise Suite</span>
                         </div>
                     </div>
                     
-                    <nav className="hidden xl:flex items-center space-x-2 flex-1">
+                    <nav className="hidden xl:flex items-center space-x-1 flex-1">
                         <button 
                             onClick={() => navigateTo('hub')}
-                            className={`px-6 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all flex items-center space-x-2 shadow-sm ${
+                            className={`px-5 py-2 rounded-lg text-[10px] font-bold uppercase tracking-widest transition-all flex items-center space-x-2 ${
                                 currentView === 'hub' 
-                                ? 'bg-[var(--accent)] text-white' 
-                                : 'bg-[var(--bg-card)] text-[var(--ink-main)] border border-[var(--border)] hover:border-[var(--accent)]'
+                                ? 'bg-white/10 text-white border border-white/10' 
+                                : 'text-white/60 hover:text-white hover:bg-white/5'
                             }`}
                         >
                             <LayoutDashboard className="w-4 h-4" />
                             <span>System Hub</span>
                         </button>
-                        <div className="w-px h-6 bg-[var(--border)] mx-4"></div>
-                        <ToolButton icon={<Copy />} onClick={() => navigateTo('overview')} label="Ärenden" active={currentView === 'overview' || currentView === 'analysis'} />
-                        <ToolButton icon={<Search />} onClick={() => navigateTo('agent')} label="Analys" active={activeModal === 'agent'} />
-                        <ToolButton icon={<Wallet />} onClick={() => navigateTo('ekonomi')} label="Ekonomi" active={activeModal === 'ekonomi'} />
-                        <ToolButton icon={<MessageSquare />} onClick={() => navigateTo('chat')} label="Beslut" active={activeModal === 'chat'} />
-                        <ToolButton icon={<Zap />} onClick={() => navigateTo('production')} label="Produktion" active={activeModal === 'production'} />
-                        <ToolButton icon={<Archive />} onClick={() => navigateTo('arch')} label="Arkiv" active={activeModal === 'arch' || activeModal === 'archive'} />
+                        <div className="w-px h-6 bg-white/10 mx-4"></div>
+                        <ToolButton icon={<Copy />} onClick={() => navigateTo('overview')} label="Ärenden" active={currentView === 'overview' || currentView === 'analysis'} isDark />
+                        <ToolButton icon={<Search />} onClick={() => navigateTo('agent')} label="Analys" active={activeModal === 'agent'} isDark />
+                        <ToolButton icon={<Wallet />} onClick={() => navigateTo('ekonomi')} label="Ekonomi" active={activeModal === 'ekonomi'} isDark />
+                        <ToolButton icon={<MessageSquare />} onClick={() => navigateTo('chat')} label="Beslut" active={activeModal === 'chat'} isDark />
+                        <ToolButton icon={<Zap />} onClick={() => navigateTo('production')} label="Produktion" active={activeModal === 'production'} isDark />
+                        <ToolButton icon={<Archive />} onClick={() => navigateTo('arch')} label="Arkiv" active={activeModal === 'arch' || activeModal === 'archive'} isDark />
                     </nav>
                 </div>
 
-                <div className="flex items-center space-x-4 ml-8">
-                    <div className="flex items-center space-x-2 px-3 py-1 bg-[var(--bg-main)] border border-[var(--border)] rounded text-[10px] font-mono">
-                        <span className="text-[var(--ink-muted)] uppercase tracking-widest">System</span>
+                <div className="flex items-center space-x-6 ml-8">
+                    <div className="flex items-center space-x-3 px-3 py-1.5 bg-white/5 border border-white/10 rounded-md text-[10px] font-mono text-white/70">
+                        <span className="uppercase tracking-widest opacity-50">API Status</span>
                         <div className={`w-1.5 h-1.5 rounded-full ${
-                            quotaUsage.status === 'critical' ? 'bg-red-500' : (quotaUsage.status === 'warning' ? 'bg-amber-500' : 'bg-emerald-500')
-                        }`}></div>
-                        <span className="text-[var(--ink-main)] font-bold">{quotaUsage.rpm}/{quotaUsage.limitRpm}</span>
+                            quotaUsage.status === 'critical' ? 'bg-[var(--danger)]' : (quotaUsage.status === 'warning' ? 'bg-[var(--warning)]' : 'bg-[var(--success)]')
+                        } shadow-[0_0_8px_rgba(25,135,84,0.3)]`}></div>
+                        <span className="font-bold">{quotaUsage.rpm}/{quotaUsage.limitRpm}</span>
                     </div>
                     
                     <div className="flex items-center space-x-2">
                         <button 
                             onClick={onLogout} 
-                            className="p-2 text-[var(--ink-muted)] hover:text-red-600 transition-all"
+                            className="p-2 text-white/40 hover:text-white transition-all hover:bg-white/5 rounded-lg"
                             title="Logga ut"
                         >
                             <LogOut className="h-5 w-5" />
@@ -525,37 +526,37 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
             </main>
 
             {activeModal && (
-                <div className="fixed inset-0 bg-black/40 backdrop-blur-xl z-[250] flex items-center justify-center p-0 md:p-6 lg:p-12 animate-in fade-in duration-500">
-                    <div className="bg-[var(--bg-card)] rounded-none md:rounded-[3rem] shadow-2xl w-full max-w-7xl h-full md:h-[92vh] flex flex-col border-none md:border border-[var(--border)] overflow-hidden animate-in zoom-in-95 duration-700">
-                        <header className="px-12 py-8 border-b border-[var(--border)] bg-[var(--bg-card)] flex justify-between items-center shrink-0">
-                            <div className="flex items-center space-x-8">
-                                <div className="p-4 bg-[var(--accent)] rounded-[1.5rem] shadow-2xl shadow-[var(--accent)]/20">
-                                    {activeModal === 'hub' && <LayoutDashboard className="h-7 w-7 text-white" />}
-                                    {activeModal === 'ekonomi' && <Wallet className="h-7 w-7 text-white" />}
-                                    {activeModal === 'production' && <Zap className="h-7 w-7 text-white" />}
-                                    {activeModal === 'opinion' && <Sparkles className="h-7 w-7 text-white" />}
-                                    {activeModal === 'duel' && <AlertTriangle className="h-7 w-7 text-white" />}
-                                    {activeModal === 'integrity' && <Fingerprint className="h-7 w-7 text-white" />}
-                                    {activeModal === 'pipeline' && <Activity className="h-7 w-7 text-white" />}
-                                    {activeModal === 'oracle' && <Cpu className="h-7 w-7 text-white" />}
-                                    {activeModal === 'archive' && <Archive className="h-7 w-7 text-white" />}
-                                    {activeModal === 'audit' && <ShieldCheck className="h-7 w-7 text-white" />}
-                                    {activeModal === 'chat' && <MessageSquare className="h-7 w-7 text-white" />}
-                                    {activeModal === 'agent' && <Search className="h-7 w-7 text-white" />}
-                                    {activeModal === 'debug' && <Code className="h-7 w-7 text-white" />}
-                                    {activeModal === 'controller' && <Settings2 className="h-7 w-7 text-white" />}
-                                    {activeModal === 'notary' && <ClipboardList className="h-7 w-7 text-white" />}
-                                    {activeModal === 'framework' && <Scale className="h-7 w-7 text-white" />}
-                                    {activeModal === 'arch' && <Archive className="h-7 w-7 text-white" />}
-                                    {activeModal === 'vision' && <Shield className="h-7 w-7 text-white" />}
-                                    {activeModal === 'whitebook' && <ClipboardList className="h-7 w-7 text-white" />}
-                                    {activeModal === 'sfb' && <Shield className="h-7 w-7 text-white" />}
-                                    {activeModal === 'monitor' && <Activity className="h-7 w-7 text-white" />}
-                                    {activeModal === 'inventory' && <ClipboardList className="h-7 w-7 text-white" />}
-                                    {activeModal === 'profiler' && <Users className="h-7 w-7 text-white" />}
+                <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[250] flex items-center justify-center p-0 md:p-6 lg:p-10 animate-in fade-in duration-300">
+                    <div className="bg-[var(--bg-card)] rounded-none md:rounded-2xl shadow-2xl w-full max-w-7xl h-full md:h-[92vh] flex flex-col border-none md:border border-[var(--border)] overflow-hidden animate-in zoom-in-95 duration-400">
+                        <header className="px-8 py-5 border-b border-[var(--border)] bg-white flex justify-between items-center shrink-0">
+                            <div className="flex items-center space-x-5">
+                                <div className="p-2.5 bg-[var(--accent)] rounded-xl shadow-lg shadow-[var(--accent)]/10">
+                                    {activeModal === 'hub' && <LayoutDashboard className="h-5 w-5 text-white" />}
+                                    {activeModal === 'ekonomi' && <Wallet className="h-5 w-5 text-white" />}
+                                    {activeModal === 'production' && <Zap className="h-5 w-5 text-white" />}
+                                    {activeModal === 'opinion' && <Sparkles className="h-5 w-5 text-white" />}
+                                    {activeModal === 'duel' && <AlertTriangle className="h-5 w-5 text-white" />}
+                                    {activeModal === 'integrity' && <Fingerprint className="h-5 w-5 text-white" />}
+                                    {activeModal === 'pipeline' && <Activity className="h-5 w-5 text-white" />}
+                                    {activeModal === 'oracle' && <Cpu className="h-5 w-5 text-white" />}
+                                    {activeModal === 'archive' && <Archive className="h-5 w-5 text-white" />}
+                                    {activeModal === 'audit' && <ShieldCheck className="h-5 w-5 text-white" />}
+                                    {activeModal === 'chat' && <MessageSquare className="h-5 w-5 text-white" />}
+                                    {activeModal === 'agent' && <Search className="h-5 w-5 text-white" />}
+                                    {activeModal === 'debug' && <Code className="h-5 w-5 text-white" />}
+                                    {activeModal === 'controller' && <Settings2 className="h-5 w-5 text-white" />}
+                                    {activeModal === 'notary' && <ClipboardList className="h-5 w-5 text-white" />}
+                                    {activeModal === 'framework' && <Scale className="h-5 w-5 text-white" />}
+                                    {activeModal === 'arch' && <Archive className="h-5 w-5 text-white" />}
+                                    {activeModal === 'vision' && <Shield className="h-5 w-5 text-white" />}
+                                    {activeModal === 'whitebook' && <ClipboardList className="h-5 w-5 text-white" />}
+                                    {activeModal === 'sfb' && <Shield className="h-5 w-5 text-white" />}
+                                    {activeModal === 'monitor' && <Activity className="h-5 w-5 text-white" />}
+                                    {activeModal === 'inventory' && <ClipboardList className="h-5 w-5 text-white" />}
+                                    {activeModal === 'profiler' && <Users className="h-5 w-5 text-white" />}
                                 </div>
                                 <div>
-                                    <h2 className="text-3xl font-black text-[var(--ink-main)] tracking-tighter m-0 font-serif">
+                                    <h2 className="text-xl font-bold text-[var(--ink-main)] tracking-tight m-0">
                                         {activeModal === 'hub' && 'System Control Hub'}
                                         {activeModal === 'ekonomi' && 'Ekonomisk Motor'}
                                         {activeModal === 'production' && 'Juridisk Textproduktion'}
@@ -580,38 +581,38 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                                         {activeModal === 'inventory' && 'System Inventory'}
                                         {activeModal === 'profiler' && 'Case Profiler'}
                                     </h2>
-                                    <p className="text-[11px] font-black text-[var(--ink-muted)] uppercase tracking-[0.3em] mt-2 opacity-70">Säker anslutning • Modul v.7.5</p>
+                                    <p className="text-[9px] font-bold text-[var(--ink-light)] uppercase tracking-widest mt-1">Säker anslutning • Enterprise v1.0</p>
                                 </div>
                             </div>
                             <button 
                                 onClick={() => setActiveModal(null)} 
-                                className="p-4 text-[var(--ink-muted)] hover:text-[var(--ink-main)] hover:bg-[var(--bg-main)] rounded-[1.5rem] transition-all active:scale-90"
+                                className="p-2 text-[var(--ink-light)] hover:text-[var(--ink-main)] hover:bg-gray-50 rounded-lg transition-all"
                                 title="Stäng modul"
                             >
-                                <X className="h-8 w-8" />
+                                <X className="h-5 w-5" />
                             </button>
                         </header>
-                        <div className="flex-1 overflow-y-auto p-12 custom-scrollbar bg-[var(--bg-main)]/30">
+                        <div className="flex-1 overflow-y-auto p-8 custom-scrollbar bg-[var(--bg-main)]">
                             {/* Moduler som kräver en aktiv analys/ärende */}
                             {!currentAnalysis && ['production', 'opinion', 'duel', 'integrity', 'pipeline', 'profiler', 'controller', 'oracle'].includes(activeModal || '') && (
-                                <div className="h-full flex flex-col items-center justify-center text-center p-12 bg-[var(--bg-card)] rounded-[3rem] border-2 border-dashed border-[var(--border)]">
-                                    <div className="w-24 h-24 bg-[var(--bg-main)] rounded-[2rem] flex items-center justify-center mb-8 border border-[var(--border)]">
-                                        <FileText className="w-12 h-12 text-[var(--accent)]" />
+                                <div className="h-full flex flex-col items-center justify-center text-center p-12 bg-white rounded-2xl border border-[var(--border)] shadow-sm">
+                                    <div className="w-16 h-16 bg-[var(--bg-main)] rounded-2xl flex items-center justify-center mb-6 border border-[var(--border)]">
+                                        <FileText className="w-8 h-8 text-[var(--accent)]" />
                                     </div>
-                                    <h3 className="text-2xl font-black text-[var(--ink-main)] uppercase italic tracking-tight mb-4 font-serif">Inget aktivt ärende</h3>
-                                    <p className="text-[var(--ink-muted)] max-w-md mb-10 font-medium">
+                                    <h3 className="text-lg font-bold text-[var(--ink-main)] uppercase tracking-tight mb-2">Inget aktivt ärende</h3>
+                                    <p className="text-[var(--ink-muted)] max-w-sm mb-8 text-sm font-medium leading-relaxed">
                                         Denna modul kräver ett aktivt ärende för att fungera. Vänligen välj ett ärende från arkivet eller skapa ett nytt i analysvyn.
                                     </p>
-                                    <div className="flex gap-4">
+                                    <div className="flex gap-3">
                                         <button 
                                             onClick={() => setActiveModal('archive')}
-                                            className="px-8 py-4 bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-white rounded-2xl text-xs font-black uppercase tracking-widest transition-all shadow-xl shadow-[var(--accent)]/20 active:scale-95"
+                                            className="btn btn-primary"
                                         >
                                             Öppna Arkiv
                                         </button>
                                         <button 
                                             onClick={() => setActiveModal(null)}
-                                            className="px-8 py-4 bg-[var(--bg-card)] text-[var(--ink-muted)] rounded-2xl text-xs font-black uppercase tracking-widest transition-all border border-[var(--border)] hover:bg-[var(--bg-main)]"
+                                            className="btn btn-secondary"
                                         >
                                             Avbryt
                                         </button>
@@ -667,15 +668,15 @@ interface ToolButtonProps {
     active?: boolean;
 }
 
-const ToolButton: React.FC<ToolButtonProps> = ({ icon, onClick, label, active }) => {
+const ToolButton: React.FC<ToolButtonProps & { isDark?: boolean }> = ({ icon, onClick, label, active, isDark }) => {
     return (
         <button 
             onClick={onClick}
             aria-label={label}
-            className={`px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all flex items-center space-x-2 ${
+            className={`px-4 py-2 rounded-lg text-[10px] font-bold uppercase tracking-widest transition-all flex items-center space-x-2 ${
                 active 
-                ? 'bg-[var(--accent)] text-white shadow-md' 
-                : 'bg-[var(--bg-card)] text-[var(--ink-muted)] border border-[var(--border)] hover:border-[var(--accent)] hover:text-[var(--ink-main)] hover:bg-[var(--bg-main)]'
+                ? (isDark ? 'bg-white/10 text-white border border-white/20' : 'bg-[var(--accent)] text-white shadow-md')
+                : (isDark ? 'text-white/60 hover:text-white hover:bg-white/5' : 'bg-[var(--bg-card)] text-[var(--ink-muted)] border border-[var(--border)] hover:border-[var(--accent)] hover:text-[var(--ink-main)] hover:bg-[var(--bg-main)]')
             }`}
         >
             <div className="shrink-0">

@@ -41,10 +41,10 @@ export const initialPipelineStatus: PipelineStatusState = {
 
 const getStatusColor = (status: StageStatus) => {
     switch (status) {
-        case 'active': return 'text-blue-700 border-blue-300 bg-blue-50';
-        case 'success': return 'text-green-800 border-green-300 bg-green-50';
-        case 'error': return 'text-red-800 border-red-300 bg-red-50';
-        default: return 'text-slate-500 border-slate-200 bg-slate-50';
+        case 'active': return 'text-[var(--accent)] border-[var(--accent)]/30 bg-[var(--accent)]/5';
+        case 'success': return 'text-[var(--success)] border-[var(--success)]/30 bg-[var(--success)]/5';
+        case 'error': return 'text-[var(--danger)] border-[var(--danger)]/30 bg-[var(--danger)]/5';
+        default: return 'text-[var(--ink-muted)] border-[var(--border)] bg-[var(--bg-main)]';
     }
 };
 
@@ -72,33 +72,33 @@ const PipelineStatus: React.FC<{ status: PipelineStatusState }> = ({ status }) =
     const stages = Object.keys(status.stages) as (keyof PipelineStatusState['stages'])[];
   
     return (
-      <div className="bg-white border border-slate-200 rounded-lg p-8 shadow-sm relative overflow-hidden group transition-all duration-500">
+      <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-xl p-8 shadow-sm relative overflow-hidden group transition-all duration-500">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-10 relative z-10">
               <div className="space-y-1">
-                  <h2 className="text-xl font-bold text-slate-900 tracking-tight">Systemstatus</h2>
-                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Intelligenskärna v.7.2.2-GOLD</p>
+                  <h2 className="text-xl font-bold text-[var(--ink-main)] tracking-tight">Systemstatus</h2>
+                  <p className="text-[10px] font-bold text-[var(--ink-muted)] uppercase tracking-widest">Intelligenskärna v.7.2.2-GOLD</p>
               </div>
               
               <div className="flex items-center gap-4">
-                  <div className={`flex items-center space-x-3 px-4 py-2 border rounded text-[10px] font-bold uppercase tracking-widest transition-all ${integrityVerified ? 'bg-emerald-50 border-emerald-100 text-emerald-600' : 'bg-amber-50 border-amber-100 text-amber-600'}`}>
+                  <div className={`flex items-center space-x-3 px-4 py-2 border rounded-lg text-[10px] font-bold uppercase tracking-widest transition-all ${integrityVerified ? 'bg-[var(--success)]/5 border-[var(--success)]/20 text-[var(--success)]' : 'bg-[var(--warning)]/5 border-[var(--warning)]/20 text-[var(--warning)]'}`}>
                       {isVerifying ? (
                           <span className="animate-pulse flex items-center gap-2">
-                            <div className="w-2 h-2 bg-amber-500 rounded-full animate-ping" />
+                            <div className="w-2 h-2 bg-[var(--warning)] rounded-full animate-ping" />
                             Validerar...
                           </span>
                       ) : integrityVerified ? (
                           <>
-                              <div className="w-2 h-2 bg-emerald-500 rounded-full" />
+                              <div className="w-2 h-2 bg-[var(--success)] rounded-full" />
                               <span>Integritet Verifierad</span>
                           </>
                       ) : (
                           <span className="flex items-center gap-2">
-                            <div className="w-2 h-2 bg-amber-500 rounded-full" />
+                            <div className="w-2 h-2 bg-[var(--warning)] rounded-full" />
                             Integritet Väntar
                           </span>
                       )}
                   </div>
-                  <div className="hidden lg:flex items-center space-x-4 text-[9px] text-slate-400 font-bold bg-slate-50 px-6 py-2 rounded uppercase tracking-widest border border-slate-100">
+                  <div className="hidden lg:flex items-center space-x-4 text-[9px] text-[var(--ink-muted)] font-bold bg-[var(--bg-main)] px-6 py-2 rounded-lg uppercase tracking-widest border border-[var(--border)]">
                       <div className="animate-marquee inline-block">
                           Systemnav • Monitor • Inventering • Beslutsmotor • Produktion • Analys • Oracle • Kontroll • Notarie • Logg • Juridik • SFB • Arkiv • Vitbok
                       </div>
@@ -114,19 +114,19 @@ const PipelineStatus: React.FC<{ status: PipelineStatusState }> = ({ status }) =
                 const isError = statusValue === 'error';
                 
                 return (
-                  <div key={stageName} className={`p-4 rounded border transition-all duration-500 ${isActive ? 'border-slate-900 bg-slate-50' : isSuccess ? 'border-emerald-100 bg-emerald-50/30' : isError ? 'border-rose-100 bg-rose-50/30' : 'border-slate-100 bg-white'}`}>
-                      <span className="text-[9px] font-bold uppercase tracking-widest text-slate-400 mb-2 block">{stageName}</span>
-                      <div className={`text-xs font-bold tracking-tight leading-none ${isActive ? 'text-slate-900' : isSuccess ? 'text-emerald-600' : isError ? 'text-rose-600' : 'text-slate-300'}`}>
+                  <div key={stageName} className={`p-4 rounded-xl border transition-all duration-500 ${isActive ? 'border-[var(--accent)] bg-[var(--accent)]/5' : isSuccess ? 'border-[var(--success)]/20 bg-[var(--success)]/5' : isError ? 'border-[var(--danger)]/20 bg-[var(--danger)]/5' : 'border-[var(--border)] bg-white'}`}>
+                      <span className="text-[9px] font-bold uppercase tracking-widest text-[var(--ink-muted)] mb-2 block">{stageName}</span>
+                      <div className={`text-xs font-bold tracking-tight leading-none ${isActive ? 'text-[var(--accent)]' : isSuccess ? 'text-[var(--success)]' : isError ? 'text-[var(--danger)]' : 'text-[var(--ink-light)]'}`}>
                           {statusValue === 'active' ? 'KÖR' : statusValue === 'success' ? 'LÅST' : isError ? 'FEL' : 'VÄNTAR'}
                       </div>
                       {isActive && (
-                          <div className="mt-3 h-1 w-full bg-slate-200 rounded-full overflow-hidden">
-                              <div className="h-full bg-slate-900 animate-[loading_1.5s_ease-in-out_infinite]" style={{ width: '40%' }} />
+                          <div className="mt-3 h-1 w-full bg-[var(--border)] rounded-full overflow-hidden">
+                              <div className="h-full bg-[var(--accent)] animate-[loading_1.5s_ease-in-out_infinite]" style={{ width: '40%' }} />
                           </div>
                       )}
                       {isSuccess && (
                         <div className="mt-2 flex justify-end">
-                            <CheckCircleIcon className="w-4 h-4 text-emerald-500" />
+                            <CheckCircleIcon className="w-4 h-4 text-[var(--success)]" />
                         </div>
                       )}
                   </div>

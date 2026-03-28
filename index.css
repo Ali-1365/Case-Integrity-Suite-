@@ -1,211 +1,76 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Playfair Display", serif;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  
+  /* Enterprise Palette */
+  --bg-main: #F8F9FA;
+  --bg-card: #FFFFFF;
+  --bg-nav: #1A1A1A;
+  --ink-main: #1A1A1A;
+  --ink-muted: #4A4A4A;
+  --ink-light: #6C757D;
+  --accent: #0056B3; /* Professional Blue */
+  --accent-foreground: #FFFFFF;
+  --success: #198754;
+  --warning: #FFC107;
+  --danger: #DC3545;
+  --border: #E0E0E0;
+  --border-strong: #CED4DA;
+  --line: rgba(0, 0, 0, 0.08);
 }
 
 @layer base {
-  :root {
-    --bg-main: #F5F2ED; /* Warm parchment - high comfort */
-    --bg-card: #FFFFFF;
-    --ink-main: #1A1A1A; /* Deeper charcoal for better contrast */
-    --ink-muted: #666666;
-    --accent: #5A5A40; /* Muted Olive */
-    --accent-hover: #454531;
-    --border: #E5E1D8;
-    --line: #DEDAD1;
-    --success: #6B705C;
-    --warning: #B7B7A4;
-    --danger: #A5A58D;
-    
-    /* Vibrant Palette - Softened and more organic */
-    --color-primary: #5A5A40;
-    --color-secondary: #A5A58D;
-    --color-tertiary: #B7B7A4;
-    --color-quaternary: #6B705C;
-  }
-  
-  .dark {
-    --bg-main: #151614; /* Deep forest charcoal */
-    --bg-card: #1C1D1A;
-    --ink-main: #E5E1D8;
-    --ink-muted: #A8A894;
-    --accent: #8B8B6D;
-    --accent-hover: #A5A58D;
-    --border: #2A2B26;
-    --line: #35362F;
-  }
-
   body {
-    background-color: var(--bg-main);
-    color: var(--ink-main);
-    font-family: var(--font-sans);
-    line-height: 1.6;
-    font-size: 1rem;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    color: var(--ink-main);
-    font-family: var(--font-serif);
-    font-weight: 700;
-    line-height: 1.1;
-    letter-spacing: -0.01em;
-    margin-bottom: 1.5rem;
-  }
-
-  h1 { font-size: 3.5rem; }
-  h2 { font-size: 2.75rem; }
-  h3 { font-size: 2rem; }
-  h4 { font-size: 1.5rem; }
-
-  p {
-    margin-bottom: 1.5rem;
-    color: var(--ink-muted);
+    @apply bg-[var(--bg-main)] text-[var(--ink-main)] font-sans antialiased;
   }
 }
 
-/* Vibrant & Comfortable Components */
 @layer components {
-  .card {
-    background-color: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 2rem;
-    padding: 2.5rem;
-    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 20px 40px -15px rgba(0,0,0,0.1);
-    border-color: var(--accent);
-  }
-
   .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem 2rem;
-    font-weight: 600;
-    border-radius: 1rem;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    cursor: pointer;
-    gap: 0.75rem;
-    font-size: 0.875rem;
-    border: 1px solid transparent;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    @apply px-5 py-2.5 rounded-lg font-semibold transition-all flex items-center justify-center gap-2 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none text-sm;
   }
-
+  
   .btn-primary {
-    background-color: var(--accent);
-    color: white;
-    box-shadow: 0 10px 20px -5px rgba(99, 102, 241, 0.3);
+    @apply bg-[var(--accent)] text-white hover:bg-[var(--accent)]/90 shadow-sm;
   }
-
-  .btn-primary:hover {
-    background-color: var(--accent-hover);
-    transform: scale(1.02);
-    box-shadow: 0 15px 30px -10px rgba(99, 102, 241, 0.5);
-  }
-
+  
   .btn-secondary {
-    background-color: transparent;
-    border-color: var(--border);
-    color: var(--ink-main);
+    @apply bg-white border border-[var(--border-strong)] text-[var(--ink-main)] hover:bg-gray-50 shadow-sm;
   }
 
-  .btn-secondary:hover {
-    background-color: var(--bg-main);
-    border-color: var(--accent);
-    color: var(--accent);
+  .card {
+    @apply bg-[var(--bg-card)] border border-[var(--border)] rounded-xl p-6 shadow-sm transition-all;
   }
 
   .input-field {
-    width: 100%;
-    padding: 1rem 1.5rem;
-    background-color: var(--bg-main);
-    border: 1px solid var(--border);
-    border-radius: 1rem;
-    color: var(--ink-main);
-    transition: all 0.3s ease;
-    font-size: 1rem;
+    @apply w-full bg-white border border-[var(--border-strong)] rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/20 focus:border-[var(--accent)] transition-all text-[var(--ink-main)] placeholder:text-[var(--ink-light)];
   }
 
-  .input-field:focus {
-    outline: none;
-    border-color: var(--accent);
-    background-color: white;
-    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+  .col-header {
+    @apply px-6 py-4 text-[11px] font-bold text-[var(--ink-light)] uppercase tracking-wider border-b border-[var(--border)];
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-[var(--border-strong)] rounded-full hover:bg-[var(--ink-light)];
   }
 }
 
-/* Utility Classes */
-.text-muted { color: var(--ink-muted); }
-.border-main { border-color: var(--border); }
-
-.custom-scrollbar::-webkit-scrollbar {
-  width: 8px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: var(--bg-main);
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: var(--line);
-  border-radius: 10px;
-  border: 2px solid var(--bg-main);
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: var(--ink-muted);
-}
-
-/* Data Grid Styles */
-.data-row {
-  display: grid;
-  padding: 1.5rem;
-  border-bottom: 1px solid var(--border);
-  transition: all 0.3s ease;
-  cursor: pointer;
-  border-radius: 1rem;
-  margin-bottom: 0.5rem;
-}
-
-.data-row:hover {
-  background: white;
-  box-shadow: 0 4px 20px -5px rgba(0,0,0,0.05);
-  transform: translateX(4px);
-  border-color: var(--accent);
-}
-
-.col-header {
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--ink-muted);
-  padding: 1rem 1.5rem;
-  border-bottom: 2px solid var(--border);
-  font-family: var(--font-sans);
-}
-
-.data-value {
-  font-family: var(--font-mono);
-  font-size: 0.875rem;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: fade-in 0.4s ease-out forwards;
 }
