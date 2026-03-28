@@ -18,37 +18,38 @@ import { LegalReferenceEngine } from '../lib/legalReferenceEngine';
 import { KeywordEngine } from '../lib/keywordEngine';
 import { usageMonitorService, QuotaUsage } from '../services/usageMonitorService';
 import SystemOverview from './SystemOverview';
-import AnalysisView from './AnalysisView';
+import DocumentAnalysisView from './DocumentAnalysisView';
 import { initialPipelineStatus, PipelineStatusState } from './PipelineStatus';
 import { 
-    LogoIcon, 
-    LogoutIcon, 
-    Spinner, 
-    CpuChipIcon, 
-    ChatIcon, 
-    ActivityIcon, 
-    CodeBracketIcon, 
-    ShieldCheckIcon,
-    LawIcon,
-    ChartBarSquareIcon,
-    AdjustmentsHorizontalIcon,
-    MagnifyingGlassIcon,
-    XMarkIcon,
-    BoltIcon,
-    ClipboardDocumentListIcon, 
-    Squares2X2Icon, 
-    CalendarIcon, 
-    SparklesIcon, 
-    ExclamationTriangleIcon, 
-    FingerPrintIcon, 
-    ArchiveBoxIcon,
-    UserGroupIcon,
-    BanknotesIcon,
-    ChevronDownIcon,
-    DocumentTextIcon,
-    DocumentDuplicateIcon,
-    BriefcaseIcon
-} from './icons';
+    ShieldCheck,
+    LogOut,
+    Loader2,
+    Cpu,
+    MessageSquare,
+    Code,
+    Scale,
+    BarChart3,
+    Settings2,
+    X,
+    Zap,
+    ClipboardList,
+    LayoutDashboard,
+    Calendar,
+    Sparkles,
+    AlertTriangle,
+    Fingerprint,
+    Archive,
+    Users,
+    Wallet,
+    ChevronDown,
+    FileText,
+    Copy,
+    Briefcase,
+    Activity,
+    Search,
+    Settings,
+    Shield
+} from 'lucide-react';
 
 import Chatbot from './Chatbot';
 import SystemMonitor from './SystemMonitor';
@@ -67,13 +68,14 @@ import { AutoNotaryView } from './AutoNotaryView';
 import EkonomiView from './EkonomiView';
 import ProduktionView from './ProduktionView';
 import BeslutView from './BeslutView';
-import AnalysView from './AnalysView';
+import CaseAnalysisView from './CaseAnalysisView';
 import { IntelligenceCore } from './IntelligenceCore';
 import ArchiveView from './ArchiveView';
 import { FmjamController } from './FmjamController';
 import { CaseProfiler } from './CaseProfiler';
 import { SystemHub } from './SystemHub';
 import OpinionGenerator from './OpinionGenerator';
+import VisionView from './VisionView';
 import { AdversarialDuelView } from './AdversarialDuelView';
 import ForensicIntegrityView from './ForensicIntegrityView';
 import { LegalPipelineView } from './LegalPipelineView';
@@ -317,19 +319,19 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
     };
 
     const Breadcrumbs = () => {
-        const items = [{ label: 'Hem', onClick: () => { setSelectedDocId(null); setActiveModal(null); setShowMoreMenu(false); }, icon: <Squares2X2Icon className="w-5 h-5" /> }];
+        const items = [{ label: 'Hem', onClick: () => { setSelectedDocId(null); setActiveModal(null); setShowMoreMenu(false); }, icon: <LayoutDashboard className="w-4 h-4" /> }];
         
         if (selectedDocId) {
             items.push({ 
                 label: 'Analys', 
                 onClick: () => { setActiveModal(null); setShowMoreMenu(false); },
-                icon: <MagnifyingGlassIcon className="w-5 h-5" />
+                icon: <Search className="w-4 h-4" />
             });
             if (selectedDoc) {
                 items.push({ 
                     label: selectedDoc.name, 
                     onClick: () => {},
-                    icon: <DocumentTextIcon className="w-5 h-5" />
+                    icon: <FileText className="w-4 h-4" />
                 });
             }
         } else if (activeModal) {
@@ -342,6 +344,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                 audit: 'Audit & Compliance',
                 framework: 'Juridiskt Ramverk',
                 arch: 'Ärendearkiv',
+                vision: 'Vision & Tillgänglighet',
                 monitor: 'System Monitor',
                 inventory: 'System Inventory',
                 debug: 'AI Debug Panel',
@@ -350,24 +353,22 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
             items.push({ 
                 label: modalLabels[activeModal] || 'Modul', 
                 onClick: () => {},
-                icon: <BoltIcon className="w-5 h-5" />
+                icon: <Settings2 className="w-4 h-4" />
             });
         }
 
         return (
-            <nav className="flex items-center space-x-6 text-[12px] font-black uppercase tracking-[0.4em] text-slate-500 dark:text-slate-400 mb-14 bg-white/60 dark:bg-slate-900/60 p-6 rounded-[2rem] border border-slate-200/60 dark:border-slate-800/60 backdrop-blur-xl w-fit shadow-lg shadow-slate-200/20 dark:shadow-black/20" aria-label="Breadcrumb">
+            <nav className="flex items-center space-x-4 text-[9px] font-bold uppercase tracking-widest text-[var(--ink-muted)] mb-8" aria-label="Breadcrumb">
                 {items.map((item, index) => (
                     <React.Fragment key={index}>
-                        {index > 0 && <div className="w-2 h-2 rounded-full bg-indigo-500/30 dark:bg-indigo-500/20 mx-2" />}
+                        {index > 0 && <span className="text-[var(--border)]">/</span>}
                         <button 
                             onClick={item.onClick}
-                            className={`flex items-center space-x-4 transition-all duration-500 group ${index === items.length - 1 ? 'text-indigo-600 dark:text-indigo-400' : 'hover:text-slate-900 dark:hover:text-white'}`}
+                            className={`flex items-center space-x-2 transition-all ${index === items.length - 1 ? 'text-[var(--ink-main)]' : 'hover:text-[var(--accent)]'}`}
                             aria-current={index === items.length - 1 ? 'page' : undefined}
                         >
-                            <div className={`transition-all duration-700 ${index === items.length - 1 ? 'text-indigo-500 scale-125 drop-shadow-[0_0_8px_rgba(99,102,241,0.4)]' : 'text-slate-400 dark:text-slate-500 group-hover:text-indigo-500 group-hover:scale-125 group-hover:rotate-6'}`}>
-                                {item.icon}
-                            </div>
-                            <span className="group-hover:translate-x-1 transition-transform">{item.label}</span>
+                            {item.icon}
+                            <span>{item.label}</span>
                         </button>
                     </React.Fragment>
                 ))}
@@ -376,227 +377,87 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
     };
 
     const PageHeader = ({ title, subtitle, icon }: { title: string, subtitle?: string, icon?: React.ReactNode }) => (
-        <div className="mb-20 flex items-start justify-between animate-in fade-in slide-in-from-left-12 duration-1000">
-            <div className="space-y-8">
-                <div className="flex items-center gap-10">
-                    {icon && <div className="p-7 bg-gradient-to-br from-indigo-500 to-indigo-700 dark:from-indigo-600 dark:to-indigo-800 rounded-[2.5rem] text-white shadow-[0_20px_50px_rgba(79,70,229,0.3)] border-2 border-white/20 group hover:scale-110 hover:rotate-6 transition-all duration-700">{icon}</div>}
-                    <h2 className="text-7xl font-serif font-bold text-slate-900 dark:text-white tracking-tighter leading-none m-0">{title}</h2>
-                </div>
-                {subtitle && <p className="text-2xl text-slate-500 dark:text-slate-400 font-medium max-w-5xl leading-relaxed opacity-90">{subtitle}</p>}
+        <div className="mb-12 animate-in fade-in duration-700">
+            <div className="flex items-center gap-4 mb-2">
+                {icon && <div className="text-[var(--ink-main)]">{icon}</div>}
+                <h2 className="text-2xl font-bold text-[var(--ink-main)] tracking-tight m-0 font-serif">{title}</h2>
             </div>
+            {subtitle && <p className="text-sm text-[var(--ink-muted)] font-medium max-w-3xl leading-relaxed">{subtitle}</p>}
         </div>
     );
 
     if (isLoading) return (
-        <div className="flex flex-col h-screen items-center justify-center bg-slate-50 dark:bg-slate-950 space-y-8 animate-fade-in">
+        <div className="flex flex-col h-screen items-center justify-center bg-[var(--bg-main)] space-y-8 animate-fade-in">
             <div className="relative">
-                <Spinner className="h-20 w-20 text-blue-600 dark:text-blue-400" />
+                <Loader2 className="h-20 w-20 text-[var(--accent)] animate-spin" />
                 <div className="absolute inset-0 flex items-center justify-center">
-                    <LogoIcon className="h-8 w-8 text-blue-600 dark:text-blue-400 opacity-50" />
+                    <ShieldCheck className="h-8 w-8 text-[var(--accent)] opacity-50" />
                 </div>
             </div>
             <div className="text-center space-y-2">
-                <p className="text-xs font-bold uppercase tracking-[0.4em] text-slate-400 animate-pulse">Initialiserar Case Integrity Suite v1.0</p>
-                <p className="text-[10px] text-slate-400 font-mono">Systemintegritet: Validerad</p>
+                <p className="text-xs font-bold uppercase tracking-[0.4em] text-[var(--ink-muted)] animate-pulse">Initialiserar Case Integrity Suite v1.0</p>
+                <p className="text-[10px] text-[var(--ink-muted)] font-mono">Systemintegritet: Validerad</p>
             </div>
         </div>
     );
 
     return (
-        <div className={`flex flex-col min-h-screen ${isDarkMode ? 'dark bg-slate-950 text-slate-50' : 'bg-slate-50 text-slate-900'} font-sans transition-colors duration-1000`}>
-            <header className="h-40 px-16 border-b border-slate-200/60 dark:border-slate-800/60 bg-white/90 dark:bg-slate-950/90 backdrop-blur-3xl flex justify-between items-center sticky top-0 z-[100] transition-all shadow-[0_15px_50px_rgba(0,0,0,0.06)] dark:shadow-[0_15px_50px_rgba(0,0,0,0.3)]">
-                <div className="flex items-center space-x-20 w-full overflow-hidden">
-                    <div className="flex items-center space-x-8 cursor-pointer shrink-0 group" onClick={() => navigateTo('overview')}>
-                        <div className="p-6 bg-gradient-to-br from-indigo-600 via-indigo-700 to-indigo-900 rounded-[2.5rem] group-hover:scale-110 group-hover:rotate-12 transition-all duration-700 shadow-[0_25px_50px_rgba(79,70,229,0.4)] dark:shadow-[0_25px_50px_rgba(79,70,229,0.2)] border-2 border-white/20 relative overflow-hidden">
-                            <div className="absolute inset-0 bg-gradient-to-tr from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                            <LogoIcon className="h-11 w-11 text-white relative z-10" />
+        <div className={`flex flex-col min-h-screen ${isDarkMode ? 'dark bg-[var(--bg-main)] text-[var(--ink-main)]' : 'bg-[var(--bg-main)] text-[var(--ink-main)]'} font-sans transition-colors duration-1000`}>
+            <header className="h-16 px-6 border-b border-[var(--border)] bg-[var(--bg-card)] flex justify-between items-center sticky top-0 z-[100]">
+                <div className="flex items-center space-x-8 w-full">
+                    <div className="flex items-center space-x-3 cursor-pointer group" onClick={() => navigateTo('overview')}>
+                        <div className="p-2 bg-[var(--accent)] rounded-lg transition-all">
+                            <ShieldCheck className="h-5 w-5 text-white" />
                         </div>
                         <div className="flex flex-col">
-                            <h1 className="text-4xl font-serif font-black tracking-tighter hidden sm:block m-0 leading-none bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-400">Case Integrity</h1>
-                            <div className="flex items-center gap-3 mt-3.5 hidden sm:flex">
-                                <div className="h-1.5 w-1.5 rounded-full bg-indigo-500 animate-pulse shadow-[0_0_10px_rgba(99,102,241,0.8)]" />
-                                <span className="text-[12px] font-black text-indigo-500 uppercase tracking-[0.6em] opacity-100">Enterprise v1.0</span>
-                            </div>
+                            <h1 className="text-sm font-bold tracking-tight m-0 leading-none text-[var(--ink-main)] font-serif">Case Integrity</h1>
                         </div>
                     </div>
                     
-                    <nav className="hidden xl:flex items-center space-x-4 flex-1 overflow-x-auto no-scrollbar py-4">
-                        {/* Kärnfunktioner */}
-                        <div className="flex items-center space-x-2 bg-slate-100/60 dark:bg-slate-900/40 p-2.5 rounded-[2.5rem] border border-slate-200/60 dark:border-slate-800/40 backdrop-blur-xl shadow-inner">
-                            <ToolButton icon={<Squares2X2Icon />} onClick={() => navigateTo('hub')} label="Hubb" active={currentView === 'hub'} color="indigo" />
-                            <ToolButton icon={<DocumentDuplicateIcon />} onClick={() => navigateTo('overview')} label="Ärenden" active={currentView === 'overview' || currentView === 'analysis'} color="rose" />
-                            <ToolButton icon={<MagnifyingGlassIcon />} onClick={() => navigateTo('agent')} label="Analys" active={activeModal === 'agent'} color="amber" />
-                            <ToolButton icon={<BanknotesIcon />} onClick={() => navigateTo('ekonomi')} label="Ekonomi" active={activeModal === 'ekonomi'} color="teal" />
-                        </div>
-
-                        <div className="w-px h-10 bg-slate-200 dark:bg-slate-800 mx-4 opacity-60"></div>
-
-                        {/* Produktion & Beslut */}
-                        <div className="flex items-center space-x-2 bg-slate-100/60 dark:bg-slate-900/40 p-2.5 rounded-[2.5rem] border border-slate-200/60 dark:border-slate-800/40 backdrop-blur-xl shadow-inner">
-                            <ToolButton icon={<ChatIcon />} onClick={() => navigateTo('chat')} label="Beslut" active={activeModal === 'chat'} color="blue" />
-                            <ToolButton icon={<BoltIcon />} onClick={() => navigateTo('production')} label="Produktion" active={activeModal === 'production'} color="purple" />
-                        </div>
-
-                        <div className="w-px h-10 bg-slate-200 dark:bg-slate-800 mx-4 opacity-60"></div>
-
-                        {/* System & Logg */}
-                        <div className="flex items-center space-x-2 relative">
-                            <ToolButton icon={<ArchiveBoxIcon />} onClick={() => navigateTo('arch')} label="Arkiv" active={activeModal === 'arch' || activeModal === 'archive'} color="slate" />
-                            
-                            <div className="relative">
-                                <button 
-                                    onClick={() => setShowMoreMenu(!showMoreMenu)}
-                                    className={`px-8 py-4 rounded-[2rem] transition-all duration-500 flex items-center space-x-5 group cursor-pointer border-2 shadow-md ${
-                                        showMoreMenu 
-                                        ? 'bg-white dark:bg-slate-900 border-indigo-500/50 text-indigo-600 dark:text-indigo-400 shadow-indigo-500/20' 
-                                        : 'border-transparent text-slate-500 hover:text-slate-900 hover:bg-white dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-900/50'
-                                    }`}
-                                >
-                                    <div className={`transition-all duration-700 ${showMoreMenu ? 'text-indigo-600 scale-125 rotate-12 drop-shadow-[0_0_8px_rgba(99,102,241,0.4)]' : 'text-slate-400 group-hover:text-slate-600 dark:text-slate-500 dark:group-hover:text-slate-300 group-hover:scale-110'}`}>
-                                        <AdjustmentsHorizontalIcon className="w-6 h-6" />
-                                    </div>
-                                    <span className="text-sm font-black tracking-tight hidden lg:block uppercase tracking-[0.1em]">Mer</span>
-                                    <ChevronDownIcon className={`w-5 h-5 transition-transform duration-700 ${showMoreMenu ? 'rotate-180' : ''}`} />
-                                </button>
-                                
-                                {showMoreMenu && (
-                                    <>
-                                        <div className="fixed inset-0 z-[105]" onClick={() => setShowMoreMenu(false)}></div>
-                                        <div className="absolute right-0 mt-6 w-80 bg-white/98 dark:bg-slate-950/98 border border-slate-200 dark:border-slate-800 rounded-[3rem] shadow-[0_35px_80px_rgba(0,0,0,0.25)] p-5 z-[110] animate-in fade-in zoom-in-95 duration-500 backdrop-blur-2xl ring-1 ring-black/5">
-                                            <div className="px-6 py-4 mb-4 border-b border-slate-100 dark:border-slate-800">
-                                                <span className="text-[12px] font-black text-slate-400 uppercase tracking-[0.4em]">Avancerade Verktyg</span>
-                                            </div>
-                                            <div className="space-y-2">
-                                                <MenuButton icon={<ShieldCheckIcon />} onClick={() => navigateTo('audit')} label="Systemlogg" active={activeModal === 'audit'} />
-                                                <MenuButton icon={<LawIcon />} onClick={() => navigateTo('framework')} label="Juridiskt Ramverk" active={activeModal === 'framework'} />
-                                                <div className="h-px bg-slate-100 dark:bg-slate-800 my-5 mx-6 opacity-50"></div>
-                                                <MenuButton icon={<ActivityIcon />} onClick={() => navigateTo('monitor')} label="Systemövervakning" active={activeModal === 'monitor'} />
-                                                <MenuButton icon={<ClipboardDocumentListIcon />} onClick={() => navigateTo('inventory')} label="Systeminventering" active={activeModal === 'inventory'} />
-                                                <MenuButton icon={<CodeBracketIcon />} onClick={() => navigateTo('debug')} label="AI Debug Panel" active={activeModal === 'debug'} />
-                                            </div>
-                                        </div>
-                                    </>
-                                )}
-                            </div>
-
-                            <div className="w-px h-8 bg-slate-200 dark:bg-slate-800 mx-3 opacity-40"></div>
-
-                            {/* Case Selector */}
-                            <div className="relative">
-                                <button 
-                                    onClick={() => setShowCaseMenu(!showCaseMenu)}
-                                    className={`px-5 py-3 rounded-2xl transition-all flex items-center space-x-4 border-2 shadow-sm ${
-                                        activeCase 
-                                        ? 'bg-gradient-to-r from-blue-600 to-indigo-600 border-blue-700/50 text-white shadow-lg shadow-blue-500/20' 
-                                        : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700'
-                                    }`}
-                                >
-                                    <div className={`p-1.5 rounded-lg ${activeCase ? 'bg-white/20' : 'bg-slate-100 dark:bg-slate-700'}`}>
-                                        <BriefcaseIcon className="w-4 h-4" />
-                                    </div>
-                                    <span className="text-xs font-black uppercase tracking-wider truncate max-w-[140px]">
-                                        {activeCase ? activeCase.name || activeCase.caseId : 'Välj Ärende'}
-                                    </span>
-                                    <ChevronDownIcon className={`w-3.5 h-3.5 transition-transform duration-500 ${showCaseMenu ? 'rotate-180' : ''}`} />
-                                </button>
-
-                                {showCaseMenu && (
-                                    <>
-                                        <div className="fixed inset-0 z-[105]" onClick={() => setShowCaseMenu(false)}></div>
-                                        <div className="absolute right-0 mt-4 w-96 bg-white/95 dark:bg-slate-900/95 border border-slate-200 dark:border-slate-800 rounded-[2.5rem] shadow-[0_25px_60px_rgba(0,0,0,0.15)] p-4 z-[110] animate-in fade-in zoom-in-95 duration-300 backdrop-blur-xl">
-                                            <div className="px-6 py-4 border-b border-slate-100 dark:border-slate-800 mb-4 flex justify-between items-center">
-                                                <h3 className="text-[11px] font-black text-slate-400 uppercase tracking-[0.3em]">Aktiva Ärenden</h3>
-                                                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 rounded text-[9px] font-bold text-slate-500">{cases.length}</span>
-                                            </div>
-                                            <div className="max-h-[400px] overflow-y-auto p-1 space-y-2 custom-scrollbar">
-                                                {cases.length > 0 ? (
-                                                    cases.map(c => (
-                                                        <button
-                                                            key={c.caseId}
-                                                            onClick={() => {
-                                                                setActiveCase(c);
-                                                                setShowCaseMenu(false);
-                                                            }}
-                                                            className={`w-full text-left px-5 py-4 rounded-[1.5rem] transition-all flex flex-col gap-1.5 group ${
-                                                                activeCase?.caseId === c.caseId
-                                                                ? 'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 ring-2 ring-indigo-500/20'
-                                                                : 'hover:bg-slate-50 dark:hover:bg-slate-800/50 text-slate-700 dark:text-slate-300'
-                                                            }`}
-                                                        >
-                                                            <div className="flex items-center justify-between">
-                                                                <span className="text-sm font-black tracking-tight truncate group-hover:translate-x-1 transition-transform">{c.name || 'Namnlöst Ärende'}</span>
-                                                                {activeCase?.caseId === c.caseId && <div className="w-2 h-2 rounded-full bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.5)]" />}
-                                                            </div>
-                                                            <div className="flex items-center justify-between text-[10px] opacity-60 font-mono font-bold tracking-widest">
-                                                                <span>{c.caseId}</span>
-                                                                <span className={`px-2 py-0.5 rounded uppercase ${
-                                                                    c.status === 'AVSLUTAT' ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600' : 'bg-amber-100 dark:bg-amber-900/30 text-amber-600'
-                                                                }`}>{c.status}</span>
-                                                            </div>
-                                                        </button>
-                                                    ))
-                                                ) : (
-                                                    <div className="px-6 py-12 text-center text-slate-400 text-xs italic bg-slate-50/50 dark:bg-slate-800/20 rounded-[2rem] border-2 border-dashed border-slate-200 dark:border-slate-800">
-                                                        Inga ärenden hittades.
-                                                    </div>
-                                                )}
-                                            </div>
-                                            <div className="p-3 mt-4 border-t border-slate-100 dark:border-slate-800">
-                                                <button 
-                                                    onClick={() => {
-                                                        // Logic to create new case could go here
-                                                        setShowCaseMenu(false);
-                                                    }}
-                                                    className="w-full py-4 text-xs font-black uppercase tracking-[0.2em] text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded-2xl transition-all active:scale-95"
-                                                >
-                                                    + Skapa Nytt Ärende
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </>
-                                )}
-                            </div>
-                        </div>
+                    <nav className="hidden xl:flex items-center space-x-2 flex-1">
+                        <button 
+                            onClick={() => navigateTo('hub')}
+                            className={`px-6 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all flex items-center space-x-2 shadow-sm ${
+                                currentView === 'hub' 
+                                ? 'bg-[var(--accent)] text-white' 
+                                : 'bg-[var(--bg-card)] text-[var(--ink-main)] border border-[var(--border)] hover:border-[var(--accent)]'
+                            }`}
+                        >
+                            <LayoutDashboard className="w-4 h-4" />
+                            <span>System Hub</span>
+                        </button>
+                        <div className="w-px h-6 bg-[var(--border)] mx-4"></div>
+                        <ToolButton icon={<Copy />} onClick={() => navigateTo('overview')} label="Ärenden" active={currentView === 'overview' || currentView === 'analysis'} />
+                        <ToolButton icon={<Search />} onClick={() => navigateTo('agent')} label="Analys" active={activeModal === 'agent'} />
+                        <ToolButton icon={<Wallet />} onClick={() => navigateTo('ekonomi')} label="Ekonomi" active={activeModal === 'ekonomi'} />
+                        <ToolButton icon={<MessageSquare />} onClick={() => navigateTo('chat')} label="Beslut" active={activeModal === 'chat'} />
+                        <ToolButton icon={<Zap />} onClick={() => navigateTo('production')} label="Produktion" active={activeModal === 'production'} />
+                        <ToolButton icon={<Archive />} onClick={() => navigateTo('arch')} label="Arkiv" active={activeModal === 'arch' || activeModal === 'archive'} />
                     </nav>
                 </div>
 
-                <div className="flex items-center space-x-8 ml-8">
-                    <div className="hidden lg:flex flex-col items-end mr-2 px-6 py-2.5 bg-white dark:bg-slate-800/40 rounded-[1.5rem] border border-slate-200 dark:border-slate-700/50 shadow-sm">
-                        <div className="flex items-center gap-3">
-                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Systemhälsa</span>
-                            <div className={`w-2.5 h-2.5 rounded-full shadow-lg ${
-                                quotaUsage.status === 'critical' 
-                                    ? 'bg-red-500 animate-pulse shadow-red-500/50' 
-                                    : (quotaUsage.status === 'warning' ? 'bg-amber-500 shadow-amber-500/50' : 'bg-emerald-500 shadow-emerald-500/50')
-                            }`}></div>
-                        </div>
-                        <span className={`text-sm font-mono font-black mt-1 ${quotaUsage.status === 'critical' ? 'text-red-500' : 'text-slate-800 dark:text-slate-200'}`}>
-                            {quotaUsage.rpm}/{quotaUsage.limitRpm} <span className="text-[10px] opacity-40 font-sans">RPM</span>
-                        </span>
+                <div className="flex items-center space-x-4 ml-8">
+                    <div className="flex items-center space-x-2 px-3 py-1 bg-[var(--bg-main)] border border-[var(--border)] rounded text-[10px] font-mono">
+                        <span className="text-[var(--ink-muted)] uppercase tracking-widest">System</span>
+                        <div className={`w-1.5 h-1.5 rounded-full ${
+                            quotaUsage.status === 'critical' ? 'bg-red-500' : (quotaUsage.status === 'warning' ? 'bg-amber-500' : 'bg-emerald-500')
+                        }`}></div>
+                        <span className="text-[var(--ink-main)] font-bold">{quotaUsage.rpm}/{quotaUsage.limitRpm}</span>
                     </div>
                     
-                    <div className="flex items-center bg-slate-100/80 dark:bg-slate-800/80 p-2 rounded-[1.5rem] border border-slate-200 dark:border-slate-700 shadow-inner backdrop-blur-sm">
-                        <button 
-                            onClick={() => setIsDarkMode(!isDarkMode)} 
-                            className="p-3 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700 transition-all shadow-sm hover:shadow-md active:scale-90"
-                            title={isDarkMode ? 'Växla till ljust läge' : 'Växla till mörkt läge'}
-                            aria-label={isDarkMode ? 'Växla till ljust läge' : 'Växla till mörkt läge'}
-                        >
-                            {isDarkMode ? '☀️' : '🌙'}
-                        </button>
+                    <div className="flex items-center space-x-2">
                         <button 
                             onClick={onLogout} 
-                            className="p-3 text-slate-500 dark:text-slate-400 hover:text-red-600 hover:bg-white dark:hover:bg-red-900/20 rounded-xl transition-all ml-2 active:scale-90"
+                            className="p-2 text-[var(--ink-muted)] hover:text-red-600 transition-all"
                             title="Logga ut"
-                            aria-label="Logga ut"
                         >
-                            <LogoutIcon className="h-6 w-6" />
+                            <LogOut className="h-5 w-5" />
                         </button>
                     </div>
                 </div>
             </header>
 
-            <main className="flex-grow p-6 lg:p-10 max-w-[1600px] mx-auto w-full">
+            <main className="flex-grow p-6 max-w-7xl mx-auto w-full">
                 <Breadcrumbs />
                 
                 {currentView === 'analysis' && selectedDocId ? (
@@ -604,9 +465,9 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                         <PageHeader 
                             title="Ärendeanalys" 
                             subtitle="Djupgående granskning av bevisatomer, rättsliga kopplingar och riskprofiler."
-                            icon={<MagnifyingGlassIcon className="w-6 h-6" />}
+                            icon={<Search className="w-6 h-6" />}
                         />
-                        <AnalysisView 
+                        <DocumentAnalysisView 
                             documentId={selectedDocId} 
                             onBack={() => setCurrentView('overview')} 
                             onDocumentUpdate={loadData} 
@@ -618,7 +479,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                         <PageHeader 
                             title="System Hub" 
                             subtitle="Centraliserad orkestrering av forensiska moduler och AI-experter."
-                            icon={<Squares2X2Icon className="w-6 h-6" />}
+                            icon={<LayoutDashboard className="w-6 h-6" />}
                         />
                         <SystemHub onNavigate={navigateTo} />
                     </>
@@ -627,7 +488,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                         <PageHeader 
                             title="Systemöversikt" 
                             subtitle="Välkommen till Case Integrity Suite. Här kan du hantera ärenden, utföra analyser och övervaka systemets integritet."
-                            icon={<DocumentDuplicateIcon className="w-6 h-6" />}
+                            icon={<Copy className="w-6 h-6" />}
                         />
                         <SystemOverview 
                             legalCorpus={legalCorpora}
@@ -664,36 +525,37 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
             </main>
 
             {activeModal && (
-                <div className="fixed inset-0 bg-slate-950/60 dark:bg-slate-950/90 backdrop-blur-xl z-[250] flex items-center justify-center p-0 md:p-6 lg:p-12 animate-in fade-in duration-500">
-                    <div className="bg-white dark:bg-slate-900 rounded-none md:rounded-[3rem] shadow-2xl w-full max-w-7xl h-full md:h-[92vh] flex flex-col border-none md:border border-slate-200 dark:border-slate-800 overflow-hidden animate-in zoom-in-95 duration-700">
-                        <header className="px-12 py-8 border-b border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 flex justify-between items-center shrink-0">
+                <div className="fixed inset-0 bg-black/40 backdrop-blur-xl z-[250] flex items-center justify-center p-0 md:p-6 lg:p-12 animate-in fade-in duration-500">
+                    <div className="bg-[var(--bg-card)] rounded-none md:rounded-[3rem] shadow-2xl w-full max-w-7xl h-full md:h-[92vh] flex flex-col border-none md:border border-[var(--border)] overflow-hidden animate-in zoom-in-95 duration-700">
+                        <header className="px-12 py-8 border-b border-[var(--border)] bg-[var(--bg-card)] flex justify-between items-center shrink-0">
                             <div className="flex items-center space-x-8">
-                                <div className="p-4 bg-slate-900 dark:bg-blue-600 rounded-[1.5rem] shadow-2xl shadow-slate-900/20 dark:shadow-blue-900/40">
-                                    {activeModal === 'hub' && <Squares2X2Icon className="h-7 w-7 text-white" />}
-                                    {activeModal === 'ekonomi' && <BanknotesIcon className="h-7 w-7 text-white" />}
-                                    {activeModal === 'production' && <BoltIcon className="h-7 w-7 text-white" />}
-                                    {activeModal === 'opinion' && <SparklesIcon className="h-7 w-7 text-white" />}
-                                    {activeModal === 'duel' && <ExclamationTriangleIcon className="h-7 w-7 text-white" />}
-                                    {activeModal === 'integrity' && <FingerPrintIcon className="h-7 w-7 text-white" />}
-                                    {activeModal === 'pipeline' && <ActivityIcon className="h-7 w-7 text-white" />}
-                                    {activeModal === 'oracle' && <CpuChipIcon className="h-7 w-7 text-white" />}
-                                    {activeModal === 'archive' && <ArchiveBoxIcon className="h-7 w-7 text-white" />}
-                                    {activeModal === 'audit' && <ShieldCheckIcon className="h-7 w-7 text-white" />}
-                                    {activeModal === 'chat' && <ChatIcon className="h-7 w-7 text-white" />}
-                                    {activeModal === 'agent' && <MagnifyingGlassIcon className="h-7 w-7 text-white" />}
-                                    {activeModal === 'debug' && <CodeBracketIcon className="h-7 w-7 text-white" />}
-                                    {activeModal === 'controller' && <AdjustmentsHorizontalIcon className="h-7 w-7 text-white" />}
-                                    {activeModal === 'notary' && <ClipboardDocumentListIcon className="h-7 w-7 text-white" />}
-                                    {activeModal === 'framework' && <LawIcon className="h-7 w-7 text-white" />}
-                                    {activeModal === 'arch' && <ArchiveBoxIcon className="h-7 w-7 text-white" />}
-                                    {activeModal === 'whitebook' && <ClipboardDocumentListIcon className="h-7 w-7 text-white" />}
-                                    {activeModal === 'sfb' && <ShieldCheckIcon className="h-7 w-7 text-white" />}
-                                    {activeModal === 'monitor' && <ActivityIcon className="h-7 w-7 text-white" />}
-                                    {activeModal === 'inventory' && <ClipboardDocumentListIcon className="h-7 w-7 text-white" />}
-                                    {activeModal === 'profiler' && <UserGroupIcon className="h-7 w-7 text-white" />}
+                                <div className="p-4 bg-[var(--accent)] rounded-[1.5rem] shadow-2xl shadow-[var(--accent)]/20">
+                                    {activeModal === 'hub' && <LayoutDashboard className="h-7 w-7 text-white" />}
+                                    {activeModal === 'ekonomi' && <Wallet className="h-7 w-7 text-white" />}
+                                    {activeModal === 'production' && <Zap className="h-7 w-7 text-white" />}
+                                    {activeModal === 'opinion' && <Sparkles className="h-7 w-7 text-white" />}
+                                    {activeModal === 'duel' && <AlertTriangle className="h-7 w-7 text-white" />}
+                                    {activeModal === 'integrity' && <Fingerprint className="h-7 w-7 text-white" />}
+                                    {activeModal === 'pipeline' && <Activity className="h-7 w-7 text-white" />}
+                                    {activeModal === 'oracle' && <Cpu className="h-7 w-7 text-white" />}
+                                    {activeModal === 'archive' && <Archive className="h-7 w-7 text-white" />}
+                                    {activeModal === 'audit' && <ShieldCheck className="h-7 w-7 text-white" />}
+                                    {activeModal === 'chat' && <MessageSquare className="h-7 w-7 text-white" />}
+                                    {activeModal === 'agent' && <Search className="h-7 w-7 text-white" />}
+                                    {activeModal === 'debug' && <Code className="h-7 w-7 text-white" />}
+                                    {activeModal === 'controller' && <Settings2 className="h-7 w-7 text-white" />}
+                                    {activeModal === 'notary' && <ClipboardList className="h-7 w-7 text-white" />}
+                                    {activeModal === 'framework' && <Scale className="h-7 w-7 text-white" />}
+                                    {activeModal === 'arch' && <Archive className="h-7 w-7 text-white" />}
+                                    {activeModal === 'vision' && <Shield className="h-7 w-7 text-white" />}
+                                    {activeModal === 'whitebook' && <ClipboardList className="h-7 w-7 text-white" />}
+                                    {activeModal === 'sfb' && <Shield className="h-7 w-7 text-white" />}
+                                    {activeModal === 'monitor' && <Activity className="h-7 w-7 text-white" />}
+                                    {activeModal === 'inventory' && <ClipboardList className="h-7 w-7 text-white" />}
+                                    {activeModal === 'profiler' && <Users className="h-7 w-7 text-white" />}
                                 </div>
                                 <div>
-                                    <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tighter m-0">
+                                    <h2 className="text-3xl font-black text-[var(--ink-main)] tracking-tighter m-0 font-serif">
                                         {activeModal === 'hub' && 'System Control Hub'}
                                         {activeModal === 'ekonomi' && 'Ekonomisk Motor'}
                                         {activeModal === 'production' && 'Juridisk Textproduktion'}
@@ -711,44 +573,45 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                                         {activeModal === 'notary' && 'Processnotarie'}
                                         {activeModal === 'framework' && 'Juridisk Ramverk'}
                                         {activeModal === 'arch' && 'Ärendearkiv'}
+                                        {activeModal === 'vision' && 'Vision & Tillgänglighet'}
                                         {activeModal === 'whitebook' && 'Vitbok'}
                                         {activeModal === 'sfb' && 'SFB Integritet'}
                                         {activeModal === 'monitor' && 'System Monitor'}
                                         {activeModal === 'inventory' && 'System Inventory'}
                                         {activeModal === 'profiler' && 'Case Profiler'}
                                     </h2>
-                                    <p className="text-[11px] font-black text-slate-400 uppercase tracking-[0.3em] mt-2 opacity-70">Säker anslutning • Modul v.7.5</p>
+                                    <p className="text-[11px] font-black text-[var(--ink-muted)] uppercase tracking-[0.3em] mt-2 opacity-70">Säker anslutning • Modul v.7.5</p>
                                 </div>
                             </div>
                             <button 
                                 onClick={() => setActiveModal(null)} 
-                                className="p-4 text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-[1.5rem] transition-all active:scale-90"
+                                className="p-4 text-[var(--ink-muted)] hover:text-[var(--ink-main)] hover:bg-[var(--bg-main)] rounded-[1.5rem] transition-all active:scale-90"
                                 title="Stäng modul"
                             >
-                                <XMarkIcon className="h-8 w-8" />
+                                <X className="h-8 w-8" />
                             </button>
                         </header>
-                        <div className="flex-1 overflow-y-auto p-12 custom-scrollbar bg-white dark:bg-slate-950">
+                        <div className="flex-1 overflow-y-auto p-12 custom-scrollbar bg-[var(--bg-main)]/30">
                             {/* Moduler som kräver en aktiv analys/ärende */}
                             {!currentAnalysis && ['production', 'opinion', 'duel', 'integrity', 'pipeline', 'profiler', 'controller', 'oracle'].includes(activeModal || '') && (
-                                <div className="h-full flex flex-col items-center justify-center text-center p-12 bg-slate-50 dark:bg-slate-950/20 rounded-[3rem] border-2 border-dashed border-slate-200 dark:border-slate-800">
-                                    <div className="w-24 h-24 bg-blue-50 dark:bg-blue-900/20 rounded-[2rem] flex items-center justify-center mb-8 border border-blue-100 dark:border-blue-800">
-                                        <DocumentTextIcon className="w-12 h-12 text-blue-500" />
+                                <div className="h-full flex flex-col items-center justify-center text-center p-12 bg-[var(--bg-card)] rounded-[3rem] border-2 border-dashed border-[var(--border)]">
+                                    <div className="w-24 h-24 bg-[var(--bg-main)] rounded-[2rem] flex items-center justify-center mb-8 border border-[var(--border)]">
+                                        <FileText className="w-12 h-12 text-[var(--accent)]" />
                                     </div>
-                                    <h3 className="text-2xl font-black text-slate-900 dark:text-white uppercase italic tracking-tight mb-4">Inget aktivt ärende</h3>
-                                    <p className="text-slate-500 dark:text-slate-400 max-w-md mb-10 font-medium">
+                                    <h3 className="text-2xl font-black text-[var(--ink-main)] uppercase italic tracking-tight mb-4 font-serif">Inget aktivt ärende</h3>
+                                    <p className="text-[var(--ink-muted)] max-w-md mb-10 font-medium">
                                         Denna modul kräver ett aktivt ärende för att fungera. Vänligen välj ett ärende från arkivet eller skapa ett nytt i analysvyn.
                                     </p>
                                     <div className="flex gap-4">
                                         <button 
                                             onClick={() => setActiveModal('archive')}
-                                            className="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl text-xs font-black uppercase tracking-widest transition-all shadow-xl shadow-blue-500/20 active:scale-95"
+                                            className="px-8 py-4 bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-white rounded-2xl text-xs font-black uppercase tracking-widest transition-all shadow-xl shadow-[var(--accent)]/20 active:scale-95"
                                         >
                                             Öppna Arkiv
                                         </button>
                                         <button 
                                             onClick={() => setActiveModal(null)}
-                                            className="px-8 py-4 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-2xl text-xs font-black uppercase tracking-widest transition-all border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700"
+                                            className="px-8 py-4 bg-[var(--bg-card)] text-[var(--ink-muted)] rounded-2xl text-xs font-black uppercase tracking-widest transition-all border border-[var(--border)] hover:bg-[var(--bg-main)]"
                                         >
                                             Avbryt
                                         </button>
@@ -767,12 +630,13 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                             {activeModal === 'archive' && <ArchiveView onSelect={(id) => { setSelectedDocId(id); setActiveModal(null); }} />}
                             {activeModal === 'audit' && <AuditPanel isOpen={true} onClose={() => setActiveModal(null)} />}
                             {activeModal === 'chat' && <BeslutView activeCase={activeCase} />}
-                            {activeModal === 'agent' && <AnalysView activeCase={activeCase} />}
+                            {activeModal === 'agent' && <CaseAnalysisView activeCase={activeCase} />}
                             {activeModal === 'debug' && <AIDebugPanel isOpen={true} onClose={() => setActiveModal(null)} />}
                             {activeModal === 'controller' && <FmjamController analysis={currentAnalysis} />}
                             {activeModal === 'notary' && <AutoNotaryView />}
                             {activeModal === 'framework' && <LegalFrameworkView isOpen={true} onClose={() => setActiveModal(null)} />}
                             {activeModal === 'arch' && <ArchiveView onSelect={(id) => { setSelectedDocId(id); setActiveModal(null); }} />}
+                            {activeModal === 'vision' && <VisionView />}
                             {activeModal === 'whitebook' && <WhitebookViewer isOpen={true} onClose={() => setActiveModal(null)} />}
                             {activeModal === 'sfb' && <SfbIntegrityPanel isOpen={true} onClose={() => setActiveModal(null)} />}
                             {activeModal === 'monitor' && <SystemMonitor isOpen={true} onClose={() => setActiveModal(null)} />}
@@ -785,12 +649,12 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
 
             <QuotaWarning />
 
-            <div className="md:hidden fixed bottom-12 left-1/2 -translate-x-1/2 flex items-center bg-[#111111]/90 backdrop-blur-md border border-gray-800 rounded-3xl p-4 shadow-2xl z-[200]">
-                <ToolButton icon={<Squares2X2Icon />} onClick={() => setActiveModal('hub')} active={activeModal === 'hub'} />
-                <ToolButton icon={<BanknotesIcon />} onClick={() => setActiveModal('ekonomi')} active={activeModal === 'ekonomi'} />
-                <ToolButton icon={<ChatIcon />} onClick={() => setActiveModal('chat')} active={activeModal === 'chat'} />
-                <ToolButton icon={<BoltIcon />} onClick={() => setActiveModal('production')} active={activeModal === 'production'} />
-                <ToolButton icon={<ActivityIcon />} onClick={() => setActiveModal('monitor')} active={activeModal === 'monitor'} />
+            <div className="md:hidden fixed bottom-12 left-1/2 -translate-x-1/2 flex items-center bg-[var(--bg-card)]/90 backdrop-blur-md border border-[var(--border)] rounded-3xl p-4 shadow-2xl z-[200]">
+                <ToolButton icon={<LayoutDashboard />} onClick={() => setActiveModal('hub')} active={activeModal === 'hub'} />
+                <ToolButton icon={<Wallet />} onClick={() => setActiveModal('ekonomi')} active={activeModal === 'ekonomi'} />
+                <ToolButton icon={<MessageSquare />} onClick={() => setActiveModal('chat')} active={activeModal === 'chat'} />
+                <ToolButton icon={<Zap />} onClick={() => setActiveModal('production')} active={activeModal === 'production'} />
+                <ToolButton icon={<Activity />} onClick={() => setActiveModal('monitor')} active={activeModal === 'monitor'} />
             </div>
         </div>
     );
@@ -803,34 +667,21 @@ interface ToolButtonProps {
     active?: boolean;
 }
 
-const ToolButton: React.FC<ToolButtonProps & { color?: string }> = ({ icon, onClick, label, active, color = 'indigo' }) => {
-    const colorClasses: Record<string, string> = {
-        indigo: 'bg-gradient-to-br from-indigo-600 via-indigo-700 to-indigo-900 border-indigo-400/50 shadow-[0_20px_50px_rgba(79,70,229,0.4)]',
-        rose: 'bg-gradient-to-br from-rose-600 via-rose-700 to-rose-900 border-rose-400/50 shadow-[0_20px_50px_rgba(225,29,72,0.4)]',
-        amber: 'bg-gradient-to-br from-amber-500 via-amber-600 to-amber-800 border-amber-400/50 shadow-[0_20px_50px_rgba(245,158,11,0.4)]',
-        teal: 'bg-gradient-to-br from-teal-600 via-teal-700 to-teal-900 border-teal-400/50 shadow-[0_20px_50px_rgba(20,184,166,0.4)]',
-        blue: 'bg-gradient-to-br from-blue-600 via-blue-700 to-blue-900 border-blue-400/50 shadow-[0_20px_50px_rgba(37,99,235,0.4)]',
-        purple: 'bg-gradient-to-br from-purple-600 via-purple-700 to-purple-900 border-purple-400/50 shadow-[0_20px_50px_rgba(147,51,234,0.4)]',
-        slate: 'bg-gradient-to-br from-slate-600 via-slate-700 to-slate-900 border-slate-400/50 shadow-[0_20px_50px_rgba(71,85,105,0.4)]'
-    };
-
+const ToolButton: React.FC<ToolButtonProps> = ({ icon, onClick, label, active }) => {
     return (
         <button 
             onClick={onClick}
             aria-label={label}
-            className={`px-10 py-5 rounded-[2.5rem] transition-all duration-700 flex items-center space-x-6 group cursor-pointer border-2 relative overflow-hidden ${
+            className={`px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all flex items-center space-x-2 ${
                 active 
-                ? `${colorClasses[color]} text-white scale-110 ring-8 ring-white/10 z-10 rotate-1` 
-                : 'border-transparent text-slate-500 hover:text-slate-900 hover:bg-white dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-900/60 shadow-sm hover:shadow-2xl hover:-translate-y-1.5'
+                ? 'bg-[var(--accent)] text-white shadow-md' 
+                : 'bg-[var(--bg-card)] text-[var(--ink-muted)] border border-[var(--border)] hover:border-[var(--accent)] hover:text-[var(--ink-main)] hover:bg-[var(--bg-main)]'
             }`}
         >
-            {active && (
-                <div className="absolute inset-0 bg-gradient-to-tr from-white/30 to-transparent animate-pulse" />
-            )}
-            <div className={`transition-all duration-1000 relative z-10 ${active ? 'text-white scale-150 rotate-12 drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]' : 'text-slate-400 group-hover:text-indigo-500 dark:group-hover:text-indigo-400 group-hover:scale-150 group-hover:rotate-12'}`}>
-                {React.isValidElement(icon) ? React.cloneElement(icon as React.ReactElement<{ className?: string }>, { className: 'w-7 h-7' }) : icon}
+            <div className="shrink-0">
+                {React.isValidElement(icon) ? React.cloneElement(icon as React.ReactElement<{ className?: string }>, { className: 'w-4 h-4' }) : icon}
             </div>
-            {label && <span className={`text-base font-black tracking-widest hidden lg:block relative z-10 uppercase ${active ? 'opacity-100 translate-x-1' : 'opacity-80 group-hover:opacity-100 group-hover:translate-x-1'}`}>{label}</span>}
+            {label && <span className="hidden lg:block">{label}</span>}
         </button>
     );
 };
@@ -845,19 +696,16 @@ interface MenuButtonProps {
 const MenuButton: React.FC<MenuButtonProps> = ({ icon, onClick, label, active }) => (
     <button 
         onClick={onClick}
-        className={`w-full px-8 py-6 rounded-[2.5rem] transition-all duration-700 flex items-center space-x-6 group cursor-pointer border-2 relative overflow-hidden ${
+        className={`w-full px-4 py-2 text-left transition-all flex items-center space-x-3 text-[10px] font-bold uppercase tracking-widest ${
             active 
-            ? 'bg-gradient-to-r from-indigo-600 to-indigo-800 text-white border-indigo-400/50 shadow-2xl shadow-indigo-500/40 scale-[1.02]' 
-            : 'border-transparent text-slate-600 dark:text-slate-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 hover:text-indigo-600 dark:hover:text-indigo-400'
+            ? 'bg-[var(--bg-main)] text-[var(--ink-main)]' 
+            : 'text-[var(--ink-muted)] hover:bg-[var(--bg-main)] hover:text-[var(--ink-main)]'
         }`}
     >
-        <div className={`transition-all duration-1000 relative z-10 ${active ? 'text-white scale-150 rotate-12' : 'text-slate-400 group-hover:text-indigo-500 group-hover:scale-150 group-hover:rotate-12'}`}>
-            {React.isValidElement(icon) ? React.cloneElement(icon as React.ReactElement<{ className?: string }>, { className: 'w-7 h-7' }) : icon}
+        <div className="shrink-0">
+            {React.isValidElement(icon) ? React.cloneElement(icon as React.ReactElement<{ className?: string }>, { className: 'w-4 h-4' }) : icon}
         </div>
-        <span className={`text-base font-black uppercase tracking-[0.2em] relative z-10 transition-all duration-700 ${active ? 'opacity-100 translate-x-2' : 'opacity-80 group-hover:opacity-100 group-hover:translate-x-3'}`}>{label}</span>
-        {!active && (
-            <div className="absolute inset-0 bg-indigo-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-        )}
+        <span>{label}</span>
     </button>
 );
 

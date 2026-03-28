@@ -1,5 +1,5 @@
 
-import { CASE_ARCHIVE, ArchiveDocument } from '../archive/caseArchive';
+import { CASE_ARCHIVE, ArchiveDocument } from '../data/caseArchive';
 
 export interface ArchiveSearchResult {
   document: ArchiveDocument;

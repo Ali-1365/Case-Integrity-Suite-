@@ -1,71 +1,110 @@
 
-import React from 'react';
-import { LogoIcon, ShieldCheckIcon } from './icons';
+import React, { useState } from 'react';
+import { ShieldCheck, Lock, Mail, ArrowRight, Loader2, Fingerprint } from 'lucide-react';
 
 interface LoginScreenProps {
   onLogin: () => void;
 }
 
 const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    // Simulate login
+    setTimeout(() => {
+      onLogin();
+      setIsLoading(false);
+    }, 1500);
+  };
+
   return (
-    <div className="flex items-center justify-center min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-500">
+    <div className="min-h-screen bg-[var(--bg-main)] flex items-center justify-center p-6 font-sans transition-colors duration-500">
       {/* Background decorative elements */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-[10%] -right-[10%] w-[40%] h-[40%] bg-blue-500/5 rounded-full blur-[120px]"></div>
-        <div className="absolute -bottom-[10%] -left-[10%] w-[40%] h-[40%] bg-indigo-500/5 rounded-full blur-[120px]"></div>
+        <div className="absolute -top-[10%] -right-[10%] w-[40%] h-[40%] bg-[var(--accent)]/5 rounded-full blur-[120px]"></div>
+        <div className="absolute -bottom-[10%] -left-[10%] w-[40%] h-[40%] bg-[var(--accent)]/5 rounded-full blur-[120px]"></div>
       </div>
 
-      <div className="relative z-10 w-full max-w-md px-6 animate-in fade-in zoom-in duration-700">
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[3rem] shadow-2xl shadow-slate-200/50 dark:shadow-none p-12 md:p-16 relative overflow-hidden group">
-          <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-600"></div>
-          
-          <div className="mb-12 flex flex-col items-center text-center">
-            <div className="p-5 bg-blue-600 rounded-[1.5rem] shadow-2xl shadow-blue-600/30 mb-8 transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
-              <LogoIcon className="h-12 w-12 text-white" />
+      <div className="relative z-10 w-full max-w-md animate-in fade-in zoom-in duration-700">
+        <div className="bg-[var(--bg-card)] rounded-[3rem] border border-[var(--border)] p-12 shadow-2xl relative overflow-hidden group">
+          <div className="absolute top-0 left-0 w-full h-2 bg-[var(--accent)]"></div>
+
+          <div className="text-center mb-12 relative">
+            <div className="inline-flex p-5 bg-[var(--bg-main)] rounded-[2rem] border border-[var(--border)] mb-8 shadow-inner transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
+              <ShieldCheck className="w-12 h-12 text-[var(--accent)]" />
             </div>
-            <h1 className="text-4xl font-black tracking-tighter text-slate-900 dark:text-white mb-4 uppercase italic">
-              Case Integrity Suite
-            </h1>
-            <div className="flex items-center space-x-3 bg-slate-50 dark:bg-slate-800 px-4 py-1.5 rounded-full border border-slate-100 dark:border-slate-700">
-              <ShieldCheckIcon className="h-4 w-4 text-blue-500" />
-              <span className="text-[10px] font-black uppercase tracking-[0.25em] text-slate-500 dark:text-slate-400">Enterprise Edition v1.0</span>
-            </div>
+            <h1 className="text-4xl font-black text-[var(--ink-main)] tracking-tighter mb-2 font-serif italic uppercase">Case Integrity</h1>
+            <p className="text-[10px] font-bold text-[var(--ink-muted)] uppercase tracking-[0.4em]">Forensisk Juridisk AI</p>
           </div>
 
-          <div className="space-y-8">
-            <div className="text-center space-y-3 mb-10">
-              <p className="text-slate-600 dark:text-slate-400 text-base leading-relaxed font-medium">
-                Välkommen till den säkra portalen för <span className="text-slate-900 dark:text-white font-bold">juridisk analys</span> och <span className="text-slate-900 dark:text-white font-bold">forensisk bevisvärdering</span>.
-              </p>
+          <form onSubmit={handleSubmit} className="space-y-6 relative">
+            <div className="space-y-2">
+              <label className="text-[10px] font-bold text-[var(--ink-muted)] uppercase tracking-widest ml-4">Identifiering</label>
+              <div className="relative group/input">
+                <Mail className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--ink-muted)] group-focus-within/input:text-[var(--accent)] transition-colors" />
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="tjanstemail@domstol.se"
+                  className="w-full bg-[var(--bg-main)] border border-[var(--border)] rounded-2xl py-4 pl-14 pr-6 text-[var(--ink-main)] placeholder:text-[var(--ink-muted)]/30 focus:outline-none focus:border-[var(--accent)] focus:ring-4 focus:ring-[var(--accent)]/5 transition-all font-medium"
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-[10px] font-bold text-[var(--ink-muted)] uppercase tracking-widest ml-4">Säkerhetskod</label>
+              <div className="relative group/input">
+                <Lock className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--ink-muted)] group-focus-within/input:text-[var(--accent)] transition-colors" />
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••"
+                  className="w-full bg-[var(--bg-main)] border border-[var(--border)] rounded-2xl py-4 pl-14 pr-6 text-[var(--ink-main)] placeholder:text-[var(--ink-muted)]/30 focus:outline-none focus:border-[var(--accent)] focus:ring-4 focus:ring-[var(--accent)]/5 transition-all font-medium"
+                  required
+                />
+              </div>
             </div>
 
             <button
-              onClick={onLogin}
-              className="group relative w-full bg-slate-900 dark:bg-blue-600 hover:bg-slate-800 dark:hover:bg-blue-700 text-white font-black py-5 px-8 rounded-2xl transition-all duration-500 shadow-2xl shadow-slate-900/20 dark:shadow-blue-900/30 flex items-center justify-center space-x-4 overflow-hidden uppercase tracking-[0.2em] text-xs active:scale-95"
+              type="submit"
+              disabled={isLoading}
+              className="w-full bg-[var(--ink-main)] text-white rounded-2xl py-5 font-black text-xs uppercase tracking-[0.2em] hover:bg-[var(--accent)] transition-all shadow-xl shadow-[var(--ink-main)]/10 active:scale-[0.98] disabled:opacity-50 flex items-center justify-center space-x-3"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-              <span className="relative">Auktorisera Session</span>
-              <ShieldCheckIcon className="h-5 w-5 relative group-hover:scale-110 transition-transform" />
+              {isLoading ? (
+                <Loader2 className="w-5 h-5 animate-spin" />
+              ) : (
+                <>
+                  <span>Auktorisera Session</span>
+                  <ArrowRight className="w-4 h-4" />
+                </>
+              )}
             </button>
+          </form>
 
-            <div className="pt-10 border-t border-slate-100 dark:border-slate-800">
-              <div className="flex flex-col items-center space-y-6">
-                <p className="text-[10px] text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em] font-black text-center leading-loose max-w-xs">
-                  Säkerhetsmeddelande: Endast för auktoriserad personal. All aktivitet loggas i enlighet med gällande sekretesslagstiftning.
-                </p>
-                <div className="flex items-center space-x-5">
-                  <div className="h-1.5 w-1.5 rounded-full bg-slate-200 dark:bg-slate-800"></div>
-                  <div className="h-1.5 w-1.5 rounded-full bg-slate-300 dark:bg-slate-700"></div>
-                  <div className="h-1.5 w-1.5 rounded-full bg-slate-200 dark:bg-slate-800"></div>
-                </div>
-              </div>
-            </div>
+          <div className="mt-12 pt-8 border-t border-[var(--border)] text-center">
+            <p className="text-[9px] font-bold text-[var(--ink-muted)] uppercase tracking-widest leading-loose max-w-xs mx-auto">
+              Säkerhetsmeddelande: Endast för auktoriserad personal. All aktivitet loggas i enlighet med gällande sekretesslagstiftning.
+            </p>
           </div>
         </div>
         
-        <p className="mt-8 text-center text-[10px] text-slate-400 dark:text-slate-600 font-medium tracking-wide">
-          &copy; 2026 Forensic Intelligence Systems AB. Alla rättigheter förbehållna.
-        </p>
+        <div className="mt-8 flex justify-center space-x-8 opacity-40">
+           <div className="flex items-center space-x-2">
+              <ShieldCheck className="w-3 h-3 text-[var(--ink-muted)]" />
+              <span className="text-[8px] font-bold uppercase tracking-widest text-[var(--ink-muted)]">AES-256</span>
+           </div>
+           <div className="flex items-center space-x-2">
+              <Fingerprint className="w-3 h-3 text-[var(--ink-muted)]" />
+              <span className="text-[8px] font-bold uppercase tracking-widest text-[var(--ink-muted)]">Biometrisk Redo</span>
+           </div>
+        </div>
       </div>
     </div>
   );

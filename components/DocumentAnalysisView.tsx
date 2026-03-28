@@ -8,14 +8,14 @@ import { SynthesizerEngine } from '../lib/synthesizerEngine';
 import AnalysisResults from './AnalysisResults';
 import { Spinner, ArrowLeftIcon } from './icons';
 
-interface AnalysisViewProps {
+interface DocumentAnalysisViewProps {
   documentId: string;
   onBack: () => void;
   onDocumentUpdate: (documentId: string) => void;
   onLegalReferenceSelect: (refId: string) => void;
 }
 
-const AnalysisView: React.FC<AnalysisViewProps> = ({ documentId, onBack, onDocumentUpdate, onLegalReferenceSelect }) => {
+const DocumentAnalysisView: React.FC<DocumentAnalysisViewProps> = ({ documentId, onBack, onDocumentUpdate, onLegalReferenceSelect }) => {
   const [document, setDocument] = useState<StoredDocument | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [isGeneratingSynthesis, setIsGeneratingSynthesis] = useState(false);
@@ -164,4 +164,4 @@ const AnalysisView: React.FC<AnalysisViewProps> = ({ documentId, onBack, onDocum
   );
 };
 
-export default AnalysisView;
+export default DocumentAnalysisView;

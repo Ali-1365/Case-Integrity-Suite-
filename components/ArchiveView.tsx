@@ -3,14 +3,14 @@ import React, { useState, useEffect } from 'react';
 import { db } from '../lib/db';
 import { StoredDocument } from '../types';
 import { 
-    ArchiveBoxIcon, 
-    DocumentTextIcon, 
-    TrashIcon, 
-    MagnifyingGlassIcon,
-    CalendarIcon,
-    ChevronRightIcon,
-    Spinner
-} from './icons';
+    Archive, 
+    FileText, 
+    Trash2, 
+    Search,
+    Calendar,
+    ChevronRight,
+    Loader2
+} from 'lucide-react';
 
 interface ArchiveViewProps {
     onSelect: (id: string) => void;
@@ -64,41 +64,38 @@ const ArchiveView: React.FC<ArchiveViewProps> = ({ onSelect }) => {
     );
 
     return (
-        <div className="space-y-20 animate-in fade-in duration-1000 relative pb-32">
+        <div className="space-y-10 animate-in fade-in duration-1000 relative pb-20">
             {statusMessage && (
-                <div className={`fixed top-20 right-20 z-50 px-12 py-6 rounded-[3rem] shadow-[0_40px_100px_rgba(0,0,0,0.4)] border-2 animate-in slide-in-from-right-20 duration-1000 backdrop-blur-2xl ${
-                    statusMessage.type === 'success' ? 'bg-emerald-600/95 text-white border-emerald-400 shadow-emerald-500/40' : 'bg-rose-600/95 text-white border-rose-400 shadow-rose-500/40'
+                <div className={`fixed top-10 right-10 z-[100] px-8 py-4 rounded-[1.5rem] border shadow-2xl animate-in slide-in-from-right-10 duration-700 backdrop-blur-md ${
+                    statusMessage.type === 'success' ? 'bg-white/90 text-emerald-600 border-emerald-100' : 'bg-white/90 text-rose-600 border-rose-100'
                 }`}>
-                    <p className="text-[13px] font-black uppercase tracking-[0.4em] flex items-center gap-6">
-                        <div className="w-3 h-3 rounded-full bg-white animate-pulse shadow-[0_0_10px_rgba(255,255,255,0.8)]" />
+                    <p className="text-[10px] font-black uppercase tracking-[0.2em] flex items-center gap-4">
+                        <span className={`w-2.5 h-2.5 rounded-full shadow-sm ${statusMessage.type === 'success' ? 'bg-emerald-500 animate-pulse' : 'bg-rose-500'}`} />
                         {statusMessage.text}
                     </p>
                 </div>
             )}
 
             {deleteConfirmId && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/95 backdrop-blur-2xl p-12 animate-in fade-in duration-1000">
-                    <div className="bg-white dark:bg-slate-900 rounded-[6rem] p-20 max-w-2xl w-full border-2 border-slate-100 dark:border-slate-800 shadow-[0_80px_200px_-30px_rgba(0,0,0,0.7)] relative overflow-hidden group">
-                        <div className="absolute top-0 left-0 w-full h-4 bg-gradient-to-r from-rose-600 via-rose-500 to-rose-400 opacity-90" />
-                        <div className="absolute -top-32 -right-32 w-80 h-80 bg-rose-500/15 rounded-full blur-[100px] group-hover:bg-rose-500/25 transition-colors duration-1000" />
-                        
-                        <div className="w-28 h-28 bg-rose-500/10 rounded-[3rem] flex items-center justify-center mb-12 mx-auto border-2 border-rose-500/30 shadow-inner relative z-10 group-hover:scale-110 group-hover:rotate-12 transition-all duration-700">
-                            <TrashIcon className="w-14 h-14 text-rose-500 animate-bounce" />
+                <div className="fixed inset-0 z-[200] flex items-center justify-center bg-[var(--ink-main)]/60 backdrop-blur-xl p-6 animate-in fade-in duration-700">
+                    <div className="bg-[var(--bg-main)] rounded-[3rem] p-12 max-w-md w-full border border-[var(--border)] shadow-2xl relative overflow-hidden animate-in zoom-in-95 duration-500">
+                        <div className="w-20 h-20 bg-rose-50 rounded-full flex items-center justify-center mb-8 mx-auto border border-rose-100 shadow-inner">
+                            <Trash2 className="w-10 h-10 text-rose-500" />
                         </div>
-                        <h3 className="text-5xl font-serif font-black text-slate-900 dark:text-white text-center mb-8 tracking-tighter relative z-10 leading-none">Radera ärende?</h3>
-                        <p className="text-2xl text-slate-500 dark:text-slate-400 text-center mb-16 leading-relaxed font-medium relative z-10 px-8">
-                            Är du säker på att du vill radera detta ärende permanent? Denna åtgärd kan inte ångras och all forensisk data försvinner.
+                        <h3 className="text-2xl font-black text-[var(--ink-main)] text-center mb-4 tracking-tighter font-serif italic uppercase">Radera ärende?</h3>
+                        <p className="text-sm text-[var(--ink-muted)] text-center mb-10 leading-relaxed font-medium">
+                            Är du säker på att du vill radera detta ärende permanent? Denna åtgärd kan inte ångras.
                         </p>
-                        <div className="grid grid-cols-2 gap-10 relative z-10">
+                        <div className="grid grid-cols-2 gap-6">
                             <button 
                                 onClick={() => setDeleteConfirmId(null)}
-                                className="py-7 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 rounded-[3rem] text-[13px] font-black uppercase tracking-[0.4em] hover:bg-slate-100 dark:hover:bg-slate-700 transition-all border-2 border-slate-100 dark:border-slate-700 active:scale-95 shadow-md hover:shadow-2xl"
+                                className="py-4 bg-[var(--bg-card)] text-[var(--ink-muted)] rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-[var(--bg-main)] transition-all border border-[var(--border)] active:scale-95 shadow-sm"
                             >
                                 Avbryt
                             </button>
                             <button 
                                 onClick={() => handleDelete(deleteConfirmId)}
-                                className="py-7 bg-gradient-to-r from-rose-600 to-rose-500 text-white rounded-[3rem] text-[13px] font-black uppercase tracking-[0.4em] shadow-[0_30px_70px_-10px_rgba(225,29,72,0.6)] hover:shadow-[0_50px_100px_-10px_rgba(225,29,72,0.8)] transition-all active:scale-95 border-2 border-rose-400/40"
+                                className="py-4 bg-rose-600 text-white rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-xl shadow-rose-500/20 hover:bg-rose-700 transition-all active:scale-95"
                             >
                                 Radera
                             </button>
@@ -107,97 +104,84 @@ const ArchiveView: React.FC<ArchiveViewProps> = ({ onSelect }) => {
                 </div>
             )}
 
-            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-12">
-                <div className="space-y-4">
-                    <h3 className="text-6xl font-serif font-black text-slate-900 dark:text-white tracking-tighter leading-none">Ärendearkiv</h3>
-                    <div className="flex items-center gap-6">
-                        <div className="h-2 w-16 bg-indigo-500 rounded-full shadow-[0_0_10px_rgba(99,102,241,0.5)]" />
-                        <p className="text-[13px] text-indigo-600 dark:text-indigo-400 uppercase font-black tracking-[0.5em] opacity-100">Historik över alla analyserade och låsta ärenden.</p>
-                    </div>
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+                <div className="space-y-2">
+                    <h3 className="text-3xl font-black text-[var(--ink-main)] tracking-tighter font-serif italic uppercase">Ärendearkiv</h3>
+                    <p className="text-[10px] text-[var(--ink-muted)] uppercase font-black tracking-[0.3em] opacity-70">Historik över alla analyserade ärenden.</p>
                 </div>
-                <div className="relative w-full lg:w-[600px] group">
-                    <div className="absolute inset-0 bg-indigo-500/10 rounded-[4rem] blur-3xl group-focus-within:bg-indigo-500/20 transition-all duration-1000" />
-                    <MagnifyingGlassIcon className="absolute left-10 top-1/2 -translate-y-1/2 w-8 h-8 text-slate-400 group-focus-within:text-indigo-500 group-focus-within:scale-125 transition-all duration-700" />
+                <div className="relative w-full md:w-[400px] group">
+                    <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-[var(--ink-muted)] group-focus-within:text-[var(--accent)] transition-colors" />
                     <input 
                         type="text"
-                        placeholder="Sök ärende eller ID..."
+                        placeholder="Sök ärende..."
                         value={searchTerm}
                         onChange={e => setSearchTerm(e.target.value)}
-                        className="w-full bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-[4rem] py-8 pl-24 pr-12 text-2xl focus:ring-12 focus:ring-indigo-500/10 focus:border-indigo-500 outline-none transition-all shadow-md hover:shadow-3xl placeholder-slate-400 relative z-10 font-serif tracking-tight"
+                        className="w-full bg-[var(--bg-card)] border border-[var(--border)] rounded-[1.5rem] py-4 pl-14 pr-6 text-sm focus:border-[var(--accent)] outline-none transition-all shadow-sm placeholder-[var(--ink-muted)]/40 font-medium"
                     />
                 </div>
             </div>
 
             {isLoading ? (
-                <div className="h-[60vh] flex flex-col items-center justify-center">
-                    <div className="relative mb-12">
-                        <div className="absolute inset-0 bg-indigo-500/40 blur-[80px] rounded-full animate-pulse"></div>
-                        <div className="p-12 bg-white dark:bg-slate-900 rounded-[4rem] border-2 border-indigo-100 dark:border-indigo-900 shadow-[0_40px_100px_rgba(0,0,0,0.1)] relative z-10">
-                            <Spinner className="w-24 h-24 text-indigo-500" />
-                        </div>
-                    </div>
-                    <p className="text-[14px] font-black text-slate-400 uppercase tracking-[0.8em] animate-pulse">Laddar arkiv...</p>
+                <div className="h-96 flex flex-col items-center justify-center bg-[var(--bg-card)]/30 rounded-[3rem] border-2 border-dashed border-[var(--border)]">
+                    <Loader2 className="w-12 h-12 text-[var(--accent)] mb-6 animate-spin" />
+                    <p className="text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-[0.3em]">Laddar arkiv...</p>
                 </div>
             ) : filteredDocs.length > 0 ? (
-                <div className="grid grid-cols-1 gap-10">
+                <div className="grid grid-cols-1 gap-6">
                     {filteredDocs.map(doc => (
                         <div 
                             key={doc.id}
                             onClick={() => onSelect(doc.id)}
-                            className="bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-[5rem] p-12 hover:border-indigo-500/60 transition-all cursor-pointer group flex items-center justify-between shadow-md hover:shadow-[0_60px_150px_-30px_rgba(0,0,0,0.15)] hover:-translate-y-4 duration-1000 relative overflow-hidden"
+                            className="bg-[var(--bg-card)] border border-[var(--border)] rounded-[2.5rem] p-8 hover:border-[var(--accent)]/30 transition-all cursor-pointer group flex items-center justify-between shadow-sm hover:shadow-xl active:scale-[0.99] relative overflow-hidden"
                         >
-                            <div className="absolute top-0 left-0 w-3 h-full bg-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 shadow-[0_0_25px_rgba(99,102,241,0.7)]" />
-                            
-                            <div className="flex items-center gap-12 relative z-10">
-                                <div className="p-10 bg-slate-50 dark:bg-slate-800/50 rounded-[3rem] text-slate-400 group-hover:text-indigo-500 group-hover:bg-indigo-500/15 transition-all duration-1000 border-2 border-slate-50 dark:border-slate-700 group-hover:border-indigo-500/30 shadow-inner group-hover:scale-125 group-hover:rotate-12">
-                                    <ArchiveBoxIcon className="w-14 h-14" />
+                            {/* Decorative background element */}
+                            <div className="absolute -right-10 -bottom-10 opacity-[0.03] group-hover:scale-110 transition-transform duration-1000">
+                                <Archive className="w-40 h-40" />
+                            </div>
+
+                            <div className="flex items-center gap-8 relative z-10">
+                                <div className="p-5 bg-[var(--bg-main)] rounded-[1.5rem] border border-[var(--border)] text-[var(--ink-muted)] group-hover:text-[var(--accent)] transition-all shadow-inner group-hover:scale-110 duration-500">
+                                    <Archive className="w-8 h-8" />
                                 </div>
-                                <div className="space-y-6">
-                                    <h4 className="text-4xl font-serif font-black text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors duration-500 tracking-tighter leading-none">{doc.name}</h4>
-                                    <div className="flex flex-wrap items-center gap-10 text-[13px] text-slate-500 dark:text-slate-400 font-black uppercase tracking-[0.3em] opacity-90">
-                                        <div className="flex items-center gap-4">
-                                            <CalendarIcon className="w-6 h-6 text-indigo-500/70" />
+                                <div className="space-y-2">
+                                    <h4 className="text-xl font-black text-[var(--ink-main)] tracking-tighter leading-none font-serif italic uppercase">{doc.name}</h4>
+                                    <div className="flex items-center gap-6 text-[10px] text-[var(--ink-muted)] font-black uppercase tracking-[0.2em]">
+                                        <div className="flex items-center gap-2">
+                                            <Calendar className="w-4 h-4 text-[var(--accent)]/60" />
                                             <span>{new Date(doc.createdAt).toLocaleDateString('sv-SE')}</span>
                                         </div>
-                                        <div className="h-2 w-2 rounded-full bg-slate-200 dark:bg-slate-800 shadow-inner" />
-                                        <div className="flex items-center gap-4">
-                                            <DocumentTextIcon className="w-6 h-6 text-indigo-500/70" />
+                                        <div className="flex items-center gap-2">
+                                            <FileText className="w-4 h-4 text-[var(--accent)]/60" />
                                             <span>{doc.textContent.length.toLocaleString()} tecken</span>
                                         </div>
-                                        <div className="hidden sm:flex items-center gap-4">
-                                            <span className="px-5 py-2 bg-slate-100 dark:bg-slate-800 rounded-2xl border-2 border-slate-200 dark:border-slate-700 font-mono tracking-widest shadow-sm">ID: {doc.id.substring(0, 12)}</span>
-                                        </div>
+                                        <span className="font-mono opacity-40 bg-[var(--bg-main)] px-2 py-0.5 rounded-lg border border-[var(--border)]">ID: {doc.id.substring(0, 8)}</span>
                                     </div>
                                 </div>
                             </div>
-                            <div className="flex items-center gap-10 relative z-10">
+                            <div className="flex items-center gap-6 relative z-10">
                                 <button 
                                     onClick={(e) => {
                                         e.stopPropagation();
                                         setDeleteConfirmId(doc.id);
                                     }}
-                                    className="p-6 text-slate-400 hover:text-rose-500 hover:bg-rose-500/15 rounded-[2rem] transition-all border-2 border-transparent hover:border-rose-500/30 active:scale-90 hover:shadow-2xl group/del"
+                                    className="p-4 text-[var(--ink-muted)] hover:text-rose-500 transition-all hover:bg-rose-50 rounded-2xl border border-transparent hover:border-rose-100 active:scale-90"
                                 >
-                                    <TrashIcon className="w-8 h-8 group-hover/del:rotate-12 transition-transform" />
+                                    <Trash2 className="w-6 h-6" />
                                 </button>
-                                <div className="p-6 bg-slate-50 dark:bg-slate-800 rounded-[2rem] border-2 border-slate-100 dark:border-slate-700 group-hover:bg-indigo-600 group-hover:text-white group-hover:border-indigo-400 transition-all duration-1000 shadow-inner group-hover:shadow-[0_30px_70px_rgba(79,70,229,0.5)] group-hover:scale-110 group-hover:rotate-12">
-                                    <ChevronRightIcon className="w-10 h-10 group-hover:translate-x-2 transition-transform duration-500" />
+                                <div className="p-4 text-[var(--ink-muted)] group-hover:text-[var(--accent)] transition-all bg-[var(--bg-main)] rounded-2xl border border-[var(--border)] group-hover:border-[var(--accent)]/20 shadow-sm group-hover:translate-x-2 duration-500">
+                                    <ChevronRight className="w-6 h-6" />
                                 </div>
                             </div>
                         </div>
                     ))}
                 </div>
             ) : (
-                <div className="bg-slate-50 dark:bg-slate-900/50 border-8 border-dashed border-slate-100 dark:border-slate-800 rounded-[6rem] p-64 text-center relative overflow-hidden group">
-                    <div className="absolute inset-0 bg-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
-                    <div className="relative z-10">
-                        <div className="relative inline-block mb-16">
-                            <div className="absolute inset-0 bg-indigo-500/10 blur-[100px] rounded-full animate-pulse" />
-                            <ArchiveBoxIcon className="w-44 h-44 text-slate-200 dark:text-slate-800 mx-auto transition-all duration-1000 group-hover:scale-125 group-hover:rotate-12 group-hover:text-indigo-200 dark:group-hover:text-indigo-900" />
-                        </div>
-                        <h3 className="text-6xl font-serif font-black text-slate-400 dark:text-slate-600 mb-8 tracking-tighter leading-none">Arkivet är tomt</h3>
-                        <p className="text-2xl text-slate-500 dark:text-slate-500 max-w-2xl mx-auto leading-relaxed font-medium opacity-60">Inga ärenden matchar din sökning eller har arkiverats ännu. Starta en analys för att börja bygga ditt arkiv.</p>
+                <div className="bg-[var(--bg-card)]/30 border-2 border-dashed border-[var(--border)] rounded-[3rem] py-32 text-center animate-in fade-in duration-1000">
+                    <div className="w-24 h-24 bg-[var(--bg-main)] rounded-full flex items-center justify-center mb-8 mx-auto border border-[var(--border)] shadow-inner">
+                        <Archive className="w-12 h-12 text-[var(--ink-muted)]/20" />
                     </div>
+                    <h3 className="text-2xl font-black text-[var(--ink-muted)] mb-3 tracking-tighter font-serif italic uppercase">Arkivet är tomt</h3>
+                    <p className="text-[10px] text-[var(--ink-muted)] font-black uppercase tracking-[0.3em] opacity-40">Inga ärenden matchar din sökning.</p>
                 </div>
             )}
         </div>

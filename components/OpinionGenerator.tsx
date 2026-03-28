@@ -1,12 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { OpinionConfig, OpinionResult, StoredDocument } from '../types';
+import { OpinionConfig, OpinionResult } from '../types';
 import { AnalysisResult } from '../lib/cis.types';
 import { opinionTemplateRegistry } from '../data/opinionTemplates';
-import Card from './shared/Card';
-import { BoltIcon, BrainIcon, DocumentTextIcon, SparklesIcon, Spinner, ShieldCheckIcon } from './icons';
+import { 
+  Zap, 
+  Brain, 
+  FileText, 
+  Sparkles, 
+  Loader2, 
+  ShieldCheck, 
+  X, 
+  ChevronDown,
+  Info,
+  CheckCircle2,
+  FileSearch,
+  Download
+} from 'lucide-react';
 import { OpinionEngine } from '../lib/opinionEngine';
 import { GeminiLlmClient } from '../services/geminiService';
 import { db } from '../lib/db';
+import { motion, AnimatePresence } from 'motion/react';
 
 interface OpinionGeneratorProps {
   analysis: AnalysisResult;
@@ -47,7 +60,6 @@ const OpinionGenerator: React.FC<OpinionGeneratorProps> = ({ analysis, onComplet
       const result = await engine.generateOpinion(analysis, config);
       setOpinionResult(result);
       
-      // Save to DB if we have a document ID
       if (analysis.documents && analysis.documents[0]) {
         await db.saveOpinion(analysis.documents[0].id, result);
       }
@@ -67,29 +79,29 @@ const OpinionGenerator: React.FC<OpinionGeneratorProps> = ({ analysis, onComplet
       .filter(line => line.length > 0)
       .map((line, index) => {
         if (line.startsWith('---')) {
-            return <hr key={`hr-${index}`} className="border-gray-800 my-4" />;
+            return <hr key={`hr-${index}`} className="border-[var(--border)] my-8" />;
         }
         if (line.includes('**INTEGRITETSKEDJA (SHA-256):**')) {
             return (
-                <div key={`integrity-${index}`} className="bg-emerald-500/10 border border-emerald-500/20 p-3 rounded-lg mb-4 flex items-center space-x-3">
-                    <ShieldCheckIcon className="w-5 h-5 text-emerald-400" />
+                <div key={`integrity-${index}`} className="bg-emerald-50 border border-emerald-100 p-6 rounded-[1.5rem] mb-8 flex items-center gap-4">
+                    <ShieldCheck className="w-8 h-8 text-emerald-600" />
                     <div>
-                        <p className="text-[10px] font-black text-emerald-500 uppercase tracking-widest">Integritetsverifierad</p>
-                        <p className="text-[10px] font-mono text-gray-400 break-all">{line.split(': ')[1]}</p>
+                        <p className="text-[10px] font-black text-emerald-600 uppercase tracking-[0.2em]">Integritetsverifierad</p>
+                        <p className="text-xs font-mono text-slate-500 break-all">{line.split(': ')[1]}</p>
                     </div>
                 </div>
             );
         }
         if (line.startsWith('### ')) {
-          return <h3 key={`h3-${index}`} className="text-xl font-semibold text-cyan-300 mt-6 mb-2">{line.replace('### ', '')}</h3>;
+          return <h3 key={`h3-${index}`} className="text-xl font-black text-[var(--ink-main)] mt-10 mb-4 tracking-tight">{line.replace('### ', '')}</h3>;
         }
         if (line.startsWith('## ')) {
-          return <h2 key={`h2-${index}`} className="text-2xl font-bold text-cyan-400 mt-8 mb-3 border-b border-gray-700 pb-1">{line.replace('## ', '')}</h2>;
+          return <h2 key={`h2-${index}`} className="text-2xl font-black text-[var(--ink-main)] mt-12 mb-6 border-b border-[var(--border)] pb-2 tracking-tight">{line.replace('## ', '')}</h2>;
         }
         if (line.startsWith('- ')) {
-            return <li key={`li-${index}`} className="ml-6 list-disc text-gray-300">{line.replace('- ', '')}</li>
+            return <li key={`li-${index}`} className="ml-8 list-disc text-[var(--ink-main)] text-base font-medium mb-2">{line.replace('- ', '')}</li>
         }
-        return <p key={`p-${index}`} className="mb-4 text-gray-300 leading-relaxed">{line}</p>;
+        return <p key={`p-${index}`} className="mb-6 text-[var(--ink-main)] text-base leading-relaxed font-medium">{line}</p>;
       })
       .reduce((acc: React.ReactElement[], el) => {
         if (el.type === 'li' && acc.length > 0 && acc[acc.length-1].type === 'ul') {
@@ -99,96 +111,167 @@ const OpinionGenerator: React.FC<OpinionGeneratorProps> = ({ analysis, onComplet
             acc[acc.length-1] = newUl;
             return acc;
         } else if (el.type === 'li') {
-            return [...acc, <ul key={`ul-${el.key}`} className="mb-4 space-y-1">{el}</ul>];
+            return [...acc, <ul key={`ul-${el.key}`} className="mb-6 space-y-2">{el}</ul>];
         }
         return [...acc, el];
       }, [] as React.ReactElement[]);
   };
 
   return (
-    <div className="space-y-6">
-      <Card title="2. Generera AI-Yttrande (v.6.0)" icon={<SparklesIcon />}>
-        <div className="space-y-6">
-            <div>
-                <label htmlFor="template-select" className="block text-sm font-medium text-gray-300 mb-2">
-                    Välj mall för yttrande
+    <div className="space-y-8 animate-in fade-in duration-700 max-w-5xl mx-auto pb-12">
+      <header className="py-10 px-10 bg-[var(--bg-card)] border border-[var(--border)] rounded-[2.5rem] shadow-sm relative overflow-hidden">
+        <div className="absolute top-0 right-0 p-12 opacity-5 pointer-events-none">
+          <FileSearch size={200} className="text-[var(--accent)]" />
+        </div>
+
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
+          <div className="space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-2xl bg-[var(--accent)]/10 flex items-center justify-center text-[var(--accent)]">
+                <Sparkles size={20} />
+              </div>
+              <span className="text-[10px] font-black tracking-[0.2em] text-[var(--ink-muted)] uppercase">AI-Expert v6.0</span>
+            </div>
+            <h1 className="text-4xl font-black text-[var(--ink-main)] tracking-tight">
+              Generera Juridiskt Yttrande
+            </h1>
+            <p className="text-sm font-medium text-[var(--ink-muted)] max-w-xl leading-relaxed">
+              Skapa domstolsklara yttranden med 8-stegs bevisvärdering och SHA-256 integritetssäkring.
+            </p>
+          </div>
+        </div>
+      </header>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="lg:col-span-1 space-y-8">
+          <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-[2.5rem] p-8 shadow-sm space-y-8">
+            <div className="space-y-4">
+                <label htmlFor="template-select" className="flex items-center gap-2 text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-[0.2em]">
+                    <FileText size={14} className="text-[var(--accent)]" /> Mall för yttrande
                 </label>
-                <select 
-                    id="template-select"
-                    className="block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm"
-                    value={selectedTemplateId}
-                    onChange={e => setSelectedTemplateId(e.target.value)}
-                    disabled={isGenerating}
-                >
-                    {opinionTemplateRegistry.map(template => (
-                        <option key={template.id} value={template.id}>{template.name}</option>
-                    ))}
-                </select>
-                {selectedTemplate && <p className="text-xs text-gray-400 mt-2">{selectedTemplate.description}</p>}
+                <div className="relative">
+                  <select 
+                      id="template-select"
+                      className="block w-full bg-[var(--bg-main)] border border-[var(--border)] rounded-2xl py-4 px-5 text-[var(--ink-main)] focus:outline-none focus:border-[var(--accent)] text-xs font-black uppercase tracking-widest transition-all appearance-none"
+                      value={selectedTemplateId}
+                      onChange={e => setSelectedTemplateId(e.target.value)}
+                      disabled={isGenerating}
+                  >
+                      {opinionTemplateRegistry.map(template => (
+                          <option key={template.id} value={template.id}>{template.name}</option>
+                      ))}
+                  </select>
+                  <ChevronDown className="absolute right-5 top-1/2 -translate-y-1/2 text-[var(--ink-muted)] pointer-events-none" size={16} />
+                </div>
+                {selectedTemplate && (
+                  <div className="flex gap-3 p-4 bg-[var(--bg-main)] rounded-2xl border border-[var(--border)]">
+                    <Info size={16} className="text-[var(--accent)] shrink-0" />
+                    <p className="text-[10px] text-[var(--ink-muted)] font-bold leading-relaxed">{selectedTemplate.description}</p>
+                  </div>
+                )}
             </div>
 
-            <div>
-                <p className="block text-sm font-medium text-gray-300 mb-2">Välj AI-modell</p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-4">
+                <p className="block text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-[0.2em]">AI-Modell</p>
+                <div className="space-y-3">
                     <ModeButton 
-                    title="Snabb" 
-                    description="Använder Gemini Flash för snabba svar. Bäst för översikter." 
-                    icon={<BoltIcon />} 
-                    isActive={mode === 'fast'}
-                    onClick={() => setMode('fast')}
-                    disabled={isGenerating}
+                      title="Snabb" 
+                      description="Gemini Flash för snabba svar." 
+                      icon={<Zap />} 
+                      isActive={mode === 'fast'}
+                      onClick={() => setMode('fast')}
+                      disabled={isGenerating}
                     />
                     <ModeButton 
-                    title="Djupanalys" 
-                    description="Använder Gemini Pro med 'thinking mode' för komplexa resonemang." 
-                    icon={<BrainIcon />}
-                    isActive={mode === 'think'}
-                    onClick={() => setMode('think')}
-                    disabled={isGenerating}
+                      title="Djupanalys" 
+                      description="Gemini Pro med thinking mode." 
+                      icon={<Brain />}
+                      isActive={mode === 'think'}
+                      onClick={() => setMode('think')}
+                      disabled={isGenerating}
                     />
                 </div>
             </div>
-           
-           <div>
-            <label htmlFor="custom-formatting" className="block text-sm font-medium text-gray-300 mb-2">
-                Fria formateringsinstruktioner (valfritt)
-            </label>
-            <textarea
-                id="custom-formatting"
-                rows={3}
-                className="block w-full bg-gray-900 border border-gray-600 rounded-md shadow-sm py-2 px-3 text-gray-200 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm"
-                placeholder="T.ex. 'Använd punktlistor för bedömningen', 'fetmarkera alla lagrum', etc."
-                value={config.customFormatting}
-                onChange={(e) => setConfig(prev => ({...prev, customFormatting: e.target.value}))}
-                disabled={isGenerating}
-            />
-          </div>
+            
+            <div className="space-y-4">
+              <label htmlFor="custom-formatting" className="block text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-[0.2em]">
+                  Instruktioner (valfritt)
+              </label>
+              <textarea
+                  id="custom-formatting"
+                  rows={4}
+                  className="block w-full bg-[var(--bg-main)] border border-[var(--border)] rounded-2xl py-4 px-5 text-[var(--ink-main)] focus:outline-none focus:border-[var(--accent)] text-sm font-medium transition-all resize-none shadow-inner"
+                  placeholder="T.ex. 'Använd punktlistor', 'fetmarkera lagrum'..."
+                  value={config.customFormatting}
+                  onChange={(e) => setConfig(prev => ({...prev, customFormatting: e.target.value}))}
+                  disabled={isGenerating}
+              />
+            </div>
 
-          <button
-            onClick={handleGenerate}
-            disabled={isGenerating}
-            className="w-full mt-2 bg-cyan-600 hover:bg-cyan-500 disabled:bg-gray-600 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center"
-          >
-            {isGenerating ? <Spinner className="h-5 w-5 mr-2" /> : <SparklesIcon className="h-5 w-5 mr-2" />}
-            {isGenerating ? 'Genererar...' : `Generera "${selectedTemplate?.name || ''}"`}
-          </button>
-        </div>
-      </Card>
-      {opinionResult && (
-        <Card title="Genererat Yttrande" icon={<DocumentTextIcon />}>
-          <div className="prose prose-invert prose-p:text-gray-300 prose-headings:text-cyan-400 max-w-none bg-gray-900 p-4 rounded-lg">
-             {renderMarkdown(opinionResult.content)}
-          </div>
-          <div className="mt-8 flex justify-end">
-            <button 
-              onClick={onComplete}
-              className="px-6 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-lg font-bold transition-all border border-gray-700"
+            <button
+              onClick={handleGenerate}
+              disabled={isGenerating}
+              className="w-full bg-[var(--ink-main)] hover:bg-[var(--accent)] disabled:bg-[var(--bg-main)] disabled:text-[var(--ink-muted)] text-white font-black py-5 px-6 rounded-[1.5rem] transition-all duration-300 flex items-center justify-center text-xs uppercase tracking-widest shadow-xl shadow-[var(--ink-main)]/10 active:scale-95"
             >
-              Stäng
+              {isGenerating ? <Loader2 className="h-5 w-5 mr-3 animate-spin" /> : <Sparkles className="h-5 w-5 mr-3" />}
+              {isGenerating ? 'Genererar...' : 'Generera Yttrande'}
             </button>
           </div>
-        </Card>
-      )}
+        </div>
+
+        <div className="lg:col-span-2">
+          <AnimatePresence mode="wait">
+            {opinionResult ? (
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-[var(--bg-card)] border border-[var(--border)] rounded-[2.5rem] shadow-sm overflow-hidden"
+              >
+                <div className="px-10 py-6 border-b border-[var(--bg-main)] flex justify-between items-center bg-[var(--bg-main)]/30">
+                  <div className="flex items-center gap-3">
+                    <FileText className="w-4 h-4 text-[var(--ink-muted)]" />
+                    <span className="text-[10px] font-black text-[var(--ink-main)] uppercase tracking-[0.2em]">Genererat Dokument</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2 px-3 py-1 bg-emerald-50 text-emerald-600 rounded-full border border-emerald-100">
+                      <CheckCircle2 size={12} />
+                      <span className="text-[9px] font-black uppercase tracking-widest">Verifierad</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-12 bg-white min-h-[500px]">
+                   <div className="font-serif text-[var(--ink-main)] leading-relaxed">
+                    {renderMarkdown(opinionResult.content)}
+                   </div>
+                </div>
+                <div className="p-10 border-t border-[var(--border)] bg-[var(--bg-main)]/30 flex justify-end gap-4">
+                  <button className="px-8 py-4 bg-white border border-[var(--border)] text-[var(--ink-main)] rounded-2xl text-xs font-black uppercase tracking-widest hover:border-[var(--accent)] transition-all flex items-center gap-3 active:scale-95">
+                    <Download size={18} /> Ladda ner
+                  </button>
+                  <button 
+                    onClick={onComplete}
+                    className="px-8 py-4 bg-[var(--ink-main)] text-white rounded-2xl text-xs font-black uppercase tracking-widest hover:bg-[var(--accent)] transition-all active:scale-95"
+                  >
+                    Stäng
+                  </button>
+                </div>
+              </motion.div>
+            ) : (
+              <div className="h-full min-h-[500px] border-4 border-dashed border-[var(--border)] rounded-[3rem] flex flex-col items-center justify-center text-center p-16 space-y-6 bg-[var(--bg-card)]/50">
+                <div className="w-24 h-24 bg-[var(--bg-main)] rounded-[2rem] flex items-center justify-center text-[var(--ink-muted)] shadow-inner">
+                  <FileText className="w-12 h-12" />
+                </div>
+                <div className="space-y-2">
+                  <h3 className="text-xl font-black text-[var(--ink-main)] tracking-tight uppercase">Inget yttrande genererat</h3>
+                  <p className="text-sm text-[var(--ink-muted)] font-medium max-w-xs mx-auto leading-relaxed">
+                    Konfigurera inställningarna till vänster och klicka på "Generera Yttrande" för att starta processen.
+                  </p>
+                </div>
+              </div>
+            )}
+          </AnimatePresence>
+        </div>
+      </div>
     </div>
   );
 };
@@ -203,19 +286,23 @@ interface ModeButtonProps {
 }
 
 const ModeButton: React.FC<ModeButtonProps> = ({ title, description, icon, isActive, onClick, disabled }) => {
-    const activeClasses = 'border-cyan-500 bg-cyan-900/30 ring-2 ring-cyan-500';
-    const inactiveClasses = 'border-gray-700 hover:border-cyan-600 hover:bg-gray-700/50';
     return (
         <button 
           onClick={onClick}
           disabled={disabled}
-          className={`p-4 border rounded-lg text-left transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed ${isActive ? activeClasses : inactiveClasses}`}
+          className={`w-full p-6 border rounded-2xl text-left transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-5 ${
+            isActive 
+              ? 'border-[var(--ink-main)] bg-[var(--ink-main)] text-white shadow-xl shadow-[var(--ink-main)]/10' 
+              : 'border-[var(--border)] bg-[var(--bg-main)] text-[var(--ink-muted)] hover:border-[var(--accent)]/50'
+          }`}
         >
-            <div className="flex items-center mb-2">
-                <div className="mr-3 text-cyan-400">{icon}</div>
-                <h4 className="font-semibold text-white">{title}</h4>
+            <div className={`w-12 h-12 rounded-xl flex items-center justify-center transition-colors ${isActive ? 'bg-white/10 text-white' : 'bg-white text-[var(--ink-muted)] border border-[var(--border)]'}`}>
+                {React.cloneElement(icon as React.ReactElement<any>, { className: "w-6 h-6" })}
             </div>
-            <p className="text-sm text-gray-400">{description}</p>
+            <div>
+                <h4 className={`text-sm font-black uppercase tracking-tight ${isActive ? 'text-white' : 'text-[var(--ink-main)]'}`}>{title}</h4>
+                <p className={`text-[10px] font-medium leading-tight mt-1 ${isActive ? 'text-slate-400' : 'text-[var(--ink-muted)]'}`}>{description}</p>
+            </div>
         </button>
     )
 }

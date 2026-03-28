@@ -9,34 +9,34 @@
 
 @layer base {
   :root {
-    --bg-main: #FDFCFB;
+    --bg-main: #F5F2ED; /* Warm parchment - high comfort */
     --bg-card: #FFFFFF;
-    --ink-main: #1A1A1A;
-    --ink-muted: #6B6B6B;
-    --accent: #6366F1; /* Indigo */
-    --accent-hover: #4F46E5;
-    --border: #E5E1DA;
-    --line: #D1CEC7;
-    --success: #10B981;
-    --warning: #F59E0B;
-    --danger: #EF4444;
+    --ink-main: #1A1A1A; /* Deeper charcoal for better contrast */
+    --ink-muted: #666666;
+    --accent: #5A5A40; /* Muted Olive */
+    --accent-hover: #454531;
+    --border: #E5E1D8;
+    --line: #DEDAD1;
+    --success: #6B705C;
+    --warning: #B7B7A4;
+    --danger: #A5A58D;
     
-    /* Vibrant Palette */
-    --color-primary: #6366F1;
-    --color-secondary: #EC4899;
-    --color-tertiary: #F59E0B;
-    --color-quaternary: #14B8A6;
+    /* Vibrant Palette - Softened and more organic */
+    --color-primary: #5A5A40;
+    --color-secondary: #A5A58D;
+    --color-tertiary: #B7B7A4;
+    --color-quaternary: #6B705C;
   }
   
   .dark {
-    --bg-main: #0C0C0C;
-    --bg-card: #141414;
-    --ink-main: #F5F5F5;
-    --ink-muted: #A1A1A1;
-    --accent: #818CF8;
-    --accent-hover: #A5B4FC;
-    --border: #262626;
-    --line: #333333;
+    --bg-main: #151614; /* Deep forest charcoal */
+    --bg-card: #1C1D1A;
+    --ink-main: #E5E1D8;
+    --ink-muted: #A8A894;
+    --accent: #8B8B6D;
+    --accent-hover: #A5A58D;
+    --border: #2A2B26;
+    --line: #35362F;
   }
 
   body {
