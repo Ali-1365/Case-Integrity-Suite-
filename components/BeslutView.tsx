@@ -50,6 +50,7 @@ const BeslutView: React.FC<BeslutViewProps> = ({ activeCase }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isOffline, setIsOffline] = useState(offlineService.getIsOffline());
   const [showUploadModal, setShowUploadModal] = useState(false);
+  const [documentContext, setDocumentContext] = useState<string>('');
   const { parseFile, isParsing } = useFileParser();
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -78,6 +79,8 @@ const BeslutView: React.FC<BeslutViewProps> = ({ activeCase }) => {
         }
       }
       
+      setDocumentContext(prev => prev + combinedContent);
+      
       const assistantMessage: Message = {
         id: Date.now().toString(),
         role: 'assistant',
@@ -86,7 +89,6 @@ const BeslutView: React.FC<BeslutViewProps> = ({ activeCase }) => {
       };
       
       setMessages(prev => [...prev, assistantMessage]);
-      // In a real app, we would store combinedContent in a ref to use as context for future messages
     } catch (error) {
       toast.error('Kunde inte läsa in filer');
     } finally {
@@ -95,30 +97,35 @@ const BeslutView: React.FC<BeslutViewProps> = ({ activeCase }) => {
     }
   };
 
-  const handleSend = async () => {
-    if (!input.trim() || isLoading || isOffline) return;
+  const handleSend = async (overrideInput?: string) => {
+    const messageContent = overrideInput || input;
+    if (!messageContent.trim() || isLoading || isOffline) return;
 
     const userMessage: Message = {
       id: Date.now().toString(),
       role: 'user',
-      content: input,
+      content: messageContent,
       timestamp: new Date()
     };
 
     setMessages(prev => [...prev, userMessage]);
-    setInput('');
+    if (!overrideInput) setInput('');
     setIsLoading(true);
 
     try {
-      const context = activeCase 
+      const caseContext = activeCase 
         ? `Aktivt ärende: ${activeCase.name}. Typ: ${activeCase.type}. Beskrivning: ${activeCase.description}`
         : 'Inget aktivt ärende valt.';
+
+      const docContext = documentContext 
+        ? `\n\nINLADDADE DOKUMENT:\n${documentContext}`
+        : '';
 
       const response = await geminiService.generate(
         {
           contents: `Du är en juridisk expert-AI. Svara på följande fråga baserat på svensk lag och rättspraxis. 
-                     Kontext: ${context}
-                     Fråga: ${input}`,
+                     Kontext: ${caseContext}${docContext}
+                     Fråga: ${messageContent}`,
           config: { temperature: 0.2 }
         },
         'fast'
@@ -138,6 +145,32 @@ const BeslutView: React.FC<BeslutViewProps> = ({ activeCase }) => {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleQuickGuide = (guide: string) => {
+    const prompts: Record<string, string> = {
+      'Bevisvärdering': 'Hur fungerar bevisvärdering i svensk rättsprocess? Ge en sammanfattning av principerna.',
+      'Rättegångskostnader': 'Vilka regler gäller för rättegångskostnader i tvistemål respektive brottmål?',
+      'Tidsfrister': 'Vilka är de viktigaste tidsfristerna att hålla koll på vid överklagande av dom?',
+      'Fullmakter': 'Vad krävs för att en fullmakt ska vara giltig i en juridisk process?'
+    };
+    handleSend(prompts[guide] || `Berätta mer om ${guide}.`);
+  };
+
+  const handleLegalSources = () => {
+    toast.info("Öppnar lagrumsbiblioteket...");
+    const assistantMessage: Message = {
+      id: Date.now().toString(),
+      role: 'assistant',
+      content: 'Här är några centrala lagrum som är relevanta för din analys:\n\n1. **Rättegångsbalken (1942:740)** - Grundläggande regler för domstolar och rättegång.\n2. **Brottsbalken (1962:700)** - Definitioner av brott och påföljder.\n3. **Förvaltningslagen (2017:900)** - Regler för myndigheters handläggning.\n\nVilket område vill du fördjupa dig i?',
+      timestamp: new Date()
+    };
+    setMessages(prev => [...prev, assistantMessage]);
+  };
+
+  const handleHistory = () => {
+    toast.info("Hämtar historik...");
+    // Placeholder for history logic
   };
 
   return (
@@ -245,7 +278,7 @@ const BeslutView: React.FC<BeslutViewProps> = ({ activeCase }) => {
                 rows={1}
               />
               <button
-                onClick={handleSend}
+                onClick={() => handleSend()}
                 disabled={!input.trim() || isLoading || isOffline}
                 className="absolute right-3 top-3 p-3 bg-[var(--ink-main)] text-white rounded-xl hover:bg-[var(--accent)] transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg active:scale-95"
               >
@@ -260,10 +293,16 @@ const BeslutView: React.FC<BeslutViewProps> = ({ activeCase }) => {
                 >
                   <Upload size={12} /> Ladda upp Underlag
                 </button>
-                <button className="text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-widest hover:text-[var(--accent)] transition-colors flex items-center gap-1">
+                <button 
+                  onClick={handleLegalSources}
+                  className="text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-widest hover:text-[var(--accent)] transition-colors flex items-center gap-1"
+                >
                   <Scale size={12} /> Lagrum
                 </button>
-                <button className="text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-widest hover:text-[var(--accent)] transition-colors flex items-center gap-1">
+                <button 
+                  onClick={handleHistory}
+                  className="text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-widest hover:text-[var(--accent)] transition-colors flex items-center gap-1"
+                >
                   <History size={12} /> Historik
                 </button>
               </div>
@@ -290,7 +329,11 @@ const BeslutView: React.FC<BeslutViewProps> = ({ activeCase }) => {
                 'Tidsfrister',
                 'Fullmakter'
               ].map((guide, i) => (
-                <button key={i} className="w-full p-4 bg-[var(--bg-main)] rounded-2xl border border-[var(--border)] flex items-center justify-between group hover:border-[var(--accent)]/50 transition-all">
+                <button 
+                  key={i} 
+                  onClick={() => handleQuickGuide(guide)}
+                  className="w-full p-4 bg-[var(--bg-main)] rounded-2xl border border-[var(--border)] flex items-center justify-between group hover:border-[var(--accent)]/50 transition-all"
+                >
                   <span className="text-xs font-bold text-[var(--ink-main)]">{guide}</span>
                   <ChevronRight size={14} className="text-[var(--ink-muted)] group-hover:text-[var(--accent)] transition-colors" />
                 </button>

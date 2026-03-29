@@ -10,10 +10,11 @@
     "lint": "tsc --noEmit"
   },
   "dependencies": {
-    "@google/genai": "^1.35.0",
+    "@google/genai": "^1.47.0",
     "clsx": "^2.1.1",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
+    "google-auth-library": "^10.6.2",
     "idb": "8.0.0",
     "lucide-react": "0.471.0",
     "motion": "^12.38.0",
