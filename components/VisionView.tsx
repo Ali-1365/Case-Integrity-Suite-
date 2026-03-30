@@ -1,8 +1,13 @@
 
 import React from 'react';
 import { ShieldCheckIcon, UserGroupIcon, MagnifyingGlassIcon, SparklesIcon, BoltIcon, LawIcon } from './icons';
+import { ModuleConnector } from './shared/ModuleConnector';
 
-const VisionView: React.FC = () => {
+interface VisionViewProps {
+  onNavigate?: (moduleId: string) => void;
+}
+
+const VisionView: React.FC<VisionViewProps> = ({ onNavigate }) => {
   return (
     <div className="max-w-4xl mx-auto py-12 px-6 space-y-20 animate-in fade-in duration-1000">
       {/* Hero Section */}
@@ -92,6 +97,8 @@ const VisionView: React.FC = () => {
           Case Integrity Suite • Designfilosofi v1.0
         </p>
       </footer>
+
+      <ModuleConnector activeModule="vision" onNavigate={onNavigate} />
     </div>
   );
 };

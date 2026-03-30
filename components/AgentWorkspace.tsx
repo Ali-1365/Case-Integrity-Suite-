@@ -24,10 +24,12 @@ import {
 import Card from './shared/Card';
 import MarkdownRenderer from './shared/MarkdownRenderer';
 import { CaseProfiler } from './CaseProfiler';
+import { ModuleConnector } from './shared/ModuleConnector';
 
 interface AgentWorkspaceProps {
   isOpen: boolean;
   onClose: () => void;
+  onNavigate?: (moduleId: string) => void;
 }
 
 type TabType = 'analys' | 'historik' | 'profil';
@@ -141,100 +143,102 @@ const AgentWorkspace: React.FC<AgentWorkspaceProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="flex flex-col h-full w-full bg-white dark:bg-slate-900 overflow-hidden font-sans transition-all">
+    <div className="flex flex-col h-full w-full bg-[var(--bg-main)] overflow-hidden font-sans transition-all pb-20">
       
-      <header className="px-4 md:px-8 py-4 md:py-6 flex justify-between items-center border-b border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 sticky top-0 z-10">
-          <div className="flex items-center space-x-3 md:space-x-4">
-            <div className="p-2 md:p-2.5 bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-100 dark:border-blue-800">
-              <MagnifyingGlassIcon className="h-5 w-5 md:h-6 md:w-6 text-blue-600 dark:text-blue-400" />
+      <header className="px-8 py-6 flex justify-between items-center border-b border-[var(--border-strong)] bg-[var(--bg-card)] sticky top-0 z-10 shadow-xl">
+          <div className="flex items-center space-x-5">
+            <div className="p-3 bg-[var(--accent)]/10 border border-[var(--accent)]/30 shadow-inner">
+              <MagnifyingGlassIcon className="h-6 w-6 text-[var(--accent)]" />
             </div>
             <div>
-              <h2 className="text-base md:text-lg font-semibold text-slate-900 dark:text-white leading-tight">Interactive Analyst</h2>
-              <div className="flex items-center space-x-2 mt-0.5 md:mt-1">
-                <p className="text-[8px] md:text-[10px] text-slate-500 font-medium uppercase tracking-wider">Dynamisk Ärendeanalys</p>
-                <span className="text-[8px] text-slate-300 hidden sm:inline">•</span>
-                <div className="hidden sm:flex items-center space-x-2">
-                    <span className={`flex items-center gap-1 text-[8px] font-bold uppercase ${isOffline ? 'text-orange-500' : 'text-emerald-500'}`}>
-                        {isOffline ? <ExclamationTriangleIcon className="w-2.5 h-2.5" /> : <ShieldCheckIcon className="w-2.5 h-2.5" />}
+              <h2 className="text-xl font-black text-[var(--ink-main)] uppercase italic tracking-tighter leading-none">Interactive Analyst <span className="text-[var(--accent)] opacity-50">GOLD</span></h2>
+              <div className="flex items-center space-x-3 mt-2">
+                <p className="text-[10px] text-[var(--ink-muted)] font-black uppercase tracking-[0.3em] italic opacity-70">Dynamisk Ärendeanalys | Reasoning Layer</p>
+                <span className="text-slate-700 hidden sm:inline">•</span>
+                <div className="hidden sm:flex items-center space-x-3">
+                    <span className={`flex items-center gap-2 text-[9px] font-black uppercase tracking-widest italic ${isOffline ? 'text-[var(--warning)]' : 'text-[var(--success)]'}`}>
+                        {isOffline ? <ExclamationTriangleIcon className="w-3 h-3" /> : <ShieldCheckIcon className="w-3 h-3" />}
                         {isOffline ? 'OFFLINE_MODE' : 'INTEGRITY: OK'}
                     </span>
-                    <span className={`flex items-center gap-1 text-[8px] font-bold uppercase ${syncHealth ? 'text-blue-500' : 'text-slate-400'}`}>
-                        <ArrowPathIcon className="w-2.5 h-2.5" />
+                    <span className={`flex items-center gap-2 text-[9px] font-black uppercase tracking-widest italic ${syncHealth ? 'text-[var(--accent)]' : 'text-[var(--ink-muted)]'}`}>
+                        <ArrowPathIcon className="w-3 h-3" />
                         {syncHealth ? 'SYNC: ACTIVE' : 'LOCAL_ONLY'}
                     </span>
                 </div>
               </div>
             </div>
           </div>
-          <button onClick={onClose} className="p-2 text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all">
-            <XMarkIcon className="h-5 w-5 md:h-6 md:w-6" />
+          <button onClick={onClose} className="p-3 text-[var(--ink-muted)] hover:text-[var(--accent)] hover:bg-[var(--bg-main)] border border-transparent hover:border-[var(--border-strong)] transition-all active:scale-90 italic">
+            <XMarkIcon className="h-6 w-6" />
           </button>
         </header>
         
         <main className="flex flex-col md:grid md:grid-cols-12 flex-grow overflow-hidden">
           {/* Sidebar - Control Panel */}
-          <div className="md:col-span-4 border-b md:border-b-0 md:border-r border-slate-100 dark:border-slate-800 p-4 md:p-6 flex flex-col bg-slate-50 dark:bg-slate-950/20 overflow-y-auto">
-              <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Kontrollpanel</h3>
-              {!isReady ? <div className="flex justify-center py-8"><Spinner className="h-8 w-8 text-blue-600"/></div> : (
-                  <div className="space-y-4 md:space-y-6">
+          <div className="md:col-span-4 border-b md:border-b-0 md:border-r border-[var(--border-strong)] p-8 flex flex-col bg-[var(--bg-card)] overflow-y-auto shadow-inner relative">
+              <div className="absolute top-0 left-0 w-1 h-full bg-[var(--accent)] opacity-20"></div>
+              <h3 className="text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-[0.4em] mb-6 italic opacity-60">Kontrollpanel</h3>
+              {!isReady ? <div className="flex justify-center py-12"><Spinner className="h-10 w-10 text-[var(--accent)]"/></div> : (
+                  <div className="space-y-8">
                     <div>
-                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2 block">Aktivt Ärende</label>
+                        <label className="text-[10px] font-black text-[var(--accent)] uppercase tracking-[0.3em] mb-3 block italic">Aktivt Ärende</label>
                         <select 
                             value={activeCaseId || ''}
                             onChange={(e) => setActiveCaseId(e.target.value)}
-                            className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-2.5 text-sm text-slate-900 dark:text-white outline-none focus:ring-2 focus:ring-blue-500/20"
+                            className="w-full bg-[var(--bg-main)] border border-[var(--border-strong)] p-4 text-xs text-[var(--ink-main)] font-black uppercase tracking-widest italic outline-none focus:border-[var(--accent)] transition-colors shadow-inner"
                             disabled={isGenerating || isQuerying}>
                             {cases.map(c => <option key={c.caseId} value={c.caseId}>{c.caseId}</option>)}
                         </select>
                     </div>
 
-                    <div className="flex flex-col space-y-2">
-                        <button onClick={() => handleGenerateOpinion().catch(err => console.error('Opinion generation failed:', err))} disabled={isGenerating || isQuerying} className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded-lg flex items-center justify-center disabled:bg-slate-200 dark:disabled:bg-slate-800 transition-colors">
-                            {isGenerating ? <Spinner className="h-4 w-4 mr-2" /> : <SparklesIcon className="h-4 w-4 mr-2" />}
-                            <span className="text-sm">{isGenerating ? 'Genererar...' : 'Generera Yttrande'}</span>
+                    <div className="flex flex-col space-y-3">
+                        <button 
+                          onClick={() => handleGenerateOpinion().catch(err => console.error('Opinion generation failed:', err))} 
+                          disabled={isGenerating || isQuerying} 
+                          className="w-full bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-[var(--bg-main)] font-black py-4 px-6 uppercase tracking-[0.2em] italic flex items-center justify-center disabled:bg-[var(--bg-main)] disabled:text-[var(--ink-muted)] disabled:border-[var(--border)] border border-[var(--accent)] transition-all shadow-lg active:scale-95"
+                        >
+                            {isGenerating ? <Spinner className="h-4 w-4 mr-3" /> : <SparklesIcon className="h-4 w-4 mr-3" />}
+                            <span className="text-[10px]">{isGenerating ? 'Genererar...' : 'Generera Yttrande'}</span>
                         </button>
                     </div>
 
-                    <div className="pt-4 md:pt-6 border-t border-slate-200 dark:border-slate-800">
-                        <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Interaktiv Fråga</h4>
-                        <div className="relative">
+                    <div className="pt-8 border-t border-[var(--border)]">
+                        <h4 className="text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-[0.4em] mb-6 italic opacity-60">Interaktiv Fråga</h4>
+                        <div className="relative group">
                             <textarea
                                 value={query}
                                 onChange={e => setQuery(e.target.value)}
                                 onKeyPress={e => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), handleQuery())}
                                 placeholder="Fråga agenten..."
-                                rows={2}
-                                className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-3 pr-10 text-sm text-slate-900 dark:text-white resize-none outline-none focus:ring-2 focus:ring-blue-500/20"
+                                rows={3}
+                                className="w-full bg-[var(--bg-main)] border border-[var(--border-strong)] p-4 pr-12 text-xs text-[var(--ink-main)] font-black uppercase tracking-widest italic resize-none outline-none focus:border-[var(--accent)] transition-all shadow-inner placeholder:opacity-30"
                                 disabled={isGenerating || isQuerying}
                             />
-                            <button onClick={handleQuery} disabled={isQuerying || isGenerating || !query.trim()} className="absolute bottom-3 right-3 p-1.5 bg-blue-600 rounded-md text-white disabled:bg-slate-200 dark:disabled:bg-slate-800 transition-colors"><PaperAirplaneIcon className="w-3.5 h-3.5"/></button>
+                            <button onClick={handleQuery} disabled={isQuerying || isGenerating || !query.trim()} className="absolute bottom-4 right-4 p-2 bg-[var(--accent)] text-[var(--bg-main)] disabled:bg-[var(--bg-main)] disabled:text-[var(--ink-muted)] transition-all active:scale-90 shadow-lg border border-[var(--accent)]"><PaperAirplaneIcon className="w-4 h-4"/></button>
                         </div>
                     </div>
 
-                    <div className="pt-4 md:pt-6 border-t border-slate-200 dark:border-slate-800">
-                        <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Navigering</h4>
-                        <div className="grid grid-cols-3 gap-2">
-                            <button 
-                                onClick={() => setActiveTab('analys')}
-                                className={`p-2 rounded-lg flex flex-col items-center justify-center border transition-all ${activeTab === 'analys' ? 'bg-blue-50 border-blue-200 text-blue-600 dark:bg-blue-900/20 dark:border-blue-800 dark:text-blue-400' : 'bg-white border-slate-100 text-slate-400 dark:bg-slate-900 dark:border-slate-800'}`}
-                            >
-                                <ChatIcon className="w-4 h-4 mb-1" />
-                                <span className="text-[8px] font-bold uppercase">Analys</span>
-                            </button>
-                            <button 
-                                onClick={() => setActiveTab('historik')}
-                                className={`p-2 rounded-lg flex flex-col items-center justify-center border transition-all ${activeTab === 'historik' ? 'bg-blue-50 border-blue-200 text-blue-600 dark:bg-blue-900/20 dark:border-blue-800 dark:text-blue-400' : 'bg-white border-slate-100 text-slate-400 dark:bg-slate-900 dark:border-slate-800'}`}
-                            >
-                                <ClockIcon className="w-4 h-4 mb-1" />
-                                <span className="text-[8px] font-bold uppercase">Historik</span>
-                            </button>
-                            <button 
-                                onClick={() => setActiveTab('profil')}
-                                className={`p-2 rounded-lg flex flex-col items-center justify-center border transition-all ${activeTab === 'profil' ? 'bg-blue-50 border-blue-200 text-blue-600 dark:bg-blue-900/20 dark:border-blue-800 dark:text-blue-400' : 'bg-white border-slate-100 text-slate-400 dark:bg-slate-900 dark:border-slate-800'}`}
-                            >
-                                <UserGroupIcon className="w-4 h-4 mb-1" />
-                                <span className="text-[8px] font-bold uppercase">Profil</span>
-                            </button>
+                    <div className="pt-8 border-t border-[var(--border)]">
+                        <h4 className="text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-[0.4em] mb-6 italic opacity-60">Navigering</h4>
+                        <div className="grid grid-cols-3 gap-3">
+                            <TabButton 
+                                active={activeTab === 'analys'} 
+                                onClick={() => setActiveTab('analys')} 
+                                icon={<ChatIcon className="w-4 h-4" />} 
+                                label="Analys" 
+                            />
+                            <TabButton 
+                                active={activeTab === 'historik'} 
+                                onClick={() => setActiveTab('historik')} 
+                                icon={<ClockIcon className="w-4 h-4" />} 
+                                label="Historik" 
+                            />
+                            <TabButton 
+                                active={activeTab === 'profil'} 
+                                onClick={() => setActiveTab('profil')} 
+                                icon={<UserGroupIcon className="w-4 h-4" />} 
+                                label="Profil" 
+                            />
                         </div>
                     </div>
                   </div>
@@ -242,94 +246,114 @@ const AgentWorkspace: React.FC<AgentWorkspaceProps> = ({ isOpen, onClose }) => {
           </div>
 
           {/* Main Content Area */}
-          <div className="md:col-span-8 overflow-y-auto custom-scrollbar p-4 md:p-8 bg-white dark:bg-slate-900">
-            {isQuerying && <div className="flex justify-center py-8"><Spinner className="h-8 w-8 text-blue-600"/></div>}
+          <div className="md:col-span-8 overflow-y-auto custom-scrollbar p-10 bg-[var(--bg-main)] relative">
+            <div className="absolute top-0 right-0 p-10 opacity-[0.02] pointer-events-none">
+              <BoltIcon className="w-64 h-64 text-[var(--accent)]" />
+            </div>
+
+            {isQuerying && <div className="flex justify-center py-12"><Spinner className="h-10 w-10 text-[var(--accent)]"/></div>}
             
             {activeTab === 'analys' && (
-                <div className="space-y-6 animate-in fade-in duration-300">
+                <div className="space-y-10 animate-in fade-in duration-500 relative z-10">
                     {queryResult && (
-                        <div className="mb-6">
+                        <div className="mb-10 animate-in slide-in-from-top-4 duration-500">
                             <Card title="Svar från Agent" icon={<ChatIcon className="w-4 h-4"/>}>
-                                <pre className="bg-slate-50 dark:bg-slate-950 p-4 rounded-lg text-[10px] font-mono text-blue-800 dark:text-blue-400 whitespace-pre-wrap border border-slate-100 dark:border-slate-800">{JSON.stringify(queryResult, null, 2)}</pre>
+                                <pre className="bg-[var(--bg-main)] p-8 border border-[var(--border-strong)] text-[11px] font-mono text-[var(--accent)] whitespace-pre-wrap shadow-inner italic font-black uppercase tracking-tight">{JSON.stringify(queryResult, null, 2)}</pre>
                             </Card>
                         </div>
                     )}
 
                     {isGenerating && (
-                        <div className="flex flex-col items-center justify-center h-full text-center py-12">
-                            <Spinner className="h-10 w-10 text-blue-600 mb-4" />
-                            <p className="text-slate-900 dark:text-white font-bold">AI-analysmotorn arbetar...</p>
-                            <p className="text-slate-500 text-xs mt-2">Kopplar fakta till lagrum och identifierar konflikter.</p>
+                        <div className="flex flex-col items-center justify-center h-full text-center py-24 space-y-8">
+                            <div className="p-8 bg-[var(--accent)]/5 border border-[var(--accent)]/20 rounded-full animate-pulse">
+                              <Spinner className="h-16 w-16 text-[var(--accent)]" />
+                            </div>
+                            <div>
+                              <p className="text-[var(--ink-main)] font-black text-2xl uppercase italic tracking-tighter">AI-analysmotorn exekverar...</p>
+                              <p className="text-[var(--ink-muted)] text-[10px] font-black uppercase tracking-[0.3em] mt-4 italic opacity-60">Kopplar fakta till lagrum | Identifierar konflikter | Genererar slutledning</p>
+                            </div>
                         </div>
                     )}
                     
                     {opinion && !isGenerating && (
-                        <div className="mt-6">
+                        <div className="mt-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
                             <Card title="Genererat Yttrande" icon={<FileIcon className="w-4 h-4"/>}>
-                                <div className="bg-white dark:bg-slate-900 p-6 rounded-lg border border-slate-100 dark:border-slate-800">
-                                    <MarkdownRenderer content={opinion} />
+                                <div className="bg-[var(--bg-card)] p-12 border border-[var(--border-strong)] shadow-2xl relative overflow-hidden">
+                                    <div className="absolute top-0 left-0 w-1 h-full bg-[var(--accent)]"></div>
+                                    <div className="prose prose-invert max-w-none prose-headings:text-[var(--ink-main)] prose-headings:font-black prose-headings:italic prose-headings:uppercase prose-headings:tracking-tighter prose-p:text-[var(--ink-muted)] prose-p:font-black prose-p:uppercase prose-p:tracking-tight prose-p:opacity-80 prose-strong:text-[var(--accent)] prose-strong:font-black prose-strong:italic">
+                                        <MarkdownRenderer content={opinion} />
+                                    </div>
                                 </div>
                             </Card>
                         </div>
                     )}
 
                     {!opinion && !queryResult && !isGenerating && !isQuerying && (
-                        <div className="flex flex-col items-center justify-center h-full text-center py-20 opacity-50">
-                            <SparklesIcon className="w-16 h-16 text-slate-200 mb-4" />
-                            <p className="text-slate-400 font-medium">Välj ett ärende och generera ett yttrande eller ställ en fråga för att börja.</p>
+                        <div className="flex flex-col items-center justify-center h-full text-center py-40 opacity-20 space-y-8">
+                            <SparklesIcon className="w-24 h-24 text-[var(--ink-muted)]" />
+                            <p className="text-[var(--ink-muted)] font-black uppercase tracking-[0.5em] italic max-w-md">Välj ett ärende och generera ett yttrande eller ställ en fråga för att börja.</p>
                         </div>
                     )}
                 </div>
             )}
 
             {activeTab === 'historik' && activeCase && (
-                <div className="space-y-6 animate-in fade-in duration-300">
-                    <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-widest mb-4">Händelsehistorik & Loggar</h3>
-                    <div className="space-y-4">
+                <div className="space-y-10 animate-in fade-in duration-500 relative z-10">
+                    <div className="flex items-center space-x-4 mb-8">
+                      <ClockIcon className="w-6 h-6 text-[var(--accent)]" />
+                      <h3 className="text-xl font-black text-[var(--ink-main)] uppercase italic tracking-tighter">Händelsehistorik & Loggar</h3>
+                    </div>
+                    
+                    <div className="space-y-6">
                         {activeCase.journal.slice().reverse().map((entry, idx) => (
-                            <div key={idx} className="relative pl-8 pb-6 border-l border-slate-100 dark:border-slate-800 last:pb-0">
-                                <div className="absolute left-[-5px] top-0 w-2.5 h-2.5 rounded-full bg-blue-500 border-2 border-white dark:border-slate-900"></div>
-                                <div className="flex flex-col">
-                                    <div className="flex items-center justify-between mb-1">
-                                        <span className="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">{entry.event}</span>
-                                        <span className="text-[10px] text-slate-400">{new Date(entry.timestamp).toLocaleString('sv-SE')}</span>
+                            <div key={idx} className="relative pl-10 pb-8 border-l border-[var(--border-strong)] last:pb-0 group">
+                                <div className="absolute left-[-6px] top-0 w-3 h-3 bg-[var(--accent)] border-2 border-[var(--bg-main)] shadow-[0_0_8px_var(--accent)]"></div>
+                                <div className="flex flex-col space-y-3">
+                                    <div className="flex items-center justify-between">
+                                        <span className="text-[10px] font-black text-[var(--accent)] uppercase tracking-[0.3em] italic">{entry.event}</span>
+                                        <span className="text-[9px] font-black text-[var(--ink-muted)] uppercase tracking-widest opacity-50 italic">{new Date(entry.timestamp).toLocaleString('sv-SE')}</span>
                                     </div>
-                                    <p className="text-xs text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-950 p-3 rounded-xl border border-slate-100 dark:border-slate-800">
-                                        {entry.details}
-                                    </p>
-                                    {entry.provenanceHashes && entry.provenanceHashes.length > 0 && (
-                                        <div className="mt-2 flex flex-wrap gap-1">
-                                            {entry.provenanceHashes.map((p, i) => (
-                                                <span key={i} className="text-[8px] font-mono text-slate-400 bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded">
-                                                    {p.substring(0, 8)}...
-                                                </span>
-                                            ))}
-                                        </div>
-                                    )}
+                                    <div className="bg-[var(--bg-card)] p-6 border border-[var(--border-strong)] shadow-lg group-hover:border-[var(--accent)]/30 transition-colors">
+                                        <p className="text-xs text-[var(--ink-main)] font-black uppercase tracking-tight italic opacity-80 leading-relaxed">
+                                            {entry.details}
+                                        </p>
+                                        {entry.provenanceHashes && entry.provenanceHashes.length > 0 && (
+                                            <div className="mt-4 flex flex-wrap gap-2">
+                                                {entry.provenanceHashes.map((p, i) => (
+                                                    <span key={i} className="text-[8px] font-mono font-black text-[var(--ink-muted)] bg-[var(--bg-main)] px-2 py-1 border border-[var(--border)] uppercase tracking-tighter opacity-50">
+                                                        {p.substring(0, 12)}...
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
                         ))}
                     </div>
                     
                     {activeCase.versions.length > 0 && (
-                        <div className="mt-10 pt-10 border-t border-slate-100 dark:border-slate-800">
-                            <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-widest mb-6">Versionshistorik</h3>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div className="mt-16 pt-16 border-t border-[var(--border-strong)]">
+                            <div className="flex items-center space-x-4 mb-10">
+                              <ShieldCheckIcon className="w-6 h-6 text-[var(--accent)]" />
+                              <h3 className="text-xl font-black text-[var(--ink-main)] uppercase italic tracking-tighter">Versionshistorik</h3>
+                            </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                 {activeCase.versions.slice().reverse().map((v, idx) => (
-                                    <div key={idx} className="p-4 bg-slate-50 dark:bg-slate-950 rounded-2xl border border-slate-100 dark:border-slate-800 hover:border-blue-200 dark:hover:border-blue-900 transition-all cursor-pointer group">
-                                        <div className="flex justify-between items-start mb-3">
-                                            <div className="flex items-center gap-2">
-                                                <div className="p-1.5 bg-blue-100 dark:bg-blue-900/30 rounded-lg text-blue-600 dark:text-blue-400">
-                                                    <ShieldCheckIcon className="w-3.5 h-3.5" />
+                                    <div key={idx} className="p-6 bg-[var(--bg-card)] border border-[var(--border-strong)] hover:border-[var(--accent)]/50 transition-all cursor-pointer group shadow-xl">
+                                        <div className="flex justify-between items-start mb-4">
+                                            <div className="flex items-center gap-3">
+                                                <div className="p-2 bg-[var(--accent)]/10 border border-[var(--accent)]/20 text-[var(--accent)]">
+                                                    <ShieldCheckIcon className="w-4 h-4" />
                                                 </div>
-                                                <span className="text-xs font-black text-slate-900 dark:text-white">v.{v.versionId}</span>
+                                                <span className="text-xs font-black text-[var(--ink-main)] uppercase italic tracking-widest">v.{v.versionId}</span>
                                             </div>
-                                            <span className="text-[9px] text-slate-400 font-medium">{new Date(v.timestamp).toLocaleDateString('sv-SE')}</span>
+                                            <span className="text-[9px] font-black text-[var(--ink-muted)] uppercase tracking-widest opacity-50 italic">{new Date(v.timestamp).toLocaleDateString('sv-SE')}</span>
                                         </div>
-                                        <p className="text-[10px] text-slate-600 dark:text-slate-400 line-clamp-2 mb-2">{v.changes}</p>
-                                        <div className="flex items-center justify-between mt-4 pt-3 border-t border-slate-200/50 dark:border-slate-800/50">
-                                            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">{v.decisionSnapshot}</span>
-                                            <button className="text-[9px] font-black text-blue-600 dark:text-blue-400 uppercase tracking-widest group-hover:translate-x-1 transition-transform">Granska →</button>
+                                        <p className="text-[10px] text-[var(--ink-muted)] font-black uppercase tracking-tight italic line-clamp-2 mb-4 opacity-70">{v.changes}</p>
+                                        <div className="flex items-center justify-between mt-6 pt-4 border-t border-[var(--border)]">
+                                            <span className="text-[9px] font-black text-[var(--ink-muted)] uppercase tracking-[0.2em] italic opacity-50">{v.decisionSnapshot}</span>
+                                            <button className="text-[9px] font-black text-[var(--accent)] uppercase tracking-[0.3em] italic group-hover:translate-x-2 transition-transform">Granska →</button>
                                         </div>
                                     </div>
                                 ))}
@@ -340,14 +364,23 @@ const AgentWorkspace: React.FC<AgentWorkspaceProps> = ({ isOpen, onClose }) => {
             )}
 
             {activeTab === 'profil' && activeCase && (
-                <div className="animate-in fade-in duration-300">
+                <div className="animate-in fade-in duration-500 relative z-10">
                     <CaseProfiler caseData={activeCase} />
                 </div>
             )}
+
+            <ModuleConnector activeModule="agent" onNavigate={onNavigate} />
           </div>
         </main>
     </div>
   );
 };
+
+const TabButton: React.FC<{ active: boolean, onClick: () => void, icon: React.ReactNode, label: string }> = ({ active, onClick, icon, label }) => (
+  <div className={`p-4 border transition-all flex flex-col items-center justify-center space-y-2 italic ${active ? 'bg-[var(--accent)]/10 border-[var(--accent)] text-[var(--accent)] shadow-lg' : 'bg-[var(--bg-main)] border-[var(--border-strong)] text-[var(--ink-muted)] hover:border-[var(--accent)]/30'}`} onClick={onClick}>
+      <div className={`${active ? 'scale-110' : ''} transition-transform`}>{icon}</div>
+      <span className="text-[9px] font-black uppercase tracking-[0.2em]">{label}</span>
+  </div>
+);
 
 export default AgentWorkspace;

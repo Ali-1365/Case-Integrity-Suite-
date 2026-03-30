@@ -22,13 +22,15 @@ import { CISCase } from '../lib/db';
 import { AIOrchestrator } from '../lib/AIOrchestrator';
 import { offlineService } from '../services/offlineService';
 import FileUpload from './FileUpload';
+import { ModuleConnector } from './shared/ModuleConnector';
 
 interface CaseAnalysisViewProps {
   activeCase: CISCase;
   onAnalysisComplete?: () => void;
+  onNavigate?: (moduleId: string) => void;
 }
 
-const CaseAnalysisView: React.FC<CaseAnalysisViewProps> = ({ activeCase, onAnalysisComplete }) => {
+const CaseAnalysisView: React.FC<CaseAnalysisViewProps> = ({ activeCase, onAnalysisComplete, onNavigate }) => {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [isOffline, setIsOffline] = useState(offlineService.getIsOffline());
   const [analysisProgress, setAnalysisProgress] = useState(0);
@@ -245,6 +247,8 @@ const CaseAnalysisView: React.FC<CaseAnalysisViewProps> = ({ activeCase, onAnaly
           </div>
         </div>
       </div>
+
+      <ModuleConnector activeModule="analys" onNavigate={onNavigate} />
     </div>
   );
 };

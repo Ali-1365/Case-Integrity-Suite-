@@ -40,12 +40,14 @@ import { motion, AnimatePresence } from 'motion/react';
 import { toast, Toaster } from 'sonner';
 import FileUpload from './FileUpload';
 import { useFileParser } from '../hooks/useFileParser';
+import { ModuleConnector } from './shared/ModuleConnector';
 
 interface EkonomiViewProps {
   activeCase?: CISCase | null;
+  onNavigate?: (moduleId: string) => void;
 }
 
-const EkonomiView: React.FC<EkonomiViewProps> = ({ activeCase }) => {
+const EkonomiView: React.FC<EkonomiViewProps> = ({ activeCase, onNavigate }) => {
   const [activeSubTab, setActiveSubTab] = useState<'oversikt' | 'betalningar' | 'fakturor' | 'skadestand' | 'budget' | 'analys'>('oversikt');
   const [isOffline, setIsOffline] = useState(offlineService.getIsOffline());
   const [payments, setPayments] = useState<Payment[]>([]);
@@ -1308,6 +1310,8 @@ const EkonomiView: React.FC<EkonomiViewProps> = ({ activeCase }) => {
           </div>
         )}
       </AnimatePresence>
+
+      <ModuleConnector activeModule="ekonomi" onNavigate={onNavigate} />
     </div>
   );
 };

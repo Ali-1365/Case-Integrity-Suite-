@@ -23,13 +23,15 @@ import {
     SparklesIcon
 } from './icons';
 import { praxisService, PraxisEntry } from '../lib/PraxisService';
+import { ModuleConnector } from './shared/ModuleConnector';
 
 interface LegalFrameworkViewProps {
   isOpen: boolean;
   onClose: () => void;
+  onNavigate?: (moduleId: string) => void;
 }
 
-const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose }) => {
+const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose, onNavigate }) => {
   const [selectedLawId, setSelectedLawId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedType, setSelectedType] = useState<'all' | 'lag' | 'regelverk' | 'gold'>('all');
@@ -405,6 +407,8 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
                 <span className="text-[10px] font-mono text-slate-400 font-bold uppercase tracking-widest">v.7.3-GOLD</span>
             </div>
         </footer>
+
+        <ModuleConnector activeModule="framework" onNavigate={onNavigate} />
     </div>
   );
 };

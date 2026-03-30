@@ -64,9 +64,9 @@ const AiReportTab: React.FC<AiReportTabProps> = ({ analysis, onGenerate, opinion
         <Card title="Oracle Command" icon={<SparklesIcon className="w-5 h-5" />}>
           <div className="space-y-8">
             <div>
-                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3 block">Analysmall</label>
+                <label className="text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-[0.3em] mb-4 block italic">Analysmall</label>
                 <select 
-                    className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl py-3 px-4 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500/50 outline-none transition-all text-sm font-medium"
+                    className="w-full bg-[var(--bg-main)] border border-[var(--border)] rounded-none py-4 px-5 text-[var(--ink-main)] focus:ring-1 focus:ring-[var(--accent)] outline-none transition-all text-xs font-black uppercase tracking-widest italic"
                     value={selectedTemplateId}
                     onChange={e => setSelectedTemplateId(e.target.value)}
                     disabled={isGenerating}
@@ -75,11 +75,11 @@ const AiReportTab: React.FC<AiReportTabProps> = ({ analysis, onGenerate, opinion
                         <option key={template.id} value={template.id}>{template.name}</option>
                     ))}
                 </select>
-                {selectedTemplate && <p className="text-xs text-slate-500 dark:text-slate-400 mt-3 leading-relaxed font-medium">{selectedTemplate.description}</p>}
+                {selectedTemplate && <p className="text-[10px] text-[var(--ink-muted)] mt-4 leading-relaxed font-black uppercase tracking-widest opacity-60 italic">{selectedTemplate.description}</p>}
             </div>
 
             <div>
-                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3 block">Logisk Motor</label>
+                <label className="text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-[0.3em] mb-4 block italic">Logisk Motor</label>
                 <div className="grid grid-cols-1 gap-4">
                     <ModeButton 
                         title="Fast Sync" 
@@ -103,23 +103,24 @@ const AiReportTab: React.FC<AiReportTabProps> = ({ analysis, onGenerate, opinion
             <button
                 onClick={handleGenerateClick}
                 disabled={isGenerating}
-                className="btn btn-primary w-full !py-4"
+                className="w-full py-5 bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-[var(--bg-main)] font-black text-xs uppercase tracking-[0.3em] italic transition-all flex items-center justify-center gap-4 shadow-xl active:scale-95 disabled:opacity-50"
             >
-                {isGenerating ? <Spinner className="h-5 w-5 mr-2" /> : <SparklesIcon className="h-5 w-5 mr-2" />}
+                {isGenerating ? <Spinner className="h-5 w-5" /> : <SparklesIcon className="h-5 w-5" />}
                 <span>{isGenerating ? 'Kör Logik...' : `Exekvera Yttrande`}</span>
             </button>
           </div>
         </Card>
 
         {opinionResult && (
-            <div className="bg-blue-500/5 border border-blue-500/20 p-6 rounded-3xl animate-fade-in shadow-sm">
-                <div className="flex items-center gap-3 mb-4">
-                    <div className="p-1.5 bg-blue-500/10 rounded-lg text-blue-600 dark:text-blue-400">
+            <div className="bg-[var(--accent)]/5 border border-[var(--accent)]/20 p-8 shadow-lg animate-fade-in relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-1 h-full bg-[var(--accent)]"></div>
+                <div className="flex items-center gap-4 mb-4">
+                    <div className="p-2 bg-[var(--accent)]/10 text-[var(--accent)]">
                         <ShieldCheckIcon className="w-5 h-5" />
                     </div>
-                    <span className="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest">Integrity Verified</span>
+                    <span className="text-[10px] font-black text-[var(--accent)] uppercase tracking-[0.3em] italic">Integrity Verified</span>
                 </div>
-                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
+                <p className="text-[10px] text-[var(--ink-muted)] leading-relaxed font-black uppercase tracking-widest opacity-70 italic">
                     Detta yttrande är låst mot käll-hashar. Varje hänvisning har validerats mot SFS 2025:400 och de uppladdade bevisatomerma.
                 </p>
             </div>
@@ -129,82 +130,85 @@ const AiReportTab: React.FC<AiReportTabProps> = ({ analysis, onGenerate, opinion
       {/* Rapport-display */}
       <div className="lg:col-span-8">
         {isGenerating ? (
-            <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 h-[80vh] flex flex-col items-center justify-center p-12 text-center relative overflow-hidden shadow-sm">
-                <div className="absolute inset-0 bg-gradient-to-b from-blue-500/5 to-transparent opacity-50"></div>
-                <Spinner className="h-16 w-16 text-blue-600 dark:text-blue-400 mb-8 relative z-10" />
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white relative z-10 tracking-tight">Genererar Juridiskt Yttrande</h3>
-                <p className="text-slate-500 dark:text-slate-400 mt-4 max-w-sm text-base font-medium relative z-10 leading-relaxed">Modellen analyserar rättslig kausalitet och bygger beviskedjan i realtid...</p>
+            <div className="bg-[var(--bg-card)] border border-[var(--border-strong)] h-[80vh] flex flex-col items-center justify-center p-12 text-center relative overflow-hidden shadow-2xl">
+                <div className="absolute inset-0 bg-gradient-to-b from-[var(--accent)]/5 to-transparent opacity-50"></div>
+                <Spinner className="h-16 w-16 text-[var(--accent)] mb-8 relative z-10" />
+                <h3 className="text-3xl font-black text-[var(--ink-main)] relative z-10 tracking-tighter uppercase italic">Genererar Juridiskt Yttrande</h3>
+                <p className="text-[var(--ink-muted)] mt-6 max-w-sm text-xs font-black uppercase tracking-[0.2em] relative z-10 leading-relaxed italic opacity-70">Modellen analyserar rättslig kausalitet och bygger beviskedjan i realtid...</p>
             </div>
         ) : error ? (
-            <div className="bg-rose-50 dark:bg-rose-500/5 rounded-3xl border border-rose-200 dark:border-rose-500/20 p-12 text-center h-[80vh] flex flex-col items-center justify-center shadow-sm">
-                <div className="p-4 bg-rose-500/10 rounded-full mb-6">
-                    <XMarkIcon className="h-12 w-12 text-rose-600 dark:text-rose-500" />
+            <div className="bg-[var(--danger)]/5 border border-[var(--danger)]/20 p-12 text-center h-[80vh] flex flex-col items-center justify-center shadow-2xl">
+                <div className="p-6 bg-[var(--danger)]/10 rounded-full mb-8">
+                    <XMarkIcon className="h-12 w-12 text-[var(--danger)]" />
                 </div>
-                <h3 className="text-2xl font-bold text-rose-600 dark:text-rose-400 tracking-tight">Kritiskt Systemfel</h3>
-                <p className="text-rose-500/70 mt-4 bg-white dark:bg-slate-900 p-6 rounded-2xl font-mono text-xs border border-rose-200 dark:border-rose-900/30 shadow-inner max-w-md break-all">{error}</p>
+                <h3 className="text-3xl font-black text-[var(--danger)] tracking-tighter uppercase italic">Kritiskt Systemfel</h3>
+                <p className="text-[var(--danger)]/70 mt-6 bg-[var(--bg-main)] p-8 border border-[var(--danger)]/20 font-mono text-[10px] shadow-inner max-w-md break-all uppercase tracking-widest">{error}</p>
             </div>
         ) : opinionResult ? (
-            <div className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 rounded-3xl shadow-xl h-[85vh] flex flex-col overflow-hidden animate-fade-in border border-slate-200 dark:border-slate-800">
-                <header className="px-10 py-8 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 flex justify-between items-center">
-                    <div className="flex items-center gap-5">
-                        <div className="p-4 bg-slate-900 dark:bg-slate-800 rounded-2xl text-white shadow-lg">
+            <div className="bg-[var(--bg-card)] text-[var(--ink-main)] shadow-2xl h-[85vh] flex flex-col overflow-hidden animate-fade-in border border-[var(--border-strong)]">
+                <header className="px-12 py-10 border-b border-[var(--border)] bg-[var(--bg-main)] flex justify-between items-center relative overflow-hidden">
+                    <div className="absolute top-0 left-0 w-1 h-full bg-[var(--accent)]"></div>
+                    <div className="flex items-center gap-8 relative z-10">
+                        <div className="p-5 bg-[var(--ink-main)] text-[var(--bg-main)] shadow-xl">
                             <LawIcon className="h-8 w-8" />
                         </div>
                         <div>
-                            <h2 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Juridiskt Yttrande</h2>
-                            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">Ärende: {analysis.caseId}</p>
+                            <h2 className="text-3xl font-black text-[var(--ink-main)] tracking-tighter uppercase italic leading-none">Juridiskt Yttrande</h2>
+                            <p className="text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-[0.3em] mt-2 italic">Ärende: {analysis.caseId}</p>
                         </div>
                     </div>
-                    <div className="flex gap-4">
-                        <button className="p-3 text-slate-500 hover:text-slate-900 dark:hover:text-white transition-all bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm hover:shadow-md">
+                    <div className="flex gap-6 relative z-10">
+                        <button className="p-4 text-[var(--ink-muted)] hover:text-[var(--ink-main)] transition-all bg-[var(--bg-main)] border border-[var(--border)] shadow-sm hover:shadow-md">
                             <PrinterIcon className="h-6 w-6" />
                         </button>
-                        <button className="btn btn-primary !px-6 !py-3">
+                        <button className="px-8 py-4 bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-[var(--bg-main)] font-black text-[10px] uppercase tracking-[0.2em] italic transition-all flex items-center gap-3 shadow-xl active:scale-95">
                             <DownloadIcon className="h-5 w-5" />
                             <span>Ladda ner PDF</span>
                         </button>
                     </div>
                 </header>
                 
-                <main className="flex-grow overflow-y-auto p-12 md:p-20 custom-scrollbar bg-white dark:bg-slate-900">
+                <main className="flex-grow overflow-y-auto p-12 md:p-20 custom-scrollbar bg-[var(--bg-card)]">
                     <div className="max-w-3xl mx-auto">
                         {opinionResult.content.includes('**INTEGRITETSKEDJA (SHA-256):**') && (
-                            <div className="bg-emerald-50 dark:bg-emerald-500/5 border border-emerald-200 dark:border-emerald-500/20 p-6 rounded-2xl mb-12 flex items-center space-x-5 shadow-sm">
-                                <div className="p-2 bg-emerald-500/10 rounded-xl text-emerald-600 dark:text-emerald-400">
+                            <div className="bg-[var(--success)]/5 border border-[var(--success)]/20 p-8 mb-16 flex items-center space-x-8 shadow-sm relative overflow-hidden">
+                                <div className="absolute top-0 left-0 w-1 h-full bg-[var(--success)]"></div>
+                                <div className="p-3 bg-[var(--success)]/10 text-[var(--success)]">
                                     <ShieldCheckIcon className="w-8 h-8" />
                                 </div>
                                 <div>
-                                    <p className="text-[10px] font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-widest mb-1">Integritetsverifierad Data</p>
-                                    <p className="text-[10px] font-mono text-emerald-600 dark:text-emerald-500 break-all leading-relaxed">
+                                    <p className="text-[10px] font-black text-[var(--success)] uppercase tracking-[0.3em] mb-2 italic">Integritetsverifierad Data</p>
+                                    <p className="text-[10px] font-mono text-[var(--success)]/70 break-all leading-relaxed tracking-tighter">
                                         {opinionResult.content.split('**INTEGRITETSKEDJA (SHA-256):**')[1].split('\n')[0].trim()}
                                     </p>
                                 </div>
                             </div>
                         )}
-                        <div className="prose prose-slate dark:prose-invert max-w-none">
+                        <div className="prose prose-invert prose-sm max-w-none text-[var(--ink-main)] leading-relaxed">
                             <MarkdownRenderer content={opinionResult.content} />
                         </div>
                         
-                        <div className="mt-20 pt-10 border-t border-slate-200 dark:border-slate-800 flex justify-between items-end">
-                             <div className="space-y-2">
-                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Digital Signatur</p>
-                                <p className="text-[10px] font-mono text-slate-400 bg-slate-50 dark:bg-slate-800 px-3 py-1.5 rounded-full border border-slate-200 dark:border-slate-700">FMJAM_ORACLE_V725_LOCKED_{crypto.randomUUID().substring(0,12)}</p>
+                        <div className="mt-24 pt-12 border-t border-[var(--border)] flex justify-between items-end">
+                             <div className="space-y-3">
+                                <p className="text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-[0.3em] italic">Digital Signatur</p>
+                                <p className="text-[10px] font-mono text-[var(--ink-muted)] bg-[var(--bg-main)] px-4 py-2 border border-[var(--border)] tracking-tighter">FMJAM_ORACLE_V725_LOCKED_{crypto.randomUUID().substring(0,12).toUpperCase()}</p>
                              </div>
-                             <div className="text-right space-y-2">
-                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Genererat av FMJAM Engine</p>
-                                <p className="text-[10px] font-mono text-slate-400">{new Date(opinionResult.generatedAt).toLocaleString('sv-SE')}</p>
+                             <div className="text-right space-y-3">
+                                <p className="text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-[0.3em] italic">Genererat av FMJAM Engine</p>
+                                <p className="text-[10px] font-mono text-[var(--ink-muted)] uppercase tracking-widest">{new Date(opinionResult.generatedAt).toLocaleString('sv-SE')}</p>
                              </div>
                         </div>
                     </div>
                 </main>
             </div>
         ) : (
-            <div className="bg-white dark:bg-slate-900 rounded-3xl border-2 border-slate-200 dark:border-slate-800 border-dashed h-[80vh] flex flex-col items-center justify-center p-12 text-center group shadow-sm">
-                <div className="relative mb-8 p-6 bg-slate-50 dark:bg-slate-800 rounded-full group-hover:scale-110 transition-transform duration-500">
-                    <DocumentTextIcon className="h-20 w-20 text-slate-300 dark:text-slate-600 group-hover:text-blue-500/40 transition-colors" />
+            <div className="bg-[var(--bg-card)] border border-[var(--border-strong)] h-[80vh] flex flex-col items-center justify-center p-12 text-center group shadow-2xl relative overflow-hidden">
+                <div className="absolute inset-0 opacity-[0.02] pointer-events-none" style={{ backgroundImage: 'radial-gradient(var(--accent) 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
+                <div className="relative mb-10 p-8 bg-[var(--bg-main)] border border-[var(--border)] group-hover:scale-110 transition-transform duration-700 shadow-xl">
+                    <DocumentTextIcon className="h-24 w-24 text-[var(--ink-muted)] opacity-30 group-hover:text-[var(--accent)] group-hover:opacity-50 transition-all" />
                 </div>
-                <h3 className="text-2xl font-bold text-slate-400 dark:text-slate-600 tracking-tight">Yttrande Väntar</h3>
-                <p className="text-slate-400 dark:text-slate-600 mt-4 max-w-xs text-base font-medium leading-relaxed">Välj en mall i kontrollpanelen till vänster för att starta den juridiska slutledningsprocessen.</p>
+                <h3 className="text-3xl font-black text-[var(--ink-muted)] tracking-tighter uppercase italic opacity-40">Yttrande Väntar</h3>
+                <p className="text-[var(--ink-muted)] mt-6 max-w-xs text-xs font-black uppercase tracking-[0.2em] leading-relaxed italic opacity-30">Välj en mall i kontrollpanelen till vänster för att starta den juridiska slutledningsprocessen.</p>
             </div>
         )}
       </div>
@@ -216,13 +220,13 @@ const ModeButton: React.FC<{ title: string, description: string, icon: React.Rea
     <button 
         onClick={onClick}
         disabled={disabled}
-        className={`p-5 rounded-2xl border text-left transition-all relative overflow-hidden group shadow-sm ${isActive ? 'bg-blue-500/10 border-blue-500/30 ring-2 ring-blue-500/20' : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600'}`}
+        className={`p-6 border text-left transition-all relative overflow-hidden group shadow-lg ${isActive ? 'bg-[var(--accent)]/10 border-[var(--accent)]' : 'bg-[var(--bg-main)] border-[var(--border)] hover:border-[var(--accent)]/30'}`}
     >
-        <div className="flex items-center gap-4 mb-2">
-            <div className={`p-2 rounded-lg ${isActive ? 'bg-blue-500/20 text-blue-600 dark:text-blue-400' : 'bg-slate-100 dark:bg-slate-900 text-slate-400'}`}>{icon}</div>
-            <h4 className={`font-bold text-sm uppercase tracking-wider ${isActive ? 'text-blue-600 dark:text-blue-400' : 'text-slate-600 dark:text-slate-400'}`}>{title}</h4>
+        <div className="flex items-center gap-5 mb-3">
+            <div className={`p-2.5 ${isActive ? 'bg-[var(--accent)]/20 text-[var(--accent)]' : 'bg-[var(--bg-card)] text-[var(--ink-muted)]'}`}>{icon}</div>
+            <h4 className={`font-black text-[10px] uppercase tracking-[0.2em] italic ${isActive ? 'text-[var(--accent)]' : 'text-[var(--ink-muted)]'}`}>{title}</h4>
         </div>
-        <p className={`text-xs leading-relaxed font-medium ${isActive ? 'text-blue-600/70 dark:text-blue-400/70' : 'text-slate-500 dark:text-slate-500'}`}>{description}</p>
+        <p className={`text-[10px] leading-relaxed font-black uppercase tracking-widest italic opacity-60 ${isActive ? 'text-[var(--accent)]' : 'text-[var(--ink-muted)]'}`}>{description}</p>
     </button>
 );
 

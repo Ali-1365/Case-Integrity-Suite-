@@ -624,23 +624,23 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                             )}
 
                             {activeModal === 'hub' && <SystemHub onNavigate={navigateTo} />}
-                            {activeModal === 'ekonomi' && <EkonomiView activeCase={activeCase} />}
-                            {activeModal === 'production' && <ProduktionView activeCase={activeCase} />}
-                            {activeModal === 'opinion' && currentAnalysis && <OpinionGenerator analysis={currentAnalysis} onComplete={() => setActiveModal(null)} />}
-                            {activeModal === 'duel' && currentAnalysis && selectedDoc && <AdversarialDuelView caseData={selectedDoc.textContent} caseId={currentAnalysis.caseId} />}
-                            {activeModal === 'integrity' && currentAnalysis && <ForensicIntegrityView analysis={currentAnalysis} />}
-                            {activeModal === 'pipeline' && currentAnalysis && <LegalPipelineView analysis={currentAnalysis} />}
-                            {activeModal === 'oracle' && <IntelligenceCore analysis={currentAnalysis} />}
+                            {activeModal === 'ekonomi' && <EkonomiView activeCase={activeCase} onNavigate={navigateTo} />}
+                            {activeModal === 'production' && <ProduktionView activeCase={activeCase} onNavigate={navigateTo} />}
+                            {activeModal === 'opinion' && currentAnalysis && <OpinionGenerator analysis={currentAnalysis} onComplete={() => setActiveModal(null)} onNavigate={navigateTo} />}
+                            {activeModal === 'duel' && currentAnalysis && selectedDoc && <AdversarialDuelView caseData={selectedDoc.textContent} caseId={currentAnalysis.caseId} onNavigate={navigateTo} />}
+                            {activeModal === 'integrity' && currentAnalysis && <ForensicIntegrityView analysis={currentAnalysis} onNavigate={navigateTo} />}
+                            {activeModal === 'pipeline' && currentAnalysis && <LegalPipelineView analysis={currentAnalysis} onNavigate={navigateTo} />}
+                            {activeModal === 'oracle' && <IntelligenceCore analysis={currentAnalysis} onNavigate={navigateTo} />}
                             {activeModal === 'archive' && <ArchiveView onSelect={(id) => { setSelectedDocId(id); setActiveModal(null); }} />}
                             {activeModal === 'audit' && <AuditPanel isOpen={true} onClose={() => setActiveModal(null)} />}
-                            {activeModal === 'chat' && <BeslutView activeCase={activeCase} />}
-                            {activeModal === 'agent' && <CaseAnalysisView activeCase={activeCase} />}
+                            {activeModal === 'chat' && <BeslutView activeCase={activeCase} onNavigate={navigateTo} />}
+                            {activeModal === 'agent' && activeCase && <CaseAnalysisView activeCase={activeCase} onNavigate={navigateTo} />}
                             {activeModal === 'debug' && <AIDebugPanel isOpen={true} onClose={() => setActiveModal(null)} />}
-                            {activeModal === 'controller' && <FmjamController analysis={currentAnalysis} />}
-                            {activeModal === 'notary' && <AutoNotaryView />}
-                            {activeModal === 'framework' && <LegalFrameworkView isOpen={true} onClose={() => setActiveModal(null)} />}
+                            {activeModal === 'controller' && <FmjamController analysis={currentAnalysis} onNavigate={navigateTo} />}
+                            {activeModal === 'notary' && <AutoNotaryView onNavigate={navigateTo} />}
+                            {activeModal === 'framework' && <LegalFrameworkView isOpen={true} onClose={() => setActiveModal(null)} onNavigate={navigateTo} />}
                             {activeModal === 'arch' && <ArchiveView onSelect={(id) => { setSelectedDocId(id); setActiveModal(null); }} />}
-                            {activeModal === 'vision' && <VisionView />}
+                            {activeModal === 'vision' && <VisionView onNavigate={navigateTo} />}
                             {activeModal === 'whitebook' && <WhitebookViewer isOpen={true} onClose={() => setActiveModal(null)} />}
                             {activeModal === 'sfb' && <SfbIntegrityPanel isOpen={true} onClose={() => setActiveModal(null)} />}
                             {activeModal === 'monitor' && <SystemMonitor isOpen={true} onClose={() => setActiveModal(null)} />}

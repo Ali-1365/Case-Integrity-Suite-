@@ -20,9 +20,9 @@ interface ActionRecommendationViewerProps {
 const ActionRecommendationViewer: React.FC<ActionRecommendationViewerProps> = ({ report }) => {
   const getCategoryIcon = (category: string) => {
     switch (category) {
-      case 'MILDER_ALTERNATIVE': return <AdjustmentsHorizontalIcon className="w-6 h-6 text-cyan-400" />;
-      case 'FURTHER_INVESTIGATION': return <InformationCircleIcon className="w-6 h-6 text-indigo-400" />;
-      default: return <SparklesIcon className="w-6 h-6 text-emerald-400" />;
+      case 'MILDER_ALTERNATIVE': return <AdjustmentsHorizontalIcon className="w-8 h-8 text-[var(--accent)]" />;
+      case 'FURTHER_INVESTIGATION': return <InformationCircleIcon className="w-8 h-8 text-[var(--accent)]" />;
+      default: return <SparklesIcon className="w-8 h-8 text-[var(--accent)]" />;
     }
   };
 
@@ -35,77 +35,93 @@ const ActionRecommendationViewer: React.FC<ActionRecommendationViewerProps> = ({
   };
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-500">
+    <div className="space-y-10 animate-in fade-in duration-1000 pb-20">
       
       {/* IMPACT HEADER */}
-      <div className="bg-gray-800/40 border-l-8 border-indigo-600 p-8 rounded-r-[2.5rem] shadow-2xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 p-8 opacity-5">
-              <BoltIcon className="w-48 h-48 text-indigo-500" />
+      <div className="bg-[var(--bg-card)] border-l-8 border-[var(--accent)] p-12 shadow-2xl relative overflow-hidden group">
+          <div className="absolute top-0 right-0 p-12 opacity-[0.03] group-hover:scale-110 transition-transform duration-1000 pointer-events-none">
+              <BoltIcon className="w-64 h-64 text-[var(--accent)]" />
           </div>
           <div className="relative z-10">
-              <p className="text-[10px] font-black text-indigo-400 uppercase tracking-[0.4em] mb-2">Påverkan på beslutet</p>
-              <h3 className="text-xl font-black text-white italic leading-relaxed">
+              <p className="text-[10px] font-black text-[var(--accent)] uppercase tracking-[0.4em] mb-4 italic opacity-70">Påverkan på beslutet</p>
+              <h3 className="text-2xl font-black text-[var(--ink-main)] italic leading-relaxed uppercase tracking-tighter">
                   "{report.impactOnDecision}"
               </h3>
           </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-6">
-          <p className="text-[10px] font-black text-gray-500 uppercase tracking-widest flex items-center ml-2">
-              <ArrowPathIcon className="w-3 h-3 mr-2" />
-              Rekommenderade Åtgärder ({report.recommendations.length})
-          </p>
+      <div className="grid grid-cols-1 gap-8">
+          <div className="flex items-center justify-between px-4">
+            <p className="text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-[0.3em] flex items-center italic opacity-60">
+                <ArrowPathIcon className="w-4 h-4 mr-3 text-[var(--accent)]" />
+                Rekommenderade Åtgärder ({report.recommendations.length})
+            </p>
+            <div className="h-[1px] flex-1 bg-[var(--border-strong)] mx-8 opacity-30"></div>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {report.recommendations.map((action) => (
-                  <div key={action.id} className="bg-gray-900 border border-gray-800 rounded-[2rem] p-8 flex flex-col hover:border-indigo-500/30 transition-all group">
-                      <div className="flex justify-between items-start mb-6">
-                          <div className="p-3 bg-gray-950 rounded-2xl border border-gray-800 group-hover:scale-110 transition-transform">
+                  <div key={action.id} className="bg-[var(--bg-card)] border border-[var(--border-strong)] p-10 flex flex-col hover:border-[var(--accent)]/40 transition-all group shadow-xl relative overflow-hidden">
+                      <div className="absolute top-0 left-0 w-1 h-full bg-[var(--accent)] opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                      
+                      <div className="flex justify-between items-start mb-8">
+                          <div className="p-4 bg-[var(--accent)]/10 border border-[var(--accent)]/20 shadow-inner group-hover:scale-110 transition-transform duration-500">
                               {getCategoryIcon(action.category)}
                           </div>
-                          <span className="text-[9px] font-mono text-gray-700 font-bold uppercase">{action.id}</span>
+                          <span className="text-[9px] font-black text-[var(--ink-muted)] uppercase tracking-widest opacity-40 font-mono italic">{action.id}</span>
                       </div>
                       
-                      <p className="text-[9px] font-black text-indigo-500 uppercase tracking-widest mb-2">
+                      <p className="text-[10px] font-black text-[var(--accent)] uppercase tracking-[0.2em] mb-3 italic">
                           {getCategoryLabel(action.category)}
                       </p>
                       
-                      <h4 className="text-base font-bold text-white mb-4 leading-tight">
+                      <h4 className="text-lg font-black text-[var(--ink-main)] mb-6 leading-tight uppercase italic tracking-tight">
                           {action.description}
                       </h4>
                       
-                      <div className="flex-grow p-4 bg-black/40 rounded-xl mb-6 border border-white/5">
-                          <p className="text-xs text-gray-400 leading-relaxed italic">
+                      <div className="flex-grow p-6 bg-[var(--bg-main)]/50 border border-[var(--border)] mb-8 group-hover:bg-[var(--bg-main)] transition-colors">
+                          <p className="text-xs text-[var(--ink-muted)] leading-relaxed italic font-black uppercase tracking-tight opacity-80">
                               "{action.motivation}"
                           </p>
                       </div>
 
-                      <div className="pt-4 border-t border-gray-800 mt-auto flex items-center justify-between">
-                          <div className="flex items-center space-x-2 text-[9px] font-black text-cyan-500 uppercase tracking-tighter">
-                              <LawIcon className="w-3 h-3" />
+                      <div className="pt-6 border-t border-[var(--border)] mt-auto flex items-center justify-between">
+                          <div className="flex items-center space-x-3 text-[9px] font-black text-[var(--accent)] uppercase tracking-widest italic">
+                              <LawIcon className="w-4 h-4" />
                               <span>{action.legalReference}</span>
                           </div>
-                          <CheckCircleIcon className="w-4 h-4 text-gray-700 group-hover:text-green-500 transition-colors" />
+                          <div className="p-1.5 rounded-full bg-[var(--success)]/10 border border-[var(--success)]/20">
+                            <CheckCircleIcon className="w-4 h-4 text-[var(--success)] opacity-40 group-hover:opacity-100 transition-opacity" />
+                          </div>
                       </div>
                   </div>
               ))}
           </div>
       </div>
 
-      <div className="bg-indigo-900/10 border border-indigo-500/20 p-6 rounded-[2rem] flex items-center justify-between">
-          <div className="flex items-center space-x-4">
-              <CpuChipIcon className="w-8 h-8 text-indigo-400" />
+      <div className="bg-[var(--bg-card)] border border-[var(--border-strong)] p-10 shadow-2xl flex items-center justify-between relative overflow-hidden group">
+          <div className="absolute top-0 left-0 w-1 h-full bg-[var(--accent)]/30"></div>
+          <div className="flex items-center space-x-6 relative z-10">
+              <div className="p-3 bg-[var(--accent)]/10 border border-[var(--accent)]/20">
+                <CpuChipIcon className="w-10 h-10 text-[var(--accent)]" />
+              </div>
               <div>
-                  <p className="text-[10px] font-black text-indigo-300 uppercase tracking-widest">Action_Audit_Node</p>
-                  <p className="text-xs font-mono text-gray-500">{report.actionId}</p>
+                  <p className="text-[10px] font-black text-[var(--ink-main)] uppercase tracking-[0.3em] italic">Action_Audit_Node</p>
+                  <p className="text-[10px] font-mono text-[var(--ink-muted)] uppercase tracking-widest mt-1 opacity-50">{report.actionId}</p>
               </div>
           </div>
-          <div className="text-right">
-              <span className="text-[8px] font-black text-gray-600 uppercase tracking-[0.2em]">Strategy Framework: FMJAM GOLD v1.4</span>
+          <div className="text-right relative z-10">
+              <span className="text-[9px] font-black text-[var(--ink-muted)] uppercase tracking-[0.3em] italic opacity-40">Strategy Framework: FMJAM GOLD v1.4</span>
+          </div>
+          
+          {/* Decorative background */}
+          <div className="absolute right-0 bottom-0 opacity-[0.02] pointer-events-none">
+            <CpuChipIcon className="w-48 h-48 text-[var(--accent)]" />
           </div>
       </div>
     </div>
   );
 };
+
 
 export default ActionRecommendationViewer;

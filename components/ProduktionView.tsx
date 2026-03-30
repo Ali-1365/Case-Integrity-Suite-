@@ -30,12 +30,14 @@ import { motion, AnimatePresence } from 'motion/react';
 import FileUpload from './FileUpload';
 import { useFileParser } from '../hooks/useFileParser';
 import { toast } from 'sonner';
+import { ModuleConnector } from './shared/ModuleConnector';
 
 interface ProduktionViewProps {
   activeCase?: CISCase | null;
+  onNavigate?: (moduleId: string) => void;
 }
 
-const ProduktionView: React.FC<ProduktionViewProps> = ({ activeCase }) => {
+const ProduktionView: React.FC<ProduktionViewProps> = ({ activeCase, onNavigate }) => {
   const [isOffline, setIsOffline] = useState(offlineService.getIsOffline());
   const [activeTemplate, setActiveTemplate] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -450,6 +452,8 @@ const ProduktionView: React.FC<ProduktionViewProps> = ({ activeCase }) => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <ModuleConnector activeModule="production" onNavigate={onNavigate} />
     </div>
   );
 };

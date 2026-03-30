@@ -2,12 +2,14 @@
 import React from 'react';
 import { AnalysisResult, Fact } from '../lib/cis.types';
 import { ActivityIcon } from './icons';
+import { ModuleConnector } from './shared/ModuleConnector';
 
 interface TimelineViewProps {
   analysis: AnalysisResult;
+  onNavigate?: (moduleId: string) => void;
 }
 
-const TimelineView: React.FC<TimelineViewProps> = ({ analysis }) => {
+const TimelineView: React.FC<TimelineViewProps> = ({ analysis, onNavigate }) => {
   const sortedFacts = [...(analysis.facts || [])].sort((a, b) => {
     if (a.timestamp === 'Okänd') return 1;
     if (b.timestamp === 'Okänd') return -1;
@@ -15,58 +17,63 @@ const TimelineView: React.FC<TimelineViewProps> = ({ analysis }) => {
   });
 
   return (
-    <div className="space-y-12 py-10 relative">
-      <div className="absolute left-[39px] top-0 bottom-0 w-1.5 bg-slate-100 dark:bg-slate-800 rounded-full shadow-inner"></div>
+    <div className="space-y-16 py-12 relative max-w-6xl mx-auto pb-32">
+      <div className="absolute left-[47px] top-0 bottom-0 w-1 bg-[var(--border-strong)] opacity-30 shadow-inner"></div>
       
       {sortedFacts.map((fact, index) => (
-        <div key={fact.id} className="relative pl-24 group animate-in slide-in-from-left duration-700" style={{ animationDelay: `${index * 100}ms` }}>
-          <div className="absolute left-0 top-0 w-20 h-20 bg-white dark:bg-slate-900 border-4 border-slate-50 dark:border-slate-950 rounded-[2rem] flex items-center justify-center text-blue-600 dark:text-blue-400 group-hover:border-blue-500/30 transition-all z-10 shadow-2xl shadow-slate-200/50 dark:shadow-none group-hover:scale-110 duration-500 group-hover:rotate-12">
-             <ActivityIcon className="w-10 h-10" />
+        <div key={fact.id} className="relative pl-32 group animate-in slide-in-from-left duration-1000" style={{ animationDelay: `${index * 150}ms` }}>
+          <div className="absolute left-0 top-0 w-24 h-24 bg-[var(--bg-card)] border border-[var(--border-strong)] flex items-center justify-center text-[var(--accent)] group-hover:border-[var(--accent)] transition-all z-10 shadow-2xl group-hover:scale-110 duration-500 group-hover:rotate-12 italic">
+             <ActivityIcon className="w-12 h-12" />
           </div>
           
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[3rem] p-12 hover:border-blue-500/50 transition-all shadow-2xl shadow-slate-200/50 dark:shadow-none group-hover:shadow-blue-500/10 duration-500 relative overflow-hidden">
-            <div className="absolute inset-0 bg-blue-500/0 group-hover:bg-blue-500/[0.02] transition-colors pointer-events-none"></div>
+          <div className="bg-[var(--bg-card)] border border-[var(--border-strong)] p-12 hover:border-[var(--accent)]/50 transition-all shadow-2xl relative overflow-hidden group-hover:shadow-[var(--accent)]/5 duration-500">
+            <div className="absolute top-0 left-0 w-1 h-full bg-[var(--accent)] opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <div className="absolute top-0 right-0 p-10 opacity-[0.02] pointer-events-none group-hover:opacity-[0.05] transition-opacity">
+              <ActivityIcon className="w-48 h-48 text-[var(--accent)]" />
+            </div>
             
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-10 relative z-10">
-              <div className="flex items-center gap-5">
-                <span className="text-[11px] font-black text-blue-600 dark:text-blue-400 bg-blue-500/10 px-5 py-2.5 rounded-full border border-blue-500/20 uppercase tracking-[0.3em] shadow-lg shadow-blue-500/5">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-10 mb-12 relative z-10">
+              <div className="flex items-center gap-6">
+                <span className="text-[11px] font-black text-[var(--accent)] bg-[var(--accent)]/10 px-6 py-3 border border-[var(--accent)]/20 uppercase tracking-[0.4em] italic shadow-lg">
                   {fact.timestamp === 'Okänd' ? 'ODATERAD' : fact.timestamp}
                 </span>
-                <span className="text-[11px] font-mono font-black text-slate-400 uppercase tracking-widest bg-slate-50 dark:bg-slate-950 px-4 py-2 rounded-xl border border-slate-100 dark:border-slate-800 shadow-inner opacity-70">#{fact.id}</span>
+                <span className="text-[10px] font-mono font-black text-[var(--ink-muted)] uppercase tracking-[0.3em] bg-[var(--bg-main)] px-5 py-2 border border-[var(--border)] shadow-inner opacity-80 italic">#{fact.id}</span>
               </div>
-              <span className="text-[11px] font-black text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-950 px-5 py-2.5 rounded-full border border-slate-100 dark:border-slate-800 uppercase tracking-[0.3em] shadow-sm opacity-80">
+              <span className="text-[10px] font-black text-[var(--ink-muted)] bg-[var(--bg-main)] px-6 py-3 border border-[var(--border)] uppercase tracking-[0.3em] shadow-sm opacity-80 italic">
                 {fact.category}
               </span>
             </div>
             
-            <h4 className="text-3xl font-black text-slate-900 dark:text-white mb-8 leading-tight tracking-tighter group-hover:text-blue-600 dark:hover:text-blue-400 transition-colors relative z-10">
-              <span className="text-slate-400 dark:text-slate-500 mr-4 italic font-medium">[{fact.subject}]</span> {fact.statement}
+            <h4 className="text-4xl font-black text-[var(--ink-main)] mb-10 leading-none tracking-tighter uppercase italic group-hover:text-[var(--accent)] transition-colors relative z-10">
+              <span className="text-[var(--ink-muted)] mr-4 opacity-50">[{fact.subject}]</span> {fact.statement}
             </h4>
             
-            <div className="p-8 bg-slate-50 dark:bg-slate-950 rounded-[2rem] border-l-8 border-blue-500/50 italic text-lg text-slate-600 dark:text-slate-400 leading-relaxed shadow-inner font-medium relative z-10 group-hover:border-blue-500 transition-all duration-500">
+            <div className="p-10 bg-[var(--bg-main)] border-l-4 border-[var(--accent)]/30 italic text-lg text-[var(--ink-muted)] leading-relaxed shadow-inner font-black uppercase tracking-tight relative z-10 group-hover:border-[var(--accent)] transition-all duration-500 opacity-80">
               "{fact.source?.snippet || 'Ingen text tillgänglig'}"
             </div>
             
-            <div className="mt-10 pt-8 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center gap-8 text-[11px] text-slate-400 font-black uppercase tracking-[0.2em] relative z-10 opacity-70">
-              <span className="flex items-center gap-3 bg-blue-500/5 text-blue-600 dark:text-blue-400 px-4 py-2 rounded-xl border border-blue-500/10 shadow-sm"><ClockIcon className="w-5 h-5" /> Verifierad Trace</span>
-              <div className="w-2 h-2 bg-slate-200 dark:bg-slate-800 rounded-full"></div>
-              <span className="bg-slate-50 dark:bg-slate-950 px-4 py-2 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm">Dokument: {fact.source?.documentId || 'N/A'}</span>
-              <div className="w-2 h-2 bg-slate-200 dark:bg-slate-800 rounded-full"></div>
-              <span className="bg-slate-50 dark:bg-slate-950 px-4 py-2 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm">Position: {fact.source?.location || 'N/A'}</span>
+            <div className="mt-12 pt-10 border-t border-[var(--border)] flex flex-wrap items-center gap-10 text-[10px] text-[var(--ink-muted)] font-black uppercase tracking-[0.3em] relative z-10 opacity-70 italic">
+              <span className="flex items-center gap-4 bg-[var(--accent)]/5 text-[var(--accent)] px-5 py-2 border border-[var(--accent)]/10 shadow-sm"><ClockIcon className="w-5 h-5" /> Verifierad Trace</span>
+              <div className="w-1.5 h-1.5 bg-[var(--border)] rounded-full"></div>
+              <span className="bg-[var(--bg-main)] px-5 py-2 border border-[var(--border)] shadow-sm">Dokument: {fact.source?.documentId || 'N/A'}</span>
+              <div className="w-1.5 h-1.5 bg-[var(--border)] rounded-full"></div>
+              <span className="bg-[var(--bg-main)] px-5 py-2 border border-[var(--border)] shadow-sm">Position: {fact.source?.location || 'N/A'}</span>
             </div>
           </div>
         </div>
       ))}
 
       {(sortedFacts?.length || 0) === 0 && (
-        <div className="flex flex-col items-center justify-center py-40 text-slate-300 dark:text-slate-700 opacity-50">
-          <div className="relative mb-8">
-              <ActivityIcon className="w-24 h-24" />
-              <div className="absolute inset-0 bg-slate-500 blur-[4rem] opacity-20"></div>
+        <div className="flex flex-col items-center justify-center py-60 text-[var(--ink-muted)] opacity-20">
+          <div className="relative mb-10">
+              <ActivityIcon className="w-32 h-32" />
+              <div className="absolute inset-0 bg-[var(--accent)] blur-[5rem] opacity-30"></div>
           </div>
-          <p className="text-base font-black uppercase tracking-[0.3em]">Inga temporala dataatomer funna</p>
+          <p className="text-xl font-black uppercase tracking-[0.5em] italic">Inga temporala dataatomer funna</p>
         </div>
       )}
+
+      <ModuleConnector activeModule="timeline" onNavigate={onNavigate} />
     </div>
   );
 };

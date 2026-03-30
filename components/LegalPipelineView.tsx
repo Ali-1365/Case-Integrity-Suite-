@@ -32,9 +32,10 @@ const ChevronUp: React.FC<{ className?: string }> = ({ className }) => (
 
 interface LegalPipelineViewProps {
     analysis: AnalysisResult;
+    onNavigate?: (moduleId: string) => void;
 }
 
-export const LegalPipelineView: React.FC<LegalPipelineViewProps> = ({ analysis }) => {
+export const LegalPipelineView: React.FC<LegalPipelineViewProps> = ({ analysis, onNavigate }) => {
     const [state, setState] = useState<PipelineState | null>(null);
     const [isRunning, setIsRunning] = useState(false);
     const [expandedStep, setExpandedStep] = useState<string | null>(null);
@@ -229,6 +230,8 @@ export const LegalPipelineView: React.FC<LegalPipelineViewProps> = ({ analysis }
                     </div>
                 </div>
             </div>
+
+            <ModuleConnector activeModule="pipeline" onNavigate={onNavigate} />
         </div>
     );
 };
