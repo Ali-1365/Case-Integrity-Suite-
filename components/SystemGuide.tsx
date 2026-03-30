@@ -8,13 +8,13 @@ interface SystemGuideProps {
 }
 
 const GuideStep: React.FC<{ icon: React.ReactElement, title: string, children: React.ReactNode }> = ({ icon, title, children }) => (
-    <div className="flex items-start space-x-6 p-6 rounded-2xl bg-white border border-slate-100 transition-all hover:border-slate-200 hover:shadow-sm group">
-        <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-slate-900 text-white rounded-xl shadow-sm group-hover:scale-110 transition-transform">
+    <div className="flex items-start space-x-6 p-6 rounded-2xl bg-[var(--bg-card)] border border-[var(--border)] transition-all hover:border-[var(--accent)]/30 hover:shadow-sm group">
+        <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-[var(--ink-main)] text-[var(--accent-foreground)] rounded-xl shadow-sm group-hover:scale-110 transition-transform">
             {React.cloneElement(icon as React.ReactElement<any>, { className: 'h-6 w-6' })}
         </div>
         <div className="space-y-2">
-            <h4 className="text-lg font-bold text-slate-900 tracking-tight">{title}</h4>
-            <div className="text-sm text-slate-500 leading-relaxed font-medium">{children}</div>
+            <h4 className="text-lg font-bold text-[var(--ink-main)] tracking-tight">{title}</h4>
+            <div className="text-sm text-[var(--ink-muted)] leading-relaxed font-medium">{children}</div>
         </div>
     </div>
 );
@@ -29,28 +29,28 @@ const SystemGuide: React.FC<SystemGuideProps> = ({ isOpen, onClose }) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="absolute inset-0 bg-slate-900/40 backdrop-blur-md"
+            className="absolute inset-0 bg-[var(--ink-main)]/40 backdrop-blur-md"
           />
           
           <motion.div 
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="bg-[#F9F8F6] rounded-3xl shadow-2xl w-full max-w-2xl h-auto max-h-[90vh] flex flex-col border border-white/20 overflow-hidden relative z-10"
+            className="bg-[var(--bg-main)] rounded-3xl shadow-2xl w-full max-w-2xl h-auto max-h-[90vh] flex flex-col border border-white/20 overflow-hidden relative z-10"
           >
-            <header className="px-8 py-6 flex justify-between items-center border-b border-slate-200/50 flex-shrink-0 bg-white/50 backdrop-blur-sm">
+            <header className="px-8 py-6 flex justify-between items-center border-b border-[var(--border)] flex-shrink-0 bg-[var(--bg-card)]/50 backdrop-blur-sm">
               <div className="flex items-center space-x-4">
-                <div className="w-10 h-10 bg-slate-900 rounded-xl flex items-center justify-center shadow-sm">
-                    <QuestionMarkCircleIcon className="h-5 w-5 text-white" />
+                <div className="w-10 h-10 bg-[var(--ink-main)] rounded-xl flex items-center justify-center shadow-sm">
+                    <QuestionMarkCircleIcon className="h-5 w-5 text-[var(--accent-foreground)]" />
                 </div>
                 <div>
-                    <h2 className="text-xl font-bold text-slate-900 tracking-tight">Systemguide</h2>
-                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Lär dig navigera i Case Integrity Suite</p>
+                    <h2 className="text-xl font-bold text-[var(--ink-main)] tracking-tight">Systemguide</h2>
+                    <p className="text-[10px] font-bold text-[var(--ink-light)] uppercase tracking-widest">Lär dig navigera i Case Integrity Suite</p>
                 </div>
               </div>
               <button 
                 onClick={onClose} 
-                className="p-2 text-slate-400 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition-all"
+                className="p-2 text-[var(--ink-light)] hover:text-[var(--ink-main)] hover:bg-[var(--bg-main)] rounded-xl transition-all"
               >
                 <XMarkIcon className="h-6 w-6" />
               </button>
@@ -58,8 +58,8 @@ const SystemGuide: React.FC<SystemGuideProps> = ({ isOpen, onClose }) => {
             
             <main className="p-10 flex-grow overflow-y-auto space-y-10 custom-scrollbar">
                 <div className="text-center space-y-3">
-                    <h3 className="text-3xl font-bold text-slate-900 tracking-tight">Välkommen till framtidens juridik</h3>
-                    <p className="text-base text-slate-500 max-w-md mx-auto font-medium leading-relaxed">
+                    <h3 className="text-3xl font-bold text-[var(--ink-main)] tracking-tight">Välkommen till framtidens juridik</h3>
+                    <p className="text-base text-[var(--ink-muted)] max-w-md mx-auto font-medium leading-relaxed">
                         Följ dessa tre steg för att maximera din effektivitet och precision i varje ärende.
                     </p>
                 </div>
@@ -79,10 +79,10 @@ const SystemGuide: React.FC<SystemGuideProps> = ({ isOpen, onClose }) => {
                 </div>
             </main>
 
-            <footer className="px-10 py-8 text-center border-t border-slate-200/50 flex-shrink-0 bg-white/50 backdrop-blur-sm">
+            <footer className="px-10 py-8 text-center border-t border-[var(--border)] flex-shrink-0 bg-[var(--bg-card)]/50 backdrop-blur-sm">
               <button 
                 onClick={onClose} 
-                className="w-full sm:w-auto min-w-[200px] text-[11px] bg-slate-900 hover:bg-slate-800 text-white font-bold py-4 px-8 rounded-2xl transition-all uppercase tracking-widest shadow-lg shadow-slate-900/20 active:scale-95"
+                className="w-full sm:w-auto min-w-[200px] text-[11px] bg-[var(--ink-main)] hover:bg-[var(--ink-main)]/90 text-[var(--accent-foreground)] font-bold py-4 px-8 rounded-2xl transition-all uppercase tracking-widest shadow-lg shadow-[var(--ink-main)]/20 active:scale-95"
               >
                 Kom igång nu
               </button>

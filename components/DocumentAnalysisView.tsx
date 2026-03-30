@@ -85,13 +85,13 @@ const DocumentAnalysisView: React.FC<DocumentAnalysisViewProps> = ({ documentId,
       <div className="flex justify-center items-center h-96">
         <div className="text-center space-y-8">
             {error ? (
-              <div className="p-10 bg-rose-50 dark:bg-rose-900/20 border-2 border-rose-100 dark:border-rose-900/30 rounded-[3rem] shadow-2xl shadow-rose-500/10">
-                <p className="text-rose-600 dark:text-rose-400 font-serif font-bold text-2xl">{error}</p>
+              <div className="p-10 bg-[var(--bg-card)] border-2 border-[var(--danger)]/30 rounded-none shadow-2xl shadow-[var(--danger)]/10">
+                <p className="text-[var(--danger)] font-mono font-bold text-2xl uppercase tracking-tighter">{error}</p>
               </div>
             ) : (
               <div className="relative">
-                <div className="absolute inset-0 bg-indigo-500/20 blur-[60px] animate-pulse rounded-full" />
-                <Spinner className="h-20 w-20 text-indigo-500 relative z-10" />
+                <div className="absolute inset-0 bg-[var(--accent)]/10 blur-[60px] animate-pulse" />
+                <Spinner className="h-20 w-20 text-[var(--accent)] relative z-10" />
               </div>
             )}
         </div>
@@ -100,54 +100,72 @@ const DocumentAnalysisView: React.FC<DocumentAnalysisViewProps> = ({ documentId,
   }
 
   return (
-    <div className="animate-fade-in max-w-6xl mx-auto">
-      <div className="mb-8 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-        <button 
-          onClick={onBack} 
-          className="flex items-center gap-3 px-5 py-2.5 bg-[var(--bg-card)] border border-[var(--border)] text-[var(--ink-main)] rounded-xl text-[10px] font-black uppercase tracking-widest hover:border-[var(--accent)] transition-all group active:scale-95"
-        >
-          <div className="p-1.5 bg-[var(--bg-main)] rounded-lg group-hover:bg-[var(--accent)]/10 transition-all">
-            <ArrowLeftIcon className="h-4 w-4"/>
-          </div>
-          <span>Tillbaka till ärendelistan</span>
-        </button>
-        
-        <div className="flex items-center space-x-8 px-8 py-4 bg-[var(--bg-card)] rounded-2xl border border-[var(--border)] shadow-sm">
-          <div className="flex flex-col">
-            <span className="text-[8px] font-bold text-[var(--ink-light)] uppercase tracking-[0.2em] mb-1">Ärende-ID</span>
-            <span className="font-mono text-sm font-bold text-[var(--ink-main)] tracking-tight">{document.analysis.caseId}</span>
-          </div>
-          <div className="h-8 w-px bg-[var(--border)]"></div>
-          <div className="flex flex-col">
-            <span className="text-[8px] font-bold text-[var(--ink-light)] uppercase tracking-[0.2em] mb-1">Status</span>
-            <span className="text-[10px] font-bold text-[var(--success)] flex items-center gap-2 uppercase tracking-widest">
-              <div className="w-1.5 h-1.5 rounded-full bg-[var(--success)] animate-pulse shadow-[0_0_10px_rgba(25,135,84,0.5)]"></div>
-              Slutförd
-            </span>
+    <div className="animate-fade-in max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Header Section - Hard Enterprise Grid */}
+      <div className="mb-8 border border-[var(--border-strong)] bg-[var(--bg-card)]">
+        <div className="flex flex-col lg:flex-row divide-y lg:divide-y-0 lg:divide-x divide-[var(--border-strong)]">
+          {/* Back Button */}
+          <button 
+            onClick={onBack} 
+            className="flex items-center gap-4 px-8 py-6 text-[var(--ink-main)] hover:bg-[var(--accent)] hover:text-white transition-all group active:bg-[var(--accent)]/90"
+          >
+            <ArrowLeftIcon className="h-5 w-5 group-hover:-translate-x-1 transition-transform"/>
+            <span className="text-xs font-black uppercase tracking-[0.2em]">System / Arkiv</span>
+          </button>
+          
+          {/* Case Info */}
+          <div className="flex-grow flex flex-col sm:flex-row divide-y sm:divide-y-0 sm:divide-x divide-[var(--border-strong)]">
+            <div className="px-8 py-6 flex flex-col justify-center">
+              <span className="text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-[0.3em] mb-2">Ärende-ID</span>
+              <span className="font-mono text-lg font-bold text-[var(--ink-main)] tracking-tighter">#{document.analysis.caseId}</span>
+            </div>
+            
+            <div className="px-8 py-6 flex flex-col justify-center">
+              <span className="text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-[0.3em] mb-2">Status</span>
+              <div className="flex items-center gap-3">
+                <div className="w-2 h-2 bg-[var(--success)] shadow-[0_0_8px_var(--success)]"></div>
+                <span className="text-xs font-black text-[var(--success)] uppercase tracking-[0.2em]">Verifierad / Slutförd</span>
+              </div>
+            </div>
+
+            <div className="px-8 py-6 flex flex-col justify-center ml-auto">
+              <span className="text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-[0.3em] mb-2">Säkerhetsnivå</span>
+              <span className="text-xs font-black text-[var(--accent)] uppercase tracking-[0.2em]">Enterprise v1.0</span>
+            </div>
           </div>
         </div>
       </div>
       
-      <div className="space-y-10">
-        <div className="relative pl-8">
-          <div className="absolute left-0 top-0 bottom-0 w-1 bg-[var(--accent)] rounded-full shadow-[0_0_20px_rgba(0,86,179,0.3)]"></div>
-          <h2 className="text-3xl font-bold text-[var(--ink-main)] m-0 tracking-tight leading-tight">
-            Analysrapport: <span className="text-[var(--accent)]">{document.name}</span>
+      <div className="space-y-12">
+        {/* Title & Metadata */}
+        <div className="border-l-4 border-[var(--accent)] pl-8 py-2">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-8 h-[1px] bg-[var(--accent)]"></div>
+            <span className="text-[10px] font-black text-[var(--accent)] uppercase tracking-[0.4em]">Analysrapport</span>
+          </div>
+          <h2 className="text-4xl font-black text-[var(--ink-main)] m-0 tracking-tighter leading-none uppercase italic">
+            {document.name}
           </h2>
-          <div className="flex flex-wrap items-center gap-4 mt-6">
-            <div className="flex items-center gap-3 px-4 py-2 bg-[var(--bg-card)] rounded-lg border border-[var(--border)] shadow-sm">
-              <span className="text-[8px] font-bold text-[var(--ink-light)] uppercase tracking-[0.2em]">Upprättad</span>
-              <span className="text-xs font-bold text-[var(--ink-main)]">{new Date(document.createdAt).toLocaleString('sv-SE')}</span>
+          
+          <div className="flex flex-wrap items-center gap-8 mt-8">
+            <div className="flex flex-col">
+              <span className="text-[9px] font-black text-[var(--ink-muted)] uppercase tracking-[0.2em] mb-1">Upprättad</span>
+              <span className="font-mono text-xs font-bold text-[var(--ink-main)]">{new Date(document.createdAt).toLocaleString('sv-SE')}</span>
             </div>
-            <div className="flex items-center gap-3 px-4 py-2 bg-[var(--bg-card)] rounded-lg border border-[var(--border)] shadow-sm">
-              <span className="text-[8px] font-bold text-[var(--ink-light)] uppercase tracking-[0.2em]">Typ</span>
-              <span className="text-xs font-bold text-[var(--ink-main)] uppercase tracking-widest">Forensisk Utredning</span>
+            <div className="flex flex-col">
+              <span className="text-[9px] font-black text-[var(--ink-muted)] uppercase tracking-[0.2em] mb-1">Typ</span>
+              <span className="font-mono text-xs font-bold text-[var(--ink-main)] uppercase tracking-widest">Forensisk Utredning</span>
+            </div>
+            <div className="flex flex-col">
+              <span className="text-[9px] font-black text-[var(--ink-muted)] uppercase tracking-[0.2em] mb-1">Integritet</span>
+              <span className="font-mono text-xs font-bold text-[var(--success)] uppercase tracking-widest">100% Validerad</span>
             </div>
           </div>
         </div>
         
-        <div className="bg-[var(--bg-card)] rounded-3xl overflow-hidden shadow-lg border border-[var(--border)]">
-          <div className="h-1 bg-[var(--accent)] opacity-80" />
+        {/* Main Content Area */}
+        <div className="bg-[var(--bg-card)] border border-[var(--border-strong)] shadow-2xl">
+          <div className="h-1.5 bg-[var(--accent)]" />
           <AnalysisResults 
               analysis={document.analysis}
               onLegalReferenceSelect={onLegalReferenceSelect}

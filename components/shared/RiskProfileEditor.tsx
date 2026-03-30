@@ -119,7 +119,7 @@ const RiskProfileEditor: React.FC<RiskProfileEditorProps> = ({
             </div>
           </div>
           <div className="flex items-center space-x-4">
-            {saveStatus && <span className="text-xs font-bold text-emerald-600 animate-pulse">{saveStatus}</span>}
+            {saveStatus && <span className="text-xs font-bold text-[var(--success)] animate-pulse">{saveStatus}</span>}
             <button onClick={onClose} className="p-3 text-[var(--ink-muted)] hover:text-[var(--ink-main)] rounded-2xl transition-all hover:bg-[var(--bg-main)] border border-transparent hover:border-[var(--border)] active:scale-95">
               <X className="h-7 w-7" />
             </button>
@@ -147,7 +147,7 @@ const RiskProfileEditor: React.FC<RiskProfileEditorProps> = ({
                             <div className="flex justify-between items-start mb-8">
                                 <div className="flex-1 pr-12">
                                     <div className="flex items-center space-x-4 mb-3">
-                                        <span className={`text-[10px] px-3 py-1 rounded-full font-black uppercase tracking-wider ${item.auditTrail.status === 'VERIFIED' ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'}`}>
+                                        <span className={`text-[10px] px-3 py-1 rounded-full font-black uppercase tracking-wider ${item.auditTrail.status === 'VERIFIED' ? 'bg-[var(--success)]/10 text-[var(--success)]' : 'bg-[var(--danger)]/10 text-[var(--danger)]'}`}>
                                             {item.auditTrail.status}
                                         </span>
                                         <span className="text-[10px] font-bold text-[var(--ink-muted)] tracking-widest uppercase">v.{item.version}</span>
@@ -211,7 +211,7 @@ const RiskProfileEditor: React.FC<RiskProfileEditorProps> = ({
                                     />
                                     <p className="text-[10px] text-[var(--ink-muted)] font-bold uppercase tracking-widest mt-1">{t.id}</p>
                                 </div>
-                                <button onClick={() => deleteTemplate(t.id)} className="p-3 text-[var(--ink-muted)] hover:text-rose-500 hover:bg-rose-50 rounded-2xl transition-all opacity-0 group-hover:opacity-100 active:scale-95 border border-transparent hover:border-rose-100 shadow-sm">
+                                <button onClick={() => deleteTemplate(t.id)} className="p-3 text-[var(--ink-muted)] hover:text-[var(--danger)] hover:bg-[var(--danger)]/10 rounded-2xl transition-all opacity-0 group-hover:opacity-100 active:scale-95 border border-transparent hover:border-[var(--danger)]/20 shadow-sm">
                                   <Trash2 className="w-5 h-5" />
                                 </button>
                             </div>
@@ -313,7 +313,7 @@ const RiskProfileEditor: React.FC<RiskProfileEditorProps> = ({
             <div className="fixed inset-0 z-[300] flex items-center justify-center p-6 bg-[var(--ink-main)]/80 backdrop-blur-md animate-in fade-in duration-300">
                 <div className="bg-[var(--bg-main)] w-full max-w-md rounded-[3rem] p-12 shadow-2xl border border-[var(--border)] animate-in zoom-in-95 duration-300">
                     <div className="flex flex-col items-center text-center">
-                        <div className="p-8 bg-rose-50 rounded-full text-rose-600 mb-8 border border-rose-100 shadow-inner">
+                        <div className="p-8 bg-[var(--danger)]/10 rounded-full text-[var(--danger)] mb-8 border border-[var(--danger)]/20 shadow-inner">
                             <Trash2 className="w-12 h-12" />
                         </div>
                         <h3 className="text-2xl font-black text-[var(--ink-main)] mb-4 tracking-tighter font-serif italic uppercase">Radera Riskmodell?</h3>
@@ -329,7 +329,7 @@ const RiskProfileEditor: React.FC<RiskProfileEditorProps> = ({
                             </button>
                             <button 
                                 onClick={confirmDelete}
-                                className="flex-1 py-4 px-6 rounded-2xl bg-rose-600 text-white font-black uppercase tracking-widest hover:bg-rose-700 shadow-xl shadow-rose-500/20 transition-all active:scale-95"
+                                className="flex-1 py-4 px-6 rounded-2xl bg-[var(--danger)] text-white font-black uppercase tracking-widest hover:bg-[var(--danger)]/80 shadow-xl shadow-[var(--danger)]/20 transition-all active:scale-95"
                             >
                                 Radera
                             </button>

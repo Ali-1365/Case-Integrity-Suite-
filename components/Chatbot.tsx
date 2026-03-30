@@ -46,13 +46,13 @@ const SafeChatText: React.FC<{ text: string }> = ({ text }) => {
         <div className="text-sm whitespace-pre-wrap leading-relaxed font-sans">
             {parts.map((part, i) => {
                 if (part.startsWith('[ARKIV:')) {
-                    return <span key={i} className="text-cyan-400 font-mono font-bold bg-cyan-950/40 px-1.5 py-0.5 rounded border border-cyan-800/50 text-[10px] mx-1">{part}</span>;
+                    return <span key={i} className="text-[var(--accent)] font-mono font-bold bg-[var(--accent)]/10 px-1.5 py-0.5 rounded border border-[var(--accent)]/20 text-[10px] mx-1">{part}</span>;
                 }
                 if (['⚡TOTAL', '🎯SNIPER', '💀DESTROY', '🌊FLOOD', '🚀ESKALERA', '🎪FULLATTACK'].includes(part)) {
-                    return <span key={i} className="text-red-500 font-black italic tracking-tighter bg-red-950/20 px-2 py-0.5 rounded border border-red-900/30 mx-1">{part}</span>;
+                    return <span key={i} className="text-[var(--danger)] font-black italic tracking-tighter bg-[var(--danger)]/10 px-2 py-0.5 rounded border border-[var(--danger)]/20 mx-1">{part}</span>;
                 }
                 if (['⚖️MEGAINLAGA', '📂BEVISPAKET', '📊ANALYS', '🧾EXPORT'].includes(part)) {
-                    return <span key={i} className="text-purple-400 font-black tracking-widest bg-purple-950/20 px-2 py-0.5 rounded border border-purple-900/30 mx-1">{part}</span>;
+                    return <span key={i} className="text-[var(--accent)] font-black tracking-widest bg-[var(--accent)]/10 px-2 py-0.5 rounded border border-[var(--accent)]/20 mx-1">{part}</span>;
                 }
                 return part;
             })}
@@ -142,38 +142,38 @@ const Chatbot: React.FC<ChatbotProps> = ({ isOpen, onClose, ragService, currentA
 
   return (
     <div className="flex flex-col h-full w-full animate-in zoom-in-95 slide-in-from-bottom-10 duration-300">
-        <div className="bg-white dark:bg-slate-900 rounded-t-[2rem] border-x border-t border-slate-200 dark:border-slate-800 p-8 relative overflow-hidden">
+        <div className="bg-[var(--bg-main)] dark:bg-[var(--bg-nav)] rounded-t-[2rem] border-x border-t border-[var(--border)] dark:border-[var(--border-strong)] p-8 relative overflow-hidden">
             <div className="flex justify-between items-center relative z-10">
                 <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-800">
-                        <LawIcon className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                    <div className="p-2 bg-[var(--accent)]/10 dark:bg-[var(--accent)]/20 rounded-lg border border-[var(--accent)]/20 dark:border-[var(--accent)]/30">
+                        <LawIcon className="h-5 w-5 text-[var(--accent)]" />
                     </div>
                     <div>
-                        <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-tight leading-none">Beslutsmotor</h3>
+                        <h3 className="text-sm font-bold text-[var(--ink-main)] dark:text-[var(--accent-foreground)] uppercase tracking-tight leading-none">Beslutsmotor</h3>
                         <div className="flex items-center space-x-1.5 mt-1.5">
-                            <span className="flex h-1.5 w-1.5 rounded-full bg-blue-500 animate-pulse"></span>
-                            <span className="text-[8px] font-bold text-slate-400 uppercase tracking-widest">v2.2 Active</span>
+                            <span className="flex h-1.5 w-1.5 rounded-full bg-[var(--accent)] animate-pulse"></span>
+                            <span className="text-[8px] font-bold text-[var(--ink-muted)] uppercase tracking-widest">v2.2 Active</span>
                         </div>
                     </div>
                 </div>
-                <button onClick={onClose} className="p-1.5 text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
+                <button onClick={onClose} className="p-1.5 text-[var(--ink-muted)] hover:text-[var(--ink-main)] dark:hover:text-[var(--accent-foreground)] transition-all hover:bg-[var(--bg-main)] dark:hover:bg-[var(--bg-nav)]/50 rounded-lg">
                     <XMarkIcon className="h-5 w-5" />
                 </button>
             </div>
         </div>
 
-        <div className="flex-1 bg-white dark:bg-slate-900 overflow-y-auto p-6 space-y-6 custom-scrollbar border-x border-slate-200 dark:border-slate-800 shadow-inner">
+        <div className="flex-1 bg-[var(--bg-main)] dark:bg-[var(--bg-nav)] overflow-y-auto p-6 space-y-6 custom-scrollbar border-x border-[var(--border)] dark:border-[var(--border-strong)] shadow-inner">
             {messages.map((msg, index) => (
                 <div key={index} className={`flex items-start gap-3 ${msg.role === 'user' ? 'justify-end' : ''} animate-in fade-in duration-500`}>
                     {msg.role === 'model' && (
-                        <div className="flex-shrink-0 h-8 w-8 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-blue-600 dark:text-blue-400">
+                        <div className="flex-shrink-0 h-8 w-8 rounded-lg bg-[var(--bg-main)] dark:bg-[var(--bg-nav)]/50 border border-[var(--border)] dark:border-[var(--border-strong)] flex items-center justify-center text-[var(--accent)]">
                             <CpuChipIcon className="h-4 w-4"/>
                         </div>
                     )}
                     <div className={`max-w-[85%] px-4 py-3 rounded-2xl text-sm ${
                         msg.role === 'user' 
-                        ? 'bg-blue-600 text-white rounded-tr-none' 
-                        : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-tl-none border border-slate-200 dark:border-slate-700'
+                        ? 'bg-[var(--bg-nav)] text-[var(--accent-foreground)] rounded-tr-none border border-[var(--accent)]/30' 
+                        : 'bg-[var(--bg-main)] dark:bg-[var(--bg-nav)]/30 text-[var(--ink-main)] dark:text-[var(--ink-light)] rounded-tl-none border border-[var(--border)] dark:border-[var(--border-strong)]'
                     }`}>
                         <SafeChatText text={msg.text} />
                         
@@ -182,7 +182,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ isOpen, onClose, ragService, currentA
                                 {msg.decisionSupport && (
                                     <button 
                                         onClick={() => setActiveDecision(msg.decisionSupport!)}
-                                        className="flex items-center space-x-1.5 text-[8px] font-bold uppercase tracking-wider text-green-600 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/20 px-2 py-1 rounded border border-green-200 dark:border-green-800 transition-all"
+                                        className="flex items-center space-x-1.5 text-[8px] font-bold uppercase tracking-wider text-[var(--success)] hover:bg-[var(--success)]/10 px-2 py-1 rounded border border-[var(--success)]/20 transition-all"
                                     >
                                         <CheckCircleIcon className="h-2.5 w-2.5" />
                                         <span>Beslutsstöd</span>
@@ -191,7 +191,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ isOpen, onClose, ragService, currentA
                                 {msg.reasoning && (
                                     <button 
                                         onClick={() => setActiveReasoning(msg.reasoning!)}
-                                        className="flex items-center space-x-1.5 text-[8px] font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 px-2 py-1 rounded border border-indigo-200 dark:border-indigo-800 transition-all"
+                                        className="flex items-center space-x-1.5 text-[8px] font-bold uppercase tracking-wider text-[var(--accent)] hover:bg-[var(--accent)]/10 px-2 py-1 rounded border border-[var(--accent)]/20 transition-all"
                                     >
                                         <SparklesIcon className="h-2.5 w-2.5" />
                                         <span>Motivering</span>
@@ -200,7 +200,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ isOpen, onClose, ragService, currentA
                                 {msg.queryId && (
                                     <button 
                                         onClick={() => setActiveQueryId(msg.queryId!)}
-                                        className="flex items-center space-x-1.5 text-[8px] font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 px-2 py-1 rounded border border-blue-200 dark:border-blue-800 transition-all"
+                                        className="flex items-center space-x-1.5 text-[8px] font-bold uppercase tracking-wider text-[var(--accent)] hover:bg-[var(--accent)]/10 px-2 py-1 rounded border border-[var(--accent)]/20 transition-all"
                                     >
                                         <ShieldCheckIcon className="h-2.5 w-2.5" />
                                         <span>Bevis</span>
@@ -213,12 +213,12 @@ const Chatbot: React.FC<ChatbotProps> = ({ isOpen, onClose, ragService, currentA
             ))}
             {isLoading && (
                  <div className="flex items-start gap-3 animate-pulse">
-                    <div className="flex-shrink-0 h-8 w-8 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-blue-600 dark:text-blue-400"><Spinner className="h-4 w-4"/></div>
-                    <div className="max-w-[85%] px-4 py-3 rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                    <div className="flex-shrink-0 h-8 w-8 rounded-lg bg-[var(--bg-main)] dark:bg-[var(--bg-nav)]/50 border border-[var(--border)] dark:border-[var(--border-strong)] flex items-center justify-center text-[var(--accent)]"><Spinner className="h-4 w-4"/></div>
+                    <div className="max-w-[85%] px-4 py-3 rounded-2xl bg-[var(--bg-main)] dark:bg-[var(--bg-nav)]/30 border border-[var(--border)] dark:border-[var(--border-strong)]">
                         <div className="flex space-x-1.5">
-                            <div className="h-1 w-1 bg-blue-600 rounded-full animate-bounce"></div>
-                            <div className="h-1 w-1 bg-blue-600 rounded-full animate-bounce [animation-delay:0.2s]"></div>
-                            <div className="h-1 w-1 bg-blue-600 rounded-full animate-bounce [animation-delay:0.4s]"></div>
+                            <div className="h-1 w-1 bg-[var(--accent)] rounded-full animate-bounce"></div>
+                            <div className="h-1 w-1 bg-[var(--accent)] rounded-full animate-bounce [animation-delay:0.2s]"></div>
+                            <div className="h-1 w-1 bg-[var(--accent)] rounded-full animate-bounce [animation-delay:0.4s]"></div>
                         </div>
                     </div>
                 </div>
@@ -226,7 +226,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ isOpen, onClose, ragService, currentA
             <div ref={messagesEndRef} />
         </div>
 
-        <div className="bg-white dark:bg-slate-900 rounded-b-2xl p-6 border-x border-b border-slate-200 dark:border-slate-800 shadow-xl">
+        <div className="bg-[var(--bg-main)] dark:bg-[var(--bg-nav)] rounded-b-2xl p-6 border-x border-b border-[var(--border)] dark:border-[var(--border-strong)] shadow-xl">
             <div className="relative group">
                 <input
                     type="text"
@@ -234,13 +234,13 @@ const Chatbot: React.FC<ChatbotProps> = ({ isOpen, onClose, ragService, currentA
                     onChange={(e) => setInput(e.target.value)}
                     onKeyPress={(e) => e.key === 'Enter' && handleSend().catch(err => console.error('Chat send failed:', err))}
                     placeholder="Skriv ett meddelande..."
-                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl py-3 pl-4 pr-12 text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all"
+                    className="w-full bg-[var(--bg-main)] dark:bg-[var(--bg-nav)]/50 border border-[var(--border)] dark:border-[var(--border-strong)] rounded-xl py-3 pl-4 pr-12 text-sm text-[var(--ink-main)] dark:text-[var(--accent-foreground)] placeholder-[var(--ink-muted)] focus:ring-2 focus:ring-[var(--accent)]/20 focus:border-[var(--accent)] outline-none transition-all"
                     disabled={isLoading}
                 />
                 <button
                     onClick={() => handleSend().catch(err => console.error('Chat send failed:', err))}
                     disabled={isLoading || !input.trim()}
-                    className="absolute right-2 top-2 p-2 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-200 dark:disabled:bg-slate-800 text-white rounded-lg transition-all"
+                    className="absolute right-2 top-2 p-2 bg-[var(--accent)] hover:bg-[var(--accent)]/80 disabled:bg-[var(--border)] dark:disabled:bg-[var(--bg-nav)] text-[var(--accent-foreground)] rounded-lg transition-all"
                 >
                     <PaperAirplaneIcon className="h-4 w-4" />
                 </button>

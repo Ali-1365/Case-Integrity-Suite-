@@ -91,7 +91,7 @@ const ForensicIntegrityView: React.FC<ForensicIntegrityViewProps> = ({ analysis 
         <div className="lg:col-span-2">
           <Card title="Data-atomer & Hash-kedja" icon={<FingerPrintIcon className="w-5 h-5" />}>
             <div className="space-y-4">
-              {analysis.atoms.map((atom) => {
+              {(analysis.atoms || []).map((atom) => {
                 const isFailed = verification?.failedAtoms.includes(atom.id);
                 return (
                   <div key={atom.id} className={`p-8 rounded-3xl border transition-all shadow-sm ${isFailed ? 'bg-[var(--danger)]/5 border-[var(--danger)]/30' : 'bg-[var(--bg-main)] border-[var(--border)] hover:border-[var(--accent)]/40'}`}>

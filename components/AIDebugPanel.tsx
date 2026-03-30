@@ -226,25 +226,25 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="flex flex-col h-full w-full bg-white dark:bg-slate-900 overflow-hidden font-sans transition-all">
+    <div className="flex flex-col h-full w-full bg-[var(--bg-main)] overflow-hidden font-sans transition-all">
       
-      <header className="p-8 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-white dark:bg-slate-900 relative overflow-hidden">
+      <header className="p-8 border-b border-[var(--border)] flex justify-between items-center bg-[var(--bg-main)] relative overflow-hidden">
           <div className="flex items-center space-x-4 relative z-10">
-            <div className="p-2.5 bg-blue-50 dark:bg-blue-900/20 rounded-xl text-blue-600 dark:text-blue-400 border border-blue-100 dark:border-blue-800">
+            <div className="p-2.5 bg-[var(--accent)]/10 rounded-xl text-[var(--accent)] border border-[var(--accent)]/20">
               <CodeBracketIcon className="w-6 h-6" />
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-slate-900 dark:text-white tracking-tight leading-none">System Architect Oracle</h3>
-              <p className="text-[10px] text-slate-500 uppercase tracking-wider font-bold mt-1.5">v.7.2.8-GOLD | TELEMETRY_ENABLED</p>
+              <h3 className="text-lg font-semibold text-[var(--ink-main)] tracking-tight leading-none">System Architect Oracle</h3>
+              <p className="text-[10px] text-[var(--ink-muted)] uppercase tracking-wider font-bold mt-1.5">v.7.2.8-GOLD | TELEMETRY_ENABLED</p>
             </div>
           </div>
-          <button onClick={onClose} className="p-2 text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 active:scale-95 relative z-10">
+          <button onClick={onClose} className="p-2 text-[var(--ink-muted)] hover:text-[var(--ink-main)] transition-all hover:bg-[var(--bg-nav)]/5 rounded-lg border border-[var(--border)] active:scale-95 relative z-10">
             <XMarkIcon className="w-6 h-6" />
           </button>
         </header>
 
-        <div className="px-8 py-4 bg-slate-50 dark:bg-slate-950/20 border-b border-slate-100 dark:border-slate-800 relative z-10">
-            <div className="flex items-center space-x-3 text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest mb-4">
+        <div className="px-8 py-4 bg-[var(--bg-nav)]/5 border-b border-[var(--border)] relative z-10">
+            <div className="flex items-center space-x-3 text-[10px] font-bold text-[var(--accent)] uppercase tracking-widest mb-4">
                 <ActivityIcon className="w-3.5 h-3.5" />
                 <span>Live System Telemetry</span>
             </div>
@@ -259,58 +259,58 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
                     } catch (err) {
                         console.error('Failed to paste:', err);
                     }
-                }} className="px-3 py-1.5 hover:bg-white dark:hover:bg-slate-800 transition-colors bg-white dark:bg-slate-900 rounded-lg text-[10px] font-bold uppercase text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700">
+                }} className="px-3 py-1.5 hover:bg-[var(--bg-main)] transition-colors bg-[var(--bg-main)] rounded-lg text-[10px] font-bold uppercase text-[var(--ink-muted)] border border-[var(--border)]">
                     Klistra in logg
                 </button>
-                <button onClick={refreshLogs} className="p-1.5 hover:bg-white dark:hover:bg-slate-800 transition-colors bg-white dark:bg-slate-900 rounded-lg text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700">
+                <button onClick={refreshLogs} className="p-1.5 hover:bg-[var(--bg-main)] transition-colors bg-[var(--bg-main)] rounded-lg text-[var(--ink-muted)] border border-[var(--border)]">
                   <ArrowPathIcon className="w-3.5 h-3.5" />
                 </button>
                 
-                <div className="h-6 w-px bg-slate-200 dark:bg-slate-800 mx-1" />
+                <div className="h-6 w-px bg-[var(--border)] mx-1" />
                 
-                <button onClick={handleBakeEmbeddings} className="px-3 py-1.5 hover:bg-amber-50 dark:hover:bg-amber-900/20 transition-colors bg-white dark:bg-slate-900 rounded-lg text-[10px] font-bold uppercase text-amber-600 dark:text-amber-400 border border-amber-200 dark:border-amber-800 flex items-center gap-2">
+                <button onClick={handleBakeEmbeddings} className="px-3 py-1.5 hover:bg-[var(--accent)]/10 transition-colors bg-[var(--bg-main)] rounded-lg text-[10px] font-bold uppercase text-[var(--accent)] border border-[var(--accent)]/20 flex items-center gap-2">
                     <FireIcon className="w-3 h-3" />
                     Baka Embeddings
                 </button>
-                <button onClick={handleExportIndex} className="px-3 py-1.5 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors bg-white dark:bg-slate-900 rounded-lg text-[10px] font-bold uppercase text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700">
+                <button onClick={handleExportIndex} className="px-3 py-1.5 hover:bg-[var(--bg-main)] transition-colors bg-[var(--bg-main)] rounded-lg text-[10px] font-bold uppercase text-[var(--ink-muted)] border border-[var(--border)]">
                     Exportera Index
                 </button>
-                <button onClick={handleRagIntegrationTest} className="px-3 py-1.5 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-colors bg-white dark:bg-slate-900 rounded-lg text-[10px] font-bold uppercase text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 flex items-center gap-2">
+                <button onClick={handleRagIntegrationTest} className="px-3 py-1.5 hover:bg-[var(--success)]/10 transition-colors bg-[var(--bg-main)] rounded-lg text-[10px] font-bold uppercase text-[var(--success)] border border-[var(--success)]/20 flex items-center gap-2">
                     <BeakerIcon className="w-3 h-3" />
                     RAG Test
                 </button>
-                <button onClick={handleE2ETest} className="px-3 py-1.5 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-colors bg-white dark:bg-slate-900 rounded-lg text-[10px] font-bold uppercase text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800 flex items-center gap-2">
+                <button onClick={handleE2ETest} className="px-3 py-1.5 hover:bg-[var(--accent)]/10 transition-colors bg-[var(--bg-main)] rounded-lg text-[10px] font-bold uppercase text-[var(--accent)] border border-[var(--accent)]/20 flex items-center gap-2">
                     <DocumentCheckIcon className="w-3 h-3" />
                     E2E Analys
                 </button>
-                <button onClick={handleRegressionTests} className="px-3 py-1.5 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors bg-white dark:bg-slate-900 rounded-lg text-[10px] font-bold uppercase text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800 flex items-center gap-2">
+                <button onClick={handleRegressionTests} className="px-3 py-1.5 hover:bg-red-500/10 transition-colors bg-[var(--bg-main)] rounded-lg text-[10px] font-bold uppercase text-red-600 border border-red-500/20 flex items-center gap-2">
                     <ActivityIcon className="w-3 h-3" />
                     Regressions- & Stresstest
                 </button>
             </div>
             <div className="space-y-2 max-h-[200px] overflow-y-auto custom-scrollbar">
                 {logs.length > 0 ? logs.map((log) => (
-                    <div key={log.id} className={`flex flex-col font-mono p-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 transition-all ${expandedLogId === log.id ? 'border-blue-300' : 'hover:border-slate-200 dark:hover:border-slate-700'}`}>
+                    <div key={log.id} className={`flex flex-col font-mono p-3 bg-[var(--bg-main)] rounded-xl border border-[var(--border)] transition-all ${expandedLogId === log.id ? 'border-[var(--accent)]' : 'hover:border-[var(--border-strong)]'}`}>
                         <div className="flex items-center justify-between cursor-pointer" onClick={() => setExpandedLogId(expandedLogId === log.id ? null : log.id)}>
                             <div className="flex items-center gap-4 text-[10px]">
-                                <span className="text-slate-400 shrink-0">{new Date(log.timestamp).toLocaleTimeString()}</span>
-                                <span className={`shrink-0 font-bold px-1.5 rounded ${log.level === 'ERROR' ? 'bg-red-100 text-red-700' : log.level === 'WARN' ? 'bg-amber-100 text-amber-700' : 'bg-blue-100 text-blue-800'}`}>
+                                <span className="text-[var(--ink-muted)] shrink-0">{new Date(log.timestamp).toLocaleTimeString()}</span>
+                                <span className={`shrink-0 font-bold px-1.5 rounded ${log.level === 'ERROR' ? 'bg-red-100 text-red-700' : log.level === 'WARN' ? 'bg-[var(--warning)]/20 text-[var(--warning)]' : 'bg-[var(--accent)]/20 text-[var(--accent)]'}`}>
                                     {log.level}
                                 </span>
-                                <span className={`shrink-0 font-bold px-1.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400`}>
+                                <span className={`shrink-0 font-bold px-1.5 rounded bg-[var(--bg-nav)]/10 text-[var(--ink-muted)]`}>
                                     {log.mode.toUpperCase()}
                                 </span>
-                                <span className="text-slate-500 truncate italic opacity-60">
+                                <span className="text-[var(--ink-muted)] truncate italic opacity-60">
                                     {log.message.substring(0, 60)}...
                                 </span>
                             </div>
-                            <span className="text-slate-400 font-bold">{log.duration ? `${log.duration}ms` : ''}</span>
+                            <span className="text-[var(--ink-muted)] font-bold">{log.duration ? `${log.duration}ms` : ''}</span>
                         </div>
                         {expandedLogId === log.id && (
-                            <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800 text-[10px] text-slate-600 dark:text-slate-400 space-y-2">
-                                <p><span className="font-bold text-slate-400">MESSAGE:</span> {log.message}</p>
+                            <div className="mt-3 pt-3 border-t border-[var(--border)] text-[10px] text-[var(--ink-main)] space-y-2">
+                                <p><span className="font-bold text-[var(--ink-muted)]">MESSAGE:</span> {log.message}</p>
                                 {log.details && (
-                                    <div className="bg-slate-50 dark:bg-slate-950 p-2 rounded-lg mt-1 overflow-x-auto">
+                                    <div className="bg-[var(--bg-nav)]/5 p-2 rounded-lg mt-1 overflow-x-auto">
                                         <pre className="text-[9px]">{JSON.stringify(log.details, null, 2)}</pre>
                                     </div>
                                 )}
@@ -318,24 +318,24 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
                         )}
                     </div>
                 )) : (
-                    <p className="text-[10px] text-slate-400 italic py-4 text-center">Inga anrop loggade.</p>
+                    <p className="text-[10px] text-[var(--ink-muted)] italic py-4 text-center">Inga anrop loggade.</p>
                 )}
             </div>
         </div>
 
-        <main className="flex-1 overflow-y-auto p-8 space-y-8 custom-scrollbar relative z-10 bg-white dark:bg-slate-900" ref={scrollRef}>
+        <main className="flex-1 overflow-y-auto p-8 space-y-8 custom-scrollbar relative z-10 bg-[var(--bg-main)]" ref={scrollRef}>
           {response && (
-            <div className="bg-slate-50 dark:bg-slate-950 rounded-2xl p-8 border border-slate-100 dark:border-slate-800 shadow-sm relative group animate-in slide-in-from-bottom-4 duration-500">
-                <div className="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest mb-6 flex items-center">
-                    <span className="w-2 h-2 rounded-full bg-blue-600 mr-3 animate-pulse"></span>
+            <div className="bg-[var(--bg-nav)]/5 rounded-2xl p-8 border border-[var(--border)] shadow-sm relative group animate-in slide-in-from-bottom-4 duration-500">
+                <div className="text-[10px] font-bold text-[var(--accent)] uppercase tracking-widest mb-6 flex items-center">
+                    <span className="w-2 h-2 rounded-full bg-[var(--accent)] mr-3 animate-pulse"></span>
                     Oracle Architectural Analysis
                 </div>
-                <div className="text-sm text-slate-700 dark:text-slate-300 font-mono leading-relaxed">
+                <div className="text-sm text-[var(--ink-main)] font-mono leading-relaxed">
                   {response.split('\n').map((line, i) => (
                     <p key={i} className="mb-4">{line}</p>
                   ))}
                 </div>
-                <button onClick={copyToClipboard} className="absolute top-8 right-8 px-3 py-1.5 bg-white dark:bg-slate-900 rounded-lg text-[10px] font-bold uppercase text-blue-600 dark:text-blue-400 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
+                <button onClick={copyToClipboard} className="absolute top-8 right-8 px-3 py-1.5 bg-[var(--bg-main)] rounded-lg text-[10px] font-bold uppercase text-[var(--accent)] border border-[var(--border)] hover:bg-[var(--bg-nav)]/5 transition-all">
                     {copied ? 'Kopierat' : 'Kopiera'}
                 </button>
             </div>
@@ -343,38 +343,38 @@ const AIDebugPanel: React.FC<AIDebugPanelProps> = ({ isOpen, onClose }) => {
 
           {isLoading && (
             <div className="flex flex-col items-center justify-center py-24">
-                <Spinner className="w-12 h-12 text-blue-600 mb-4" />
-                <p className="text-[10px] text-blue-600 dark:text-blue-400 font-bold uppercase tracking-widest animate-pulse">Aggregerar Systemtelemetri...</p>
+                <Spinner className="w-12 h-12 text-[var(--accent)] mb-4" />
+                <p className="text-[10px] text-[var(--accent)] font-bold uppercase tracking-widest animate-pulse">Aggregerar Systemtelemetri...</p>
             </div>
           )}
           
           {!response && !isLoading && (
               <div className="h-full flex flex-col items-center justify-center opacity-10">
-                  <CpuChipIcon className="w-32 h-32 text-slate-400 mb-6" />
-                  <p className="text-xl font-bold uppercase tracking-widest italic">Architect Standby</p>
+                  <CpuChipIcon className="w-32 h-32 text-[var(--ink-muted)] mb-6" />
+                  <p className="text-xl font-bold uppercase tracking-widest italic text-[var(--ink-main)]">Architect Standby</p>
               </div>
           )}
         </main>
 
-        <footer className="p-8 border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950">
+        <footer className="p-8 border-t border-[var(--border)] bg-[var(--bg-nav)]/5">
             <div className="max-w-4xl mx-auto relative group">
                 <textarea
                   value={prompt}
                   onChange={(e) => setPrompt(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), handleQuery().catch(err => console.error("Query failed:", err)))}
                   placeholder="Ställ en teknisk fråga..."
-                  className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl px-6 py-4 pr-16 text-sm text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all resize-none shadow-inner placeholder-slate-400"
+                  className="w-full bg-[var(--bg-main)] border border-[var(--border)] rounded-2xl px-6 py-4 pr-16 text-sm text-[var(--ink-main)] focus:ring-2 focus:ring-[var(--accent)]/20 focus:border-[var(--accent)] outline-none transition-all resize-none shadow-inner placeholder-[var(--ink-muted)]"
                   rows={2}
                 />
                 <button
                   onClick={() => handleQuery().catch(err => console.error("Manual query failed:", err))}
                   disabled={isLoading || !prompt.trim()}
-                  className="absolute bottom-4 right-4 p-2.5 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-200 dark:disabled:bg-slate-800 text-white rounded-xl shadow-lg active:scale-95 transition-all"
+                  className="absolute bottom-4 right-4 p-2.5 bg-[var(--accent)] hover:bg-[var(--accent)]/80 disabled:bg-[var(--border)] text-[var(--bg-main)] rounded-xl shadow-lg active:scale-95 transition-all"
                 >
                   <PaperAirplaneIcon className="w-5 h-5" />
                 </button>
             </div>
-            <div className="mt-4 flex justify-center space-x-8 text-[9px] font-bold text-slate-400 uppercase tracking-widest">
+            <div className="mt-4 flex justify-center space-x-8 text-[9px] font-bold text-[var(--ink-muted)] uppercase tracking-widest">
                 <span className="flex items-center gap-1.5"><ShieldCheckIcon className="w-3 h-3" /> SECURE_TRACE</span>
                 <span className="flex items-center gap-1.5"><ActivityIcon className="w-3 h-3" /> VERBOSE</span>
                 <span className="flex items-center gap-1.5"><CpuChipIcon className="w-3 h-3" /> GOLD_TIER</span>

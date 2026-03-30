@@ -173,7 +173,7 @@ export const InteractiveAnalyst: React.FC<InteractiveAnalystProps> = ({ analysis
                     { role: 'user', parts: [{ text: input }] }
                 ],
                 config: {
-                    systemInstruction: systemPrompt,
+                    systemInstruction: `${systemPrompt}\n\nVIKTIGT: Visa ALDRIG interna ID:n som 'FACT_20251020_001' eller liknande för användaren. Använd istället beskrivande text.`,
                     temperature: 0.2
                 }
             }, 'fast');
@@ -197,22 +197,22 @@ export const InteractiveAnalyst: React.FC<InteractiveAnalystProps> = ({ analysis
     };
 
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 h-[700px] animate-fade-in">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 h-[800px] animate-fade-in">
             {/* Left: Dynamic Analysis Panel */}
-            <div className="lg:col-span-4 flex flex-col gap-6">
+            <div className="lg:col-span-4 flex flex-col gap-6 h-full">
                 <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-6 flex-grow overflow-hidden flex flex-col shadow-sm relative group">
                     <div className="absolute -top-24 -left-24 w-48 h-48 bg-[var(--accent)]/5 rounded-full blur-3xl group-hover:bg-[var(--accent)]/10 transition-all duration-1000"></div>
                     
-                    <h3 className="text-[9px] font-black text-[var(--ink-light)] uppercase tracking-[0.2em] mb-6 flex items-center gap-3 relative z-10">
+                    <h3 className="text-[10px] font-black text-[var(--ink-main)] uppercase tracking-[0.2em] mb-6 flex items-center gap-3 relative z-10">
                         <div className="p-2 bg-[var(--accent)]/5 rounded-lg border border-[var(--accent)]/10">
                             <ActivityIcon className="w-4 h-4 text-[var(--accent)]" />
                         </div>
                         Dynamisk Ärendeanalys
                     </h3>
                     
-                    <div className="space-y-6 overflow-y-auto pr-2 custom-scrollbar relative z-10">
+                    <div className="space-y-6 overflow-y-auto pr-2 custom-scrollbar relative z-10 flex-grow">
                         <div className="p-5 bg-[var(--bg-main)] rounded-xl border border-[var(--border)] hover:border-[var(--accent)]/30 transition-all duration-500 group/card">
-                            <p className="text-[9px] text-[var(--ink-light)] font-black uppercase tracking-widest mb-4 flex items-center justify-between">
+                            <p className="text-[10px] text-[var(--ink-main)] font-black uppercase tracking-widest mb-4 flex items-center justify-between">
                                 <span>Bevisdensitet per Kategori</span>
                                 <ActivityIcon className="w-3 h-3 text-[var(--ink-muted)] group-hover/card:text-[var(--accent)] transition-colors" />
                             </p>
@@ -223,11 +223,11 @@ export const InteractiveAnalyst: React.FC<InteractiveAnalystProps> = ({ analysis
                                     const percentage = Math.min(100, (count / totalFacts) * 300);
                                     return (
                                         <div key={t.id} className="space-y-1.5">
-                                            <div className="flex justify-between text-[10px] font-bold">
-                                                <span className="text-[var(--ink-muted)]">{t.label}</span>
+                                            <div className="flex justify-between text-[11px] font-bold">
+                                                <span className="text-[var(--ink-main)]">{t.label}</span>
                                                 <span className="text-[var(--accent)]">{count} atomer</span>
                                             </div>
-                                            <div className="h-1 bg-[var(--border)] rounded-full overflow-hidden">
+                                            <div className="h-1.5 bg-[var(--border)] rounded-full overflow-hidden">
                                                 <div 
                                                     className="h-full bg-[var(--accent)] rounded-full transition-all duration-1000 ease-out" 
                                                     style={{ width: `${percentage}%` }}
@@ -240,14 +240,14 @@ export const InteractiveAnalyst: React.FC<InteractiveAnalystProps> = ({ analysis
                         </div>
 
                         <div className="p-5 bg-[var(--bg-main)] rounded-xl border border-[var(--border)] hover:border-[var(--accent)]/30 transition-all duration-500">
-                            <p className="text-[9px] text-[var(--ink-light)] font-black uppercase tracking-widest mb-4">Systemstatus: Analyst Core</p>
+                            <p className="text-[10px] text-[var(--ink-main)] font-black uppercase tracking-widest mb-4">Systemstatus: Analyst Core</p>
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="text-center p-3 bg-[var(--bg-card)] rounded-lg border border-[var(--border)] group/stat">
-                                    <p className="text-[8px] text-[var(--ink-muted)] uppercase font-black tracking-tighter mb-1 group-hover/stat:text-[var(--success)]/50 transition-colors">Reasoning</p>
+                                    <p className="text-[9px] text-[var(--ink-muted)] uppercase font-black tracking-tighter mb-1 group-hover/stat:text-[var(--success)]/50 transition-colors">Reasoning</p>
                                     <p className="text-xs font-black text-[var(--success)] font-mono tracking-widest">ACTIVE</p>
                                 </div>
                                 <div className="text-center p-3 bg-[var(--bg-card)] rounded-lg border border-[var(--border)] group/stat">
-                                    <p className="text-[8px] text-[var(--ink-muted)] uppercase font-black tracking-tighter mb-1 group-hover/stat:text-[var(--accent)]/50 transition-colors">Context</p>
+                                    <p className="text-[9px] text-[var(--ink-muted)] uppercase font-black tracking-tighter mb-1 group-hover/stat:text-[var(--accent)]/50 transition-colors">Context</p>
                                     <p className="text-xs font-black text-[var(--accent)] font-mono tracking-widest">FULL</p>
                                 </div>
                             </div>
@@ -257,7 +257,7 @@ export const InteractiveAnalyst: React.FC<InteractiveAnalystProps> = ({ analysis
                             <button 
                                 onClick={handleGenerateOpinion}
                                 disabled={isLoading}
-                                className="w-full py-4 bg-[var(--ink-main)] text-white rounded-xl font-black text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-3 shadow-md transition-all active:scale-95 disabled:opacity-50 group/btn overflow-hidden relative hover:bg-[var(--accent)]"
+                                className="w-full py-4 bg-[var(--ink-main)] text-white rounded-xl font-black text-[11px] uppercase tracking-[0.2em] flex items-center justify-center gap-3 shadow-md transition-all active:scale-95 disabled:opacity-50 group/btn overflow-hidden relative hover:bg-[var(--accent)]"
                             >
                                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000"></div>
                                 {isLoading ? <Spinner className="w-4 h-4" /> : <SparklesIcon className="w-4 h-4 group-hover/btn:rotate-12 transition-transform" />}
@@ -279,14 +279,14 @@ export const InteractiveAnalyst: React.FC<InteractiveAnalystProps> = ({ analysis
                                                 <ClockIcon className="w-3.5 h-3.5 text-[var(--accent)] animate-spin" />
                                             )}
                                         </div>
-                                        <span className={`text-[9px] font-black uppercase tracking-widest ${
+                                        <span className={`text-[10px] font-black uppercase tracking-widest ${
                                             analysisStatus === 'SLUTFÖRT' ? 'text-[var(--success)]' : 
                                             analysisStatus === 'ERROR' ? 'text-[var(--danger)]' : 'text-[var(--accent)]'
                                         }`}>
                                             {analysisStatus}
                                         </span>
                                     </div>
-                                    <p className="text-[10px] text-[var(--ink-muted)] font-bold leading-relaxed">{statusMessage}</p>
+                                    <p className="text-[11px] text-[var(--ink-main)] font-bold leading-relaxed">{statusMessage}</p>
                                 </div>
                             )}
                         </div>
@@ -297,9 +297,9 @@ export const InteractiveAnalyst: React.FC<InteractiveAnalystProps> = ({ analysis
                             </div>
                             <div className="flex items-center gap-3 mb-2 relative z-10">
                                 <ShieldCheckIcon className="w-3.5 h-3.5 text-[var(--warning)]" />
-                                <span className="text-[9px] font-black text-[var(--warning)] uppercase tracking-widest">Integritets-vakt</span>
+                                <span className="text-[10px] font-black text-[var(--warning)] uppercase tracking-widest">Integritets-vakt</span>
                             </div>
-                            <p className="text-[10px] text-[var(--ink-muted)] leading-relaxed font-medium relative z-10">
+                            <p className="text-[11px] text-[var(--ink-main)] leading-relaxed font-medium relative z-10">
                                 Varje svar från Interactive Analyst kors-valideras mot den forensiska beviskedjan för att förhindra AI-hallucinationer.
                             </p>
                         </div>
@@ -311,14 +311,14 @@ export const InteractiveAnalyst: React.FC<InteractiveAnalystProps> = ({ analysis
                         <CpuChipIcon className="w-5 h-5" />
                     </div>
                     <div>
-                        <p className="text-[8px] text-[var(--ink-light)] font-black uppercase tracking-widest">Analys-motor</p>
+                        <p className="text-[9px] text-[var(--ink-muted)] font-black uppercase tracking-widest">Analys-motor</p>
                         <p className="text-xs font-black text-[var(--ink-main)] tracking-tighter">v.2.0-HYBRID <span className="text-[var(--accent)] font-mono ml-1">CORE</span></p>
                     </div>
                 </div>
             </div>
 
             {/* Right: Chat Interface */}
-            <div className="lg:col-span-8 bg-[var(--bg-card)] border border-[var(--border)] rounded-3xl flex flex-col overflow-hidden shadow-lg relative">
+            <div className="lg:col-span-8 bg-[var(--bg-card)] border border-[var(--border)] rounded-3xl flex flex-col overflow-hidden shadow-lg relative h-full">
                 <div className="absolute -bottom-48 -right-48 w-96 h-96 bg-[var(--accent)]/5 rounded-full blur-[100px]"></div>
                 
                 {/* Chat Header */}
@@ -331,7 +331,7 @@ export const InteractiveAnalyst: React.FC<InteractiveAnalystProps> = ({ analysis
                             <h3 className="font-black text-[var(--ink-main)] text-sm uppercase tracking-[0.15em]">Interactive Analyst</h3>
                             <div className="flex items-center gap-2 mt-0.5">
                                 <span className={`w-1.5 h-1.5 rounded-full ${isOffline ? 'bg-[var(--warning)] shadow-[0_0_8px_rgba(249,115,22,0.5)]' : 'bg-[var(--success)] shadow-[0_0_8px_rgba(16,185,129,0.5)] animate-pulse'}`}></span>
-                                <span className={`text-[9px] font-mono uppercase font-black tracking-widest ${isOffline ? 'text-[var(--warning)]' : 'text-[var(--success)]'}`}>
+                                <span className={`text-[10px] font-mono uppercase font-black tracking-widest ${isOffline ? 'text-[var(--warning)]' : 'text-[var(--success)]'}`}>
                                     {isOffline ? 'Offline-Läge' : 'Session Aktiv'}
                                 </span>
                             </div>
@@ -367,17 +367,17 @@ export const InteractiveAnalyst: React.FC<InteractiveAnalystProps> = ({ analysis
                                 }`}>
                                     {m.role === 'user' ? <UserIcon className="w-4 h-4" /> : <SparklesIcon className="w-4 h-4" />}
                                 </div>
-                                <div className={`p-5 rounded-2xl text-[13px] leading-relaxed shadow-sm ${
+                                <div className={`p-5 rounded-2xl text-[14px] leading-relaxed shadow-sm ${
                                     m.role === 'user' 
                                     ? 'bg-[var(--accent)]/5 text-[var(--ink-main)] border border-[var(--accent)]/10 rounded-tr-none' 
                                     : 'bg-[var(--bg-card)] text-[var(--ink-main)] border border-[var(--border)] rounded-tl-none'
                                 }`}>
-                                    <div className="prose prose-sm max-w-none prose-p:text-[var(--ink-muted)] prose-headings:text-[var(--ink-main)] prose-strong:text-[var(--accent)]">
+                                    <div className="prose prose-sm max-w-none prose-p:text-[var(--ink-main)] prose-headings:text-[var(--ink-main)] prose-strong:text-[var(--accent)]">
                                         <MarkdownRenderer content={m.content} />
                                     </div>
-                                    <div className="flex items-center gap-2 mt-3 opacity-40">
+                                    <div className="flex items-center gap-2 mt-3 opacity-60">
                                         <ClockIcon className="w-2.5 h-2.5" />
-                                        <p className="text-[9px] font-mono uppercase font-bold tracking-widest">
+                                        <p className="text-[10px] font-mono uppercase font-bold tracking-widest">
                                             {m.timestamp.toLocaleTimeString()}
                                         </p>
                                     </div>
@@ -397,7 +397,7 @@ export const InteractiveAnalyst: React.FC<InteractiveAnalystProps> = ({ analysis
                                         <div className="w-1.5 h-1.5 bg-[var(--accent)]/40 rounded-full animate-bounce [animation-delay:0.2s]"></div>
                                         <div className="w-1.5 h-1.5 bg-[var(--accent)]/40 rounded-full animate-bounce [animation-delay:0.4s]"></div>
                                     </div>
-                                    <span className="text-[9px] font-black text-[var(--ink-light)] uppercase tracking-widest">Analyserar...</span>
+                                    <span className="text-[10px] font-black text-[var(--ink-main)] uppercase tracking-widest">Analyserar...</span>
                                 </div>
                             </div>
                         </div>
@@ -415,27 +415,27 @@ export const InteractiveAnalyst: React.FC<InteractiveAnalystProps> = ({ analysis
                             onChange={(e) => setInput(e.target.value)}
                             onKeyDown={(e) => e.key === 'Enter' && handleSend().catch(err => console.error("handleSend failed on Enter:", err))}
                             placeholder="Ställ en fråga om ärendet..."
-                            className="relative w-full bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl py-4 pl-6 pr-14 text-sm text-[var(--ink-main)] focus:outline-none focus:border-[var(--accent)]/50 transition-all placeholder:text-[var(--ink-light)] shadow-inner"
+                            className="relative w-full bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl py-5 pl-8 pr-16 text-sm text-[var(--ink-main)] focus:outline-none focus:border-[var(--accent)]/50 transition-all placeholder:text-[var(--ink-muted)] shadow-inner"
                         />
                         <button 
                             onClick={() => handleSend().catch(err => console.error("handleSend failed on click:", err))}
                             disabled={isLoading || !input.trim()}
-                            className="absolute right-2.5 top-1/2 -translate-y-1/2 p-2.5 bg-[var(--ink-main)] hover:bg-[var(--accent)] disabled:bg-[var(--border)] disabled:text-[var(--ink-light)] text-white rounded-xl transition-all shadow-md active:scale-90"
+                            className="absolute right-3 top-1/2 -translate-y-1/2 p-3 bg-[var(--ink-main)] hover:bg-[var(--accent)] disabled:bg-[var(--border)] disabled:text-[var(--ink-muted)] text-white rounded-xl transition-all shadow-md active:scale-90"
                         >
                             <PaperAirplaneIcon className="w-5 h-5" />
                         </button>
                     </div>
                     <div className="mt-4 flex justify-between items-center px-1">
-                        <div className="flex gap-4">
+                        <div className="flex gap-6">
                             <button 
                                 onClick={() => {
                                     setInput('Gör en snabb-analys av bevisatomer och lagrum.');
                                     handleSend().catch(err => console.error("Quick analysis failed:", err));
                                 }}
-                                className="text-[9px] font-black text-[var(--ink-light)] hover:text-[var(--accent)] uppercase tracking-[0.2em] transition-all flex items-center gap-2 group/action"
+                                className="text-[10px] font-black text-[var(--ink-main)] hover:text-[var(--accent)] uppercase tracking-[0.2em] transition-all flex items-center gap-2 group/action"
                             >
-                                <div className="p-1 bg-[var(--bg-main)] rounded group-hover/action:bg-[var(--accent)]/10 transition-colors">
-                                    <BoltIcon className="w-2.5 h-2.5 group-hover/action:scale-110 transition-transform" />
+                                <div className="p-1.5 bg-[var(--bg-main)] rounded group-hover/action:bg-[var(--accent)]/10 transition-colors">
+                                    <BoltIcon className="w-3 h-3 group-hover/action:scale-110 transition-transform" />
                                 </div>
                                 Snabb-analys
                             </button>
@@ -444,17 +444,17 @@ export const InteractiveAnalyst: React.FC<InteractiveAnalystProps> = ({ analysis
                                     setInput('Verifiera källorna för de juridiska referenserna i detta ärende.');
                                     handleSend().catch(err => console.error("Source verification failed:", err));
                                 }}
-                                className="text-[9px] font-black text-[var(--ink-light)] hover:text-[var(--success)] uppercase tracking-[0.2em] transition-all flex items-center gap-2 group/action"
+                                className="text-[10px] font-black text-[var(--ink-main)] hover:text-[var(--success)] uppercase tracking-[0.2em] transition-all flex items-center gap-2 group/action"
                             >
-                                <div className="p-1 bg-[var(--bg-main)] rounded group-hover/action:bg-[var(--success)]/10 transition-colors">
-                                    <ShieldCheckIcon className="w-2.5 h-2.5 group-hover/action:scale-110 transition-transform" />
+                                <div className="p-1.5 bg-[var(--bg-main)] rounded group-hover/action:bg-[var(--success)]/10 transition-colors">
+                                    <ShieldCheckIcon className="w-3 h-3 group-hover/action:scale-110 transition-transform" />
                                 </div>
                                 Verifiera Källa
                             </button>
                         </div>
                         <div className="flex items-center gap-2">
-                            <div className="w-1 h-1 bg-[var(--border)] rounded-full"></div>
-                            <span className="text-[9px] font-mono text-[var(--ink-light)] uppercase font-black tracking-widest">Interactive Analyst v.2.0</span>
+                            <div className="w-1.5 h-1.5 bg-[var(--border)] rounded-full"></div>
+                            <span className="text-[10px] font-mono text-[var(--ink-muted)] uppercase font-black tracking-widest">Interactive Analyst v.2.0</span>
                         </div>
                     </div>
                 </div>

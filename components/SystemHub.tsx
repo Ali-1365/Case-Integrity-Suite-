@@ -36,18 +36,18 @@ interface ModuleCardProps {
 const ModuleCard: React.FC<ModuleCardProps> = ({ title, description, icon, status, onClick, category }) => (
     <button 
         onClick={onClick}
-        className="group bg-[var(--bg-card)] border border-[var(--border)] rounded-xl p-5 text-left hover:border-[var(--accent)]/40 hover:shadow-md transition-all flex flex-col h-full relative overflow-hidden active:scale-[0.98] shadow-sm"
+        className="group bg-[var(--bg-card)] border border-[var(--border-strong)] p-5 text-left hover:bg-[var(--bg-main)] transition-all flex flex-col h-full relative overflow-hidden active:scale-[0.98] shadow-sm"
     >
         <div className="flex justify-between items-start mb-4 relative z-10">
-            <div className="p-2.5 rounded-lg bg-[var(--bg-main)] border border-[var(--border)] text-[var(--ink-muted)] group-hover:text-[var(--accent)] transition-all duration-300 shadow-inner">
+            <div className="p-2.5 bg-[var(--bg-main)] border border-[var(--border-strong)] text-[var(--ink-muted)] group-hover:text-[var(--accent)] transition-all duration-300 shadow-inner">
                 {React.cloneElement(icon as React.ReactElement<any>, { className: "w-5 h-5" })}
             </div>
             <div className="flex flex-col items-end space-y-1.5">
-                <div className="flex items-center space-x-2 bg-[var(--bg-main)] px-2 py-1 rounded border border-[var(--border)] shadow-inner">
+                <div className="flex items-center space-x-2 bg-[var(--bg-main)] px-2 py-1 border border-[var(--border-strong)] shadow-inner">
                     <span className={`w-1.5 h-1.5 rounded-full ${status === 'active' ? 'bg-[var(--success)]' : 'bg-[var(--warning)]'}`}></span>
-                    <span className="text-[8px] font-bold text-[var(--ink-main)] uppercase tracking-widest">{status}</span>
+                    <span className="text-[8px] font-mono font-bold text-[var(--ink-main)] uppercase tracking-widest">{status}</span>
                 </div>
-                <span className="text-[8px] font-bold text-[var(--accent)] bg-[var(--accent)]/5 px-2 py-0.5 rounded uppercase tracking-widest border border-[var(--accent)]/10">{category}</span>
+                <span className="text-[8px] font-bold text-[var(--accent)] bg-[var(--accent)]/5 px-2 py-0.5 uppercase tracking-widest border border-[var(--accent)]/10">{category}</span>
             </div>
         </div>
         
@@ -60,7 +60,7 @@ const ModuleCard: React.FC<ModuleCardProps> = ({ title, description, icon, statu
             </p>
         </div>
         
-        <div className="mt-4 pt-4 border-t border-[var(--border)]/50 flex items-center justify-end relative z-10">
+        <div className="mt-4 pt-4 border-t border-[var(--border-strong)]/50 flex items-center justify-end relative z-10">
             <div className="flex items-center text-[8px] font-bold text-[var(--accent)] uppercase tracking-widest opacity-0 group-hover:opacity-100 transform translate-x-2 group-hover:translate-x-0 transition-all">
                 <span>Öppna Modul</span>
                 <ArrowRight className="w-3 h-3 ml-1.5" />
@@ -158,6 +158,46 @@ export const SystemHub: React.FC<SystemHubProps> = ({ onNavigate }) => {
             icon: <Activity />,
             status: 'active' as const,
             category: 'Analys'
+        },
+        {
+            id: 'oracle',
+            title: 'Oracle Command',
+            description: 'Avancerad AI-motor för prediktiv juridisk analys och strategisk rådgivning.',
+            icon: <Cpu />,
+            status: 'active' as const,
+            category: 'Expertis'
+        },
+        {
+            id: 'arch',
+            title: 'Ärendearkiv',
+            description: 'Central lagringsplats för alla historiska och pågående ärenden.',
+            icon: <Archive />,
+            status: 'active' as const,
+            category: 'Analys'
+        },
+        {
+            id: 'notary',
+            title: 'Intern Processnotarie',
+            description: 'Logga och verifiera AI-agentens interna beslutskedjor i realtid.',
+            icon: <ClipboardList />,
+            status: 'active' as const,
+            category: 'Integritet'
+        },
+        {
+            id: 'audit',
+            title: 'System Audit Trail',
+            description: 'Fullständig historik över alla systemoperationer och regelefterlevnad.',
+            icon: <ShieldCheck />,
+            status: 'active' as const,
+            category: 'Integritet'
+        },
+        {
+            id: 'aggregator',
+            title: 'Mega-Aggregator v.7.2',
+            description: 'Slå samman och analysera stora mängder bevisdata till en enhetlig bild.',
+            icon: <Zap />,
+            status: 'active' as const,
+            category: 'Analys'
         }
     ], []); // Static list
 
@@ -174,12 +214,12 @@ export const SystemHub: React.FC<SystemHubProps> = ({ onNavigate }) => {
 
     return (
         <div className="space-y-10 animate-fade-in pb-20">
-            <header className="py-8 px-8 bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl shadow-sm relative overflow-hidden">
+            <header className="py-8 px-8 bg-[var(--bg-card)] border border-[var(--border-strong)] shadow-sm relative overflow-hidden">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 relative z-10">
                     <div className="space-y-3">
                         <div className="flex items-center gap-3">
-                            <span className="text-[9px] font-bold tracking-[0.3em] text-[var(--ink-muted)] uppercase opacity-60">System Hub v1.0</span>
-                            <div className="h-px w-10 bg-[var(--border)]"></div>
+                            <span className="text-[9px] font-mono font-bold tracking-[0.3em] text-[var(--ink-muted)] uppercase opacity-60">System Hub v1.0</span>
+                            <div className="h-px w-10 bg-[var(--border-strong)]"></div>
                         </div>
                         <h1 className="text-3xl font-bold text-[var(--ink-main)] tracking-tight uppercase">
                             Operativ Kontrollpanel
@@ -190,18 +230,18 @@ export const SystemHub: React.FC<SystemHubProps> = ({ onNavigate }) => {
                     </div>
 
                     <div className="flex flex-wrap gap-3">
-                        <div className="px-5 py-3 rounded-xl bg-[var(--bg-main)] border border-[var(--border)] flex items-center gap-3 shadow-inner">
+                        <div className="px-5 py-3 bg-[var(--bg-main)] border border-[var(--border-strong)] flex items-center gap-3 shadow-inner">
                             <div className="w-2 h-2 rounded-full bg-[var(--success)]"></div>
                             <div>
                                 <p className="text-[8px] font-bold text-[var(--ink-muted)] uppercase tracking-widest opacity-60">Status</p>
-                                <p className="text-[10px] font-bold text-[var(--ink-main)] uppercase tracking-widest">Operativ</p>
+                                <p className="text-[10px] font-mono font-bold text-[var(--ink-main)] uppercase tracking-widest">Operativ</p>
                             </div>
                         </div>
-                        <div className="px-5 py-3 rounded-xl bg-[var(--bg-main)] border border-[var(--border)] flex items-center gap-3 shadow-inner">
+                        <div className="px-5 py-3 bg-[var(--bg-main)] border border-[var(--border-strong)] flex items-center gap-3 shadow-inner">
                             <ShieldCheck className="h-4 w-4 text-[var(--accent)]" />
                             <div>
                                 <p className="text-[8px] font-bold text-[var(--ink-muted)] uppercase tracking-widest opacity-60">Säkerhet</p>
-                                <p className="text-[10px] font-bold text-[var(--ink-main)] uppercase tracking-widest">Verifierad</p>
+                                <p className="text-[10px] font-mono font-bold text-[var(--ink-main)] uppercase tracking-widest">Verifierad</p>
                             </div>
                         </div>
                     </div>
@@ -209,7 +249,7 @@ export const SystemHub: React.FC<SystemHubProps> = ({ onNavigate }) => {
             </header>
 
             <div className="sticky top-24 z-40">
-                <div className="p-2 rounded-2xl bg-[var(--bg-card)]/90 backdrop-blur-xl border border-[var(--border)] shadow-xl flex flex-col md:flex-row items-center gap-2">
+                <div className="p-2 bg-[var(--bg-card)]/90 backdrop-blur-xl border border-[var(--border-strong)] shadow-xl flex flex-col md:flex-row items-center gap-2">
                     <div className="relative flex-grow w-full">
                         <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-[var(--ink-muted)] opacity-40" />
                         <input 
@@ -217,14 +257,14 @@ export const SystemHub: React.FC<SystemHubProps> = ({ onNavigate }) => {
                             placeholder="Sök moduler..." 
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full bg-[var(--bg-main)] border border-[var(--border)] rounded-xl py-3 pl-12 pr-5 text-[10px] text-[var(--ink-main)] font-bold uppercase tracking-widest focus:outline-none focus:border-[var(--accent)]/50 transition-all shadow-inner"
+                            className="w-full bg-[var(--bg-main)] border border-[var(--border-strong)] py-3 pl-12 pr-5 text-[10px] text-[var(--ink-main)] font-bold uppercase tracking-widest focus:outline-none focus:border-[var(--accent)]/50 transition-all shadow-inner"
                         />
                     </div>
                     
-                    <div className="flex items-center gap-1.5 p-1 bg-[var(--bg-main)] rounded-xl border border-[var(--border)] w-full md:w-auto overflow-x-auto no-scrollbar shadow-inner">
+                    <div className="flex items-center gap-1.5 p-1 bg-[var(--bg-main)] border border-[var(--border-strong)] w-full md:w-auto overflow-x-auto no-scrollbar shadow-inner">
                         <button 
                             onClick={() => setActiveCategory(null)}
-                            className={`px-5 py-2 rounded-lg text-[8px] font-bold uppercase tracking-widest transition-all whitespace-nowrap ${!activeCategory ? 'bg-[var(--ink-main)] text-white shadow-md' : 'text-[var(--ink-muted)] hover:text-[var(--ink-main)]'}`}
+                            className={`px-5 py-2 text-[8px] font-bold uppercase tracking-widest transition-all whitespace-nowrap ${!activeCategory ? 'bg-[var(--ink-main)] text-white shadow-md' : 'text-[var(--ink-muted)] hover:text-[var(--ink-main)]'}`}
                         >
                             Alla
                         </button>
@@ -232,7 +272,7 @@ export const SystemHub: React.FC<SystemHubProps> = ({ onNavigate }) => {
                             <button 
                                 key={cat}
                                 onClick={() => setActiveCategory(cat)}
-                                className={`px-5 py-2 rounded-lg text-[8px] font-bold uppercase tracking-widest transition-all whitespace-nowrap ${activeCategory === cat ? 'bg-[var(--ink-main)] text-white shadow-md' : 'text-[var(--ink-muted)] hover:text-[var(--ink-main)]'}`}
+                                className={`px-5 py-2 text-[8px] font-bold uppercase tracking-widest transition-all whitespace-nowrap ${activeCategory === cat ? 'bg-[var(--ink-main)] text-white shadow-md' : 'text-[var(--ink-muted)] hover:text-[var(--ink-main)]'}`}
                             >
                                 {cat}
                             </button>
@@ -287,28 +327,28 @@ export const SystemHub: React.FC<SystemHubProps> = ({ onNavigate }) => {
                 )}
             </div>
 
-            <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-8 space-y-8 shadow-sm relative overflow-hidden">
+            <div className="bg-[var(--bg-card)] border border-[var(--border-strong)] p-8 space-y-8 shadow-sm relative overflow-hidden">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
                     <div className="flex items-center space-x-5">
-                        <div className="p-3 bg-[var(--bg-main)] rounded-xl border border-[var(--border)] shadow-inner">
+                        <div className="p-3 bg-[var(--bg-main)] border border-[var(--border-strong)] shadow-inner">
                             <Activity className="w-6 h-6 text-[var(--ink-main)]" />
                         </div>
                         <div className="space-y-1">
                             <h2 className="text-2xl font-bold text-[var(--ink-main)] tracking-tight uppercase">Systemtelemetri</h2>
-                            <p className="text-[9px] text-[var(--ink-muted)] font-bold uppercase tracking-widest opacity-60">Realtidsövervakning • Enterprise v1.0</p>
+                            <p className="text-[9px] text-[var(--ink-muted)] font-mono font-bold uppercase tracking-widest opacity-60">Realtidsövervakning • Enterprise v1.0</p>
                         </div>
                     </div>
-                    <div className="flex items-center gap-6 bg-[var(--bg-main)] px-6 py-3 rounded-xl border border-[var(--border)] shadow-inner">
+                    <div className="flex items-center gap-6 bg-[var(--bg-main)] px-6 py-3 border border-[var(--border-strong)] shadow-inner">
                         <HealthStat label="CPU" value="12%" color="text-[var(--ink-main)]" />
-                        <div className="w-px h-6 bg-[var(--border)] opacity-30"></div>
+                        <div className="w-px h-6 bg-[var(--border-strong)] opacity-30"></div>
                         <HealthStat label="RAM" value="1.4GB" color="text-[var(--ink-main)]" />
-                        <div className="w-px h-6 bg-[var(--border)] opacity-30"></div>
+                        <div className="w-px h-6 bg-[var(--border-strong)] opacity-30"></div>
                         <HealthStat label="LATENCY" value="24ms" color="text-[var(--ink-main)]" />
                     </div>
                 </div>
                 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 relative z-10">
-                    <div className="bg-[var(--bg-main)] p-6 rounded-xl border border-[var(--border)] space-y-5 shadow-inner">
+                    <div className="bg-[var(--bg-main)] p-6 border border-[var(--border-strong)] space-y-5 shadow-inner">
                         <h4 className="text-[9px] font-bold text-[var(--ink-muted)] uppercase tracking-widest flex items-center gap-2.5 opacity-60">
                             <div className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]"></div>
                             Pipeline Status
@@ -321,7 +361,7 @@ export const SystemHub: React.FC<SystemHubProps> = ({ onNavigate }) => {
                         </div>
                     </div>
                     
-                    <div className="bg-[var(--bg-main)] p-6 rounded-xl border border-[var(--border)] space-y-5 shadow-inner">
+                    <div className="bg-[var(--bg-main)] p-6 border border-[var(--border-strong)] space-y-5 shadow-inner">
                         <h4 className="text-[9px] font-bold text-[var(--ink-muted)] uppercase tracking-widest flex items-center gap-2.5 opacity-60">
                             <div className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]"></div>
                             Datakällor
@@ -334,8 +374,8 @@ export const SystemHub: React.FC<SystemHubProps> = ({ onNavigate }) => {
                         </div>
                     </div>
 
-                    <div className="bg-[var(--ink-main)] p-8 rounded-xl border border-[var(--border)] text-white flex flex-col justify-center items-center text-center shadow-lg group">
-                        <p className="text-4xl font-bold tracking-tight mb-1 group-hover:scale-105 transition-transform duration-700">100%</p>
+                    <div className="bg-[var(--ink-main)] p-8 border border-[var(--border-strong)] text-white flex flex-col justify-center items-center text-center shadow-lg group">
+                        <p className="text-4xl font-mono font-bold tracking-tight mb-1 group-hover:scale-105 transition-transform duration-700">100%</p>
                         <p className="text-[8px] text-white/40 font-bold uppercase tracking-widest">Verifierad Kedja</p>
                         <ShieldCheck className="h-6 w-6 text-white/20 mt-4 group-hover:text-[var(--accent)] transition-colors duration-700" />
                     </div>

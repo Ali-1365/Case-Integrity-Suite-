@@ -108,10 +108,10 @@ const ProduktionView: React.FC<ProduktionViewProps> = ({ activeCase }) => {
   };
 
   const templates = [
-    { id: 'stamn', label: 'Stämningsansökan', desc: 'Formell ansökan om stämning enligt RB 13:4.', icon: FileText, color: 'border-blue-100 hover:border-blue-500/50' },
-    { id: 'svar', label: 'Svaromål', desc: 'Svar på stämningsansökan enligt RB 42:7.', icon: FileText, color: 'border-emerald-100 hover:border-emerald-500/50' },
-    { id: 'over', label: 'Överklagande', desc: 'Överklagande av dom eller beslut till hovrätt.', icon: FileText, color: 'border-indigo-100 hover:border-indigo-500/50' },
-    { id: 'yttr', label: 'Yttrande', desc: 'Skriftligt yttrande i pågående mål.', icon: FileText, color: 'border-purple-100 hover:border-purple-500/50' },
+    { id: 'stamn', label: 'Stämningsansökan', desc: 'Formell ansökan om stämning enligt RB 13:4.', icon: FileText, color: 'border-[var(--border)] hover:border-[var(--accent)]' },
+    { id: 'svar', label: 'Svaromål', desc: 'Svar på stämningsansökan enligt RB 42:7.', icon: FileText, color: 'border-[var(--border)] hover:border-[var(--success)]' },
+    { id: 'over', label: 'Överklagande', desc: 'Överklagande av dom eller beslut till hovrätt.', icon: FileText, color: 'border-[var(--border)] hover:border-[var(--accent)]' },
+    { id: 'yttr', label: 'Yttrande', desc: 'Skriftligt yttrande i pågående mål.', icon: FileText, color: 'border-[var(--border)] hover:border-[var(--accent)]' },
   ];
 
   const recentDocuments = [
@@ -121,127 +121,129 @@ const ProduktionView: React.FC<ProduktionViewProps> = ({ activeCase }) => {
   ];
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-700 max-w-6xl mx-auto h-full flex flex-col pb-12">
+    <div className="space-y-10 animate-in fade-in duration-1000 relative pb-20">
       
       {/* Header */}
-      <header className="py-10 px-10 bg-[var(--bg-card)] border border-[var(--border)] rounded-[2.5rem] shadow-sm relative overflow-hidden">
+      <header className="py-12 px-12 bg-[var(--bg-card)] border-4 border-[var(--ink-main)] shadow-[20px_20px_0px_rgba(0,0,0,0.05)] relative overflow-hidden">
         <div className="absolute top-0 right-0 p-12 opacity-5 pointer-events-none">
           <FileText size={200} className="text-[var(--accent)]" />
         </div>
 
-        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-10">
           <div className="space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl bg-[var(--accent)]/10 flex items-center justify-center text-[var(--accent)]">
-                <Sparkles size={20} />
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-[var(--bg-main)] border-2 border-[var(--border)] flex items-center justify-center text-[var(--accent)]">
+                <Sparkles size={24} />
               </div>
-              <span className="text-[10px] font-black tracking-[0.2em] text-[var(--ink-muted)] uppercase">Produktionsmotor v4.0</span>
+              <span className="text-[11px] font-black tracking-[0.4em] text-[var(--ink-muted)] uppercase italic">Produktionsmotor v.11.4</span>
             </div>
-            <h1 className="text-4xl font-black text-[var(--ink-main)] tracking-tight">
+            <h1 className="text-5xl font-black text-[var(--ink-main)] tracking-tighter uppercase italic">
               Juridisk Textproduktion
             </h1>
-            <p className="text-sm font-medium text-[var(--ink-muted)] max-w-xl leading-relaxed">
+            <p className="text-[11px] font-black text-[var(--ink-muted)] max-w-xl leading-relaxed uppercase tracking-widest opacity-70">
               Exekverande verktyg för domstolsklara processkrifter enligt Rättegångsbalken.
             </p>
             {activeCase && (
-              <div className="mt-4 inline-flex items-center gap-3 px-5 py-2 bg-[var(--accent)]/5 text-[var(--accent)] rounded-2xl border border-[var(--accent)]/10">
-                <div className="w-2 h-2 bg-[var(--accent)] rounded-full animate-pulse shadow-[0_0_8px_var(--accent)]" />
-                <span className="text-[10px] font-black uppercase tracking-widest">Aktivt Ärende: {activeCase.name}</span>
+              <div className="mt-6 inline-flex items-center gap-4 px-6 py-3 bg-[var(--bg-main)] text-[var(--accent)] border-2 border-[var(--border)] shadow-inner">
+                <div className="w-3 h-3 bg-[var(--accent)] animate-pulse shadow-[0_0_10px_var(--accent)]" />
+                <span className="text-[10px] font-black uppercase tracking-[0.3em] italic">Aktivt Ärende: {activeCase.name}</span>
               </div>
             )}
           </div>
 
-          <div className="flex gap-4">
+          <div className="flex gap-6">
             <button 
               onClick={() => setShowUploadModal(true)}
-              className="bg-[var(--bg-main)] border border-[var(--border)] text-[var(--ink-main)] px-8 py-4 rounded-[1.5rem] text-xs font-black uppercase tracking-widest hover:border-[var(--accent)] transition-all flex items-center gap-3 shadow-sm active:scale-95"
+              className="bg-white border-4 border-[var(--ink-main)] text-[var(--ink-main)] px-10 py-5 font-black uppercase tracking-[0.2em] hover:bg-[var(--bg-main)] transition-all flex items-center gap-4 shadow-[8px_8px_0px_rgba(0,0,0,0.1)] active:translate-y-1 active:translate-x-1 active:shadow-none"
             >
-              <Upload size={18} /> Ladda upp Referens
+              <Upload size={20} /> Ladda upp Referens
             </button>
-            <button className="bg-[var(--ink-main)] text-white px-8 py-4 rounded-[1.5rem] text-xs font-black uppercase tracking-widest hover:bg-[var(--accent)] transition-all flex items-center gap-3 shadow-xl shadow-[var(--ink-main)]/10 active:scale-95">
-              <FilePlus size={18} /> Nytt Dokument
+            <button className="bg-[var(--ink-main)] text-white px-10 py-5 font-black uppercase tracking-[0.2em] hover:bg-[var(--accent)] transition-all flex items-center gap-4 shadow-[8px_8px_0px_rgba(0,0,0,0.2)] active:translate-y-1 active:translate-x-1 active:shadow-none">
+              <FilePlus size={20} /> Nytt Dokument
             </button>
           </div>
         </div>
       </header>
 
       {isOffline ? (
-        <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-[3rem] p-16 text-center max-w-2xl mx-auto shadow-sm">
-          <div className="w-24 h-24 bg-amber-50 text-amber-500 rounded-[2rem] flex items-center justify-center mx-auto mb-8 shadow-sm">
+        <div className="bg-[var(--bg-card)] border-4 border-[var(--ink-main)] p-20 text-center max-w-3xl mx-auto shadow-[20px_20px_0px_rgba(0,0,0,0.05)]">
+          <div className="w-24 h-24 bg-[var(--bg-main)] text-[var(--warning)] border-2 border-[var(--warning)] flex items-center justify-center mx-auto mb-10 shadow-inner">
             <AlertCircle size={48} />
           </div>
-          <h3 className="text-2xl font-black text-[var(--ink-main)] mb-4 tracking-tight">Textproduktion Inaktiverad</h3>
-          <p className="text-sm text-[var(--ink-muted)] mb-10 leading-relaxed font-medium">
+          <h3 className="text-3xl font-black text-[var(--ink-main)] mb-6 tracking-tighter uppercase italic">Textproduktion Inaktiverad</h3>
+          <p className="text-[11px] text-[var(--ink-muted)] mb-12 leading-relaxed font-black uppercase tracking-[0.3em] opacity-70">
             Textproduktionsmodulen kräver en aktiv anslutning och en giltig API-nyckel för att generera juridiska texter baserade på Case Integrity AI-motor.
           </p>
-          <button onClick={() => window.location.reload()} className="bg-[var(--ink-main)] text-white px-10 py-5 rounded-[1.5rem] text-xs font-black uppercase tracking-widest hover:bg-[var(--accent)] transition-all shadow-xl shadow-[var(--ink-main)]/10 active:scale-95">
+          <button onClick={() => window.location.reload()} className="bg-[var(--ink-main)] text-white px-12 py-6 font-black uppercase tracking-[0.2em] hover:bg-[var(--accent)] transition-all shadow-xl active:translate-y-1">
             Försök återansluta
           </button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 flex-grow min-h-0">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 flex-grow min-h-0">
           {/* Templates Grid */}
-          <div className="lg:col-span-2 space-y-8 flex flex-col">
-            <div className="flex items-center gap-4">
-                <h2 className="text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-[0.2em] whitespace-nowrap">Mallar & Generatorer</h2>
-                <div className="h-px flex-grow bg-[var(--border)]"></div>
+          <div className="lg:col-span-2 space-y-10 flex flex-col">
+            <div className="flex items-center gap-6">
+                <h2 className="text-[11px] font-black text-[var(--ink-muted)] uppercase tracking-[0.4em] whitespace-nowrap italic">Mallar & Generatorer</h2>
+                <div className="h-1 flex-grow bg-[var(--border)]"></div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
               {templates.map(tpl => (
                 <button 
                   key={tpl.id} 
                   onClick={() => handleGenerate(tpl.id)}
                   disabled={loading || !activeCase}
-                  className={`p-8 rounded-[2.5rem] border bg-[var(--bg-card)] text-left transition-all hover:shadow-2xl hover:shadow-[var(--accent)]/5 group disabled:opacity-50 disabled:cursor-not-allowed flex flex-col h-full ${tpl.color}`}
+                  className={`p-10 border-4 bg-[var(--bg-card)] text-left transition-all group disabled:opacity-50 disabled:cursor-not-allowed flex flex-col h-full relative overflow-hidden shadow-[10px_10px_0px_rgba(0,0,0,0.05)] hover:shadow-[15px_15px_0px_rgba(0,0,0,0.1)] hover:-translate-y-1 ${tpl.color} border-[var(--border)] hover:border-[var(--ink-main)]`}
                 >
-                  <div className="flex justify-between items-start mb-8">
-                    <div className="w-14 h-14 rounded-2xl bg-[var(--bg-main)] border border-[var(--border)] flex items-center justify-center text-[var(--ink-main)] shadow-sm group-hover:bg-[var(--ink-main)] group-hover:text-white transition-all">
-                      <tpl.icon size={28} />
+                  <div className="flex justify-between items-start mb-10">
+                    <div className="w-16 h-16 bg-[var(--bg-main)] border-2 border-[var(--border)] flex items-center justify-center text-[var(--ink-main)] shadow-inner group-hover:bg-[var(--ink-main)] group-hover:text-white transition-all">
+                      <tpl.icon size={32} />
                     </div>
-                    <ArrowRight size={20} className="text-[var(--ink-muted)] opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
+                    <ArrowRight size={24} className="text-[var(--ink-muted)] opacity-0 group-hover:opacity-100 group-hover:translate-x-2 transition-all" />
                   </div>
-                  <h3 className="text-xl font-black text-[var(--ink-main)] mb-3 tracking-tight group-hover:text-[var(--ink-main)]">{tpl.label}</h3>
-                  <p className="text-xs text-[var(--ink-muted)] leading-relaxed font-medium flex-grow">{tpl.desc}</p>
+                  <h3 className="text-2xl font-black text-[var(--ink-main)] mb-4 tracking-tighter uppercase italic group-hover:text-[var(--accent)]">{tpl.label}</h3>
+                  <p className="text-[11px] text-[var(--ink-muted)] leading-relaxed font-black uppercase tracking-widest opacity-60 flex-grow">{tpl.desc}</p>
                   
-                  <div className="mt-8 pt-8 border-t border-[var(--bg-main)] flex items-center justify-end">
-                    <span className="text-[9px] font-black text-[var(--ink-main)] uppercase tracking-[0.2em] opacity-0 group-hover:opacity-100 transition-opacity">Använd Mall</span>
+                  <div className="mt-10 pt-10 border-t-2 border-[var(--bg-main)] flex items-center justify-end">
+                    <span className="text-[10px] font-black text-[var(--ink-main)] uppercase tracking-[0.3em] opacity-0 group-hover:opacity-100 transition-opacity italic">Exekvera Mall</span>
                   </div>
                 </button>
               ))}
             </div>
 
-            <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-[2.5rem] overflow-hidden shadow-sm flex flex-col flex-grow">
-              <div className="px-10 py-6 border-b border-[var(--bg-main)] flex justify-between items-center bg-[var(--bg-main)]/30">
-                <div className="flex items-center gap-3">
-                    <History className="w-4 h-4 text-[var(--ink-muted)]" />
-                    <h3 className="text-[10px] font-black text-[var(--ink-main)] uppercase tracking-[0.2em]">Senaste Dokument</h3>
+            <div className="bg-[var(--bg-card)] border-4 border-[var(--ink-main)] shadow-[20px_20px_0px_rgba(0,0,0,0.05)] overflow-hidden flex flex-col flex-grow">
+              <div className="px-12 py-8 border-b-2 border-[var(--border)] flex justify-between items-center bg-[var(--bg-main)]">
+                <div className="flex items-center gap-4">
+                    <History className="w-5 h-5 text-[var(--accent)]" />
+                    <h3 className="text-[11px] font-black text-[var(--ink-main)] uppercase tracking-[0.3em] italic">Senaste Dokument</h3>
                 </div>
-                <button className="text-[10px] text-[var(--ink-muted)] font-black uppercase tracking-widest hover:text-[var(--accent)] transition-colors">Visa alla</button>
+                <button className="text-[10px] text-[var(--ink-muted)] font-black uppercase tracking-[0.2em] hover:text-[var(--accent)] transition-colors italic">Visa alla noder</button>
               </div>
-              <div className="divide-y divide-[var(--bg-main)] overflow-y-auto custom-scrollbar">
+              <div className="divide-y-2 divide-[var(--border)] overflow-y-auto custom-scrollbar">
                 {recentDocuments.map(doc => (
-                  <div key={doc.id} className="px-10 py-6 flex items-center justify-between hover:bg-[var(--bg-main)]/50 transition-colors group">
-                    <div className="flex items-center gap-6">
-                      <div className="w-14 h-14 rounded-2xl bg-[var(--bg-main)] border border-[var(--border)] flex items-center justify-center text-[var(--ink-muted)] group-hover:bg-[var(--ink-main)] group-hover:text-white transition-all shadow-sm">
-                        <FileText size={24} />
+                  <div key={doc.id} className="px-12 py-8 flex items-center justify-between hover:bg-[var(--bg-main)] transition-all group">
+                    <div className="flex items-center gap-8">
+                      <div className="w-16 h-16 bg-[var(--bg-main)] border-2 border-[var(--border)] flex items-center justify-center text-[var(--ink-muted)] group-hover:border-[var(--accent)] group-hover:text-[var(--accent)] transition-all shadow-inner">
+                        <FileText size={28} />
                       </div>
                       <div>
-                        <div className="text-base font-black text-[var(--ink-main)] tracking-tight">{doc.name}</div>
-                        <div className="text-[10px] text-[var(--ink-muted)] uppercase font-black tracking-widest mt-1">{doc.id} · {doc.date} · {doc.author}</div>
+                        <div className="text-xl font-black text-[var(--ink-main)] tracking-tighter uppercase italic group-hover:translate-x-1 transition-transform">{doc.name}</div>
+                        <div className="text-[10px] text-[var(--ink-muted)] uppercase font-black tracking-[0.2em] mt-2 opacity-60">
+                            <span className="font-mono">{doc.id}</span> · {doc.date} · {doc.author}
+                        </div>
                       </div>
                     </div>
-                    <div className="flex items-center gap-8">
-                      <span className={`text-[9px] font-black uppercase tracking-widest px-4 py-1.5 rounded-xl border ${
-                        doc.status === 'KLAR' ? 'bg-emerald-50 text-emerald-600 border-emerald-100' :
-                        doc.status === 'SKICKAT' ? 'bg-blue-50 text-blue-600 border-blue-100' :
+                    <div className="flex items-center gap-10">
+                      <span className={`text-[10px] font-black uppercase tracking-widest px-5 py-2 border-2 ${
+                        doc.status === 'KLAR' ? 'bg-[var(--success)]/10 text-[var(--success)] border-[var(--success)]/20' :
+                        doc.status === 'SKICKAT' ? 'bg-[var(--accent)]/10 text-[var(--accent)] border-[var(--accent)]/20' :
                         'bg-[var(--bg-main)] text-[var(--ink-muted)] border-[var(--border)]'
                       }`}>
                         {doc.status}
                       </span>
-                      <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-all transform translate-x-2 group-hover:translate-x-0">
-                        <button className="p-3 text-[var(--ink-muted)] hover:text-[var(--ink-main)] hover:bg-white rounded-xl border border-transparent hover:border-[var(--border)] transition-all shadow-sm"><Download size={18} /></button>
-                        <button className="p-3 text-[var(--ink-muted)] hover:text-rose-600 hover:bg-white rounded-xl border border-transparent hover:border-rose-100 transition-all shadow-sm"><Trash2 size={18} /></button>
+                      <div className="flex gap-4 opacity-0 group-hover:opacity-100 transition-all">
+                        <button className="p-4 text-[var(--ink-muted)] hover:text-[var(--ink-main)] bg-white border-2 border-[var(--border)] hover:border-[var(--ink-main)] transition-all shadow-sm"><Download size={20} /></button>
+                        <button className="p-4 text-[var(--ink-muted)] hover:text-[var(--danger)] bg-white border-2 border-[var(--border)] hover:border-[var(--danger)] transition-all shadow-sm"><Trash2 size={20} /></button>
                       </div>
                     </div>
                   </div>
@@ -251,46 +253,46 @@ const ProduktionView: React.FC<ProduktionViewProps> = ({ activeCase }) => {
           </div>
 
           {/* Sidebar */}
-          <div className="lg:col-span-1 space-y-8">
-            <div className="bg-[var(--ink-main)] rounded-[3rem] p-10 text-white shadow-2xl relative overflow-hidden border border-white/5">
+          <div className="lg:col-span-1 space-y-10">
+            <div className="bg-[var(--ink-main)] p-12 text-white shadow-[20px_20px_0px_rgba(0,0,0,0.1)] relative overflow-hidden border-4 border-white/10">
               <div className="absolute top-0 right-0 p-6 opacity-5 pointer-events-none"><BrainCircuit size={160} /></div>
               <div className="relative z-10">
-                <div className="flex items-center gap-4 mb-10">
-                  <div className="w-12 h-12 rounded-2xl bg-blue-500 flex items-center justify-center shadow-xl shadow-blue-500/20"><ShieldCheck size={24} /></div>
-                  <span className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400">Integritetskontroll</span>
+                <div className="flex items-center gap-6 mb-12">
+                  <div className="w-14 h-14 bg-[var(--accent)] flex items-center justify-center shadow-xl shadow-[var(--accent)]/20 border-2 border-white/30"><ShieldCheck size={28} /></div>
+                  <span className="text-[11px] font-black uppercase tracking-[0.4em] text-[var(--accent)] italic">Integritetskontroll</span>
                 </div>
-                <h4 className="text-2xl font-black mb-6 tracking-tight">Verifierad Produktion</h4>
-                <p className="text-slate-400 text-xs leading-relaxed mb-10 font-medium">
+                <h4 className="text-3xl font-black mb-8 tracking-tighter uppercase italic">Verifierad Produktion</h4>
+                <p className="text-slate-400 text-[11px] leading-relaxed mb-12 font-black uppercase tracking-widest opacity-80">
                   Alla dokument som genereras i denna modul genomgår en automatisk kontroll mot Rättegångsbalkens formkrav och verifieras med SHA-256 för att säkerställa att inga obehöriga ändringar sker.
                 </p>
-                <div className="space-y-5">
-                  <div className="flex items-center gap-4 text-[10px] text-emerald-400 font-black uppercase tracking-[0.2em]">
-                    <CheckCircle2 size={16} /> RB 13:4 Verifierad
+                <div className="space-y-6">
+                  <div className="flex items-center gap-5 text-[10px] text-emerald-400 font-black uppercase tracking-[0.3em] italic">
+                    <CheckCircle2 size={18} /> RB 13:4 Verifierad
                   </div>
-                  <div className="flex items-center gap-4 text-[10px] text-emerald-400 font-black uppercase tracking-[0.2em]">
-                    <CheckCircle2 size={16} /> RB 42:7 Verifierad
+                  <div className="flex items-center gap-5 text-[10px] text-emerald-400 font-black uppercase tracking-[0.3em] italic">
+                    <CheckCircle2 size={18} /> RB 42:7 Verifierad
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-[3rem] p-10 shadow-sm space-y-8">
-              <div className="flex items-center gap-3">
-                  <Activity className="w-4 h-4 text-[var(--ink-muted)]" />
-                  <h3 className="text-[10px] font-black text-[var(--ink-main)] uppercase tracking-[0.2em]">Systemstatus</h3>
+            <div className="bg-[var(--bg-card)] border-4 border-[var(--ink-main)] p-10 shadow-[15px_15px_0px_rgba(0,0,0,0.05)] space-y-10">
+              <div className="flex items-center gap-4">
+                  <Activity className="w-5 h-5 text-[var(--accent)]" />
+                  <h3 className="text-[11px] font-black text-[var(--ink-main)] uppercase tracking-[0.3em] italic">Systemstatus</h3>
               </div>
-              <div className="space-y-6">
-                <div className="flex justify-between items-center">
-                  <span className="text-xs text-[var(--ink-muted)] font-medium">AI-Motor</span>
-                  <span className="text-[10px] font-black text-emerald-500 uppercase tracking-widest">ONLINE</span>
+              <div className="space-y-8">
+                <div className="flex justify-between items-center border-b-2 border-[var(--bg-main)] pb-4">
+                  <span className="text-[10px] text-[var(--ink-muted)] font-black uppercase tracking-widest">AI-Motor</span>
+                  <span className="text-[10px] font-black text-[var(--success)] uppercase tracking-[0.2em] italic">ONLINE</span>
+                </div>
+                <div className="flex justify-between items-center border-b-2 border-[var(--bg-main)] pb-4">
+                  <span className="text-[10px] text-[var(--ink-muted)] font-black uppercase tracking-widest">Lagbibliotek</span>
+                  <span className="text-[10px] font-black text-[var(--ink-main)] uppercase tracking-[0.2em] italic font-mono">V.2026.3</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-xs text-[var(--ink-muted)] font-medium">Lagbibliotek</span>
-                  <span className="text-[10px] font-black text-[var(--ink-main)] uppercase tracking-widest">V.2024.1</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-xs text-[var(--ink-muted)] font-medium">Dokumentlagring</span>
-                  <span className="text-[10px] font-black text-[var(--accent)] uppercase tracking-widest">92% LEDIGT</span>
+                  <span className="text-[10px] text-[var(--ink-muted)] font-black uppercase tracking-widest">Nod-kapacitet</span>
+                  <span className="text-[10px] font-black text-[var(--accent)] uppercase tracking-[0.2em] italic font-mono">92% NOMINAL</span>
                 </div>
               </div>
             </div>
@@ -336,13 +338,13 @@ const ProduktionView: React.FC<ProduktionViewProps> = ({ activeCase }) => {
                   acceptedTypes={['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'text/plain']}
                 />
                 
-                <div className="mt-8 p-6 bg-indigo-50 border border-indigo-100 rounded-2xl flex gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-indigo-500 text-white flex items-center justify-center shrink-0 shadow-lg shadow-indigo-500/20">
+                <div className="mt-8 p-6 bg-[var(--accent)]/5 border border-[var(--accent)]/10 rounded-2xl flex gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-[var(--accent)] text-white flex items-center justify-center shrink-0 shadow-lg shadow-[var(--accent)]/20">
                     <Sparkles size={20} />
                   </div>
                   <div className="space-y-1">
-                    <p className="text-xs font-black text-indigo-900 uppercase tracking-widest">Stil-härmning Aktiverad</p>
-                    <p className="text-[11px] text-indigo-700 font-medium leading-relaxed">
+                    <p className="text-xs font-black text-[var(--ink-main)] uppercase tracking-widest">Stil-härmning Aktiverad</p>
+                    <p className="text-[11px] text-[var(--ink-muted)] font-medium leading-relaxed">
                       Genom att ladda upp tidigare inlagor kan AI-motorn lära sig din specifika juridiska ton och stil för att skapa mer personliga utkast.
                     </p>
                   </div>
@@ -422,24 +424,28 @@ const ProduktionView: React.FC<ProduktionViewProps> = ({ activeCase }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-[var(--ink-main)]/80 backdrop-blur-2xl z-[400] flex flex-col items-center justify-center text-white p-10"
+            className="fixed inset-0 bg-[var(--ink-main)]/90 backdrop-blur-2xl z-[400] flex flex-col items-center justify-center text-white p-10"
           >
-            <div className="w-40 h-40 relative mb-12">
-              <div className="absolute inset-0 border-4 border-[var(--accent)]/10 rounded-[2.5rem]" />
-              <div className="absolute inset-0 border-4 border-[var(--accent)] border-t-transparent rounded-[2.5rem] animate-spin" />
-              <div className="absolute inset-8 bg-[var(--accent)]/10 rounded-[2rem] flex items-center justify-center">
-                <BrainCircuit size={64} className="text-[var(--accent)] animate-pulse" />
+            <div className="w-48 h-48 relative mb-16">
+              <div className="absolute inset-0 border-8 border-[var(--accent)]/10" />
+              <div className="absolute inset-0 border-8 border-[var(--accent)] border-t-transparent animate-spin" />
+              <div className="absolute inset-10 bg-[var(--accent)]/10 flex items-center justify-center">
+                <BrainCircuit size={80} className="text-[var(--accent)] animate-pulse" />
               </div>
             </div>
-            <h3 className="text-4xl font-black mb-6 tracking-tight">Producerar Juridisk Text</h3>
-            <p className="text-slate-400 text-lg max-w-md text-center leading-relaxed font-medium">
+            <h3 className="text-5xl font-black mb-8 tracking-tighter uppercase italic">Producerar Juridisk Text</h3>
+            <p className="text-slate-400 text-sm max-w-xl text-center leading-relaxed font-black uppercase tracking-[0.4em] opacity-80">
               AI-motorn sammanställer rättsfakta och tillämpar gällande rätt enligt Rättegångsbalken för att skapa ett domstolsklart utkast...
             </p>
             
-            <div className="mt-16 flex gap-3">
-                <div className="w-3 h-3 rounded-full bg-[var(--accent)] animate-bounce [animation-delay:-0.3s]"></div>
-                <div className="w-3 h-3 rounded-full bg-[var(--accent)] animate-bounce [animation-delay:-0.15s]"></div>
-                <div className="w-3 h-3 rounded-full bg-[var(--accent)] animate-bounce"></div>
+            <div className="mt-20 flex gap-6">
+                <div className="w-4 h-4 bg-[var(--accent)] animate-bounce [animation-delay:-0.3s]"></div>
+                <div className="w-4 h-4 bg-[var(--accent)] animate-bounce [animation-delay:-0.15s]"></div>
+                <div className="w-4 h-4 bg-[var(--accent)] animate-bounce"></div>
+            </div>
+
+            <div className="mt-20 font-mono text-[10px] text-[var(--accent)] animate-pulse uppercase tracking-[0.5em]">
+                Neural Synthesis in progress...
             </div>
           </motion.div>
         )}

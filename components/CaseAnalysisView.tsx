@@ -12,7 +12,10 @@ import {
   Zap,
   FileSearch,
   Layers,
-  Sparkles
+  Sparkles,
+  BrainCircuit,
+  Loader2,
+  Shield
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { CISCase } from '../lib/db';
@@ -72,205 +75,172 @@ const CaseAnalysisView: React.FC<CaseAnalysisViewProps> = ({ activeCase, onAnaly
   ];
 
   return (
-    <div className="space-y-6 animate-in fade-in duration-700 max-w-6xl mx-auto">
-      {/* Header Section */}
-      <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-3xl p-8 shadow-sm relative overflow-hidden">
-        <div className="absolute top-0 right-0 p-8 opacity-5 pointer-events-none">
-          <Activity size={160} className="text-[var(--accent)]" />
-        </div>
-
-        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div className="space-y-3">
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-[var(--accent)]/10 flex items-center justify-center text-[var(--accent)]">
-                <Sparkles size={16} />
-              </div>
-              <span className="text-[9px] font-black tracking-[0.2em] text-[var(--ink-muted)] uppercase">
-                AI Analys-Pipeline v4.2
-              </span>
+    <div className="space-y-10 animate-in fade-in duration-1000 relative pb-20">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-10 border-b-4 border-[var(--ink-main)] pb-10">
+        <div className="space-y-2">
+          <h3 className="text-4xl font-black text-[var(--ink-main)] tracking-tighter uppercase italic">Analys & Utredning <span className="text-[var(--accent)] opacity-30">v.8.2</span></h3>
+          <div className="flex items-center gap-4">
+            <p className="text-[11px] text-[var(--ink-muted)] font-black uppercase tracking-[0.3em] opacity-70">Djupgående forensisk analys av juridiska premisser.</p>
+            <div className="h-px w-20 bg-[var(--border)]" />
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-[var(--success)] animate-pulse" />
+              <span className="text-[9px] font-mono font-black text-[var(--success)] uppercase">Core Active</span>
             </div>
-            <h1 className="text-3xl font-black text-[var(--ink-main)] tracking-tight">
-              Ärendeanalys: <span className="text-[var(--accent)]">{activeCase.name}</span>
-            </h1>
-            <p className="text-xs font-medium text-[var(--ink-muted)] max-w-2xl leading-relaxed">
-              Djupgående analys av ärendets struktur, bevisvärdering och juridiska hållbarhet. 
-              Identifierar automatiskt svagheter och styrkor i argumentation.
-            </p>
-          </div>
-
-          <div className="flex flex-wrap gap-3">
-            <button 
-              onClick={() => setShowUpload(!showUpload)}
-              className="px-6 py-3 bg-[var(--bg-main)] border border-[var(--border)] text-[var(--ink-main)] rounded-xl text-[10px] font-black uppercase tracking-widest hover:border-[var(--accent)] transition-all flex items-center gap-2.5 active:scale-95"
-            >
-              <Search size={16} /> Komplettera bevis
-            </button>
-            <button 
-              onClick={runAnalysis}
-              disabled={isAnalyzing || isOffline}
-              className="px-8 py-3 bg-[var(--ink-main)] text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-[var(--accent)] transition-all flex items-center gap-2.5 shadow-lg shadow-[var(--ink-main)]/10 disabled:opacity-50 disabled:cursor-not-allowed active:scale-95"
-            >
-              {isAnalyzing ? (
-                <Activity className="w-4 h-4 animate-spin" />
-              ) : (
-                <Play className="w-4 h-4 fill-current" />
-              )}
-              {isAnalyzing ? 'Analyserar...' : 'Starta Analys'}
-            </button>
           </div>
         </div>
-
-        {/* Progress Bar */}
-        {isAnalyzing && (
-          <div className="mt-8 space-y-2">
-            <div className="flex justify-between text-[9px] font-black text-[var(--ink-muted)] uppercase tracking-widest">
-              <span>Bearbetar steg {activeStep} av 5</span>
-              <span>{Math.round(analysisProgress)}%</span>
-            </div>
-            <div className="h-2 bg-[var(--bg-main)] rounded-full overflow-hidden border border-[var(--border)]">
-              <motion.div 
-                className="h-full bg-[var(--accent)]"
-                initial={{ width: 0 }}
-                animate={{ width: `${analysisProgress}%` }}
-                transition={{ duration: 0.5 }}
-              />
-            </div>
+        <div className="flex items-center gap-6">
+          <div className="px-6 py-3 bg-[var(--bg-main)] border-2 border-[var(--ink-main)] flex items-center gap-4 shadow-[4px_4px_0px_rgba(0,0,0,0.1)]">
+            <div className="w-3 h-3 bg-[var(--accent)] animate-pulse" />
+            <span className="text-[11px] font-black uppercase tracking-widest italic">{activeCase?.name || 'INGET AKTIVT ÄRENDE'}</span>
           </div>
-        )}
+          <button 
+            onClick={runAnalysis}
+            disabled={isAnalyzing || isOffline}
+            className="px-10 py-4 bg-[var(--ink-main)] text-white font-black text-[12px] uppercase tracking-[0.2em] hover:bg-[var(--accent)] transition-all disabled:opacity-20 disabled:cursor-not-allowed flex items-center gap-4 shadow-xl active:translate-y-1"
+          >
+            {isAnalyzing ? <Loader2 className="w-5 h-5 animate-spin" /> : <Play className="w-5 h-5" />}
+            {isAnalyzing ? 'Processar...' : 'Initiera Analys'}
+          </button>
+        </div>
       </div>
 
-      <AnimatePresence>
-        {showUpload && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="overflow-hidden"
-          >
-            <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-3xl p-6 shadow-inner">
-              <FileUpload onFilesSelect={(files) => console.log('Files selected:', files)} />
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+        <div className="lg:col-span-8 space-y-10">
+          <div className="bg-[var(--bg-card)] border-4 border-[var(--ink-main)] shadow-[20px_20px_0px_rgba(0,0,0,0.05)] overflow-hidden">
+            <div className="p-8 border-b-2 border-[var(--ink-main)] bg-[var(--bg-main)] flex items-center justify-between">
+              <div className="flex items-center gap-6">
+                <Activity className="w-6 h-6 text-[var(--accent)]" />
+                <h4 className="text-sm font-black uppercase tracking-widest italic">Analysförlopp</h4>
+              </div>
+              <div className="font-mono text-xl font-black text-[var(--ink-main)]">
+                {Math.round(analysisProgress).toString().padStart(3, '0')}%
+              </div>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Analysis Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Pipeline Status */}
-        <div className="lg:col-span-2 space-y-6">
-          <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-3xl p-6 shadow-sm">
-            <h3 className="text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
-              <Zap size={12} className="text-[var(--accent)]" /> Analyssteg
-            </h3>
             
-            <div className="space-y-3">
-              {pipelineSteps.map((step, idx) => {
-                const isCompleted = activeStep > step.id || (!isAnalyzing && activeStep === 0);
-                const isActive = activeStep === step.id;
+            <div className="p-12 space-y-12">
+              <div className="h-6 bg-[var(--bg-main)] border-2 border-[var(--border)] relative overflow-hidden">
+                <div 
+                  className="h-full bg-[var(--accent)] transition-all duration-500 relative"
+                  style={{ width: `${analysisProgress}%` }}
+                >
+                  <div className="absolute inset-0 bg-white/20 animate-[shimmer_2s_infinite]" />
+                </div>
+              </div>
 
-                return (
-                  <div 
-                    key={step.id}
-                    className={`
-                      flex items-center gap-4 p-4 rounded-2xl border transition-all duration-500
-                      ${isActive ? 'border-[var(--accent)] bg-[var(--accent)]/5 scale-[1.01]' : 'border-transparent bg-[var(--bg-main)]/50'}
-                    `}
-                  >
-                    <div className={`
-                      w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-500
-                      ${isCompleted ? 'bg-emerald-500 text-white' : isActive ? 'bg-[var(--accent)] text-white animate-pulse' : 'bg-[var(--bg-main)] text-[var(--ink-muted)]'}
-                    `}>
-                      {isCompleted ? <CheckCircle2 size={20} /> : <step.icon size={20} />}
-                    </div>
-                    
-                    <div className="flex-grow">
-                      <h4 className={`text-base font-black tracking-tight ${isActive ? 'text-[var(--ink-main)]' : 'text-[var(--ink-muted)]'}`}>
-                        {step.label}
-                      </h4>
-                      <p className="text-[10px] font-medium text-[var(--ink-muted)]">{step.desc}</p>
-                    </div>
+              <div className="grid grid-cols-1 gap-4">
+                {pipelineSteps.map((step, idx) => {
+                  const isCompleted = activeStep > step.id || (!isAnalyzing && activeStep === 0 && analysisProgress === 100);
+                  const isActive = activeStep === step.id;
 
-                    {isCompleted && (
-                      <div className="text-emerald-500 font-black text-[9px] uppercase tracking-widest">
-                        Klar
+                  return (
+                    <div 
+                      key={step.id}
+                      className={`p-6 border-2 transition-all flex items-center justify-between group ${
+                        isCompleted ? 'bg-[var(--success)]/5 border-[var(--success)]/20' :
+                        isActive ? 'bg-[var(--accent)]/5 border-[var(--accent)] shadow-lg' :
+                        'bg-[var(--bg-main)] border-[var(--border)] opacity-40'
+                      }`}
+                    >
+                      <div className="flex items-center gap-6">
+                        <div className={`w-10 h-10 border-2 flex items-center justify-center font-mono text-xs font-black ${
+                          isCompleted ? 'bg-[var(--success)] border-[var(--success)] text-white' :
+                          isActive ? 'bg-[var(--accent)] border-[var(--accent)] text-white animate-pulse' :
+                          'bg-[var(--bg-card)] border-[var(--border)] text-[var(--ink-muted)]'
+                        }`}>
+                          {step.id}
+                        </div>
+                        <div className="space-y-1">
+                          <div className="text-sm font-black uppercase tracking-widest italic">{step.label}</div>
+                          <div className="text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-widest opacity-60">{step.desc}</div>
+                        </div>
                       </div>
-                    )}
-                  </div>
-                );
-              })}
+                      {isCompleted && <CheckCircle2 className="w-6 h-6 text-[var(--success)]" />}
+                      {isActive && <Loader2 className="w-6 h-6 text-[var(--accent)] animate-spin" />}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
 
-          {/* AI Insights */}
-          <div className="bg-[var(--ink-main)] rounded-3xl p-8 text-white shadow-xl relative overflow-hidden">
-            <div className="absolute top-0 right-0 p-6 opacity-10">
-              <Brain size={100} />
+          <div className="bg-[var(--bg-card)] border-4 border-[var(--ink-main)] shadow-[20px_20px_0px_rgba(0,0,0,0.05)]">
+            <div className="p-8 border-b-2 border-[var(--ink-main)] bg-[var(--bg-main)] flex items-center justify-between">
+              <h4 className="text-sm font-black uppercase tracking-widest italic">Systemlogg</h4>
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-[var(--success)] animate-pulse" />
+                <span className="text-[9px] font-mono font-black uppercase text-[var(--success)]">Live Output</span>
+              </div>
             </div>
-            <h3 className="text-xl font-black mb-6 tracking-tight">Strategiska AI-Insikter</h3>
-            <div className="space-y-4">
-              <div className="flex gap-3 p-4 bg-white/5 rounded-2xl border border-white/10">
-                <div className="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-400 shrink-0">
-                  <AlertCircle size={18} />
-                </div>
-                <p className="text-xs font-medium leading-relaxed text-slate-300">
-                  <span className="text-white font-bold block mb-0.5 uppercase text-[9px] tracking-widest">Bevisgap identifierat</span>
-                  Det saknas skriftlig bekräftelse på det muntliga avtalet från 2023-11-14. Rekommenderar att begära ut loggar från kommunikationssystemet.
-                </p>
-              </div>
-              <div className="flex gap-3 p-4 bg-white/5 rounded-2xl border border-white/10">
-                <div className="w-8 h-8 rounded-lg bg-emerald-500/20 flex items-center justify-center text-emerald-400 shrink-0">
-                  <CheckCircle2 size={18} />
-                </div>
-                <p className="text-xs font-medium leading-relaxed text-slate-300">
-                  <span className="text-white font-bold block mb-0.5 uppercase text-[9px] tracking-widest">Stark korrelation</span>
-                  Vittnesmål från expertvittne matchar teknisk data med 98% konfidensgrad. Detta stärker kausalitetssambandet avsevärt.
-                </p>
-              </div>
+            <div className="p-8 bg-[var(--ink-main)] text-[var(--success)] font-mono text-[11px] h-[300px] overflow-y-auto custom-scrollbar space-y-2">
+              <div>[14:22:01] INIT_ANALYSIS_CORE... OK</div>
+              <div>[14:22:05] LOADING_CASE_DATA: {activeCase?.name || 'NULL'}</div>
+              <div>[14:22:10] SCANNING_LEGAL_DATABASE... 32 NODES FOUND</div>
+              {analysisProgress > 20 && <div>[14:22:15] EXTRACTING_SYLLOGISMS... OK</div>}
+              {analysisProgress > 40 && <div>[14:22:20] VERIFYING_EVIDENCE_INTEGRITY... OK</div>}
+              {analysisProgress > 60 && <div>[14:22:25] CALCULATING_RISK_VECTORS... OK</div>}
+              <div className="animate-pulse">_</div>
             </div>
           </div>
         </div>
 
-        {/* Sidebar: Fact Atoms & Links */}
-        <div className="space-y-6">
-          <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-3xl p-6 shadow-sm">
+        <div className="lg:col-span-4 space-y-10">
+          <div className="bg-[var(--bg-card)] border-4 border-[var(--ink-main)] p-10 shadow-[15px_15px_0px_rgba(0,0,0,0.05)]">
+            <h4 className="text-sm font-black uppercase tracking-widest italic mb-8 flex items-center gap-4">
+              <Shield className="w-5 h-5 text-[var(--accent)]" />
+              Säkerhetsprotokoll
+            </h4>
+            <div className="space-y-6">
+              {[
+                { label: 'End-to-End Kryptering', status: 'Aktiv' },
+                { label: 'Lokal Nod-bearbetning', status: 'Aktiv' },
+                { label: 'SHA-256 Verifiering', status: 'Aktiv' },
+                { label: 'Zero-Knowledge Arkiv', status: 'Aktiv' }
+              ].map((item, i) => (
+                <div key={i} className="flex justify-between items-center border-b-2 border-[var(--bg-main)] pb-4">
+                  <span className="text-[10px] text-[var(--ink-muted)] font-black uppercase tracking-widest">{item.label}</span>
+                  <span className="text-[9px] font-black text-[var(--success)] uppercase tracking-widest italic">{item.status}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="bg-[var(--ink-main)] p-10 text-white shadow-[15px_15px_0px_rgba(0,0,0,0.1)] border-4 border-white/10">
+            <div className="flex items-center gap-4 mb-8">
+              <div className="w-12 h-12 bg-[var(--accent)] flex items-center justify-center border-2 border-white/20">
+                <BrainCircuit className="w-6 h-6 text-white" />
+              </div>
+              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[var(--accent)]">AI Insights</span>
+            </div>
+            <h4 className="text-2xl font-black mb-6 tracking-tighter uppercase italic">Prediktiv Analys</h4>
+            <p className="text-[var(--ink-light)] text-[11px] leading-relaxed font-black uppercase tracking-widest opacity-80 mb-10">
+              Vår neurala motor analyserar inte bara texten, utan förutspår även motpartens argumentationslinjer baserat på historisk rättspraxis.
+            </p>
+            <div className="p-6 bg-white/5 border-2 border-white/10 italic text-[11px] font-medium text-[var(--ink-light)]">
+              "Systemet har identifierat en 82% sannolikhet för invändning gällande preklusion i nuvarande ärende."
+            </div>
+          </div>
+
+          <div className="bg-[var(--bg-card)] border-4 border-[var(--ink-main)] p-8 shadow-[15px_15px_0px_rgba(0,0,0,0.05)]">
             <h3 className="text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
               <Activity size={12} className="text-[var(--accent)]" /> Faktum-Atomer
             </h3>
-            <div className="space-y-2.5">
+            <div className="space-y-4">
               {[
                 { label: 'Tidpunkt för händelse', value: '2023-12-01', status: 'Verifierad' },
                 { label: 'Plats', value: 'Stockholm HQ', status: 'Verifierad' },
                 { label: 'Parter', value: 'CIS vs. Global Corp', status: 'Verifierad' },
                 { label: 'Avtalsbelopp', value: '2.4M SEK', status: 'Overifierad' },
               ].map((atom, i) => (
-                <div key={i} className="p-3.5 bg-[var(--bg-main)] rounded-xl border border-[var(--border)] group hover:border-[var(--accent)]/50 transition-all">
-                  <div className="flex justify-between items-start mb-1">
+                <div key={i} className="p-4 bg-[var(--bg-main)] border-2 border-[var(--border)] group hover:border-[var(--accent)] transition-all">
+                  <div className="flex justify-between items-start mb-2">
                     <span className="text-[8px] font-black text-[var(--ink-muted)] uppercase tracking-widest">{atom.label}</span>
-                    <span className={`text-[8px] font-bold px-1.5 py-0.5 rounded-full ${atom.status === 'Verifierad' ? 'bg-[var(--success)]/10 text-[var(--success)]' : 'bg-[var(--warning)]/10 text-[var(--warning)]'}`}>
+                    <span className={`text-[8px] font-black px-2 py-0.5 border ${atom.status === 'Verifierad' ? 'border-[var(--success)] text-[var(--success)]' : 'border-[var(--warning)] text-[var(--warning)]'}`}>
                       {atom.status}
                     </span>
                   </div>
-                  <div className="text-xs font-bold text-[var(--ink-main)]">{atom.value}</div>
+                  <div className="text-xs font-mono font-black text-[var(--ink-main)]">{atom.value}</div>
                 </div>
               ))}
-            </div>
-          </div>
-
-          <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-3xl p-6 shadow-sm">
-            <h3 className="text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
-              <LinkIcon size={12} className="text-[var(--accent)]" /> Länkade Anspråk
-            </h3>
-            <div className="space-y-3">
-              <div className="p-4 bg-[var(--bg-main)] rounded-xl border border-[var(--border)]">
-                <div className="text-[10px] font-black text-[var(--ink-main)] mb-1.5 uppercase tracking-tight">Skadeståndskrav #442</div>
-                <div className="flex items-center justify-between">
-                  <span className="text-[9px] font-bold text-[var(--ink-muted)]">Status: Aktiv</span>
-                  <ChevronRight size={12} className="text-[var(--ink-muted)]" />
-                </div>
-              </div>
-              <button className="w-full py-3 border border-dashed border-[var(--border)] rounded-xl text-[9px] font-black text-[var(--ink-muted)] uppercase tracking-widest hover:border-[var(--accent)] hover:text-[var(--accent)] transition-all">
-                + Koppla nytt anspråk
-              </button>
             </div>
           </div>
         </div>

@@ -65,6 +65,7 @@ import SystemInventory from './SystemInventory';
 import QuotaWarning from './QuotaWarning';
 import SfbIntegrityPanel from './SfbIntegrityPanel';
 import { AutoNotaryView } from './AutoNotaryView';
+import { AggregatorView } from './AggregatorView';
 import EkonomiView from './EkonomiView';
 import ProduktionView from './ProduktionView';
 import BeslutView from './BeslutView';
@@ -554,6 +555,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                                     {activeModal === 'monitor' && <Activity className="h-5 w-5 text-white" />}
                                     {activeModal === 'inventory' && <ClipboardList className="h-5 w-5 text-white" />}
                                     {activeModal === 'profiler' && <Users className="h-5 w-5 text-white" />}
+                                    {activeModal === 'aggregator' && <Zap className="h-5 w-5 text-white" />}
                                 </div>
                                 <div>
                                     <h2 className="text-xl font-bold text-[var(--ink-main)] tracking-tight m-0">
@@ -580,6 +582,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                                         {activeModal === 'monitor' && 'System Monitor'}
                                         {activeModal === 'inventory' && 'System Inventory'}
                                         {activeModal === 'profiler' && 'Case Profiler'}
+                                        {activeModal === 'aggregator' && 'Mega-Aggregator v.7.2'}
                                     </h2>
                                     <p className="text-[9px] font-bold text-[var(--ink-light)] uppercase tracking-widest mt-1">Säker anslutning • Enterprise v1.0</p>
                                 </div>
@@ -643,6 +646,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                             {activeModal === 'monitor' && <SystemMonitor isOpen={true} onClose={() => setActiveModal(null)} />}
                             {activeModal === 'inventory' && <SystemInventory isOpen={true} onClose={() => setActiveModal(null)} />}
                             {activeModal === 'profiler' && activeCase && <CaseProfiler caseData={activeCase} />}
+                             {activeModal === 'aggregator' && <AggregatorView documents={documents} onAggregate={(ids) => { handleAggregateSelected(ids); setActiveModal(null); }} isProcessing={isAnalyzing} />}
                         </div>
                     </div>
                 </div>

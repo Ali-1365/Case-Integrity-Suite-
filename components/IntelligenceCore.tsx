@@ -91,47 +91,30 @@ export const IntelligenceCore: React.FC<{ analysis: any }> = ({ analysis }) => {
         { id: 'monitor', label: 'Monitorera AI-pipeline', icon: <ActivityIcon className="w-4 h-4" /> },
     ];
 
-    return (
-        <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-            {/* Header Section */}
-            <div className="bg-[#1a1a1a] border border-amber-500/30 rounded-2xl p-8 relative overflow-hidden shadow-[0_0_30px_rgba(245,158,11,0.05)]">
-                <div className="absolute top-0 right-0 p-8 opacity-5">
-                    <CpuChipIcon className="w-48 h-48 text-amber-500" />
-                </div>
-                
-                <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-                    <div>
-                        <div className="flex items-center gap-3 mb-2">
-                            <span className="px-2 py-0.5 bg-amber-500/10 text-amber-500 text-[10px] font-bold rounded border border-amber-500/20 uppercase tracking-widest">Systemstatus</span>
-                            <div className="flex items-center gap-1.5">
-                                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                                <span className="text-[10px] font-mono text-emerald-500 font-bold">AKTIV</span>
-                            </div>
-                        </div>
-                        <h2 className="text-3xl font-black text-white tracking-tighter uppercase italic">
-                            Intelligenskärna <span className="text-amber-500">v.7.2.2-GOLD</span>
-                        </h2>
-                        <div className="text-[10px] font-mono text-gray-500 mt-2 uppercase tracking-[0.3em] overflow-hidden whitespace-nowrap w-full max-w-md">
-                            <div className="animate-marquee inline-block">
-                                Systemnav • Monitor • Inventering • Beslutsmotor • Produktion • Analys • Oracle • Kontroll • Notarie • Logg • Juridik • SFB • Arkiv • Vitbok
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="flex gap-4">
-                        <div className="px-6 py-3 bg-black/40 border border-white/5 rounded-xl text-center min-w-[120px]">
-                            <p className="text-[10px] text-gray-500 font-bold uppercase mb-1">Belastningsfaktor</p>
-                            <p className="text-xl font-black text-amber-500 font-mono">0.042</p>
-                        </div>
-                        <div className="px-6 py-3 bg-black/40 border border-white/5 rounded-xl text-center min-w-[120px]">
-                            <p className="text-[10px] text-gray-500 font-bold uppercase mb-1">Integritet</p>
-                            <p className="text-xl font-black text-emerald-500 font-mono">SÄKER</p>
-                        </div>
-                    </div>
-                </div>
+  return (
+    <div className="space-y-10 animate-in fade-in duration-1000 pb-20">
+      {/* Enterprise Header */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-4">
+        <div className="space-y-1">
+          <h3 className="text-2xl font-black text-[var(--ink-main)] tracking-tight uppercase italic">Oracle Command <span className="text-[var(--accent)] opacity-50">v.7.2.2-GOLD</span></h3>
+          <p className="text-[10px] text-[var(--ink-muted)] font-black uppercase tracking-[0.2em] opacity-70">Central kontrollpanel för systemets kognitiva processer och exekveringsnoder.</p>
+        </div>
+        <div className="flex items-center gap-4">
+          <div className="px-6 py-3 bg-[var(--bg-main)] rounded-2xl border border-[var(--border)] flex items-center gap-4 shadow-inner">
+            <div className="flex flex-col items-end">
+              <span className="text-[8px] font-black text-[var(--ink-muted)] uppercase tracking-widest opacity-60">Belastning</span>
+              <span className="text-sm font-black text-[var(--accent)] font-mono">0.042</span>
             </div>
+            <div className="w-px h-8 bg-[var(--border)]" />
+            <div className="flex items-center gap-3">
+              <div className="w-2.5 h-2.5 rounded-full bg-[var(--success)] animate-pulse" />
+              <span className="text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-widest">System Ready</span>
+            </div>
+          </div>
+        </div>
+      </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                 {/* Manual Pipeline Control */}
                 <div className="lg:col-span-8 space-y-6">
                     <div className="bg-[#111111] border border-gray-800 rounded-2xl p-6">

@@ -939,13 +939,13 @@ const EkonomiView: React.FC<EkonomiViewProps> = ({ activeCase }) => {
                   acceptedTypes={['application/pdf', 'image/jpeg', 'image/png', 'text/plain', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']}
                 />
                 
-                <div className="mt-8 p-6 bg-indigo-50 border border-indigo-100 rounded-2xl flex gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-indigo-500 text-white flex items-center justify-center shrink-0 shadow-lg shadow-indigo-500/20">
+                <div className="mt-8 p-6 bg-[var(--accent)]/5 border border-[var(--accent)]/10 rounded-2xl flex gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-[var(--accent)] text-white flex items-center justify-center shrink-0 shadow-lg shadow-[var(--accent)]/20">
                     <Layers size={20} />
                   </div>
                   <div className="space-y-1">
-                    <p className="text-xs font-black text-indigo-900 uppercase tracking-widest">Generisk Analysmotor</p>
-                    <p className="text-[11px] text-indigo-700 font-medium leading-relaxed">
+                    <p className="text-xs font-black text-[var(--ink-main)] uppercase tracking-widest">Generisk Analysmotor</p>
+                    <p className="text-[11px] text-[var(--ink-muted)] font-medium leading-relaxed">
                       Ladda upp alla typer av ekonomiska dokument. Systemet hittar själv kopplingar mellan dem oavsett utfärdare.
                     </p>
                   </div>
@@ -1000,13 +1000,13 @@ const EkonomiView: React.FC<EkonomiViewProps> = ({ activeCase }) => {
                   acceptedTypes={['application/pdf', 'image/jpeg', 'image/png']}
                 />
                 
-                <div className="mt-8 p-6 bg-blue-50 border border-blue-100 rounded-2xl flex gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-blue-500 text-white flex items-center justify-center shrink-0 shadow-lg shadow-blue-500/20">
+                <div className="mt-8 p-6 bg-[var(--accent)]/5 border border-[var(--accent)]/10 rounded-2xl flex gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-[var(--accent)] text-white flex items-center justify-center shrink-0 shadow-lg shadow-[var(--accent)]/20">
                     <Zap size={20} />
                   </div>
                   <div className="space-y-1">
-                    <p className="text-xs font-black text-blue-900 uppercase tracking-widest">AI-Analys Aktiverad</p>
-                    <p className="text-[11px] text-blue-700 font-medium leading-relaxed">
+                    <p className="text-xs font-black text-[var(--ink-main)] uppercase tracking-widest">AI-Analys Aktiverad</p>
+                    <p className="text-[11px] text-[var(--ink-muted)] font-medium leading-relaxed">
                       Systemet kommer automatiskt att extrahera belopp, datum, moms och leverantörsinformation från dina uppladdade fakturor.
                     </p>
                   </div>

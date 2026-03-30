@@ -22,24 +22,24 @@ const Toast: React.FC<ToastProps> = ({ message, type = 'error', onClose, duratio
     switch (type) {
       case 'error':
         return {
-          bg: 'bg-red-950/90',
-          border: 'border-red-500/50',
-          icon: <ExclamationTriangleIcon className="h-5 w-5 text-red-400" />,
-          text: 'text-red-200'
+          bg: 'bg-[var(--danger)]/90',
+          border: 'border-[var(--danger)]/50',
+          icon: <ExclamationTriangleIcon className="h-5 w-5 text-[var(--danger)]" />,
+          text: 'text-[var(--accent-foreground)]'
         };
       case 'success':
         return {
-          bg: 'bg-green-950/90',
-          border: 'border-green-500/50',
-          icon: <CheckCircleIcon className="h-5 w-5 text-green-400" />,
-          text: 'text-green-200'
+          bg: 'bg-[var(--success)]/90',
+          border: 'border-[var(--success)]/50',
+          icon: <CheckCircleIcon className="h-5 w-5 text-[var(--success)]" />,
+          text: 'text-[var(--accent-foreground)]'
         };
       default:
         return {
-          bg: 'bg-blue-950/90',
-          border: 'border-blue-500/50',
-          icon: <InformationCircleIcon className="h-5 w-5 text-blue-400" />,
-          text: 'text-blue-200'
+          bg: 'bg-[var(--bg-nav)]/90',
+          border: 'border-[var(--accent)]/50',
+          icon: <InformationCircleIcon className="h-5 w-5 text-[var(--accent)]" />,
+          text: 'text-[var(--accent-foreground)]'
         };
     }
   };

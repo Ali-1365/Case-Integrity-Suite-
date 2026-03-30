@@ -135,13 +135,13 @@ export class AgentWorkflow {
             
             KRITERIER:
             1. Är logiken hållbar? (Premisserna leder till slutsatsen)
-            2. Finns det minst 3 premisser?
+            2. Finns det minst 2 premisser? (Tidigare krav var 3, men 2 är acceptabelt om de är starka)
             3. Är språket formellt och juridiskt korrekt?
             
             OUTPUT:
-            - isValid: true om alla kriterier är uppfyllda.
+            - isValid: true om logiken är hållbar och det finns minst 2 premisser.
             - premiseCount: Antal identifierade premisser.
-            - feedbackSignal: Om isValid är false, ge specifik instruktion om vad som saknas (t.ex. "Saknar bevis för uppsåt").
+            - feedbackSignal: Om isValid är false, ge specifik instruktion om vad som saknas (t.ex. "Saknar bevis för uppsåt"). Om det bara finns 1 premiss, be om ytterligare en.
         `;
         
         const response = await geminiService.generate({

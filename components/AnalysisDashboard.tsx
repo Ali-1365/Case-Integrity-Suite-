@@ -32,7 +32,21 @@ const AnalysisDashboard: React.FC<AnalysisDashboardProps> = ({ analysis }) => {
   }));
 
   return (
-    <div className="space-y-8 animate-fade-in">
+    <div className="space-y-10 animate-in fade-in duration-1000 pb-20">
+      {/* Enterprise Header */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-4">
+        <div className="space-y-1">
+          <h3 className="text-2xl font-black text-[var(--ink-main)] tracking-tight uppercase italic">Analysöversikt</h3>
+          <p className="text-[10px] text-[var(--ink-muted)] font-black uppercase tracking-[0.2em] opacity-70">Kvantitativ sammanställning av ärendets riskprofil och bevisstyrka.</p>
+        </div>
+        <div className="flex items-center gap-4">
+          <div className="px-5 py-3 bg-[var(--bg-main)] rounded-2xl border border-[var(--border)] flex items-center gap-3 shadow-inner">
+            <div className="w-2.5 h-2.5 rounded-full bg-[var(--success)] animate-pulse" />
+            <span className="text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-widest">Live Telemetri</span>
+          </div>
+        </div>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatBox 
           label="Total Riskprofil" 

@@ -114,7 +114,7 @@ const PipelineStatus: React.FC<{ status: PipelineStatusState }> = ({ status }) =
                 const isError = statusValue === 'error';
                 
                 return (
-                  <div key={stageName} className={`p-4 rounded-xl border transition-all duration-500 ${isActive ? 'border-[var(--accent)] bg-[var(--accent)]/5' : isSuccess ? 'border-[var(--success)]/20 bg-[var(--success)]/5' : isError ? 'border-[var(--danger)]/20 bg-[var(--danger)]/5' : 'border-[var(--border)] bg-white'}`}>
+                  <div key={stageName} className={`p-4 rounded-xl border transition-all duration-500 ${isActive ? 'border-[var(--accent)] bg-[var(--accent)]/5' : isSuccess ? 'border-[var(--success)]/20 bg-[var(--success)]/5' : isError ? 'border-[var(--danger)]/20 bg-[var(--danger)]/5' : 'border-[var(--border)] bg-[var(--bg-card)]'}`}>
                       <span className="text-[9px] font-bold uppercase tracking-widest text-[var(--ink-muted)] mb-2 block">{stageName}</span>
                       <div className={`text-xs font-bold tracking-tight leading-none ${isActive ? 'text-[var(--accent)]' : isSuccess ? 'text-[var(--success)]' : isError ? 'text-[var(--danger)]' : 'text-[var(--ink-light)]'}`}>
                           {statusValue === 'active' ? 'KÖR' : statusValue === 'success' ? 'LÅST' : isError ? 'FEL' : 'VÄNTAR'}

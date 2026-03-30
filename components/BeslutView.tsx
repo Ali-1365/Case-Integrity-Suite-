@@ -123,9 +123,14 @@ const BeslutView: React.FC<BeslutViewProps> = ({ activeCase }) => {
 
       const response = await geminiService.generate(
         {
-          contents: `Du är en juridisk expert-AI. Svara på följande fråga baserat på svensk lag och rättspraxis. 
+          contents: [{ 
+            role: 'user', 
+            parts: [{ 
+              text: `Du är en juridisk expert-AI. Svara på följande fråga baserat på svensk lag och rättspraxis. 
                      Kontext: ${caseContext}${docContext}
-                     Fråga: ${messageContent}`,
+                     Fråga: ${messageContent}` 
+            }] 
+          }],
           config: { temperature: 0.2 }
         },
         'fast'
@@ -174,36 +179,53 @@ const BeslutView: React.FC<BeslutViewProps> = ({ activeCase }) => {
   };
 
   return (
-    <div className="h-full flex flex-col max-w-6xl mx-auto space-y-8 animate-in fade-in duration-700">
-      {/* Header */}
-      <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-[2.5rem] p-8 shadow-sm flex items-center justify-between">
-        <div className="flex items-center gap-6">
-          <div className="w-16 h-16 rounded-[1.5rem] bg-[var(--ink-main)] text-white flex items-center justify-center shadow-xl shadow-[var(--ink-main)]/20">
-            <Gavel size={32} />
-          </div>
-          <div>
-            <div className="flex items-center gap-2 mb-1">
-              <Sparkles size={14} className="text-[var(--accent)]" />
-              <span className="text-[10px] font-black tracking-[0.2em] text-[var(--ink-muted)] uppercase">Beslutsstöd AI v2.0</span>
+    <div className="h-full flex flex-col max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 animate-fade-in pb-10">
+      {/* Header Section - Hard Enterprise Grid */}
+      <div className="border border-[var(--border-strong)] bg-[var(--bg-card)]">
+        <div className="flex flex-col lg:flex-row divide-y lg:divide-y-0 lg:divide-x divide-[var(--border-strong)]">
+          <div className="p-8 flex items-center gap-6">
+            <div className="w-16 h-16 bg-[var(--ink-main)] text-white flex items-center justify-center border border-white/20">
+              <Gavel size={32} />
             </div>
-            <h1 className="text-3xl font-black text-[var(--ink-main)] tracking-tight">Juridisk Rådgivning</h1>
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <Sparkles size={12} className="text-[var(--accent)]" />
+                <span className="text-[10px] font-black tracking-[0.3em] text-[var(--ink-muted)] uppercase">Beslutsstöd AI v.2.4.0</span>
+              </div>
+              <h1 className="text-3xl font-black text-[var(--ink-main)] tracking-tighter uppercase italic text-balance">Juridisk Rådgivning</h1>
+            </div>
+          </div>
+
+          <div className="flex-grow flex flex-col sm:flex-row divide-y sm:divide-y-0 sm:divide-x divide-[var(--border-strong)]">
+            <div className="px-8 py-6 flex flex-col justify-center">
+              <span className="text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-[0.3em] mb-2">Systemstatus</span>
+              <div className="flex items-center gap-3">
+                <div className="w-2 h-2 bg-[var(--success)] shadow-[0_0_8px_var(--success)]"></div>
+                <span className="text-xs font-black text-[var(--success)] uppercase tracking-[0.2em]">Operativ / Säkrad</span>
+              </div>
+            </div>
+
+            {activeCase && (
+              <div className="px-8 py-6 flex flex-col justify-center">
+                <span className="text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-[0.3em] mb-2">Aktiv Kontext</span>
+                <span className="text-xs font-black text-[var(--accent)] uppercase tracking-[0.2em] italic">DOK: {activeCase.name}</span>
+              </div>
+            )}
+
+            <div className="px-8 py-6 flex flex-col justify-center ml-auto">
+              <span className="text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-[0.3em] mb-2">Säkerhetsnivå</span>
+              <span className="text-xs font-black text-[var(--ink-main)] uppercase tracking-[0.2em]">Enterprise v1.0</span>
+            </div>
           </div>
         </div>
-
-        {activeCase && (
-          <div className="hidden md:flex items-center gap-4 px-6 py-3 bg-[var(--bg-main)] border border-[var(--border)] rounded-2xl">
-            <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="text-[10px] font-black text-[var(--ink-main)] uppercase tracking-widest">Kontext: {activeCase.name}</span>
-          </div>
-        )}
       </div>
 
-      <div className="flex-grow flex flex-col lg:flex-row gap-8 min-h-0">
+      <div className="flex-grow flex flex-col lg:flex-row gap-px bg-[var(--border-strong)] border border-[var(--border-strong)] min-h-0">
         {/* Chat Area */}
-        <div className="flex-grow flex flex-col bg-[var(--bg-card)] border border-[var(--border)] rounded-[2.5rem] shadow-sm overflow-hidden">
+        <div className="flex-grow flex flex-col bg-[var(--bg-card)] overflow-hidden">
           <div 
             ref={scrollRef}
-            className="flex-grow overflow-y-auto p-8 space-y-8 custom-scrollbar"
+            className="flex-grow overflow-y-auto p-10 space-y-12 custom-scrollbar bg-[var(--bg-main)]/10"
           >
             {messages.map((msg) => (
               <motion.div
@@ -212,20 +234,20 @@ const BeslutView: React.FC<BeslutViewProps> = ({ activeCase }) => {
                 animate={{ opacity: 1, y: 0 }}
                 className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
               >
-                <div className={`flex gap-4 max-w-[85%] ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}>
+                <div className={`flex gap-6 max-w-[85%] ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}>
                   <div className={`
-                    w-10 h-10 rounded-xl flex items-center justify-center shrink-0 shadow-sm
+                    w-12 h-12 flex items-center justify-center shrink-0 border border-[var(--border-strong)]
                     ${msg.role === 'user' ? 'bg-[var(--accent)] text-white' : 'bg-[var(--ink-main)] text-white'}
                   `}>
-                    {msg.role === 'user' ? <User size={20} /> : <Bot size={20} />}
+                    {msg.role === 'user' ? <User size={24} /> : <Bot size={24} />}
                   </div>
                   
-                  <div className="space-y-2">
+                  <div className="space-y-4">
                     <div className={`
-                      p-6 rounded-[1.5rem] text-sm font-medium leading-relaxed shadow-sm
+                      p-8 border border-[var(--border-strong)] text-base font-bold leading-relaxed
                       ${msg.role === 'user' 
-                        ? 'bg-[var(--accent)] text-white rounded-tr-none' 
-                        : 'bg-[var(--bg-main)] text-[var(--ink-main)] rounded-tl-none border border-[var(--border)]'
+                        ? 'bg-[var(--accent)] text-white' 
+                        : 'bg-white text-[var(--ink-main)]'
                       }
                     `}>
                       {msg.content}
@@ -234,15 +256,15 @@ const BeslutView: React.FC<BeslutViewProps> = ({ activeCase }) => {
                     {msg.sources && (
                       <div className="flex flex-wrap gap-2">
                         {msg.sources.map((source, i) => (
-                          <span key={i} className="px-3 py-1 bg-[var(--bg-main)] border border-[var(--border)] rounded-full text-[9px] font-black text-[var(--ink-muted)] uppercase tracking-widest flex items-center gap-1">
-                            <BookOpen size={10} /> {source}
+                          <span key={i} className="px-3 py-1 bg-[var(--bg-main)] border border-[var(--border-strong)] text-[9px] font-black text-[var(--ink-muted)] uppercase tracking-widest flex items-center gap-2 italic">
+                            <BookOpen size={12} /> {source}
                           </span>
                         ))}
                       </div>
                     )}
                     
-                    <div className={`text-[9px] font-bold text-[var(--ink-muted)] uppercase tracking-widest ${msg.role === 'user' ? 'text-right' : 'text-left'}`}>
-                      {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                    <div className={`text-[9px] font-mono font-black text-[var(--ink-muted)] uppercase tracking-widest ${msg.role === 'user' ? 'text-right' : 'text-left'}`}>
+                      [{msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}]
                     </div>
                   </div>
                 </div>
@@ -250,15 +272,15 @@ const BeslutView: React.FC<BeslutViewProps> = ({ activeCase }) => {
             ))}
             {isLoading && (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex justify-start">
-                <div className="flex gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-[var(--ink-main)] text-white flex items-center justify-center">
-                    <Loader2 size={20} className="animate-spin" />
+                <div className="flex gap-6">
+                  <div className="w-12 h-12 bg-[var(--ink-main)] text-white flex items-center justify-center border border-white/20">
+                    <Loader2 size={24} className="animate-spin" />
                   </div>
-                  <div className="bg-[var(--bg-main)] p-6 rounded-[1.5rem] rounded-tl-none border border-[var(--border)]">
-                    <div className="flex gap-1">
-                      <div className="w-1.5 h-1.5 rounded-full bg-[var(--ink-muted)] animate-bounce" />
-                      <div className="w-1.5 h-1.5 rounded-full bg-[var(--ink-muted)] animate-bounce [animation-delay:0.2s]" />
-                      <div className="w-1.5 h-1.5 rounded-full bg-[var(--ink-muted)] animate-bounce [animation-delay:0.4s]" />
+                  <div className="bg-white p-8 border border-[var(--border-strong)]">
+                    <div className="flex gap-3">
+                      <div className="w-2 h-2 bg-[var(--accent)] animate-pulse" />
+                      <div className="w-2 h-2 bg-[var(--accent)] animate-pulse [animation-delay:0.2s]" />
+                      <div className="w-2 h-2 bg-[var(--accent)] animate-pulse [animation-delay:0.4s]" />
                     </div>
                   </div>
                 </div>
@@ -267,49 +289,49 @@ const BeslutView: React.FC<BeslutViewProps> = ({ activeCase }) => {
           </div>
 
           {/* Input Area */}
-          <div className="p-8 bg-[var(--bg-main)]/50 border-t border-[var(--border)]">
+          <div className="p-10 bg-[var(--bg-main)] border-t border-[var(--border-strong)]">
             <div className="relative">
               <textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), handleSend())}
-                placeholder="Ställ en juridisk fråga..."
-                className="w-full bg-[var(--bg-card)] border border-[var(--border)] rounded-[1.5rem] py-5 pl-6 pr-20 text-sm font-medium focus:outline-none focus:border-[var(--accent)] transition-all resize-none shadow-inner"
+                placeholder="STÄLL EN JURIDISK FRÅGA..."
+                className="w-full bg-white border border-[var(--border-strong)] py-8 pl-10 pr-24 text-base font-black uppercase tracking-widest focus:outline-none focus:border-[var(--accent)] transition-all resize-none"
                 rows={1}
               />
               <button
                 onClick={() => handleSend()}
                 disabled={!input.trim() || isLoading || isOffline}
-                className="absolute right-3 top-3 p-3 bg-[var(--ink-main)] text-white rounded-xl hover:bg-[var(--accent)] transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg active:scale-95"
+                className="absolute right-6 top-6 p-5 bg-[var(--ink-main)] text-white border border-white/10 hover:bg-[var(--accent)] transition-all disabled:opacity-20 disabled:cursor-not-allowed active:bg-[var(--accent)]/90 group"
               >
-                <Send size={20} />
+                <Send size={24} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
               </button>
             </div>
-            <div className="mt-4 flex items-center justify-between px-2">
-              <div className="flex items-center gap-4">
+            <div className="mt-8 flex items-center justify-between px-2">
+              <div className="flex items-center gap-10">
                 <button 
                   onClick={() => setShowUploadModal(true)}
-                  className="text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-widest hover:text-[var(--accent)] transition-colors flex items-center gap-1"
+                  className="text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-[0.2em] hover:text-[var(--accent)] transition-colors flex items-center gap-3 italic"
                 >
-                  <Upload size={12} /> Ladda upp Underlag
+                  <Upload size={14} /> Ladda upp Underlag
                 </button>
                 <button 
                   onClick={handleLegalSources}
-                  className="text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-widest hover:text-[var(--accent)] transition-colors flex items-center gap-1"
+                  className="text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-[0.2em] hover:text-[var(--accent)] transition-colors flex items-center gap-3 italic"
                 >
-                  <Scale size={12} /> Lagrum
+                  <Scale size={14} /> Lagrum
                 </button>
                 <button 
                   onClick={handleHistory}
-                  className="text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-widest hover:text-[var(--accent)] transition-colors flex items-center gap-1"
+                  className="text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-[0.2em] hover:text-[var(--accent)] transition-colors flex items-center gap-3 italic"
                 >
-                  <History size={12} /> Historik
+                  <History size={14} /> Historik
                 </button>
               </div>
               {isOffline && (
-                <div className="flex items-center gap-2 text-amber-600">
-                  <ShieldAlert size={12} />
-                  <span className="text-[10px] font-black uppercase tracking-widest">Offline-läge</span>
+                <div className="flex items-center gap-3 text-[var(--warning)]">
+                  <ShieldAlert size={14} />
+                  <span className="text-[10px] font-black uppercase tracking-[0.2em] italic">Offline-läge Aktivt</span>
                 </div>
               )}
             </div>
@@ -317,12 +339,12 @@ const BeslutView: React.FC<BeslutViewProps> = ({ activeCase }) => {
         </div>
 
         {/* Sidebar */}
-        <div className="w-full lg:w-80 space-y-8">
-          <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-[2.5rem] p-8 shadow-sm">
-            <h3 className="text-xs font-black text-[var(--ink-muted)] uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
-              <Info size={14} className="text-[var(--accent)]" /> Snabbguider
+        <div className="w-full lg:w-96 flex flex-col divide-y divide-[var(--border-strong)] bg-[var(--bg-card)]">
+          <div className="p-10 flex-grow">
+            <h3 className="text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-[0.3em] mb-10 flex items-center gap-4 italic">
+              <Info size={18} className="text-[var(--accent)]" /> Snabbguider
             </h3>
-            <div className="space-y-3">
+            <div className="space-y-px bg-[var(--border-strong)] border border-[var(--border-strong)]">
               {[
                 'Bevisvärdering',
                 'Rättegångskostnader',
@@ -332,21 +354,21 @@ const BeslutView: React.FC<BeslutViewProps> = ({ activeCase }) => {
                 <button 
                   key={i} 
                   onClick={() => handleQuickGuide(guide)}
-                  className="w-full p-4 bg-[var(--bg-main)] rounded-2xl border border-[var(--border)] flex items-center justify-between group hover:border-[var(--accent)]/50 transition-all"
+                  className="w-full p-6 bg-[var(--bg-card)] flex items-center justify-between group hover:bg-[var(--accent)]/5 transition-all"
                 >
-                  <span className="text-xs font-bold text-[var(--ink-main)]">{guide}</span>
-                  <ChevronRight size={14} className="text-[var(--ink-muted)] group-hover:text-[var(--accent)] transition-colors" />
+                  <span className="text-xs font-black text-[var(--ink-main)] uppercase tracking-widest italic">{guide}</span>
+                  <ChevronRight size={18} className="text-[var(--ink-muted)] group-hover:text-[var(--accent)] transition-colors" />
                 </button>
               ))}
             </div>
           </div>
 
-          <div className="bg-[var(--ink-main)] rounded-[2.5rem] p-8 text-white shadow-xl relative overflow-hidden">
-             <div className="absolute top-0 right-0 p-4 opacity-10">
-                <Scale size={80} />
+          <div className="p-10 bg-[var(--ink-main)] text-white relative overflow-hidden">
+             <div className="absolute top-0 right-0 p-6 opacity-5">
+                <Scale size={120} />
              </div>
-             <h4 className="text-lg font-black mb-4 tracking-tight">Rättssäkerhet</h4>
-             <p className="text-xs text-slate-400 leading-relaxed font-medium">
+             <h4 className="text-2xl font-black mb-6 tracking-tighter uppercase italic">Rättssäkerhet</h4>
+             <p className="text-[11px] text-slate-400 leading-relaxed font-black uppercase tracking-[0.2em] opacity-80">
                Alla svar genereras med hänsyn till gällande svensk rätt och rättspraxis. Kom ihåg att AI-rådgivning bör verifieras av en mänsklig jurist vid kritiska beslut.
              </p>
           </div>
@@ -356,31 +378,31 @@ const BeslutView: React.FC<BeslutViewProps> = ({ activeCase }) => {
       {/* Upload Modal */}
       <AnimatePresence>
         {showUploadModal && (
-          <div className="fixed inset-0 z-[300] flex items-center justify-center p-8">
+          <div className="fixed inset-0 z-[300] flex items-center justify-center p-10">
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setShowUploadModal(false)}
-              className="absolute inset-0 bg-[var(--ink-main)]/40 backdrop-blur-xl"
+              className="absolute inset-0 bg-[var(--ink-main)]/80 backdrop-blur-sm"
             />
             
             <motion.div 
-              initial={{ scale: 0.95, opacity: 0, y: 20 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.95, opacity: 0, y: 20 }}
-              className="bg-[var(--bg-main)] rounded-[3rem] w-full max-w-2xl overflow-hidden flex flex-col shadow-2xl relative z-10 border border-white/20"
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              className="bg-[var(--bg-main)] border border-[var(--border-strong)] w-full max-w-3xl overflow-hidden flex flex-col shadow-2xl relative z-10"
             >
-              <div className="px-12 py-10 border-b border-[var(--border)] flex justify-between items-center bg-white/50 backdrop-blur-sm">
-                <div className="space-y-1">
-                  <h3 className="text-2xl font-black text-[var(--ink-main)] tracking-tight">Ladda upp Underlag</h3>
-                  <p className="text-[10px] text-[var(--ink-muted)] uppercase tracking-[0.2em] font-black">Chatta med dina dokument</p>
+              <div className="px-12 py-10 border-b border-[var(--border-strong)] flex justify-between items-center bg-white">
+                <div className="space-y-2">
+                  <h3 className="text-3xl font-black text-[var(--ink-main)] tracking-tighter uppercase italic">Ladda upp Underlag</h3>
+                  <p className="text-[11px] text-[var(--ink-muted)] uppercase tracking-[0.3em] font-black opacity-70">Chatta med dina dokument</p>
                 </div>
                 <button 
                   onClick={() => setShowUploadModal(false)}
-                  className="p-4 hover:bg-[var(--bg-main)] rounded-[1.5rem] transition-all text-[var(--ink-muted)] hover:text-[var(--ink-main)]"
+                  className="p-4 hover:bg-[var(--bg-main)] transition-all text-[var(--ink-muted)] hover:text-[var(--ink-main)]"
                 >
-                  <X size={32} />
+                  <X size={40} />
                 </button>
               </div>
               
@@ -391,25 +413,25 @@ const BeslutView: React.FC<BeslutViewProps> = ({ activeCase }) => {
                   acceptedTypes={['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'text/plain']}
                 />
                 
-                <div className="mt-8 p-6 bg-emerald-50 border border-emerald-100 rounded-2xl flex gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-emerald-500 text-white flex items-center justify-center shrink-0 shadow-lg shadow-emerald-500/20">
-                    <Bot size={20} />
+                <div className="mt-10 p-10 bg-[var(--ink-main)] text-white border border-white/10 flex gap-8">
+                  <div className="w-16 h-16 bg-[var(--accent)] text-white flex items-center justify-center shrink-0 border border-white/20">
+                    <Bot size={32} />
                   </div>
-                  <div className="space-y-1">
-                    <p className="text-xs font-black text-emerald-900 uppercase tracking-widest">Kontextuell Analys</p>
-                    <p className="text-[11px] text-emerald-700 font-medium leading-relaxed">
+                  <div className="space-y-3">
+                    <p className="text-[11px] font-black text-[var(--accent)] uppercase tracking-[0.3em]">Kontextuell Analys</p>
+                    <p className="text-[13px] text-slate-300 font-black uppercase tracking-[0.2em] leading-relaxed opacity-80">
                       Genom att ladda upp dokument kan AI-assistenten svara på frågor direkt baserat på innehållet i dina filer, vilket ger mer precisa och relevanta svar.
                     </p>
                   </div>
                 </div>
               </div>
               
-              <div className="px-12 py-8 border-t border-[var(--border)] bg-white/50 backdrop-blur-sm flex justify-end">
+              <div className="px-12 py-8 border-t border-[var(--border-strong)] bg-white flex justify-end">
                 <button 
                   onClick={() => setShowUploadModal(false)}
-                  className="px-10 py-4 text-[var(--ink-muted)] font-black text-[11px] uppercase tracking-widest hover:bg-[var(--bg-main)] rounded-[1.5rem] transition-all active:scale-95"
+                  className="px-12 py-5 bg-[var(--ink-main)] text-white font-black text-[12px] uppercase tracking-[0.3em] hover:bg-[var(--accent)] transition-all active:bg-[var(--accent)]/90"
                 >
-                  Avbryt
+                  Stäng Fönster
                 </button>
               </div>
             </motion.div>

@@ -31,14 +31,14 @@ const OfflineBanner: React.FC = () => {
   };
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-[9999] px-4 py-2 text-center flex items-center justify-center gap-4 bg-[var(--ink-main)] text-white text-[10px] font-bold uppercase tracking-widest shadow-lg">
+    <div className="fixed top-0 left-0 right-0 z-[9999] px-4 py-2 text-center flex items-center justify-center gap-4 bg-[var(--ink-main)] text-[var(--accent-foreground)] text-[10px] font-bold uppercase tracking-widest shadow-lg">
       <span className="flex items-center gap-2">
         <div className="w-1.5 h-1.5 rounded-full bg-[var(--danger)] animate-pulse shadow-[0_0_8px_var(--danger)]" />
         {getMessage()}
       </span>
       <button 
         onClick={() => window.location.reload()}
-        className="border border-white/20 px-3 py-1 rounded-md hover:bg-white/10 transition-all active:scale-95"
+        className="border border-[var(--accent-foreground)]/20 px-3 py-1 rounded-md hover:bg-[var(--accent-foreground)]/10 transition-all active:scale-95"
       >
         Uppdatera
       </button>

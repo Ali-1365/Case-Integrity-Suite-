@@ -4,21 +4,21 @@
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   
-  /* Enterprise Palette */
-  --bg-main: #F8F9FA;
+  /* Hard Enterprise Palette - Royal Gold & Deep Blue Edition */
+  --bg-main: #FDFCF0; /* Warm Cream */
   --bg-card: #FFFFFF;
-  --bg-nav: #1A1A1A;
-  --ink-main: #1A1A1A;
-  --ink-muted: #4A4A4A;
-  --ink-light: #6C757D;
-  --accent: #0056B3; /* Professional Blue */
+  --bg-nav: #1A365D; /* Deep Blue 900 */
+  --ink-main: #1A365D;
+  --ink-muted: #4A5568;
+  --ink-light: #718096;
+  --accent: #D4AF37; /* Metallic Gold */
   --accent-foreground: #FFFFFF;
-  --success: #198754;
-  --warning: #FFC107;
-  --danger: #DC3545;
-  --border: #E0E0E0;
-  --border-strong: #CED4DA;
-  --line: rgba(0, 0, 0, 0.08);
+  --success: #166534;
+  --warning: #EAB308;
+  --danger: #991B1B;
+  --border: #E2E8F0;
+  --border-strong: #1A365D;
+  --line: rgba(26, 54, 93, 0.1);
 }
 
 @layer base {

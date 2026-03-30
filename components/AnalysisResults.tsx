@@ -59,53 +59,53 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = (props) => {
     <div className="space-y-8 animate-fade-in pb-16">
       <AnalysisDashboard analysis={props.analysis} />
 
-      {/* Quick Actions Bar */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 px-4 md:px-0">
+      {/* Quick Actions Bar - Hard Enterprise Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-3 border border-[var(--border-strong)] bg-[var(--bg-card)] divide-y md:divide-y-0 md:divide-x divide-[var(--border-strong)]">
         <button 
           onClick={() => setActiveTab('Interactive Analyst')}
-          className="bg-[var(--bg-card)] border border-[var(--border)] p-6 rounded-2xl flex items-center gap-6 hover:border-[var(--accent)] hover:shadow-md transition-all group active:scale-[0.98] relative overflow-hidden duration-500"
+          className="p-8 flex items-center gap-6 hover:bg-[var(--accent)]/5 transition-all group active:bg-[var(--accent)]/10 relative overflow-hidden"
         >
-          <div className="p-4 bg-[var(--accent)]/5 rounded-xl text-[var(--accent)] group-hover:scale-110 transition-all duration-500 border border-[var(--accent)]/10">
+          <div className="p-4 bg-[var(--bg-main)] border border-[var(--border-strong)] text-[var(--accent)] group-hover:scale-105 transition-transform">
             <MagnifyingGlassIcon className="w-6 h-6" />
           </div>
-          <div className="text-left relative z-10">
-            <p className="text-[9px] font-bold text-[var(--ink-light)] uppercase tracking-widest mb-0.5">Modul</p>
-            <p className="text-lg font-bold text-[var(--ink-main)] tracking-tight">Interactive Analyst</p>
+          <div className="text-left">
+            <p className="text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-[0.2em] mb-1">Modul</p>
+            <p className="text-lg font-black text-[var(--ink-main)] tracking-tighter uppercase italic">Interactive Analyst</p>
           </div>
         </button>
 
         <button 
           onClick={() => setActiveTab('Dokument-Pipeline')}
-          className="bg-[var(--bg-card)] border border-[var(--border)] p-6 rounded-2xl flex items-center gap-6 hover:border-[var(--success)] hover:shadow-md transition-all group active:scale-[0.98] relative overflow-hidden duration-500"
+          className="p-8 flex items-center gap-6 hover:bg-[var(--success)]/5 transition-all group active:bg-[var(--success)]/10 relative overflow-hidden"
         >
-          <div className="p-4 bg-[var(--success)]/5 rounded-xl text-[var(--success)] group-hover:scale-110 transition-all duration-500 border border-[var(--success)]/10">
+          <div className="p-4 bg-[var(--bg-main)] border border-[var(--border-strong)] text-[var(--success)] group-hover:scale-105 transition-transform">
             <DocumentTextIcon className="w-6 h-6" />
           </div>
-          <div className="text-left relative z-10">
-            <p className="text-[9px] font-bold text-[var(--ink-light)] uppercase tracking-widest mb-0.5">Process</p>
-            <p className="text-lg font-bold text-[var(--ink-main)] tracking-tight">Dokument-Pipeline</p>
+          <div className="text-left">
+            <p className="text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-[0.2em] mb-1">Process</p>
+            <p className="text-lg font-black text-[var(--ink-main)] tracking-tighter uppercase italic">Dokument-Pipeline</p>
           </div>
         </button>
 
         <button 
           onClick={() => setActiveTab('Snabbstartsguide')}
-          className="bg-[var(--bg-card)] border border-[var(--border)] p-6 rounded-2xl flex items-center gap-6 hover:border-[var(--danger)] hover:shadow-md transition-all group active:scale-[0.98] relative overflow-hidden duration-500"
+          className="p-8 flex items-center gap-6 hover:bg-[var(--danger)]/5 transition-all group active:bg-[var(--danger)]/10 relative overflow-hidden"
         >
-          <div className="p-4 bg-[var(--danger)]/5 rounded-xl text-[var(--danger)] group-hover:scale-110 transition-all duration-500 border border-[var(--danger)]/10">
+          <div className="p-4 bg-[var(--bg-main)] border border-[var(--border-strong)] text-[var(--danger)] group-hover:scale-105 transition-transform">
             <ActivityIcon className="w-6 h-6" />
           </div>
-          <div className="text-left relative z-10">
-            <p className="text-[9px] font-bold text-[var(--ink-light)] uppercase tracking-widest mb-0.5">Support</p>
-            <p className="text-lg font-bold text-[var(--ink-main)] tracking-tight">Snabbstartsguide</p>
+          <div className="text-left">
+            <p className="text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-[0.2em] mb-1">Support</p>
+            <p className="text-lg font-black text-[var(--ink-main)] tracking-tighter uppercase italic">Snabbstartsguide</p>
           </div>
         </button>
       </div>
 
-      <div className="bg-[var(--bg-card)] rounded-3xl border border-[var(--border)] shadow-lg overflow-hidden relative">
-          <div className="absolute top-0 left-0 w-full h-1 bg-[var(--accent)] opacity-80" />
+      <div className="bg-[var(--bg-card)] border border-[var(--border-strong)] relative">
+          <div className="absolute top-0 left-0 w-full h-1 bg-[var(--accent)]" />
           <Tabs tabs={tabOptions} activeTab={activeTab} onTabChange={setActiveTab}>
             {(currentTab) => (
-              <div className="p-6 md:p-10 animate-fade-in">
+              <div className="p-8 md:p-12 animate-fade-in">
                 {currentTab === 'Snabbstartsguide' && <QuickStartGuide />}
                 {currentTab === 'Översikt' && <OverviewContent analysis={props.analysis} />}
                 {currentTab === 'Interactive Analyst' && <InteractiveAnalyst analysis={props.analysis} />}
@@ -135,37 +135,37 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = (props) => {
                                         {(props.analysis.facts || []).map(f => {
                                             const relatedAtom = (props.analysis.atoms || []).find(a => a.id === f.id.replace('FACT', 'ATOM'));
                                             return (
-                                                <div key={f.id} className="p-6 bg-[var(--bg-main)] rounded-xl border border-[var(--border)] hover:border-[var(--accent)]/40 transition-all group shadow-sm">
+                                                <div key={f.id} className="p-6 bg-[var(--bg-main)] border border-[var(--border-strong)] hover:border-[var(--accent)] transition-all group">
                                                     <div className="flex justify-between items-start mb-4">
-                                                        <div className="flex items-center gap-2.5">
-                                                            <span className="text-[9px] font-bold text-[var(--accent)] bg-[var(--accent)]/5 px-3 py-1 rounded-full border border-[var(--accent)]/10 uppercase tracking-widest">{f.category}</span>
+                                                        <div className="flex items-center gap-3">
+                                                            <span className="text-[10px] font-black text-[var(--accent)] bg-[var(--accent)]/5 px-3 py-1 border border-[var(--accent)]/20 uppercase tracking-[0.2em]">{f.category}</span>
                                                             {relatedAtom && (
-                                                                <span className="text-[9px] font-bold text-[var(--success)] bg-[var(--success)]/5 px-3 py-1 rounded-full border border-[var(--success)]/10 uppercase tracking-widest flex items-center gap-1.5">
-                                                                  <div className="w-1 h-1 rounded-full bg-[var(--success)] animate-pulse"></div>
+                                                                <span className="text-[10px] font-black text-[var(--success)] bg-[var(--success)]/5 px-3 py-1 border border-[var(--success)]/20 uppercase tracking-[0.2em] flex items-center gap-2">
+                                                                  <div className="w-1.5 h-1.5 bg-[var(--success)] shadow-[0_0_5px_var(--success)]"></div>
                                                                   Verifierad
                                                                 </span>
                                                             )}
                                                         </div>
                                                     </div>
-                                                    <p className="text-[var(--ink-main)] font-bold text-base leading-snug mb-6 tracking-tight">{f.subject}: {f.statement}</p>
+                                                    <p className="text-[var(--ink-main)] font-bold text-lg leading-tight mb-6 tracking-tighter italic">{f.subject}: {f.statement}</p>
                                                     
-                                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                                        <div className="p-4 bg-[var(--bg-card)] rounded-lg border border-[var(--border)] shadow-sm relative overflow-hidden group/box">
-                                                            <p className="text-[9px] text-[var(--ink-light)] uppercase font-bold mb-3 tracking-widest">Källprovenans</p>
-                                                            <p className="text-xs text-[var(--ink-muted)] italic leading-relaxed relative z-10">"{f.source.snippet}"</p>
-                                                            <div className="mt-4 pt-4 border-t border-[var(--border)] flex items-center justify-between">
-                                                                <span className="text-[9px] font-mono font-bold text-[var(--ink-light)] uppercase tracking-widest">DOK: {f.source.documentId}</span>
-                                                                <span className="text-[9px] font-mono font-bold text-[var(--accent)] uppercase tracking-widest">POS: {relatedAtom?.position || 'N/A'}</span>
+                                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-[var(--border-strong)] border border-[var(--border-strong)]">
+                                                        <div className="p-6 bg-[var(--bg-card)]">
+                                                            <p className="text-[10px] text-[var(--ink-muted)] uppercase font-black mb-4 tracking-[0.2em]">Källprovenans</p>
+                                                            <p className="text-xs text-[var(--ink-main)] italic leading-relaxed font-mono">"{f.source.snippet}"</p>
+                                                            <div className="mt-6 pt-4 border-t border-[var(--border)] flex items-center justify-between">
+                                                                <span className="text-[10px] font-mono font-bold text-[var(--ink-muted)] uppercase tracking-widest">DOK: {f.source.documentId}</span>
+                                                                <span className="text-[10px] font-mono font-bold text-[var(--accent)] uppercase tracking-widest">POS: {relatedAtom?.position || 'N/A'}</span>
                                                             </div>
                                                         </div>
-                                                        <div className="p-4 bg-[var(--bg-card)] rounded-lg border border-[var(--border)] shadow-sm relative overflow-hidden group/box">
-                                                            <p className="text-[9px] text-[var(--ink-light)] uppercase font-bold mb-3 tracking-widest">Juridisk Koppling</p>
+                                                        <div className="p-6 bg-[var(--bg-card)]">
+                                                            <p className="text-[10px] text-[var(--ink-muted)] uppercase font-black mb-4 tracking-[0.2em]">Juridisk Koppling</p>
                                                             {(props.analysis.legalFrameworkLinks || []).filter(l => l.relatedFactIds?.includes(f.id)).map(link => (
-                                                                <div key={link.id} className="mb-3 last:mb-0 relative z-10">
-                                                                    <p className="text-[10px] text-[var(--accent)] font-bold mb-0.5 uppercase tracking-widest">{link.label}</p>
-                                                                    <p className="text-[10px] text-[var(--ink-muted)] leading-relaxed line-clamp-2">{link.reasoning}</p>
+                                                                <div key={link.id} className="mb-4 last:mb-0">
+                                                                    <p className="text-[10px] text-[var(--accent)] font-black mb-1 uppercase tracking-widest italic">{link.label}</p>
+                                                                    <p className="text-xs text-[var(--ink-muted)] leading-relaxed line-clamp-2">{link.reasoning}</p>
                                                                 </div>
-                                                            )) || <p className="text-[10px] text-[var(--ink-light)] italic">Ingen direkt koppling identifierad.</p>}
+                                                            )) || <p className="text-xs text-[var(--ink-muted)] italic">Ingen direkt koppling identifierad.</p>}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -248,69 +248,75 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = (props) => {
                                     </div>
                                 </Card>
 
-                                <Card title="Provenans-status" icon={<ShieldCheckIcon className="w-5 h-5" />}>
-                                    <div className="space-y-8">
-                                        <div className="p-4 bg-[var(--success)]/5 border border-[var(--success)]/10 rounded-xl shadow-sm">
-                                            <div className="flex justify-between items-center mb-3">
-                                                <span className="text-[9px] font-bold text-[var(--success)] uppercase tracking-widest">Vektor-matchning</span>
-                                                <span className="text-[10px] font-mono font-bold text-[var(--success)]">100%</span>
+                                    <div className="p-8 bg-[var(--bg-main)] border border-[var(--border-strong)]">
+                                        <div className="flex items-center gap-4 mb-6">
+                                            <div className="p-3 bg-[var(--accent)]/5 border border-[var(--accent)]/20 text-[var(--accent)]">
+                                                <ShieldCheckIcon className="w-6 h-6" />
                                             </div>
-                                            <div className="h-1.5 bg-[var(--bg-main)] rounded-full overflow-hidden shadow-inner">
-                                                <div className="h-full bg-[var(--success)] w-full shadow-[0_0_10px_rgba(25,135,84,0.3)]"></div>
-                                            </div>
+                                            <h3 className="text-xs font-black text-[var(--ink-main)] uppercase tracking-[0.3em]">Provenans-status</h3>
                                         </div>
-                                        <div className="p-4 bg-[var(--accent)]/5 border border-[var(--accent)]/10 rounded-xl shadow-sm">
-                                            <div className="flex justify-between items-center mb-3">
-                                                <span className="text-[9px] font-bold text-[var(--accent)] uppercase tracking-widest">Reasoning Chain</span>
-                                                <span className="text-[10px] font-mono font-bold text-[var(--accent)] uppercase">Aktiv</span>
+                                        <div className="space-y-8">
+                                            <div>
+                                                <div className="flex justify-between items-center mb-3">
+                                                    <span className="text-[10px] font-black text-[var(--success)] uppercase tracking-widest">Vektor-matchning</span>
+                                                    <span className="text-xs font-mono font-bold text-[var(--success)]">100%</span>
+                                                </div>
+                                                <div className="h-2 bg-[var(--bg-card)] border border-[var(--border-strong)] overflow-hidden">
+                                                    <div className="h-full bg-[var(--success)] w-full shadow-[0_0_10px_var(--success)]"></div>
+                                                </div>
                                             </div>
-                                            <div className="h-1.5 bg-[var(--bg-main)] rounded-full overflow-hidden shadow-inner">
-                                                <div className="h-full bg-[var(--accent)] w-[85%] shadow-[0_0_10px_rgba(0,86,179,0.3)]"></div>
+                                            <div>
+                                                <div className="flex justify-between items-center mb-3">
+                                                    <span className="text-[10px] font-black text-[var(--accent)] uppercase tracking-widest">Reasoning Chain</span>
+                                                    <span className="text-xs font-mono font-bold text-[var(--accent)] uppercase">Aktiv</span>
+                                                </div>
+                                                <div className="h-2 bg-[var(--bg-card)] border border-[var(--border-strong)] overflow-hidden">
+                                                    <div className="h-full bg-[var(--accent)] w-[85%] shadow-[0_0_10px_var(--accent)]"></div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </Card>
                             </div>
                         </div>
                     </div>
                 )}
                 {activeTab === 'MEGAINLAGA' && (
                     <div className="space-y-12">
-                        <div className="bg-[var(--bg-main)] p-8 rounded-2xl border border-[var(--border)] flex flex-col lg:flex-row justify-between items-center gap-8 relative overflow-hidden shadow-sm">
+                        <div className="bg-[var(--bg-main)] p-10 border border-[var(--border-strong)] flex flex-col lg:flex-row justify-between items-center gap-10 relative overflow-hidden">
                             <div className="relative z-10 text-center lg:text-left">
-                                <div className="flex items-center justify-center lg:justify-start gap-3 mb-3">
-                                  <div className="p-2.5 bg-[var(--accent)]/5 rounded-lg text-[var(--accent)] border border-[var(--accent)]/10">
-                                    <CpuChipIcon className="w-5 h-5" />
+                                <div className="flex items-center justify-center lg:justify-start gap-4 mb-4">
+                                  <div className="p-3 bg-[var(--accent)]/5 border border-[var(--accent)]/20 text-[var(--accent)]">
+                                    <CpuChipIcon className="w-6 h-6" />
                                   </div>
-                                  <h3 className="text-xl font-bold text-[var(--ink-main)] tracking-tight">Mega-Aggregator v.7.2</h3>
+                                  <h3 className="text-2xl font-black text-[var(--ink-main)] tracking-tighter uppercase italic">Mega-Aggregator v.7.2</h3>
                                 </div>
-                                <p className="text-[var(--ink-muted)] font-medium text-base leading-relaxed max-w-2xl">Genererar en deterministisk rättsutredning baserad på 100% källspårbarhet och forensisk bevisföring.</p>
+                                <p className="text-[var(--ink-muted)] font-medium text-lg leading-relaxed max-w-2xl">Genererar en deterministisk rättsutredning baserad på 100% källspårbarhet och forensisk bevisföring.</p>
                             </div>
                             <button 
                                 onClick={() => props.onGenerateSynthesis('FORENSIC_DETAILED_V1').catch(err => console.error('Synthesis generation failed:', err))}
                                 disabled={props.isGeneratingSynthesis}
-                                className="px-8 py-4 bg-[var(--ink-main)] text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-[var(--accent)] transition-all flex items-center gap-3 shadow-lg active:scale-95 group/agg"
+                                className="px-10 py-5 bg-[var(--ink-main)] text-white rounded-none text-xs font-black uppercase tracking-[0.3em] hover:bg-[var(--accent)] transition-all flex items-center gap-4 shadow-xl active:bg-[var(--accent)]/90 group/agg"
                             >
-                                {props.isGeneratingSynthesis ? <Spinner className="h-5 w-5" /> : <SparklesIcon className="h-5 w-5 group-hover/agg:rotate-12 transition-transform duration-500" />}
+                                {props.isGeneratingSynthesis ? <Spinner className="h-6 w-6" /> : <SparklesIcon className="h-6 w-6 group-hover/agg:rotate-12 transition-transform duration-500" />}
                                 <span>Kör Aggregator</span>
                             </button>
                         </div>
-                        <div className="bg-[var(--bg-card)] p-6 md:p-10 rounded-2xl border border-[var(--border)] shadow-inner min-h-[500px] relative flex flex-col">
+                        <div className="bg-[var(--bg-card)] p-10 border border-[var(--border-strong)] min-h-[600px] relative flex flex-col">
                             {props.analysis.synthesis ? (
-                                <div className="prose prose-slate max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-p:leading-relaxed prose-p:text-sm prose-p:text-[var(--ink-muted)] animate-fade-in">
+                                <div className="prose prose-slate max-w-none prose-headings:font-black prose-headings:tracking-tighter prose-headings:uppercase prose-headings:italic prose-p:leading-relaxed prose-p:text-base prose-p:text-[var(--ink-main)] animate-fade-in font-serif">
                                     <MarkdownRenderer content={props.analysis.synthesis} />
                                 </div>
                             ) : (
-                                <div className="flex-grow flex flex-col items-center justify-center space-y-6">
+                                <div className="flex-grow flex flex-col items-center justify-center space-y-8">
                                     <div className="relative">
-                                        <div className="absolute inset-0 bg-[var(--accent)] blur-[3rem] opacity-10 animate-pulse"></div>
-                                        <div className="relative p-10 bg-[var(--bg-main)] rounded-2xl border border-[var(--border)] shadow-lg">
-                                            <CpuChipIcon className="w-14 h-14 text-[var(--border-strong)]" />
+                                        <div className="absolute inset-0 bg-[var(--accent)] blur-[4rem] opacity-5 animate-pulse"></div>
+                                        <div className="relative p-12 bg-[var(--bg-main)] border border-[var(--border-strong)]">
+                                            <CpuChipIcon className="w-20 h-20 text-[var(--border-strong)]" />
                                         </div>
                                     </div>
-                                    <div className="text-center space-y-1.5">
-                                        <p className="text-xl font-bold text-[var(--border-strong)] uppercase tracking-widest">Väntar på indata</p>
-                                        <p className="text-[var(--ink-light)] font-bold uppercase tracking-widest text-[10px]">Aggregatorn är redo för exekvering</p>
+                                    <div className="text-center space-y-3">
+                                        <p className="text-2xl font-black text-[var(--border-strong)] uppercase tracking-[0.4em]">Väntar på indata</p>
+                                        <p className="text-[var(--ink-muted)] font-black uppercase tracking-[0.2em] text-xs">Aggregatorn är redo för exekvering</p>
                                     </div>
                                 </div>
                             )}
@@ -333,16 +339,16 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = (props) => {
 };
 
 const OverviewContent: React.FC<{ analysis: AnalysisResult }> = ({ analysis }) => (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-        <div className="lg:col-span-8 space-y-8">
-            <div className="bg-[var(--bg-main)] p-8 rounded-[2rem] border border-[var(--border)] relative overflow-hidden shadow-inner group">
-                <div className="flex items-center space-x-4 mb-8">
-                    <div className="p-3 bg-[var(--accent)]/5 rounded-xl text-[var(--accent)] border border-[var(--accent)]/10 shadow-sm">
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-px bg-[var(--border-strong)] border border-[var(--border-strong)]">
+        <div className="lg:col-span-8 bg-[var(--bg-card)] p-10 space-y-12">
+            <div className="space-y-8">
+                <div className="flex items-center space-x-4">
+                    <div className="p-3 bg-[var(--accent)]/5 border border-[var(--accent)]/20 text-[var(--accent)]">
                         <ShieldCheckIcon className="w-6 h-6" />
                     </div>
-                    <h3 className="text-[10px] font-bold text-[var(--accent)] uppercase tracking-widest">Forensic Chain Summary</h3>
+                    <h3 className="text-xs font-black text-[var(--ink-main)] uppercase tracking-[0.3em]">Forensic Chain Summary</h3>
                 </div>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-px bg-[var(--border-strong)] border border-[var(--border-strong)]">
                     <StatCard label="Aktiverat Lagrum" value={analysis.legalReferences?.length || 0} color="accent" />
                     <StatCard label="Bevisatomer" value={analysis.atoms?.length || 0} color="accent" />
                     <StatCard label="Audit Verifierad" value={analysis.audit?.checks?.filter(c => c.status === 'ok').length || 0} color="accent" />
@@ -351,41 +357,47 @@ const OverviewContent: React.FC<{ analysis: AnalysisResult }> = ({ analysis }) =
                     <StatCard label="Integritets-Score" value={analysis.audit?.integrityScore || 100} suffix="%" color="accent" />
                 </div>
             </div>
-            <Card title="Verifierade Beviskategorier" icon={<TagIcon className="w-5 h-5" />}>
+            
+            <div className="space-y-6">
+                <p className="text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-[0.3em]">Verifierade Beviskategorier</p>
                 <div className="flex flex-wrap gap-4">
                     {(analysis.themes || []).map(t => (
-                        <div key={t.id} className="bg-[var(--bg-main)] px-6 py-4 rounded-xl border border-[var(--border)] flex flex-col items-center min-w-[120px] shadow-sm hover:border-[var(--accent)]/50 transition-all hover:-translate-y-1 duration-500 group/theme">
-                            <span className="text-[9px] font-bold text-[var(--ink-light)] uppercase tracking-widest mb-3 group-hover/theme:text-[var(--accent)] transition-colors">{t.label}</span>
-                            <span className="text-2xl font-bold text-[var(--ink-main)] tracking-tight group-hover/theme:scale-110 transition-transform">{(analysis.facts || []).filter(f => f.category === t.id).length}</span>
+                        <div key={t.id} className="bg-[var(--bg-main)] px-8 py-6 border border-[var(--border-strong)] flex flex-col items-center min-w-[160px] hover:border-[var(--accent)] transition-all group/theme">
+                            <span className="text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-widest mb-4 group-hover/theme:text-[var(--accent)] transition-colors">{t.label}</span>
+                            <span className="text-3xl font-black text-[var(--ink-main)] tracking-tighter font-mono group-hover/theme:scale-110 transition-transform">{(analysis.facts || []).filter(f => f.category === t.id).length}</span>
                         </div>
                     ))}
                 </div>
-            </Card>
+            </div>
         </div>
-        <div className="lg:col-span-4">
-            <Card title="QA-Revision" icon={<ShieldCheckIcon className="w-5 h-5" />}>
-                <div className="space-y-4">
-                    {(analysis.qaSummary || []).map(check => (
-                        <div key={check.id} className="p-4 rounded-xl border border-[var(--border)] bg-[var(--bg-main)] flex items-start gap-4 shadow-sm hover:border-[var(--success)]/50 transition-all group/qa duration-500">
-                            <div className={`p-2.5 rounded-lg mt-0.5 transition-all duration-500 group-hover/qa:scale-110 ${check.status === 'pass' ? 'text-[var(--success)] bg-[var(--success)]/5 border border-[var(--success)]/10' : 'text-[var(--danger)] bg-[var(--danger)]/5 border border-[var(--danger)]/10'}`}>
-                                <CheckCircleIcon className="h-5 w-5" />
-                            </div>
-                            <div className="space-y-0.5">
-                                <p className="font-bold text-[var(--ink-main)] text-base tracking-tight leading-none">{check.label}</p>
-                                <p className="text-[var(--ink-muted)] text-xs leading-relaxed">{check.message}</p>
-                            </div>
-                        </div>
-                    ))}
+        <div className="lg:col-span-4 bg-[var(--bg-main)] p-10">
+            <div className="flex items-center gap-4 mb-8">
+                <div className="p-3 bg-[var(--success)]/5 border border-[var(--success)]/20 text-[var(--success)]">
+                    <ShieldCheckIcon className="w-6 h-6" />
                 </div>
-            </Card>
+                <h3 className="text-xs font-black text-[var(--ink-main)] uppercase tracking-[0.3em]">QA-Revision</h3>
+            </div>
+            <div className="space-y-px bg-[var(--border-strong)] border border-[var(--border-strong)]">
+                {(analysis.qaSummary || []).map(check => (
+                    <div key={check.id} className="p-6 bg-[var(--bg-card)] flex items-start gap-6 hover:bg-[var(--success)]/5 transition-all group/qa">
+                        <div className={`p-3 border transition-all duration-500 group-hover/qa:scale-110 ${check.status === 'pass' ? 'text-[var(--success)] bg-[var(--success)]/5 border-[var(--success)]/20' : 'text-[var(--danger)] bg-[var(--danger)]/5 border-[var(--danger)]/20'}`}>
+                            <CheckCircleIcon className="h-6 w-6" />
+                        </div>
+                        <div className="space-y-1">
+                            <p className="font-black text-[var(--ink-main)] text-lg tracking-tighter uppercase italic leading-none">{check.label}</p>
+                            <p className="text-[var(--ink-muted)] text-xs leading-relaxed font-medium">{check.message}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
         </div>
     </div>
 );
 
 const StatCard: React.FC<{ label: string, value: number, color: string, suffix?: string }> = ({ label, value, color, suffix = "" }) => (
-    <div className="text-center p-5 bg-[var(--bg-card)] rounded-2xl border border-[var(--border)] shadow-sm group hover:border-[var(--accent)]/60 hover:shadow-md transition-all active:scale-[0.95] duration-500 hover:-translate-y-1">
-        <p className="text-3xl font-bold text-[var(--accent)] mb-2 tracking-tight leading-none group-hover:scale-105 transition-transform duration-500">{value}{suffix}</p>
-        <p className="text-[9px] font-bold text-[var(--ink-light)] uppercase tracking-widest">{label}</p>
+    <div className="text-center p-8 bg-[var(--bg-card)] hover:bg-[var(--accent)]/5 transition-all group active:bg-[var(--accent)]/10">
+        <p className="text-4xl font-black text-[var(--accent)] mb-3 tracking-tighter font-mono group-hover:scale-105 transition-transform">{value}{suffix}</p>
+        <p className="text-[10px] font-black text-[var(--ink-muted)] uppercase tracking-[0.2em]">{label}</p>
     </div>
 );
 
