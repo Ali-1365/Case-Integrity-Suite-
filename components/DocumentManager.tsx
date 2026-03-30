@@ -124,7 +124,19 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
     useEffect(() => {
         const interval = setInterval(() => {
             try {
-                setQuotaUsage(usageMonitorService.getUsage());
+                const newUsage = usageMonitorService.getUsage();
+                setQuotaUsage(prevUsage => {
+                    // ⚡ BOLT OPTIMIZATION: Prevent unnecessary top-level re-renders
+                    // getUsage() returns a new object reference every 5 seconds.
+                    // By checking if the values actually changed, we bailout of React's render cycle
+                    // if nothing changed, saving the entire DocumentManager from re-rendering constantly.
+                    if (prevUsage.rpm === newUsage.rpm &&
+                        prevUsage.tpm === newUsage.tpm &&
+                        prevUsage.status === newUsage.status) {
+                        return prevUsage; // Return previous reference to bail out
+                    }
+                    return newUsage;
+                });
             } catch (e) {
                 console.warn("Usage monitor not available yet");
             }
