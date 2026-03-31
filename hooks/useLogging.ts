@@ -9,7 +9,13 @@ export const useLogging = (limit: number = 50) => {
 
   const refreshLogs = useCallback(() => {
     const allLogs = loggingService.getLogs();
-    setLogs(allLogs.slice(0, limit));
+    const newLogs = allLogs.slice(0, limit);
+    setLogs(prev => {
+      if (prev.length === newLogs.length && (prev.length === 0 || prev[0].id === newLogs[0].id)) {
+        return prev;
+      }
+      return newLogs;
+    });
   }, [limit]);
 
   useEffect(() => {
