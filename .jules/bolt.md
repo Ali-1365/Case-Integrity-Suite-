@@ -1,0 +1,3 @@
+## 2025-05-18 - [Fix N+1 Praxis Fetch and Disk I/O]
+**Learning:** The Express backend had an endpoint (`/api/praxis/:lawRef`) that synchronously read and parsed a 2.3KB JSON file (`public/data/praxis.json`) from disk on every single request. Furthermore, the frontend `PraxisService` was making an N+1 sequence of individual `fetch` requests for each law reference. This created an O(N) disk I/O and network overhead for any operation requesting multiple praxis references.
+**Action:** When implementing endpoints that serve large static datasets, implement an in-memory cache on the Express server (to prevent repetitive blocking `fs.readFileSync`) and expose a batched query mechanism (like `?refs=A,B`) to reduce network roundtrips.
