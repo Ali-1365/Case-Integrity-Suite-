@@ -9,7 +9,14 @@ async function startServer() {
   const app = express();
   const PORT = 3000;
 
+  // Cache for Praxis data to avoid synchronous disk I/O on every request
+  let cachedPraxisData: any = null;
+  let cachedPraxisDataTime = 0;
+  const CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour
+
   // API routes
+
+  // Backwards compatibility endpoint
   app.get("/api/praxis/:lawRef", (req, res) => {
     const { lawRef } = req.params;
     const praxisPath = path.join(process.cwd(), "public", "data", "praxis.json");
@@ -19,13 +26,54 @@ async function startServer() {
     }
 
     try {
-      const rawData = fs.readFileSync(praxisPath, "utf-8");
-      const data = JSON.parse(rawData);
+      if (!cachedPraxisData || Date.now() - cachedPraxisDataTime > CACHE_TTL_MS) {
+        const rawData = fs.readFileSync(praxisPath, "utf-8");
+        cachedPraxisData = JSON.parse(rawData);
+        cachedPraxisDataTime = Date.now();
+      }
       
-      const results = data.paragraphs.filter((p: any) => {
+      const results = cachedPraxisData.paragraphs.filter((p: any) => {
         const linkedLaw = p.metadata?.revisionNote || "";
         return linkedLaw.toLowerCase().includes(lawRef.toLowerCase()) || 
                p.text.toLowerCase().includes(lawRef.toLowerCase());
+      });
+
+      res.json(results);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to parse praxis data" });
+    }
+  });
+
+  // Batched endpoint for performance
+  app.post("/api/praxis/batch", express.json(), (req, res) => {
+    const { lawRefs } = req.body;
+
+    if (!Array.isArray(lawRefs) || lawRefs.length === 0) {
+      return res.status(400).json({ error: "Missing or invalid lawRefs array in request body" });
+    }
+
+    const praxisPath = path.join(process.cwd(), "public", "data", "praxis.json");
+
+    if (!fs.existsSync(praxisPath)) {
+      return res.status(404).json({ error: "Praxis data not found" });
+    }
+
+    try {
+      if (!cachedPraxisData || Date.now() - cachedPraxisDataTime > CACHE_TTL_MS) {
+        const rawData = fs.readFileSync(praxisPath, "utf-8");
+        cachedPraxisData = JSON.parse(rawData);
+        cachedPraxisDataTime = Date.now();
+      }
+
+      const results = cachedPraxisData.paragraphs.filter((p: any) => {
+        const linkedLaw = p.metadata?.revisionNote || "";
+        const pText = p.text.toLowerCase();
+        const linkedLawLower = linkedLaw.toLowerCase();
+
+        return lawRefs.some(ref => {
+          const refLower = ref.toLowerCase();
+          return linkedLawLower.includes(refLower) || pText.includes(refLower);
+        });
       });
 
       res.json(results);
