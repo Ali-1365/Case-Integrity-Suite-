@@ -1,0 +1,3 @@
+## 2024-04-07 - [Server/Praxis Bottleneck] Avoid N+1 Requests & Blocking Disk I/O
+**Learning:** The Express backend was performing a blocking `fs.readFileSync` for a large static dataset (`praxis.json`) on every request. Additionally, the frontend requested praxis data sequentially in a loop for each reference, resulting in an N+1 query problem that compounded the disk I/O issue.
+**Action:** Always cache large, read-only JSON datasets in memory when served from Express routes. For data needed in bulk, create batch endpoints (e.g., accepting an array via POST) instead of iterating over individual REST calls.
