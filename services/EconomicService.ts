@@ -42,10 +42,14 @@ export class EconomicService {
   }
 
   private async syncToDb() {
-    for (const p of this.state.payments) await db.saveEconomicData(p.id, 'PAYMENT', p);
-    for (const i of this.state.invoices) await db.saveEconomicData(i.id, 'INVOICE', i);
-    for (const c of this.state.claims) await db.saveEconomicData(c.id, 'CLAIM', c);
-    for (const f of this.state.forecasts) await db.saveEconomicData(f.id, 'FORECAST', f);
+    // ⚡ Bolt: Parallelize DB writes using Promise.all to avoid N+1 sequential I/O bottleneck
+    // This allows IndexedDB transactions to run concurrently, significantly improving initialization time
+    await Promise.all([
+      ...this.state.payments.map(p => db.saveEconomicData(p.id, 'PAYMENT', p)),
+      ...this.state.invoices.map(i => db.saveEconomicData(i.id, 'INVOICE', i)),
+      ...this.state.claims.map(c => db.saveEconomicData(c.id, 'CLAIM', c)),
+      ...this.state.forecasts.map(f => db.saveEconomicData(f.id, 'FORECAST', f))
+    ]);
   }
 
   private initializeMockData() {
