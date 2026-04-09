@@ -9,7 +9,16 @@ export const useLogging = (limit: number = 50) => {
 
   const refreshLogs = useCallback(() => {
     const allLogs = loggingService.getLogs();
-    setLogs(allLogs.slice(0, limit));
+    const newLogs = allLogs.slice(0, limit);
+
+    setLogs(prevLogs => {
+      // Fast bailout: check array length and newest item ID to prevent expensive re-renders on unchanged data.
+      // Since logs are unshifted (newest first), if length and [0].id match, the slice is likely identical.
+      if (prevLogs.length === newLogs.length && (newLogs.length === 0 || prevLogs[0]?.id === newLogs[0]?.id)) {
+        return prevLogs;
+      }
+      return newLogs;
+    });
   }, [limit]);
 
   useEffect(() => {
