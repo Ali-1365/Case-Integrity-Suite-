@@ -1,0 +1,3 @@
+## 2025-03-01 - Prevent App-Wide Re-renders from Fast Polling in Top-Level Layouts
+**Learning:** Calling a state setter blindly within a fast `setInterval` block inside a top-level React component (like `DocumentManager.tsx`) will trigger massive, application-wide re-renders even when the underlying data (`quotaUsage`) hasn't changed.
+**Action:** When implementing polling mechanisms (like `setInterval`) in top-level components or custom hooks, always utilize a callback function in the state setter (`setState(prev => ...)`). Perform targeted, shallow attribute comparisons (e.g., checking specific IDs, array lengths, or primitive fields) and return the `prev` reference to explicitly bail out of the re-render process if no functional changes occurred.
