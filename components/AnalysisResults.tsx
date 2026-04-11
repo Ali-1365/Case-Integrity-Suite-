@@ -351,7 +351,7 @@ const OverviewContent: React.FC<{ analysis: AnalysisResult }> = ({ analysis }) =
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-px bg-[var(--border-strong)] border border-[var(--border-strong)]">
                     <StatCard label="Aktiverat Lagrum" value={analysis.legalReferences?.length || 0} color="accent" />
                     <StatCard label="Bevisatomer" value={analysis.atoms?.length || 0} color="accent" />
-                    <StatCard label="Audit Verifierad" value={analysis.audit?.checks?.filter(c => c.status === 'ok').length || 0} color="accent" />
+                    <StatCard label="Audit Verifierad" value={analysis.audit?.checks?.filter(c => c.status === 'ok')?.length || 0} color="accent" />
                     <StatCard label="Beviskategorier" value={new Set((analysis.atoms || []).flatMap(a => a.tags || [])).size} color="accent" />
                     <StatCard label="Lagrumskopplingar" value={analysis.legalFrameworkLinks?.length || 0} color="accent" />
                     <StatCard label="Integritets-Score" value={analysis.audit?.integrityScore || 100} suffix="%" color="accent" />

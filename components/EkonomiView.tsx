@@ -187,8 +187,18 @@ const EkonomiView: React.FC<EkonomiViewProps> = ({ activeCase, onNavigate }) => 
     setIsAiLoading(true);
     toast.info('Analyserar kassaflöde och optimerar likviditet...');
     try {
-      const result = await economicService.optimizeLiquidity();
-      setAiResult({ title: 'Likviditetsoptimering', content: result });
+      // Powerful logic: Calculate real liquidity ratio
+      const liquidityRatio = totalPayments / (totalInvoices || 1);
+      const riskScore = claims.length * 0.2 + (totalInvoices > totalPayments ? 0.5 : 0.1);
+      
+      const result = await economicService.optimizeLiquidity({
+        liquidityRatio,
+        riskScore,
+        totalClaims,
+        activeCase: activeCase?.name
+      });
+      
+      setAiResult({ title: 'Likviditetsoptimering & Riskprognos', content: result });
       toast.success('Optimering slutförd');
     } catch (error) {
       toast.error('Kunde inte optimera likviditet');

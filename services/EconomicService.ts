@@ -200,13 +200,17 @@ export class EconomicService {
     };
   }
 
-  async optimizeLiquidity(): Promise<string> {
+  async optimizeLiquidity(data?: { liquidityRatio: number, riskScore: number, totalClaims: number, activeCase?: string }): Promise<string> {
     const prompt = `Analysera nuvarande ekonomiska status och föreslå optimeringar för likviditet baserat på följande data:
     Totala betalningar: ${this.state.payments.length}
     Totala fakturor: ${this.state.invoices.length}
     Totala skadeståndskrav: ${this.state.claims.length}
+    Likviditetskvot: ${data?.liquidityRatio?.toFixed(2) || 'N/A'}
+    Riskpoäng: ${data?.riskScore?.toFixed(2) || 'N/A'}
+    Totalt kravvärde: ${data?.totalClaims?.toLocaleString('sv-SE') || 'N/A'} SEK
+    Aktivt ärende: ${data?.activeCase || 'Inget'}
     
-    Fokusera på riskreducering och antifragilitet.`;
+    Fokusera på riskreducering, antifragilitet och specifika juridiska-ekonomiska strategier för att maximera kassaflödet under pågående rättsprocesser.`;
     
     try {
       const response = await geminiService.generate({ contents: prompt });

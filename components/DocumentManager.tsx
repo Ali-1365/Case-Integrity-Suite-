@@ -548,7 +548,6 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                                     {activeModal === 'controller' && <Settings2 className="h-5 w-5 text-white" />}
                                     {activeModal === 'notary' && <ClipboardList className="h-5 w-5 text-white" />}
                                     {activeModal === 'framework' && <Scale className="h-5 w-5 text-white" />}
-                                    {activeModal === 'arch' && <Archive className="h-5 w-5 text-white" />}
                                     {activeModal === 'vision' && <Shield className="h-5 w-5 text-white" />}
                                     {activeModal === 'whitebook' && <ClipboardList className="h-5 w-5 text-white" />}
                                     {activeModal === 'sfb' && <Shield className="h-5 w-5 text-white" />}
@@ -575,7 +574,6 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                                         {activeModal === 'controller' && 'Kontrollpanel'}
                                         {activeModal === 'notary' && 'Processnotarie'}
                                         {activeModal === 'framework' && 'Juridisk Ramverk'}
-                                        {activeModal === 'arch' && 'Ärendearkiv'}
                                         {activeModal === 'vision' && 'Vision & Tillgänglighet'}
                                         {activeModal === 'whitebook' && 'Vitbok'}
                                         {activeModal === 'sfb' && 'SFB Integritet'}
@@ -634,19 +632,18 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                             {activeModal === 'archive' && <ArchiveView onSelect={(id) => { setSelectedDocId(id); setActiveModal(null); }} />}
                             {activeModal === 'audit' && <AuditPanel isOpen={true} onClose={() => setActiveModal(null)} />}
                             {activeModal === 'chat' && <BeslutView activeCase={activeCase} onNavigate={navigateTo} />}
-                            {activeModal === 'agent' && activeCase && <CaseAnalysisView activeCase={activeCase} onNavigate={navigateTo} />}
+                            {activeModal === 'agent' && <AgentWorkspace isOpen={true} onClose={() => setActiveModal(null)} onNavigate={navigateTo} />}
                             {activeModal === 'debug' && <AIDebugPanel isOpen={true} onClose={() => setActiveModal(null)} />}
                             {activeModal === 'controller' && <FmjamController analysis={currentAnalysis} onNavigate={navigateTo} />}
                             {activeModal === 'notary' && <AutoNotaryView onNavigate={navigateTo} />}
                             {activeModal === 'framework' && <LegalFrameworkView isOpen={true} onClose={() => setActiveModal(null)} onNavigate={navigateTo} />}
-                            {activeModal === 'arch' && <ArchiveView onSelect={(id) => { setSelectedDocId(id); setActiveModal(null); }} />}
                             {activeModal === 'vision' && <VisionView onNavigate={navigateTo} />}
                             {activeModal === 'whitebook' && <WhitebookViewer isOpen={true} onClose={() => setActiveModal(null)} />}
                             {activeModal === 'sfb' && <SfbIntegrityPanel isOpen={true} onClose={() => setActiveModal(null)} />}
                             {activeModal === 'monitor' && <SystemMonitor isOpen={true} onClose={() => setActiveModal(null)} />}
                             {activeModal === 'inventory' && <SystemInventory isOpen={true} onClose={() => setActiveModal(null)} />}
                             {activeModal === 'profiler' && activeCase && <CaseProfiler caseData={activeCase} />}
-                             {activeModal === 'aggregator' && <AggregatorView documents={documents} onAggregate={(ids) => { handleAggregateSelected(ids); setActiveModal(null); }} isProcessing={isAnalyzing} />}
+                            {activeModal === 'aggregator' && <AggregatorView documents={documents} onAggregate={(ids) => { handleAggregateSelected(ids); setActiveModal(null); }} isProcessing={isAnalyzing} />}
                         </div>
                     </div>
                 </div>

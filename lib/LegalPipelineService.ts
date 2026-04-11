@@ -185,28 +185,36 @@ export class LegalPipelineService {
             Svara i JSON-format.
         `;
         
-        const response = await geminiService.generate({
-            contents: JSON.stringify({
-                document: state.correctedV2,
-                evidence: state.evidenceReport,
-                caseLaw: state.caseLawReport,
-                risk: state.riskLevel
-            }),
-            config: { 
-                systemInstruction, 
-                responseMimeType: "application/json",
-                responseSchema: {
-                    type: Type.OBJECT,
-                    properties: {
-                        isBlocked: { type: Type.BOOLEAN },
-                        reason: { type: Type.STRING }
-                    },
-                    required: ["isBlocked"]
+        try {
+            const response = await geminiService.generate({
+                contents: JSON.stringify({
+                    document: state.correctedV2,
+                    evidence: state.evidenceReport,
+                    caseLaw: state.caseLawReport,
+                    risk: state.riskLevel
+                }),
+                config: { 
+                    systemInstruction, 
+                    responseMimeType: "application/json",
+                    responseSchema: {
+                        type: Type.OBJECT,
+                        properties: {
+                            isBlocked: { type: Type.BOOLEAN },
+                            reason: { type: Type.STRING }
+                        },
+                        required: ["isBlocked"]
+                    }
                 }
-            }
-        }, 'fast');
-        
-        return JSON.parse(response.trim());
+            }, 'fast');
+            
+            const clean = response.trim();
+            // Handle potential markdown code blocks in response
+            const jsonStr = clean.startsWith('```') ? clean.replace(/^```json\n?/, '').replace(/\n?```$/, '') : clean;
+            return JSON.parse(jsonStr);
+        } catch (error: any) {
+            console.error("Export control failed:", error);
+            return { isBlocked: true, reason: `Tekniskt fel i kontrollen: ${error.message}` };
+        }
     }
 
     // Slutsteg: Export av finalt dokument
@@ -252,13 +260,16 @@ export class LegalPipelineService {
             onUpdate({ ...state });
         };
 
+        let currentStepId = '1';
         try {
             // Steg 1
+            currentStepId = '1';
             updateStatus('1', 'running');
             state.draftV1 = await this.generateDraft(caseId, caseData);
             updateStatus('1', 'completed', state.draftV1);
 
             // Steg 2
+            currentStepId = '2';
             updateStatus('2', 'running');
             state.correctedV2 = await this.correctionModule(state.draftV1);
             updateStatus('2', 'completed', state.correctedV2);
@@ -290,10 +301,12 @@ export class LegalPipelineService {
             updateStatus('7', 'completed', state.attackModel);
 
             // Risk-analys kräver bevis och praxis rapporter
+            currentStepId = '6';
             state.riskLevel = await this.processRiskAnalysis(state.correctedV2, state.evidenceReport, state.caseLawReport);
             updateStatus('6', 'completed', `Riskklass: ${state.riskLevel}`);
 
             // Steg 8
+            currentStepId = '8';
             updateStatus('8', 'running');
             const control = await this.exportControl(state);
             state.isExportBlocked = control.isBlocked;
@@ -305,6 +318,7 @@ export class LegalPipelineService {
             updateStatus('8', 'completed', "Exportkontroll godkänd.");
 
             // Steg 9
+            currentStepId = '9';
             updateStatus('9', 'running');
             state.finalV3 = await this.exportFinalDocument(state.correctedV2);
             updateStatus('9', 'completed', state.finalV3);
@@ -313,7 +327,8 @@ export class LegalPipelineService {
             
         } catch (error: any) {
             console.error("Pipeline error:", error);
-            await journalService.addEntry(caseId, 'PIPELINE_ERROR', `Fel i pipeline: ${error.message}`);
+            updateStatus(currentStepId, 'error', undefined, error.message);
+            await journalService.addEntry(caseId, 'PIPELINE_ERROR', `Fel i pipeline (Steg ${currentStepId}): ${error.message}`);
         }
 
         return state;

@@ -36,12 +36,23 @@ const OfflineBanner: React.FC = () => {
         <div className="w-1.5 h-1.5 rounded-full bg-[var(--danger)] animate-pulse shadow-[0_0_8px_var(--danger)]" />
         {getMessage()}
       </span>
-      <button 
-        onClick={() => window.location.reload()}
-        className="border border-[var(--accent-foreground)]/20 px-3 py-1 rounded-md hover:bg-[var(--accent-foreground)]/10 transition-all active:scale-95"
-      >
-        Uppdatera
-      </button>
+      <div className="flex gap-2">
+        <button 
+          onClick={() => {
+            import('./services/geminiService').then(m => m.geminiService.forceOnline());
+            window.location.reload();
+          }}
+          className="bg-[var(--accent)] text-[var(--bg-main)] px-3 py-1 rounded-md hover:bg-[var(--accent-hover)] transition-all active:scale-95"
+        >
+          Tvinga Online
+        </button>
+        <button 
+          onClick={() => window.location.reload()}
+          className="border border-[var(--accent-foreground)]/20 px-3 py-1 rounded-md hover:bg-[var(--accent-foreground)]/10 transition-all active:scale-95"
+        >
+          Uppdatera
+        </button>
+      </div>
     </div>
   );
 };

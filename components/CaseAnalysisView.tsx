@@ -248,7 +248,7 @@ const CaseAnalysisView: React.FC<CaseAnalysisViewProps> = ({ activeCase, onAnaly
         </div>
       </div>
 
-      <ModuleConnector activeModule="analys" onNavigate={onNavigate} />
+      <ModuleConnector activeModule="agent" onNavigate={onNavigate} />
     </div>
   );
 };

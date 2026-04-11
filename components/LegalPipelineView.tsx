@@ -83,16 +83,16 @@ export const LegalPipelineView: React.FC<LegalPipelineViewProps> = ({ analysis, 
   return (
     <div className="space-y-10 animate-in fade-in duration-1000 pb-20">
       {/* Enterprise Header */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-4">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-4">
         <div className="space-y-1">
-          <h3 className="text-2xl font-black text-[var(--ink-main)] tracking-tight uppercase italic">Beviskedja <span className="text-[var(--accent)] opacity-50">Pipeline v.1.4</span></h3>
-          <p className="text-[10px] text-[var(--ink-muted)] font-black uppercase tracking-[0.2em] opacity-70">Visualisering av den forensiska beviskedjan och pipeline-status.</p>
+          <h3 className="text-lg font-black text-[var(--ink-main)] tracking-tight uppercase italic">Beviskedja <span className="text-[var(--accent)] opacity-50">Pipeline v.1.4</span></h3>
+          <p className="text-[9px] text-[var(--ink-muted)] font-black uppercase tracking-[0.2em] opacity-70">Visualisering av den forensiska beviskedjan och pipeline-status.</p>
         </div>
         <div className="flex items-center gap-4">
           <button
             onClick={runPipeline}
             disabled={isRunning}
-            className={`px-8 py-3 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] transition-all flex items-center gap-3 shadow-xl relative overflow-hidden group ${
+            className={`px-5 py-2 rounded-xl font-black text-[9px] uppercase tracking-[0.2em] transition-all flex items-center gap-3 shadow-xl relative overflow-hidden group ${
               isRunning 
               ? 'bg-[var(--bg-main)] text-[var(--ink-light)] cursor-not-allowed border border-[var(--border)]' 
               : 'bg-[var(--ink-main)] text-white hover:bg-[var(--accent)] border border-transparent active:scale-95'
@@ -188,7 +188,7 @@ export const LegalPipelineView: React.FC<LegalPipelineViewProps> = ({ analysis, 
                         <div className="flex-1 p-8 overflow-y-auto custom-scrollbar relative z-10">
                             {expandedStep ? (
                                 <div className="animate-fade-in">
-                                    <div className="prose prose-sm max-w-none prose-p:text-[var(--ink-muted)] prose-headings:text-[var(--ink-main)] prose-headings:uppercase prose-headings:tracking-widest prose-strong:text-[var(--accent)] prose-code:text-[var(--accent)] prose-code:bg-[var(--bg-main)] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none">
+                                    <div className="prose prose-xs max-w-none prose-p:text-[var(--ink-muted)] prose-headings:text-[var(--ink-main)] prose-headings:uppercase prose-headings:tracking-widest prose-strong:text-[var(--accent)] prose-code:text-[var(--accent)] prose-code:bg-[var(--bg-main)] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none">
                                         <Markdown>
                                             {state?.reports.find(r => r.stepId === expandedStep)?.output || 'Ingen output tillgänglig.'}
                                         </Markdown>

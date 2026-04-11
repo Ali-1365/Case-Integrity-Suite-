@@ -82,12 +82,12 @@ export class IntegrityEngine {
       }
 
       // 2. Kontrollera Journal-koppling
-      if (c.journal.length === 0) {
+      if (!c.journal || c.journal.length === 0) {
         issues.push({ caseId: c.caseId, issue: 'Ärendet saknar händelsejournal (Brott mot FL 27 §).', severity: 'CRITICAL' });
       }
 
       // 3. Kontrollera Versions-historik
-      if (c.versions.length === 0 && c.activeResult) {
+      if ((!c.versions || c.versions.length === 0) && c.activeResult) {
         issues.push({ caseId: c.caseId, issue: 'Aktivt resultat finns men versionshistorik saknas.', severity: 'CRITICAL' });
       }
 
@@ -110,11 +110,13 @@ export class IntegrityEngine {
       }
 
       // 6. Versions-proveniens
-      c.versions.forEach(v => {
-        if (v.provenance.length === 0) {
-          issues.push({ caseId: c.caseId, issue: `Version ${v.versionId} saknar proveniens-hashar.`, severity: 'CRITICAL' });
-        }
-      });
+      if (c.versions) {
+        c.versions.forEach(v => {
+          if (!v.provenance || v.provenance.length === 0) {
+            issues.push({ caseId: c.caseId, issue: `Version ${v.versionId} saknar proveniens-hashar.`, severity: 'CRITICAL' });
+          }
+        });
+      }
     }
 
     return issues;

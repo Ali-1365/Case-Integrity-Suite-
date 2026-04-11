@@ -14,6 +14,8 @@ export class DocumentationChecker {
             details: 'Regeln är inte tillämplig eftersom texten inte verkar behandla insatser utan föregående prövning.'
         };
 
+        if (!text) return check;
+
         const match = text.match(this.triggerRegex);
         if (match) {
             const contextStart = Math.max(0, match.index! - 100);

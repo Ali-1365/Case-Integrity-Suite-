@@ -168,7 +168,7 @@ export const SystemHub: React.FC<SystemHubProps> = ({ onNavigate }) => {
             category: 'Expertis'
         },
         {
-            id: 'arch',
+            id: 'archive',
             title: 'Ärendearkiv',
             description: 'Central lagringsplats för alla historiska och pågående ärenden.',
             icon: <Archive />,
