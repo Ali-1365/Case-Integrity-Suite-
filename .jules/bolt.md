@@ -1,0 +1,3 @@
+## 2025-01-29 - [Bailout in top-level state setters]
+**Learning:** Frequent polling intervals (`setInterval`) that update state in top-level React layout components (like `DocumentManager.tsx`) can cause expensive application-wide re-renders even when the underlying data logic hasn't conceptually changed.
+**Action:** When implementing polling mechanisms inside React components (especially top-level components), always implement bailout logic in the state setter. Use targeted shallow attribute checks (like comparing `rpm`, `tpm`, `status` for quota objects) and return the previous state reference if there's no actual change to prevent unnecessary re-renders.
