@@ -34,7 +34,7 @@ interface AgentWorkspaceProps {
 
 type TabType = 'analys' | 'historik' | 'profil';
 
-const AgentWorkspace: React.FC<AgentWorkspaceProps> = ({ isOpen, onClose }) => {
+const AgentWorkspace: React.FC<AgentWorkspaceProps> = ({ isOpen, onClose, onNavigate }) => {
   const [isReady, setIsReady] = useState(false);
   const [cases, setCases] = useState<Case[]>([]);
   const [activeCaseId, setActiveCaseId] = useState<string | null>(null);

@@ -16,6 +16,7 @@ import {
 import { legalPipelineService, PipelineState, PipelineReport } from '../lib/LegalPipelineService';
 import { AnalysisResult } from '../lib/cis.types';
 import Markdown from 'react-markdown';
+import { ModuleConnector } from './shared/ModuleConnector';
 
 // Mock Chevron icons since they aren't in icons.tsx
 const ChevronDown: React.FC<{ className?: string }> = ({ className }) => (
