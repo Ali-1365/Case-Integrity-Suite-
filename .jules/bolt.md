@@ -1,0 +1,3 @@
+## 2024-05-18 - [IndexedDB Sync Optimization]
+**Learning:** Sequential `for...await` loops over large arrays for client-side IndexedDB persistence (`syncToDb` pattern) create severe N+1 transaction bottlenecks. The overhead of individual I/O operations adds up significantly.
+**Action:** Always use `Promise.all` to batch and parallelize client-side database writes to avoid sequential I/O bottlenecks.
