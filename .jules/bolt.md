@@ -1,0 +1,3 @@
+## 2024-05-19 - [Resolve N+1 query]
+**Learning:** Repetitive sequential API requests (N+1 query problem) on the frontend fetching praxis data per lawRef via `fetch('/api/praxis/:lawRef')` causes significant performance bottleneck. In backend (`server.ts`), reading a heavy JSON file using `fs.readFileSync` synchronously on every request degrades overall server throughput.
+**Action:** Always inspect loops emitting network requests; batch queries to a unified endpoint (e.g., `POST /api/praxis/batch`). Furthermore, cache large static configuration or data files (like `praxis.json`) in memory to eliminate expensive synchronous disk I/O.

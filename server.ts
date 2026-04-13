@@ -9,19 +9,61 @@ async function startServer() {
   const app = express();
   const PORT = 3000;
 
-  // API routes
-  app.get("/api/praxis/:lawRef", (req, res) => {
-    const { lawRef } = req.params;
+  app.use(express.json());
+
+  // Cache praxis data
+  let praxisCache: any = null;
+  const getPraxisData = () => {
+    if (praxisCache) return praxisCache;
+
     const praxisPath = path.join(process.cwd(), "public", "data", "praxis.json");
-    
     if (!fs.existsSync(praxisPath)) {
+      return null;
+    }
+
+    const rawData = fs.readFileSync(praxisPath, "utf-8");
+    praxisCache = JSON.parse(rawData);
+    return praxisCache;
+  };
+
+  // API routes
+
+  app.post("/api/praxis/batch", (req, res) => {
+    const { lawRefs } = req.body;
+
+    if (!Array.isArray(lawRefs)) {
+      return res.status(400).json({ error: "lawRefs must be an array" });
+    }
+
+    const data = getPraxisData();
+    if (!data) {
       return res.status(404).json({ error: "Praxis data not found" });
     }
 
     try {
-      const rawData = fs.readFileSync(praxisPath, "utf-8");
-      const data = JSON.parse(rawData);
-      
+      const results = data.paragraphs.filter((p: any) => {
+        const linkedLaw = p.metadata?.revisionNote || "";
+        return lawRefs.some(ref =>
+          linkedLaw.toLowerCase().includes(ref.toLowerCase()) ||
+          p.text.toLowerCase().includes(ref.toLowerCase())
+        );
+      });
+
+      res.json(results);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to process praxis data" });
+    }
+  });
+
+  app.get("/api/praxis/:lawRef", (req, res) => {
+    const { lawRef } = req.params;
+    
+    const data = getPraxisData();
+    if (!data) {
+      return res.status(404).json({ error: "Praxis data not found" });
+    }
+
+    try {
       const results = data.paragraphs.filter((p: any) => {
         const linkedLaw = p.metadata?.revisionNote || "";
         return linkedLaw.toLowerCase().includes(lawRef.toLowerCase()) || 
