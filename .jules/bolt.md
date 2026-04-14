@@ -1,0 +1,3 @@
+## 2024-04-14 - [State Bailout] Fast Polling Re-Renders
+**Learning:** Returning a new object reference from a state setter function within a fast polling interval (like `setInterval`) will cause a top-level component (e.g. `DocumentManager`) to continuously re-render, even if the underlying data values haven't changed. This is especially problematic in top-level components, as it propagates re-renders down the entire component tree, drastically degrading performance.
+**Action:** Always implement bailout logic when polling state. Compare relevant primitive fields (e.g., `prev.rpm === new.rpm && prev.tpm === new.tpm`) and return the `prev` reference explicitly when they match. Compute the new value outside the state setter function to keep the state updater pure.
