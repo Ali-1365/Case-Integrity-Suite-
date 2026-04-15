@@ -9,18 +9,53 @@ async function startServer() {
   const app = express();
   const PORT = 3000;
 
-  // API routes
-  app.get("/api/praxis/:lawRef", (req, res) => {
-    const { lawRef } = req.params;
+  app.use(express.json()); // Added for POST body parsing
+
+  // In-memory cache for praxis data
+  let praxisCache: any = null;
+  const getPraxisData = () => {
+    if (praxisCache) return praxisCache;
     const praxisPath = path.join(process.cwd(), "public", "data", "praxis.json");
-    
     if (!fs.existsSync(praxisPath)) {
-      return res.status(404).json({ error: "Praxis data not found" });
+      throw new Error("Praxis data not found");
+    }
+    const rawData = fs.readFileSync(praxisPath, "utf-8");
+    praxisCache = JSON.parse(rawData);
+    return praxisCache;
+  };
+
+  // Batched API route for praxis to prevent N+1 queries
+  app.post("/api/praxis/batch", (req, res) => {
+    const { lawRefs } = req.body;
+    if (!Array.isArray(lawRefs)) {
+      return res.status(400).json({ error: "lawRefs must be an array" });
     }
 
     try {
-      const rawData = fs.readFileSync(praxisPath, "utf-8");
-      const data = JSON.parse(rawData);
+      const data = getPraxisData();
+
+      const results = data.paragraphs.filter((p: any) => {
+        const linkedLaw = (p.metadata?.revisionNote || "").toLowerCase();
+        const text = (p.text || "").toLowerCase();
+
+        return lawRefs.some(ref => {
+          const lowerRef = ref.toLowerCase();
+          return linkedLaw.includes(lowerRef) || text.includes(lowerRef);
+        });
+      });
+
+      res.json(results);
+    } catch (error) {
+      res.status(500).json({ error: error instanceof Error ? error.message : "Failed to parse praxis data" });
+    }
+  });
+
+  // API routes
+  app.get("/api/praxis/:lawRef", (req, res) => {
+    const { lawRef } = req.params;
+
+    try {
+      const data = getPraxisData();
       
       const results = data.paragraphs.filter((p: any) => {
         const linkedLaw = p.metadata?.revisionNote || "";
@@ -30,7 +65,7 @@ async function startServer() {
 
       res.json(results);
     } catch (error) {
-      res.status(500).json({ error: "Failed to parse praxis data" });
+      res.status(500).json({ error: error instanceof Error ? error.message : "Failed to parse praxis data" });
     }
   });
 
