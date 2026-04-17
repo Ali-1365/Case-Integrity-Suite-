@@ -1,0 +1,3 @@
+## 2025-03-01 - Prevent layout re-renders from polling services
+**Learning:** Polling services (like `usageMonitorService.getUsage()`) inside an interval at the top-level layout component (`DocumentManager`) that unconditionally passes a new object reference to state (`setQuotaUsage`) will trigger massive, application-wide re-renders every tick, even when the underlying data is identical.
+**Action:** When implementing React state bailout logic inside fast polling intervals, use targeted shallow attribute checks (like comparing primitives: rpm, tpm, status) rather than deep equality or unconditional sets. Doing this within the state setter (`setState(prev => ...)`) ensures we return the previous state reference and bail out of the re-render.
