@@ -1,0 +1,3 @@
+## 2026-04-18 - Eliminate N+1 and Repeated Disk I/O
+**Learning:** Found a severe bottleneck where `PraxisService` iterated over `lawRefs` making an N+1 sequence of GET requests to the Express backend. On the backend, every single request triggered a blocking `fs.readFileSync` and `JSON.parse` of a potentially large `praxis.json` file. This multiplied network latency and synchronously blocked the Node.js event loop proportionally to the number of references.
+**Action:** Always batch requests from the frontend to avoid N+1 network overhead. On the backend, read and parse static JSON files once into an in-memory variable (or implement proper caching) instead of performing blocking disk I/O on every request.
