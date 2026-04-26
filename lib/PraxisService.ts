@@ -36,19 +36,25 @@ export class PraxisService {
       }
 
       const results: PraxisEntry[] = [];
-      for (const ref of lawRefs) {
-        const response = await fetch(`/api/praxis/${encodeURIComponent(ref)}`);
-        if (response.ok) {
-          const data = await response.json();
-          const mapped = data.map((p: any) => ({
-            id: p.id,
-            reference: p.reference,
-            linkedLaw: p.metadata.revisionNote || "",
-            summary: p.text,
-            provenanceHash: p.metadata.provenanceHash
-          }));
-          results.push(...mapped);
-        }
+
+      const response = await fetch(`/api/praxis/batch`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ lawRefs })
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        const mapped = data.map((p: any) => ({
+          id: p.id,
+          reference: p.reference,
+          linkedLaw: p.metadata.revisionNote || "",
+          summary: p.text,
+          provenanceHash: p.metadata.provenanceHash
+        }));
+        results.push(...mapped);
       }
       
       // Ta bort dubbletter
