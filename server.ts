@@ -9,19 +9,75 @@ async function startServer() {
   const app = express();
   const PORT = 3000;
 
-  // API routes
-  app.get("/api/praxis/:lawRef", (req, res) => {
-    const { lawRef } = req.params;
+  // Middleware to parse JSON bodies
+  app.use(express.json());
+
+  // In-memory cache for praxis.json to avoid blocking fs.readFileSync on every request
+  let praxisCache: any = null;
+
+  function getPraxisData() {
+    if (praxisCache) {
+      return praxisCache;
+    }
     const praxisPath = path.join(process.cwd(), "public", "data", "praxis.json");
-    
     if (!fs.existsSync(praxisPath)) {
+      return null;
+    }
+    try {
+      const rawData = fs.readFileSync(praxisPath, "utf-8");
+      praxisCache = JSON.parse(rawData);
+      return praxisCache;
+    } catch (error) {
+      console.error("Failed to parse praxis data", error);
+      return null;
+    }
+  }
+
+  // API routes
+  app.post("/api/praxis/batch", (req, res) => {
+    const { lawRefs } = req.body;
+    if (!Array.isArray(lawRefs)) {
+      return res.status(400).json({ error: "lawRefs must be an array" });
+    }
+
+    const data = getPraxisData();
+    if (!data) {
       return res.status(404).json({ error: "Praxis data not found" });
     }
 
     try {
-      const rawData = fs.readFileSync(praxisPath, "utf-8");
-      const data = JSON.parse(rawData);
-      
+      const results: any[] = [];
+      const lowerCaseRefs = lawRefs.map((ref: string) => ref.toLowerCase());
+
+      data.paragraphs.forEach((p: any) => {
+        const linkedLaw = (p.metadata?.revisionNote || "").toLowerCase();
+        const text = (p.text || "").toLowerCase();
+
+        // Check if any lawRef matches this paragraph
+        const matches = lowerCaseRefs.some((ref: string) =>
+          linkedLaw.includes(ref) || text.includes(ref)
+        );
+
+        if (matches) {
+          results.push(p);
+        }
+      });
+
+      res.json(results);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to process praxis batch request" });
+    }
+  });
+
+  app.get("/api/praxis/:lawRef", (req, res) => {
+    const { lawRef } = req.params;
+    const data = getPraxisData();
+    
+    if (!data) {
+      return res.status(404).json({ error: "Praxis data not found" });
+    }
+
+    try {
       const results = data.paragraphs.filter((p: any) => {
         const linkedLaw = p.metadata?.revisionNote || "";
         return linkedLaw.toLowerCase().includes(lawRef.toLowerCase()) || 
