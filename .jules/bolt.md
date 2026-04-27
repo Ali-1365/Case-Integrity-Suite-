@@ -1,3 +1,7 @@
 ## 2024-04-20 - [Avoid unnecessary React state updates in fast polling intervals]
 **Learning:** Frequent polling mechanisms (e.g. setInterval checking usage metrics or logs) in top-level components can trigger massive unnecessary re-renders across the whole layout if the `setState` is called blindly with a new object/array reference even when the underlying data is identical. Deep equality checks or libraries like `fast-deep-equal` can be computationally expensive and introduce unauthorized dependencies.
 **Action:** When implementing polling mechanisms, always write state updater functions using targeted shallow checks (e.g. `prev.rpm === newUsage.rpm` or array lengths and recent item IDs) to safely return the `prev` state reference and bail out of the rendering cycle. Side effects, such as generating the new data, should remain pure and sit entirely outside of the React state updater function itself.
+
+## 2025-05-18 - [Server-Side Blocking I/O inside API Endpoints]
+**Learning:** The Express backend was previously performing synchronous `fs.readFileSync` and `JSON.parse` on a >2KB JSON file for every single `GET /api/praxis/:lawRef` request. In Node.js, synchronous file reads inside route handlers block the entire event loop, completely destroying concurrency and performance under load.
+**Action:** When serving static or semi-static data from JSON files on the backend, implement an in-memory cache variable to hold the parsed object and reuse it across requests, falling back to a filesystem read only when the cache is empty.
