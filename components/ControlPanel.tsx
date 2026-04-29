@@ -51,7 +51,17 @@ const FMJAMControlPanel: React.FC<FMJAMControlPanelProps> = ({ isOpen, onClose, 
 
   useEffect(() => {
     const interval = setInterval(() => {
-        setQuota({ ...geminiService.quotaState });
+        const newQuotaState = geminiService.quotaState;
+        setQuota(prev => {
+            if (
+                prev.isThrottled === newQuotaState.isThrottled &&
+                prev.retryAfterMs === newQuotaState.retryAfterMs &&
+                prev.lastError === newQuotaState.lastError
+            ) {
+                return prev;
+            }
+            return { ...newQuotaState };
+        });
     }, 2000);
     return () => clearInterval(interval);
   }, []);
