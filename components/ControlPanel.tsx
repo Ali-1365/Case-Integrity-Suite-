@@ -51,7 +51,20 @@ const FMJAMControlPanel: React.FC<FMJAMControlPanelProps> = ({ isOpen, onClose, 
 
   useEffect(() => {
     const interval = setInterval(() => {
-        setQuota({ ...geminiService.quotaState });
+        const newState = geminiService.quotaState;
+        setQuota(prev => {
+            // ⚡ Bolt Performance Optimization
+            // Bail out of React rendering cycle by returning the exact previous
+            // object reference if the quota properties haven't actually changed.
+            // This prevents an application-wide layout re-render every 2000ms.
+            if (prev &&
+                prev.isThrottled === newState.isThrottled &&
+                prev.retryAfterMs === newState.retryAfterMs &&
+                prev.lastError === newState.lastError) {
+                return prev;
+            }
+            return { ...newState };
+        });
     }, 2000);
     return () => clearInterval(interval);
   }, []);
