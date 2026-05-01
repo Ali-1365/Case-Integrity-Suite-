@@ -1,3 +1,7 @@
 ## 2024-04-20 - [Avoid unnecessary React state updates in fast polling intervals]
 **Learning:** Frequent polling mechanisms (e.g. setInterval checking usage metrics or logs) in top-level components can trigger massive unnecessary re-renders across the whole layout if the `setState` is called blindly with a new object/array reference even when the underlying data is identical. Deep equality checks or libraries like `fast-deep-equal` can be computationally expensive and introduce unauthorized dependencies.
 **Action:** When implementing polling mechanisms, always write state updater functions using targeted shallow checks (e.g. `prev.rpm === newUsage.rpm` or array lengths and recent item IDs) to safely return the `prev` state reference and bail out of the rendering cycle. Side effects, such as generating the new data, should remain pure and sit entirely outside of the React state updater function itself.
+
+## 2024-05-01 - [Resolve N+1 Queries in Praxis API Lookups]
+**Learning:** Iterating over law references and fetching from an API sequentially leads to the N+1 problem, causing frontend bottlenecks and locking the server with synchronous disk I/O (`fs.readFileSync` and `JSON.parse` per request).
+**Action:** Batched identical requests on the frontend using `POST` passing an array of references, and utilized a unified in-memory cache in the Express backend using `express.json()` middleware to parse and store `public/data/praxis.json` to prevent repetitive file parsing.
