@@ -105,8 +105,21 @@ const SystemHealthDashboard: React.FC<SystemHealthDashboardProps> = ({ isOpen, o
         return [...prev.slice(1), newMetric];
       });
       
-      setQuota({ ...geminiService.quotaState });
-      setLogs(loggingService.getLogs().slice(0, 50));
+      setQuota(prev => {
+        const newQuota = geminiService.quotaState;
+        if (prev.isThrottled === newQuota.isThrottled && prev.retryAfterMs === newQuota.retryAfterMs && prev.lastError === newQuota.lastError) {
+          return prev;
+        }
+        return { ...newQuota };
+      });
+
+      setLogs(prev => {
+        const newLogs = loggingService.getLogs().slice(0, 50);
+        if (prev.length === newLogs.length && (prev.length === 0 || prev[0].id === newLogs[0].id)) {
+          return prev;
+        }
+        return newLogs;
+      });
     }, 3000);
 
     githubService.getRepoStatus()

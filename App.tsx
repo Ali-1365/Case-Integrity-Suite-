@@ -14,7 +14,13 @@ const AutonomousStatusBar: React.FC = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setStatus(autonomousEngine.getStatus());
+      const newStatus = autonomousEngine.getStatus();
+      setStatus(prev => {
+        if (prev.active === newStatus.active && prev.traceId === newStatus.traceId && prev.integrity === newStatus.integrity && prev.mode === newStatus.mode) {
+          return prev;
+        }
+        return newStatus;
+      });
     }, 5000);
     return () => clearInterval(interval);
   }, []);
