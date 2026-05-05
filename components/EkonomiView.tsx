@@ -274,13 +274,15 @@ const EkonomiView: React.FC<EkonomiViewProps> = ({ activeCase, onNavigate }) => 
     
     try {
       const extractedDocs: EconomicDocument[] = [];
-      for (const file of files) {
-        const parsed = await parseFile(file);
+      // ⚡ Bolt Optimization: Parallelize file parsing to avoid blocking the main thread sequentially
+      const parsedResults = await Promise.all(files.map(file => parseFile(file)));
+
+      parsedResults.forEach(parsed => {
         if (parsed) {
           const doc = economicAnalyzerEngine.extractInfo(parsed);
           extractedDocs.push(doc);
         }
-      }
+      });
       
       const chains = economicAnalyzerEngine.groupIntoChains(extractedDocs);
       const report = economicAnalyzerEngine.generateReport(chains);
@@ -303,8 +305,10 @@ const EkonomiView: React.FC<EkonomiViewProps> = ({ activeCase, onNavigate }) => 
     toast.info(`Analyserar ${files.length} fakturor...`);
     
     try {
-      for (const file of files) {
-        const result = await parseFile(file);
+      // ⚡ Bolt Optimization: Parallelize file parsing to avoid blocking the main thread sequentially
+      const parsedResults = await Promise.all(files.map(file => parseFile(file)));
+
+      const invoicePromises = parsedResults.map(async (result) => {
         if (result) {
           // In a real app, we'd send 'content' to Gemini to extract invoice data
           // For now, we simulate finding a new invoice
@@ -322,7 +326,9 @@ const EkonomiView: React.FC<EkonomiViewProps> = ({ activeCase, onNavigate }) => 
           };
           await economicService.addInvoice(mockInvoice);
         }
-      }
+      });
+
+      await Promise.all(invoicePromises);
       toast.success('Fakturor analyserade och tillagda');
       loadData();
       setActiveSubTab('fakturor');
