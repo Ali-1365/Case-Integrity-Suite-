@@ -74,12 +74,14 @@ const BeslutView: React.FC<BeslutViewProps> = ({ activeCase, onNavigate }) => {
     
     try {
       let combinedContent = '';
-      for (const file of files) {
-        const result = await parseFile(file);
+      const parseResults = await Promise.all(files.map(file => parseFile(file)));
+
+      files.forEach((file, index) => {
+        const result = parseResults[index];
         if (result) {
           combinedContent += `\n--- Dokument: ${file.name} ---\n${result.textContent}\n`;
         }
-      }
+      });
       
       setDocumentContext(prev => prev + combinedContent);
       

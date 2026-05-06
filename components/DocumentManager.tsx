@@ -551,8 +551,8 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                             documents={documents} 
                             onFilesSelect={async (files) => { 
                                 try {
-                                    for(const f of files) { 
-                                        const p = await parseFile(f); 
+                                    const parsedResults = await Promise.all(files.map(f => parseFile(f)));
+                                    for(const p of parsedResults) {
                                         if(p) await handleAnalyze(p); 
                                     } 
                                 } catch (err) {
