@@ -1,3 +1,6 @@
 ## 2024-04-20 - [Avoid unnecessary React state updates in fast polling intervals]
 **Learning:** Frequent polling mechanisms (e.g. setInterval checking usage metrics or logs) in top-level components can trigger massive unnecessary re-renders across the whole layout if the `setState` is called blindly with a new object/array reference even when the underlying data is identical. Deep equality checks or libraries like `fast-deep-equal` can be computationally expensive and introduce unauthorized dependencies.
 **Action:** When implementing polling mechanisms, always write state updater functions using targeted shallow checks (e.g. `prev.rpm === newUsage.rpm` or array lengths and recent item IDs) to safely return the `prev` state reference and bail out of the rendering cycle. Side effects, such as generating the new data, should remain pure and sit entirely outside of the React state updater function itself.
+## 2024-05-15 - [IndexedDB Sequential N+1 I/O bottleneck]
+**Learning:** Sequential `await` in loops used to update IndexedDB (e.g., `for (const p of elements) await db.save(p)`) introduces severe N+1 transaction overhead and blocks the main thread.
+**Action:** Replace sequential I/O loops with parallel arrays mapped to promises and await them using `await Promise.all(...)` to maximize concurrency.
