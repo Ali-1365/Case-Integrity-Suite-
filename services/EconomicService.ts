@@ -42,10 +42,16 @@ export class EconomicService {
   }
 
   private async syncToDb() {
-    for (const p of this.state.payments) await db.saveEconomicData(p.id, 'PAYMENT', p);
-    for (const i of this.state.invoices) await db.saveEconomicData(i.id, 'INVOICE', i);
-    for (const c of this.state.claims) await db.saveEconomicData(c.id, 'CLAIM', c);
-    for (const f of this.state.forecasts) await db.saveEconomicData(f.id, 'FORECAST', f);
+    // ⚡ Bolt Optimization
+    // What: Replaced sequential `for...of` loops with a single `Promise.all` containing `map` operations.
+    // Why: Sequential loops force the Javascript thread to wait for each IndexedDB write to finish before starting the next, creating an N+1 performance bottleneck.
+    // Impact: Massively reduces the total wait time for `syncToDb`, speeding up initialization and persistence operations.
+    await Promise.all([
+      ...this.state.payments.map(p => db.saveEconomicData(p.id, 'PAYMENT', p)),
+      ...this.state.invoices.map(i => db.saveEconomicData(i.id, 'INVOICE', i)),
+      ...this.state.claims.map(c => db.saveEconomicData(c.id, 'CLAIM', c)),
+      ...this.state.forecasts.map(f => db.saveEconomicData(f.id, 'FORECAST', f))
+    ]);
   }
 
   private initializeMockData() {
