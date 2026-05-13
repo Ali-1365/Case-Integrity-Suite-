@@ -9,18 +9,28 @@ async function startServer() {
   const app = express();
   const PORT = 3000;
 
+  // Cache for praxis data
+  let praxisCache: any = null;
+
+  function getPraxisData() {
+    if (!praxisCache) {
+      const praxisPath = path.join(process.cwd(), "public", "data", "praxis.json");
+      if (fs.existsSync(praxisPath)) {
+        const rawData = fs.readFileSync(praxisPath, "utf-8");
+        praxisCache = JSON.parse(rawData);
+      } else {
+        praxisCache = { paragraphs: [] };
+      }
+    }
+    return praxisCache;
+  }
+
   // API routes
   app.get("/api/praxis/:lawRef", (req, res) => {
     const { lawRef } = req.params;
-    const praxisPath = path.join(process.cwd(), "public", "data", "praxis.json");
     
-    if (!fs.existsSync(praxisPath)) {
-      return res.status(404).json({ error: "Praxis data not found" });
-    }
-
     try {
-      const rawData = fs.readFileSync(praxisPath, "utf-8");
-      const data = JSON.parse(rawData);
+      const data = getPraxisData();
       
       const results = data.paragraphs.filter((p: any) => {
         const linkedLaw = p.metadata?.revisionNote || "";
@@ -31,6 +41,35 @@ async function startServer() {
       res.json(results);
     } catch (error) {
       res.status(500).json({ error: "Failed to parse praxis data" });
+    }
+  });
+
+  app.post("/api/praxis/batch", express.json(), (req, res) => {
+    const { lawRefs } = req.body;
+
+    if (!lawRefs || !Array.isArray(lawRefs)) {
+      return res.status(400).json({ error: "Invalid lawRefs" });
+    }
+
+    try {
+      const data = getPraxisData();
+      const results: any[] = [];
+
+      for (const lawRef of lawRefs) {
+        const filtered = data.paragraphs.filter((p: any) => {
+          const linkedLaw = p.metadata?.revisionNote || "";
+          return linkedLaw.toLowerCase().includes(lawRef.toLowerCase()) ||
+                 p.text.toLowerCase().includes(lawRef.toLowerCase());
+        });
+        results.push(...filtered);
+      }
+
+      // Deduplicate by ID
+      const uniqueResults = Array.from(new Map(results.map(item => [item.id, item])).values());
+
+      res.json(uniqueResults);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to process praxis batch" });
     }
   });
 

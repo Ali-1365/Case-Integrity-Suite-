@@ -302,18 +302,19 @@ const SystemHealthDashboard: React.FC<SystemHealthDashboardProps> = ({ isOpen, o
                       'tf_1949_105.json', 'yfo_statlig_1967_920.json', 'ygl_1991_1469.json', 'ysl_1977_268.json', 
                       'ysl_statlig_1977_269.json', 'ysl_varde_1967_919.json', 'index.json'
                     ];
-                    const results = [];
-                    for (const file of files) {
+                    // ⚡ Bolt: Optimize sequential I/O by running diagnostic requests concurrently
+                    const results = await Promise.all(files.map(async (file) => {
                       const path = file === 'index.json' ? `/rag/${file}` : `/data/${file}`;
                       try {
                         const res = await fetch(path);
                         if (!res.ok) throw new Error(`HTTP ${res.status}`);
                         await res.json();
-                        results.push({ file, status: 'ok' as const });
+                        return { file, status: 'ok' as const };
                       } catch (e) {
-                        results.push({ file, status: 'error' as const, message: e instanceof Error ? e.message : String(e) });
+                        return { file, status: 'error' as const, message: e instanceof Error ? e.message : String(e) };
                       }
-                    }
+                    }));
+
                     setIntegrityResults(results);
                     setIsCheckingIntegrity(false);
                   }}
