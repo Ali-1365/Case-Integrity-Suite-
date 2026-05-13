@@ -147,9 +147,14 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
             try {
                 const newUsage = usageMonitorService.getUsage();
                 setQuotaUsage(prev => {
+bolt/fix-quota-polling-rerender-13032162535497198072
+                    // Bailout if primitive values haven't changed to prevent app-wide re-renders
+                    if (prev.rpm === newUsage.rpm && prev.tpm === newUsage.tpm && prev.status === newUsage.status) {
+
                     // Bailout by returning the previous state reference if nothing has actually changed
                     // This prevents expensive application-wide layout re-renders on every tick
                     if (prev && prev.rpm === newUsage.rpm && prev.tpm === newUsage.tpm && prev.status === newUsage.status) {
+main
                         return prev;
                     }
                     return newUsage;
