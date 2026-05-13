@@ -274,8 +274,10 @@ const EkonomiView: React.FC<EkonomiViewProps> = ({ activeCase, onNavigate }) => 
     
     try {
       const extractedDocs: EconomicDocument[] = [];
-      for (const file of files) {
-        const parsed = await parseFile(file);
+      // ⚡ Bolt: Optimize sequential parsing by parallelizing file reads
+      const parsedResults = await Promise.all(files.map(file => parseFile(file)));
+
+      for (const parsed of parsedResults) {
         if (parsed) {
           const doc = economicAnalyzerEngine.extractInfo(parsed);
           extractedDocs.push(doc);
@@ -303,8 +305,10 @@ const EkonomiView: React.FC<EkonomiViewProps> = ({ activeCase, onNavigate }) => 
     toast.info(`Analyserar ${files.length} fakturor...`);
     
     try {
-      for (const file of files) {
-        const result = await parseFile(file);
+      // ⚡ Bolt: Optimize sequential parsing by parallelizing file reads
+      const parsedResults = await Promise.all(files.map(file => parseFile(file)));
+
+      for (const result of parsedResults) {
         if (result) {
           // In a real app, we'd send 'content' to Gemini to extract invoice data
           // For now, we simulate finding a new invoice

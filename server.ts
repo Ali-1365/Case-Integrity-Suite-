@@ -9,6 +9,7 @@ async function startServer() {
   const app = express();
   const PORT = 3000;
 
+bolt-praxis-optimization-7249233733241114360
   app.use(express.json());
 
   let praxisCache: any = null;
@@ -17,19 +18,33 @@ async function startServer() {
   // ⚡ Bolt Optimization: Prevents blocking the event loop with synchronous fs.readFileSync
   // and JSON.parse on every single request.
   const getPraxisCache = () => {
+
+  // Cache for praxis data
+  let praxisCache: any = null;
+
+  function getPraxisData() {
+
     if (!praxisCache) {
       const praxisPath = path.join(process.cwd(), "public", "data", "praxis.json");
       if (fs.existsSync(praxisPath)) {
         const rawData = fs.readFileSync(praxisPath, "utf-8");
         praxisCache = JSON.parse(rawData);
+bolt-praxis-optimization-7249233733241114360
       }
     }
     return praxisCache;
   };
+      } else {
+        praxisCache = { paragraphs: [] };
+      }
+    }
+    return praxisCache;
+  }
 
   // API routes
   app.get("/api/praxis/:lawRef", (req, res) => {
     const { lawRef } = req.params;
+bolt-praxis-optimization-7249233733241114360
     const cache = getPraxisCache();
     
     if (!cache) {
@@ -38,6 +53,11 @@ async function startServer() {
 
     try {
       const results = cache.paragraphs.filter((p: any) => {
+    
+    try {
+      const data = getPraxisData();
+      
+      const results = data.paragraphs.filter((p: any) => {
         const linkedLaw = p.metadata?.revisionNote || "";
         return linkedLaw.toLowerCase().includes(lawRef.toLowerCase()) || 
                p.text.toLowerCase().includes(lawRef.toLowerCase());
@@ -49,6 +69,7 @@ async function startServer() {
     }
   });
 
+bolt-praxis-optimization-7249233733241114360
   // ⚡ Bolt Optimization: Batch endpoint to prevent N+1 fetch requests
   app.post("/api/praxis/batch", (req, res) => {
     const { lawRefs } = req.body;
@@ -73,6 +94,33 @@ async function startServer() {
       res.json(results);
     } catch (error) {
       res.status(500).json({ error: "Failed to process praxis data" });
+
+  app.post("/api/praxis/batch", express.json(), (req, res) => {
+    const { lawRefs } = req.body;
+
+    if (!lawRefs || !Array.isArray(lawRefs)) {
+      return res.status(400).json({ error: "Invalid lawRefs" });
+    }
+
+    try {
+      const data = getPraxisData();
+      const results: any[] = [];
+
+      for (const lawRef of lawRefs) {
+        const filtered = data.paragraphs.filter((p: any) => {
+          const linkedLaw = p.metadata?.revisionNote || "";
+          return linkedLaw.toLowerCase().includes(lawRef.toLowerCase()) ||
+                 p.text.toLowerCase().includes(lawRef.toLowerCase());
+        });
+        results.push(...filtered);
+      }
+
+      // Deduplicate by ID
+      const uniqueResults = Array.from(new Map(results.map(item => [item.id, item])).values());
+
+      res.json(uniqueResults);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to process praxis batch" });
     }
   });
 
