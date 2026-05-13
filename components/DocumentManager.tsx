@@ -1,25 +1,16 @@
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { db, CISCase } from '../lib/db';
 import { StoredDocument, ParsedDocument, LegalCorpus } from '../types';
 import { useFileParser } from '../hooks/useFileParser';
 import { ragService } from '../lib/ragService';
 import { AIOrchestrator } from '../lib/AIOrchestrator';
-import { NormalizationEngine } from '../lib/normalizationEngine';
-import { SynthesizerEngine } from '../lib/synthesizerEngine';
-import { QualityAssuranceEngine } from '../lib/qaEngine';
-import { AuditEngine } from '../lib/auditEngine';
-import { LEGAL_SOURCES } from '../data/legalSources';
-import { legalFrameworkIndex } from '../data/legalFramework';
-import { loadAllLegalCorpus } from '../lib/executionFlow';
-import { DEFAULT_CONTEXT_WEIGHTS } from '../data/contextWeights';
-import { riskTemplateRegistry } from '../data/riskTemplateRegistry';
-import { LegalReferenceEngine } from '../lib/legalReferenceEngine';
-import { KeywordEngine } from '../lib/keywordEngine';
-import { usageMonitorService, QuotaUsage } from '../services/usageMonitorService';
-import SystemOverview from './SystemOverview';
+import { autonomousEngine } from '../lib/AutonomousEngine';
+import PipelineStatus, { PipelineStatusState, initialPipelineStatus } from './PipelineStatus';
 import DocumentAnalysisView from './DocumentAnalysisView';
-import { initialPipelineStatus, PipelineStatusState } from './PipelineStatus';
+import SystemOverview from './SystemOverview';
+import { LEGAL_SOURCES } from '../data/legalSources';
+import { usageMonitorService, QuotaUsage } from '../services/usageMonitorService';
 import { 
     ShieldCheck,
     LogOut,
@@ -48,7 +39,12 @@ import {
     Activity,
     Search,
     Settings,
-    Shield
+    Shield,
+    Terminal,
+    Command,
+    Bot,
+    RefreshCw,
+    ArrowRight
 } from 'lucide-react';
 
 import Chatbot from './Chatbot';
@@ -92,12 +88,37 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
     const [isLoading, setIsLoading] = useState(true);
     const [isAnalyzing, setIsAnalyzing] = useState(false);
     const [pipelineStatus, setPipelineStatus] = useState<PipelineStatusState>(initialPipelineStatus);
+    const [apiUsage, setApiUsage] = useState({ current: 450, limit: 1000 });
     const { parseFile, isParsing, parsingError } = useFileParser();
 
     const [activeModal, setActiveModal] = useState<string | null>(null);
     const [currentView, setCurrentView] = useState<'overview' | 'analysis' | 'hub'>('overview');
     const [showMoreMenu, setShowMoreMenu] = useState(false);
     const [isDarkMode, setIsDarkMode] = useState(false);
+    const [aiCommand, setAiCommand] = useState('');
+    const [isAutonomous, setIsAutonomous] = useState(autonomousEngine.getStatus().active);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setIsAutonomous(autonomousEngine.getStatus().active);
+        }, 2000);
+        return () => clearInterval(interval);
+    }, []);
+
+    const handleAiCommand = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!aiCommand.trim()) return;
+        
+        const cmd = aiCommand.toLowerCase();
+        if (cmd.includes('analys') || cmd.includes('utred')) navigateTo('agent');
+        else if (cmd.includes('ekonomi') || cmd.includes('pengar')) navigateTo('ekonomi');
+        else if (cmd.includes('arkiv') || cmd.includes('dokument')) navigateTo('arch');
+        else if (cmd.includes('hub') || cmd.includes('system')) navigateTo('hub');
+        else if (cmd.includes('beslut')) navigateTo('chat');
+        else if (cmd.includes('pipeline')) navigateTo('pipeline');
+        
+        setAiCommand('');
+    };
 
     const navigateTo = (view: string) => {
         if (['overview', 'analysis', 'hub'].includes(view)) {
@@ -126,8 +147,14 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
             try {
                 const newUsage = usageMonitorService.getUsage();
                 setQuotaUsage(prev => {
+bolt/fix-quota-polling-rerender-13032162535497198072
                     // Bailout if primitive values haven't changed to prevent app-wide re-renders
                     if (prev.rpm === newUsage.rpm && prev.tpm === newUsage.tpm && prev.status === newUsage.status) {
+
+                    // Bailout by returning the previous state reference if nothing has actually changed
+                    // This prevents expensive application-wide layout re-renders on every tick
+                    if (prev && prev.rpm === newUsage.rpm && prev.tpm === newUsage.tpm && prev.status === newUsage.status) {
+main
                         return prev;
                     }
                     return newUsage;
@@ -150,13 +177,12 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
     const loadData = useCallback(async () => {
         setIsLoading(true);
         try {
-            const [docs, corpora, allCases] = await Promise.all([
+            const [docs, allCases] = await Promise.all([
                 db.getAllDocuments(),
-                loadAllLegalCorpus(),
                 db.getAllCases()
             ]);
             setDocuments(docs);
-            setLegalCorpora(corpora);
+            setLegalCorpora(LEGAL_SOURCES as any);
             setCases(allCases);
             await ragService.initialize();
         } catch (e) {
@@ -411,37 +437,62 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
 
     return (
         <div className={`flex flex-col min-h-screen ${isDarkMode ? 'dark bg-[var(--bg-main)] text-[var(--ink-main)]' : 'bg-[var(--bg-main)] text-[var(--ink-main)]'} font-sans transition-colors duration-1000`}>
-            <header className="h-16 px-6 bg-[var(--bg-nav)] border-b border-white/5 flex justify-between items-center sticky top-0 z-[100] shadow-lg">
-                <div className="flex items-center space-x-10 w-full">
-                    <div className="flex items-center space-x-3 cursor-pointer group" onClick={() => navigateTo('overview')}>
-                        <div className="p-2 bg-[var(--accent)] rounded-lg transition-all shadow-sm group-hover:scale-105">
-                            <ShieldCheck className="h-5 w-5 text-white" />
+            <header className="h-20 px-8 bg-[var(--bg-nav)] border-b border-white/10 flex justify-between items-center sticky top-0 z-[100] shadow-2xl backdrop-blur-md">
+                <div className="flex items-center space-x-12 w-full">
+                    <div className="flex items-center space-x-4 cursor-pointer group" onClick={() => navigateTo('overview')}>
+                        <div className="p-2.5 bg-[var(--accent)] rounded-xl transition-all shadow-lg shadow-[var(--accent)]/20 group-hover:scale-110 group-hover:rotate-3 duration-500">
+                            <ShieldCheck className="h-6 w-6 text-white" />
                         </div>
                         <div className="flex flex-col">
-                            <h1 className="text-sm font-bold tracking-tight m-0 leading-none text-white uppercase">Case Integrity</h1>
-                            <span className="text-[8px] text-white/40 font-bold uppercase tracking-[0.2em] mt-1">Enterprise Suite</span>
+                            <h1 className="text-base font-black tracking-tighter m-0 leading-none text-white uppercase italic">Case Integrity</h1>
+                            <div className="flex items-center gap-2 mt-1.5">
+                                <span className="text-[9px] text-white/40 font-black uppercase tracking-[0.3em]">Enterprise v.2.0</span>
+                                {isAutonomous && (
+                                    <span className="flex items-center gap-1 text-[7px] font-black text-[var(--success)] bg-[var(--success)]/10 px-1.5 py-0.5 rounded-full border border-[var(--success)]/20 animate-pulse">
+                                        <Bot className="w-2 h-2" /> AUTO
+                                    </span>
+                                )}
+                            </div>
                         </div>
                     </div>
                     
-                    <nav className="hidden xl:flex items-center space-x-1 flex-1">
+                    {/* Master AI Command Bar */}
+                    <form onSubmit={handleAiCommand} className="hidden lg:flex items-center flex-1 max-w-xl relative group">
+                        <div className="absolute left-4 text-white/30 group-focus-within:text-[var(--accent)] transition-colors">
+                            <Command className="w-4 h-4" />
+                        </div>
+                        <input 
+                            type="text" 
+                            placeholder="Master AI Command: 'Starta analys', 'Öppna arkiv'..."
+                            value={aiCommand}
+                            onChange={(e) => setAiCommand(e.target.value)}
+                            className="w-full bg-white/5 border border-white/10 rounded-2xl py-2.5 pl-12 pr-4 text-[11px] font-bold text-white placeholder:text-white/20 focus:outline-none focus:bg-white/10 focus:border-[var(--accent)]/50 transition-all shadow-inner uppercase tracking-widest"
+                        />
+                        <div className="absolute right-4 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <span className="text-[8px] font-mono text-white/30 bg-white/5 px-1.5 py-0.5 rounded border border-white/10">ENTER</span>
+                        </div>
+                    </form>
+
+                    <nav className="hidden xl:flex items-center space-x-1">
                         <button 
                             onClick={() => navigateTo('hub')}
-                            className={`px-5 py-2 rounded-lg text-[10px] font-bold uppercase tracking-widest transition-all flex items-center space-x-2 ${
+                            className={`px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] transition-all flex items-center space-x-3 shadow-xl ${
                                 currentView === 'hub' 
-                                ? 'bg-white/10 text-white border border-white/10' 
-                                : 'text-white/60 hover:text-white hover:bg-white/5'
+                                ? 'bg-white text-[var(--ink-main)] border border-white shadow-[var(--accent)]/20' 
+                                : 'text-white/60 hover:text-white hover:bg-white/5 border border-transparent'
                             }`}
                         >
                             <LayoutDashboard className="w-4 h-4" />
                             <span>System Hub</span>
                         </button>
-                        <div className="w-px h-6 bg-white/10 mx-4"></div>
-                        <ToolButton icon={<Copy />} onClick={() => navigateTo('overview')} label="Ärenden" active={currentView === 'overview' || currentView === 'analysis'} isDark />
-                        <ToolButton icon={<Search />} onClick={() => navigateTo('agent')} label="Analys" active={activeModal === 'agent'} isDark />
-                        <ToolButton icon={<Wallet />} onClick={() => navigateTo('ekonomi')} label="Ekonomi" active={activeModal === 'ekonomi'} isDark />
-                        <ToolButton icon={<MessageSquare />} onClick={() => navigateTo('chat')} label="Beslut" active={activeModal === 'chat'} isDark />
-                        <ToolButton icon={<Zap />} onClick={() => navigateTo('production')} label="Produktion" active={activeModal === 'production'} isDark />
-                        <ToolButton icon={<Archive />} onClick={() => navigateTo('arch')} label="Arkiv" active={activeModal === 'arch' || activeModal === 'archive'} isDark />
+                        <div className="w-px h-8 bg-white/10 mx-6"></div>
+                        <div className="flex items-center gap-1 bg-white/5 p-1 rounded-2xl border border-white/5">
+                            <ToolButton icon={<Copy />} onClick={() => navigateTo('overview')} label="Ärenden" active={currentView === 'overview' || currentView === 'analysis'} isDark />
+                            <ToolButton icon={<Search />} onClick={() => navigateTo('agent')} label="Analys" active={activeModal === 'agent'} isDark />
+                            <ToolButton icon={<Wallet />} onClick={() => navigateTo('ekonomi')} label="Ekonomi" active={activeModal === 'ekonomi'} isDark />
+                            <ToolButton icon={<MessageSquare />} onClick={() => navigateTo('chat')} label="Beslut" active={activeModal === 'chat'} isDark />
+                            <ToolButton icon={<Zap />} onClick={() => navigateTo('production')} label="Produktion" active={activeModal === 'production'} isDark />
+                        </div>
                     </nav>
                 </div>
 
@@ -505,8 +556,9 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                             documents={documents} 
                             onFilesSelect={async (files) => { 
                                 try {
-                                    for(const f of files) { 
-                                        const p = await parseFile(f); 
+                                    // ⚡ Bolt: Optimize sequential parsing by parallelizing file reads
+                                    const parsedResults = await Promise.all(files.map(f => parseFile(f)));
+                                    for(const p of parsedResults) {
                                         if(p) await handleAnalyze(p); 
                                     } 
                                 } catch (err) {
@@ -555,7 +607,6 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                                     {activeModal === 'controller' && <Settings2 className="h-5 w-5 text-white" />}
                                     {activeModal === 'notary' && <ClipboardList className="h-5 w-5 text-white" />}
                                     {activeModal === 'framework' && <Scale className="h-5 w-5 text-white" />}
-                                    {activeModal === 'arch' && <Archive className="h-5 w-5 text-white" />}
                                     {activeModal === 'vision' && <Shield className="h-5 w-5 text-white" />}
                                     {activeModal === 'whitebook' && <ClipboardList className="h-5 w-5 text-white" />}
                                     {activeModal === 'sfb' && <Shield className="h-5 w-5 text-white" />}
@@ -582,7 +633,6 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                                         {activeModal === 'controller' && 'Kontrollpanel'}
                                         {activeModal === 'notary' && 'Processnotarie'}
                                         {activeModal === 'framework' && 'Juridisk Ramverk'}
-                                        {activeModal === 'arch' && 'Ärendearkiv'}
                                         {activeModal === 'vision' && 'Vision & Tillgänglighet'}
                                         {activeModal === 'whitebook' && 'Vitbok'}
                                         {activeModal === 'sfb' && 'SFB Integritet'}
@@ -641,19 +691,18 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                             {activeModal === 'archive' && <ArchiveView onSelect={(id) => { setSelectedDocId(id); setActiveModal(null); }} />}
                             {activeModal === 'audit' && <AuditPanel isOpen={true} onClose={() => setActiveModal(null)} />}
                             {activeModal === 'chat' && <BeslutView activeCase={activeCase} onNavigate={navigateTo} />}
-                            {activeModal === 'agent' && activeCase && <CaseAnalysisView activeCase={activeCase} onNavigate={navigateTo} />}
+                            {activeModal === 'agent' && <AgentWorkspace isOpen={true} onClose={() => setActiveModal(null)} onNavigate={navigateTo} />}
                             {activeModal === 'debug' && <AIDebugPanel isOpen={true} onClose={() => setActiveModal(null)} />}
                             {activeModal === 'controller' && <FmjamController analysis={currentAnalysis} onNavigate={navigateTo} />}
                             {activeModal === 'notary' && <AutoNotaryView onNavigate={navigateTo} />}
                             {activeModal === 'framework' && <LegalFrameworkView isOpen={true} onClose={() => setActiveModal(null)} onNavigate={navigateTo} />}
-                            {activeModal === 'arch' && <ArchiveView onSelect={(id) => { setSelectedDocId(id); setActiveModal(null); }} />}
                             {activeModal === 'vision' && <VisionView onNavigate={navigateTo} />}
                             {activeModal === 'whitebook' && <WhitebookViewer isOpen={true} onClose={() => setActiveModal(null)} />}
                             {activeModal === 'sfb' && <SfbIntegrityPanel isOpen={true} onClose={() => setActiveModal(null)} />}
                             {activeModal === 'monitor' && <SystemMonitor isOpen={true} onClose={() => setActiveModal(null)} />}
                             {activeModal === 'inventory' && <SystemInventory isOpen={true} onClose={() => setActiveModal(null)} />}
                             {activeModal === 'profiler' && activeCase && <CaseProfiler caseData={activeCase} />}
-                             {activeModal === 'aggregator' && <AggregatorView documents={documents} onAggregate={(ids) => { handleAggregateSelected(ids); setActiveModal(null); }} isProcessing={isAnalyzing} />}
+                            {activeModal === 'aggregator' && <AggregatorView documents={documents} onAggregate={(ids) => { handleAggregateSelected(ids); setActiveModal(null); }} isProcessing={isAnalyzing} />}
                         </div>
                     </div>
                 </div>

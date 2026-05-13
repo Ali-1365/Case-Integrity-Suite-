@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { legalAIAgent } from '../services/LegalAIAgent';
 import { caseManagementService } from '../lib/CaseManagementService';
 import { CISCase as Case } from '../lib/cis.types';
@@ -48,6 +48,7 @@ const AgentWorkspace: React.FC<AgentWorkspaceProps> = ({ isOpen, onClose, onNavi
   
   const [repoStatus, setRepoStatus] = useState<RepoStatus | null>(null);
   const [syncHealth, setSyncHealth] = useState<SyncHealth | null>(null);
+  const resultRef = useRef<HTMLDivElement>(null);
 
   const activeCase = useMemo(() => cases.find(c => c.caseId === activeCaseId), [cases, activeCaseId]);
 
@@ -57,6 +58,12 @@ const AgentWorkspace: React.FC<AgentWorkspaceProps> = ({ isOpen, onClose, onNavi
     });
     return unsubscribe;
   }, []);
+
+  useEffect(() => {
+    if ((opinion || queryResult) && !isGenerating && !isQuerying) {
+        resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [opinion, queryResult, isGenerating, isQuerying]);
 
   useEffect(() => {
     if (isOpen) {
@@ -256,7 +263,7 @@ const AgentWorkspace: React.FC<AgentWorkspaceProps> = ({ isOpen, onClose, onNavi
             {activeTab === 'analys' && (
                 <div className="space-y-10 animate-in fade-in duration-500 relative z-10">
                     {queryResult && (
-                        <div className="mb-10 animate-in slide-in-from-top-4 duration-500">
+                        <div ref={resultRef} className="mb-10 animate-in slide-in-from-top-4 duration-500">
                             <Card title="Svar från Agent" icon={<ChatIcon className="w-4 h-4"/>}>
                                 <pre className="bg-[var(--bg-main)] p-8 border border-[var(--border-strong)] text-[11px] font-mono text-[var(--accent)] whitespace-pre-wrap shadow-inner italic font-black uppercase tracking-tight">{JSON.stringify(queryResult, null, 2)}</pre>
                             </Card>
@@ -276,11 +283,11 @@ const AgentWorkspace: React.FC<AgentWorkspaceProps> = ({ isOpen, onClose, onNavi
                     )}
                     
                     {opinion && !isGenerating && (
-                        <div className="mt-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
+                        <div ref={resultRef} className="mt-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
                             <Card title="Genererat Yttrande" icon={<FileIcon className="w-4 h-4"/>}>
                                 <div className="bg-[var(--bg-card)] p-12 border border-[var(--border-strong)] shadow-2xl relative overflow-hidden">
                                     <div className="absolute top-0 left-0 w-1 h-full bg-[var(--accent)]"></div>
-                                    <div className="prose prose-invert max-w-none prose-headings:text-[var(--ink-main)] prose-headings:font-black prose-headings:italic prose-headings:uppercase prose-headings:tracking-tighter prose-p:text-[var(--ink-muted)] prose-p:font-black prose-p:uppercase prose-p:tracking-tight prose-p:opacity-80 prose-strong:text-[var(--accent)] prose-strong:font-black prose-strong:italic">
+                                    <div className="prose prose-xs prose-invert max-w-none prose-headings:text-[var(--ink-main)] prose-headings:font-black prose-headings:italic prose-headings:uppercase prose-headings:tracking-tighter prose-p:text-[var(--ink-muted)] prose-p:font-black prose-p:uppercase prose-p:tracking-tight prose-p:opacity-80 prose-strong:text-[var(--accent)] prose-strong:font-black prose-strong:italic">
                                         <MarkdownRenderer content={opinion} />
                                     </div>
                                 </div>
@@ -314,7 +321,7 @@ const AgentWorkspace: React.FC<AgentWorkspaceProps> = ({ isOpen, onClose, onNavi
                                         <span className="text-[9px] font-black text-[var(--ink-muted)] uppercase tracking-widest opacity-50 italic">{new Date(entry.timestamp).toLocaleString('sv-SE')}</span>
                                     </div>
                                     <div className="bg-[var(--bg-card)] p-6 border border-[var(--border-strong)] shadow-lg group-hover:border-[var(--accent)]/30 transition-colors">
-                                        <p className="text-xs text-[var(--ink-main)] font-black uppercase tracking-tight italic opacity-80 leading-relaxed">
+                                        <p className="text-[11px] text-[var(--ink-main)] font-black uppercase tracking-tight italic opacity-80 leading-relaxed">
                                             {entry.details}
                                         </p>
                                         {entry.provenanceHashes && entry.provenanceHashes.length > 0 && (

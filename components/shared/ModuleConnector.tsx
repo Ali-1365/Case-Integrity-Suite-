@@ -66,7 +66,11 @@ export const ModuleConnector: React.FC<ModuleConnectorProps> = ({ activeModule, 
                         <p className="text-[10px] text-[var(--ink-muted)] font-black uppercase tracking-widest opacity-60">{module.desc}</p>
                         
                         <div className="absolute -bottom-4 -right-4 opacity-[0.03] group-hover:opacity-10 transition-opacity">
+bolt/fix-quota-polling-rerender-13032162535497198072
                             {React.cloneElement(module.icon as React.ReactElement<{ className?: string }>, { className: 'w-16 h-16' })}
+
+                            {React.cloneElement(module.icon as React.ReactElement<any>, { className: 'w-16 h-16' })}
+main
                         </div>
                     </button>
                 ))}

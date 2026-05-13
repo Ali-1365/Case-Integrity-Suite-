@@ -63,11 +63,36 @@ export class RagService {
       const queryEmb = await geminiService.embed(query);
       
       // 1. Sök i Global Legal Ground Truth (De 23 lagrummen)
-      const lawHits = this.index ? this.index.chunks
+      let lawHits = (this.index && this.index.chunks) ? this.index.chunks
         .map(c => ({ ...c, sim: this.cosineSim(queryEmb, c.embedding) }))
         .filter(r => r.sim > 0.60)
         .sort((a, b) => b.sim - a.sim)
         .slice(0, 20) : [];
+
+      // FAS 20: Keyword Fallback (Om embeddings saknas eller ger dåliga träffar)
+      if (lawHits.length < 3 && this.index?.chunks) {
+        const keywords = query.toLowerCase().split(/\s+/).filter(w => w.length > 3);
+        const keywordHits = this.index.chunks
+            .map(c => {
+                let score = 0;
+                const text = c.text.toLowerCase();
+                keywords.forEach(kw => {
+                    if (text.includes(kw)) score += 1;
+                });
+                return { ...c, keywordScore: score };
+            })
+            .filter(h => h.keywordScore > 0)
+            .sort((a, b) => b.keywordScore - a.keywordScore)
+            .slice(0, 10);
+        
+        // Merge hits, avoiding duplicates
+        const existingIds = new Set(lawHits.map(h => h.id));
+        keywordHits.forEach(kh => {
+            if (!existingIds.has(kh.id)) {
+                lawHits.push({ ...kh, sim: 0.5 } as any); // Assign a nominal similarity
+            }
+        });
+      }
 
       // 2. FAS 19: Scoped Archive Search (Isolering per ärende)
       let caseSpecificContext = "";

@@ -11,8 +11,10 @@ export class AuditEngine {
         let score = 100;
 
         // 1. Verifiera att alla fakta har en existerande atom-koppling via textlikhet
-        const factsWithNoTextSupport = analysis.facts.filter(fact => {
-            const hasMatch = analysis.atoms.some(atom => 
+        const facts = analysis.facts || [];
+        const atoms = analysis.atoms || [];
+        const factsWithNoTextSupport = facts.filter(fact => {
+            const hasMatch = atoms.some(atom => 
                 atom.text.includes(fact.source.snippet) || fact.source.snippet.includes(atom.text)
             );
             return !hasMatch;
@@ -94,7 +96,8 @@ export class AuditEngine {
         }
 
         // 4. RAG Provenance Status
-        const hasProvenance = analysis.legalFrameworkLinks.length > 0 && analysis.legalFrameworkLinks.every(l => l.reasoning);
+        const legalLinks = analysis.legalFrameworkLinks || [];
+        const hasProvenance = legalLinks.length > 0 && legalLinks.every(l => l.reasoning);
         checks.push({
             id: 'AUDIT-RAG-PROVENANCE',
             label: 'RAG Provenance Status',

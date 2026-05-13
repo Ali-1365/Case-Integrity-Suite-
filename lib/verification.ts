@@ -33,7 +33,8 @@ export function verifyAndLinkAnalysis(
 
   // 2. SYSTEMATISK LAGKOPPLING (v.2.0 - Nyckelordsbaserad)
   const systematicReferences: { id: string; source: any; rawText: string; contextSnippet: string; }[] = [];
-  const legalLinks: LegalFrameworkLink[] = analysis.facts.flatMap(fact => {
+  const facts = analysis.facts || [];
+  const legalLinks: LegalFrameworkLink[] = facts.flatMap(fact => {
     const mappings = legalMappingService.mapFactToLaw(fact.statement, legalCorpus);
     
     mappings.slice(0, 3).forEach(m => {
