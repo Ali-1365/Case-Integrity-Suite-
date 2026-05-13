@@ -1,6 +1,12 @@
 ## 2024-04-20 - [Avoid unnecessary React state updates in fast polling intervals]
 **Learning:** Frequent polling mechanisms (e.g. setInterval checking usage metrics or logs) in top-level components can trigger massive unnecessary re-renders across the whole layout if the `setState` is called blindly with a new object/array reference even when the underlying data is identical. Deep equality checks or libraries like `fast-deep-equal` can be computationally expensive and introduce unauthorized dependencies.
 **Action:** When implementing polling mechanisms, always write state updater functions using targeted shallow checks (e.g. `prev.rpm === newUsage.rpm` or array lengths and recent item IDs) to safely return the `prev` state reference and bail out of the rendering cycle. Side effects, such as generating the new data, should remain pure and sit entirely outside of the React state updater function itself.
+bolt-parallelize-idb-writes-204725260340481873
+
+## 2026-05-08 - [Parallelize IndexedDB writes to avoid N+1 bottlenecks]
+**Learning:** Sequential `for...of` loops performing asynchronous `saveEconomicData` (IndexedDB) writes cause severe N+1 transaction bottlenecks, forcing the browser to wait for each I/O operation to finish sequentially. This delays the initialization of client-side services (like `EconomicService`).
+**Action:** Always map over arrays to create an array of promises and `await Promise.all()` to parallelize repetitive IndexedDB write operations. This utilizes the async nature of the client-side database more effectively and significantly reduces the total blocking time for database synchronization.
+
 bolt-parallelize-io-6858291852570027929
 ## 2024-05-09 - [Parallelize sequential I/O with Promise.all]
 **Learning:** Sequential `for-of` loops that await asynchronous file parsing (`parseFile`) or network requests (`fetch`) inside React components can cause significant, unnecessary UI blocking and slow performance. However, because `useFileParser` uses a globally shared `isParsing` state, we shouldn't rely solely on that state for UI loading indicators if we're firing multiple concurrent parses. Instead, relying on the component's own `isLoading` state is preferred.
