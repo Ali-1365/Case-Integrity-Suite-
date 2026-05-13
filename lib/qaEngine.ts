@@ -3,10 +3,9 @@ import { AnalysisResult, QACheck } from './cis.types';
 export class QualityAssuranceEngine {
     runChecks(analysis: AnalysisResult): QACheck[] {
         const checks: QACheck[] = [];
-        const facts = analysis.facts || [];
 
         // 1. Källverifiering
-        const weakFacts = facts.filter(f => !f.source?.snippet || f.source.snippet.length < 10);
+        const weakFacts = analysis.facts.filter(f => !f.source.snippet || f.source.snippet.length < 10);
         checks.push({
             id: 'QA-SOURCE-V1',
             label: 'Forensisk Citatkontroll',

@@ -59,33 +59,6 @@ const SystemInventory: React.FC<SystemInventoryProps> = ({ isOpen, onClose }) =>
                         status = 'ok';
                         message = 'Kopplad till Gemini API (Pro/Flash). Redundans aktiverad.';
                     }
-                } else if (path.includes('ProduktionView')) {
-                    status = 'ok';
-                    message = 'Produktionsmotor v.11.4 aktiv. RB-mallar verifierade. Dokumenthantering operativ.';
-                } else if (path.includes('EkonomiView')) {
-                    status = 'ok';
-                    message = 'Ekonomisk Motor Enterprise v1.0 operativ. Likviditetsanalys & Riskprognos aktiv.';
-                } else if (path.includes('VisionView')) {
-                    status = 'warning';
-                    message = 'Vision & Filosofi-modul. Primärt statisk informationsbärare (Demo-status).';
-                } else if (path.includes('OracleCoreViewer')) {
-                    status = 'warning';
-                    message = 'Oracle Core Logic Viewer. Teknisk specifikationsvy (Demo-status).';
-                } else if (path.includes('SystemHealthDashboard')) {
-                    status = 'warning';
-                    message = 'Hälsomonitor. Använder simulerad telemetri för UI-demo.';
-                } else if (path.includes('syntheticLLMResponses')) {
-                    status = 'warning';
-                    message = 'Fallback-data för LLM. Används vid API-avbrott (Demo-redundans).';
-                } else if (path.includes('BeslutView')) {
-                    status = 'ok';
-                    message = 'Juridisk Beslutsstöd AI aktiv. Full integration med Gemini.';
-                } else if (path.includes('AgentWorkspace')) {
-                    status = 'ok';
-                    message = 'Interactive Analyst v2.0 aktiv. Reasoning layer operativt.';
-                } else if (path.includes('LegalPipelineView')) {
-                    status = 'ok';
-                    message = 'Beviskedja Pipeline v.1.4 aktiv. 8-stegs analys operativ.';
                 } else if (path.includes('db.ts')) {
                     status = 'ok';
                     message = 'IndexedDB anslutning stabil.';

@@ -18,11 +18,6 @@ export interface GeneratedReport {
  * the FMJAM reporting structure.
  */
 export function generateReportFromAnalysis(analysis: AnalysisResult): GeneratedReport {
-  const facts = analysis.facts || [];
-  const contradictions = analysis.contradictions || [];
-  const uncertainties = analysis.uncertainties || [];
-  const legalLinks = analysis.legalFrameworkLinks || [];
-
   return {
     caseId: analysis.caseId,
     createdAt: new Date().toISOString(),
@@ -38,18 +33,18 @@ export function generateReportFromAnalysis(analysis: AnalysisResult): GeneratedR
       {
         title: "Faktaredogörelse",
         body:
-          facts.length === 0
+          analysis.facts.length === 0
             ? "Inga faktapunkter har registrerats."
-            : facts
+            : analysis.facts
                 .map(f => `• ${f.subject}: ${f.statement} (Källa: ${f.source.location})`)
                 .join("\n")
       },
       {
         title: "Motstridiga uppgifter",
         body:
-          contradictions.length === 0
+          analysis.contradictions.length === 0
             ? "Inga motstridiga uppgifter har identifierats av systemet."
-            : contradictions
+            : analysis.contradictions
                 .map(
                   c =>
                     `• ${c.description} (Härlett från fakta: ${c.conflictingFactIds.join(", ")})`
@@ -59,9 +54,9 @@ export function generateReportFromAnalysis(analysis: AnalysisResult): GeneratedR
       {
         title: "Juridiskt relevanta oklarheter",
         body:
-          uncertainties.length === 0
+          analysis.uncertainties.length === 0
             ? "Inga specifika oklarheter har markerats av systemet."
-            : uncertainties
+            : analysis.uncertainties
                 .map(
                   u =>
                     `• ${u.description} (Relaterar till fakta: ${u.relatedFactIds.join(", ")})`
@@ -71,9 +66,9 @@ export function generateReportFromAnalysis(analysis: AnalysisResult): GeneratedR
       {
         title: "Praxis- och lagrumskopplingar",
         body:
-          legalLinks.length === 0
+          analysis.legalFrameworkLinks.length === 0
             ? "Inga strukturerade kopplingar har registrerats."
-            : legalLinks
+            : analysis.legalFrameworkLinks
                 .map(
                   l =>
                     `• ${l.label} – referenser: ${l.references.join(

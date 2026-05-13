@@ -74,12 +74,3 @@
 .animate-fade-in {
   animation: fade-in 0.4s ease-out forwards;
 }
-
-.prose-xs {
-  font-size: 0.75rem;
-  line-height: 1.5;
-}
-
-.prose-xs p {
-  margin-bottom: 0.75rem;
-}

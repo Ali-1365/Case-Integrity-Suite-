@@ -1,48 +1,8 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { offlineService } from './services/offlineService';
-import { autonomousEngine } from './lib/AutonomousEngine';
-import { Bot, Shield, Cpu } from 'lucide-react';
 
 // Dynamisk import för huvudkomponenten
 const DocumentManager = lazy(() => import('./components/DocumentManager'));
-
-// ─────────────────────────────────────────────
-//  AUTONOMOUS STATUS BAR
-// ─────────────────────────────────────────────
-const AutonomousStatusBar: React.FC = () => {
-  const [status, setStatus] = useState(autonomousEngine.getStatus());
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setStatus(autonomousEngine.getStatus());
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
-
-  if (!status.active) return null;
-
-  return (
-    <div className="fixed bottom-6 right-6 z-[9999] flex items-center gap-4 bg-[var(--bg-card)] border border-[var(--border-strong)] px-5 py-3 rounded-2xl shadow-2xl animate-in slide-in-from-bottom-10 duration-700">
-      <div className="relative">
-        <div className="w-10 h-10 bg-[var(--accent)]/10 rounded-xl flex items-center justify-center text-[var(--accent)]">
-          <Bot className="w-6 h-6 animate-pulse" />
-        </div>
-        <div className="absolute -top-1 -right-1 w-3 h-3 bg-[var(--success)] rounded-full border-2 border-[var(--bg-card)] shadow-sm" />
-      </div>
-      <div>
-        <div className="flex items-center gap-2">
-          <span className="text-[10px] font-black text-[var(--ink-main)] uppercase tracking-widest">Autonomous Mode</span>
-          <span className="text-[8px] font-bold text-[var(--success)] bg-[var(--success)]/10 px-1.5 py-0.5 rounded uppercase border border-[var(--success)]/20">Active</span>
-        </div>
-        <div className="flex items-center gap-3 mt-1">
-          <span className="text-[8px] font-mono text-[var(--ink-muted)] uppercase tracking-tighter opacity-60">ID: {status.traceId}</span>
-          <div className="w-1 h-1 bg-[var(--border)] rounded-full" />
-          <span className="text-[8px] font-mono text-[var(--ink-muted)] uppercase tracking-tighter opacity-60">Integrity: {status.integrity}</span>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 // ─────────────────────────────────────────────
 //  OFFLINE BANNER
@@ -76,23 +36,12 @@ const OfflineBanner: React.FC = () => {
         <div className="w-1.5 h-1.5 rounded-full bg-[var(--danger)] animate-pulse shadow-[0_0_8px_var(--danger)]" />
         {getMessage()}
       </span>
-      <div className="flex gap-2">
-        <button 
-          onClick={() => {
-            import('./services/geminiService').then(m => m.geminiService.forceOnline());
-            window.location.reload();
-          }}
-          className="bg-[var(--accent)] text-[var(--bg-main)] px-3 py-1 rounded-md hover:bg-[var(--accent-hover)] transition-all active:scale-95"
-        >
-          Tvinga Online
-        </button>
-        <button 
-          onClick={() => window.location.reload()}
-          className="border border-[var(--accent-foreground)]/20 px-3 py-1 rounded-md hover:bg-[var(--accent-foreground)]/10 transition-all active:scale-95"
-        >
-          Uppdatera
-        </button>
-      </div>
+      <button
+        onClick={() => window.location.reload()}
+        className="border border-[var(--accent-foreground)]/20 px-3 py-1 rounded-md hover:bg-[var(--accent-foreground)]/10 transition-all active:scale-95"
+      >
+        Uppdatera
+      </button>
     </div>
   );
 };
@@ -142,12 +91,6 @@ const App: React.FC = () => {
   const [isOffline, setIsOffline] = useState(offlineService.getIsOffline());
 
   useEffect(() => {
-    if (booted) {
-      autonomousEngine.start();
-    }
-  }, [booted]);
-
-  useEffect(() => {
     return offlineService.subscribe((offline) => {
       setIsOffline(offline);
     });
@@ -160,7 +103,6 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-[var(--bg-main)] text-[var(--ink-main)]">
       <OfflineBanner />
-      <AutonomousStatusBar />
       <div className={isOffline ? 'pt-[34px]' : ''}>
         <Suspense fallback={
           <div className="flex flex-col h-screen items-center justify-center bg-[var(--bg-main)] space-y-12">

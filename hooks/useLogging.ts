@@ -9,16 +9,7 @@ export const useLogging = (limit: number = 50) => {
 
   const refreshLogs = useCallback(() => {
     const allLogs = loggingService.getLogs();
-    const newLogs = allLogs.slice(0, limit);
-
-    setLogs(prevLogs => {
-      // Bailout if the length is the same and the most recent log is the same
-      if (prevLogs.length === newLogs.length &&
-          (prevLogs.length === 0 || prevLogs[0].id === newLogs[0].id)) {
-        return prevLogs;
-      }
-      return newLogs;
-    });
+    setLogs(allLogs.slice(0, limit));
   }, [limit]);
 
   useEffect(() => {

@@ -41,16 +41,12 @@ export interface LegalReport {
  */
 export function generateLegalReport(
   caseId: string,
-  facts: Fact[] = [],
-  legalReferences: LegalReference[] = [],
+  facts: Fact[],
+  legalReferences: LegalReference[],
   contradictions: Contradiction[] = [],
   infoGaps: InformationGap[] = []
 ): LegalReport {
   const createdAt = new Date().toISOString();
-  const safeFacts = facts || [];
-  const safeLegalRefs = legalReferences || [];
-  const safeContradictions = contradictions || [];
-  const safeInfoGaps = infoGaps || [];
 
   // 1. Inledning
   const intro = `Denna rapport sammanställer verifierade fakta och juridiska kopplingar i ärende ${caseId}. Analysen baseras på verifierade faktaatomer och relevanta lagrum.`
@@ -59,24 +55,24 @@ export function generateLegalReport(
   const method = `Analysen är deterministisk. Varje påstående härleds från verifierade fakta och relevanta juridiska källor. Ingen spekulation utförs.`
 
   // 3. Faktaredogörelse
-  const factsTable = safeFacts
+  const factsTable = facts
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
     .map(f => `${f.date} | [${f.id}] | ${f.category} | ${f.description} (Källa: ${f.source})`)
     .join('\n');
 
   // 4. Motstridiga uppgifter
-  const contradictionsText = safeContradictions.length > 0
-    ? safeContradictions.map(c => `[${c.id}] ${c.description} (Relaterade fakta: ${c.relatedFacts.join(', ')})`).join('\n')
+  const contradictionsText = contradictions.length > 0
+    ? contradictions.map(c => `[${c.id}] ${c.description} (Relaterade fakta: ${c.relatedFacts.join(', ')})`).join('\n')
     : 'Inga motstridiga uppgifter identifierade.';
 
   // 5. Informationsluckor
-  const infoGapsText = safeInfoGaps.length > 0
-    ? safeInfoGaps.map(g => `[${g.id}] ${g.description} (Relaterade fakta: ${g.relatedFacts.join(', ')})`).join('\n')
+  const infoGapsText = infoGaps.length > 0
+    ? infoGaps.map(g => `[${g.id}] ${g.description} (Relaterade fakta: ${g.relatedFacts.join(', ')})`).join('\n')
     : 'Inga informationsluckor identifierade.';
 
   // 6. Praxis- och lagrumskopplingar
-  const legalText = safeLegalRefs.length > 0
-    ? safeLegalRefs.map(l => `${l.law} ${l.year}${l.section ? ' ' + l.section : ''} | Kopplade fakta: ${l.linkedFacts.join(', ')}${l.commentary ? ' | Kommentar: ' + l.commentary : ''}`).join('\n')
+  const legalText = legalReferences.length > 0
+    ? legalReferences.map(l => `${l.law} ${l.year}${l.section ? ' ' + l.section : ''} | Kopplade fakta: ${l.linkedFacts.join(', ')}${l.commentary ? ' | Kommentar: ' + l.commentary : ''}`).join('\n')
     : 'Inga lagrum kopplade.';
 
   // 7. Juridisk bedömning

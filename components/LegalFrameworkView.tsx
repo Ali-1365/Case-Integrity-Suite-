@@ -2,7 +2,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { legalFrameworkIndex } from '../data/legalFramework';
 import { LEGAL_SOURCES } from '../data/legalSources';
-import { EXTERNAL_SOURCES } from '../data/externalSources';
 import { corpusService } from '../lib/CorpusService';
 import { LegalCorpus, LegalSourceCode, LegalFrameworkItem } from '../types';
 import { 
@@ -35,7 +34,7 @@ interface LegalFrameworkViewProps {
 const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose, onNavigate }) => {
   const [selectedLawId, setSelectedLawId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedType, setSelectedType] = useState<'all' | 'lag' | 'regelverk' | 'gold' | 'inventory'>('all');
+  const [selectedType, setSelectedType] = useState<'all' | 'lag' | 'regelverk' | 'gold'>('all');
   const [selectedYear, setSelectedYear] = useState<string>('all');
   const [activeCorpus, setActiveCorpus] = useState<LegalCorpus | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -214,7 +213,6 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
                             <option value="lag">Lagar</option>
                             <option value="regelverk">Regelverk</option>
                             <option value="gold">GOLD-Standard (Verifierade)</option>
-                            <option value="inventory">Invertering (Systemstatus)</option>
                         </select>
                         <select 
                             className="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg py-2 px-3 text-sm text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all"
@@ -230,88 +228,7 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
                 </div>
 
                 <main className="flex-grow overflow-y-auto p-8 custom-scrollbar">
-                    {selectedType === 'inventory' ? (
-                        <div className="space-y-6">
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                                <div className="bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-4">
-                                    <div className="flex items-center justify-between mb-2">
-                                        <CheckCircleIcon className="w-5 h-5 text-emerald-500" />
-                                        <span className="text-2xl font-black text-emerald-500">{legalFrameworkIndex.length}</span>
-                                    </div>
-                                    <p className="text-[10px] font-bold text-emerald-600 uppercase tracking-widest">Kopplade (Full RAG)</p>
-                                </div>
-                                <div className="bg-blue-500/5 border border-blue-500/20 rounded-xl p-4">
-                                    <div className="flex items-center justify-between mb-2">
-                                        <BoltIcon className="w-5 h-5 text-blue-500" />
-                                        <span className="text-2xl font-black text-blue-500">{LEGAL_SOURCES.length}</span>
-                                    </div>
-                                    <p className="text-[10px] font-bold text-blue-600 uppercase tracking-widest">Tillgängliga (Metadata)</p>
-                                </div>
-                                <div className="bg-amber-500/5 border border-amber-500/20 rounded-xl p-4">
-                                    <div className="flex items-center justify-between mb-2">
-                                        <ActivityIcon className="w-5 h-5 text-amber-500" />
-                                        <span className="text-2xl font-black text-amber-500">
-                                            {Object.keys(EXTERNAL_SOURCES).filter(k => !legalFrameworkIndex.find(l => l.shortName === k)).length}
-                                        </span>
-                                    </div>
-                                    <p className="text-[10px] font-bold text-amber-600 uppercase tracking-widest">Inte Synkade (Externa)</p>
-                                </div>
-                            </div>
-
-                            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
-                                <table className="w-full text-left border-collapse">
-                                    <thead>
-                                        <tr className="bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800">
-                                            <th className="px-6 py-4 text-[10px] font-bold text-slate-500 uppercase tracking-widest">Lagrum / Källa</th>
-                                            <th className="px-6 py-4 text-[10px] font-bold text-slate-500 uppercase tracking-widest">Status</th>
-                                            <th className="px-6 py-4 text-[10px] font-bold text-slate-500 uppercase tracking-widest">Typ</th>
-                                            <th className="px-6 py-4 text-[10px] font-bold text-slate-500 uppercase tracking-widest">SFS</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
-                                        {/* Combined list for inventory */}
-                                        {[
-                                            ...legalFrameworkIndex.map(l => ({ ...l, status: 'Kopplad' })),
-                                            ...LEGAL_SOURCES.filter(s => !legalFrameworkIndex.find(l => l.id === s.id)).map(s => ({ ...s, status: 'Tillgänglig', shortName: s.reference })),
-                                            ...Object.entries(EXTERNAL_SOURCES)
-                                                .filter(([k]) => !legalFrameworkIndex.find(l => l.shortName === k) && !LEGAL_SOURCES.find(s => s.reference === k))
-                                                .map(([k, v]) => ({ id: k, label: v.name, status: 'Inte Synkad', shortName: k, sfsNumber: 'Extern' }))
-                                        ]
-                                        .filter(item => 
-                                            item.label.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                                            item.shortName.toLowerCase().includes(searchQuery.toLowerCase())
-                                        )
-                                        .map((item) => (
-                                            <tr key={item.id} className="hover:bg-slate-50 dark:hover:bg-slate-950/50 transition-colors">
-                                                <td className="px-6 py-4">
-                                                    <div className="flex flex-col">
-                                                        <span className="text-sm font-bold text-slate-900 dark:text-white">{item.label}</span>
-                                                        <span className="text-[10px] text-slate-500 font-mono">{item.shortName}</span>
-                                                    </div>
-                                                </td>
-                                                <td className="px-6 py-4">
-                                                    <span className={`px-2 py-1 rounded text-[9px] font-black uppercase tracking-widest border ${
-                                                        item.status === 'Kopplad' ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-500' :
-                                                        item.status === 'Tillgänglig' ? 'bg-blue-500/10 border-blue-500/20 text-blue-500' :
-                                                        'bg-amber-500/10 border-amber-500/20 text-amber-500'
-                                                    }`}>
-                                                        {item.status}
-                                                    </span>
-                                                </td>
-                                                <td className="px-6 py-4 text-xs text-slate-500 uppercase font-bold">
-                                                    {(item as any).type || 'Källa'}
-                                                </td>
-                                                <td className="px-6 py-4 text-xs font-mono text-slate-400">
-                                                    {item.sfsNumber || 'N/A'}
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    ) : (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         {filteredIndex.map((source) => {
                             const isGold = 'reference' in source;
                             const label = source.label;
@@ -375,8 +292,7 @@ const LegalFrameworkView: React.FC<LegalFrameworkViewProps> = ({ isOpen, onClose
                             );
                         })}
                     </div>
-                    )}
-                    {selectedType !== 'inventory' && filteredIndex.length === 0 && (
+                    {filteredIndex.length === 0 && (
                         <div className="py-20 text-center opacity-20 flex flex-col items-center">
                             <LawIcon className="h-16 w-16 mb-4" />
                             <p className="text-lg font-bold uppercase italic tracking-widest">Inga matchningar funna</p>

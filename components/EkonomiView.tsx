@@ -187,18 +187,8 @@ const EkonomiView: React.FC<EkonomiViewProps> = ({ activeCase, onNavigate }) => 
     setIsAiLoading(true);
     toast.info('Analyserar kassaflöde och optimerar likviditet...');
     try {
-      // Powerful logic: Calculate real liquidity ratio
-      const liquidityRatio = totalPayments / (totalInvoices || 1);
-      const riskScore = claims.length * 0.2 + (totalInvoices > totalPayments ? 0.5 : 0.1);
-      
-      const result = await economicService.optimizeLiquidity({
-        liquidityRatio,
-        riskScore,
-        totalClaims,
-        activeCase: activeCase?.name
-      });
-      
-      setAiResult({ title: 'Likviditetsoptimering & Riskprognos', content: result });
+      const result = await economicService.optimizeLiquidity();
+      setAiResult({ title: 'Likviditetsoptimering', content: result });
       toast.success('Optimering slutförd');
     } catch (error) {
       toast.error('Kunde inte optimera likviditet');
@@ -274,10 +264,8 @@ const EkonomiView: React.FC<EkonomiViewProps> = ({ activeCase, onNavigate }) => 
     
     try {
       const extractedDocs: EconomicDocument[] = [];
-      // ⚡ Bolt: Optimize sequential parsing by parallelizing file reads
-      const parsedResults = await Promise.all(files.map(file => parseFile(file)));
-
-      for (const parsed of parsedResults) {
+      for (const file of files) {
+        const parsed = await parseFile(file);
         if (parsed) {
           const doc = economicAnalyzerEngine.extractInfo(parsed);
           extractedDocs.push(doc);
@@ -305,10 +293,8 @@ const EkonomiView: React.FC<EkonomiViewProps> = ({ activeCase, onNavigate }) => 
     toast.info(`Analyserar ${files.length} fakturor...`);
     
     try {
-      // ⚡ Bolt: Optimize sequential parsing by parallelizing file reads
-      const parsedResults = await Promise.all(files.map(file => parseFile(file)));
-
-      for (const result of parsedResults) {
+      for (const file of files) {
+        const result = await parseFile(file);
         if (result) {
           // In a real app, we'd send 'content' to Gemini to extract invoice data
           // For now, we simulate finding a new invoice

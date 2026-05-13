@@ -39,8 +39,7 @@ export function formatDate(date: string | Date): string {
 /**
  * Truncates text to a specified length.
  */
-export function truncate(text: string | null | undefined, length: number): string {
-  if (!text) return '';
+export function truncate(text: string, length: number): string {
   if (text.length <= length) return text;
   return text.substring(0, length) + '...';
 }

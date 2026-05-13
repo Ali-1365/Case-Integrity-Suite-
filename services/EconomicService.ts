@@ -42,18 +42,10 @@ export class EconomicService {
   }
 
   private async syncToDb() {
- bolt-parallelize-idb-writes-204725260340481873
-    // ⚡ Bolt: Parallelized IndexedDB writes to avoid sequential I/O bottlenecks and N+1 transaction issues
-
-    // ⚡ Bolt Optimization: Use Promise.all to parallelize IndexedDB operations
-    // This avoids N+1 transaction overhead and blocking the event loop with sequential awaits
- 
-    await Promise.all([
-      ...this.state.payments.map(p => db.saveEconomicData(p.id, 'PAYMENT', p)),
-      ...this.state.invoices.map(i => db.saveEconomicData(i.id, 'INVOICE', i)),
-      ...this.state.claims.map(c => db.saveEconomicData(c.id, 'CLAIM', c)),
-      ...this.state.forecasts.map(f => db.saveEconomicData(f.id, 'FORECAST', f))
-    ]);
+    for (const p of this.state.payments) await db.saveEconomicData(p.id, 'PAYMENT', p);
+    for (const i of this.state.invoices) await db.saveEconomicData(i.id, 'INVOICE', i);
+    for (const c of this.state.claims) await db.saveEconomicData(c.id, 'CLAIM', c);
+    for (const f of this.state.forecasts) await db.saveEconomicData(f.id, 'FORECAST', f);
   }
 
   private initializeMockData() {
@@ -208,17 +200,13 @@ export class EconomicService {
     };
   }
 
-  async optimizeLiquidity(data?: { liquidityRatio: number, riskScore: number, totalClaims: number, activeCase?: string }): Promise<string> {
+  async optimizeLiquidity(): Promise<string> {
     const prompt = `Analysera nuvarande ekonomiska status och föreslå optimeringar för likviditet baserat på följande data:
     Totala betalningar: ${this.state.payments.length}
     Totala fakturor: ${this.state.invoices.length}
     Totala skadeståndskrav: ${this.state.claims.length}
-    Likviditetskvot: ${data?.liquidityRatio?.toFixed(2) || 'N/A'}
-    Riskpoäng: ${data?.riskScore?.toFixed(2) || 'N/A'}
-    Totalt kravvärde: ${data?.totalClaims?.toLocaleString('sv-SE') || 'N/A'} SEK
-    Aktivt ärende: ${data?.activeCase || 'Inget'}
     
-    Fokusera på riskreducering, antifragilitet och specifika juridiska-ekonomiska strategier för att maximera kassaflödet under pågående rättsprocesser.`;
+    Fokusera på riskreducering och antifragilitet.`;
     
     try {
       const response = await geminiService.generate({ contents: prompt });

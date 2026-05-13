@@ -254,7 +254,6 @@ export class GeminiService {
   private pseudoEmbed(text: string): number[] {
     const dim = 768;
     const result = new Array(dim).fill(0);
-    if (!text) return result;
     for (let i = 0; i < text.length; i++) {
       const c = text.charCodeAt(i);
       result[(c * (i + 1)) % dim] = (result[(c * (i + 1)) % dim] + c / 255) % 1;
@@ -271,11 +270,6 @@ export class GeminiService {
     } catch (e: any) {
       return { online: false, message: `API unavailable: ${e.message}` };
     }
-  }
-
-  public forceOnline(): void {
-    offlineService.setOffline(false);
-    this.initializeClient();
   }
 
   public async hasCustomKey(): Promise<boolean> {

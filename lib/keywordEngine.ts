@@ -10,7 +10,6 @@ export class KeywordEngine {
    */
   analyze(text: string): KeywordHit[] {
     const hits: KeywordHit[] = [];
-    if (!text) return hits;
 
     Object.entries(KEYWORD_PATTERNS).forEach(([label, pattern]) => {
       // Säkerställ att vi använder en global flagga för matchAll

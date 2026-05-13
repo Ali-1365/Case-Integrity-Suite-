@@ -47,10 +47,6 @@ const ModuleCard: React.FC<ModuleCardProps> = ({ title, description, icon, statu
                     <span className={`w-1.5 h-1.5 rounded-full ${status === 'active' ? 'bg-[var(--success)]' : 'bg-[var(--warning)]'}`}></span>
                     <span className="text-[8px] font-mono font-bold text-[var(--ink-main)] uppercase tracking-widest">{status}</span>
                 </div>
-                <div className="flex items-center gap-1.5 bg-[var(--accent)]/10 px-2 py-0.5 border border-[var(--accent)]/20 rounded-sm">
-                    <Cpu className="w-2 h-2 text-[var(--accent)] animate-pulse" />
-                    <span className="text-[7px] font-black text-[var(--accent)] uppercase tracking-widest">Driven by AI</span>
-                </div>
                 <span className="text-[8px] font-bold text-[var(--accent)] bg-[var(--accent)]/5 px-2 py-0.5 uppercase tracking-widest border border-[var(--accent)]/10">{category}</span>
             </div>
         </div>
@@ -172,7 +168,7 @@ export const SystemHub: React.FC<SystemHubProps> = ({ onNavigate }) => {
             category: 'Expertis'
         },
         {
-            id: 'archive',
+            id: 'arch',
             title: 'Ärendearkiv',
             description: 'Central lagringsplats för alla historiska och pågående ärenden.',
             icon: <Archive />,

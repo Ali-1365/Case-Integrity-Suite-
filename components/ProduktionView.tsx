@@ -67,10 +67,8 @@ const ProduktionView: React.FC<ProduktionViewProps> = ({ activeCase, onNavigate 
     toast.info(`Läser in ${files.length} referensdokument...`);
     
     try {
-      // ⚡ Bolt: Optimize sequential parsing by parallelizing file reads
-      const parsedResults = await Promise.all(files.map(file => parseFile(file)));
-
-      for (const result of parsedResults) {
+      for (const file of files) {
+        const result = await parseFile(file);
         if (result) {
           // Add content to case context or similar
           console.log('Parsed content for production:', result.textContent.substring(0, 100));
@@ -109,38 +107,6 @@ const ProduktionView: React.FC<ProduktionViewProps> = ({ activeCase, onNavigate 
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleNewDocument = () => {
-    setGeneratedText('');
-    setActiveTemplate(null);
-    toast.info('Nytt dokument initierat. Välj en mall för att börja.');
-  };
-
-  const handleDownload = (docId: string) => {
-    const doc = recentDocuments.find(d => d.id === docId);
-    if (doc) {
-      toast.success(`Laddar ner: ${doc.name}`);
-      // Simulate download
-      const element = document.createElement("a");
-      const file = new Blob([`Innehåll för ${doc.name}\nID: ${doc.id}\nDatum: ${doc.date}\nFörfattare: ${doc.author}`], {type: 'text/plain'});
-      element.href = URL.createObjectURL(file);
-      element.download = `${doc.name.replace(/\s+/g, '_')}.txt`;
-      document.body.appendChild(element);
-      element.click();
-      document.body.removeChild(element);
-    }
-  };
-
-  const handleDeleteDoc = (docId: string) => {
-    toast.error(`Dokument ${docId} raderat från systemet.`);
-    // In a real app, we would update the state/db here
-    // For demo purposes, we just show the toast
-  };
-
-  const handleViewAllNodes = () => {
-    toast.info('Öppnar nod-översikt för samtliga dokument...');
-    if (onNavigate) onNavigate('intelligence'); // Navigate to Intelligence Core for node view
   };
 
   const templates = [
@@ -194,10 +160,7 @@ const ProduktionView: React.FC<ProduktionViewProps> = ({ activeCase, onNavigate 
             >
               <Upload size={20} /> Ladda upp Referens
             </button>
-            <button 
-              onClick={handleNewDocument}
-              className="bg-[var(--ink-main)] text-white px-10 py-5 font-black uppercase tracking-[0.2em] hover:bg-[var(--accent)] transition-all flex items-center gap-4 shadow-[8px_8px_0px_rgba(0,0,0,0.2)] active:translate-y-1 active:translate-x-1 active:shadow-none"
-            >
+            <button className="bg-[var(--ink-main)] text-white px-10 py-5 font-black uppercase tracking-[0.2em] hover:bg-[var(--accent)] transition-all flex items-center gap-4 shadow-[8px_8px_0px_rgba(0,0,0,0.2)] active:translate-y-1 active:translate-x-1 active:shadow-none">
               <FilePlus size={20} /> Nytt Dokument
             </button>
           </div>
@@ -256,12 +219,7 @@ const ProduktionView: React.FC<ProduktionViewProps> = ({ activeCase, onNavigate 
                     <History className="w-5 h-5 text-[var(--accent)]" />
                     <h3 className="text-[11px] font-black text-[var(--ink-main)] uppercase tracking-[0.3em] italic">Senaste Dokument</h3>
                 </div>
-                <button 
-                  onClick={handleViewAllNodes}
-                  className="text-[10px] text-[var(--ink-muted)] font-black uppercase tracking-[0.2em] hover:text-[var(--accent)] transition-colors italic"
-                >
-                  Visa alla noder
-                </button>
+                <button className="text-[10px] text-[var(--ink-muted)] font-black uppercase tracking-[0.2em] hover:text-[var(--accent)] transition-colors italic">Visa alla noder</button>
               </div>
               <div className="divide-y-2 divide-[var(--border)] overflow-y-auto custom-scrollbar">
                 {recentDocuments.map(doc => (
@@ -286,18 +244,8 @@ const ProduktionView: React.FC<ProduktionViewProps> = ({ activeCase, onNavigate 
                         {doc.status}
                       </span>
                       <div className="flex gap-4 opacity-0 group-hover:opacity-100 transition-all">
-                        <button 
-                          onClick={() => handleDownload(doc.id)}
-                          className="p-4 text-[var(--ink-muted)] hover:text-[var(--ink-main)] bg-white border-2 border-[var(--border)] hover:border-[var(--ink-main)] transition-all shadow-sm"
-                        >
-                          <Download size={20} />
-                        </button>
-                        <button 
-                          onClick={() => handleDeleteDoc(doc.id)}
-                          className="p-4 text-[var(--ink-muted)] hover:text-[var(--danger)] bg-white border-2 border-[var(--border)] hover:border-[var(--danger)] transition-all shadow-sm"
-                        >
-                          <Trash2 size={20} />
-                        </button>
+                        <button className="p-4 text-[var(--ink-muted)] hover:text-[var(--ink-main)] bg-white border-2 border-[var(--border)] hover:border-[var(--ink-main)] transition-all shadow-sm"><Download size={20} /></button>
+                        <button className="p-4 text-[var(--ink-muted)] hover:text-[var(--danger)] bg-white border-2 border-[var(--border)] hover:border-[var(--danger)] transition-all shadow-sm"><Trash2 size={20} /></button>
                       </div>
                     </div>
                   </div>
