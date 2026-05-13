@@ -6,6 +6,11 @@ bolt/fix-quota-polling-rerender-13032162535497198072
 ## 2024-04-20 - [Avoid unnecessary React state updates in fast polling intervals]
 **Learning:** Frequent polling mechanisms (e.g. setInterval checking usage metrics or logs) in top-level components can trigger massive unnecessary re-renders across the whole layout if the `setState` is called blindly with a new object/array reference even when the underlying data is identical. Deep equality checks or libraries like `fast-deep-equal` can be computationally expensive and introduce unauthorized dependencies.
 **Action:** When implementing polling mechanisms, always write state updater functions using targeted shallow checks (e.g. `prev.rpm === newUsage.rpm` or array lengths and recent item IDs) to safely return the `prev` state reference and bail out of the rendering cycle. Side effects, such as generating the new data, should remain pure and sit entirely outside of the React state updater function itself.
+bolt-praxis-optimization-7249233733241114360
+## 2024-05-18 - [Avoid N+1 fetching and blocking I/O for batch operations]
+**Learning:** Performing `fs.readFileSync` and `JSON.parse` inside an API endpoint loops or an N+1 frontend fetch can cause significant performance bottlenecks due to blocking I/O and network overhead.
+**Action:** When a service needs to fetch multiple entries (like `lawRefs`), create a batch API endpoint (e.g. `POST /api/.../batch`) and maintain an in-memory cache variable (`let cache = null`) on the backend server to load large static JSON files once instead of repeatedly blocking the event loop.
+=======
 bolt-optimize-intervals-16640277234052567324
 ## 2026-05-03 - [Avoid premature manual bailout for React primitive state]
 **Learning:** In React components, manual state bailout logic (e.g., returning the previous state reference) is only necessary for objects and arrays. Primitive state updates (booleans, strings, numbers) automatically bail out of re-renders via strict equality. Implementing manual bailouts for primitives is redundant and adds unnecessary code noise. Furthermore, removing intervals completely from diagnostic panels without proper context can cause blocking functional regressions.
@@ -32,3 +37,4 @@ bolt-optimize-db-sync-18226591939417556514
 **Learning:** `PraxisService.getRelevantPraxis` iterates through `lawRefs` with a sequential `for-of` loop, making a separate `fetch` request for each reference. This creates an N+1 query problem that blocks execution and increases network overhead.
 **Action:** Implement a batching mechanism where multiple parameters are sent in a single POST request body to the backend, returning all filtered results at once.
  main
+
