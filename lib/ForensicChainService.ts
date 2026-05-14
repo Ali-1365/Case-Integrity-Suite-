@@ -39,16 +39,22 @@ export class ForensicChainService {
       const docAtoms = atoms.filter(a => a.documentId === doc.id);
       let docVerified = true;
       
-      for (const atom of docAtoms) {
-        // Verifiera att vi inte blandar metadata med atom-text
-        if (atom.text.includes('metadata:') || atom.text.includes('hash:')) {
+      // ⚡ Bolt Optimization: Use Promise.all to parallelize atom hashing verification
+      const atomVerificationResults = await Promise.all(
+        docAtoms.map(async (atom) => {
+          // Verifiera att vi inte blandar metadata med atom-text
+          if (atom.text.includes('metadata:') || atom.text.includes('hash:')) {
+            return { atom, isValid: false, metadataError: true };
+          }
+          return { atom, isValid: await integrityEngine.verifyAtom(atom), metadataError: false };
+        })
+      );
+
+      for (const { atom, isValid, metadataError } of atomVerificationResults) {
+        if (metadataError) {
           failedAtoms.push(atom.id);
           docVerified = false;
-          continue;
-        }
-
-        const isValid = await integrityEngine.verifyAtom(atom);
-        if (isValid) {
+        } else if (isValid) {
           verifiedCount++;
         } else {
           failedAtoms.push(atom.id);
