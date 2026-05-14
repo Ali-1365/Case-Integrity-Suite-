@@ -32,3 +32,6 @@ bolt-optimize-db-sync-18226591939417556514
 **Learning:** `PraxisService.getRelevantPraxis` iterates through `lawRefs` with a sequential `for-of` loop, making a separate `fetch` request for each reference. This creates an N+1 query problem that blocks execution and increases network overhead.
 **Action:** Implement a batching mechanism where multiple parameters are sent in a single POST request body to the backend, returning all filtered results at once.
  main
+## 2026-05-14 - [Avoid N+1 latency bottlenecks with Promise.all for array iterations]
+**Learning:** Using `for (const item of array)` with `await` inside causes N+1 bottlenecks where operations execute sequentially instead of concurrently.
+**Action:** To optimize and parallelize iteration, utilize `await Promise.all(array.map(async (item) => { ... }))`.
