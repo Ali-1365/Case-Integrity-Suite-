@@ -64,11 +64,24 @@ export const useFileParser = () => {
         const numPages = pdf.numPages;
         let fullText = '';
         
-        for (let i = 1; i <= numPages; i++) {
-          const page = await pdf.getPage(i);
-          const content = await page.getTextContent();
-          const strings = content.items.map((item: any) => item.str);
-          fullText += strings.join(' ') + '\n';
+        // ⚡ Bolt Optimization: Parallelize PDF page parsing in batches to avoid N+1 latency bottlenecks
+        // while keeping memory usage under control.
+        const CONCURRENCY_LIMIT = 10;
+        for (let i = 1; i <= numPages; i += CONCURRENCY_LIMIT) {
+            const batchEnd = Math.min(i + CONCURRENCY_LIMIT - 1, numPages);
+            const batchPromises = [];
+
+            for (let j = i; j <= batchEnd; j++) {
+                batchPromises.push(
+                    pdf.getPage(j).then((page: any) => page.getTextContent())
+                );
+            }
+
+            const batchContents = await Promise.all(batchPromises);
+            batchContents.forEach(content => {
+                const strings = content.items.map((item: any) => item.str);
+                fullText += strings.join(' ') + '\n';
+            });
         }
         textContent = cleanText(fullText);
       } 
