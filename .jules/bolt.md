@@ -32,3 +32,6 @@ bolt-optimize-db-sync-18226591939417556514
 **Learning:** `PraxisService.getRelevantPraxis` iterates through `lawRefs` with a sequential `for-of` loop, making a separate `fetch` request for each reference. This creates an N+1 query problem that blocks execution and increases network overhead.
 **Action:** Implement a batching mechanism where multiple parameters are sent in a single POST request body to the backend, returning all filtered results at once.
  main
+## 2024-05-18 - [Parallelize PDF page text extraction]
+**Learning:** In `hooks/useFileParser.ts`, the sequential `for` loop `for (let i = 1; i <= numPages; i++) { ... }` that extracts text from PDF pages introduces an N+1 latency bottleneck because each page text extraction involves asynchronous operations `getPage` and `getTextContent` which are awaited sequentially.
+**Action:** Replace sequential `await` calls in a `for` loop with `Promise.all` to fetch and parse pages in parallel, resolving the bottleneck and speeding up the extraction.
