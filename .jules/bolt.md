@@ -32,3 +32,6 @@ bolt-optimize-db-sync-18226591939417556514
 **Learning:** `PraxisService.getRelevantPraxis` iterates through `lawRefs` with a sequential `for-of` loop, making a separate `fetch` request for each reference. This creates an N+1 query problem that blocks execution and increases network overhead.
 **Action:** Implement a batching mechanism where multiple parameters are sent in a single POST request body to the backend, returning all filtered results at once.
  main
+## 2024-05-18 - [Parallelize PDF parsing with Promise.all batches]
+**Learning:** Sequential `await` in loops used to fetch and process PDF pages (`await pdf.getPage(i)` and `await page.getTextContent()`) causes an N+1 latency bottleneck, dramatically slowing down text extraction for large PDFs. However, naive parallelization with `Promise.all` across all pages simultaneously can trigger Out-Of-Memory (OOM) issues or crash the worker.
+**Action:** Replace sequential PDF processing loops with batched `Promise.all` calls (e.g., in chunks of 10 pages). This balances memory consumption with significantly reduced sequential I/O blocking time.

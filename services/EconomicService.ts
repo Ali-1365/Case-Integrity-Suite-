@@ -42,7 +42,6 @@ export class EconomicService {
   }
 
   private async syncToDb() {
- bolt-parallelize-idb-writes-204725260340481873
     // ⚡ Bolt: Parallelized IndexedDB writes to avoid sequential I/O bottlenecks and N+1 transaction issues
 
     // ⚡ Bolt Optimization: Use Promise.all to parallelize IndexedDB operations
