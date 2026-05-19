@@ -32,3 +32,7 @@ bolt-optimize-db-sync-18226591939417556514
 **Learning:** `PraxisService.getRelevantPraxis` iterates through `lawRefs` with a sequential `for-of` loop, making a separate `fetch` request for each reference. This creates an N+1 query problem that blocks execution and increases network overhead.
 **Action:** Implement a batching mechanism where multiple parameters are sent in a single POST request body to the backend, returning all filtered results at once.
  main
+
+## 2026-05-18 - [Parallelize autonomous sequence analysis with Promise.all]
+**Learning:** In `AutonomousEngine.ts`, processing `pendingDocs` using a sequential `for...of` loop with `await this.orchestrator.runFullAnalysis` causes an N+1 analysis bottleneck, blocking subsequent operations and under-utilizing concurrent request capabilities.
+**Action:** Replace the sequential iteration with a batched array of promises (e.g. chunks of 3) and execute them concurrently via `await Promise.all(...)` to speed up the background analysis cycle significantly, while preventing out-of-memory or API rate limit errors that occur with unbounded concurrency.
