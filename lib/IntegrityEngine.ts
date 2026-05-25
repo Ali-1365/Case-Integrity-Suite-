@@ -72,54 +72,74 @@ export class IntegrityEngine {
   }
 
   async validateRepository(cases: CISCase[]): Promise<IntegrityIssue[]> {
-    const issues: IntegrityIssue[] = [];
     const isBypassed = localStorage.getItem('FMJAM_INTEGRITY_BYPASS') === '1';
 
+    // Process cases sequentially to avoid overwhelming the system
+    // (e.g. out of memory, or API rate limits if verifyAtom calls remote)
+    const issuesArrays = [];
     for (const c of cases) {
+      const caseIssues: IntegrityIssue[] = [];
+
       // 1. Kontrollera ID-integritet
       if (!c.caseId.startsWith('CASE-')) {
-        issues.push({ caseId: c.caseId, issue: 'Ogiltigt format på CaseId.', severity: 'CRITICAL' });
+        caseIssues.push({ caseId: c.caseId, issue: 'Ogiltigt format på CaseId.', severity: 'CRITICAL' });
       }
 
       // 2. Kontrollera Journal-koppling
       if (!c.journal || c.journal.length === 0) {
-        issues.push({ caseId: c.caseId, issue: 'Ärendet saknar händelsejournal (Brott mot FL 27 §).', severity: 'CRITICAL' });
+        caseIssues.push({ caseId: c.caseId, issue: 'Ärendet saknar händelsejournal (Brott mot FL 27 §).', severity: 'CRITICAL' });
       }
 
       // 3. Kontrollera Versions-historik
       if ((!c.versions || c.versions.length === 0) && c.activeResult) {
-        issues.push({ caseId: c.caseId, issue: 'Aktivt resultat finns men versionshistorik saknas.', severity: 'CRITICAL' });
+        caseIssues.push({ caseId: c.caseId, issue: 'Aktivt resultat finns men versionshistorik saknas.', severity: 'CRITICAL' });
       }
 
       // 4. Forensisk Hash-validering av atomer
       if (c.activeResult && !isBypassed) {
-        for (const atom of c.activeResult.atoms) {
-          const isValid = await this.verifyAtom(atom);
-          if (!isValid) {
-            issues.push({ 
-              caseId: c.caseId, 
-              issue: `Forensiskt Integritetsfel: Atom ${atom.id} har manipulerats eller korrumperats (Hash mismatch).`, 
-              severity: 'CRITICAL' 
-            });
-          }
+        // Parallelize inner validation of atoms but chunk them to avoid unbounded concurrency
+        const chunkSize = 50; // Arbitrary chunk size to balance speed and memory/limits
+        const atoms = c.activeResult.atoms;
+        const failedAtoms: IntegrityIssue[] = [];
+        for (let i = 0; i < atoms.length; i += chunkSize) {
+           const chunk = atoms.slice(i, i + chunkSize);
+           const atomValidations = await Promise.all(
+              chunk.map(async (atom) => {
+                 const isValid = await this.verifyAtom(atom);
+                 if (!isValid) {
+                   const issue: IntegrityIssue = {
+                     caseId: c.caseId,
+                     issue: `Forensiskt Integritetsfel: Atom ${atom.id} har manipulerats eller korrumperats (Hash mismatch).`,
+                     severity: 'CRITICAL'
+                   };
+                   return issue;
+                 }
+                 return null;
+              })
+           );
+           failedAtoms.push(...atomValidations.filter((issue): issue is IntegrityIssue => issue !== null));
         }
+
+        caseIssues.push(...failedAtoms);
 
         // 5. Legal Integritetskontroll
         const legalIssues = this.validateLegalIntegrity(c.activeResult, c.caseId);
-        issues.push(...legalIssues);
+        caseIssues.push(...legalIssues);
       }
 
       // 6. Versions-proveniens
       if (c.versions) {
         c.versions.forEach(v => {
           if (!v.provenance || v.provenance.length === 0) {
-            issues.push({ caseId: c.caseId, issue: `Version ${v.versionId} saknar proveniens-hashar.`, severity: 'CRITICAL' });
+            caseIssues.push({ caseId: c.caseId, issue: `Version ${v.versionId} saknar proveniens-hashar.`, severity: 'CRITICAL' });
           }
         });
       }
+
+      issuesArrays.push(caseIssues);
     }
 
-    return issues;
+    return issuesArrays.flat();
   }
 }
 
