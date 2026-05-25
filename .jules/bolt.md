@@ -32,3 +32,7 @@ bolt-optimize-db-sync-18226591939417556514
 **Learning:** `PraxisService.getRelevantPraxis` iterates through `lawRefs` with a sequential `for-of` loop, making a separate `fetch` request for each reference. This creates an N+1 query problem that blocks execution and increases network overhead.
 **Action:** Implement a batching mechanism where multiple parameters are sent in a single POST request body to the backend, returning all filtered results at once.
  main
+
+## 2024-05-25 - [Parallelize Integrity Validations to Avoid N+1 I/O Bottlenecks]
+**Learning:** Sequential `for...of` loops performing asynchronous `verifyAtom` (Hash verification) validations cause severe N+1 I/O bottlenecks. However, unbounded parallelization with `Promise.all` across all cases and all their atoms simultaneously can cause memory exhaustion and overwhelm system limits.
+**Action:** Always map over arrays to create an array of promises and use `await Promise.all()` to parallelize repetitive I/O validations. To prevent unbounded concurrency issues, use a chunking strategy (e.g., chunks of 50 atoms at a time) when parallelizing large arrays of asynchronous operations.
