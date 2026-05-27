@@ -97,14 +97,19 @@ export class AutonomousEngine {
             const docs = await db.getAllDocuments();
             const pendingDocs = docs.filter(d => !d.analysis || d.analysis.facts.length === 0);
 
-            for (const doc of pendingDocs) {
-                autoNotary.info(this.traceId, 'AutonomousEngine', `Autonom analys exekveras för: ${doc.name}`);
-                const analysis = await this.orchestrator.runFullAnalysis(
-                    doc.textContent, 
-                    doc.id, 
-                    LEGAL_SOURCES as any
-                );
-                await db.addDocument({ ...doc, analysis: analysis as unknown as AnalysisResult });
+            // ⚡ Bolt Optimization: Use chunked Promise.all to parallelize heavy LLM analysis while avoiding API rate limits
+            const CHUNK_SIZE = 3;
+            for (let i = 0; i < pendingDocs.length; i += CHUNK_SIZE) {
+                const chunk = pendingDocs.slice(i, i + CHUNK_SIZE);
+                await Promise.all(chunk.map(async (doc) => {
+                    autoNotary.info(this.traceId, 'AutonomousEngine', `Autonom analys exekveras för: ${doc.name}`);
+                    const analysis = await this.orchestrator.runFullAnalysis(
+                        doc.textContent,
+                        doc.id,
+                        LEGAL_SOURCES as any
+                    );
+                    await db.addDocument({ ...doc, analysis: analysis as unknown as AnalysisResult });
+                }));
             }
 
             // 2. Ärendeprofilering

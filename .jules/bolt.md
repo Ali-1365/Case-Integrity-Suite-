@@ -32,3 +32,7 @@ bolt-optimize-db-sync-18226591939417556514
 **Learning:** `PraxisService.getRelevantPraxis` iterates through `lawRefs` with a sequential `for-of` loop, making a separate `fetch` request for each reference. This creates an N+1 query problem that blocks execution and increases network overhead.
 **Action:** Implement a batching mechanism where multiple parameters are sent in a single POST request body to the backend, returning all filtered results at once.
  main
+
+## 2026-05-18 - [Parallelize but chunk heavy LLM operations]
+**Learning:** The `AutonomousEngine` uses a sequential `for-of` loop to process documents using `this.orchestrator.runFullAnalysis()`. Because this operation involves hitting an external LLM API, completely unbounded concurrency (like a raw `Promise.all(docs.map(...))`) can trigger 429 API rate limits and resource exhaustion. However, sequential execution is too slow.
+**Action:** Use a batched/chunked approach with `Promise.all` to parallelize heavy LLM operations in small, controlled batches (e.g., chunk sizes of 3-5). This strikes a balance between execution speed and maintaining system stability without exceeding API rate limits.
