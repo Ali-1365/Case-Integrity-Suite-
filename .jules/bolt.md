@@ -32,3 +32,7 @@ bolt-optimize-db-sync-18226591939417556514
 **Learning:** `PraxisService.getRelevantPraxis` iterates through `lawRefs` with a sequential `for-of` loop, making a separate `fetch` request for each reference. This creates an N+1 query problem that blocks execution and increases network overhead.
 **Action:** Implement a batching mechanism where multiple parameters are sent in a single POST request body to the backend, returning all filtered results at once.
  main
+
+## 2026-05-30 - [Parallelize Expensive LLM API Calls with Chunking]
+**Learning:** Sequential `for...of` loops that await expensive LLM API calls (e.g. `orchestrator.runFullAnalysis`) in background processes like `AutonomousEngine` create severe N+1 bottlenecks. However, unbounded parallelization with `Promise.all` across a large set of documents can cause API rate limits (429s) and exhaust memory or resources.
+**Action:** When parallelizing heavy operations like LLM API queries, always implement a chunking strategy (e.g., chunk sizes of 3-5) to batch the requests. Iterate through chunks and apply `await Promise.all()` only to the elements within each chunk, thus preventing rate limits while still resolving the N+1 latency bottleneck.
