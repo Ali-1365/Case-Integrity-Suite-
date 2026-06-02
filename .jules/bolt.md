@@ -32,3 +32,6 @@ bolt-optimize-db-sync-18226591939417556514
 **Learning:** `PraxisService.getRelevantPraxis` iterates through `lawRefs` with a sequential `for-of` loop, making a separate `fetch` request for each reference. This creates an N+1 query problem that blocks execution and increases network overhead.
 **Action:** Implement a batching mechanism where multiple parameters are sent in a single POST request body to the backend, returning all filtered results at once.
  main
+## 2024-05-30 - [Batched execution strategy for AI API calls in backend operations]
+**Learning:** Using a simple `for...of` loop with a sequential `await` for heavy, remote API calls (such as `orchestrator.runFullAnalysis`) causes N+1 bottlenecks. However, executing all of them completely concurrently via `Promise.all` can quickly overwhelm API rate limits (e.g., HTTP 429) or system memory constraints.
+**Action:** Always implement a chunking/batching mechanism (e.g., processing arrays in chunks of 3-5 items) with `Promise.all` for the chunk when dealing with AI generation or large-scale document processing tasks to balance speed with resource constraints and API rate limits.
