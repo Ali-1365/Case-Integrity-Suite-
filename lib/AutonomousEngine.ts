@@ -61,9 +61,12 @@ export class AutonomousEngine {
     private async discoverAndMergeStorage() {
         autoNotary.info(this.traceId, 'AutonomousEngine', 'Identifierar lagringsprofiler: IndexedDB, RAG Index, Memory Cache.');
         
-        const docs = await db.getAllDocuments();
-        const cases = await db.getAllCases();
-        const economicData = await db.getAllEconomicDataByType('TRANSACTION');
+        // ⚡ Bolt: Parallelize IndexedDB reads to avoid sequential I/O bottlenecks
+        const [docs, cases, economicData] = await Promise.all([
+            db.getAllDocuments(),
+            db.getAllCases(),
+            db.getAllEconomicDataByType('TRANSACTION')
+        ]);
         
         // FAS 21: Unified Storage Model
         const unifiedModel = {

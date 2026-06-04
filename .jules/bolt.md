@@ -32,3 +32,6 @@ bolt-optimize-db-sync-18226591939417556514
 **Learning:** `PraxisService.getRelevantPraxis` iterates through `lawRefs` with a sequential `for-of` loop, making a separate `fetch` request for each reference. This creates an N+1 query problem that blocks execution and increases network overhead.
 **Action:** Implement a batching mechanism where multiple parameters are sent in a single POST request body to the backend, returning all filtered results at once.
  main
+## 2024-06-04 - [Parallelize IndexedDB Reads in AutonomousEngine]
+**Learning:** Sequential I/O operations (like fetching documents, cases, and economic data) block the event loop needlessly. I discovered sequential `await`s in `AutonomousEngine.ts`'s `discoverAndMergeStorage` method that could fetch independently.
+**Action:** Always look for groups of independent asynchronous calls and use `Promise.all` to batch them for faster concurrent execution, avoiding unnecessary latency bottlenecks.
