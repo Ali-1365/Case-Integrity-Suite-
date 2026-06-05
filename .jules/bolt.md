@@ -31,4 +31,7 @@ bolt-optimize-db-sync-18226591939417556514
 ## 2024-05-12 - [Batch backend API calls to avoid N+1 requests]
 **Learning:** `PraxisService.getRelevantPraxis` iterates through `lawRefs` with a sequential `for-of` loop, making a separate `fetch` request for each reference. This creates an N+1 query problem that blocks execution and increases network overhead.
 **Action:** Implement a batching mechanism where multiple parameters are sent in a single POST request body to the backend, returning all filtered results at once.
- main
+
+## 2024-05-30 - [Batched parallelization of heavy API loops]
+**Learning:** Sequential `for-of` loops performing asynchronous operations like `runFullAnalysis` (which hits the Gemini API) cause N+1 bottlenecks. However, an unbounded `Promise.all` mapped over the entire array can result in API rate limits (429) or system resource exhaustion.
+**Action:** Use a batched parallelization strategy (chunking arrays with size 3-5) when iterating over heavy asynchronous tasks to eliminate sequential blocking while protecting against rate limits.
