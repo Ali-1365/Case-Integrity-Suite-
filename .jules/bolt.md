@@ -32,3 +32,6 @@ bolt-optimize-db-sync-18226591939417556514
 **Learning:** `PraxisService.getRelevantPraxis` iterates through `lawRefs` with a sequential `for-of` loop, making a separate `fetch` request for each reference. This creates an N+1 query problem that blocks execution and increases network overhead.
 **Action:** Implement a batching mechanism where multiple parameters are sent in a single POST request body to the backend, returning all filtered results at once.
  main
+## 2024-05-13 - [Performance] O(N*M) nested filter loops in batch operations
+**Learning:** Found a nested loop operation causing O(N*M) behavior in the `/api/praxis/batch` Express route. The previous logic looped over requested references, repeatedly applying `.toLowerCase()` to filter a large array, and then used a Map to deduplicate the concatenated array.
+**Action:** When working with batch processing array operations, convert the source conditions (the 'needles') to uppercase/lowercase once, then use `Array.prototype.filter()` with `Array.prototype.some()` directly on the 'haystack'. This reduces iterations and eliminates the need for any deduplication.

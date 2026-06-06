@@ -53,19 +53,18 @@ async function startServer() {
 
     try {
       const data = getPraxisData();
-      const results: any[] = [];
 
-      for (const lawRef of lawRefs) {
-        const filtered = data.paragraphs.filter((p: any) => {
-          const linkedLaw = p.metadata?.revisionNote || "";
-          return linkedLaw.toLowerCase().includes(lawRef.toLowerCase()) ||
-                 p.text.toLowerCase().includes(lawRef.toLowerCase());
-        });
-        results.push(...filtered);
-      }
+      // ⚡ Bolt: Optimize batch filter to avoid O(N*M) nested loops and deduplication
+      const lowerLawRefs = lawRefs.map(ref => String(ref).toLowerCase());
 
-      // Deduplicate by ID
-      const uniqueResults = Array.from(new Map(results.map(item => [item.id, item])).values());
+      const uniqueResults = data.paragraphs.filter((p: any) => {
+        const linkedLaw = (p.metadata?.revisionNote || "").toLowerCase();
+        const text = (p.text || "").toLowerCase();
+
+        return lowerLawRefs.some(ref =>
+          linkedLaw.includes(ref) || text.includes(ref)
+        );
+      });
 
       res.json(uniqueResults);
     } catch (error) {
