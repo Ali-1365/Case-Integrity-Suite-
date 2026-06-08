@@ -35,23 +35,33 @@ export class ForensicChainService {
 
     // Gruppera atomer per dokument för att visa atomisering
     const docs = result.documents || [];
-    for (const doc of docs) {
+
+    // ⚡ Bolt Optimization: Parallelize nested sequential loop with Promise.all
+    // Replacing the sequential `for...of` loop with `Promise.all` prevents N+1 async bottlenecks
+    // and significantly reduces the total blocking time during forensic chain verification.
+    const docsResults = await Promise.all(docs.map(async (doc) => {
       const docAtoms = atoms.filter(a => a.documentId === doc.id);
-      let docVerified = true;
       
-      for (const atom of docAtoms) {
+      const docAtomResults = await Promise.all(docAtoms.map(async (atom) => {
         // Verifiera att vi inte blandar metadata med atom-text
         if (atom.text.includes('metadata:') || atom.text.includes('hash:')) {
-          failedAtoms.push(atom.id);
-          docVerified = false;
-          continue;
+          return { atomId: atom.id, isValid: false };
         }
-
         const isValid = await integrityEngine.verifyAtom(atom);
-        if (isValid) {
+        return { atomId: atom.id, isValid };
+      }));
+
+      return { doc, docAtoms, docAtomResults };
+    }));
+
+    // Process results sequentially to maintain deterministic order
+    for (const { doc, docAtoms, docAtomResults } of docsResults) {
+      let docVerified = true;
+      for (const res of docAtomResults) {
+        if (res.isValid) {
           verifiedCount++;
         } else {
-          failedAtoms.push(atom.id);
+          failedAtoms.push(res.atomId);
           docVerified = false;
         }
       }
