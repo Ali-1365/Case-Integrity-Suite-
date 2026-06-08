@@ -32,3 +32,7 @@ bolt-optimize-db-sync-18226591939417556514
 **Learning:** `PraxisService.getRelevantPraxis` iterates through `lawRefs` with a sequential `for-of` loop, making a separate `fetch` request for each reference. This creates an N+1 query problem that blocks execution and increases network overhead.
 **Action:** Implement a batching mechanism where multiple parameters are sent in a single POST request body to the backend, returning all filtered results at once.
  main
+bolt-parallelize-verification-chain-38491
+## 2026-06-08 - [Deterministic parallelization of state-mutating async loops]
+**Learning:** When parallelizing sequential `for...of` loops using `Promise.all` in contexts where shared arrays or counters (e.g., state mutations) are updated, completely separate the asynchronous processing step from the state-mutation step. Directly pushing to shared arrays inside concurrently mapped callbacks introduces non-deterministic behavior and race conditions.
+**Action:** First resolve all promises concurrently to an array of results, then iterate sequentially over that result array to apply state mutations. This preserves correctness and deterministic ordering while fully leveraging the speedup of parallel asynchronous execution.
