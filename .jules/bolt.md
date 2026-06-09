@@ -32,3 +32,7 @@ bolt-optimize-db-sync-18226591939417556514
 **Learning:** `PraxisService.getRelevantPraxis` iterates through `lawRefs` with a sequential `for-of` loop, making a separate `fetch` request for each reference. This creates an N+1 query problem that blocks execution and increases network overhead.
 **Action:** Implement a batching mechanism where multiple parameters are sent in a single POST request body to the backend, returning all filtered results at once.
  main
+
+## 2024-05-30 - [Cache static values outside of array iteration methods]
+**Learning:** Performing static computations, such as `toLowerCase()` on a search term, inside a `.filter` callback processes the exact same string manipulation for every single element in the array unnecessarily.
+**Action:** Always compute static values and store them in a variable (e.g., `const searchRef = lawRef.toLowerCase()`) outside the iteration loop to minimize CPU cycles and object creation inside the loop callback.
