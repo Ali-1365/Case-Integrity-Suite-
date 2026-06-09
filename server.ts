@@ -31,11 +31,12 @@ async function startServer() {
     
     try {
       const data = getPraxisData();
+      const searchRef = lawRef.toLowerCase();
       
       const results = data.paragraphs.filter((p: any) => {
         const linkedLaw = p.metadata?.revisionNote || "";
-        return linkedLaw.toLowerCase().includes(lawRef.toLowerCase()) || 
-               p.text.toLowerCase().includes(lawRef.toLowerCase());
+        return linkedLaw.toLowerCase().includes(searchRef) ||
+               p.text.toLowerCase().includes(searchRef);
       });
 
       res.json(results);
@@ -56,10 +57,11 @@ async function startServer() {
       const results: any[] = [];
 
       for (const lawRef of lawRefs) {
+        const searchRef = lawRef.toLowerCase();
         const filtered = data.paragraphs.filter((p: any) => {
           const linkedLaw = p.metadata?.revisionNote || "";
-          return linkedLaw.toLowerCase().includes(lawRef.toLowerCase()) ||
-                 p.text.toLowerCase().includes(lawRef.toLowerCase());
+          return linkedLaw.toLowerCase().includes(searchRef) ||
+                 p.text.toLowerCase().includes(searchRef);
         });
         results.push(...filtered);
       }
