@@ -93,8 +93,16 @@ export class IntegrityEngine {
 
       // 4. Forensisk Hash-validering av atomer
       if (c.activeResult && !isBypassed) {
-        for (const atom of c.activeResult.atoms) {
-          const isValid = await this.verifyAtom(atom);
+        // Parallelize atom verification to avoid N+1 latency bottleneck
+        const atomVerifications = await Promise.all(
+          c.activeResult.atoms.map(async (atom) => {
+            const isValid = await this.verifyAtom(atom);
+            return { atom, isValid };
+          })
+        );
+
+        // Process results sequentially to avoid race conditions when mutating the array
+        for (const { atom, isValid } of atomVerifications) {
           if (!isValid) {
             issues.push({ 
               caseId: c.caseId, 

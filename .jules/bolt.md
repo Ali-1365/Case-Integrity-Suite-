@@ -32,3 +32,7 @@ bolt-optimize-db-sync-18226591939417556514
 **Learning:** `PraxisService.getRelevantPraxis` iterates through `lawRefs` with a sequential `for-of` loop, making a separate `fetch` request for each reference. This creates an N+1 query problem that blocks execution and increases network overhead.
 **Action:** Implement a batching mechanism where multiple parameters are sent in a single POST request body to the backend, returning all filtered results at once.
  main
+
+## 2024-05-24 - [Parallelize cryptographic hash verifications]
+**Learning:** In modules handling document atoms (e.g., `IntegrityEngine.ts`), cryptographic hash verifications (`verifyAtom`) inside sequential `for...of` loops create severe N+1 latency bottlenecks if awaited sequentially.
+**Action:** Always optimize these by parallelizing the atom validations using `Promise.all`. Separate the async evaluation from any state-mutating steps (e.g., pushing to an error array) to avoid race conditions.
