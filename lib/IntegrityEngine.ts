@@ -93,9 +93,14 @@ export class IntegrityEngine {
 
       // 4. Forensisk Hash-validering av atomer
       if (c.activeResult && !isBypassed) {
-        // ⚡ Bolt Optimization: Use Promise.all to parallelize crypto hash verifications
-        await Promise.all(c.activeResult.atoms.map(async (atom) => {
-          const isValid = await this.verifyAtom(atom);
+        const atomVerificationResults = await Promise.all(
+          c.activeResult.atoms.map(async (atom) => {
+            const isValid = await this.verifyAtom(atom);
+            return { atom, isValid };
+          })
+        );
+
+        for (const { atom, isValid } of atomVerificationResults) {
           if (!isValid) {
             issues.push({ 
               caseId: c.caseId, 
