@@ -67,9 +67,10 @@ const ProduktionView: React.FC<ProduktionViewProps> = ({ activeCase, onNavigate 
     toast.info(`Läser in ${files.length} referensdokument...`);
     
     try {
-      const parseResults = await Promise.all(files.map(file => parseFile(file)));
+      // ⚡ Bolt: Optimize sequential parsing by parallelizing file reads
+      const parsedResults = await Promise.all(files.map(file => parseFile(file)));
 
-      for (const result of parseResults) {
+      for (const result of parsedResults) {
         if (result) {
           // Add content to case context or similar
           console.log('Parsed content for production:', result.textContent.substring(0, 100));

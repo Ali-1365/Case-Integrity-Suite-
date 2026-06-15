@@ -93,8 +93,14 @@ export class IntegrityEngine {
 
       // 4. Forensisk Hash-validering av atomer
       if (c.activeResult && !isBypassed) {
-        for (const atom of c.activeResult.atoms) {
-          const isValid = await this.verifyAtom(atom);
+        const atomVerificationResults = await Promise.all(
+          c.activeResult.atoms.map(async (atom) => {
+            const isValid = await this.verifyAtom(atom);
+            return { atom, isValid };
+          })
+        );
+
+        for (const { atom, isValid } of atomVerificationResults) {
           if (!isValid) {
             issues.push({ 
               caseId: c.caseId, 
@@ -102,7 +108,7 @@ export class IntegrityEngine {
               severity: 'CRITICAL' 
             });
           }
-        }
+        }));
 
         // 5. Legal Integritetskontroll
         const legalIssues = this.validateLegalIntegrity(c.activeResult, c.caseId);

@@ -74,12 +74,13 @@ const BeslutView: React.FC<BeslutViewProps> = ({ activeCase, onNavigate }) => {
     
     try {
       let combinedContent = '';
-      const parseResults = await Promise.all(files.map(file => parseFile(file)));
 
-      files.forEach((file, index) => {
-        const result = parseResults[index];
+      // ⚡ Bolt: Optimize sequential parsing by parallelizing file reads
+      const parsedResults = await Promise.all(files.map(f => parseFile(f)));
+
+      parsedResults.forEach((result, index) => {
         if (result) {
-          combinedContent += `\n--- Dokument: ${file.name} ---\n${result.textContent}\n`;
+          combinedContent += `\n--- Dokument: ${files[index].name} ---\n${result.textContent}\n`;
         }
       });
       

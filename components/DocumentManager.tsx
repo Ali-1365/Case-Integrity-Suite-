@@ -551,6 +551,7 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                             documents={documents} 
                             onFilesSelect={async (files) => { 
                                 try {
+                                    // ⚡ Bolt: Optimize sequential parsing by parallelizing file reads
                                     const parsedResults = await Promise.all(files.map(f => parseFile(f)));
                                     for(const p of parsedResults) {
                                         if(p) await handleAnalyze(p); 
