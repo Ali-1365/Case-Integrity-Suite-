@@ -108,7 +108,7 @@ export class IntegrityEngine {
               severity: 'CRITICAL' 
             });
           }
-        }
+        }));
 
         // 5. Legal Integritetskontroll
         const legalIssues = this.validateLegalIntegrity(c.activeResult, c.caseId);

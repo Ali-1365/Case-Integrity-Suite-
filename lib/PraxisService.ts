@@ -35,7 +35,9 @@ export class PraxisService {
         }));
       }
 
-      const response = await fetch('/api/praxis/batch', {
+      const results: PraxisEntry[] = [];
+
+      const response = await fetch(`/api/praxis/batch`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
