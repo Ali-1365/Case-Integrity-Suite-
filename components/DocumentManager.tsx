@@ -147,9 +147,14 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
             try {
                 const newUsage = usageMonitorService.getUsage();
                 setQuotaUsage(prev => {
+bolt/fix-quota-polling-rerender-13032162535497198072
+                    // Bailout if primitive values haven't changed to prevent app-wide re-renders
+                    if (prev.rpm === newUsage.rpm && prev.tpm === newUsage.tpm && prev.status === newUsage.status) {
+
                     // Bailout by returning the previous state reference if nothing has actually changed
                     // This prevents expensive application-wide layout re-renders on every tick
                     if (prev && prev.rpm === newUsage.rpm && prev.tpm === newUsage.tpm && prev.status === newUsage.status) {
+main
                         return prev;
                     }
                     return newUsage;
@@ -551,8 +556,9 @@ const DocumentManager: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                             documents={documents} 
                             onFilesSelect={async (files) => { 
                                 try {
-                                    for(const f of files) { 
-                                        const p = await parseFile(f); 
+                                    // ⚡ Bolt: Optimize sequential parsing by parallelizing file reads
+                                    const parsedResults = await Promise.all(files.map(f => parseFile(f)));
+                                    for(const p of parsedResults) {
                                         if(p) await handleAnalyze(p); 
                                     } 
                                 } catch (err) {
