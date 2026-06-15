@@ -274,6 +274,9 @@ const EkonomiView: React.FC<EkonomiViewProps> = ({ activeCase, onNavigate }) => 
     
     try {
       const extractedDocs: EconomicDocument[] = [];
+      const parseResults = await Promise.all(files.map(file => parseFile(file)));
+
+      for (const parsed of parseResults) {
       // ⚡ Bolt: Optimize sequential parsing by parallelizing file reads
       const parsedResults = await Promise.all(files.map(file => parseFile(file)));
 
