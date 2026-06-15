@@ -93,7 +93,8 @@ export class IntegrityEngine {
 
       // 4. Forensisk Hash-validering av atomer
       if (c.activeResult && !isBypassed) {
-        for (const atom of c.activeResult.atoms) {
+        // ⚡ Bolt Optimization: Use Promise.all to parallelize crypto hash verifications
+        await Promise.all(c.activeResult.atoms.map(async (atom) => {
           const isValid = await this.verifyAtom(atom);
           if (!isValid) {
             issues.push({ 
@@ -102,7 +103,7 @@ export class IntegrityEngine {
               severity: 'CRITICAL' 
             });
           }
-        }
+        }));
 
         // 5. Legal Integritetskontroll
         const legalIssues = this.validateLegalIntegrity(c.activeResult, c.caseId);
