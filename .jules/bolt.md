@@ -6,10 +6,6 @@ bolt/fix-quota-polling-rerender-13032162535497198072
 ## 2024-04-20 - [Avoid unnecessary React state updates in fast polling intervals]
 **Learning:** Frequent polling mechanisms (e.g. setInterval checking usage metrics or logs) in top-level components can trigger massive unnecessary re-renders across the whole layout if the `setState` is called blindly with a new object/array reference even when the underlying data is identical. Deep equality checks or libraries like `fast-deep-equal` can be computationally expensive and introduce unauthorized dependencies.
 **Action:** When implementing polling mechanisms, always write state updater functions using targeted shallow checks (e.g. `prev.rpm === newUsage.rpm` or array lengths and recent item IDs) to safely return the `prev` state reference and bail out of the rendering cycle. Side effects, such as generating the new data, should remain pure and sit entirely outside of the React state updater function itself.
-bolt-optimize-intervals-16640277234052567324
-## 2026-05-03 - [Avoid premature manual bailout for React primitive state]
-**Learning:** In React components, manual state bailout logic (e.g., returning the previous state reference) is only necessary for objects and arrays. Primitive state updates (booleans, strings, numbers) automatically bail out of re-renders via strict equality. Implementing manual bailouts for primitives is redundant and adds unnecessary code noise. Furthermore, removing intervals completely from diagnostic panels without proper context can cause blocking functional regressions.
-**Action:** When optimizing state updates, focus exclusively on object or array references. Do not attempt to manually bail out primitive state updates unless absolutely necessary. When optimizing intervals, ensure the change preserves the core functionality intended for that component.
 
 bolt-parallelize-idb-writes-204725260340481873
 
