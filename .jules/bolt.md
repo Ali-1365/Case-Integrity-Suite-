@@ -29,6 +29,6 @@ bolt-optimize-db-sync-18226591939417556514
 **Action:** Implement a batching mechanism where multiple parameters are sent in a single POST request body to the backend, returning all filtered results at once.
  main
 
-## 2026-06-12 - [Parallelize verifyAtom to avoid latency bottlenecks]
-**Learning:** In modules handling document atoms (e.g., `IntegrityEngine.ts`, `ForensicChainService.ts`), cryptographic hash verifications (`verifyAtom`) create N+1 latency bottlenecks if awaited sequentially.
-**Action:** Always optimize these by parallelizing the atom validations using `Promise.all`.
+## 2024-05-24 - [Parallelize cryptographic hash verifications]
+**Learning:** In modules handling document atoms (e.g., `IntegrityEngine.ts`), cryptographic hash verifications (`verifyAtom`) inside sequential `for...of` loops create severe N+1 latency bottlenecks if awaited sequentially.
+**Action:** Always optimize these by parallelizing the atom validations using `Promise.all`. Separate the async evaluation from any state-mutating steps (e.g., pushing to an error array) to avoid race conditions.
