@@ -14,7 +14,20 @@ const AutonomousStatusBar: React.FC = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setStatus(autonomousEngine.getStatus());
+      const newStatus = autonomousEngine.getStatus();
+      setStatus(prev => {
+        // ⚡ Bolt Optimization: Use targeted shallow check on primitive values
+        // By returning the `prev` state reference if nothing has actually changed,
+        // we allow React to bail out of the rendering cycle, avoiding unnecessary
+        // application-wide layout re-renders on every tick.
+        if (prev.active === newStatus.active &&
+            prev.traceId === newStatus.traceId &&
+            prev.mode === newStatus.mode &&
+            prev.integrity === newStatus.integrity) {
+          return prev;
+        }
+        return newStatus;
+      });
     }, 5000);
     return () => clearInterval(interval);
   }, []);
